@@ -21,6 +21,37 @@ public class PlayerController : MonoBehaviour
 
 
 
+    //private void Update()
+    //{
+    //    if (!isMoving)
+    //    {
+    //        input.x = Input.GetAxisRaw("Horizontal");
+    //        input.y = Input.GetAxisRaw("Vertical");
+
+    //        //remove the diagonal movement
+    //        if (input.x != 0) input.y = 0;
+
+
+    //        if (input != Vector2.zero)
+    //        {
+    //            animator.SetFloat("moveX", input.x);
+    //            animator.SetFloat("moveY", input.y);
+
+    //            var targetPos = transform.position;
+    //            targetPos.x += input.x;
+    //            targetPos.y += input.y;
+
+    //            if (isWalkable(targetPos))
+    //            {
+    //                StartCoroutine(Move(targetPos));
+    //            }
+
+
+    //        }
+
+    //    }
+    //    animator.SetBool("isMoving", isMoving);
+    //}
     private void Update()
     {
         if (!isMoving)
@@ -28,27 +59,21 @@ public class PlayerController : MonoBehaviour
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
 
-            //remove the diagonal movement
-            if (input.x != 0) input.y = 0;
-
-
             if (input != Vector2.zero)
             {
+                // Normalize the input vector to allow diagonal movement
+                input.Normalize();
+
                 animator.SetFloat("moveX", input.x);
                 animator.SetFloat("moveY", input.y);
 
-                var targetPos = transform.position;
-                targetPos.x += input.x;
-                targetPos.y += input.y;
+                var targetPos = transform.position + new Vector3(input.x, input.y, 0);
 
                 if (isWalkable(targetPos))
                 {
                     StartCoroutine(Move(targetPos));
                 }
-
-               
             }
-
         }
         animator.SetBool("isMoving", isMoving);
     }
