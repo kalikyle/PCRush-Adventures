@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask solidObjectsLayer;
 
+    public Rigidbody2D r2d;
+
 
     private Animator animator;
 
@@ -19,39 +21,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();    
     }
 
-
-
-    //private void Update()
-    //{
-    //    if (!isMoving)
-    //    {
-    //        input.x = Input.GetAxisRaw("Horizontal");
-    //        input.y = Input.GetAxisRaw("Vertical");
-
-    //        //remove the diagonal movement
-    //        if (input.x != 0) input.y = 0;
-
-
-    //        if (input != Vector2.zero)
-    //        {
-    //            animator.SetFloat("moveX", input.x);
-    //            animator.SetFloat("moveY", input.y);
-
-    //            var targetPos = transform.position;
-    //            targetPos.x += input.x;
-    //            targetPos.y += input.y;
-
-    //            if (isWalkable(targetPos))
-    //            {
-    //                StartCoroutine(Move(targetPos));
-    //            }
-
-
-    //        }
-
-    //    }
-    //    animator.SetBool("isMoving", isMoving);
-    //}
     private void Update()
     {
         if (!isMoving)
@@ -67,38 +36,49 @@ public class PlayerController : MonoBehaviour
                 animator.SetFloat("moveX", input.x);
                 animator.SetFloat("moveY", input.y);
 
-                var targetPos = transform.position + new Vector3(input.x, input.y, 0);
+                // Calculate velocity vector based on input and speed
+                Vector2 velocity = input * moveSpeed;
 
-                if (isWalkable(targetPos))
-                {
-                    StartCoroutine(Move(targetPos));
-                }
+                // Apply velocity to Rigidbody2D
+                r2d.velocity = velocity;
+
+                // Set isMoving flag
+                Move(input);
+            }
+            else
+            {
+                // Stop moving animation
+                animator.SetBool("isMoving", false);
+
+                // Reset velocity to stop movement
+                r2d.velocity = Vector2.zero;
+
+                // Set isMoving flag
+                //isMoving = false;
             }
         }
-        animator.SetBool("isMoving", isMoving);
     }
-
-    IEnumerator Move (Vector3 targetPos)
+    private void Move(Vector2 movement)
     {
-        isMoving = true;
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-        transform.position = targetPos;
+        // Calculate velocity vector based on input and speed
+        Vector2 velocity = movement * moveSpeed;
 
-        isMoving = false;
+        // Apply velocity to Rigidbody2D
+        r2d.velocity = velocity;
+
+        // Start moving animation
+        animator.SetBool("isMoving", true);
     }
 
-
-    private bool isWalkable(Vector3 targetPos)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-       if( Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer)!= null)
+        // Check if the collision is with an object on the solidObjectsLayer
+        if (((1 << collision.gameObject.layer) & solidObjectsLayer) != 0)
         {
-            return false;
+            // Stop movement when colliding with an obstacle
+            isMoving = false;
         }
-
-       return true;
     }
+
+
 }
