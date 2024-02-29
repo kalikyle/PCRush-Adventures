@@ -16,7 +16,7 @@ public class PlayerTeleport : MonoBehaviour
             }
         }
     }
-
+    //IMPORTANT: for other teleports, you just need to place game objects, create another tag and then just copy the code here
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //for home
@@ -26,10 +26,12 @@ public class PlayerTeleport : MonoBehaviour
             homeTeleport = collision.gameObject;
         }
 
-        //if (collision.CompareTag("Home2"))
-        //{
-        //    homeTeleport = collision.gameObject;
-        //}
+        if (collision.CompareTag("Room"))
+        {
+            homeTeleport = collision.gameObject;
+        }
+
+       
 
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -43,15 +45,16 @@ public class PlayerTeleport : MonoBehaviour
             }
         }
 
-        //if (collision.CompareTag("Home2"))
-        //{
-        //    if (collision.gameObject == homeTeleport)
-        //    {
+        if (collision.CompareTag("Room"))
+        {
+            if (collision.gameObject == homeTeleport)
+            {
 
-        //        homeTeleport = null;
-        //    }
-        //}
-        //
-        //for other teleports, you just need to place game objects, create another tag and then just copy the code here
+                homeTeleport = null;
+            }
+        }
+
+
+
     }
 }
