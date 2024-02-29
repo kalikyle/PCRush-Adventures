@@ -5,14 +5,28 @@ using UnityEngine;
 public class PlayerTeleport : MonoBehaviour
 {
     private GameObject homeTeleport;
+    public GameObject Deskcanvas;
+
+    private bool OpenDesk = false;
+
 
     void Update()
     {
+        //for doors
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (homeTeleport != null)
             {
                 transform.position = homeTeleport.GetComponent<Teleporter>().HomeDestination().position;
+            }
+            
+        }
+        //for desk
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (OpenDesk == true && homeTeleport == null)
+            {
+                Deskcanvas.gameObject.SetActive(true);
             }
         }
     }
@@ -29,6 +43,12 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("Room"))
         {
             homeTeleport = collision.gameObject;
+        }
+
+        ///////////////////////////////////
+        if (collision.CompareTag("Desk"))
+        {
+            OpenDesk = true;
         }
 
        
