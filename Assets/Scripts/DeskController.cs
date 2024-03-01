@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class DeskController : MonoBehaviour
 {
-    public GameObject DeskCanvas;
+    public GameObject DeskPanel;
 
 
     public Button BackButton;
@@ -25,6 +25,6 @@ public class DeskController : MonoBehaviour
     public void OnBackButtonClick()
     {
        
-        DeskCanvas.gameObject.SetActive(false);
+        DeskPanel.gameObject.SetActive(false);
     }
 }
