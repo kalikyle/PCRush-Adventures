@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
 
     private Animator animator;
+    public PlayerTeleport playerTeleport;
 
 
     private void Awake()
@@ -21,40 +22,50 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();    
     }
 
-    private void Update()
+  private void Update()
     {
-        if (!isMoving)
+        if (!playerTeleport.DeskPanel.activeSelf)
         {
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
-
-            if (input != Vector2.zero)
+            if (!isMoving)
             {
-                // Normalize the input vector to allow diagonal movement
-                input.Normalize();
+                input.x = Input.GetAxisRaw("Horizontal");
+                input.y = Input.GetAxisRaw("Vertical");
 
-                animator.SetFloat("moveX", input.x);
-                animator.SetFloat("moveY", input.y);
+                if (input != Vector2.zero)
+                {
+                    // Normalize the input vector to allow diagonal movement
+                    input.Normalize();
 
-                // Calculate velocity vector based on input and speed
-                Vector2 velocity = input * moveSpeed;
+                    animator.SetFloat("moveX", input.x);
+                    animator.SetFloat("moveY", input.y);
 
-                // Apply velocity to Rigidbody2D
-                r2d.velocity = velocity;
+                    // Calculate velocity vector based on input and speed
+                    Vector2 velocity = input * moveSpeed;
 
-                // Set isMoving flag
-                Move(input);
+                    // Apply velocity to Rigidbody2D
+                    r2d.velocity = velocity;
+
+                    // Set isMoving flag
+                    Move(input);
+                }
+                else
+                {
+                    // Stop moving animation
+                    animator.SetBool("isMoving", false);
+
+                    // Reset velocity to stop movement
+                    r2d.velocity = Vector2.zero;
+
+                    // Set isMoving flag
+                    //isMoving = false;
+                }
             }
             else
             {
-                // Stop moving animation
-                animator.SetBool("isMoving", false);
-
-                // Reset velocity to stop movement
+                // If the desk is open, stop the player's movement
                 r2d.velocity = Vector2.zero;
-
-                // Set isMoving flag
-                //isMoving = false;
+                animator.SetBool("isMoving", false);
+                isMoving = false;
             }
         }
     }

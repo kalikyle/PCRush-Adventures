@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerTeleport : MonoBehaviour
 {
     private GameObject homeTeleport;
-    public GameObject Deskcanvas;
+    public GameObject DeskPanel;
 
-    private bool OpenDesk = false;
+    public bool OpenDesk = false;
 
 
     void Update()
@@ -26,7 +26,8 @@ public class PlayerTeleport : MonoBehaviour
         {
             if (OpenDesk == true && homeTeleport == null)
             {
-                Deskcanvas.gameObject.SetActive(true);
+                DeskPanel.gameObject.SetActive(true);
+                OpenDesk = false;
             }
         }
     }
