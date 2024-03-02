@@ -1,5 +1,7 @@
 ﻿using Assets.PixelHeroes.Scripts.CharacterScrips;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 using AnimationState = Assets.PixelHeroes.Scripts.CharacterScrips.AnimationState;
 
 namespace Assets.PixelHeroes.Scripts.ExampleScripts
@@ -224,9 +226,21 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         //}
         public Character Character;
         public float WalkSpeed = 1f;
+        public int runSpeed = 2;
+
+        public PlayerTeleport playerTeleport;
 
         private Animator _animator;
         private Vector2 _input;
+      
+
+
+        public Rigidbody2D r2d;
+
+        private bool canMove = true;
+        private bool moving = false;
+
+        private string[] attackAnimations = { "Slash", "Attack", "Jab", "Push" ,"Fire1H", "Fire2H", "Shot"};
 
         private void Awake()
         {
@@ -235,46 +249,89 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
         private void Update()
         {
-            // Handle movement input
-            _input.x = Input.GetAxisRaw("Horizontal");
-            _input.y = Input.GetAxisRaw("Vertical");
-
-            // Set animation parameters based on input
-            if (_input != Vector2.zero)
+            if (!playerTeleport.DeskPanel.activeSelf)
             {
-                _animator.SetBool("Idle", false);
-                _animator.SetBool("Walking", true);
-                //_animator.SetBool("Running", Input.GetKey(KeyCode.LeftShift)
-                //); // Modify to your run condition
+                // Check if movement is allowed
+                if (canMove)
+                {
+                    // Handle movement input
+                    _input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
+                    _input.y = UnityEngine.Input.GetAxisRaw("Vertical");
 
-                // Turn the character based on input direction
-                if (_input.x < 0) // If moving left
-                {
-                    Turn(-1); // Turn left (face left)
-                }
-                else if (_input.x > 0) // If moving right
-                {
-                    Turn(1); // Turn right (face right)
+                    // Set animation parameters based on input
+                    if (_input != Vector2.zero)
+                    {
+                        _input.Normalize();
+
+                        // Turn the character based on input direction
+                        if (_input.x < 0) // If moving left
+                        {
+                            Turn(-1); // Turn left (face left)
+                        }
+                        else if (_input.x > 0) // If moving right
+                        {
+                            Turn(1); // Turn right (face right)
+                        }
+                        // Calculate velocity vector based on input and speed
+                        Vector2 velocity = _input * WalkSpeed;
+                        // Apply velocity to Rigidbody2D
+                        r2d.velocity = velocity;
+                        Move(_input);
+                    }
+                    else
+                    {
+                        r2d.velocity = Vector2.zero;
+                        _animator.SetBool("Idle", true);
+                        _animator.SetBool("Walking", false);
+                        _animator.SetBool("Running", false) ;
+                        moving = false;
+                    }
+
+                    // Handle attack input
+                    if (UnityEngine.Input.GetMouseButtonDown(0))
+                    {
+                        //_animator.SetBool("Slash", true);
+                        // Choose a random attack animation
+                        string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
+                        // Set the selected animation
+                        _animator.SetBool(randomAttackAnimation, true);
+                    }
+
+                    if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && moving)
+                    {
+                        // Set running animation
+                        //_animator.SetBool("Running", true);
+
+                        // Calculate velocity vector based on input and running speed
+                        Vector2 velocity = _input * (WalkSpeed + runSpeed);
+                        // Apply velocity to Rigidbody2D
+                        r2d.velocity = velocity;
+                    }
                 }
             }
             else
             {
-                _animator.SetBool("Idle", true);
+                // Stop movement and animations if DeskPanel is active
+                r2d.velocity = Vector2.zero;
+                _animator.SetBool("Idle",true);
                 _animator.SetBool("Walking", false);
-            }
-
-            // Handle attack input
-            if (Input.GetMouseButtonDown(0))
-            {
-                _animator.SetBool("Slash", true);
+                _animator.SetBool("Running", false); ;
+                moving = false;
             }
         }
 
-        private void FixedUpdate()
+        private void Move(Vector2 movement)
         {
-            // Move the character based on input
-            Vector2 movement = _input * WalkSpeed * Time.fixedDeltaTime;
-            Character.transform.Translate(movement);
+            // Calculate velocity vector based on input and speed
+            Vector2 velocity = movement * WalkSpeed;
+
+            // Apply velocity to Rigidbody2D
+            r2d.velocity = velocity;
+
+            _animator.SetBool("Idle", false);
+            _animator.SetBool("Walking", true);
+            moving = true;
+
         }
         private void Turn(int direction)
         {
@@ -296,5 +353,10 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             // Apply the new scale to the character
             Character.transform.localScale = scale;
         }
+        public void Submit()
+        {
+            SceneManager.LoadScene("PCRush Adventures");
+        }
+        
     }
 }
