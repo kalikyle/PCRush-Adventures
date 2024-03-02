@@ -240,7 +240,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private bool canMove = true;
         private bool moving = false;
 
-        private string[] attackAnimations = { "Slash", "Attack", "Jab", "Push" ,"Fire1H", "Fire2H", "Shot"};
+        private string[] attackAnimations = { "Slash", "Attack", "Jab" , "Shot"};
 
         private void Awake()
         {
@@ -261,7 +261,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     // Set animation parameters based on input
                     if (_input != Vector2.zero)
                     {
-                        _input.Normalize();
+                       _input.Normalize();
 
                         // Turn the character based on input direction
                         if (_input.x < 0) // If moving left
@@ -300,7 +300,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && moving)
                     {
                         // Set running animation
-                        //_animator.SetBool("Running", true);
+                        _animator.SetBool("Running", true);
+                        _animator.SetBool("Walking", false);
 
                         // Calculate velocity vector based on input and running speed
                         Vector2 velocity = _input * (WalkSpeed + runSpeed);
@@ -353,10 +354,6 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             // Apply the new scale to the character
             Character.transform.localScale = scale;
         }
-        public void Submit()
-        {
-            SceneManager.LoadScene("PCRush Adventures");
-        }
-        
+       
     }
 }
