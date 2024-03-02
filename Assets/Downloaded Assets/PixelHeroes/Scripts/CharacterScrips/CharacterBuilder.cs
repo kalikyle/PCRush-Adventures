@@ -9,6 +9,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
 {
     public class CharacterBuilder : MonoBehaviour
     {
+  
         public SpriteCollection SpriteCollection;
         public string Head = "Human";
         public string Body = "Human";
