@@ -331,6 +331,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
             _animator.SetBool("Idle", false);
             _animator.SetBool("Walking", true);
+            _animator.SetBool("Running", false); ;
             moving = true;
 
         }
