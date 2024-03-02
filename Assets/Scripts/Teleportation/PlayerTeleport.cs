@@ -26,12 +26,12 @@ public class PlayerTeleport : MonoBehaviour
         //for desk
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (OpenDesk == true && homeTeleport == null)
+            if (OpenDesk == true && homeTeleport == null )
             {
                 DeskPanel.gameObject.SetActive(true);
                 OpenDesk = false;
             }
-            if (OpenEditor == true && homeTeleport == null)
+            else if (OpenEditor == true && homeTeleport == null)
             {
                 SceneManager.LoadScene(1, LoadSceneMode.Additive);
                 OpenEditor = false;
@@ -84,6 +84,16 @@ public class PlayerTeleport : MonoBehaviour
 
                 homeTeleport = null;
             }
+        }
+
+        ///////////////////////////////////
+        if (collision.CompareTag("Desk"))
+        {
+            OpenDesk = false;
+        }
+        if (collision.CompareTag("Editor"))
+        {
+            OpenEditor = false;
         }
 
 
