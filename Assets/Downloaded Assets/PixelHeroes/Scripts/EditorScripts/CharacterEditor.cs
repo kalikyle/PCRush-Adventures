@@ -7,6 +7,8 @@ using Assets.PixelHeroes.Scripts.CharacterScrips;
 using Assets.PixelHeroes.Scripts.CollectionScripts;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Diagnostics;
+using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 
@@ -52,12 +54,16 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
                 }
             }
 
-            Rebuild(null);
+            //Rebuild(null);
+            CharacterBuilder.LoadSavedData();
+           
         }
 
         public void Rebuild()
         {
             Rebuild(null);
+           
+
         }
 
         public void Hide(LayerEditor layer)
@@ -114,9 +120,21 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
             CharacterBuilder.Cape = layers["Cape"];
             CharacterBuilder.Back = layers["Back"];
             CharacterBuilder.Rebuild(layer?.Name);
+
+            
         }
 
-        #if UNITY_EDITOR
+        // Rebuild the character with loaded data
+
+        public void UnloadThisScene()
+        {
+            SceneManager.UnloadSceneAsync(1);
+            GameManager.instance.LoadCharacter();
+            //SceneManager.LoadSceneAsync(0);
+        }
+
+
+#if UNITY_EDITOR
 
         public void Save()
         {

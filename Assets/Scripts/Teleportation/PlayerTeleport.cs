@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerTeleport : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerTeleport : MonoBehaviour
     public GameObject DeskPanel;
 
     public bool OpenDesk = false;
+    public bool OpenEditor = false;
 
 
     void Update()
@@ -28,6 +30,11 @@ public class PlayerTeleport : MonoBehaviour
             {
                 DeskPanel.gameObject.SetActive(true);
                 OpenDesk = false;
+            }
+            if (OpenEditor == true && homeTeleport == null)
+            {
+                SceneManager.LoadScene(1, LoadSceneMode.Additive);
+                OpenEditor = false;
             }
         }
     }
@@ -51,8 +58,12 @@ public class PlayerTeleport : MonoBehaviour
         {
             OpenDesk = true;
         }
+        if (collision.CompareTag("Editor"))
+        {
+            OpenEditor = true;
+        }
 
-       
+
 
     }
     private void OnTriggerExit2D(Collider2D collision)

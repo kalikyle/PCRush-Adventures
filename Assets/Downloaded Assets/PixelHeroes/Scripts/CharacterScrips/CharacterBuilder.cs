@@ -3,7 +3,7 @@ using System.Linq;
 using Assets.PixelHeroes.Scripts.CollectionScripts;
 using Assets.PixelHeroes.Scripts.Utils;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 namespace Assets.PixelHeroes.Scripts.CharacterScrips
 {
@@ -22,6 +22,10 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
         public string Back;
         public UnityEngine.U2D.Animation.SpriteLibrary SpriteLibrary;
 
+        public int CharChanged = 0;
+
+
+        
         public Texture2D Texture { get; private set; }
         private Dictionary<string, Sprite> _sprites;
 
@@ -92,6 +96,47 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
             }
 
             SpriteLibrary.spriteLibraryAsset = spriteLibraryAsset;
+            CharChanged = 1;
+            SaveChanges();
         }
+        public void SaveChanges()
+        {
+
+            // Save each layer's data to PlayerPrefs
+            PlayerPrefs.SetString("Head", Head);
+            PlayerPrefs.SetString("Body", Body);
+            PlayerPrefs.SetString("Hair", Hair);
+            PlayerPrefs.SetString("Armor", Armor);
+            PlayerPrefs.SetString("Helmet", Helmet);
+            PlayerPrefs.SetString("Weapon", Weapon);
+            PlayerPrefs.SetString("Shield", Shield);
+            PlayerPrefs.SetString("Cape", Cape);
+            PlayerPrefs.SetString("Back", Back);
+            PlayerPrefs.SetInt("CharChanged", CharChanged);
+           
+            // Save PlayerPrefs
+            PlayerPrefs.Save();
+            
+
+        }
+        public void LoadSavedData()
+        {
+            // Load each layer's data from PlayerPrefs
+            Head = PlayerPrefs.GetString("Head");
+            Body = PlayerPrefs.GetString("Body");
+            Hair = PlayerPrefs.GetString("Hair");
+            Armor = PlayerPrefs.GetString("Armor");
+            Helmet = PlayerPrefs.GetString("Helmet");
+            Weapon = PlayerPrefs.GetString("Weapon");
+            Shield = PlayerPrefs.GetString("Shield");
+            Cape = PlayerPrefs.GetString("Cape");
+            Back = PlayerPrefs.GetString("Back");
+            
+            Rebuild();
+
+
+        }
+
+
     }
 }

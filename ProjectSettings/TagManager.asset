@@ -7,6 +7,7 @@ TagManager:
   - Home
   - Room
   - Desk
+  - Editor
   layers:
   - Default
   - TransparentFX
