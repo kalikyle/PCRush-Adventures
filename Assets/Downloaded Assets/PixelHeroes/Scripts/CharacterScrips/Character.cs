@@ -9,7 +9,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
     public class Character : Creature
     {
         public Animator Animator;
-        public CharacterController CharacterController;
+        //public CharacterController CharacterController;
         
         public void SetState(AnimationState state)
         {
