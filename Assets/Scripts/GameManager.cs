@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public static GameManager instance;
     public CharacterBuilder charBuilder;
+    public int MonitorShopSize = 5;
     void Start()
     {
         if(PlayerPrefs.GetInt("CharChanged") == 0)
