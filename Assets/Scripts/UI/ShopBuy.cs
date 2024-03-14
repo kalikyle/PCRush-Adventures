@@ -30,25 +30,37 @@ public class ShopBuy : MonoBehaviour
     public void SelectItem(Shop.UI.ShopItem item)
     {
 
-        if (!selectedItems.Contains(item))// selectedItem = 0 item + 1
+        if (!toBuy.Contains(item))// selectedItem = 0 item + 1
         {
-            // DeselectItem(item);
+            
             SelectNewOrDeselectPrevious(item);
+
 
         }
         else
         {
+
             toBuy.Clear();
             SelectNewOrDeselectPrevious(item);
+           
+           
         }
 
+    }
+    private void DeselectAllItems()
+    {
+        foreach (Shop.UI.ShopItem item in toBuy)
+        {
+            item.DeSelect();
+        }
     }
     private void SelectNewOrDeselectPrevious(Shop.UI.ShopItem item)
     {
         Debug.Log("Item Called to Buy.");
-        item.select();
 
-        selectedItems.Add(item);
+       
+         item.select();
+        //selectedItems.Add(item);
         toBuy.Add(item);
 
 
@@ -69,7 +81,7 @@ public class ShopBuy : MonoBehaviour
         }
 
 
-
+        
 
 
         // Assuming Price is a field in ShopItem
