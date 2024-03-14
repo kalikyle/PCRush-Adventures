@@ -108,7 +108,19 @@ namespace Shop.UI
             Debug.Log(shopBuy.filteredItems.Count);
             uiItem.SetTemporaryIndex(itemIndex);
 
+            uiItem.OnItemClickeds += (tempIndex) => {
 
+                Debug.Log("Item Clicked. tempIndex: " + tempIndex);
+                if (shopC != null)
+                {
+                    ResetSelection();
+
+                }
+                else
+                {
+                    Debug.Log("shopC is not assigned.");
+                }
+            };
         }
     }
 }

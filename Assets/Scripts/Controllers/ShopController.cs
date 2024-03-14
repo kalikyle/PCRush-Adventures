@@ -1,10 +1,12 @@
 using Shop.Model;
 using Shop.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace Shop
 {
@@ -24,7 +26,7 @@ namespace Shop
 
         public Dictionary<int, int> tempToOriginalIndexMapping = new Dictionary<int, int>();
         private List<Shop.Model.ShopItem> itemsShownInAllCategory = new List<Shop.Model.ShopItem>();
-
+        
 
         // Start is called before the first frame update
         void Start()
@@ -76,7 +78,7 @@ namespace Shop
             int displayedItemsCount = 0;
             foreach (var item in nonEmptyItems)
             {
-                if (displayedItemsCount >= GameManager.instance.ShopSize)
+                if (displayedItemsCount >= /*GameManager.instance.ShopSize*/GetUsedSlotsCount())
                     break;
 
                 shop.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.Category);
@@ -87,8 +89,8 @@ namespace Shop
         private void PrepareUI()
         {
             shop.InitializedShop(GetUsedSlotsCount());
-                
-                
+
+
         }
         public List<Shop.Model.ShopItem> itemsToShow;
         private string currentCategory = "";
@@ -106,7 +108,7 @@ namespace Shop
             int displayedItemsCount = 0;
             foreach (var item in itemsToShow)
             {
-                if (displayedItemsCount >= GameManager.instance.ShopSize)
+                if (displayedItemsCount >= /*GameManager.instance.ShopSize*/GetUsedSlotsCount())
                     break;
 
                 if (itemsShownInAllCategory.Contains(item)) // Check if the item is in the "All" category
