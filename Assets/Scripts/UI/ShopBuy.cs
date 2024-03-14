@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class ShopBuy : MonoBehaviour
 {
     public Button buyButton;
+    public Button EquipButton;
+    public Button EquippedButton;
 
     private List<Shop.UI.ShopItem> selectedItems = new List<Shop.UI.ShopItem>();
     private List<Shop.UI.ShopItem> toBuy = new List<Shop.UI.ShopItem>();
@@ -46,13 +48,6 @@ public class ShopBuy : MonoBehaviour
            
         }
 
-    }
-    private void DeselectAllItems()
-    {
-        foreach (Shop.UI.ShopItem item in toBuy)
-        {
-            item.DeSelect();
-        }
     }
     private void SelectNewOrDeselectPrevious(Shop.UI.ShopItem item)
     {

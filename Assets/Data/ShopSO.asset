@@ -15,5 +15,11 @@ MonoBehaviour:
   ShopItems:
   - item: {fileID: 11400000, guid: d3c32b260da16fa40bc295b7161e2d21, type: 2}
   - item: {fileID: 11400000, guid: da1bebd7585023943961a11d6070391d, type: 2}
+  - item: {fileID: 11400000, guid: f09c042a573adb14684ea8f002e48971, type: 2}
   - item: {fileID: 11400000, guid: 26cef9403bf741f4dbbd9e8779c08a89, type: 2}
   - item: {fileID: 11400000, guid: b1dba27e9c5bb8a40bc332d8137853e0, type: 2}
+  - item: {fileID: 11400000, guid: 37b326ca24a4abc48a8a88a61e02b42f, type: 2}
+  - item: {fileID: 11400000, guid: 703bb96ff52cced40b0e92be6579e7b8, type: 2}
+  - item: {fileID: 11400000, guid: e2b8fb51de08ec7408db12956cf12b48, type: 2}
+  - item: {fileID: 11400000, guid: 165957f5a110fc64e82906bdc054dfda, type: 2}
+  - item: {fileID: 11400000, guid: b4ab2aad220805346ac317ae53540b97, type: 2}
