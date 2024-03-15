@@ -11,7 +11,7 @@ namespace Shop.UI
     public class ShopItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     {
         [SerializeField]
-        private Image itemImage;
+        public Image itemImage;
         [SerializeField]
         public TMP_Text itemPrice;
         [SerializeField]
