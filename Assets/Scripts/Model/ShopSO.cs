@@ -13,6 +13,8 @@ namespace Shop.Model
         [SerializeField]
         public List<ShopItem> ShopItems;
 
+       
+
         public ShopItem GetItemAt(int obj)
         {
             return ShopItems[obj];

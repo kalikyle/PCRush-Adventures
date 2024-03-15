@@ -21,6 +21,7 @@ namespace Shop.Model
         [field: SerializeField]
         public Sprite ItemImage { get; set; } //sprite
 
+        [SerializeField]
         public string Category { get; set; }
 
         [field: SerializeField]
