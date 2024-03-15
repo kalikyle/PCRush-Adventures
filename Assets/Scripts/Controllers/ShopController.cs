@@ -21,7 +21,7 @@ namespace Shop
         private ShopSO shopData;
 
         [SerializeField]
-        private ShopBuy shopBuy;
+        public ShopBuy shopBuy;
 
         [SerializeField]
         private TMP_Dropdown CategoryDropdown;
@@ -59,7 +59,7 @@ namespace Shop
         // Update is called once per frame
         void Update()
         {
-
+            
         }
         public void ToggleALLButton()
         {
