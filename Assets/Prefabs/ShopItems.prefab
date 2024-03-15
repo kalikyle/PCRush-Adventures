@@ -837,8 +837,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyButton: {fileID: 7014627946713651902}
-  EquipButton: {fileID: 0}
-  EquippedButton: {fileID: 0}
+  EquipButton: {fileID: 6979265576971627332}
+  EquippedButton: {fileID: 1368812282031333195}
   filteredItems: []
   so: {fileID: 11400000, guid: 49c3b6a3e9342d747894b2dda81aa2bd, type: 2}
   ItemPrice: 0
