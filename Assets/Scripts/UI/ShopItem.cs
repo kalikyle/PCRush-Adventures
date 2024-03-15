@@ -19,7 +19,19 @@ namespace Shop.UI
         [SerializeField]
         public TMP_Text itemCategory;
         [SerializeField]
+        public Image ImageCategory;
+        [SerializeField]
         private Image borderImage;
+
+
+        [SerializeField]
+        private Button Buy;
+        [SerializeField]
+        private Button Equip;
+        [SerializeField]
+        private Button Equipped;
+
+
 
         public event Action<ShopItem> OnItemClicked;// OnRightMouseBtnClick;
         public event Action<int> OnItemClickeds; // create new event for filtering
@@ -54,9 +66,10 @@ namespace Shop.UI
 
             itemImage.gameObject.SetActive(false);
         }
-        public void SetData(Sprite sprite, string name, string Price, string category)//quantity has been removed
+        public void SetData(Sprite sprite, Sprite ImageCat, string name, string Price, string category)//quantity has been removed
         {
             itemImage.gameObject.SetActive(true);
+            ImageCategory.sprite = ImageCat;
             itemImage.sprite = sprite;
             itemName.text = name;
             itemPrice.text = Price;

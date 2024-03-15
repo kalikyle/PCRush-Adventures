@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEditor.Progress;
 
 namespace Shop
@@ -23,6 +24,21 @@ namespace Shop
 
         [SerializeField]
         private TMP_Dropdown CategoryDropdown;
+
+        [SerializeField]
+        private Sprite ImageBackgroundCategory;
+
+
+        [SerializeField]
+        private Sprite BackImageforMonitor;
+        [SerializeField]
+        private Sprite BackImageforKeyboard;
+        [SerializeField]
+        private Sprite BackImageforMouse;
+        [SerializeField]
+        private Sprite BackImageforDesk;
+        [SerializeField]
+        private Sprite BackImageforBackground;
 
         public Dictionary<int, int> tempToOriginalIndexMapping = new Dictionary<int, int>();
         private List<Shop.Model.ShopItem> itemsShownInAllCategory = new List<Shop.Model.ShopItem>();
@@ -81,10 +97,35 @@ namespace Shop
                 if (displayedItemsCount >= /*GameManager.instance.ShopSize*/GetUsedSlotsCount())
                     break;
 
-                shop.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.Category);
+                shop.UpdateData(item.Key, item.Value.item.ItemImage, ChangeShopBackground(item.Value.item.Category), item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.Category);
                 itemsShownInAllCategory.Add(item.Value); // Add to items shown in "All" category
                 displayedItemsCount++;
             }
+        }
+        public Sprite ChangeShopBackground(string Category)
+        {
+            if (Category == "Monitor")
+            {
+                ImageBackgroundCategory = BackImageforMonitor;
+            }
+            else if (Category == "Keyboard")
+            {
+                ImageBackgroundCategory = BackImageforKeyboard;
+            }
+            else if (Category == "Mouse")
+            {
+                ImageBackgroundCategory = BackImageforMouse;
+            }
+            else if (Category == "Desk")
+            {
+                ImageBackgroundCategory = BackImageforDesk;
+            }
+            else if (Category == "Background")
+            {
+                ImageBackgroundCategory = BackImageforBackground;
+            }
+
+            return ImageBackgroundCategory;
         }
         private void PrepareUI()
         {
@@ -116,7 +157,7 @@ namespace Shop
                     shopBuy.filteredItems.Add(item);//then add to filteredItems
                     tempToOriginalIndexMapping[displayedItemsCount] = displayedItemsCount;
 
-                    shop.AddShopItem(item.item.ItemImage, item.item.Name, item.item.Price.ToString(), item.item.Category);
+                    shop.AddShopItem(item.item.ItemImage, ChangeShopBackground(item.item.Category), item.item.Name, item.item.Price.ToString(), item.item.Category);
                     displayedItemsCount++;
                 }
             }

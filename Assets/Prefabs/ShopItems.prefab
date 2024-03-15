@@ -820,6 +820,7 @@ MonoBehaviour:
   itemPrice: {fileID: 2890018829366017677}
   itemName: {fileID: 5273180602674421306}
   itemCategory: {fileID: 2212833093024892301}
+  ImageCategory: {fileID: 4390929542507242683}
   borderImage: {fileID: 7366418288573916572}
   shopBuy: {fileID: 7078364802301518621}
   temporaryIndex: 0
@@ -836,6 +837,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyButton: {fileID: 7014627946713651902}
+  EquipButton: {fileID: 0}
+  EquippedButton: {fileID: 0}
   filteredItems: []
   so: {fileID: 11400000, guid: 49c3b6a3e9342d747894b2dda81aa2bd, type: 2}
   ItemPrice: 0
