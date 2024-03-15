@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,15 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public CharacterBuilder charBuilder;
     public int ShopSize = 20;
+
+
+
+    public Image Monitor;
+    public Image Keyboard;
+    public Image Mouse;
+    public Image Desk;
+
+
     void Start()
     {
         if(PlayerPrefs.GetInt("CharChanged") == 0)

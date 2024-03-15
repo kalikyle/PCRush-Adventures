@@ -100,6 +100,7 @@ public class ShopBuy : MonoBehaviour
                // HandlePurchase(shopItem);
                 //ConvertShopItemToInventoryItem(shopItem);
                 Debug.Log("The item has been purchase");
+                
                 //Debug.Log("The item is " + ConvertShopItemToInventoryItem(shopItem).item.Name);
                 //Debug.Log("Quantity: " + ConvertShopItemToInventoryItem(shopItem).quantity);
                 shopItem.DeSelect();
