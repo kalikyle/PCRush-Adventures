@@ -24,12 +24,7 @@ namespace Shop.UI
         private Image borderImage;
 
 
-        [SerializeField]
-        private Button Buy;
-        [SerializeField]
-        private Button Equip;
-        [SerializeField]
-        private Button Equipped;
+       
 
 
 
@@ -66,7 +61,7 @@ namespace Shop.UI
 
             itemImage.gameObject.SetActive(false);
         }
-        public void SetData(Sprite sprite, Sprite ImageCat, string name, string Price, string category)//quantity has been removed
+        public void SetData(Sprite sprite, Sprite ImageCat, string name, string Price, string category, bool inuse, bool sold)//quantity has been removed
         {
             itemImage.gameObject.SetActive(true);
             ImageCategory.sprite = ImageCat;
@@ -74,7 +69,39 @@ namespace Shop.UI
             itemName.text = name;
             itemPrice.text = Price;
             itemCategory.text = category;
+            ShopUpdate(inuse, sold);
             //empty = false;
+        }
+        public void ShopUpdate(bool inuse, bool sold)
+        {
+            if (inuse == true && sold == true)
+            {
+
+                shopBuy.EquippedButton.gameObject.SetActive(true);
+                shopBuy.buyButton.gameObject.SetActive(false);
+                shopBuy.EquipButton.gameObject.SetActive(false);
+            }
+            else if (inuse == false && sold == true)
+            {
+
+                shopBuy.EquippedButton.gameObject.SetActive(false);
+                shopBuy.buyButton.gameObject.SetActive(false);
+                shopBuy.EquipButton.gameObject.SetActive(true);
+            }
+            else if (inuse == false && sold == false)
+            {
+
+                shopBuy.EquippedButton.gameObject.SetActive(false);
+                shopBuy.buyButton.gameObject.SetActive(true);
+                shopBuy.EquipButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                shopBuy.EquippedButton.gameObject.SetActive(false);
+                shopBuy.buyButton.gameObject.SetActive(true);
+                shopBuy.EquipButton.gameObject.SetActive(false);
+            }
+
         }
         public void select()
         {

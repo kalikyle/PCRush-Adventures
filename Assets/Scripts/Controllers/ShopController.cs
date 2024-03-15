@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 namespace Shop
 {
@@ -16,8 +17,8 @@ namespace Shop
        [SerializeField]
        private ShopPage shop;
 
-       [SerializeField]
-       private ShopSO shopData;
+        [SerializeField]
+        private ShopSO shopData;
 
         [SerializeField]
         private ShopBuy shopBuy;
@@ -94,14 +95,17 @@ namespace Shop
             int displayedItemsCount = 0;
             foreach (var item in nonEmptyItems)
             {
+                //ShopUpdate(item.Value.item.InUse, item.Value.item.Sold);
                 if (displayedItemsCount >= /*GameManager.instance.ShopSize*/GetUsedSlotsCount())
                     break;
-
-                shop.UpdateData(item.Key, item.Value.item.ItemImage, ChangeShopBackground(item.Value.item.Category), item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.Category);
+                
+                shop.UpdateData(item.Key, item.Value.item.ItemImage, ChangeShopBackground(item.Value.item.Category), item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.Category, item.Value.item.InUse, item.Value.item.Sold);
                 itemsShownInAllCategory.Add(item.Value); // Add to items shown in "All" category
+                
                 displayedItemsCount++;
             }
         }
+       
         public Sprite ChangeShopBackground(string Category)
         {
             if (Category == "Monitor")
@@ -133,6 +137,7 @@ namespace Shop
 
 
         }
+
         public List<Shop.Model.ShopItem> itemsToShow;
         private string currentCategory = "";
         public void ShowCategory(string category)
@@ -149,6 +154,7 @@ namespace Shop
             int displayedItemsCount = 0;
             foreach (var item in itemsToShow)
             {
+                //ShopUpdate(item.item.InUse, item.item.Sold);
                 if (displayedItemsCount >= /*GameManager.instance.ShopSize*/GetUsedSlotsCount())
                     break;
 
@@ -156,8 +162,9 @@ namespace Shop
                 {
                     shopBuy.filteredItems.Add(item);//then add to filteredItems
                     tempToOriginalIndexMapping[displayedItemsCount] = displayedItemsCount;
-
-                    shop.AddShopItem(item.item.ItemImage, ChangeShopBackground(item.item.Category), item.item.Name, item.item.Price.ToString(), item.item.Category);
+                    
+                    shop.AddShopItem(item.item.ItemImage, ChangeShopBackground(item.item.Category), item.item.Name, item.item.Price.ToString(), item.item.Category,item.item.InUse, item.item.Sold);
+                    
                     displayedItemsCount++;
                 }
             }

@@ -68,11 +68,11 @@ namespace Shop.UI
             //shopDesc.ResetDescription();
             DeselectAllItems();
         }
-        public void UpdateData(int itemIndex, Sprite ItemImage, Sprite CatImage, string Itemtitle, string Itemprice, string Itemcategory)
+        public void UpdateData(int itemIndex, Sprite ItemImage, Sprite CatImage, string Itemtitle, string Itemprice, string Itemcategory, bool inuse, bool sold)
         {
             if (ListOfShopItems.Count > itemIndex)
             {
-                ListOfShopItems[itemIndex].SetData(ItemImage, CatImage, Itemtitle, "$" + Itemprice, Itemcategory);//this will add to the shop
+                ListOfShopItems[itemIndex].SetData(ItemImage, CatImage, Itemtitle, "$" + Itemprice, Itemcategory, inuse, sold);//this will add to the shop
 
             }
 
@@ -95,7 +95,7 @@ namespace Shop.UI
             gameObject.SetActive(false);
         }
         //then this for adding a new filtered items
-        public void AddShopItem(Sprite itemImage, Sprite ImageCat, string itemName, string price, string category)
+        public void AddShopItem(Sprite itemImage, Sprite ImageCat, string itemName, string price, string category, bool inuse, bool sold)
         {
 
             ShopItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
@@ -103,7 +103,7 @@ namespace Shop.UI
             uiItem.transform.localScale = new Vector3(1, 1, 1);
 
             ListOfShopItems.Add(uiItem);//add shop items in the list
-            uiItem.SetData(itemImage, ImageCat, itemName, "$" + price, category);
+            uiItem.SetData(itemImage, ImageCat, itemName, "$" + price, category, inuse, sold);
             int itemIndex = shopBuy.filteredItems.Count - 1;//this is for the filtered items
             Debug.Log(shopBuy.filteredItems.Count);
             uiItem.SetTemporaryIndex(itemIndex);
