@@ -41,6 +41,9 @@ namespace Shop
         [SerializeField]
         private Sprite BackImageforBackground;
 
+        [SerializeField]
+        private Sprite BackImageforDecoration;
+
         public Dictionary<int, int> tempToOriginalIndexMapping = new Dictionary<int, int>();
         private List<Shop.Model.ShopItem> itemsShownInAllCategory = new List<Shop.Model.ShopItem>();
         
@@ -155,6 +158,10 @@ namespace Shop
             else if (Category == "Background")
             {
                 ImageBackgroundCategory = BackImageforBackground;
+            }
+            else if (Category == "Decorations")
+            {
+                ImageBackgroundCategory = BackImageforDecoration;
             }
 
             return ImageBackgroundCategory;

@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
     {
         private GameObject homeTeleport;
         public GameObject DeskPanel;
+        public GameObject UIPanel;
 
         public bool OpenDesk = false;
         public bool OpenEditor = false;
@@ -31,6 +32,7 @@ using UnityEngine.SceneManagement;
                 if (OpenDesk == true && homeTeleport == null)
                 {
                     DeskPanel.gameObject.SetActive(true);
+                    UIPanel.gameObject.SetActive(true);
                     OpenDesk = false;
                 }
                 else if (OpenEditor == true && homeTeleport == null)
