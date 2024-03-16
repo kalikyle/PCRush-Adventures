@@ -9,7 +9,8 @@ namespace Shop.Model
     {
         //[field: SerializeField]
         //public bool IsStackable { get; set; }
-
+        [field: SerializeField]
+        public string Category { get; set; }
         public int ID => GetInstanceID();
 
         //[field: SerializeField]
@@ -20,9 +21,6 @@ namespace Shop.Model
 
         [field: SerializeField]
         public Sprite ItemImage { get; set; } //sprite
-
-        [SerializeField]
-        public string Category { get; set; }
 
         [field: SerializeField]
         public double Price { get; set; }

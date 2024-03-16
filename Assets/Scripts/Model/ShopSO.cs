@@ -39,6 +39,34 @@ namespace Shop.Model
         {
             return ShopItems.Where(item => !item.isEmpty && item.item.Category.Equals(category)).ToList();
         }
+
+        public List<ShopItem> GetItemsSoldAndInUse(string category)
+        {
+            return ShopItems.Where(item => !item.isEmpty && item.item.Category.Equals(category) && item.item.Sold && item.item.InUse).ToList();
+        }
+        public List<ShopItem> GetItemsSoldAndNotInUse(string category)
+        {
+            return ShopItems.Where(item => !item.isEmpty && item.item.Category.Equals(category) && item.item.Sold && !item.item.InUse).ToList();
+        }
+        public List<ShopItem> GetItemsNotSoldAndNotInUse(string category)
+        {
+            return ShopItems.Where(item => !item.isEmpty && item.item.Category.Equals(category) && !item.item.Sold && !item.item.InUse).ToList();
+        }
+
+        public List<ShopItem> GetItemsSoldAndInUse()
+        {
+            return ShopItems.Where(item => !item.isEmpty && item.item.Sold && item.item.InUse).ToList();
+        }
+
+        public List<ShopItem> GetItemsSoldAndNotInUse()
+        {
+            return ShopItems.Where(item => !item.isEmpty && item.item.Sold && !item.item.InUse).ToList();
+        }
+
+        public List<ShopItem> GetItemsNotSoldAndNotInUse()
+        {
+            return ShopItems.Where(item => !item.isEmpty && !item.item.Sold && !item.item.InUse).ToList();
+        }
     }
     [Serializable]
     public struct ShopItem

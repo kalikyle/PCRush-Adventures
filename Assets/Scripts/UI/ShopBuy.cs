@@ -16,22 +16,20 @@ public class ShopBuy : MonoBehaviour
 
     //private List<Shop.UI.ShopItem> selectedItems = new List<Shop.UI.ShopItem>();
     private List<Shop.UI.ShopItem> toBuy = new List<Shop.UI.ShopItem>();
-    private List<Shop.UI.ShopItem> previousUse = new List<Shop.UI.ShopItem>();
     public List<Shop.Model.ShopItem> filteredItems;
-    
+
 
     public Shop.Model.ShopSO so;
 
     public double ItemPrice = 0;
     double total;
     public bool ToggleTF = false;
+    public bool ToggleBSE = false;
+    public string filteredBSE;
     void Start()
     {
         buyButton.onClick.AddListener(HandleThePurchase);
         EquipButton.onClick.AddListener(HandleEquip);
-
-        
-        
     }
    
     
@@ -120,6 +118,7 @@ public class ShopBuy : MonoBehaviour
             {
                 //you can place the condition for currency here
                 HandlePurchase(shopItem);
+                
                 //ConvertShopItemToInventoryItem(shopItem);
                 Debug.Log("The item has been purchase");
                 
@@ -153,6 +152,7 @@ public class ShopBuy : MonoBehaviour
             {
                 //you can place the condition for currency here
                 HandleEquipButton(shopItem);
+                
                 //ConvertShopItemToInventoryItem(shopItem);
                 Debug.Log("The item has been purchase");
 
@@ -195,7 +195,12 @@ public class ShopBuy : MonoBehaviour
         {
             GameManager.instance.equippedItemsByCategory.Add(category, newShopItem);
         }
-        UpdateButton(category);
+
+        //if((ToggleTF == true || ToggleTF == false) && ToggleBSE == false)
+        //{
+            UpdateButton(category);
+        //}
+        
     }
 
 
@@ -207,7 +212,7 @@ public class ShopBuy : MonoBehaviour
         int tempIndexs;
         int originalIndex;
         int tempIndex;
-        if (ToggleTF == true)//for filtered
+        if (ToggleTF == true && ToggleBSE == false)//for filtered
         {
             Debug.Log("Toggle: True");
             Debug.Log(filteredItems.Count);
@@ -219,7 +224,17 @@ public class ShopBuy : MonoBehaviour
             
 
         }
-        else // for all
+        else if (ToggleTF == true && ToggleBSE == true) // for filtere buy, sold or equip
+        {
+            Debug.Log("Toggle: True");
+            Debug.Log(filteredItems.Count);
+            tempIndex = shopItem.temporaryIndex;
+            Shop.Model.ShopItem shpItem = filteredItems[tempIndex];
+
+            shpItem.item.InUse = true;
+            previousItem(shpItem);
+        }
+        else if (ToggleTF == false && ToggleBSE == false)// for all
         {
             tempToOriginalIndexMapping.Clear();
             tempIndexs = 0;
@@ -259,14 +274,12 @@ public class ShopBuy : MonoBehaviour
     {
         ChangeItemImages(shopItem);
         
-      
-
         List<Shop.Model.ShopItem> shopItems = so.ShopItems;
         int tempIndexs;
         int originalIndex;
         int tempIndex;
         
-        if (ToggleTF == true)//for filtered
+        if (ToggleTF == true && ToggleBSE == false)//for filtered
         {
             Debug.Log("Toggle: True");
             Debug.Log(filteredItems.Count);
@@ -279,8 +292,18 @@ public class ShopBuy : MonoBehaviour
 
            
 
+        } else if (ToggleTF == true && ToggleBSE == true) // for filtere buy, sold or equip
+        {
+            Debug.Log("Toggle: True");
+            Debug.Log(filteredItems.Count);
+            tempIndex = shopItem.temporaryIndex;
+            Shop.Model.ShopItem shpItem = filteredItems[tempIndex];
+
+            shpItem.item.Sold = true;
+            shpItem.item.InUse = true;
+            previousItem(shpItem);
         }
-        else // for all
+        else if (ToggleTF == false && ToggleBSE == false)// for all
         {
             tempToOriginalIndexMapping.Clear();
             tempIndexs = 0;
@@ -415,6 +438,7 @@ public class ShopBuy : MonoBehaviour
                      Debug.LogError("Mapping not found for temporary index: " + tempIndex);
                  }
              }
+        
     }
 
     //this is for conversion

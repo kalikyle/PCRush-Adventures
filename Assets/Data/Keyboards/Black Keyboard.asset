@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b57c5ad15f492499e9ef25a356d927, type: 3}
   m_Name: Black Keyboard
   m_EditorClassIdentifier: 
+  <Category>k__BackingField: Keyboard
   <Name>k__BackingField: Black Keyboard
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 688daf5407bed694782f48ec69471322, type: 3}
   <Price>k__BackingField: 200

@@ -50,8 +50,9 @@ namespace Shop
         {
             PrepareUI();//initial size of the shop\
                         //shopData.Initialize();
-            shopBuy.ToggleTF = false;
-            ShowAllCategory();
+           
+            //ShowAllCategory();
+            ToggleALLButton();
             shop.Show();
             
         }
@@ -61,9 +62,34 @@ namespace Shop
         {
             
         }
+        public void HandleCategory(int val)
+        {
+
+            switch (val)
+            {
+                case 0://all
+                    ToggleALLButton();
+                    shopBuy.filteredBSE = "All";
+                    break;
+                case 1:
+                    ShowBuy();
+                    shopBuy.filteredBSE = "Unsold";
+                    break;
+                case 2:
+                    ShowSold();
+                    shopBuy.filteredBSE = "Sold";
+                    break;
+                case 3:
+                    ShowEquipped();
+                    shopBuy.filteredBSE = "Equipped";
+                    break;
+
+            }
+        }
         public void ToggleALLButton()
         {
             shopBuy.ToggleTF = false;
+            shopBuy.ToggleBSE = false;
             // Toggle the state
             shop.ResetSelection();
             shop.ClearItems();
@@ -88,6 +114,8 @@ namespace Shop
         }
         public void ShowAllCategory()
         {
+            shopBuy.ToggleTF = false;
+            shopBuy.ToggleBSE = false;
             itemsShownInAllCategory.Clear();
 
             var nonEmptyItems = shopData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
@@ -143,6 +171,7 @@ namespace Shop
         public void ShowCategory(string category)
         {
             shopBuy.ToggleTF = true;
+            shopBuy.ToggleBSE = false;
             currentCategory = category;
             shop.ResetSelection();
             shopBuy.filteredItems.Clear();
@@ -165,6 +194,93 @@ namespace Shop
                     
                     shop.AddShopItem(item.item.ItemImage, ChangeShopBackground(item.item.Category), item.item.Name, item.item.Price.ToString(), item.item.Category,item.item.InUse, item.item.Sold);
                     
+                    displayedItemsCount++;
+                }
+            }
+        }
+        public void ShowBuy()
+        {
+            shopBuy.ToggleTF = true;
+            shopBuy.ToggleBSE = true;
+            shop.ResetSelection();
+            shopBuy.filteredItems.Clear();
+            tempToOriginalIndexMapping.Clear();
+            shop.ClearItems(); // Clear the existing items in the UI
+
+            // Get items that are not sold and not in use
+            List<Shop.Model.ShopItem> filteredItems = shopData.GetItemsNotSoldAndNotInUse();
+
+            int displayedItemsCount = 0;
+            foreach (var item in filteredItems)
+            {
+                if (displayedItemsCount >= /*GameManager.instance.ShopSize*/ GetUsedSlotsCount())
+                    break;
+
+                if (itemsShownInAllCategory.Contains(item)) // Check if the item is in the "All" category
+                {
+                    shopBuy.filteredItems.Add(item); // Add to filteredItems
+                    tempToOriginalIndexMapping[displayedItemsCount] = displayedItemsCount;
+
+                    shop.AddShopItem(item.item.ItemImage, ChangeShopBackground(item.item.Category), item.item.Name, item.item.Price.ToString(), item.item.Category, item.item.InUse, item.item.Sold);
+
+                    displayedItemsCount++;
+                }
+            }
+        }
+        public void ShowSold()
+        {
+            shopBuy.ToggleTF = true;
+            shopBuy.ToggleBSE = true;
+            shop.ResetSelection();
+            shopBuy.filteredItems.Clear();
+            tempToOriginalIndexMapping.Clear();
+            shop.ClearItems(); // Clear the existing items in the UI
+
+            // Get items that are not sold and not in use
+            List<Shop.Model.ShopItem> filteredItems = shopData.GetItemsSoldAndNotInUse();
+
+            int displayedItemsCount = 0;
+            foreach (var item in filteredItems)
+            {
+                if (displayedItemsCount >= /*GameManager.instance.ShopSize*/ GetUsedSlotsCount())
+                    break;
+
+                if (itemsShownInAllCategory.Contains(item)) // Check if the item is in the "All" category
+                {
+                    shopBuy.filteredItems.Add(item); // Add to filteredItems
+                    tempToOriginalIndexMapping[displayedItemsCount] = displayedItemsCount;
+
+                    shop.AddShopItem(item.item.ItemImage, ChangeShopBackground(item.item.Category), item.item.Name, item.item.Price.ToString(), item.item.Category, item.item.InUse, item.item.Sold);
+
+                    displayedItemsCount++;
+                }
+            }
+        }
+        public void ShowEquipped()
+        {
+            shopBuy.ToggleTF = true;
+            shopBuy.ToggleBSE = true;
+            shop.ResetSelection();
+            shopBuy.filteredItems.Clear();
+            tempToOriginalIndexMapping.Clear();
+            shop.ClearItems(); // Clear the existing items in the UI
+
+            // Get items that are not sold and not in use
+            List<Shop.Model.ShopItem> filteredItems = shopData.GetItemsSoldAndInUse();
+
+            int displayedItemsCount = 0;
+            foreach (var item in filteredItems)
+            {
+                if (displayedItemsCount >= /*GameManager.instance.ShopSize*/ GetUsedSlotsCount())
+                    break;
+
+                if (itemsShownInAllCategory.Contains(item)) // Check if the item is in the "All" category
+                {
+                    shopBuy.filteredItems.Add(item); // Add to filteredItems
+                    tempToOriginalIndexMapping[displayedItemsCount] = displayedItemsCount;
+
+                    shop.AddShopItem(item.item.ItemImage, ChangeShopBackground(item.item.Category), item.item.Name, item.item.Price.ToString(), item.item.Category, item.item.InUse, item.item.Sold);
+
                     displayedItemsCount++;
                 }
             }

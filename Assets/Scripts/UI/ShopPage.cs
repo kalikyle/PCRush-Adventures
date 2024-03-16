@@ -94,6 +94,8 @@ namespace Shop.UI
         {
             gameObject.SetActive(false);
         }
+
+
         //then this for adding a new filtered items
         public void AddShopItem(Sprite itemImage, Sprite ImageCat, string itemName, string price, string category, bool inuse, bool sold)
         {

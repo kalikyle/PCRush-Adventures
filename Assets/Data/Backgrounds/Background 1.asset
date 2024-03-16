@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b57c5ad15f492499e9ef25a356d927, type: 3}
   m_Name: Background 1
   m_EditorClassIdentifier: 
+  <Category>k__BackingField: Background
   <Name>k__BackingField: Default Background
   <ItemImage>k__BackingField: {fileID: 633156904, guid: dd2f6faff95ead84d83037763a6cca26, type: 3}
   <Price>k__BackingField: 0
