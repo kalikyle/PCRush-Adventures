@@ -7,14 +7,14 @@ namespace Shop.Model
     [CreateAssetMenu]
     public class ShopItemSO : ScriptableObject
     {
-        //[field: SerializeField]
-        //public bool IsStackable { get; set; }
+        [field: SerializeField]
+        public bool IsStackable { get; set; }
         [field: SerializeField]
         public string Category { get; set; }
         public int ID => GetInstanceID();
 
-        //[field: SerializeField]
-        //public int MaxStackableSize { get; set; } = 1;
+        [field: SerializeField]
+        public int MaxStackableSize { get; set; } = 1;
 
         [field: SerializeField]
         public string Name { get; set; }

@@ -13,6 +13,8 @@ namespace Shop.UI
         [SerializeField]
         public Image itemImage;
         [SerializeField]
+        public Image itemImageshadow;
+        [SerializeField]
         public TMP_Text itemPrice;
         [SerializeField]
         public TMP_Text itemName;
@@ -24,7 +26,11 @@ namespace Shop.UI
         private Image borderImage;
 
 
-       
+        [SerializeField]
+        private GameObject PanelForDecor;
+
+
+
 
 
 
@@ -66,10 +72,20 @@ namespace Shop.UI
             itemImage.gameObject.SetActive(true);
             ImageCategory.sprite = ImageCat;
             itemImage.sprite = sprite;
+            itemImageshadow.sprite = sprite;
             itemName.text = name;
             itemPrice.text = Price;
             itemCategory.text = category;
             ShopUpdate(inuse, sold);
+
+            if (category == "Decorations")
+            {
+                PanelForDecor.gameObject.SetActive(true);
+            }
+            else
+            {
+                PanelForDecor.gameObject.SetActive(false);
+            }
             //empty = false;
         }
         public void ShopUpdate(bool inuse, bool sold)

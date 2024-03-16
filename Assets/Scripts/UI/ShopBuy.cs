@@ -3,6 +3,7 @@ using Shop.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,12 @@ using static UnityEditor.Progress;
 
 public class ShopBuy : MonoBehaviour
 {
+
+    public TMP_Text displayText;
+    public TMP_Text priceText;
+    public Button incrementButton;
+    public Button decrementButton;
+
     public Button buyButton;
     public Button EquipButton;
     public Button EquippedButton;
@@ -21,18 +28,69 @@ public class ShopBuy : MonoBehaviour
 
     public Shop.Model.ShopSO so;
 
+    private int value = 1;
     public double ItemPrice = 0;
+    private int minValue = 1; // Minimum value (decrement limit)
+    private int maxValue = 99;// Maximum value (increment limit)
     double total;
     public bool ToggleTF = false;
     public bool ToggleBSE = false;
     public string filteredBSE;
     void Start()
     {
+        incrementButton.onClick.AddListener(IncrementValue);
+        decrementButton.onClick.AddListener(DecrementValue);
         buyButton.onClick.AddListener(HandleThePurchase);
         EquipButton.onClick.AddListener(HandleEquip);
+
+        UpdateDisplay();
     }
-   
-    
+    private void IncrementValue()
+    {
+        if (value < maxValue)
+        {
+            value++;
+            UpdateDisplay();
+            UpdatePriceDisplay();
+
+
+        }
+    }
+
+    private void DecrementValue()
+    {
+        if (value > minValue)
+        {
+            value--;
+            UpdateDisplay();
+            UpdatePriceDisplay();
+
+
+        }
+    }
+
+    private void UpdateDisplay()
+    {
+
+        if (displayText != null)
+        {
+            displayText.text = value.ToString();
+
+        }
+
+    }
+    private void UpdatePriceDisplay()
+    {
+        total = ItemPrice * value;
+        if (priceText != null)
+        {
+            priceText.text = "$" + total.ToString();
+
+        }
+
+    }
+
+
     void UpdateButton(string category)//need fix
     {
         // int temp = shopItem.temporaryIndex;
