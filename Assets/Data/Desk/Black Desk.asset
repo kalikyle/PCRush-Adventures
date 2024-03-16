@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b57c5ad15f492499e9ef25a356d927, type: 3}
   m_Name: Black Desk
   m_EditorClassIdentifier: 
+  <Category>k__BackingField: Desk
   <Name>k__BackingField: Black Desk
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 199734d417e69274ca9fac2a02884976, type: 3}
   <Price>k__BackingField: 500

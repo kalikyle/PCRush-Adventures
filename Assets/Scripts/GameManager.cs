@@ -19,13 +19,17 @@ public class GameManager : MonoBehaviour
 
     public ShopController SC;
     public Shop.Model.ShopSO so;
+
     public Image Monitor;
     public Image Keyboard;
     public Image Mouse;
     public Image Desk;
     public Image Background;
 
+
+
     public Dictionary<string, Shop.Model.ShopItem> equippedItemsByCategory = new Dictionary<string, Shop.Model.ShopItem>();
+   
     public void AddInitiallyEquippedItems()
     {
         foreach (var item in so.ShopItems)
@@ -47,8 +51,32 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Add the new item to the dictionary
+            
             equippedItemsByCategory.Add(item.item.Category, item);
+
+          
+        }
+
+        // Check if the item category is "Monitor" and if it's sold and in use
+        if (item.item.Category == "Monitor" && item.item.Sold && item.item.InUse)
+        {
+            Monitor.sprite = item.item.ItemImage;
+        }
+        if (item.item.Category == "Mouse" && item.item.Sold && item.item.InUse)
+        {
+            Mouse.sprite = item.item.ItemImage;
+        }
+        if (item.item.Category == "Keyboard" && item.item.Sold && item.item.InUse)
+        {
+            Keyboard.sprite = item.item.ItemImage;
+        }
+        if (item.item.Category == "Desk" && item.item.Sold && item.item.InUse)
+        {
+            Desk.sprite = item.item.ItemImage;
+        }
+        if (item.item.Category == "Background" && item.item.Sold && item.item.InUse)
+        {
+            Background.sprite = item.item.ItemImage;
         }
     }
     void Start()
@@ -59,6 +87,7 @@ public class GameManager : MonoBehaviour
         }
         charBuilder.LoadSavedData();
         AddInitiallyEquippedItems();
+       
     }
 
     // Update is called once per frame
@@ -69,9 +98,29 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateShop(string category)
     {
-        if(SC.shopBuy.ToggleTF == true)
+        if(SC.shopBuy.ToggleTF == true && SC.shopBuy.ToggleBSE == false)
         {
             SC.ShowCategory(category);
+
+        }
+        else if (SC.shopBuy.ToggleTF == true && SC.shopBuy.ToggleBSE == true)
+        {
+            if(SC.shopBuy.filteredBSE == "All")
+            {
+                SC.ShowAllCategory();
+
+            }else if (SC.shopBuy.filteredBSE == "Unsold")
+            {
+                SC.ShowBuy();
+            }
+            else if (SC.shopBuy.filteredBSE == "Sold")
+            {
+                SC.ShowSold();
+            }
+            else if (SC.shopBuy.filteredBSE == "Equipped")
+            {
+                SC.ShowEquipped();
+            }
         }
         else
         {
@@ -95,4 +144,5 @@ public class GameManager : MonoBehaviour
     {
         charBuilder.LoadSavedData();
     }
+    
 }

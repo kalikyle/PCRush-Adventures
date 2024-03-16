@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b57c5ad15f492499e9ef25a356d927, type: 3}
   m_Name: White Monitor
   m_EditorClassIdentifier: 
+  <Category>k__BackingField: Monitor
   <Name>k__BackingField: White Monitor
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 6d9823ed5bc78ff44894b7905966e1bf, type: 3}
   <Price>k__BackingField: 300
