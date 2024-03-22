@@ -1,6 +1,8 @@
 using Assets.PixelHeroes.Scripts.CharacterScrips;
 using Shop;
+using Shop.Model;
 using Shop.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -8,6 +10,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Decoration.Model.DecorSO;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,7 +29,10 @@ public class GameManager : MonoBehaviour
     public Image Desk;
     public Image Background;
 
+    public int tempindex;
 
+    public event Action<DecorationItem> OnDecorToTransferUpdated;
+    public List<DecorationItem> DecorToTransfer = new List<DecorationItem>();
 
     public Dictionary<string, Shop.Model.ShopItem> equippedItemsByCategory = new Dictionary<string, Shop.Model.ShopItem>();
    
@@ -41,7 +47,19 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void AddItemToTransfer(DecorationItem item)
+    {
+       DecorToTransfer.Add(item);
+       OnDecorToTransferUpdated?.Invoke(item);
+    }
+    public void SaveDecorInitialItems(List<DecorationItem> items)
+    {
 
+        string jsonData = JsonUtility.ToJson(new DecorationItemList { Items = items });
+        PlayerPrefs.SetString("SavedInitialItems", jsonData);
+        PlayerPrefs.Save();
+        //Debug.LogError("Data has been Saved");
+    }
     private void AddEquippedItemToDictionary(Shop.Model.ShopItem item)
     {
         if (equippedItemsByCategory.ContainsKey(item.item.Category))
@@ -145,4 +163,9 @@ public class GameManager : MonoBehaviour
         charBuilder.LoadSavedData();
     }
     
+}
+[System.Serializable]
+public class DecorationItemList
+{
+    public List<DecorationItem> Items;
 }

@@ -7,6 +7,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static Decoration.Model.DecorSO;
 using static UnityEditor.Progress;
 
 public class ShopBuy : MonoBehaviour
@@ -175,7 +176,12 @@ public class ShopBuy : MonoBehaviour
             if (shopItem != null)
             {
                 //you can place the condition for currency here
-                HandlePurchase(shopItem);
+
+              
+               
+                    HandlePurchase(shopItem);
+                
+                
                 
                 //ConvertShopItemToInventoryItem(shopItem);
                 Debug.Log("The item has been purchase");
@@ -344,22 +350,45 @@ public class ShopBuy : MonoBehaviour
             tempIndex = shopItem.temporaryIndex;
             Shop.Model.ShopItem shpItem = filteredItems[tempIndex];
 
-            shpItem.item.Sold = true;
-            shpItem.item.InUse = true;
-            previousItem(shpItem);
+            if (shpItem.item.Category == "Decorations")
+            {
+                DecorBuy(shopItem);
+            }
+            else
+            {
+                shpItem.item.Sold = true;
+                shpItem.item.InUse = true;
 
-           
+                previousItem(shpItem);
 
-        } else if (ToggleTF == true && ToggleBSE == true) // for filtere buy, sold or equip
+                EquipButton.gameObject.SetActive(false);
+                buyButton.gameObject.SetActive(false);
+                EquippedButton.gameObject.SetActive(true);
+            }
+
+
+        } else if (ToggleTF == true && ToggleBSE == true) // for filtered buy, sold or equip
         {
             Debug.Log("Toggle: True");
             Debug.Log(filteredItems.Count);
             tempIndex = shopItem.temporaryIndex;
             Shop.Model.ShopItem shpItem = filteredItems[tempIndex];
 
-            shpItem.item.Sold = true;
-            shpItem.item.InUse = true;
-            previousItem(shpItem);
+            if (shpItem.item.Category == "Decorations")
+            {
+                DecorBuy(shopItem);
+            }
+            else
+            {
+                shpItem.item.Sold = true;
+                shpItem.item.InUse = true;
+
+                previousItem(shpItem);
+
+                EquipButton.gameObject.SetActive(false);
+                buyButton.gameObject.SetActive(false);
+                EquippedButton.gameObject.SetActive(true);
+            }
         }
         else if (ToggleTF == false && ToggleBSE == false)// for all
         {
@@ -382,22 +411,168 @@ public class ShopBuy : MonoBehaviour
             {
                 // Use the original index to retrieve the ShopItem
                 Shop.Model.ShopItem shpItem = GetItemAt(originalIndexs);
-                shpItem.item.Sold = true;
-                shpItem.item.InUse = true;
 
-                previousItem(shpItem);
+                if (shpItem.item.Category == "Decorations")
+                {
+                    DecorBuy(shopItem);
+                }
+                else
+                {
+                    shpItem.item.Sold = true;
+                    shpItem.item.InUse = true;
 
+                    previousItem(shpItem);
 
-                
+                    EquipButton.gameObject.SetActive(false);
+                    buyButton.gameObject.SetActive(false);
+                    EquippedButton.gameObject.SetActive(true);
+                } 
             }
             else
             {
                 Debug.LogError("Mapping not found for temporary index: " + tempIndex);
             }
         }
-        EquipButton.gameObject.SetActive(false);
-        buyButton.gameObject.SetActive(false);
-        EquippedButton.gameObject.SetActive(true);
+       
+
+    }
+    public void DecorBuy(Shop.UI.ShopItem shopItem)
+    {
+        if (shopItem != null)
+        {
+
+            DecorationItem inventoryItem = ConvertShopItemToDecorationItem(shopItem);
+            //GameManager.Instance.SaveInventoryItem(inventoryItem);
+
+            if (inventoryItem.isEmpty)
+            {
+                // Add the converted item to the inventory's initialItems list
+                //inventoryController.itemsToTransfer.Add(inventoryItem);
+                Debug.LogWarning("Null inventory item returned from conversion.");
+            }
+            else
+            {
+                //place the if else here for currency
+                /* GameManager dataManager = FindObjectOfType<GameManager>();
+                 dataManager.AddItemToTransfer(inventoryItem);*/
+                //if (GameManager.Instance.PCMoney >= total)
+               // {
+
+                    //GameManager.Instance.PCMoney -= total;
+                    GameManager.instance.AddItemToTransfer(inventoryItem);
+                    //GameManager.Instance.UpdatePCMoneyText();
+                    //GameManager.Instance.SavePCMoney(); // Save the updated PCMoney
+
+
+
+                    //GameManager.Instance.PopImage.gameObject.SetActive(true);
+                    //GameManager.Instance.ShowPopUp(inventoryItem, total);
+                    //buySound.Play();
+                    //GameManager.Instance.PopupItemImage.sprite = inventoryItem.item.ItemImage;
+                    //GameManager.Instance.Quantity.text = inventoryItem.quantity.ToString() + "X";
+                    //GameManager.Instance.ItemName.text = inventoryItem.item.Name;
+                    //GameManager.Instance.Price.text = "For $" + total.ToString();
+
+                    // Update the PCMoney text UI
+              //  }
+            //    else
+              //  {
+                    //GameManager.Instance.DialogBox.gameObject.SetActive(true);
+                    //GameManager.Instance.DialogText.text = "Insufficient PCMoney! \n Sell Some Parts to Restore your PCMoney...";
+                    //InsufficientSound.Play();
+             //   }
+
+                // AddedtoCart.Add(inventoryItem);
+
+
+
+
+
+                //inventdata.inventoryItems.Add(inventoryItem);
+
+                Debug.Log("Item added to inventory ");
+                value = 1;
+                displayText.text = value.ToString();
+            }
+
+        }
+        else
+        {
+            Debug.LogWarning("Null shop item passed to HandlePurchase.");
+        }
+
+    }
+
+    public DecorationItem ConvertShopItemToDecorationItem(Shop.UI.ShopItem shopItem)
+    {
+
+        List<Shop.Model.ShopItem> shopItems = so.ShopItems;
+        DecorationItem inventoryItem = new DecorationItem();
+
+        int tempIndexs;
+        int originalIndex;
+        int tempIndex;
+
+        if (ToggleTF == true)
+        {
+            Debug.Log("Toggle: True");
+            Debug.Log(filteredItems.Count);
+            tempIndex = shopItem.temporaryIndex;
+            Shop.Model.ShopItem shpItem = filteredItems[tempIndex];
+
+            if (!shpItem.isEmpty)
+            {
+                inventoryItem.item = shpItem.item;
+            }
+            else
+            {
+                Debug.Log("ShopItem is empty");
+            }
+        }
+        else
+        {
+            tempToOriginalIndexMapping.Clear();
+            tempIndexs = 0;
+            originalIndex = 0;
+            Debug.Log("Toggle: False");
+            //Debug.Log(shopItems.Count);
+            foreach (var item in shopItems)
+            {
+
+                tempToOriginalIndexMapping[tempIndexs] = originalIndex;
+                tempIndexs++;
+                originalIndex++;
+
+            }
+
+            tempIndex = shopItem.temporaryIndex;
+            if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndexs))
+            {
+                // Use the original index to retrieve the ShopItem
+                Shop.Model.ShopItem shpItem = GetItemAt(originalIndexs);
+
+                if (!shpItem.isEmpty)
+                {
+                    inventoryItem.item = shpItem.item;
+                }
+                else
+                {
+                    Debug.Log("ShopItem is empty");
+                }
+            }
+            else
+            {
+                Debug.LogError("Mapping not found for temporary index: " + tempIndex);
+            }
+        }
+
+
+        // Use the methods in the ShopItem class to retrieve the ItemSO and quantity.
+        inventoryItem.quantity = Convert.ToInt32(value.ToString());
+
+
+        // You can set other properties as needed
+        return inventoryItem;
 
     }
     private Dictionary<int, int> tempToOriginalIndexMapping = new Dictionary<int, int>();
