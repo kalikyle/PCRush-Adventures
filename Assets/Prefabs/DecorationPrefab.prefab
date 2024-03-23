@@ -171,6 +171,7 @@ MonoBehaviour:
   minSize: 50
   sizeStep: 10
   rotationStep: 15
+  selectedDecor: {fileID: -1327198527679925538}
 --- !u!1 &8625344214489980829
 GameObject:
   m_ObjectHideFlags: 0
