@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     public Image Desk;
     public Image Background;
 
+    public bool clicked = false;
+
     public int tempindex;
 
     public event Action<DecorationItem> OnDecorToTransferUpdated;
@@ -168,7 +170,14 @@ public class GameManager : MonoBehaviour
     {
         charBuilder.LoadSavedData();
     }
-    
+    public void DecorClicked()
+    {
+        DecorMan.DecorClicked();
+    }
+    public void DecorUnClicked()
+    {
+        DecorMan.UnclickedDecor();
+    }
 }
 [System.Serializable]
 public class DecorationItemList

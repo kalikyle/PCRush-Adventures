@@ -32,7 +32,7 @@ namespace Decoration.UI
         public void UseDecor(int itemIndex)//for all
         {
 
-            DecorationItem inventoryItem = decorSO.GetItemAt(itemIndex);
+                DecorationItem inventoryItem = decorSO.GetItemAt(itemIndex);
            
                
                 UseItems(inventoryItem);

@@ -1,9 +1,12 @@
+using Decoration.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
+using static UnityEditor.Progress;
 
 public class DecorationManager : MonoBehaviour
 {
@@ -18,14 +21,27 @@ public class DecorationManager : MonoBehaviour
     public Button doneButton;
     public Button cancelButton;
     public Button editButton;
+
+    public GameObject DecorClickedUI;
     public Button removeButton;
+    public Button MirrorButton;
+    public Button rotateLeftButton;
+    public Button rotateRightButton;
+    public Button ResizeIncButton;
+    public Button ResizeDecButton;
 
     private GameObject currentDecoration;
-    public GameObject decorationPrefab;
+    public DecorEdit decorationPrefab;
     private RectTransform currentDecorationRectTransform;
     private Vector3 offset;
 
     private bool isEditing = false;
+
+    public List<DecorEdit> ListofDecors = new List<DecorEdit>();
+
+
+
+
 
     void Start()
     {
@@ -33,6 +49,28 @@ public class DecorationManager : MonoBehaviour
         doneButton.onClick.AddListener(OnDoneButtonClick);
         cancelButton.onClick.AddListener(OnCancelButtonClick);
         editButton.onClick.AddListener(OnEditButtonClick);
+        
+
+    }
+
+    public void DecorClicked()
+    {
+        
+        isEditing = true;
+        panel.SetActive(true);
+        DecorUI.SetActive(true);
+        desk.SetActive(false);
+        Inventory.SetActive(false);
+        TopUI.SetActive(false);
+        ShopUI.SetActive(false);
+        DecorClickedUI.SetActive(true);
+    }
+    public void UnclickedDecor()
+    {
+        isEditing = false;
+        GameManager.instance.clicked = false;
+        DecorClickedUI.SetActive(false);
+
     }
 
     void Update()
@@ -60,7 +98,13 @@ public class DecorationManager : MonoBehaviour
     {
         // Enable editing mode
         isEditing = true;
-        removeButton.gameObject.SetActive(true);
+        panel.SetActive(true);
+        DecorUI.SetActive(true);
+        desk.SetActive(false);
+        Inventory.SetActive(false);
+        TopUI.SetActive(false);
+        ShopUI.SetActive(false);
+        DecorClickedUI.SetActive(false);
     }
 
     public void UseDecor(bool Editing, DecorationItem Item)
@@ -77,6 +121,7 @@ public class DecorationManager : MonoBehaviour
             desk.SetActive(true);
             TopUI.SetActive(true);
             ShopUI.SetActive(false);
+            DecorClickedUI.SetActive(false);
 
         }
         else
@@ -87,13 +132,14 @@ public class DecorationManager : MonoBehaviour
             Inventory.SetActive(false);
             TopUI.SetActive(false);
             ShopUI.SetActive(false);
+            DecorClickedUI.SetActive(true);
 
             // Instantiate the decoration prefab under the MainDecorPanel
-            GameObject newDecoration = Instantiate(decorationPrefab, MainDecorpanel.transform);
+            DecorEdit newDecoration = Instantiate(decorationPrefab, MainDecorpanel.transform);
 
             // Set the decoration image
             newDecoration.GetComponent<Image>().sprite = Item.item.ItemImage;
-
+            ListofDecors.Add(decorationPrefab);
             // Set the decoration's RectTransform properties
             RectTransform newDecorationRectTransform = newDecoration.GetComponent<RectTransform>();
             newDecorationRectTransform.anchorMin = Vector2.one * 0.5f; // Center the decoration
@@ -101,6 +147,8 @@ public class DecorationManager : MonoBehaviour
             newDecorationRectTransform.pivot = Vector2.one * 0.5f; // Center the decoration
             newDecorationRectTransform.anchoredPosition = Vector2.zero; // Center the decoration
             newDecorationRectTransform.sizeDelta = new Vector2(100, 100); // Set the initial size
+
+            
         }
     }
 }
