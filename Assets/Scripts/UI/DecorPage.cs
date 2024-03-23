@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace Decoration.UI
 {
@@ -69,6 +70,7 @@ namespace Decoration.UI
             {
                 return;
             }
+            Item.SetTemporaryIndex(index);
             OnItemActionRequested?.Invoke(index);
         }
         private void HandleItemSelection(DecorItem item)
@@ -78,6 +80,7 @@ namespace Decoration.UI
             {
                 return;
             }
+            item.SetTemporaryIndex(index);
             OnItemActionRequested?.Invoke(index);
         }
         public void Show()

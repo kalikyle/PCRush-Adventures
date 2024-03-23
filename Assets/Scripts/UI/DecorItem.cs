@@ -73,28 +73,6 @@ namespace Decoration.UI
            
         }
 
-
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            if (empty) return;
-            OnItemBeginDrag?.Invoke(this);
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            OnItemEndDrag?.Invoke(this);
-        }
-
-        public void OnDrop(PointerEventData eventData)
-        {
-            OnItemDroppedOn?.Invoke(this);
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-
-        }
-
         public void OnPointerEnter(PointerEventData pointerData)
         {
             if (pointerData.button == PointerEventData.InputButton.Right)

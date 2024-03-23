@@ -3,23 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Decoration.Model.DecorSO;
 
 public class DecorationManager : MonoBehaviour
 {
     public GameObject panel;
+    public GameObject MainDecorpanel;
     public GameObject desk;
-    public GameObject decorationPrefab;
+    public GameObject Inventory;
+    public GameObject DecorUI;
+    public GameObject TopUI;
+    public GameObject ShopUI;
+
     public Button doneButton;
     public Button cancelButton;
     public Button editButton;
     public Button removeButton;
+
+    private GameObject currentDecoration;
+    public GameObject decorationPrefab;
+    private RectTransform currentDecorationRectTransform;
+    private Vector3 offset;
 
     private bool isEditing = false;
 
     void Start()
     {
         // Disable the panel and set up button click listeners
-        panel.SetActive(false);
         doneButton.onClick.AddListener(OnDoneButtonClick);
         cancelButton.onClick.AddListener(OnCancelButtonClick);
         editButton.onClick.AddListener(OnEditButtonClick);
@@ -27,41 +37,70 @@ public class DecorationManager : MonoBehaviour
 
     void Update()
     {
-        // Check if the panel is active and the player is not clicking on a UI element
-        if (panel.activeSelf && !EventSystem.current.IsPointerOverGameObject())
-        {
-            // Check for mouse input to drag and resize the decoration
-            if (Input.GetMouseButton(0))
-            {
-                // Implement drag and resize logic here
-            }
-        }
     }
 
-    void OnDoneButtonClick()
+    public void OnDoneButtonClick()
     {
-        // Place the decoration in the panel
-        Instantiate(decorationPrefab, panel.transform);
-        ToggleDeskAndPanel(false);
+        isEditing = false;
+        panel.SetActive(false);
+        DecorUI.SetActive(false);
+        desk.SetActive(true);
+        TopUI.SetActive(true);
+        ShopUI.SetActive(false);
+        // ToggleDeskAndPanel(false);
     }
 
-    void OnCancelButtonClick()
+    public void OnCancelButtonClick()
     {
         // Revert to the original state
-        ToggleDeskAndPanel(true);
+       // ToggleDeskAndPanel(true);
     }
 
-    void OnEditButtonClick()
+    public void OnEditButtonClick()
     {
         // Enable editing mode
         isEditing = true;
         removeButton.gameObject.SetActive(true);
     }
 
-    void ToggleDeskAndPanel(bool showDesk)
+    public void UseDecor(bool Editing, DecorationItem Item)
     {
-        // Toggle the visibility of the desk and panel
-        desk.SetActive(showDesk);
-        panel.SetActive(!showDesk);
+        
+        isEditing = Editing;
+
+        if (Editing == false)
+        {
+            // Reset editing mode
+            isEditing = false;
+            panel.SetActive(false);
+            DecorUI.SetActive(false);
+            desk.SetActive(true);
+            TopUI.SetActive(true);
+            ShopUI.SetActive(false);
+
+        }
+        else
+        {
+            panel.SetActive(true);
+            DecorUI.SetActive(true);
+            desk.SetActive(false);
+            Inventory.SetActive(false);
+            TopUI.SetActive(false);
+            ShopUI.SetActive(false);
+
+            // Instantiate the decoration prefab under the MainDecorPanel
+            GameObject newDecoration = Instantiate(decorationPrefab, MainDecorpanel.transform);
+
+            // Set the decoration image
+            newDecoration.GetComponent<Image>().sprite = Item.item.ItemImage;
+
+            // Set the decoration's RectTransform properties
+            RectTransform newDecorationRectTransform = newDecoration.GetComponent<RectTransform>();
+            newDecorationRectTransform.anchorMin = Vector2.one * 0.5f; // Center the decoration
+            newDecorationRectTransform.anchorMax = Vector2.one * 0.5f; // Center the decoration
+            newDecorationRectTransform.pivot = Vector2.one * 0.5f; // Center the decoration
+            newDecorationRectTransform.anchoredPosition = Vector2.zero; // Center the decoration
+            newDecorationRectTransform.sizeDelta = new Vector2(100, 100); // Set the initial size
+        }
     }
 }
