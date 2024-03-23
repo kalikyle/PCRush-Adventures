@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public ShopController SC;
     public Shop.Model.ShopSO so;
+    public DecorationManager DecorMan;
 
     public Image Monitor;
     public Image Keyboard;
@@ -158,6 +159,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void DecorUseEnable(bool Editing, DecorationItem Item)
+    {
+        DecorMan.UseDecor(Editing, Item);
+    }
+
     public void LoadCharacter()
     {
         charBuilder.LoadSavedData();
