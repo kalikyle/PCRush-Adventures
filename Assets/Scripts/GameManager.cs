@@ -30,6 +30,15 @@ public class GameManager : MonoBehaviour
     public Image Desk;
     public Image Background;
 
+    public Button removeButton;
+    public Button MirrorButton;
+    public Button rotateLeftButton;
+    public Button rotateRightButton;
+    public Button ResizeIncButton;
+    public Button ResizeDecButton;
+
+    public bool clicked = false;
+
     public int tempindex;
 
     public event Action<DecorationItem> OnDecorToTransferUpdated;
@@ -168,7 +177,63 @@ public class GameManager : MonoBehaviour
     {
         charBuilder.LoadSavedData();
     }
-    
+    public void DecorClicked()
+    {
+        DecorMan.DecorClicked();
+    }
+    public void DecorUnClicked()
+    {
+        DecorMan.UnclickedDecor();
+    }
+    private const string PlayerPrefsKey = "SavedDecorPrefabs";
+
+    // Save the prefabs of the child objects from the MainDecorPanel into PlayerPrefs
+    public void SaveDecorPrefabs(Transform mainDecorPanel)//need fix
+    {
+        List<string> savedPrefabs = new List<string>();
+
+        foreach (Transform child in mainDecorPanel)
+        {
+            // Assuming each child object has a unique identifier (e.g., prefab name)
+            string prefabName = child.name; // Replace this with the actual unique identifier
+
+            savedPrefabs.Add(prefabName);
+        }
+
+        // Convert the list of prefab names to a JSON string
+        string json = JsonUtility.ToJson(savedPrefabs);
+
+        // Save the JSON string to PlayerPrefs
+        PlayerPrefs.SetString(PlayerPrefsKey, json);
+        PlayerPrefs.Save();
+
+    }
+
+    // Load the saved prefabs from PlayerPrefs and instantiate them in the MainDecorPanel
+    public void LoadDecorPrefabs(Transform mainDecorPanel)
+    {
+        // Retrieve the saved JSON string from PlayerPrefs
+        string json = PlayerPrefs.GetString(PlayerPrefsKey);
+
+        if (!string.IsNullOrEmpty(json))
+        {
+            // Convert the JSON string back to a list of prefab names
+            List<string> savedPrefabs = JsonUtility.FromJson<List<string>>(json);
+
+            // Instantiate each prefab in the MainDecorPanel
+            foreach (string prefabName in savedPrefabs)
+            {
+                // Load the prefab using its unique identifier (e.g., prefab name)
+                GameObject prefab = Resources.Load<GameObject>(prefabName); // Adjust the path as needed
+
+                if (prefab != null)
+                {
+                    // Instantiate the prefab as a child of the MainDecorPanel
+                    Instantiate(prefab, mainDecorPanel);
+                }
+            }
+        }
+    }
 }
 [System.Serializable]
 public class DecorationItemList
