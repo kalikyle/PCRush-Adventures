@@ -171,7 +171,8 @@ MonoBehaviour:
   minSize: 50
   sizeStep: 10
   rotationStep: 15
-  selectedDecor: {fileID: -1327198527679925538}
+  decorSO: {fileID: 11400000, guid: 7b1f58d958fa0e4479bd5a29286fda1a, type: 2}
+  associatedItems: []
 --- !u!1 &8625344214489980829
 GameObject:
   m_ObjectHideFlags: 0

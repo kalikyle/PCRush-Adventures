@@ -33,12 +33,10 @@ public class DecorationManager : MonoBehaviour
     private bool isEditing = false;
 
     public List<DecorEdit> ListofDecors = new List<DecorEdit>();
-
-   
-
-
-
-
+    public List<DecorationItem> ListofUseDecors = new List<DecorationItem>();
+    public static DecorEdit selectedDecor;
+    private Dictionary<DecorEdit, Vector2> initialPositions = new Dictionary<DecorEdit, Vector2>();
+    private List<DecorEdit> newDecorations = new List<DecorEdit>();
 
     void Start()
     {
@@ -46,8 +44,8 @@ public class DecorationManager : MonoBehaviour
         doneButton.onClick.AddListener(OnDoneButtonClick);
         cancelButton.onClick.AddListener(OnCancelButtonClick);
         editButton.onClick.AddListener(OnEditButtonClick);
-        GameManager.instance.LoadDecorPrefabs(MainDecorpanel.transform);
-        LoadDecorProperties();
+        //GameManager.instance.LoadDecorPrefabs(MainDecorpanel.transform);
+        //LoadDecorProperties();
 
     }
 
@@ -84,18 +82,87 @@ public class DecorationManager : MonoBehaviour
         desk.SetActive(true);
         TopUI.SetActive(true);
         ShopUI.SetActive(false);
+        DeselectAllItems();
+       // GameManager.instance.SaveDecorPrefabs(MainDecorpanel.transform);
+        //SaveDecorProperties();
 
-        GameManager.instance.SaveDecorPrefabs(MainDecorpanel.transform);
-        SaveDecorProperties();
+        foreach (var decor in newDecorations)
+        {
+            ListofDecors.Remove(decor);
+        }
+        // Clear the list of newly placed decorations
+        newDecorations.Clear();
+
         // ToggleDeskAndPanel(false);
     }
 
     public void OnCancelButtonClick()
     {
-        // Revert to the original state
-       // ToggleDeskAndPanel(true);
-    }
+        foreach (var kvp in initialPositions)
+        {
+            if (newDecorations.Contains(kvp.Key))
+            {
+               
+                Destroy(kvp.Key.gameObject);
 
+                RemoveItem(kvp.Key);
+                // Remove the decoration from the list of decorations
+                //ListofDecors.Remove(kvp.Key);
+
+                // Remove the decoration from the list of newly placed decorations
+                newDecorations.Remove(kvp.Key);
+
+               
+                // Add the removed decoration back to the inventory
+                
+            }
+        }
+        isEditing = false;
+        panel.SetActive(false);
+        DecorUI.SetActive(false);
+        desk.SetActive(true);
+        TopUI.SetActive(true);
+        ShopUI.SetActive(false);
+        DeselectAllItems();
+       // GameManager.instance.SaveDecorPrefabs(MainDecorpanel.transform);
+       // SaveDecorProperties();
+    }
+    public void RemoveItem(DecorEdit decor)
+    {
+
+        //if (decor != null)
+        //{
+        //    // Get the associated decoration item
+        //    DecorationItem item = decor.GetAssociatedItems()[0]; // Assuming there's only one associated item
+
+        //    // Change the quantity of the item to 1 before adding it to the transfer list
+        //    GameManager.instance.AddItemToTransfer(item.ChangeQuantity(1));
+        //    GameManager.instance.RemoveItem();
+        //}
+
+        if (decor != null)
+        {
+            // Get the associated decoration items
+            List<DecorationItem> associatedItems = decor.GetAssociatedItems();
+
+            if (associatedItems != null)
+            {
+                // Iterate through each associated item
+                foreach (DecorationItem item in associatedItems)
+                {
+                    // Change the quantity of each item to 1 before adding it to the transfer list
+                    GameManager.instance.AddItemToTransfer(item.ChangeQuantity(1));
+                }
+            }
+
+            // Remove the decoration from the scene
+            Destroy(decor.gameObject);
+
+            // Optionally, you can remove the decoration from the list of decorations if needed
+            // ListofDecors.Remove(decor);
+        }
+
+    }
     public void OnEditButtonClick()
     {
         // Enable editing mode
@@ -110,30 +177,19 @@ public class DecorationManager : MonoBehaviour
     }
     private void DeselectAllItems()
     {
-        foreach (DecorEdit item in ListofDecors)
+        if (newDecorations.Count > 0)
         {
-            item.DeSelect();
+            foreach (DecorEdit item in newDecorations)
+            {
+                item.DeSelect();
+            }
         }
     }
-            public void UseDecor(bool Editing, DecorationItem Item)
+    public void UseDecor( DecorationItem Item)
     {
-        
-        isEditing = Editing;
 
-        if (Editing == false)
-        {
-            // Reset editing mode
-            isEditing = false;
-            panel.SetActive(false);
-            DecorUI.SetActive(false);
-            desk.SetActive(true);
-            TopUI.SetActive(true);
-            ShopUI.SetActive(false);
-            //DecorClickedUI.SetActive(false);
-
-        }
-        else
-        {
+            isEditing = true;
+            DeselectAllItems();
             panel.SetActive(true);
             DecorUI.SetActive(true);
             desk.SetActive(false);
@@ -144,10 +200,10 @@ public class DecorationManager : MonoBehaviour
 
             // Instantiate the decoration prefab under the MainDecorPanel
             DecorEdit newDecoration = Instantiate(decorationPrefab, MainDecorpanel.transform);
-
+            newDecoration.Select();
             // Set the decoration image
             newDecoration.GetComponent<Image>().sprite = Item.item.ItemImage;
-            ListofDecors.Add(decorationPrefab);
+           
             // Set the decoration's RectTransform properties
             RectTransform newDecorationRectTransform = newDecoration.GetComponent<RectTransform>();
             newDecorationRectTransform.anchorMin = Vector2.one * 0.5f; // Center the decoration
@@ -156,17 +212,40 @@ public class DecorationManager : MonoBehaviour
             newDecorationRectTransform.anchoredPosition = Vector2.zero; // Center the decoration
             newDecorationRectTransform.sizeDelta = new Vector2(100, 100); // Set the initial size
 
-            
+
+            ListofDecors.Add(decorationPrefab);
+            ListofUseDecors.Add(Item);
+            newDecoration.AddAssociatedItem(Item);
+            initialPositions.Add(newDecoration, newDecorationRectTransform.anchoredPosition);
+            newDecorations.Add(newDecoration);
+        
+
+    }
+    public void DecorRemove()
+    {
+        if (DecorationManager.selectedDecor != null)
+        {
+            DecorEdit selectedDecors = DecorationManager.selectedDecor;
+
+            // Remove the selected decoration from the scene
+            Destroy(selectedDecors.gameObject);
+
+            // Remove the selected decoration from the list of decorations
+            ListofDecors.Remove(selectedDecors);
+            newDecorations.Remove(selectedDecors);
+
+            if (selectedDecors.associatedItems != null)
+            {
+                foreach (DecorationItem item in selectedDecors.associatedItems)
+                {
+                    ListofUseDecors.Remove(item);
+                }
+            }
+            // Deselect the decoration
+            DecorationManager.selectedDecor = null;
         }
     }
-    [System.Serializable]
-    public class DecorationData //needfix
-    {
-        public string name;
-        public Vector2 position;
-        public Vector2 size;
-        // Add more properties as needed
-    }
+
 
     public void SaveDecorProperties()
     {
@@ -201,6 +280,14 @@ public class DecorationManager : MonoBehaviour
             }
         }
     }
-
-
 }
+[System.Serializable]
+public class DecorationData //needfix
+{
+    public string name;
+    public Vector2 position;
+    public Vector2 size;
+    // Add more properties as needed
+}
+
+

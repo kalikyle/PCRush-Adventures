@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     public Button rotateRightButton;
     public Button ResizeIncButton;
     public Button ResizeDecButton;
+    public Button DoneButton;
+
+    //public GameObject DecorClickedUI;
 
     public bool clicked = false;
 
@@ -45,7 +48,7 @@ public class GameManager : MonoBehaviour
     public List<DecorationItem> DecorToTransfer = new List<DecorationItem>();
 
     public Dictionary<string, Shop.Model.ShopItem> equippedItemsByCategory = new Dictionary<string, Shop.Model.ShopItem>();
-   
+    //public DecorEdit de;
     public void AddInitiallyEquippedItems()
     {
         foreach (var item in so.ShopItems)
@@ -168,9 +171,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void DecorUseEnable(bool Editing, DecorationItem Item)
+    public void DecorUseEnable( DecorationItem Item)
     {
-        DecorMan.UseDecor(Editing, Item);
+        DecorMan.UseDecor( Item);
     }
 
     public void LoadCharacter()
@@ -184,6 +187,10 @@ public class GameManager : MonoBehaviour
     public void DecorUnClicked()
     {
         DecorMan.UnclickedDecor();
+    }
+    public void RemoveItem()
+    {
+        DecorMan.DecorRemove();
     }
     private const string PlayerPrefsKey = "SavedDecorPrefabs";
 

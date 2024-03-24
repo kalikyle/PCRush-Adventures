@@ -13,14 +13,6 @@ MonoBehaviour:
   m_Name: DecorSO
   m_EditorClassIdentifier: 
   DecorationItems:
-  - quantity: 0
-    item: {fileID: 0}
-  - quantity: 0
-    item: {fileID: 0}
-  - quantity: 0
-    item: {fileID: 0}
-  - quantity: 0
-    item: {fileID: 0}
-  - quantity: 0
-    item: {fileID: 0}
-  <Size>k__BackingField: 5
+  - quantity: 48
+    item: {fileID: 11400000, guid: b775e3d06b1d4114cb06bb6ae10f4611, type: 2}
+  <Size>k__BackingField: 100
