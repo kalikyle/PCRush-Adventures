@@ -1,10 +1,14 @@
+using Decoration.Model;
 using Decoration.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Decoration.Model.DecorSO;
+using static UnityEditor.Progress;
 
 public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPointerEnterHandler , IPointerExitHandler
 {
@@ -19,6 +23,8 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
     private static DecorEdit selectedDecor; // Static variable to keep track of the selected decoration
     private Vector3 initialMousePosition;
     private Vector3 initialOffset;
+
+    public DecorSO decorSO;
     public void Start()
     {
         GameManager.instance.rotateLeftButton.onClick.AddListener(RotateLeft);
@@ -26,6 +32,23 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
         GameManager.instance.ResizeIncButton.onClick.AddListener(IncreaseSize);
         GameManager.instance.ResizeDecButton.onClick.AddListener(DecreaseSize);
         GameManager.instance.MirrorButton.onClick.AddListener(MirrorHorizontally);
+        GameManager.instance.removeButton.onClick.AddListener(RemoveItem);
+        GameManager.instance.DoneButton.onClick.AddListener(DeSelect);
+    }
+    public List<DecorationItem> associatedItems = new List<DecorationItem>();
+    //public DecorationItem associatedItems = new DecorationItem();
+    private DecorationItem clickedItem;
+
+    // Method to add an associated DecorationItem
+    public void AddAssociatedItem(DecorationItem item)
+    {
+        associatedItems.Add(item);
+    }
+
+    // Method to get the associated DecorationItems
+    public List<DecorationItem> GetAssociatedItems()
+    {
+        return associatedItems;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -61,31 +84,58 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
         {
             selectedDecor.DeSelect(); // Deselect the previously selected decoration
         }
-
-        Select();
-        Debug.Log("Clicked");
-        GameManager.instance.DecorClicked();
-        selectedDecor = this; // Set the current decoration as the selected one
+        
+            Select();
+            Debug.Log("Clicked");
+            GameManager.instance.DecorClicked();
+            selectedDecor = this; // Set the current decoration as the selected one
+            List<DecorationItem> associatedItems = GetAssociatedItems();
+            DecorationManager.selectedDecor = this;
+            // Use the first associated item as the clicked item
+            if (associatedItems.Count > 0)
+            {
+                clickedItem = associatedItems[0];
+            }
+        
+       
+           
+       
     }
+    public void RemoveItem()
+    {
+        if (selectedDecor == this)
+        {
+            //decorSO.AddItem(clickedItem.ChangeQuantity(clickedItem.quantity - clickedItem.quantity + 1));
+            // Change the quantity of clickedItem to 1 before adding it to the transfer list
+            GameManager.instance.AddItemToTransfer(clickedItem.ChangeQuantity(clickedItem.quantity - clickedItem.quantity + 1));
+            GameManager.instance.RemoveItem();
+        }
+        
+    }
+ 
+    
+
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Select();
+       // Select();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        DeSelect();
+        //DeSelect();
     }
 
     public void Select()
     {
         Border.SetActive(true);
+        //GameManager.instance.DecorClickedUI.gameObject.SetActive(true);
     }
 
     public void DeSelect()
     {
         Border.SetActive(false);
+        //GameManager.instance.DecorClickedUI.gameObject.SetActive(false);
     }
 
     public void RotateLeft()

@@ -31,8 +31,8 @@ namespace Decoration.UI
         }
         public void UseDecor(int itemIndex)//for all
         {
-
-                DecorationItem inventoryItem = decorSO.GetItemAt(itemIndex);
+            
+               DecorationItem inventoryItem = decorSO.GetItemAt(itemIndex);
            
                
                 UseItems(inventoryItem);
@@ -43,7 +43,8 @@ namespace Decoration.UI
         public void UseItems(DecorationItem inventoryItem)
         {
 
-            GameManager.instance.DecorUseEnable(true , inventoryItem);
+            GameManager.instance.DecorUseEnable(inventoryItem);
         }
+
     }
 }
