@@ -24,11 +24,10 @@ namespace Decoration.UI
 
 
         //this whole code is for the border only when its clicked and also when dragged
-        public event Action<DecorItem> OnItemClicked, OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag
-            , OnRightMouseBtnClick;
+        public event Action<DecorItem> OnItemClicked, OnRightMouseBtnClick;
         public event Action<int> OnItemClickeds, OnItemRightClicked; // create new event for filtering
 
-        private bool empty = true;
+        //private bool empty = true;
 
         public void Awake()
         {
@@ -40,7 +39,7 @@ namespace Decoration.UI
         {
 
             itemImage.gameObject.SetActive(false);
-            empty = true;
+            //empty = true;
         }
         public void DeSelect()
         {
@@ -53,7 +52,7 @@ namespace Decoration.UI
             itemQuantity.text = quantity + "";
             itemName.text = name;
             itemCategory.text = category;
-            empty = false;
+            //empty = false;
         }
         public void select()
         {

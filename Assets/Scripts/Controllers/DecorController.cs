@@ -24,16 +24,28 @@ namespace Decoration
 
         private void Start()
         {
-            LoadInitialItems();
+            
             GameManager.instance.OnDecorToTransferUpdated += UpdateInventory;
             PrepareInventoryData();
             PrepareUI();
             DecorUI.ResetSelection();
 
+            //StartCoroutine(DelayedLoad());
+            //LoadInitialItems();
+
+        }
+        IEnumerator DelayedLoad()
+        {
+            // Wait for 1 second
+            yield return new WaitForSeconds(1f);
+
+            // Now load initial items
+            //LoadInitialItems();
         }
         private void Update()
         {
             //inventoryData.SaveItems();
+            
         }
 
         private void PrepareUI()
@@ -92,44 +104,46 @@ namespace Decoration
         }
         public async void LoadInitialItems()
         {
-            // Generate the document ID (e.g., based on player ID)
-            string documentID = "Player1DecInventory"; // Example document ID
-
-            // Get a reference to the Firestore document
-            DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection("PlayerDecorationInventory").Document(documentID);
-
-            // Fetch the document snapshot from Firestore
-            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
-
-            if (snapshot.Exists)
+            try
             {
-                // Convert the JSON data to a DecorationItemList object
-                string jsonData = snapshot.GetValue<string>("items");
-                DecorationItemList loadedData = JsonUtility.FromJson<DecorationItemList>(jsonData);
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+                CollectionReference subDocRef = docRef.Collection("DecorationInventory");
+                DocumentReference decorDocRef = subDocRef.Document("DecorInvent");
 
-                // Handle the loaded data as needed
-                if (loadedData != null)
+                DocumentSnapshot snapshot = await decorDocRef.GetSnapshotAsync();
+
+                if (snapshot.Exists)
                 {
-                    initialItems.Clear();
-                    GameManager.instance.DecorToTransfer.Clear();
-                    inventoryData.Initialize();
-                    inventoryData.OnInventoryUpdated += UpdateInventoryUI;
+                    string jsonData = snapshot.GetValue<string>("items");
+                    DecorationItemList loadedData = JsonUtility.FromJson<DecorationItemList>(jsonData);
 
-                    foreach (var item in loadedData.Items)
+                    if (loadedData != null)
                     {
-                        GameManager.instance.DecorToTransfer.Add(item);
-                        if (!item.isEmpty) // Only add non-empty items
-                        {
-                            inventoryData.AddItem(item);
-                        }
-                    }
+                        initialItems.Clear();
+                        GameManager.instance.DecorToTransfer.Clear();
+                        inventoryData.Initialize();
+                        inventoryData.OnInventoryUpdated += UpdateInventoryUI;
 
-                    Debug.Log("Initial decoration items loaded from Firestore.");
+                        foreach (var item in loadedData.Items)
+                        {
+                            GameManager.instance.DecorToTransfer.Add(item);
+                            if (!item.isEmpty)
+                            {
+                                inventoryData.AddItem(item);
+                            }
+                        }
+
+                        Debug.Log("Initial decoration items loaded from Firestore.");
+                    }
+                }
+                else
+                {
+                    Debug.Log("No initial decoration items found in Firestore for player.");
                 }
             }
-            else
+            catch (System.Exception ex)
             {
-                Debug.Log("No initial decoration items found in Firestore for player.");
+                Debug.LogError("Failed to load initial decoration items from Firestore: " + ex.Message);
             }
         }
         public void LoadInitialItemss()

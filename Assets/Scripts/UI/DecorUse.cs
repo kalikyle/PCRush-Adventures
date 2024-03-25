@@ -26,7 +26,7 @@ namespace Decoration.UI
 
             int tempIndex = GameManager.instance.tempindex;
             Debug.Log("Using item with temporary index: " + tempIndex);
-
+            
             UseDecor(tempIndex);
         }
         public void UseDecor(int itemIndex)//for all
@@ -37,6 +37,7 @@ namespace Decoration.UI
                
                 UseItems(inventoryItem);
                 decorSO.RemoveItem(itemIndex, 1);
+                decorSO.SaveItems();
 
 
         }

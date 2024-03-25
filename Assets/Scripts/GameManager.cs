@@ -1,4 +1,5 @@
 using Assets.PixelHeroes.Scripts.CharacterScrips;
+using Decoration;
 using Firebase;
 using Firebase.Firestore;
 //using Firebase.Analytics;
@@ -9,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,6 +19,9 @@ using static Decoration.Model.DecorSO;
 
 public class GameManager : MonoBehaviour
 {
+
+    public string UserID = "";
+    public string UserCollection = "users";
     // Start is called before the first frame update
     public static GameManager instance;
     public CharacterBuilder charBuilder;
@@ -24,8 +29,12 @@ public class GameManager : MonoBehaviour
 
 
     public ShopController SC;
+    public DecorController DC;
     public Shop.Model.ShopSO so;
     public DecorationManager DecorMan;
+
+
+    public TMP_Text UserIDTxt;
 
     public Image Monitor;
     public Image Keyboard;
@@ -63,6 +72,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void SetUserID(string userID)
+    {
+        UserID = userID;
+        PlayerPrefs.SetString("UserID", UserID);
+        PlayerPrefs.Save();
+    }
     public void AddItemToTransfer(DecorationItem item)
     {
        DecorToTransfer.Add(item);
@@ -82,14 +97,17 @@ public class GameManager : MonoBehaviour
         string jsonData = JsonUtility.ToJson(new DecorationItemList { Items = items });
 
         // Generate a unique document ID (e.g., based on player ID or timestamp)
-        string documentID = "Player1DecInventory"; // Example document ID
+        //string documentID = "Player1DecInventory"; // Example document ID
 
         // Get a reference to the Firestore collection
-        CollectionReference collectionRef = FirebaseFirestore.DefaultInstance.Collection("PlayerDecorationInventory");
+        CollectionReference collectionRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection);
 
         // Create a new document with the generated document ID
-        DocumentReference docRef = collectionRef.Document(documentID);
+        DocumentReference docRef = collectionRef.Document(UserID);
 
+        CollectionReference SubDocRef = docRef.Collection("DecorationInventory");
+
+        DocumentReference DecordocRef = SubDocRef.Document("DecorInvent");
         // Create a dictionary to store the data
         Dictionary<string, object> dataDict = new Dictionary<string, object>
     {
@@ -97,9 +115,9 @@ public class GameManager : MonoBehaviour
     };
 
         // Set the data of the document
-        await docRef.SetAsync(dataDict);
+        await DecordocRef.SetAsync(dataDict);
 
-        Debug.Log("Initial decoration items saved to Firestore.");
+        Debug.Log("decoration items saved to Firestore.");
     }
     private void AddEquippedItemToDictionary(Shop.Model.ShopItem item)
     {
@@ -140,8 +158,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        
 
+        UserID = PlayerPrefs.GetString("UserID", "");
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
             FirebaseApp app = FirebaseApp.DefaultInstance;
@@ -157,23 +175,22 @@ public class GameManager : MonoBehaviour
             }
         });
 
-        if (PlayerPrefs.GetInt("CharChanged") == 0)
+        if (UserID == null || UserID == "")
         {
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
         }
+
         charBuilder.LoadSavedData();
         AddInitiallyEquippedItems();
-        
-
-
+        //DC.LoadInitialItems();
+       
     }
-
 
     // Update is called once per frame
     void Update()
     {
-        
-        
+        //UserIDTxt.text = UserID;
+
     }
     public void UpdateShop(string category)
     {
@@ -292,4 +309,5 @@ public class DecorationData //needfix
     }
     // Add more properties as needed
 }
+
 
