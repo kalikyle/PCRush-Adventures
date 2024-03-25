@@ -30,17 +30,17 @@ namespace Decoration
             PrepareUI();
             DecorUI.ResetSelection();
 
-            //StartCoroutine(DelayedLoad());
-            LoadInitialItems();
+            StartCoroutine(DelayedLoad());
+            //LoadInitialItems();
 
         }
         IEnumerator DelayedLoad()
         {
             // Wait for 1 second
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.5f);
 
             // Now load initial items
-            //LoadInitialItems();
+            LoadInitialItems();
         }
         private void Update()
         {
@@ -106,7 +106,7 @@ namespace Decoration
         {
             try
             {
-                DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection("users").Document("Data");
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
                 CollectionReference subDocRef = docRef.Collection("DecorationInventory");
                 DocumentReference decorDocRef = subDocRef.Document("DecorInvent");
 

@@ -196,37 +196,40 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
             characterDataDocRef.GetSnapshotAsync()
                 .ContinueWithOnMainThread(task =>
                 {
-                    if (task.IsCompleted)
+                    try
                     {
-                        DocumentSnapshot snapshot = task.Result;
-                        if (snapshot.Exists)
+                        if (task.IsCompleted)
                         {
-                            // Extract character data from the document
-                            Dictionary<string, object> data = snapshot.ToDictionary();
-                            Head = data.ContainsKey("Head") ? data["Head"].ToString() : "";
-                            Body = data.ContainsKey("Body") ? data["Body"].ToString() : "";
-                            Hair = data.ContainsKey("Hair") ? data["Hair"].ToString() : "";
-                            Armor = data.ContainsKey("Armor") ? data["Armor"].ToString() : "";
-                            Helmet = data.ContainsKey("Helmet") ? data["Helmet"].ToString() : "";
-                            Weapon = data.ContainsKey("Weapon") ? data["Weapon"].ToString() : "";
-                            Shield = data.ContainsKey("Shield") ? data["Shield"].ToString() : "";
-                            Cape = data.ContainsKey("Cape") ? data["Cape"].ToString() : "";
-                            Back = data.ContainsKey("Back") ? data["Back"].ToString() : "";
-                            // Repeat for other fields...
+                            DocumentSnapshot snapshot = task.Result;
+                            if (snapshot.Exists)
+                            {
+                                // Extract character data from the document
+                                Dictionary<string, object> data = snapshot.ToDictionary();
+                                Head = data.ContainsKey("Head") ? data["Head"].ToString() : "";
+                                Body = data.ContainsKey("Body") ? data["Body"].ToString() : "";
+                                Hair = data.ContainsKey("Hair") ? data["Hair"].ToString() : "";
+                                Armor = data.ContainsKey("Armor") ? data["Armor"].ToString() : "";
+                                Helmet = data.ContainsKey("Helmet") ? data["Helmet"].ToString() : "";
+                                Weapon = data.ContainsKey("Weapon") ? data["Weapon"].ToString() : "";
+                                Shield = data.ContainsKey("Shield") ? data["Shield"].ToString() : "";
+                                Cape = data.ContainsKey("Cape") ? data["Cape"].ToString() : "";
+                                Back = data.ContainsKey("Back") ? data["Back"].ToString() : "";
+                                // Repeat for other fields...
 
-                            // Rebuild character using the loaded data
-                            Rebuild();
+                                // Rebuild character using the loaded data
+                                Rebuild();
 
-                            Debug.Log("Character data loaded from Firestore.");
-                        }
-                        else
-                        {
-                            Debug.LogWarning("No character data found in Firestore for user ID: " + GameManager.instance.UserID);
+                                Debug.Log("Character data loaded from Firestore.");
+                            }
+                            else
+                            {
+                                Debug.LogWarning("No character data found in Firestore for user ID: " + GameManager.instance.UserID);
+                            }
                         }
                     }
-                    else if (task.IsFaulted)
+                    catch (System.Exception ex)
                     {
-                        Debug.LogError("Failed to load character data from Firestore: " + task.Exception);
+                        Debug.LogError("Error loading character data from Firestore: " + ex.Message);
                     }
                 });
         }

@@ -13,15 +13,11 @@ public class UserSetup : MonoBehaviour
     public Button anonymousSignInButton;
 
     public GameObject CharEditor;
-
-    FirebaseAuth auth;
-    FirebaseFirestore db;
+    public GameObject Login;
 
     void Start()
     {
-        // Initialize Firebase Auth and Firestore
-        auth = FirebaseAuth.DefaultInstance;
-        db = FirebaseFirestore.DefaultInstance;
+          
 
         // Assign click listeners to the sign-in buttons
         googleSignInButton.onClick.AddListener(SignInWithGoogle);
@@ -36,7 +32,7 @@ public class UserSetup : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(GameManager.instance.UserID))
         {
-            this.gameObject.SetActive(false);
+            Login.gameObject.SetActive(false);
             CharEditor.gameObject.SetActive(true);
         }
     }
@@ -55,8 +51,8 @@ public class UserSetup : MonoBehaviour
     void SignInAnonymously()
     {
 
-        // Authenticate anonymously
-        auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(task =>
+        //Authenticate anonymously
+        FirebaseAuth.DefaultInstance.SignInAnonymouslyAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsCanceled || task.IsFaulted)
             {
@@ -67,17 +63,20 @@ public class UserSetup : MonoBehaviour
             FirebaseUser user = task.Result.User;
 
             // Automatically create a Firestore collection for the user
+           
+                CreateUserDataCollection(user.UserId);
+                Debug.Log("Anonymous sign-in successful! UID: " + user.UserId);
+                GameManager.instance.UserID = user.UserId;
+                GameManager.instance.SetUserID(user.UserId);
             
-            CreateUserDataCollection(user.UserId);
-            GameManager.instance.UserID = user.UserId;
-            GameManager.instance.SetUserID(user.UserId);
+            
         });
     }
 
     void CreateUserDataCollection(string userId)
     {
         // Reference to the user's collection
-        CollectionReference userCollection = db.Collection("users");
+        CollectionReference userCollection = FirebaseFirestore.DefaultInstance.Collection("users");
 
         // Create a new document with the user's ID
         DocumentReference userDoc = userCollection.Document(userId);
@@ -96,8 +95,8 @@ public class UserSetup : MonoBehaviour
                 if (task.IsCompleted)
                 {
                     Debug.Log("User data collection created.");
-                    this.gameObject.SetActive(false);
-                    CharEditor.gameObject.SetActive(true);
+                   Login.gameObject.SetActive(false);
+                   CharEditor.gameObject.SetActive(true);
                 }
                 else if (task.IsFaulted)
                 {
