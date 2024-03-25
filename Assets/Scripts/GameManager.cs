@@ -1,5 +1,7 @@
 using Assets.PixelHeroes.Scripts.CharacterScrips;
-//using Firebase;
+using Firebase;
+using Firebase.Firestore;
+//using Firebase.Analytics;
 using Shop;
 using Shop.Model;
 using Shop.UI;
@@ -66,13 +68,38 @@ public class GameManager : MonoBehaviour
        DecorToTransfer.Add(item);
        OnDecorToTransferUpdated?.Invoke(item);
     }
-    public void SaveDecorInitialItems(List<DecorationItem> items)
+    public void SaveDecorInitialItemss(List<DecorationItem> items)
     {
 
         string jsonData = JsonUtility.ToJson(new DecorationItemList { Items = items });
         PlayerPrefs.SetString("SavedInitialItems", jsonData);
         PlayerPrefs.Save();
         //Debug.LogError("Data has been Saved");
+    }
+    public async void SaveDecorInitialItems(List<DecorationItem> items)
+    {
+        // Convert the list of items to JSON
+        string jsonData = JsonUtility.ToJson(new DecorationItemList { Items = items });
+
+        // Generate a unique document ID (e.g., based on player ID or timestamp)
+        string documentID = "Player1DecInventory"; // Example document ID
+
+        // Get a reference to the Firestore collection
+        CollectionReference collectionRef = FirebaseFirestore.DefaultInstance.Collection("PlayerDecorationInventory");
+
+        // Create a new document with the generated document ID
+        DocumentReference docRef = collectionRef.Document(documentID);
+
+        // Create a dictionary to store the data
+        Dictionary<string, object> dataDict = new Dictionary<string, object>
+    {
+        { "items", jsonData }
+    };
+
+        // Set the data of the document
+        await docRef.SetAsync(dataDict);
+
+        Debug.Log("Initial decoration items saved to Firestore.");
     }
     private void AddEquippedItemToDictionary(Shop.Model.ShopItem item)
     {
@@ -113,14 +140,22 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
-        //{
-        //    FirebaseApp app = FirebaseApp.DefaultInstance;
-        //    if (app == null)
-        //    {
-        //        app = FirebaseApp.Create();
-        //    }
-        //});
+        
+
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        {
+            FirebaseApp app = FirebaseApp.DefaultInstance;
+            if (app != null)
+            {
+                // Firebase is initialized successfully
+                Debug.Log("Firebase initialized successfully.");
+            }
+            else
+            {
+                // Firebase initialization failed
+                Debug.LogError("Failed to initialize Firebase.");
+            }
+        });
 
         if (PlayerPrefs.GetInt("CharChanged") == 0)
         {
@@ -132,6 +167,7 @@ public class GameManager : MonoBehaviour
 
 
     }
+
 
     // Update is called once per frame
     void Update()
