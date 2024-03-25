@@ -19,7 +19,8 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
     public float sizeStep = 10f;
     public float rotationStep = 15f;
 
-    private bool isDragging = false;
+  
+
     private static DecorEdit selectedDecor; // Static variable to keep track of the selected decoration
     private Vector3 initialMousePosition;
     private Vector3 initialOffset;
@@ -44,6 +45,7 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
     {
         associatedItems.Add(item);
     }
+  
 
     // Method to get the associated DecorationItems
     public List<DecorationItem> GetAssociatedItems()
@@ -57,7 +59,7 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
         {
             // If no decoration is selected, select this one when dragging starts
             selectedDecor = this;
-            Select();
+            //Select();
             initialMousePosition = Input.mousePosition;
             Vector3 decorationCenter = rectTransform.position;
             initialOffset = decorationCenter - initialMousePosition;
@@ -66,7 +68,7 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
         if (selectedDecor == this)
         {
 
-
+            Select();
             // Calculate the target position based on the initial offset
             Vector3 targetPosition = Input.mousePosition;
 
@@ -96,10 +98,9 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
             {
                 clickedItem = associatedItems[0];
             }
-        
-       
-           
-       
+
+
+
     }
     public void RemoveItem()
     {

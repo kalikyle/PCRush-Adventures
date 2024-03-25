@@ -1,4 +1,5 @@
 using Assets.PixelHeroes.Scripts.CharacterScrips;
+//using Firebase;
 using Shop;
 using Shop.Model;
 using Shop.UI;
@@ -112,13 +113,24 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        if(PlayerPrefs.GetInt("CharChanged") == 0)
+        //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        //{
+        //    FirebaseApp app = FirebaseApp.DefaultInstance;
+        //    if (app == null)
+        //    {
+        //        app = FirebaseApp.Create();
+        //    }
+        //});
+
+        if (PlayerPrefs.GetInt("CharChanged") == 0)
         {
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
         }
         charBuilder.LoadSavedData();
         AddInitiallyEquippedItems();
-       
+        
+
+
     }
 
     // Update is called once per frame
@@ -192,58 +204,56 @@ public class GameManager : MonoBehaviour
     {
         DecorMan.DecorRemove();
     }
-    private const string PlayerPrefsKey = "SavedDecorPrefabs";
-
-    // Save the prefabs of the child objects from the MainDecorPanel into PlayerPrefs
-    public void SaveDecorPrefabs(Transform mainDecorPanel)//need fix
+    public void SaveDecorProperties(List<DecorEdit> ListofDecors)
     {
-        List<string> savedPrefabs = new List<string>();
+        List<DecorationData> decorDataList = new List<DecorationData>();
 
-        foreach (Transform child in mainDecorPanel)
+        foreach (DecorEdit decor in ListofDecors)
         {
-            // Assuming each child object has a unique identifier (e.g., prefab name)
-            string prefabName = child.name; // Replace this with the actual unique identifier
+            // Get the sprite name from the Image component
+            string spriteName = decor.GetComponent<Image>().sprite.name;
 
-            savedPrefabs.Add(prefabName);
+            // Create a new DecorationData object and add it to the list
+            DecorationData data = new DecorationData(decor.name, decor.rectTransform.anchoredPosition, decor.rectTransform.sizeDelta, spriteName);
+            decorDataList.Add(data);
+
+            Debug.LogError("saved");
         }
-
-        // Convert the list of prefab names to a JSON string
-        string json = JsonUtility.ToJson(savedPrefabs);
-
-        // Save the JSON string to PlayerPrefs
-        PlayerPrefs.SetString(PlayerPrefsKey, json);
+        foreach (DecorationData data in decorDataList)
+        {
+            Debug.LogError(data.spriteName);
+        }
+       
+        // Serialize the list to JSON and save it to PlayerPrefs
+        string json = JsonUtility.ToJson(decorDataList);
+        PlayerPrefs.SetString("DecorProperties", json);
         PlayerPrefs.Save();
-
+        Debug.Log("Serialized JSON: " + json);
     }
 
-    // Load the saved prefabs from PlayerPrefs and instantiate them in the MainDecorPanel
-    public void LoadDecorPrefabs(Transform mainDecorPanel)
-    {
-        // Retrieve the saved JSON string from PlayerPrefs
-        string json = PlayerPrefs.GetString(PlayerPrefsKey);
-
-        if (!string.IsNullOrEmpty(json))
-        {
-            // Convert the JSON string back to a list of prefab names
-            List<string> savedPrefabs = JsonUtility.FromJson<List<string>>(json);
-
-            // Instantiate each prefab in the MainDecorPanel
-            foreach (string prefabName in savedPrefabs)
-            {
-                // Load the prefab using its unique identifier (e.g., prefab name)
-                GameObject prefab = Resources.Load<GameObject>(prefabName); // Adjust the path as needed
-
-                if (prefab != null)
-                {
-                    // Instantiate the prefab as a child of the MainDecorPanel
-                    Instantiate(prefab, mainDecorPanel);
-                }
-            }
-        }
-    }
 }
 [System.Serializable]
 public class DecorationItemList
 {
     public List<DecorationItem> Items;
 }
+
+[System.Serializable]
+public class DecorationData //needfix
+{
+    public string name;
+    public Vector2 position;
+    public Vector2 size;
+    public string spriteName;
+
+    // Constructor to initialize the DecorationData object with values
+    public DecorationData(string name, Vector2 position, Vector2 size, string spriteName)
+    {
+        this.name = name;
+        this.position = position;
+        this.size = size;
+        this.spriteName = spriteName;
+    }
+    // Add more properties as needed
+}
+

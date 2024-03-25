@@ -45,8 +45,12 @@ public class DecorationManager : MonoBehaviour
         cancelButton.onClick.AddListener(OnCancelButtonClick);
         editButton.onClick.AddListener(OnEditButtonClick);
         //GameManager.instance.LoadDecorPrefabs(MainDecorpanel.transform);
-        //LoadDecorProperties();
+       
 
+    }
+    public void Awake()
+    {
+        LoadDecorProperties();
     }
 
     public void DecorClicked()
@@ -72,6 +76,7 @@ public class DecorationManager : MonoBehaviour
 
     void Update()
     {
+       
     }
 
     public void OnDoneButtonClick()
@@ -86,14 +91,15 @@ public class DecorationManager : MonoBehaviour
        // GameManager.instance.SaveDecorPrefabs(MainDecorpanel.transform);
         //SaveDecorProperties();
 
-        foreach (var decor in newDecorations)
-        {
-            ListofDecors.Remove(decor);
-        }
+        //foreach (var decor in newDecorations)
+        //{
+        //    ListofDecors.Remove(decor);
+        //}
         // Clear the list of newly placed decorations
         newDecorations.Clear();
 
         // ToggleDeskAndPanel(false);
+        GameManager.instance.SaveDecorProperties(ListofDecors);
     }
 
     public void OnCancelButtonClick()
@@ -185,6 +191,7 @@ public class DecorationManager : MonoBehaviour
             }
         }
     }
+   
     public void UseDecor( DecorationItem Item)
     {
 
@@ -218,7 +225,9 @@ public class DecorationManager : MonoBehaviour
             newDecoration.AddAssociatedItem(Item);
             initialPositions.Add(newDecoration, newDecorationRectTransform.anchoredPosition);
             newDecorations.Add(newDecoration);
-        
+
+            newDecoration.OnPointerClick(null);
+
 
     }
     public void DecorRemove()
@@ -247,47 +256,41 @@ public class DecorationManager : MonoBehaviour
     }
 
 
-    public void SaveDecorProperties()
-    {
-        List<DecorationData> decorDataList = new List<DecorationData>();
-        foreach (DecorEdit decor in ListofDecors)
-        {
-            DecorationData data = new DecorationData();
-            data.name = decor.name; // Assuming each decoration has a unique name
-            data.position = decor.rectTransform.anchoredPosition;
-            data.size = decor.rectTransform.sizeDelta;
-            decorDataList.Add(data);
-        }
-
-        string json = JsonUtility.ToJson(decorDataList);
-        PlayerPrefs.SetString("DecorProperties", json);
-        PlayerPrefs.Save();
-    }
+    
 
     public void LoadDecorProperties()
     {
+        
         string json = PlayerPrefs.GetString("DecorProperties");
         List<DecorationData> decorDataList = JsonUtility.FromJson<List<DecorationData>>(json);
+
         foreach (DecorationData data in decorDataList)
         {
-            // Find the corresponding decoration by name
-            DecorEdit decor = ListofDecors.Find(d => d.name == data.name);
-            if (decor != null)
+            // Instantiate the decoration prefab under the MainDecorPanel
+            DecorEdit newDecoration = Instantiate(decorationPrefab, MainDecorpanel.transform);
+            newDecoration.name = data.name; // Set the decoration name
+            
+            // Set the sprite of the Image component using the sprite name
+            Sprite sprite = Resources.Load<Sprite>("Decorations/"+data.spriteName);
+            if (sprite != null)
             {
-                // Apply saved properties
-                decor.rectTransform.anchoredPosition = data.position;
-                decor.rectTransform.sizeDelta = data.size;
+                newDecoration.GetComponent<Image>().sprite = sprite;
+                Debug.LogWarning("Sprite found: " + data.spriteName);
             }
+            else
+            {
+                Debug.LogWarning("Sprite not found: " + data.spriteName);
+            }
+
+            // Set the decoration's RectTransform properties
+            RectTransform newDecorationRectTransform = newDecoration.GetComponent<RectTransform>();
+            newDecorationRectTransform.anchoredPosition = data.position; // Set the saved position
+            newDecorationRectTransform.sizeDelta = data.size;  // Set the saved size
+
+            // Add the instantiated decoration to the list of decors
+            ListofDecors.Add(newDecoration);
         }
     }
-}
-[System.Serializable]
-public class DecorationData //needfix
-{
-    public string name;
-    public Vector2 position;
-    public Vector2 size;
-    // Add more properties as needed
 }
 
 
