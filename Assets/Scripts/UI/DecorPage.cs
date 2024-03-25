@@ -22,8 +22,7 @@ namespace Decoration.UI
         public DecorController DC;
         //private int currentlyDraggedItemIndex = -1;
 
-        public event Action<int> OnDescriptionRequested, OnItemActionRequested;
-        public event Action<int, int> OnSwapItems;
+        public event Action<int> OnItemActionRequested;
 
 
         void Start()

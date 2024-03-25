@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "31991464585",
+    "project_id": "pcrush-adventures",
+    "storage_bucket": "pcrush-adventures.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31991464585:android:082003a5aa7cc01eb3fc58",
+        "android_client_info": {
+          "package_name": "com.PCBuilders.PCRushAdventures"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg4fTSDOl6lf3E1QthXaePBHc6XRHywWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

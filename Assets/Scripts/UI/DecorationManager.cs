@@ -30,7 +30,7 @@ public class DecorationManager : MonoBehaviour
     private RectTransform currentDecorationRectTransform;
     private Vector3 offset;
 
-    private bool isEditing = false;
+   // private bool isEditing = false;
 
     public List<DecorEdit> ListofDecors = new List<DecorEdit>();
     public List<DecorationItem> ListofUseDecors = new List<DecorationItem>();
@@ -50,13 +50,13 @@ public class DecorationManager : MonoBehaviour
     }
     public void Awake()
     {
-        LoadDecorProperties();
+        //LoadDecorProperties();
     }
 
     public void DecorClicked()
     {
         
-        isEditing = true;
+       // isEditing = true;
         panel.SetActive(true);
         DecorUI.SetActive(true);
         desk.SetActive(false);
@@ -67,7 +67,7 @@ public class DecorationManager : MonoBehaviour
     }
     public void UnclickedDecor()
     {
-        isEditing = false;
+     //   isEditing = false;
         GameManager.instance.clicked = false;
         //DecorClickedUI.SetActive(false); 
         DeselectAllItems();
@@ -81,7 +81,7 @@ public class DecorationManager : MonoBehaviour
 
     public void OnDoneButtonClick()
     {
-        isEditing = false;
+       // isEditing = false;
         panel.SetActive(false);
         DecorUI.SetActive(false);
         desk.SetActive(true);
@@ -123,7 +123,7 @@ public class DecorationManager : MonoBehaviour
                 
             }
         }
-        isEditing = false;
+      //  isEditing = false;
         panel.SetActive(false);
         DecorUI.SetActive(false);
         desk.SetActive(true);
@@ -172,7 +172,7 @@ public class DecorationManager : MonoBehaviour
     public void OnEditButtonClick()
     {
         // Enable editing mode
-        isEditing = true;
+       // isEditing = true;
         panel.SetActive(true);
         DecorUI.SetActive(true);
         desk.SetActive(false);
@@ -195,7 +195,7 @@ public class DecorationManager : MonoBehaviour
     public void UseDecor( DecorationItem Item)
     {
 
-            isEditing = true;
+          //  isEditing = true;
             DeselectAllItems();
             panel.SetActive(true);
             DecorUI.SetActive(true);

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.PixelHeroes.Scripts.CollectionScripts;
 using Assets.PixelHeroes.Scripts.Utils;
+using Firebase.Extensions;
+using Firebase.Firestore;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +11,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
 {
     public class CharacterBuilder : MonoBehaviour
     {
-  
+
         public SpriteCollection SpriteCollection;
         public string Head = "Human";
         public string Body = "Human";
@@ -25,7 +27,8 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
         public int CharChanged = 0;
 
 
-        
+
+
         public Texture2D Texture { get; private set; }
         private Dictionary<string, Sprite> _sprites;
 
@@ -35,7 +38,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
             var height = SpriteCollection.Layers[0].Textures[0].height;
             var dict = SpriteCollection.Layers.ToDictionary(i => i.Name, i => i);
             var layers = new Dictionary<string, Color32[]>();
-            
+
             if (Back != "") layers.Add("Back", dict["Back"].GetPixels(Back, null, changed));
             if (Shield != "") layers.Add("Shield", dict["Shield"].GetPixels(Shield, null, changed));
             if (Body != "") layers.Add("Body", dict["Body"].GetPixels(Body, null, changed));
@@ -53,7 +56,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
                 var s = layers["Shield"];
                 var index = layers.Count - (Weapon == "" ? 1 : 2);
                 var layer = layers.ElementAt(index);
-                
+
                 layers[layer.Key] = layer.Value.ToArray();
 
                 var b = layers[layer.Key];
@@ -63,7 +66,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
                     if (s[i].a > 0) b[i] = s[i];
                 }
             }
-            
+
             Texture = TextureHelper.MergeLayers(Texture, layers.Values.ToArray());
             Texture.SetPixels(0, 912 - 16, 16, 16, new Color[16 * 16]);
 
@@ -99,7 +102,9 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
             CharChanged = 1;
             SaveChanges();
         }
-        public void SaveChanges()
+
+
+        public void SaveChangess()
         {
 
             // Save each layer's data to PlayerPrefs
@@ -113,13 +118,13 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
             PlayerPrefs.SetString("Cape", Cape);
             PlayerPrefs.SetString("Back", Back);
             PlayerPrefs.SetInt("CharChanged", CharChanged);
-           
+
             // Save PlayerPrefs
             PlayerPrefs.Save();
-            
+
 
         }
-        public void LoadSavedData()
+        public void LoadSavedDatas()
         {
             // Load each layer's data from PlayerPrefs
             Head = PlayerPrefs.GetString("Head");
@@ -131,12 +136,100 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
             Shield = PlayerPrefs.GetString("Shield");
             Cape = PlayerPrefs.GetString("Cape");
             Back = PlayerPrefs.GetString("Back");
-            
+
             Rebuild();
 
 
         }
 
+
+        public string DocumentId => GameManager.instance.UserID; // Combine UserID with "PlayerCharacters" for the document ID
+        public void SaveChanges()
+        {
+            // Create a dictionary to hold the character data
+            Dictionary<string, object> characterData = new Dictionary<string, object>
+    {
+        { "Head", Head },
+        { "Body", Body },
+        { "Hair", Hair },
+        { "Armor", Armor },
+        { "Helmet", Helmet },
+        { "Weapon", Weapon },
+        { "Shield", Shield },
+        { "Cape", Cape },
+        { "Back", Back },
+    };
+
+            // Get a reference to the user's document in Firestore
+            DocumentReference userDocRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+            CollectionReference characterDesignCollectionRef = userDocRef.Collection("PlayerCharacterDesign");
+            // Update the user's document with the character data
+            DocumentReference characterDataDocRef = characterDesignCollectionRef.Document("characterData");
+            characterDataDocRef.SetAsync(characterData)
+                .ContinueWithOnMainThread(task =>
+                {
+                    if (task.IsCompleted)
+                    {
+                        Debug.Log("Character data saved to Firestore.");
+                    }
+                    else if (task.IsFaulted)
+                    {
+                        Debug.LogError("Failed to save character data to Firestore: " + task.Exception);
+                    }
+                });
+        }
+
+        public void LoadSavedData()
+        {
+            FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+
+            // Get a reference to the user's document in Firestore
+            DocumentReference userDocRef = db.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+
+            // Create a reference to the PlayerCharacterDesign subcollection
+            CollectionReference characterDesignCollectionRef = userDocRef.Collection("PlayerCharacterDesign");
+
+            // Get the document containing the character data from the PlayerCharacterDesign subcollection
+            DocumentReference characterDataDocRef = characterDesignCollectionRef.Document("characterData");
+
+            // Load the character data from the document
+            characterDataDocRef.GetSnapshotAsync()
+                .ContinueWithOnMainThread(task =>
+                {
+                    if (task.IsCompleted)
+                    {
+                        DocumentSnapshot snapshot = task.Result;
+                        if (snapshot.Exists)
+                        {
+                            // Extract character data from the document
+                            Dictionary<string, object> data = snapshot.ToDictionary();
+                            Head = data.ContainsKey("Head") ? data["Head"].ToString() : "";
+                            Body = data.ContainsKey("Body") ? data["Body"].ToString() : "";
+                            Hair = data.ContainsKey("Hair") ? data["Hair"].ToString() : "";
+                            Armor = data.ContainsKey("Armor") ? data["Armor"].ToString() : "";
+                            Helmet = data.ContainsKey("Helmet") ? data["Helmet"].ToString() : "";
+                            Weapon = data.ContainsKey("Weapon") ? data["Weapon"].ToString() : "";
+                            Shield = data.ContainsKey("Shield") ? data["Shield"].ToString() : "";
+                            Cape = data.ContainsKey("Cape") ? data["Cape"].ToString() : "";
+                            Back = data.ContainsKey("Back") ? data["Back"].ToString() : "";
+                            // Repeat for other fields...
+
+                            // Rebuild character using the loaded data
+                            Rebuild();
+
+                            Debug.Log("Character data loaded from Firestore.");
+                        }
+                        else
+                        {
+                            Debug.LogWarning("No character data found in Firestore for user ID: " + GameManager.instance.UserID);
+                        }
+                    }
+                    else if (task.IsFaulted)
+                    {
+                        Debug.LogError("Failed to load character data from Firestore: " + task.Exception);
+                    }
+                });
+        }
 
     }
 }
