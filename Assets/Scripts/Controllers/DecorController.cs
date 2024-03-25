@@ -30,17 +30,17 @@ namespace Decoration
             PrepareUI();
             DecorUI.ResetSelection();
 
-            //StartCoroutine(DelayedLoad());
+            StartCoroutine(DelayedLoad());
             //LoadInitialItems();
 
         }
         IEnumerator DelayedLoad()
         {
             // Wait for 1 second
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.5f);
 
             // Now load initial items
-            //LoadInitialItems();
+            LoadInitialItems();
         }
         private void Update()
         {

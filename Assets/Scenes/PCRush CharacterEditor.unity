@@ -3576,6 +3576,55 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 10
   m_TargetDisplay: 0
+--- !u!1 &271596400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 271596402}
+  - component: {fileID: 271596401}
+  m_Layer: 0
+  m_Name: UserSetup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &271596401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271596400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69eaba0ef76f704e9567acc86a3eaff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  googleSignInButton: {fileID: 334831992}
+  facebookSignInButton: {fileID: 649279032}
+  anonymousSignInButton: {fileID: 59369344}
+  CharEditor: {fileID: 270995442}
+  Login: {fileID: 58068728}
+--- !u!4 &271596402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271596400}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.027102, y: 8.790836, z: 7547.1055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!213 &277126202
 Sprite:
   m_ObjectHideFlags: 0
@@ -18827,7 +18876,6 @@ GameObject:
   - component: {fileID: 905518086}
   - component: {fileID: 905518088}
   - component: {fileID: 905518087}
-  - component: {fileID: 905518089}
   m_Layer: 5
   m_Name: UserLoginBackground
   m_TagString: Untagged
@@ -18896,22 +18944,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 905518085}
   m_CullTransparentMesh: 1
---- !u!114 &905518089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905518085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d69eaba0ef76f704e9567acc86a3eaff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  googleSignInButton: {fileID: 334831992}
-  facebookSignInButton: {fileID: 649279032}
-  anonymousSignInButton: {fileID: 59369344}
-  CharEditor: {fileID: 270995442}
 --- !u!1 &915276117
 GameObject:
   m_ObjectHideFlags: 0
@@ -41296,3 +41328,4 @@ SceneRoots:
   - {fileID: 748579112}
   - {fileID: 1045789202}
   - {fileID: 58068732}
+  - {fileID: 271596402}

@@ -1,6 +1,7 @@
 using Assets.PixelHeroes.Scripts.CharacterScrips;
 using Decoration;
 using Firebase;
+using Firebase.Auth;
 using Firebase.Firestore;
 //using Firebase.Analytics;
 using Shop;
@@ -19,8 +20,9 @@ using static Decoration.Model.DecorSO;
 
 public class GameManager : MonoBehaviour
 {
+   
 
-    public string UserID = "";
+    public string UserID;
     public string UserCollection = "users";
     // Start is called before the first frame update
     public static GameManager instance;
@@ -100,10 +102,10 @@ public class GameManager : MonoBehaviour
         //string documentID = "Player1DecInventory"; // Example document ID
 
         // Get a reference to the Firestore collection
-        CollectionReference collectionRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection);
+       // CollectionReference collectionRef = FirebaseFirestore.DefaultInstance.Collection("users");
 
         // Create a new document with the generated document ID
-        DocumentReference docRef = collectionRef.Document(UserID);
+        DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
 
         CollectionReference SubDocRef = docRef.Collection("DecorationInventory");
 
@@ -160,28 +162,31 @@ public class GameManager : MonoBehaviour
     {
 
         UserID = PlayerPrefs.GetString("UserID", "");
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
-        {
-            FirebaseApp app = FirebaseApp.DefaultInstance;
-            if (app != null)
-            {
-                // Firebase is initialized successfully
-                Debug.Log("Firebase initialized successfully.");
-            }
-            else
-            {
-                // Firebase initialization failed
-                Debug.LogError("Failed to initialize Firebase.");
-            }
-        });
+        //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        //{
+        //    FirebaseApp app = FirebaseApp.DefaultInstance;
+        //    if (app != null)
+        //    {
+        //        // Firebase is initialized successfully
+        //        Debug.Log("Firebase initialized successfully.");
+        //    }
+        //    else
+        //    {
+        //        // Firebase initialization failed
+        //        Debug.LogError("Failed to initialize Firebase.");
+        //    }
+        //});
 
         if (UserID == null || UserID == "")
         {
-            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+           SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        }
+        else
+        {
+            charBuilder.LoadSavedData();
+            AddInitiallyEquippedItems();
         }
 
-        charBuilder.LoadSavedData();
-        AddInitiallyEquippedItems();
         //DC.LoadInitialItems();
        
     }
@@ -189,7 +194,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //UserIDTxt.text = UserID;
+        UserIDTxt.text = UserID;
 
     }
     public void UpdateShop(string category)
