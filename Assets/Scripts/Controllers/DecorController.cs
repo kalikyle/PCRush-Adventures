@@ -31,7 +31,7 @@ namespace Decoration
             DecorUI.ResetSelection();
 
             //StartCoroutine(DelayedLoad());
-            //LoadInitialItems();
+            LoadInitialItems();
 
         }
         IEnumerator DelayedLoad()
@@ -106,7 +106,7 @@ namespace Decoration
         {
             try
             {
-                DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection("users").Document("Data");
                 CollectionReference subDocRef = docRef.Collection("DecorationInventory");
                 DocumentReference decorDocRef = subDocRef.Document("DecorInvent");
 

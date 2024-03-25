@@ -22,7 +22,7 @@ public class DecorationManager : MonoBehaviour
     public Button cancelButton;
     public Button editButton;
 
-    public GameObject DecorClickedUI;
+    //public GameObject DecorClickedUI;
     
 
     private GameObject currentDecoration;

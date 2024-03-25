@@ -69,8 +69,8 @@ public class UserSetup : MonoBehaviour
             // Automatically create a Firestore collection for the user
             
             CreateUserDataCollection(user.UserId);
-            //GameManager.instance.UserID = user.UserId;
-            //GameManager.instance.SetUserID(user.UserId);
+            GameManager.instance.UserID = user.UserId;
+            GameManager.instance.SetUserID(user.UserId);
         });
     }
 

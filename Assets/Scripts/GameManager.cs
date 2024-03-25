@@ -20,7 +20,7 @@ using static Decoration.Model.DecorSO;
 public class GameManager : MonoBehaviour
 {
 
-    public string UserID = "";
+    public string UserID;
     public string UserCollection = "users";
     // Start is called before the first frame update
     public static GameManager instance;
@@ -100,10 +100,10 @@ public class GameManager : MonoBehaviour
         //string documentID = "Player1DecInventory"; // Example document ID
 
         // Get a reference to the Firestore collection
-        CollectionReference collectionRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection);
+        CollectionReference collectionRef = FirebaseFirestore.DefaultInstance.Collection("users");
 
         // Create a new document with the generated document ID
-        DocumentReference docRef = collectionRef.Document(UserID);
+        DocumentReference docRef = collectionRef.Document("Data");
 
         CollectionReference SubDocRef = docRef.Collection("DecorationInventory");
 
@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //UserIDTxt.text = UserID;
+        UserIDTxt.text = UserID;
 
     }
     public void UpdateShop(string category)
