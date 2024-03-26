@@ -4,6 +4,7 @@ using Firebase.Firestore;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UserSetup : MonoBehaviour
@@ -12,8 +13,12 @@ public class UserSetup : MonoBehaviour
     public Button facebookSignInButton;
     public Button anonymousSignInButton;
 
+    public Button PlayButton;
+
     public GameObject CharEditor;
     public GameObject Login;
+    public GameObject PlayPanel;
+    public GameObject LogInCanvas;
 
     void Start()
     {
@@ -23,18 +28,62 @@ public class UserSetup : MonoBehaviour
         googleSignInButton.onClick.AddListener(SignInWithGoogle);
         facebookSignInButton.onClick.AddListener(SignInWithFacebook);
         anonymousSignInButton.onClick.AddListener(SignInAnonymously);
+        PlayButton.onClick.AddListener(PlayClick);
 
-       
+        if (!string.IsNullOrEmpty(GameManager.instance.UserID))
+        {
+            if (GameManager.instance.OpenEditor == true)
+            {
+                LogInCanvas.gameObject.SetActive(false);
+                CharEditor.gameObject.SetActive(true);
+            }
+            else
+            {
+                LogInCanvas.gameObject.SetActive(true);
+                Login.gameObject.SetActive(false);
+                PlayPanel.gameObject.SetActive(true);
+                CharEditor.gameObject.SetActive(false);
+            }
 
-
+        }
+        else
+        {
+            LogInCanvas.gameObject.SetActive(true);
+            Login.gameObject.SetActive(true);
+            PlayPanel.gameObject.SetActive(false);
+            CharEditor.gameObject.SetActive(false);
+        }
+      
     }
     private void Awake()
     {
-        if (!string.IsNullOrEmpty(GameManager.instance.UserID))
-        {
-            Login.gameObject.SetActive(false);
+        
+        //this is for character edit during play
+       
+       
+        
+    }
+    public void OpenCharacterEditor()
+    {
+        
+    }
+    public void PlayClick()
+    {
+        if (string.IsNullOrEmpty(GameManager.instance.UserID))
+        { 
             CharEditor.gameObject.SetActive(true);
         }
+        else
+        {
+            CharEditor.gameObject.SetActive(false);
+            UnloadThisScene();
+        }
+    }
+    public void UnloadThisScene()
+    {
+        SceneManager.UnloadSceneAsync(1);
+        GameManager.instance.LoadCharacter();
+        //SceneManager.LoadSceneAsync(0);
     }
     void SignInWithGoogle()
     {
@@ -94,9 +143,11 @@ public class UserSetup : MonoBehaviour
             {
                 if (task.IsCompleted)
                 {
-                    Debug.Log("User data collection created.");
-                   Login.gameObject.SetActive(false);
-                   CharEditor.gameObject.SetActive(true);
+                   Debug.Log("User data collection created.");
+                    Login.gameObject.SetActive(false);
+                    PlayPanel.gameObject.SetActive(false);
+                    LogInCanvas.gameObject.SetActive(false);
+                    CharEditor.gameObject.SetActive(true);
                 }
                 else if (task.IsFaulted)
                 {
