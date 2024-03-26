@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
         public GameObject UIPanel;
 
         public bool OpenDesk = false;
-        public bool OpenEditor = false;
+        
 
 
         void Update()
@@ -35,10 +35,11 @@ using UnityEngine.SceneManagement;
                     UIPanel.gameObject.SetActive(true);
                     OpenDesk = false;
                 }
-                else if (OpenEditor == true && homeTeleport == null)
+                else if (GameManager.instance.OpenEditor == true && homeTeleport == null)
                 {
+                    
                     SceneManager.LoadScene(1, LoadSceneMode.Additive);
-                    OpenEditor = false;
+                    //GameManager.instance.OpenEditor = false;
                 }
             }
         }
@@ -64,7 +65,7 @@ using UnityEngine.SceneManagement;
             }
             if (collision.CompareTag("Editor"))
             {
-                OpenEditor = true;
+                GameManager.instance.OpenEditor = true;
             }
 
 
@@ -98,7 +99,7 @@ using UnityEngine.SceneManagement;
             }
             if (collision.CompareTag("Editor"))
             {
-                OpenEditor = false;
+               GameManager.instance.OpenEditor = false;
             }
 
 

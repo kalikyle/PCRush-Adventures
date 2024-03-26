@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     //public GameObject DecorClickedUI;
 
     public bool clicked = false;
-
+    public bool OpenEditor = false;
     public int tempindex;
 
     public event Action<DecorationItem> OnDecorToTransferUpdated;
@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-        UserID = PlayerPrefs.GetString("UserID", "");
+
         //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         //{
         //    FirebaseApp app = FirebaseApp.DefaultInstance;
@@ -176,12 +176,9 @@ public class GameManager : MonoBehaviour
         //        Debug.LogError("Failed to initialize Firebase.");
         //    }
         //});
-
-        if (UserID == null || UserID == "")
-        {
-           SceneManager.LoadScene(1, LoadSceneMode.Additive);
-        }
-        else
+        UserID = PlayerPrefs.GetString("UserID", "");
+        SceneManager.LoadScene(1, LoadSceneMode.Additive); // player page
+        if (UserID != null || UserID != "")
         {
             charBuilder.LoadSavedData();
             AddInitiallyEquippedItems();
