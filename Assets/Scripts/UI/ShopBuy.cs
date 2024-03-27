@@ -283,6 +283,7 @@ public class ShopBuy : MonoBehaviour
             tempIndex = shopItem.temporaryIndex;
             Shop.Model.ShopItem shpItem = filteredItems[tempIndex];
             shpItem.item.InUse = true;
+            GameManager.instance.SaveUsedItemToFirestore(shpItem);
             previousItem(shpItem);
 
             
@@ -296,6 +297,7 @@ public class ShopBuy : MonoBehaviour
             Shop.Model.ShopItem shpItem = filteredItems[tempIndex];
 
             shpItem.item.InUse = true;
+            GameManager.instance.SaveUsedItemToFirestore(shpItem);
             previousItem(shpItem);
         }
         else if (ToggleTF == false && ToggleBSE == false)// for all
@@ -320,6 +322,7 @@ public class ShopBuy : MonoBehaviour
                 // Use the original index to retrieve the ShopItem
                 Shop.Model.ShopItem shpItem = GetItemAt(originalIndexs);
                 shpItem.item.InUse = true;
+                GameManager.instance.SaveUsedItemToFirestore(shpItem);
                 previousItem(shpItem);
 
                 
@@ -358,6 +361,8 @@ public class ShopBuy : MonoBehaviour
             {
                 shpItem.item.Sold = true;
                 shpItem.item.InUse = true;
+                GameManager.instance.SaveItemToFirestore(shpItem);
+                GameManager.instance.SaveUsedItemToFirestore(shpItem);
 
                 previousItem(shpItem);
 
@@ -382,6 +387,8 @@ public class ShopBuy : MonoBehaviour
             {
                 shpItem.item.Sold = true;
                 shpItem.item.InUse = true;
+                GameManager.instance.SaveItemToFirestore(shpItem);
+                GameManager.instance.SaveUsedItemToFirestore(shpItem);
 
                 previousItem(shpItem);
 
@@ -420,6 +427,8 @@ public class ShopBuy : MonoBehaviour
                 {
                     shpItem.item.Sold = true;
                     shpItem.item.InUse = true;
+                    GameManager.instance.SaveItemToFirestore(shpItem);
+                    GameManager.instance.SaveUsedItemToFirestore(shpItem);
 
                     previousItem(shpItem);
 
