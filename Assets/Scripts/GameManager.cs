@@ -11,6 +11,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -58,19 +59,56 @@ public class GameManager : MonoBehaviour
     public bool OpenEditor = false;
     public int tempindex;
 
+
     public event Action<DecorationItem> OnDecorToTransferUpdated;
     public List<DecorationItem> DecorToTransfer = new List<DecorationItem>();
 
     public Dictionary<string, Shop.Model.ShopItem> equippedItemsByCategory = new Dictionary<string, Shop.Model.ShopItem>();
     //public DecorEdit de;
-    public void AddInitiallyEquippedItems()
+    public async Task LoadInUseItems()
+    {
+        //foreach (var item in so.ShopItems)
+        //{
+        //    //if (item.item.Sold == true && item.item.InUse == true)
+        //   // {
+        //        //AddEquippedItemToDictionary(item);
+        //        await LoadInUseItemsFromFirestore(item.item.Category);
+        //        Debug.Log(item.item.name);
+        //   // }
+        //}
+        string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
+
+        foreach (string category in categories)
+        {
+            // Check if the item in this category is both sold and in use
+
+            // Load the in-use items from Firestore for this category
+            await LoadInSoldItemsFromFirestore(category);
+            await LoadInUseItemsFromFirestore(category);
+              
+        
+        }
+    }
+    public void SaveSoldItems()
     {
         foreach (var item in so.ShopItems)
         {
-            if (item.item.Sold == true && item.item.InUse == true)
+           if (item.item.Sold == true && item.item.InUse == true)
             {
-                AddEquippedItemToDictionary(item);
-                Debug.Log(item.item.name);
+                GameManager.instance.SaveItemToFirestore(item);
+                GameManager.instance.SaveUsedItemToFirestore(item);
+
+                if (equippedItemsByCategory.ContainsKey(item.item.Category))
+                {
+                    equippedItemsByCategory[item.item.Category] = item;
+
+                }
+                else
+                {
+
+                    equippedItemsByCategory.Add(item.item.Category, item);
+
+                }
             }
         }
     }
@@ -121,6 +159,150 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("decoration items saved to Firestore.");
     }
+    public async Task LoadInUseItemsFromFirestore(string category)
+    {
+        try
+        {
+            CollectionReference equippedItemsRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection)
+            .Document(UserID).Collection("EquippedItems").Document("InUseItems").Collection(category);
+
+            // Get all documents in the "InUseItems" subcollection for the specified category
+            QuerySnapshot inUseItemsSnapshot = await equippedItemsRef.GetSnapshotAsync();
+
+            // Iterate through the documents and handle each item
+            foreach (DocumentSnapshot docSnapshot in inUseItemsSnapshot.Documents)
+            {
+                // Deserialize the item data
+                string jsonData = docSnapshot.GetValue<string>("itemData");
+                Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
+
+                // Shop.Model.ShopItem item = new Shop.Model.ShopItem();
+                // Deserialize the item part
+                Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
+
+                // Create a new ShopItem instance and assign the deserialized item data
+
+                UpdateLocalGameData(item);
+
+                Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
+                                                                 //Debug.Log("Category: " + item.item.Category);
+                
+                UpdateSprite(item);
+                
+                   
+
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error loading in-use items from Firestore: " + ex.Message);
+        }
+    }
+    public async Task LoadInSoldItemsFromFirestore(string category)
+    {
+        try
+        {
+            CollectionReference equippedItemsRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection)
+            .Document(UserID).Collection("EquippedItems").Document("SoldItems").Collection(category);
+
+            // Get all documents in the "InUseItems" subcollection for the specified category
+            QuerySnapshot inUseItemsSnapshot = await equippedItemsRef.GetSnapshotAsync();
+
+            // Iterate through the documents and handle each item
+            foreach (DocumentSnapshot docSnapshot in inUseItemsSnapshot.Documents)
+            {
+                // Deserialize the item data
+                string jsonData = docSnapshot.GetValue<string>("itemData");
+                Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
+
+                // Shop.Model.ShopItem item = new Shop.Model.ShopItem();
+                // Deserialize the item part
+                Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
+
+                // Create a new ShopItem instance and assign the deserialized item data
+
+                UpdateLocalGameData(item);
+
+                Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
+                                                                 //Debug.Log("Category: " + item.item.Category);
+
+                //UpdateSprite(item);
+
+
+
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error loading in-use items from Firestore: " + ex.Message);
+        }
+    }
+
+    private void UpdateLocalGameData(Shop.Model.ShopItem item)
+    {
+
+        Shop.Model.ShopItem localItem = so.FindLocalItem(item.item.Category, item.item.Name);
+
+        // Check if localItem is not null (item found)
+        if (!localItem.isEmpty)
+        {
+            // Update the local game data with the retrieved values
+            if (item.item.InUse)
+            {
+                localItem.item.InUse = true;
+
+                // Update or add the item to the equippedItemsByCategory dictionary
+                if (equippedItemsByCategory.ContainsKey(item.item.Category))
+                {
+                    equippedItemsByCategory[item.item.Category] = localItem;
+                }
+                else
+                {
+                    equippedItemsByCategory.Add(item.item.Category, localItem);
+                }
+            }
+
+            // Update the sold status
+            localItem.item.Sold = item.item.Sold;
+
+            // Call a method to save the updated data to Firestore
+            // SaveSoldItems();
+        }
+        else
+        {
+            // Handle case where the item is not found locally
+            Debug.LogError("Local item not found for category: " + item.item.Category + ", name: " + item.item.Name);
+        }
+
+    }
+
+   
+
+    private void UpdateSprite(Shop.Model.ShopItem item)
+    {
+
+        switch (item.item.Category)
+        {
+            case "Monitor":
+                Monitor.sprite = item.item.ItemImage;
+                break;
+            case "Mouse":
+                Mouse.sprite = item.item.ItemImage;
+                break;
+            case "Keyboard":
+                Keyboard.sprite = item.item.ItemImage;
+                break;
+            case "Desk":
+                Desk.sprite = item.item.ItemImage;
+                break;
+            case "Background":
+                Background.sprite = item.item.ItemImage;
+                break;
+            default:
+                Debug.LogWarning("Unsupported item category: " + item.item.Category);
+                break;
+        }
+    }
     private void AddEquippedItemToDictionary(Shop.Model.ShopItem item)
     {
         if (equippedItemsByCategory.ContainsKey(item.item.Category))
@@ -133,7 +315,6 @@ public class GameManager : MonoBehaviour
             
             equippedItemsByCategory.Add(item.item.Category, item);
 
-          
         }
 
         // Check if the item category is "Monitor" and if it's sold and in use
@@ -157,8 +338,127 @@ public class GameManager : MonoBehaviour
         {
             Background.sprite = item.item.ItemImage;
         }
+
+        
     }
-    void Start()
+    public async void SaveItemToFirestore(Shop.Model.ShopItem item)//needfix
+    {
+        try
+        {
+            // Get a reference to the Firestore document
+            DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection).Document(UserID);
+
+            // Create a reference to the subcollection for equipped items
+            CollectionReference equippedItemsRef = docRef.Collection("EquippedItems");
+
+            // Check if the item is sold
+            if (item.item.Sold)
+            {
+                // Determine the subcollection name
+                string subcollectionName = "SoldItems";
+
+                // Create a reference to the subcollection
+                CollectionReference itemSubcollectionRef = equippedItemsRef.Document(subcollectionName).Collection(item.item.Category);
+
+                // Check if an item with the same category and name already exists
+                QuerySnapshot querySnapshot = await itemSubcollectionRef.WhereEqualTo("itemName", item.item.Name).GetSnapshotAsync();
+                foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
+                {
+                    // Delete the previous item with the same category and name
+                    await documentSnapshot.Reference.DeleteAsync();
+                    Debug.Log("Previous item deleted: " + documentSnapshot.Id);
+                }
+
+                // Create a new document for the item
+                DocumentReference itemDocRef = itemSubcollectionRef.Document();
+
+                // Serialize the item data
+                string jsonData = JsonUtility.ToJson(item);
+
+                // Save the item data to Firestore
+                await itemDocRef.SetAsync(new Dictionary<string, object>
+            {
+                { "itemData", jsonData },
+                { "itemName", item.item.Name } // Include item name for future deletion checks
+            });
+
+                Debug.Log("Item saved to Firestore: " + item.item.Name);
+            }
+            else
+            {
+                Debug.LogWarning("Item is not sold. Not saving to Firestore.");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error saving item to Firestore: " + ex.Message);
+        }
+    }
+    public async void SaveUsedItemToFirestore(Shop.Model.ShopItem item)
+    {
+        try
+        {
+            // Get a reference to the Firestore document
+            DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection).Document(UserID);
+
+            // Create a reference to the subcollection for equipped items
+            CollectionReference equippedItemsRef = docRef.Collection("EquippedItems");
+        if (item.item.InUse)
+        {
+            // Determine the subcollection based on whether the item is sold or in use
+            string subcollectionName = "InUseItems";
+
+            // Create a reference to the subcollection
+            CollectionReference itemSubcollectionRef = equippedItemsRef.Document(subcollectionName).Collection(item.item.Category);
+
+            await DeletePreviousInUseItem(item.item.Category, equippedItemsRef);
+
+            // Create a new document for the item
+            DocumentReference itemDocRef = itemSubcollectionRef.Document();
+
+            // Serialize the item data
+            string jsonData = JsonUtility.ToJson(item);
+
+            // Save the item data to Firestore
+            await itemDocRef.SetAsync(new Dictionary<string, object>
+            {
+                { "itemData", jsonData }
+            });
+
+            Debug.Log("Item used and save to Firestore: " + item.item.Name);
+        }
+        else
+        {
+            Debug.LogWarning("Item is neither sold nor in use. Not saving to Firestore.");
+        }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error saving item to Firestore: " + ex.Message);
+        }
+    }
+        private async Task DeletePreviousInUseItem(string category, CollectionReference equippedItemsRef)
+    {
+        try
+        {
+            // Create a reference to the "InUseItems" subcollection for the specific category
+            CollectionReference inUseItemsRef = equippedItemsRef.Document("InUseItems").Collection(category);
+
+            // Query to get the previous item in use
+            QuerySnapshot snapshot = await inUseItemsRef.GetSnapshotAsync();
+            foreach (DocumentSnapshot docSnap in snapshot.Documents)
+            {
+                // Delete the previous item in use
+                await docSnap.Reference.DeleteAsync();
+                Debug.Log("Previous item in use deleted: " + docSnap.Id);
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error deleting previous item in use: " + ex.Message);
+        }
+    }
+    private async void Start()
     {
 
 
@@ -178,10 +478,17 @@ public class GameManager : MonoBehaviour
         //});
         UserID = PlayerPrefs.GetString("UserID", "");
         SceneManager.LoadScene(1, LoadSceneMode.Additive); // player page
+
         if (UserID != null || UserID != "")
         {
             charBuilder.LoadSavedData();
-            AddInitiallyEquippedItems();
+
+           
+            await LoadInUseItems();
+            SaveSoldItems();
+
+
+
         }
 
         //DC.LoadInitialItems();

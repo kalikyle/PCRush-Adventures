@@ -67,6 +67,10 @@ namespace Shop.Model
         {
             return ShopItems.Where(item => !item.isEmpty && !item.item.Sold && !item.item.InUse).ToList();
         }
+        public ShopItem FindLocalItem(string category, string name)
+        {
+            return ShopItems.FirstOrDefault(item => !item.isEmpty && item.item.Category.Equals(category) && item.item.Name.Equals(name));
+        }
     }
     [Serializable]
     public struct ShopItem

@@ -99,7 +99,7 @@ public class DecorationManager : MonoBehaviour
         newDecorations.Clear();
 
         // ToggleDeskAndPanel(false);
-        GameManager.instance.SaveDecorProperties(ListofDecors);
+       // GameManager.instance.SaveDecorProperties(ListofDecors);
     }
 
     public void OnCancelButtonClick()
