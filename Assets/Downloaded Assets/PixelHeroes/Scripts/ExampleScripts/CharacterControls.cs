@@ -246,8 +246,96 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         {
             _animator = GetComponent<Animator>();
         }
-
         private void Update()
+        {
+            if (!playerTeleport.DeskPanel.activeSelf)
+            {
+                // Check if movement is allowed
+                if (canMove)
+                {
+                    // Handle movement input
+                    _input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
+                    _input.y = UnityEngine.Input.GetAxisRaw("Vertical");
+
+                    // Set animation parameters based on input
+                    if (_input != Vector2.zero)
+                    {
+                        _input.Normalize();
+
+                        // Turn the character based on input direction
+                        if (_input.x < 0) // If moving left
+                        {
+                            Turn(-1); // Turn left (face left)
+                        }
+                        else if (_input.x > 0) // If moving right
+                        {
+                            Turn(1); // Turn right (face right)
+                        }
+                        // Calculate velocity vector based on input and speed
+                        Vector2 velocity = _input * WalkSpeed;
+                        // Apply velocity to Rigidbody2D
+                        r2d.velocity = velocity;
+                        Move(_input);
+
+                        // Stop the attack animation if the player is moving
+                        foreach (string attackAnimation in attackAnimations)
+                        {
+                            _animator.SetBool(attackAnimation, false);
+                        }
+                    }
+                    else
+                    {
+                        r2d.velocity = Vector2.zero;
+                        _animator.SetBool("Idle", true);
+                        _animator.SetBool("Walking", false);
+                        _animator.SetBool("Running", false);
+                        moving = false;
+                    }
+
+                    if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && moving)
+                    {
+                        // Set running animation
+                        _animator.SetBool("Running", true);
+                        _animator.SetBool("Walking", false);
+
+                        // Calculate velocity vector based on input and running speed
+                        Vector2 velocity = _input * (WalkSpeed + runSpeed);
+                        // Apply velocity to Rigidbody2D
+                        r2d.velocity = velocity;
+                    }
+                }
+
+                // Handle attack input
+                if (UnityEngine.Input.GetMouseButtonDown(0))
+                {
+                    // Stop the attack animation if the player is moving
+                    if (_input != Vector2.zero)
+                    {
+                        foreach (string attackAnimation in attackAnimations)
+                        {
+                            _animator.SetBool(attackAnimation, false);
+                        }
+                    }
+                    else
+                    {
+                        // Choose a random attack animation
+                        string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
+                        // Set the selected animation
+                        _animator.SetBool(randomAttackAnimation, true);
+                    }
+                }
+            }
+            else
+            {
+                // Stop movement and animations if DeskPanel is active
+                r2d.velocity = Vector2.zero;
+                _animator.SetBool("Idle", true);
+                _animator.SetBool("Walking", false);
+                _animator.SetBool("Running", false);
+                moving = false;
+            }
+        }
+            private void Updates()
         {
             if (!playerTeleport.DeskPanel.activeSelf)
             {

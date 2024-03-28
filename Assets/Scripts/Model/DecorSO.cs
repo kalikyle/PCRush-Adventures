@@ -1,4 +1,5 @@
 using Shop.Model;
+using Shop.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -174,7 +175,10 @@ namespace Decoration.Model
         {
             return DecorationItems[itemIndex];
         }
-
+        public DecorationItem FindLocalItem(string name)
+        {
+            return DecorationItems.FirstOrDefault(item => item.item.Name.Equals(name));
+        }
         public void SwapItems(int itemIndex1, int itemIndex2)
         {
             try

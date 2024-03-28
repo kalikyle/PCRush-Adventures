@@ -94,9 +94,11 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
             List<DecorationItem> associatedItems = GetAssociatedItems();
             DecorationManager.selectedDecor = this;
             // Use the first associated item as the clicked item
+
             if (associatedItems.Count > 0)
             {
                 clickedItem = associatedItems[0];
+                Debug.LogError(clickedItem.item.Name);
             }
 
 
@@ -106,8 +108,6 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
     {
         if (selectedDecor == this)
         {
-            //decorSO.AddItem(clickedItem.ChangeQuantity(clickedItem.quantity - clickedItem.quantity + 1));
-            // Change the quantity of clickedItem to 1 before adding it to the transfer list
             GameManager.instance.AddItemToTransfer(clickedItem.ChangeQuantity(clickedItem.quantity - clickedItem.quantity + 1));
             GameManager.instance.RemoveItem();
         }

@@ -491,7 +491,7 @@ public class GameManager : MonoBehaviour
 
                 item.item.InUse = false;
                 item.item.Sold = false;
-                Debug.LogError("disabled");
+                //Debug.LogError("disabled");
 
             }
         }
@@ -585,33 +585,7 @@ public class GameManager : MonoBehaviour
     {
         DecorMan.DecorRemove();
     }
-    public void SaveDecorProperties(List<DecorEdit> ListofDecors)
-    {
-        List<DecorationData> decorDataList = new List<DecorationData>();
-
-        foreach (DecorEdit decor in ListofDecors)
-        {
-            // Get the sprite name from the Image component
-            string spriteName = decor.GetComponent<Image>().sprite.name;
-
-            // Create a new DecorationData object and add it to the list
-            DecorationData data = new DecorationData(decor.name, decor.rectTransform.anchoredPosition, decor.rectTransform.sizeDelta, spriteName);
-            decorDataList.Add(data);
-
-            Debug.LogError("saved");
-        }
-        foreach (DecorationData data in decorDataList)
-        {
-            Debug.LogError(data.spriteName);
-        }
-       
-        // Serialize the list to JSON and save it to PlayerPrefs
-        string json = JsonUtility.ToJson(decorDataList);
-        PlayerPrefs.SetString("DecorProperties", json);
-        PlayerPrefs.Save();
-        Debug.Log("Serialized JSON: " + json);
-    }
-
+    
 }
 [System.Serializable]
 public class DecorationItemList
@@ -619,23 +593,6 @@ public class DecorationItemList
     public List<DecorationItem> Items;
 }
 
-[System.Serializable]
-public class DecorationData //needfix
-{
-    public string name;
-    public Vector2 position;
-    public Vector2 size;
-    public string spriteName;
 
-    // Constructor to initialize the DecorationData object with values
-    public DecorationData(string name, Vector2 position, Vector2 size, string spriteName)
-    {
-        this.name = name;
-        this.position = position;
-        this.size = size;
-        this.spriteName = spriteName;
-    }
-    // Add more properties as needed
-}
 
 
