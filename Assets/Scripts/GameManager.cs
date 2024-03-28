@@ -185,8 +185,8 @@ public class GameManager : MonoBehaviour
 
                 // Create a new ShopItem instance and assign the deserialized item data
                 item.item.InUse = true;
+               
 
-                
 
                 Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                                                                  //Debug.Log("Category: " + item.item.Category);
@@ -258,6 +258,7 @@ public class GameManager : MonoBehaviour
             equippedItemsByCategory.Add(item.item.Category, item);
 
         }
+
 
         switch (item.item.Category)
         {
@@ -465,16 +466,8 @@ public class GameManager : MonoBehaviour
 
             // Check if the initial items have been saved to Firebase
 
-             
-
             // If initial items have already been saved, load in-use items
             await LoadInUseItems();
-            SaveSoldItems();
-
-            
-
-
-
 
         }
 

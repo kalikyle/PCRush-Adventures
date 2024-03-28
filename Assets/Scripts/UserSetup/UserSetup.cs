@@ -117,8 +117,8 @@ public class UserSetup : MonoBehaviour
                 Debug.Log("Anonymous sign-in successful! UID: " + user.UserId);
                 GameManager.instance.UserID = user.UserId;
                 GameManager.instance.SetUserID(user.UserId);
-            
-            
+                GameManager.instance.SaveSoldItems();
+
         });
     }
 
@@ -144,6 +144,7 @@ public class UserSetup : MonoBehaviour
                 if (task.IsCompleted)
                 {
                    Debug.Log("User data collection created.");
+                   
                     Login.gameObject.SetActive(false);
                     PlayPanel.gameObject.SetActive(false);
                     LogInCanvas.gameObject.SetActive(false);
