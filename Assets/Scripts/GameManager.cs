@@ -185,7 +185,7 @@ public class GameManager : MonoBehaviour
 
                 // Create a new ShopItem instance and assign the deserialized item data
 
-                UpdateSprite(item);
+                
                 item.item.Sold = true;
                 item.item.InUse = true;
 
@@ -193,10 +193,10 @@ public class GameManager : MonoBehaviour
 
                 Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                                                                  //Debug.Log("Category: " + item.item.Category);
-                
-               
-                
-                   
+                UpdateSprite(item);
+
+
+
 
             }
         }
@@ -404,7 +404,7 @@ public class GameManager : MonoBehaviour
             await itemDocRef.SetAsync(new Dictionary<string, object>
             {
                 { "itemData", jsonData },
-                 { "itemName", item.item.Name }
+                { "itemName", item.item.Name }
             });
 
             Debug.Log("Item used and save to Firestore: " + item.item.Name);
@@ -467,24 +467,14 @@ public class GameManager : MonoBehaviour
 
 
             // Check if the initial items have been saved to Firebase
-            // bool initialItemsSaved = PlayerPrefs.GetInt("InitialItemsSaved") == 1;
 
-            //// if (!initialItemsSaved)
-            //{
-            // Save the initial items to Firebase
-
-            // Set the flag to indicate that initial items have been saved
-            // PlayerPrefs.SetInt("InitialItemsSaved", 1);
-            //PlayerPrefs.Save();
-            // }
-            //else
-            // {
-            
+             
 
             // If initial items have already been saved, load in-use items
             await LoadInUseItems();
             SaveSoldItems();
-            // }
+
+            
 
 
 
