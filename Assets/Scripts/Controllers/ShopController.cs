@@ -51,14 +51,24 @@ namespace Shop
         // Start is called before the first frame update
         void Start()
         {
-            PrepareUI();//initial size of the shop\
-                        //shopData.Initialize();
-           
-            //ShowAllCategory();
+            //PrepareUI();//initial size of the shop\
+            //            //shopData.Initialize();
+
+            ////ShowAllCategory();
+            //ToggleALLButton();
+            //shop.Show();
+            StartCoroutine(ExecuteAfterDelay(1f));
+        }
+        private IEnumerator ExecuteAfterDelay(float delayInSeconds)
+        {
+            yield return new WaitForSeconds(delayInSeconds);
+
+            // Call the methods after the delay
+            PrepareUI();
             ToggleALLButton();
             shop.Show();
-            
         }
+
 
         // Update is called once per frame
         void Update()

@@ -71,6 +71,26 @@ namespace Shop.Model
         {
             return ShopItems.FirstOrDefault(item => !item.isEmpty && item.item.Category.Equals(category) && item.item.Name.Equals(name));
         }
+        public void ReplaceItem(ShopItem newItem)
+        {
+            // Find the index of the existing item with the same category and name
+            int index = ShopItems.FindIndex(item =>
+                !item.isEmpty && item.item.Category.Equals(newItem.item.Category) && item.item.Name.Equals(newItem.item.Name));
+
+            // If the item is found, replace it with the new item
+            if (index != -1)
+            {
+                // Create a new ShopItem object with the new ShopItemSO
+                ShopItem updatedItem = new ShopItem { item = newItem.item };
+
+                // Replace the existing item with the new item
+                ShopItems[index] = updatedItem;
+            }
+            else
+            {
+                Debug.LogWarning("Item not found in ShopSO: " + newItem.item.Name);
+            }
+        }
     }
     [Serializable]
     public struct ShopItem
