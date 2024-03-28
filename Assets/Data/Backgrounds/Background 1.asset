@@ -19,4 +19,4 @@ MonoBehaviour:
   <ItemImage>k__BackingField: {fileID: 633156904, guid: dd2f6faff95ead84d83037763a6cca26, type: 3}
   <Price>k__BackingField: 0
   <Sold>k__BackingField: 1
-  <InUse>k__BackingField: 1
+  <InUse>k__BackingField: 0

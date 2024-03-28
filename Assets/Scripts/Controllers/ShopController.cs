@@ -57,7 +57,7 @@ namespace Shop
             ////ShowAllCategory();
             //ToggleALLButton();
             //shop.Show();
-            StartCoroutine(ExecuteAfterDelay(1f));
+            StartCoroutine(ExecuteAfterDelay(3f));
         }
         private IEnumerator ExecuteAfterDelay(float delayInSeconds)
         {
