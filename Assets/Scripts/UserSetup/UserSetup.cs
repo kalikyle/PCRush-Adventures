@@ -75,6 +75,7 @@ public class UserSetup : MonoBehaviour
         }
         else
         {
+           
             CharEditor.gameObject.SetActive(false);
             UnloadThisScene();
         }

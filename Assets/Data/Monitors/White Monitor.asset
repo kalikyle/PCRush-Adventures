@@ -18,5 +18,5 @@ MonoBehaviour:
   <Name>k__BackingField: White Monitor
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 6d9823ed5bc78ff44894b7905966e1bf, type: 3}
   <Price>k__BackingField: 300
-  <Sold>k__BackingField: 0
-  <InUse>k__BackingField: 0
+  <Sold>k__BackingField: 1
+  <InUse>k__BackingField: 1
