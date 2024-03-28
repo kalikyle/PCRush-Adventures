@@ -184,9 +184,6 @@ public class GameManager : MonoBehaviour
                 Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
 
                 // Create a new ShopItem instance and assign the deserialized item data
-
-                
-                item.item.Sold = true;
                 item.item.InUse = true;
 
                 
@@ -227,9 +224,8 @@ public class GameManager : MonoBehaviour
                 Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
 
                 // Create a new ShopItem instance and assign the deserialized item data
-
                 item.item.Sold = true;
-                item.item.InUse = false;
+                
 
                 Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                                                                  //Debug.Log("Category: " + item.item.Category);
