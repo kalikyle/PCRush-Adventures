@@ -454,9 +454,13 @@ public class GameManager : MonoBehaviour
 
 
         UserID = PlayerPrefs.GetString("UserID", "");
+
+        
+
+        SceneManager.LoadScene(1, LoadSceneMode.Additive);
         Debug.Log(UserID);
-        SceneManager.LoadScene(1, LoadSceneMode.Additive); // player page
-                                                           //DisableFirstall();
+        // player page
+                                                           
 
         EnableDefault();
 

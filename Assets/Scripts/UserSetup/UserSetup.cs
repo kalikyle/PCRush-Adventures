@@ -22,7 +22,7 @@ public class UserSetup : MonoBehaviour
 
     void Start()
     {
-          
+        
 
         // Assign click listeners to the sign-in buttons
         googleSignInButton.onClick.AddListener(SignInWithGoogle);
@@ -48,9 +48,10 @@ public class UserSetup : MonoBehaviour
         }
         else
         {
+            
             LogInCanvas.gameObject.SetActive(true);
-            Login.gameObject.SetActive(true);
-            PlayPanel.gameObject.SetActive(false);
+            Login.gameObject.SetActive(false);
+            PlayPanel.gameObject.SetActive(true);
             CharEditor.gameObject.SetActive(false);
         }
       
@@ -69,14 +70,18 @@ public class UserSetup : MonoBehaviour
     }
     public void PlayClick()
     {
+        PlayPanel.gameObject.SetActive(false);
         if (string.IsNullOrEmpty(GameManager.instance.UserID))
-        { 
-            CharEditor.gameObject.SetActive(true);
+        {
+            //CharEditor.gameObject.SetActive(true);
+            
+            Login.gameObject.SetActive(true);
         }
         else
         {
-           
-            CharEditor.gameObject.SetActive(false);
+
+            //CharEditor.gameObject.SetActive(false);
+            Login.gameObject.SetActive(false);
             UnloadThisScene();
         }
     }
