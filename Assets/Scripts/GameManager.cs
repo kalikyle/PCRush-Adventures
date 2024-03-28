@@ -18,6 +18,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
+using static UnityEditor.Progress;
+using static UnityEditorInternal.ReorderableList;
 
 public class GameManager : MonoBehaviour
 {
@@ -92,27 +94,29 @@ public class GameManager : MonoBehaviour
     }
     public void SaveSoldItems()
     {
-        foreach (var item in so.ShopItems)
-        {
-           if (item.item.Sold == true && item.item.InUse == true)
+        
+            foreach (var item in so.ShopItems)
             {
-                SaveItemToFirestore(item);
-                SaveUsedItemToFirestore(item);
-                
-
-                if (equippedItemsByCategory.ContainsKey(item.item.Category))
+                if (item.item.Sold == true && item.item.InUse == true)
                 {
-                    equippedItemsByCategory[item.item.Category] = item;
+                    SaveItemToFirestore(item);
+                    SaveUsedItemToFirestore(item);
 
-                }
-                else
-                {
 
-                    equippedItemsByCategory.Add(item.item.Category, item);
+                    if (equippedItemsByCategory.ContainsKey(item.item.Category))
+                    {
+                        equippedItemsByCategory[item.item.Category] = item;
 
+                    }
+                    else
+                    {
+
+                        equippedItemsByCategory.Add(item.item.Category, item);
+
+                    }
                 }
             }
-        }
+        
         
     }
     public void SetUserID(string userID)
@@ -177,6 +181,7 @@ public class GameManager : MonoBehaviour
             {
                 // Deserialize the item data
                 string jsonData = docSnapshot.GetValue<string>("itemData");
+                string jsonName = docSnapshot.GetValue<string>("itemName");
                 Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
 
                 // Shop.Model.ShopItem item = new Shop.Model.ShopItem();
@@ -184,10 +189,13 @@ public class GameManager : MonoBehaviour
                 Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
 
                 // Create a new ShopItem instance and assign the deserialized item data
-                item.item.InUse = true;
+              
+                
+                 item.item.InUse = true;
+                       
+                  
+                
                
-
-
                 Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                                                                  //Debug.Log("Category: " + item.item.Category);
                 UpdateSprite(item);
@@ -196,6 +204,8 @@ public class GameManager : MonoBehaviour
 
 
             }
+
+
         }
         catch (System.Exception ex)
         {
@@ -442,39 +452,64 @@ public class GameManager : MonoBehaviour
     {
 
 
-        //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
-        //{
-        //    FirebaseApp app = FirebaseApp.DefaultInstance;
-        //    if (app != null)
-        //    {
-        //        // Firebase is initialized successfully
-        //        Debug.Log("Firebase initialized successfully.");
-        //    }
-        //    else
-        //    {
-        //        // Firebase initialization failed
-        //        Debug.LogError("Failed to initialize Firebase.");
-        //    }
-        //});
+
         UserID = PlayerPrefs.GetString("UserID", "");
+        Debug.Log(UserID);
         SceneManager.LoadScene(1, LoadSceneMode.Additive); // player page
+                                                           //DisableFirstall();
+
+        EnableDefault();
 
         if (UserID != null || UserID != "")
         {
+            DisableFirstall();
             charBuilder.LoadSavedData();
-
+            
 
             // Check if the initial items have been saved to Firebase
-
+            await Task.Delay(1000);
             // If initial items have already been saved, load in-use items
             await LoadInUseItems();
-
+            SaveSoldItems();
         }
+        //EnableDefault();
+        
 
         //DC.LoadInitialItems();
-       
-    }
 
+    }
+    public void DisableFirstall()
+    {
+        if (UserID != null && UserID != "" && !UserID.IsUnityNull())
+        {
+            foreach (var item in so.ShopItems)
+            {
+
+                item.item.InUse = false;
+                item.item.Sold = false;
+                Debug.LogError("disabled");
+
+            }
+        }
+    }
+    public void EnableDefault()
+    {
+        foreach (var item in so.ShopItems)
+        {
+            if (UserID == null || UserID == "") { 
+                if (item.item.Price == 0)
+                {
+                    item.item.Sold = true;
+                    item.item.InUse = true;
+                }
+                else
+                {
+                    item.item.Sold = false;
+                    item.item.InUse = false;
+                }
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b57c5ad15f492499e9ef25a356d927, type: 3}
   m_Name: Keyboard 1
   m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 0
   <Category>k__BackingField: Keyboard
+  <MaxStackableSize>k__BackingField: 1
   <Name>k__BackingField: Keyboard 1
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 408368ffab994a34eb2304e5b0a29727, type: 3}
   <Price>k__BackingField: 0
