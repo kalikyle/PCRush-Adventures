@@ -229,6 +229,7 @@ public class GameManager : MonoBehaviour
                 // Create a new ShopItem instance and assign the deserialized item data
 
                 item.item.Sold = true;
+                item.item.InUse = false;
 
                 Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                                                                  //Debug.Log("Category: " + item.item.Category);
