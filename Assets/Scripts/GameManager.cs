@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     public int tempindex;
 
 
+
     public event Action<DecorationItem> OnDecorToTransferUpdated;
     public List<DecorationItem> DecorToTransfer = new List<DecorationItem>();
 
@@ -95,8 +96,9 @@ public class GameManager : MonoBehaviour
         {
            if (item.item.Sold == true && item.item.InUse == true)
             {
-                GameManager.instance.SaveItemToFirestore(item);
-                GameManager.instance.SaveUsedItemToFirestore(item);
+                SaveItemToFirestore(item);
+                SaveUsedItemToFirestore(item);
+                
 
                 if (equippedItemsByCategory.ContainsKey(item.item.Category))
                 {
@@ -111,6 +113,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        
     }
     public void SetUserID(string userID)
     {
@@ -182,12 +185,16 @@ public class GameManager : MonoBehaviour
 
                 // Create a new ShopItem instance and assign the deserialized item data
 
-                UpdateLocalGameData(item);
+                UpdateSprite(item);
+                item.item.Sold = true;
+                item.item.InUse = true;
+
+                
 
                 Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                                                                  //Debug.Log("Category: " + item.item.Category);
                 
-                UpdateSprite(item);
+               
                 
                    
 
@@ -221,7 +228,7 @@ public class GameManager : MonoBehaviour
 
                 // Create a new ShopItem instance and assign the deserialized item data
 
-                UpdateLocalGameData(item);
+                item.item.Sold = true;
 
                 Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                                                                  //Debug.Log("Category: " + item.item.Category);
@@ -238,48 +245,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void UpdateLocalGameData(Shop.Model.ShopItem item)
-    {
+    
 
-        Shop.Model.ShopItem localItem = so.FindLocalItem(item.item.Category, item.item.Name);
-
-        // Check if localItem is not null (item found)
-        if (!localItem.isEmpty)
-        {
-            // Update the local game data with the retrieved values
-            if (item.item.InUse)
-            {
-                localItem.item.InUse = true;
-
-                // Update or add the item to the equippedItemsByCategory dictionary
-                if (equippedItemsByCategory.ContainsKey(item.item.Category))
-                {
-                    equippedItemsByCategory[item.item.Category] = localItem;
-                }
-                else
-                {
-                    equippedItemsByCategory.Add(item.item.Category, localItem);
-                }
-            }
-
-            // Update the sold status
-            localItem.item.Sold = item.item.Sold;
-
-            // Call a method to save the updated data to Firestore
-            // SaveSoldItems();
-        }
-        else
-        {
-            // Handle case where the item is not found locally
-            Debug.LogError("Local item not found for category: " + item.item.Category + ", name: " + item.item.Name);
-        }
-
-    }
-
-   
 
     private void UpdateSprite(Shop.Model.ShopItem item)
     {
+        if (equippedItemsByCategory.ContainsKey(item.item.Category))
+        {
+            equippedItemsByCategory[item.item.Category] = item;
+
+        }
+        else
+        {
+
+            equippedItemsByCategory.Add(item.item.Category, item);
+
+        }
 
         switch (item.item.Category)
         {
@@ -422,7 +403,8 @@ public class GameManager : MonoBehaviour
             // Save the item data to Firestore
             await itemDocRef.SetAsync(new Dictionary<string, object>
             {
-                { "itemData", jsonData }
+                { "itemData", jsonData },
+                 { "itemName", item.item.Name }
             });
 
             Debug.Log("Item used and save to Firestore: " + item.item.Name);
@@ -483,9 +465,27 @@ public class GameManager : MonoBehaviour
         {
             charBuilder.LoadSavedData();
 
-           
+
+            // Check if the initial items have been saved to Firebase
+            // bool initialItemsSaved = PlayerPrefs.GetInt("InitialItemsSaved") == 1;
+
+            //// if (!initialItemsSaved)
+            //{
+            // Save the initial items to Firebase
+
+            // Set the flag to indicate that initial items have been saved
+            // PlayerPrefs.SetInt("InitialItemsSaved", 1);
+            //PlayerPrefs.Save();
+            // }
+            //else
+            // {
+            
+
+            // If initial items have already been saved, load in-use items
             await LoadInUseItems();
             SaveSoldItems();
+            // }
+
 
 
 
