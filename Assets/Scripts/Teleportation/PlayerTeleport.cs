@@ -32,6 +32,7 @@ using UnityEngine.SceneManagement;
                 if (OpenDesk == true && homeTeleport == null)
                 {
                     DeskPanel.gameObject.SetActive(true);
+                    GameManager.instance.PlayerDeskName();
                     UIPanel.gameObject.SetActive(true);
                     OpenDesk = false;
                 }

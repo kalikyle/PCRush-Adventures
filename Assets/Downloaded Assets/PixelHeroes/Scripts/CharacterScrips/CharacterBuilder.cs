@@ -18,7 +18,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
         public string Hair;
         public string Armor;
         public string Helmet;
-        public string Weapon = "Katana";
+        public string Weapon;
         public string Shield;
         public string Cape;
         public string Back;
@@ -31,6 +31,9 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
 
         public Texture2D Texture { get; private set; }
         private Dictionary<string, Sprite> _sprites;
+
+
+
 
         public void Rebuild(string changed = null)
         {
@@ -216,6 +219,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
                                 Back = data.ContainsKey("Back") ? data["Back"].ToString() : "";
                                 // Repeat for other fields...
 
+                               
                                 // Rebuild character using the loaded data
                                 Rebuild();
 
@@ -233,6 +237,8 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
                     }
                 });
         }
+
+       
 
     }
 }

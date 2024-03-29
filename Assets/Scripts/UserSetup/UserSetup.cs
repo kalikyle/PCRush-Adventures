@@ -3,6 +3,9 @@ using Firebase.Extensions;
 using Firebase.Firestore;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,6 +22,10 @@ public class UserSetup : MonoBehaviour
     public GameObject Login;
     public GameObject PlayPanel;
     public GameObject LogInCanvas;
+
+    public TMP_InputField playerName;
+
+
 
     void Start()
     {
@@ -64,6 +71,7 @@ public class UserSetup : MonoBehaviour
        
         
     }
+   
     public void OpenCharacterEditor()
     {
         
@@ -123,7 +131,11 @@ public class UserSetup : MonoBehaviour
                 Debug.Log("Anonymous sign-in successful! UID: " + user.UserId);
                 GameManager.instance.UserID = user.UserId;
                 GameManager.instance.SetUserID(user.UserId);
-                GameManager.instance.SaveSoldItems();
+
+
+            //initials
+            GameManager.instance.SaveSoldItems();
+            GameManager.instance.SaveCharInfo(user.UserId, "Player1");
 
         });
     }
