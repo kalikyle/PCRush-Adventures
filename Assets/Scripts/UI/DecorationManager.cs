@@ -433,7 +433,7 @@ public class DecorationManager : MonoBehaviour
        
         foreach (DocumentSnapshot docSnap in snapshot.Documents)
             {
-            Debug.LogError("Loaded");
+            Debug.Log("Loaded");
             // Deserialize the JSON data into a DecorationData object
             string jsonData = docSnap.GetValue<string>("data");
                 DecorationData decorationData = JsonUtility.FromJson<DecorationData>(jsonData);
@@ -462,7 +462,7 @@ public class DecorationManager : MonoBehaviour
 
 
             //DecorationItem item = decordata.FindLocalItem(itemName);
-                Debug.LogError(decorationItems.item.Name);
+                Debug.Log(decorationItems.item.Name);
                ListofUseDecors.Add(decorationItems);
                newDecoration.AddAssociatedItem(decorationItems);
                 
