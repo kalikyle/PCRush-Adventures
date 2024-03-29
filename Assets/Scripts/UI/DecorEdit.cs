@@ -98,7 +98,7 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
             if (associatedItems.Count > 0)
             {
                 clickedItem = associatedItems[0];
-                Debug.LogError(clickedItem.item.Name);
+                Debug.Log("Clicked: " + clickedItem.item.Name);
             }
 
 
