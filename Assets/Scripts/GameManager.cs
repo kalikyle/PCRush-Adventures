@@ -62,12 +62,93 @@ public class GameManager : MonoBehaviour
     public int tempindex;
 
 
+    //player info
+    public string PlayerName;
 
+
+   
     public event Action<DecorationItem> OnDecorToTransferUpdated;
     public List<DecorationItem> DecorToTransfer = new List<DecorationItem>();
 
     public Dictionary<string, Shop.Model.ShopItem> equippedItemsByCategory = new Dictionary<string, Shop.Model.ShopItem>();
     //public DecorEdit de;
+    public TMP_Text PlayerDesk;
+
+
+    public void PlayerDeskName()
+    {
+        PlayerDesk.text = PlayerName + "'s Desk";
+    }
+
+    public async void SaveCharInfo(string userID, string playerName)
+    {
+        // Check if the UserID and playerName are not null or empty
+        if (string.IsNullOrEmpty(userID) || string.IsNullOrEmpty(playerName))
+        {
+            UnityEngine.Debug.LogError("UserID or playerName is null or empty.");
+            return;
+        }
+
+        // Get a reference to the user's document under the 'users' collection
+        DocumentReference userDocRef = FirebaseFirestore.DefaultInstance
+            .Collection("users").Document(userID);
+
+        // Create a dictionary to store the playerName
+        Dictionary<string, object> playerNameData = new Dictionary<string, object>
+        {
+            { "playerName", playerName }
+            //add other fields
+        };
+
+        try
+        {
+            // Save the playerName data to Firestore
+            await userDocRef.SetAsync(playerNameData, SetOptions.MergeAll);
+            UnityEngine.Debug.Log("PlayerName saved successfully.");
+        }
+        catch (System.Exception ex)
+        {
+            UnityEngine.Debug.LogError("Error saving playerName: " + ex.Message);
+        }
+    }
+
+    public async void RetrievePlayerInfo(string userID)
+    {
+        // Check if the UserID is not null or empty
+        if (string.IsNullOrEmpty(userID))
+        {
+            Debug.LogError("UserID is null or empty.");
+            return;
+        }
+
+        // Get a reference to the user's document under the 'users' collection
+        DocumentReference userDocRef = FirebaseFirestore.DefaultInstance
+            .Collection("users").Document(userID);
+
+        try
+        {
+            // Retrieve the document snapshot asynchronously
+            DocumentSnapshot snapshot = await userDocRef.GetSnapshotAsync();
+
+            // Check if the document exists
+            if (snapshot.Exists)
+            {
+                // Extract the playerName from the document data
+                PlayerName = snapshot.GetValue<string>("playerName");
+
+            }
+            else
+            {
+                Debug.LogWarning("Document does not exist for UserID: " + userID);
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error retrieving playerName: " + ex.Message);
+        }
+    }
+
+
     public async Task LoadInUseItems()
     {
         //foreach (var item in so.ShopItems)
@@ -475,6 +556,8 @@ public class GameManager : MonoBehaviour
             // If initial items have already been saved, load in-use items
             await LoadInUseItems();
             SaveSoldItems();
+
+            RetrievePlayerInfo(UserID);
         }
         //EnableDefault();
         
@@ -519,6 +602,10 @@ public class GameManager : MonoBehaviour
     {
         UserIDTxt.text = UserID;
 
+        if (UserID != "")
+        {
+            RetrievePlayerInfo(UserID);
+        }
     }
     public void UpdateShop(string category)
     {

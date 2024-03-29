@@ -9,6 +9,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Diagnostics;
 using UnityEngine.SceneManagement;
+using TMPro;
+using Firebase.Firestore;
 
 #if UNITY_EDITOR
 
@@ -25,12 +27,20 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
         public CharacterBuilder CharacterBuilder;
         public Sprite EmptyIcon;
 
+        public TMP_InputField playerName;
+
         public static event Action<string> SliceTextureRequest = path => {};
         public static event Action<string> CreateSpriteLibraryRequest = path => { };
-
+        
         public void Start()
         {
-            foreach (var layer in Layers)
+
+            if (GameManager.instance.UserID != "")
+            {
+                playerName.text = GameManager.instance.PlayerName;
+            }
+
+                foreach (var layer in Layers)
             {
                 if (layer.Controls)
                 {
@@ -56,8 +66,10 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
 
             //Rebuild(null);
             CharacterBuilder.LoadSavedData();
-           
+
         }
+
+
 
         public void Rebuild()
         {
@@ -124,14 +136,21 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
             
         }
 
+        
+
+
         // Rebuild the character with loaded data
 
         public void UnloadThisScene()
         {
+            
             SceneManager.UnloadSceneAsync(1);
             GameManager.instance.LoadCharacter();
+            GameManager.instance.SaveCharInfo(GameManager.instance.UserID, playerName.text);
             //SceneManager.LoadSceneAsync(0);
         }
+
+       
 
 
 #if UNITY_EDITOR

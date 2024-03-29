@@ -34,54 +34,30 @@ MonoBehaviour:
     - {fileID: 2800000, guid: 2bf22238c3369d84093c69eaa3ac3659, type: 3}
     - {fileID: 2800000, guid: f291882b16763264cb0c0233f4dd850b, type: 3}
     - {fileID: 2800000, guid: 1f411bc02ea99e34a8ffef0100ec6d9f, type: 3}
-  - Name: Body
-    SpriteFolder: {fileID: 102900000, guid: 8df833f89c29f864b921ee5e3dcbe7f2, type: 3}
-    Textures:
-    - {fileID: 2800000, guid: ac9c5f63aab00a044bb23b36b25b202c, type: 3}
-    - {fileID: 2800000, guid: 4772a4f25d237b64fa3034e2b519ddc7, type: 3}
-    - {fileID: 2800000, guid: 97ffb2244fe66e8429d901931834284e, type: 3}
-    - {fileID: 2800000, guid: 67cc9848dba6ca34fb6b909a043a7525, type: 3}
-    - {fileID: 2800000, guid: 5e60818adb9b73746a8f63bb17623de1, type: 3}
   - Name: Armor
     SpriteFolder: {fileID: 102900000, guid: d639e72d772f78d4fb845e8b82d37701, type: 3}
     Textures:
-    - {fileID: 2800000, guid: bebaed5370be4644fb708ea982e66c2b, type: 3}
-    - {fileID: 2800000, guid: 267c9cf5bcc67814faa5c4501881a3a9, type: 3}
-    - {fileID: 2800000, guid: 748f79ed0904a3442b72d372243ff8cd, type: 3}
     - {fileID: 2800000, guid: dcd8277514e9585448041385cca1cde0, type: 3}
-    - {fileID: 2800000, guid: 59bff1e2ff7191945b21b18e9d92e8ce, type: 3}
-    - {fileID: 2800000, guid: e842de29d875460418d8c5fec0bfc010, type: 3}
-    - {fileID: 2800000, guid: b2436dd5019808e4ca548b1349683a47, type: 3}
     - {fileID: 2800000, guid: f0ec4790c7fb0724089119248e87ef9a, type: 3}
     - {fileID: 2800000, guid: 4b7140d136f8aac4998ef88ab0d3f7af, type: 3}
-    - {fileID: 2800000, guid: 37426f54999f131408a48bfd61775438, type: 3}
-    - {fileID: 2800000, guid: ceb660cb32677d64083a499ab6d4ad9b, type: 3}
-    - {fileID: 2800000, guid: 839f2aba15db5b841816309d25f046f2, type: 3}
-    - {fileID: 2800000, guid: 0f03fc84b0d91f045a61e28bb64b46fc, type: 3}
-    - {fileID: 2800000, guid: 20cc761a530633147afef2cc4a81bb68, type: 3}
-    - {fileID: 2800000, guid: f3edccaacbb767b40ab25682966befc2, type: 3}
-    - {fileID: 2800000, guid: 624a440f086929c49b4c6655013f16b1, type: 3}
     - {fileID: 2800000, guid: 45ade5cb9dc8d1443b12d4c99491e728, type: 3}
-    - {fileID: 2800000, guid: 908195fbaf7f0404c9aa85d439a00ae6, type: 3}
-    - {fileID: 2800000, guid: ae03a8a8bad0a9f4c8142d46b47ff4f0, type: 3}
-    - {fileID: 2800000, guid: 854fd57004af29347a1d6b8a42aa8a4b, type: 3}
-    - {fileID: 2800000, guid: 32cc30294aa0bfb4d91349a34adedd99, type: 3}
     - {fileID: 2800000, guid: 7339ebacb98634c41b5197325794ce64, type: 3}
     - {fileID: 2800000, guid: 1a367f2b3cd277649966cd6305766f13, type: 3}
-  - Name: Head
-    SpriteFolder: {fileID: 102900000, guid: 220642a0c7e14d74f8d758d32f56237a, type: 3}
+  - Name: Body
+    SpriteFolder: {fileID: 102900000, guid: 075fa182474b93b4ebf301841ec22a41, type: 3}
     Textures:
-    - {fileID: 2800000, guid: ea185ef00b87f554c94a9338b16626c6, type: 3}
-    - {fileID: 2800000, guid: b3182a7a4f9e81c428782f60b240b395, type: 3}
-    - {fileID: 2800000, guid: 5c0b6e2571ac3ad4485463e1dde2feb9, type: 3}
-    - {fileID: 2800000, guid: 4b068594f9dda6049a4b6b46843cf55a, type: 3}
-    - {fileID: 2800000, guid: 29a4c6d2abd36884183c1c60036dfba5, type: 3}
+    - {fileID: 2800000, guid: 566c0d60a8e64724abc2da22fe9f31ef, type: 3}
+    - {fileID: 2800000, guid: cc88a1cfd270e4f49b174169c0775d48, type: 3}
+  - Name: Head
+    SpriteFolder: {fileID: 102900000, guid: 073c1ad58fe35964a899f372022a7e08, type: 3}
+    Textures:
+    - {fileID: 2800000, guid: 3ab89102c79b30b4d920f9c435ec9503, type: 3}
+    - {fileID: 2800000, guid: c291c7ef87d8fcb4ba4606c4dad8d4e9, type: 3}
   - Name: Hair
     SpriteFolder: {fileID: 102900000, guid: f9ec518c6f6d98f468d3436ec1887701, type: 3}
     Textures:
     - {fileID: 2800000, guid: 459b1c308bbddbb4197cde9f6dba2fdc, type: 3}
     - {fileID: 2800000, guid: f8721262b2c3788409af94bd31f4bd7d, type: 3}
-    - {fileID: 2800000, guid: 75927b22e6b472c4387ff4f061da9524, type: 3}
     - {fileID: 2800000, guid: ddcb74e78cdb8094a8e0f031366de0cf, type: 3}
     - {fileID: 2800000, guid: c6e44f6daa8487746b70ad0dbac4c614, type: 3}
     - {fileID: 2800000, guid: 8a1c39ffcc2346d4fa30770a3116d9d6, type: 3}
