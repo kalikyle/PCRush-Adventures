@@ -151,15 +151,24 @@ public class GameManager : MonoBehaviour
 
     public async Task LoadInUseItems()
     {
-        //foreach (var item in so.ShopItems)
-        //{
-        //    //if (item.item.Sold == true && item.item.InUse == true)
-        //   // {
-        //        //AddEquippedItemToDictionary(item);
-        //        await LoadInUseItemsFromFirestore(item.item.Category);
-        //        Debug.Log(item.item.name);
-        //   // }
-        //}
+       
+        string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
+
+        foreach (string category in categories)
+        {
+            // Check if the item in this category is both sold and in use
+
+            // Load the in-use items from Firestore for this category
+            //await LoadInSoldItemsFromFirestore(category);
+            await LoadInUseItemsFromFirestore(category);
+              
+        
+        }
+    }
+
+    public async Task LoadSoldItems()
+    {
+
         string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
 
         foreach (string category in categories)
@@ -168,9 +177,8 @@ public class GameManager : MonoBehaviour
 
             // Load the in-use items from Firestore for this category
             await LoadInSoldItemsFromFirestore(category);
-            await LoadInUseItemsFromFirestore(category);
-              
-        
+
+
         }
     }
     public void SaveSoldItems()
@@ -274,9 +282,6 @@ public class GameManager : MonoBehaviour
                 
                  item.item.InUse = true;
                        
-                  
-                
-               
                 Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                                                                  //Debug.Log("Category: " + item.item.Category);
                 UpdateSprite(item);
@@ -551,10 +556,13 @@ public class GameManager : MonoBehaviour
             charBuilder.LoadSavedData();
             
 
-            // Check if the initial items have been saved to Firebase
-            await Task.Delay(3000);
+            
             // If initial items have already been saved, load in-use items
+            await Task.Delay(1000);
             await LoadInUseItems();
+            await Task.Delay(1000);
+            await LoadSoldItems();
+            await Task.Delay(1000);
             SaveSoldItems();
 
             RetrievePlayerInfo(UserID);
