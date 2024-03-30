@@ -65,6 +65,8 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
             }
 
             //Rebuild(null);
+
+            
             CharacterBuilder.LoadSavedData();
 
         }

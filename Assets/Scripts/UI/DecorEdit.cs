@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPointerEnterHandler , IPointerExitHandler
 {

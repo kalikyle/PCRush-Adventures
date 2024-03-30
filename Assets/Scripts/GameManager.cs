@@ -18,8 +18,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
-using static UnityEditor.Progress;
-using static UnityEditorInternal.ReorderableList;
+//using static UnityEditor.Progress;
+//using static UnityEditorInternal.ReorderableList;
 
 public class GameManager : MonoBehaviour
 {
@@ -545,14 +545,14 @@ public class GameManager : MonoBehaviour
 
         EnableDefault();
 
-        if (UserID != null || UserID != "")
+        if (UserID != "")
         {
             DisableFirstall();
             charBuilder.LoadSavedData();
             
 
             // Check if the initial items have been saved to Firebase
-            await Task.Delay(1000);
+            await Task.Delay(3000);
             // If initial items have already been saved, load in-use items
             await LoadInUseItems();
             SaveSoldItems();

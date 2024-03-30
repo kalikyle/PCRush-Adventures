@@ -10,8 +10,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
-using static UnityEditor.PlayerSettings.WSA;
-using static UnityEditor.Progress;
+//using static UnityEditor.PlayerSettings.WSA;
+//using static UnityEditor.Progress;
 
 public class DecorationManager : MonoBehaviour
 {
@@ -423,19 +423,20 @@ public class DecorationManager : MonoBehaviour
     }
     private async Task LoadAllDecorationsFromFirestore()
     {
-       
+        if (GameManager.instance.UserID != "")
+        {
             // Get a reference to the user's document
             DocumentReference userDocRef = FirebaseFirestore.DefaultInstance
                 .Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
 
             // Get all documents in the "PlacedDecorations" collection
             QuerySnapshot snapshot = await userDocRef.Collection("PlacedDecorations").GetSnapshotAsync();
-       
-        foreach (DocumentSnapshot docSnap in snapshot.Documents)
+
+            foreach (DocumentSnapshot docSnap in snapshot.Documents)
             {
-            Debug.Log("Loaded");
-            // Deserialize the JSON data into a DecorationData object
-            string jsonData = docSnap.GetValue<string>("data");
+                Debug.Log("Loaded");
+                // Deserialize the JSON data into a DecorationData object
+                string jsonData = docSnap.GetValue<string>("data");
                 DecorationData decorationData = JsonUtility.FromJson<DecorationData>(jsonData);
 
                 // Instantiate the decoration prefab under the MainDecorPanel
@@ -452,27 +453,29 @@ public class DecorationManager : MonoBehaviour
                 RectTransform newDecorationRectTransform = newDecoration.GetComponent<RectTransform>();
                 newDecorationRectTransform.sizeDelta = decorationData.scaledSize;
 
-                
 
 
-            // Load associated items
+
+                // Load associated items
                 string associatedItemNames = docSnap.GetValue<string>("associatedItems");
 
-                DecorationItem decorationItems = JsonUtility.FromJson <DecorationItem>(associatedItemNames);
+                DecorationItem decorationItems = JsonUtility.FromJson<DecorationItem>(associatedItemNames);
 
 
-            //DecorationItem item = decordata.FindLocalItem(itemName);
+                //DecorationItem item = decordata.FindLocalItem(itemName);
                 Debug.Log(decorationItems.item.Name);
-               ListofUseDecors.Add(decorationItems);
-               newDecoration.AddAssociatedItem(decorationItems);
-                
+                ListofUseDecors.Add(decorationItems);
+                newDecoration.AddAssociatedItem(decorationItems);
+
 
                 // Add the loaded decoration to the list of placed decorations
                 PlacedDecorations.Add(newDecoration);
-                
-        }
+
+            }
 
             Debug.Log("Decorations loaded from Firestore!");
+
+        }
        
     }
 
