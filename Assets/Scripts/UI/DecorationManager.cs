@@ -56,7 +56,7 @@ public class DecorationManager : MonoBehaviour
         editButton.onClick.AddListener(OnEditButtonClick);
         //GameManager.instance.LoadDecorPrefabs(MainDecorpanel.transform);
 
-        await Task.Delay(2000);
+        await Task.Delay(1000);
         await Loadall();
     }
 
