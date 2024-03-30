@@ -157,20 +157,36 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
 
     public void IncreaseSize()
     {
+        //if (selectedDecor == this)
+        //{
+        //    Vector2 newSize = rectTransform.sizeDelta + new Vector2(sizeStep, sizeStep);
+        //    newSize = Vector2.Max(newSize, new Vector2(minSize, minSize));
+        //    rectTransform.sizeDelta = newSize;
+        //}
+
         if (selectedDecor == this)
         {
             Vector2 newSize = rectTransform.sizeDelta + new Vector2(sizeStep, sizeStep);
-            newSize = Vector2.Max(newSize, new Vector2(minSize, minSize));
+            newSize.x = Mathf.Max(newSize.x, minSize);
+            newSize.y = Mathf.Max(newSize.y, minSize);
             rectTransform.sizeDelta = newSize;
         }
     }
 
     public void DecreaseSize()
     {
+        //if (selectedDecor == this)
+        //{
+        //    Vector2 newSize = rectTransform.sizeDelta - new Vector2(sizeStep, sizeStep);
+        //    newSize = Vector2.Max(newSize, new Vector2(minSize, minSize));
+        //    rectTransform.sizeDelta = newSize;
+        //}
+
         if (selectedDecor == this)
         {
             Vector2 newSize = rectTransform.sizeDelta - new Vector2(sizeStep, sizeStep);
-            newSize = Vector2.Max(newSize, new Vector2(minSize, minSize));
+            newSize.x = Mathf.Max(newSize.x, minSize);
+            newSize.y = Mathf.Max(newSize.y, minSize);
             rectTransform.sizeDelta = newSize;
         }
     }

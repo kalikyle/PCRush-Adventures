@@ -503,11 +503,22 @@ public class DecorationData
     // Constructor to initialize data from a DecorEdit object
     public DecorationData(DecorEdit decor)
     {
+        Vector3 positiveScale = new Vector3(
+        Mathf.Abs(decor.transform.localScale.x),
+        Mathf.Abs(decor.transform.localScale.y),
+        Mathf.Abs(decor.transform.localScale.z)
+    );
+
+
         position = decor.transform.position;
         rotation = decor.transform.rotation;
         scale = decor.transform.localScale;
         decorationImage = decor.GetComponent<Image>().sprite;
-        scaledSize = new Vector2(decor.GetComponent<RectTransform>().sizeDelta.x * scale.x, decor.GetComponent<RectTransform>().sizeDelta.y * scale.y);
+        //scaledSize = new Vector2(decor.GetComponent<RectTransform>().sizeDelta.x * scale.x, decor.GetComponent<RectTransform>().sizeDelta.y * scale.y);
+        scaledSize = new Vector2(
+        Mathf.Abs(decor.GetComponent<RectTransform>().sizeDelta.x * positiveScale.x),
+        Mathf.Abs(decor.GetComponent<RectTransform>().sizeDelta.y * positiveScale.y)
+    );
     }
 }
 
