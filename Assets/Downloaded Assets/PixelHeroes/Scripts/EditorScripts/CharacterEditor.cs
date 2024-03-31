@@ -14,6 +14,7 @@ using Firebase.Firestore;
 using static TreeEditor.TextureAtlas;
 using System.Collections;
 using System.Reflection;
+using System.Drawing;
 
 #if UNITY_EDITOR
 
@@ -45,6 +46,11 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
         public int CapeIndex = 0;
         public int BackIndex = 0;
 
+        public string HeadColor = "";
+        public string BodyColor = "";
+        public string HairColor = "";
+        public string HSBArmor = "";
+
         public void Start()
         {
 
@@ -56,7 +62,6 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
                 playerName.text = GameManager.instance.PlayerName;
 
                 StartCoroutine(LoadIndexesWithDelay());
-               StartCoroutine(ChangesIndexes());
             }
 
                 foreach (var layer in Layers)
@@ -90,10 +95,10 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
 
         }
 
-        private IEnumerator ChangesIndexes()
+        private void ChangesIndexes()
         {
-            yield return new WaitForSeconds(.3f);
 
+           
             foreach (var layer in Layers)
             {
                 if (layer.Controls)
@@ -101,28 +106,58 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
                     if(layer.Name == "Head")
                     {
                         layer.Controls.Dropdown.value = HeadIndex + (layer.CanBeEmpty ? 1 : 0);
+                        
+                        
                         //layer.Controls.Dropdown.onValueChanged.AddListener(HeadIndex => SetIndex(layer, HeadIndex));
                         //Rebuild(layer);
                     }
                     if (layer.Name == "Body")
                     {
                         layer.Controls.Dropdown.value = BodyIndex + (layer.CanBeEmpty ? 1 : 0);
+                        layer.Color = ParseColorFromString(BodyColor);
+                            Layers.Single(i => i.Name == "Head").Color = ParseColorFromString(BodyColor);
+                        Rebuild(layer);
                         //layer.Controls.Dropdown.onValueChanged.AddListener(BodyIndex => SetIndex(layer, BodyIndex));
                         //Rebuild(layer);
                     }
                     if (layer.Name == "Armor")
                     {
+                        string[] HSB = HSBArmor.Split(":");
                         layer.Controls.Dropdown.value = ArmorIndex + (layer.CanBeEmpty ? 1 : 0);
-                       // layer.Controls.Dropdown.onValueChanged.AddListener(ArmorIndex => SetIndex(layer, ArmorIndex));
-                        //Rebuild(layer);
+         
+                        layer.Controls.Hue.value = int.Parse(HSB[0]);
+                        layer.Controls.Saturation.value = int.Parse(HSB[1]);
+                        layer.Controls.Brightness.value = int.Parse(HSB[2]);
+                        Rebuild(layer);
                     }
                     if (layer.Name == "Hair")
                     {
                         layer.Controls.Dropdown.value = HairIndex + (layer.CanBeEmpty ? 1 : 0);
-                       // layer.Controls.Dropdown.onValueChanged.AddListener(value => SetIndex(layer, HairIndex));
+                        layer.Color = ParseColorFromString(HairColor);
+                        Rebuild(layer);
+
+
+                        // layer.Controls.Dropdown.onValueChanged.AddListener(value => SetIndex(layer, HairIndex));
                         //Rebuild(layer);
                     }
                 }
+            }
+        }
+        public UnityEngine.Color ParseColorFromString(string colorString)
+        {
+            UnityEngine.Color color;
+
+            // Try parsing the color string
+            if (ColorUtility.TryParseHtmlString(colorString, out color))
+            {
+                // Color parsing successful, return the color
+                return color;
+            }
+            else
+            {
+                // Failed to parse color string, return a default color
+                UnityEngine.Debug.LogError("Failed to parse color from string: " + colorString);
+                return UnityEngine.Color.white; // You can choose a default color here
             }
         }
 
@@ -130,50 +165,67 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
         {
             yield return new WaitForSeconds(.2f);
 
+            try
+            {
+                string[] Headparts = CharacterBuilder.Head.Split('#');
+                string HeadTextureName = Headparts[0];
+                string HeadColorsParts = Headparts[1];
 
-            string[] Headparts = CharacterBuilder.Head.Split('#','/');
-            string HeadTextureName = Headparts[0];
-            //string HeadTextureColor = Headparts[1];
-            //string HeadTextureBSV = Headparts[2];
+                string[] HColorParts = HeadColorsParts.Split('/');
+                HeadColor = "#" + HColorParts[0];
 
-            string[] Bodyparts = CharacterBuilder.Body.Split('#','/');
-            string BodyTextureName = Bodyparts[0];
-            //string BodyTextureColor = Bodyparts[1];
-            //string BodyTextureBSV = Bodyparts[2];
+                string[] Bodyparts = CharacterBuilder.Body.Split('#');
+                string BodyTextureName = Bodyparts[0];
+                string BodyColorsParts = Bodyparts[1];
 
-            string[] Hairparts = CharacterBuilder.Hair.Split('#', '/');
-            string HairTextureName = Hairparts[0];
-            //string HairTextureColor = Hairparts[1];
-            //string HairTextureBSV = Hairparts[2];
+                string[] BColorParts = BodyColorsParts.Split('/');
+                BodyColor = "#" + BColorParts[0];
 
-            string[] Armorparts = CharacterBuilder.Armor.Split('#');
-            string ArmorTextureName = Armorparts[0];
 
-            string[] Helmetparts = CharacterBuilder.Helmet.Split('#');
-            string HelmetTextureName = Helmetparts[0];
+                string[] Hairparts = CharacterBuilder.Hair.Split('#');
+                string HairTextureName = Hairparts[0];
+                string HairColorsParts = Hairparts[1];
 
-            string[] Weaponparts = CharacterBuilder.Weapon.Split('#');
-            string WeaponTextureName = Weaponparts[0];
+                string[] HairColorParts = HairColorsParts.Split('/');
+                HairColor = "#" + HairColorParts[0];
 
-            string[] Shieldparts = CharacterBuilder.Shield.Split('#');
-            string ShieldTextureName = Shieldparts[0];
+                string[] Armorparts = CharacterBuilder.Armor.Split('#');
+                string ArmorTextureName = Armorparts[0];
+                string ArmorColorsParts = Armorparts[1];
 
-            string[] Capeparts = CharacterBuilder.Cape.Split('#');
-            string CapeTextureName = Capeparts[0];
+                string[] ArmorColorParts = ArmorColorsParts.Split('/');
+                HSBArmor = ArmorColorParts[1];
 
-            string[] Backparts = CharacterBuilder.Back.Split('#');
-            string BackTextureName = Backparts[0];
+                string[] Helmetparts = CharacterBuilder.Helmet.Split('#');
+                string HelmetTextureName = Helmetparts[0];
 
-            // Call the FindLayerIndex method after the delay
-            HeadIndex = FindLayerIndex("Head", HeadTextureName);
-            BodyIndex = FindLayerIndex("Body", BodyTextureName);
-            HairIndex = FindLayerIndex("Hair", HairTextureName);
-            ArmorIndex = FindLayerIndex("Armor", ArmorTextureName);
-            HelmetIndex = FindLayerIndex("Helmet", HelmetTextureName);
-            WeaponIndex = FindLayerIndex("Weapon", WeaponTextureName);
-            ShieldIndex = FindLayerIndex("Shield", ShieldTextureName);
-            CapeIndex = FindLayerIndex("Cape", CapeTextureName);
-            BackIndex = FindLayerIndex("Back", BackTextureName);
+                string[] Weaponparts = CharacterBuilder.Weapon.Split('#');
+                string WeaponTextureName = Weaponparts[0];
+
+                string[] Shieldparts = CharacterBuilder.Shield.Split('#');
+                string ShieldTextureName = Shieldparts[0];
+
+                string[] Capeparts = CharacterBuilder.Cape.Split('#');
+                string CapeTextureName = Capeparts[0];
+
+                string[] Backparts = CharacterBuilder.Back.Split('#');
+                string BackTextureName = Backparts[0];
+
+                // Call the FindLayerIndex method after the delay
+                HeadIndex = FindLayerIndex("Head", HeadTextureName);
+                BodyIndex = FindLayerIndex("Body", BodyTextureName);
+                HairIndex = FindLayerIndex("Hair", HairTextureName);
+                ArmorIndex = FindLayerIndex("Armor", ArmorTextureName);
+                HelmetIndex = FindLayerIndex("Helmet", HelmetTextureName);
+                WeaponIndex = FindLayerIndex("Weapon", WeaponTextureName);
+                ShieldIndex = FindLayerIndex("Shield", ShieldTextureName);
+                CapeIndex = FindLayerIndex("Cape", CapeTextureName);
+                BackIndex = FindLayerIndex("Back", BackTextureName);
+
+
+
+                ChangesIndexes();
+            }catch(Exception){}
 
         }
 
