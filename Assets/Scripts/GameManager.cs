@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
     public TMP_Text PlayerDesk;
 
 
+
+
     public void PlayerDeskName()
     {
         PlayerDesk.text = PlayerName + "'s Desk";

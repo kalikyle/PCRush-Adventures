@@ -11,6 +11,9 @@ using System.Diagnostics;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Firebase.Firestore;
+using static TreeEditor.TextureAtlas;
+using System.Collections;
+using System.Reflection;
 
 #if UNITY_EDITOR
 
@@ -31,13 +34,29 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
 
         public static event Action<string> SliceTextureRequest = path => {};
         public static event Action<string> CreateSpriteLibraryRequest = path => { };
-        
+
+        public int HeadIndex = 0;
+        public int BodyIndex = 0;
+        public int HairIndex = 0;
+        public int ArmorIndex = 0;
+        public int HelmetIndex = 0;
+        public int WeaponIndex = 0;
+        public int ShieldIndex = 0;
+        public int CapeIndex = 0;
+        public int BackIndex = 0;
+
         public void Start()
         {
+
+
+          
 
             if (GameManager.instance.UserID != "")
             {
                 playerName.text = GameManager.instance.PlayerName;
+
+                StartCoroutine(LoadIndexesWithDelay());
+               StartCoroutine(ChangesIndexes());
             }
 
                 foreach (var layer in Layers)
@@ -65,15 +84,137 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
             }
 
             //Rebuild(null);
-
-            
             CharacterBuilder.LoadSavedData();
+
+
+
+        }
+
+        private IEnumerator ChangesIndexes()
+        {
+            yield return new WaitForSeconds(.3f);
+
+            foreach (var layer in Layers)
+            {
+                if (layer.Controls)
+                {
+                    if(layer.Name == "Head")
+                    {
+                        layer.Controls.Dropdown.value = HeadIndex + (layer.CanBeEmpty ? 1 : 0);
+                        //layer.Controls.Dropdown.onValueChanged.AddListener(HeadIndex => SetIndex(layer, HeadIndex));
+                        //Rebuild(layer);
+                    }
+                    if (layer.Name == "Body")
+                    {
+                        layer.Controls.Dropdown.value = BodyIndex + (layer.CanBeEmpty ? 1 : 0);
+                        //layer.Controls.Dropdown.onValueChanged.AddListener(BodyIndex => SetIndex(layer, BodyIndex));
+                        //Rebuild(layer);
+                    }
+                    if (layer.Name == "Armor")
+                    {
+                        layer.Controls.Dropdown.value = ArmorIndex + (layer.CanBeEmpty ? 1 : 0);
+                       // layer.Controls.Dropdown.onValueChanged.AddListener(ArmorIndex => SetIndex(layer, ArmorIndex));
+                        //Rebuild(layer);
+                    }
+                    if (layer.Name == "Hair")
+                    {
+                        layer.Controls.Dropdown.value = HairIndex + (layer.CanBeEmpty ? 1 : 0);
+                       // layer.Controls.Dropdown.onValueChanged.AddListener(value => SetIndex(layer, HairIndex));
+                        //Rebuild(layer);
+                    }
+                }
+            }
+        }
+
+        private IEnumerator LoadIndexesWithDelay()
+        {
+            yield return new WaitForSeconds(.2f);
+
+
+            string[] Headparts = CharacterBuilder.Head.Split('#','/');
+            string HeadTextureName = Headparts[0];
+            //string HeadTextureColor = Headparts[1];
+            //string HeadTextureBSV = Headparts[2];
+
+            string[] Bodyparts = CharacterBuilder.Body.Split('#','/');
+            string BodyTextureName = Bodyparts[0];
+            //string BodyTextureColor = Bodyparts[1];
+            //string BodyTextureBSV = Bodyparts[2];
+
+            string[] Hairparts = CharacterBuilder.Hair.Split('#', '/');
+            string HairTextureName = Hairparts[0];
+            //string HairTextureColor = Hairparts[1];
+            //string HairTextureBSV = Hairparts[2];
+
+            string[] Armorparts = CharacterBuilder.Armor.Split('#');
+            string ArmorTextureName = Armorparts[0];
+
+            string[] Helmetparts = CharacterBuilder.Helmet.Split('#');
+            string HelmetTextureName = Helmetparts[0];
+
+            string[] Weaponparts = CharacterBuilder.Weapon.Split('#');
+            string WeaponTextureName = Weaponparts[0];
+
+            string[] Shieldparts = CharacterBuilder.Shield.Split('#');
+            string ShieldTextureName = Shieldparts[0];
+
+            string[] Capeparts = CharacterBuilder.Cape.Split('#');
+            string CapeTextureName = Capeparts[0];
+
+            string[] Backparts = CharacterBuilder.Back.Split('#');
+            string BackTextureName = Backparts[0];
+
+            // Call the FindLayerIndex method after the delay
+            HeadIndex = FindLayerIndex("Head", HeadTextureName);
+            BodyIndex = FindLayerIndex("Body", BodyTextureName);
+            HairIndex = FindLayerIndex("Hair", HairTextureName);
+            ArmorIndex = FindLayerIndex("Armor", ArmorTextureName);
+            HelmetIndex = FindLayerIndex("Helmet", HelmetTextureName);
+            WeaponIndex = FindLayerIndex("Weapon", WeaponTextureName);
+            ShieldIndex = FindLayerIndex("Shield", ShieldTextureName);
+            CapeIndex = FindLayerIndex("Cape", CapeTextureName);
+            BackIndex = FindLayerIndex("Back", BackTextureName);
 
         }
 
 
+        public int FindLayerIndex(string layerName, string textureName)
+        {
+            int layerIndex = -1;
+            for (int i = 0; i < SpriteCollection.Layers.Count; i++)
+            {
+                if (SpriteCollection.Layers[i].Name == layerName)
+                {
+                    layerIndex = i;
+                    break;
+                }
+            }
 
-        public void Rebuild()
+            // If the layer with the specified name is found
+            if (layerIndex != -1)
+            {
+                // Iterate through the textures of the specified layer
+                var textures = SpriteCollection.Layers[layerIndex].Textures;
+                for (int j = 0; j < textures.Count; j++)
+                {
+                    // Check if the name of the current texture matches the input textureName
+                    if (textures[j].name == textureName)
+                    {
+                        // Return the index of the texture within the layer
+                        return j;
+                    }
+                }
+            }
+
+            // Return -1 if the layerName or textureName is not found in the SpriteCollection
+            return -1;
+        }
+
+        // Other methods and code...
+    
+
+
+    public void Rebuild()
         {
             Rebuild(null);
            

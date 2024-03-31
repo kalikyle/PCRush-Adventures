@@ -22,12 +22,12 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
         public string Shield;
         public string Cape;
         public string Back;
+
+
         public UnityEngine.U2D.Animation.SpriteLibrary SpriteLibrary;
-
+       
+        
         public int CharChanged = 0;
-
-
-
 
         public Texture2D Texture { get; private set; }
         private Dictionary<string, Sprite> _sprites;
