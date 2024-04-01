@@ -2,6 +2,7 @@ using Assets.PixelHeroes.Scripts.CharacterScrips;
 using Decoration;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Extensions;
 using Firebase.Firestore;
 //using Firebase.Analytics;
 using Shop;
@@ -542,22 +543,19 @@ public class GameManager : MonoBehaviour
 
 
         UserID = PlayerPrefs.GetString("UserID", "");
+        ClearPlayerPrefsIfUserIDNotFound(UserID);
 
-        
-
-        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+       
         Debug.Log(UserID);
         // player page
                                                            
 
-        EnableDefault();
+       
 
         if (UserID != "")
         {
             DisableFirstall();
             charBuilder.LoadSavedData();
-            
-
             
             // If initial items have already been saved, load in-use items
             await Task.Delay(1000);
@@ -574,6 +572,52 @@ public class GameManager : MonoBehaviour
 
         //DC.LoadInitialItems();
 
+    }
+    public void ClearPlayerPrefsIfUserIDNotFound(string userID)
+    {
+        if (userID == "")
+        {
+            Debug.Log("UserID is null or empty.");
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+            EnableDefault();
+        }
+        else
+        {
+            FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+
+            // Get a reference to the user's document in Firestore
+            DocumentReference userDocRef = db.Collection(UserCollection).Document(userID);
+
+            // Check if the document exists in Firestore
+            userDocRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+            {
+                if (task.IsCompleted)
+                {
+                    DocumentSnapshot snapshot = task.Result;
+                    if (!snapshot.Exists)
+                    {
+                        // User document not found, clear player prefs
+                        PlayerPrefs.DeleteAll();
+                        UserID = "";
+                        Debug.Log("PlayerPrefs cleared because userID was not found in Firestore.");
+                        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+                        EnableDefault();
+                    }
+                    else
+                    {
+                        Debug.Log("UserID found in Firestore. PlayerPrefs not cleared.");
+                        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+                        EnableDefault();
+                    }
+                }
+                else if (task.IsFaulted)
+                {
+                    Debug.LogError("Error checking if userID exists in Firestore: " + task.Exception);
+                }
+            });
+        }
+
+       
     }
     public void DisableFirstall()
     {

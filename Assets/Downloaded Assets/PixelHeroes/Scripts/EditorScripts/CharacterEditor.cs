@@ -62,6 +62,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
                 playerName.text = GameManager.instance.PlayerName;
 
                 StartCoroutine(LoadIndexesWithDelay());
+                CharacterBuilder.LoadSavedData();
             }
 
                 foreach (var layer in Layers)
@@ -89,7 +90,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
             }
 
             //Rebuild(null);
-            CharacterBuilder.LoadSavedData();
+          
 
 
 
