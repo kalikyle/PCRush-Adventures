@@ -568,7 +568,7 @@ public class DecorationManager : MonoBehaviour
                 foreach(var items in GameManager.instance.removedItemsDuringEditing)
                 {
                     decordata.RemoveItem(items, 1);
-                    Debug.LogError("Removed item during editing: " + items.item.Name);
+                    Debug.Log("Removed item during editing: " + items.item.Name);
                 }
                 // If it matches, remove the item from the decoration data
                 // Adjust this method based on your implementation
