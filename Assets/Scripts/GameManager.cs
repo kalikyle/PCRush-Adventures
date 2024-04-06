@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     public Shop.Model.ShopSO so;
     public DecorationManager DecorMan;
 
-
+    public bool isEditing = false;
     public TMP_Text UserIDTxt;
 
     public Image Monitor;
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     public string PlayerName;
 
 
-   
+    public List<DecorationItem> removedItemsDuringEditing = new List<DecorationItem>();
     public event Action<DecorationItem> OnDecorToTransferUpdated;
     public List<DecorationItem> DecorToTransfer = new List<DecorationItem>();
 
