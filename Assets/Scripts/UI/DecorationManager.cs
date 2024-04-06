@@ -35,7 +35,7 @@ public class DecorationManager : MonoBehaviour
     private RectTransform currentDecorationRectTransform;
     private Vector3 offset;
 
-    private bool isEditing = false;
+   
 
     public List<DecorEdit> ListofDecors = new List<DecorEdit>();
     public List<DecorationItem> ListofUseDecors = new List<DecorationItem>();
@@ -45,6 +45,7 @@ public class DecorationManager : MonoBehaviour
     private List<DecorEdit> newDecorations = new List<DecorEdit>();
     //private List<DecorEdit> EditedDecorations = new List<DecorEdit>();
     private List<DecorEdit> PlacedDecorations = new List<DecorEdit>();
+    private Dictionary<DecorEdit, List<DecorationItem>> removedDecorations = new Dictionary<DecorEdit, List<DecorationItem>>();
 
 
     private async void Start()
@@ -80,7 +81,7 @@ public class DecorationManager : MonoBehaviour
     public void DecorClicked()
     {
         
-       // isEditing = true;
+       // GameManager.instance.isEditing = true;
         panel.SetActive(true);
         DecorUI.SetActive(true);
         desk.SetActive(false);
@@ -91,7 +92,7 @@ public class DecorationManager : MonoBehaviour
     }
     public void UnclickedDecor()
     {
-     //   isEditing = false;
+     //   GameManager.instance.isEditing = false;
         GameManager.instance.clicked = false;
         //DecorClickedUI.SetActive(false); 
         DeselectAllItems();
@@ -105,17 +106,23 @@ public class DecorationManager : MonoBehaviour
 
     public void OnDoneButtonClick()
     {
-
+        
         foreach (DecorEdit decor in newDecorations)
         {
-            //RectTransform newDecorationRectTransform = decor.GetComponent<RectTransform>();
-            SaveDecor(decor);
-            PlacedDecorations.Add(decor);
-           // SavedPositions.Add(decor, newDecorationRectTransform.anchoredPosition);
-        }
+           //RectTransform newDecorationRectTransform = decor.GetComponent<RectTransform>();
+           SaveDecor(decor);
+           PlacedDecorations.Add(decor);
+          // SavedPositions.Add(decor, newDecorationRectTransform.anchoredPosition);
+       }
+
+       
+
+       
+        ClearEditDecorationsInFirestore();
 
 
-        isEditing = false;
+
+        GameManager.instance.isEditing = false;
         panel.SetActive(false);
         DecorUI.SetActive(false);
         desk.SetActive(true);
@@ -133,16 +140,20 @@ public class DecorationManager : MonoBehaviour
         //EditedDecorations.Clear();
         newDecorations.Clear();
         //initialPositions.Clear();
-       
+
         //SaveAllDecorations();
         // ToggleDeskAndPanel(false);
         // GameManager.instance.SaveDecorProperties(ListofDecors);
+        //await LoadAllDecorationsFromFirestore();
     }
 
-    public void OnCancelButtonClick()
+   
+    public async void OnCancelButtonClick()
     {
-        isEditing = false;
+        GameManager.instance.isEditing = false;
         DeselectAllItems();
+       
+       
         foreach (var kvp in initialPositions)
         {
             if (newDecorations.Contains(kvp.Key))
@@ -153,39 +164,58 @@ public class DecorationManager : MonoBehaviour
             }
         }
 
+        foreach (var kvp in SavedPositions)
+        {
+            if (newDecorations.Contains(kvp.Key))
+            {
+                Destroy(kvp.Key.gameObject);
+                //RemoveItem(kvp.Key);
+                newDecorations.Remove(kvp.Key);
+                
+            }
+        }
+
+
+       
+
+
+
+        newDecorations.Clear();
+        await LoadInEditDecorationsFromFirestore();
 
         //foreach (var decor in SavedPositions)
         //{
-           
+
 
         //        decor.Key.rectTransform.anchoredPosition = decor.Value;
-            
-        //}
 
-        foreach (DecorEdit decor in newDecorations)
-        {
-            
-            SaveDecor(decor);
-            PlacedDecorations.Add(decor);
-            
-        }
+        //}
+        //foreach (DecorEdit decor in newDecorations)
+        //{
+
+        //    SaveDecor(decor);
+        //    PlacedDecorations.Add(decor);
+
+        //}
 
 
 
         //EditedDecorations.Clear();
-        newDecorations.Clear();
 
-        //  isEditing = false;
+
+        //  GameManager.instance.isEditing = false;
         panel.SetActive(false);
         DecorUI.SetActive(false);
         desk.SetActive(true);
         TopUI.SetActive(true);
         ShopUI.SetActive(false);
 
-        
-       // GameManager.instance.SaveDecorPrefabs(MainDecorpanel.transform);
-       // SaveDecorProperties();
+        ClearEditDecorationsInFirestore();
+
+        // GameManager.instance.SaveDecorPrefabs(MainDecorpanel.transform);
+        // SaveDecorProperties();
     }
+    
     public void RemoveItem(DecorEdit decor)
     {
 
@@ -224,14 +254,19 @@ public class DecorationManager : MonoBehaviour
     }
     public void OnEditButtonClick()
     {
-        isEditing = true;
+        SavedPositions.Clear();
+        GameManager.instance.isEditing = true;
         ClearPlacedDecorationsInFirestore();
         foreach (DecorEdit decor in PlacedDecorations)
         {
             //EditedDecorations.Add(decor);
+            RectTransform newDecorationRectTransform = decor.GetComponent<RectTransform>();
             newDecorations.Add(decor);
+            SavedPositions.Add(decor, newDecorationRectTransform.anchoredPosition);
+            InEditSaveDecor(decor);
+            
         }
-
+        
         panel.SetActive(true);
         DecorUI.SetActive(true);
         desk.SetActive(false);
@@ -273,14 +308,15 @@ public class DecorationManager : MonoBehaviour
     public void UseDecor( DecorationItem Item)
     {
 
-            isEditing = true;
+            GameManager.instance.isEditing = true;
             DeselectAllItems();
-            panel.SetActive(true);
-            DecorUI.SetActive(true);
-            desk.SetActive(false);
-            Inventory.SetActive(false);
-            TopUI.SetActive(false);
-            ShopUI.SetActive(false);
+            //ClearPlacedDecorationsInFirestore();
+            //panel.SetActive(true);
+            //DecorUI.SetActive(true);
+            //desk.SetActive(false);
+            //Inventory.SetActive(false);
+            //TopUI.SetActive(false);
+            //ShopUI.SetActive(false);
             //DecorClickedUI.SetActive(true);
 
             // Instantiate the decoration prefab under the MainDecorPanel
@@ -303,7 +339,11 @@ public class DecorationManager : MonoBehaviour
             newDecoration.AddAssociatedItem(Item);
             initialPositions.Add(newDecoration, newDecorationRectTransform.anchoredPosition);
             newDecorations.Add(newDecoration);
+           
             newDecoration.OnPointerClick(null);
+        //InEditSaveDecor(newDecoration);
+
+           OnEditButtonClick();
 
 
     }
@@ -335,7 +375,7 @@ public class DecorationManager : MonoBehaviour
 
     public void SaveAllDecorations()
     {
-        if(isEditing == true)
+        if(GameManager.instance.isEditing == true)
         {
             foreach (DecorEdit decor in newDecorations)
             {
@@ -347,6 +387,7 @@ public class DecorationManager : MonoBehaviour
     {
         //if the application quits while in editing mode
         SaveAllDecorations();
+        ClearEditDecorationsInFirestore();
     }
     private async void ClearPlacedDecorationsInFirestore()
     {
@@ -360,11 +401,36 @@ public class DecorationManager : MonoBehaviour
             // Get all documents in the "PlacedDecorations" collection
             QuerySnapshot snapshot = await placedDecorationsRef.GetSnapshotAsync();
 
-            // Delete each document in the collection
+           // Delete each document in the collection
             foreach (DocumentSnapshot docSnap in snapshot.Documents)
-            {
+           {
                 await docSnap.Reference.DeleteAsync();
             }
+
+          Debug.Log("PlacedDecorations collection cleared in Firestore!");
+        }
+        else
+        {
+            Debug.LogWarning("User ID not found!");
+        }
+    }
+    private async void ClearEditDecorationsInFirestore()
+    {
+        if (!string.IsNullOrEmpty(GameManager.instance.UserID))
+        {
+            // Create a document reference for the "PlacedDecorations" collection
+           CollectionReference placedDecorationsRef = FirebaseFirestore.DefaultInstance
+                .Collection("users").Document(GameManager.instance.UserID)
+                .Collection("InEditDecors");
+
+            // Get all documents in the "PlacedDecorations" collection
+          QuerySnapshot snapshot = await placedDecorationsRef.GetSnapshotAsync();
+
+           // Delete each document in the collection
+           foreach (DocumentSnapshot docSnap in snapshot.Documents)
+            {
+               await docSnap.Reference.DeleteAsync();
+           }
 
             Debug.Log("PlacedDecorations collection cleared in Firestore!");
         }
@@ -372,6 +438,8 @@ public class DecorationManager : MonoBehaviour
         {
             Debug.LogWarning("User ID not found!");
         }
+
+     
     }
     public void SaveDecor(DecorEdit decor)
     {
@@ -410,17 +478,115 @@ public class DecorationManager : MonoBehaviour
             Debug.LogWarning("Invalid decor or user ID!");
         }
     }
-
-    private List<string> SerializeAssociatedItems(DecorEdit decor)
+    public void InEditSaveDecor(DecorEdit decor)
     {
-        List<string> serializedItems = new List<string>();
-        foreach (DecorationItem item in decor.GetAssociatedItems())
+        if (decor != null && !string.IsNullOrEmpty(GameManager.instance.UserID))
         {
-            
-            serializedItems.Add(item.item.Name); 
+            // Create a document reference for the user's document
+            DocumentReference userDocRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+
+            // Serialize decoration data
+            DecorationData decorationData = new DecorationData(decor);
+            string jsonData = JsonUtility.ToJson(decorationData);
+
+            // Serialize associated items
+            //List<string> associatedItemNames = SerializeAssociatedItems(decor);
+            string associatedItemNames = JsonUtility.ToJson(decor.associatedItems[0]);
+            // Save decoration data and associated item names to Firestore
+            userDocRef.Collection("InEditDecors").AddAsync(new Dictionary<string, object>
+        {
+            { "data", jsonData },
+            { "associatedItems", associatedItemNames } 
+                // Include associated item names
+        }).ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted)
+            {
+                Debug.Log("Decoration data saved to Firestore!");
+            }
+            else if (task.IsFaulted)
+            {
+                Debug.LogError("Failed to save decoration data: " + task.Exception);
+            }
+        });
         }
-        return serializedItems;
+        else
+        {
+            Debug.LogWarning("Invalid decor or user ID!");
+        }
     }
+    private async Task LoadInEditDecorationsFromFirestore()
+    {
+        if (GameManager.instance.UserID != "")
+        {
+            // Get a reference to the user's document
+            DocumentReference userDocRef = FirebaseFirestore.DefaultInstance
+                .Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+
+            // Get all documents in the "PlacedDecorations" collection
+            QuerySnapshot snapshot = await userDocRef.Collection("InEditDecors").GetSnapshotAsync();
+
+            foreach (DocumentSnapshot docSnap in snapshot.Documents)
+            {
+                Debug.Log("Loaded");
+                // Deserialize the JSON data into a DecorationData object
+                string jsonData = docSnap.GetValue<string>("data");
+                DecorationData decorationData = JsonUtility.FromJson<DecorationData>(jsonData);
+
+                // Instantiate the decoration prefab under the MainDecorPanel
+                DecorEdit newDecoration = Instantiate(decorationPrefab, MainDecorpanel.transform);
+
+                // Set the decoration image
+                newDecoration.GetComponent<Image>().sprite = decorationData.decorationImage;
+                // Set the decoration position, rotation, and scale
+                newDecoration.transform.position = decorationData.position;
+                newDecoration.transform.rotation = decorationData.rotation;
+                newDecoration.transform.localScale = decorationData.scale;
+
+                // Set the decoration's RectTransform properties
+                RectTransform newDecorationRectTransform = newDecoration.GetComponent<RectTransform>();
+                newDecorationRectTransform.sizeDelta = decorationData.scaledSize;
+
+
+
+
+                // Load associated items
+                string associatedItemNames = docSnap.GetValue<string>("associatedItems");
+
+                DecorationItem decorationItems = JsonUtility.FromJson<DecorationItem>(associatedItemNames);
+
+
+                //DecorationItem item = decordata.FindLocalItem(itemName);
+                Debug.Log(decorationItems.item.Name);
+                ListofUseDecors.Add(decorationItems);
+                newDecoration.AddAssociatedItem(decorationItems);
+
+
+                // Add the loaded decoration to the list of placed decorations
+                PlacedDecorations.Add(newDecoration);
+
+                foreach(var items in GameManager.instance.removedItemsDuringEditing)
+                {
+                    decordata.RemoveItem(items, 1);
+                    Debug.LogError("Removed item during editing: " + items.item.Name);
+                }
+                // If it matches, remove the item from the decoration data
+                // Adjust this method based on your implementation
+
+                // Optionally, you can log the removal or perform additional actions
+
+
+                GameManager.instance.removedItemsDuringEditing.Clear();
+                SaveDecor(newDecoration);
+
+            }
+
+            Debug.Log("Decorations loaded from Firestore!");
+
+        }
+
+    }
+
     private async Task LoadAllDecorationsFromFirestore()
     {
         if (GameManager.instance.UserID != "")
@@ -479,21 +645,6 @@ public class DecorationManager : MonoBehaviour
        
     }
 
-    private DecorationItem FetchDecorationItem(string itemName)
-    {
-       
-        foreach (DecorationItem item in decordata.DecorationItems)
-        {
-            if (item.item.Name == itemName)
-            {
-                // Return the found DecorationItem
-                return item;
-            }
-        }
-
-        // If no matching item is found, return null
-        return new DecorationItem();
-    }
 }
 [System.Serializable]
 public class DecorationData

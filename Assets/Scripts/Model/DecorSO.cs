@@ -152,6 +152,42 @@ namespace Decoration.Model
             catch (Exception) { }
 
         }
+        internal void RemoveItem(DecorationItem itemToRemove, int amount)
+        {
+            if (amount <= 0)
+            {
+                return;
+            }
+
+            // Find the index of the item in the list
+            int itemIndex = DecorationItems.FindIndex(item => item.item == itemToRemove.item);
+
+            if (itemIndex != -1)
+            {
+                int currentQuantity = DecorationItems[itemIndex].quantity;
+
+                if (currentQuantity <= amount)
+                {
+                    // Remove the entire item.
+                    DecorationItems.RemoveAt(itemIndex);
+                    GameManager.instance.DecorToTransfer.RemoveAt(itemIndex);
+                    InformAboutChange();
+                }
+                else
+                {
+                    // Decrease the item quantity.
+                    DecorationItems[itemIndex] = DecorationItems[itemIndex].ChangeQuantity(currentQuantity - amount);
+                    GameManager.instance.DecorToTransfer[itemIndex] = GameManager.instance.DecorToTransfer[itemIndex].ChangeQuantity(currentQuantity - amount);
+                    InformAboutChange();
+                }
+            }
+            else
+            {
+                // Handle case where itemToRemove was not found in the list
+                Debug.LogWarning("Attempted to remove an item that does not exist in the DecorationItems list.");
+                // You can choose to throw an exception, log a warning, or handle it based on your application's logic
+            }
+        }
 
         public Dictionary<int, DecorationItem> GetCurrentInventoryState()
         {

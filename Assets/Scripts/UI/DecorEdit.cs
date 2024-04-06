@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
+using static UnityEditor.Progress;
 //using static UnityEditor.Progress;
 
 public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPointerEnterHandler , IPointerExitHandler
@@ -19,7 +20,7 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
     public float sizeStep = 10f;
     public float rotationStep = 15f;
 
-  
+    
 
     private static DecorEdit selectedDecor; // Static variable to keep track of the selected decoration
     private Vector3 initialMousePosition;
@@ -110,11 +111,23 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
         {
             GameManager.instance.AddItemToTransfer(clickedItem.ChangeQuantity(clickedItem.quantity - clickedItem.quantity + 1));
             GameManager.instance.RemoveItem();
-        }
-        
+
+            if(GameManager.instance.isEditing == true)
+            {
+                GameManager.instance.removedItemsDuringEditing.Add(clickedItem);
+            }
+
+        } 
     }
- 
-    
+    //public void RemoveItemDuringEditing(DecorationItem item)
+    //{
+    //    if (!removedItemsDuringEditing.Contains(item))
+    //    {
+    //        removedItemsDuringEditing.Add(item);
+    //    }
+    //}
+
+
 
 
     public void OnPointerEnter(PointerEventData eventData)

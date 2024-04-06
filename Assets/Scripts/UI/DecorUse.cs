@@ -39,7 +39,6 @@ namespace Decoration.UI
                 decorSO.RemoveItem(itemIndex, 1);
                 decorSO.SaveItems();
 
-
         }
         public void UseItems(DecorationItem inventoryItem)
         {
