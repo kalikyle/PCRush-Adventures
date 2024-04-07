@@ -19,6 +19,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
+using static Inventory.Model.PartsInventorySO;
 //using static UnityEditor.Progress;
 //using static UnityEditorInternal.ReorderableList;
 
@@ -60,8 +61,11 @@ public class GameManager : MonoBehaviour
 
     public bool clicked = false;
     public bool OpenEditor = false;
-    public int tempindex;
+   
 
+    public event Action<InventoryItem> OnItemsToTransferUpdated;
+    public List<InventoryItem> itemsToTransfer = new List<InventoryItem>();
+    public int Partstempindex;
 
     //player info
     public string PlayerName;
@@ -70,6 +74,9 @@ public class GameManager : MonoBehaviour
     public List<DecorationItem> removedItemsDuringEditing = new List<DecorationItem>();
     public event Action<DecorationItem> OnDecorToTransferUpdated;
     public List<DecorationItem> DecorToTransfer = new List<DecorationItem>();
+    public int tempindex;
+
+
 
     public Dictionary<string, Shop.Model.ShopItem> equippedItemsByCategory = new Dictionary<string, Shop.Model.ShopItem>();
     //public DecorEdit de;
@@ -221,6 +228,11 @@ public class GameManager : MonoBehaviour
     {
        DecorToTransfer.Add(item);
        OnDecorToTransferUpdated?.Invoke(item);
+    }
+    public void AddItemToTransfer(InventoryItem item)
+    {
+        itemsToTransfer.Add(item);
+        OnItemsToTransferUpdated?.Invoke(item);
     }
     public void SaveDecorInitialItemss(List<DecorationItem> items)
     {
