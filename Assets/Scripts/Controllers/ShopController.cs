@@ -57,11 +57,21 @@ namespace Shop
             ////ShowAllCategory();
             //ToggleALLButton();
             //shop.Show();
-            StartCoroutine(ExecuteAfterDelay(3f));
+            //StartCoroutine(ExecuteAfterDelay(3f));
         }
         private IEnumerator ExecuteAfterDelay(float delayInSeconds)
         {
             yield return new WaitForSeconds(delayInSeconds);
+
+            // Call the methods after the delay
+            PrepareUI();
+            ToggleALLButton();
+            shop.Show();
+        }
+
+        public void OpenShop()
+        {
+            
 
             // Call the methods after the delay
             PrepareUI();
