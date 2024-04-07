@@ -537,7 +537,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Error deleting previous item in use: " + ex.Message);
         }
     }
-    private async void Start()
+    private void Start()
     {
 
 
@@ -552,26 +552,31 @@ public class GameManager : MonoBehaviour
 
        
 
-        if (UserID != "")
-        {
-            DisableFirstall();
-            charBuilder.LoadSavedData();
-            
-            // If initial items have already been saved, load in-use items
-            await Task.Delay(1000);
-            await LoadInUseItems();
-            await Task.Delay(1000);
-            await LoadSoldItems();
-            await Task.Delay(1000);
-            SaveSoldItems();
-
-            RetrievePlayerInfo(UserID);
-        }
+       
         //EnableDefault();
         
 
         //DC.LoadInitialItems();
 
+    }
+
+    public async void AtTheStart()
+    {
+        if (UserID != "")
+        {
+            DisableFirstall();
+            charBuilder.LoadSavedData();
+
+            // If initial items have already been saved, load in-use items
+            await Task.Delay(500);
+            await LoadInUseItems();
+            await Task.Delay(500);
+            await LoadSoldItems();
+            await Task.Delay(500);
+            SaveSoldItems();
+
+            RetrievePlayerInfo(UserID);
+        }
     }
     public void ClearPlayerPrefsIfUserIDNotFound(string userID)
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
-    private bool isMoving;
+    //private bool isMoving;
     private Vector2 input;
 
     public LayerMask solidObjectsLayer;
@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
         if (((1 << collision.gameObject.layer) & solidObjectsLayer) != 0)
         {
             // Stop movement when colliding with an obstacle
-            isMoving = false;
+            //isMoving = false;
         }
     }
 
