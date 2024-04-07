@@ -91,6 +91,7 @@ public class UserSetup : MonoBehaviour
             //CharEditor.gameObject.SetActive(false);
             Login.gameObject.SetActive(false);
             UnloadThisScene();
+            GameManager.instance.AtTheStart();
         }
     }
     public void UnloadThisScene()
