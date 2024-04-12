@@ -8,6 +8,7 @@ TagManager:
   - Room
   - Desk
   - Editor
+  - Build
   layers:
   - Default
   - TransparentFX
