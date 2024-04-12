@@ -10,12 +10,14 @@ using UnityEngine.SceneManagement;
         private GameObject homeTeleport;
         public GameObject DeskPanel;
         public GameObject UIPanel;
+        public GameObject BuildRoom;
 
         public bool OpenDesk = false;
-        
+        public bool OpenBuild = false;
 
 
-        void Update()
+
+    void Update()
         {
             //for doors
             if (Input.GetKeyDown(KeyCode.E))
@@ -42,7 +44,12 @@ using UnityEngine.SceneManagement;
                     SceneManager.LoadScene(1, LoadSceneMode.Additive);
                     //GameManager.instance.OpenEditor = false;
                 }
+            else if (OpenBuild == true  && homeTeleport == null)
+            {
+                BuildRoom.gameObject.SetActive(true);
+                
             }
+        }
         }
         //IMPORTANT: for other teleports, you just need to place game objects, create another tag and then just copy the code here
         private void OnTriggerEnter2D(Collider2D collision)
@@ -68,10 +75,14 @@ using UnityEngine.SceneManagement;
             {
                 GameManager.instance.OpenEditor = true;
             }
-
-
-
+            if (collision.CompareTag("Build"))
+        {
+            OpenBuild = true;
         }
+
+
+
+    }
         private void OnTriggerExit2D(Collider2D collision)
         {
             //for home
@@ -102,9 +113,13 @@ using UnityEngine.SceneManagement;
             {
                GameManager.instance.OpenEditor = false;
             }
-
-
-
+        if (collision.CompareTag("Build"))
+        {
+            OpenBuild = false;
         }
+
+
+
+    }
     }
 
