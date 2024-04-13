@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     public bool clicked = false;
     public bool OpenEditor = false;
-   
+    public bool BeenModified = false;
 
     public event Action<InventoryItem> OnItemsToTransferUpdated;
     public List<InventoryItem> itemsToTransfer = new List<InventoryItem>();

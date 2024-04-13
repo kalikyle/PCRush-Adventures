@@ -26,12 +26,7 @@ using UnityEngine.SceneManagement;
                 {
                     transform.position = homeTeleport.GetComponent<Teleporter>().HomeDestination().position;
                 }
-
-            }
-            //for desk
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (OpenDesk == true && homeTeleport == null)
+                else if (OpenDesk == true && homeTeleport == null)
                 {
                     DeskPanel.gameObject.SetActive(true);
                     GameManager.instance.PlayerDeskName();
@@ -40,16 +35,22 @@ using UnityEngine.SceneManagement;
                 }
                 else if (GameManager.instance.OpenEditor == true && homeTeleport == null)
                 {
-                    
+
                     SceneManager.LoadScene(1, LoadSceneMode.Additive);
                     //GameManager.instance.OpenEditor = false;
                 }
-            else if (OpenBuild == true  && homeTeleport == null)
+                else if (OpenBuild == true && homeTeleport == null)
+                {
+                    BuildRoom.gameObject.SetActive(true);
+                    OpenBuild = false;
+
+                }
+
+        }
+            //for desk
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                BuildRoom.gameObject.SetActive(true);
-                OpenBuild = false;
-                
-            }
+               
         }
         }
         //IMPORTANT: for other teleports, you just need to place game objects, create another tag and then just copy the code here

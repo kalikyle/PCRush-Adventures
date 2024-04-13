@@ -24,49 +24,49 @@ namespace PartsInventory
         private PartsInventorySO inventoryData;
 
         //[SerializeField]
-       // private PCInventSO PCData;
+        // private PCInventSO PCData;
 
 
-       // public GlossaryScript GS;
+        // public GlossaryScript GS;
 
 
 
-        //[SerializeField]
-        //private Button CaseButton;
-        //[SerializeField]
-        //private Button MBButton;
-        //[SerializeField]
-        //private Button CPUButton;
-        //[SerializeField]
-        //private Button CPUFButton;
-        //[SerializeField]
-        //private Button RAMButton;
-        //[SerializeField]
-        //private Button GPUButton;
-        //[SerializeField]
-        //private Button STRG1Button;
-        //[SerializeField]
-        //private Button PSUButton;
-        //[SerializeField]
-        //private Button InventoryButton;
+        [SerializeField]
+        private Button CaseButton;
+        [SerializeField]
+        private Button MBButton;
+        [SerializeField]
+        private Button CPUButton;
+        [SerializeField]
+        private Button CPUFButton;
+        [SerializeField]
+        private Button RAMButton;
+        [SerializeField]
+        private Button GPUButton;
+        [SerializeField]
+        private Button STRG1Button;
+        [SerializeField]
+        private Button PSUButton;
+        [SerializeField]
+        private Button InventoryButton;
 
-        //[SerializeField]
-        //public Button XButton;
+        [SerializeField]
+        public Button XButton;
 
-        //[SerializeField]
-        //public Button MBXButton;
-        //[SerializeField]
-        //public Button CPUXButton;
-        //[SerializeField]
-        //public Button CPUFXButton;
-        //[SerializeField]
-        //public Button RAMXButton;
-        //[SerializeField]
-        //public Button GPUXButton;
-        //[SerializeField]
-        //public Button STRG1XButton;
-        //[SerializeField]
-        //public Button PSUXButton;
+        [SerializeField]
+        public Button MBXButton;
+        [SerializeField]
+        public Button CPUXButton;
+        [SerializeField]
+        public Button CPUFXButton;
+        [SerializeField]
+        public Button RAMXButton;
+        [SerializeField]
+        public Button GPUXButton;
+        [SerializeField]
+        public Button STRG1XButton;
+        [SerializeField]
+        public Button PSUXButton;
 
         [SerializeField]
         public Button useButton;
@@ -75,24 +75,35 @@ namespace PartsInventory
         [SerializeField]
         public Button DoneButton;
 
-        //[SerializeField]
-        //public Image DialogBox;
-        //[SerializeField]
-        //public TMP_Text DialogText;
-        //[SerializeField]
-        //public Button DialogButton;
-        //[SerializeField]
-        //public Button YesButton;
-        //[SerializeField]
-        //public Button NoButton;
+        [SerializeField]
+        public Image DialogBox;
+        [SerializeField]
+        public TMP_Text DialogText;
+        [SerializeField]
+        public Button DialogButton;
+        [SerializeField]
+        public Button YesButton;
+        [SerializeField]
+        public Button NoButton;
 
         //[SerializeField]
         //public Button backButton;
         //[SerializeField]
         //public Button shopButton;
 
-        //[SerializeField]
-        //public Button CancelButton;
+        [SerializeField]
+        public Button CancelButton;
+
+
+        [SerializeField]
+        public Button PartsButton;
+        [SerializeField]
+        public Button ComputerButton;
+
+        [SerializeField]
+        public GameObject ComputerPanel;
+        [SerializeField]
+        public GameObject PartsPanel;
 
         //[SerializeField]
         //public Button TestPCButton;
@@ -103,29 +114,29 @@ namespace PartsInventory
 
 
 
-        //[SerializeField]
-        //public TMP_Text DisplayText;
+        [SerializeField]
+        public TMP_Text DisplayText;
         //[SerializeField]
         //public TMP_Text PriceText;
         //[SerializeField]
         //public TMP_Text NameText;
 
-        //[SerializeField]
-        //private Image MBImage;
-        //[SerializeField]
-        //private Image CaseImage;
-        //[SerializeField]
-        //private Image CPUImage;
-        //[SerializeField]
-        //private Image CPUFImage;
-        //[SerializeField]
-        //private Image RAMImage;
-        //[SerializeField]
-        //private Image GPUImage;
-        //[SerializeField]
-        //private Image STRG1Image;
-        //[SerializeField]
-        //private Image PSUImage;
+        [SerializeField]
+        private Image MBImage;
+        [SerializeField]
+        private Image CaseImage;
+        [SerializeField]
+        private Image CPUImage;
+        [SerializeField]
+        private Image CPUFImage;
+        [SerializeField]
+        private Image RAMImage;
+        [SerializeField]
+        private Image GPUImage;
+        [SerializeField]
+        private Image STRG1Image;
+        [SerializeField]
+        private Image PSUImage;
 
         //[SerializeField]
         //private Canvas Buildscene;
@@ -218,34 +229,34 @@ namespace PartsInventory
             onStartClickables();
 
 
-            //CaseImage.gameObject.SetActive(false);
-            //MBImage.gameObject.SetActive(false);
-            //CPUImage.gameObject.SetActive(false);
-            //CPUFImage.gameObject.SetActive(false);
-            //RAMImage.gameObject.SetActive(false);
-            //GPUImage.gameObject.SetActive(false);
-            //STRG1Image.gameObject.SetActive(false);
-            //PSUImage.gameObject.SetActive(false);
+            CaseImage.gameObject.SetActive(false);
+            MBImage.gameObject.SetActive(false);
+            CPUImage.gameObject.SetActive(false);
+            CPUFImage.gameObject.SetActive(false);
+            RAMImage.gameObject.SetActive(false);
+            GPUImage.gameObject.SetActive(false);
+            STRG1Image.gameObject.SetActive(false);
+            PSUImage.gameObject.SetActive(false);
 
-            //CaseImage.sprite = null;
-            //MBImage.sprite = null;
+            CaseImage.sprite = null;
+            MBImage.sprite = null;
 
-            //MBButton.interactable = false;
-            //CPUButton.interactable = false;
-            //CPUFButton.interactable = false;
-            //RAMButton.interactable = false;
-            //GPUButton.interactable = false;
-            //STRG1Button.interactable = false;
-            //PSUButton.interactable = false;
+            MBButton.interactable = false;
+            CPUButton.interactable = false;
+            CPUFButton.interactable = false;
+            RAMButton.interactable = false;
+            GPUButton.interactable = false;
+            STRG1Button.interactable = false;
+            PSUButton.interactable = false;
             //backButton.onClick.AddListener(LoadMyHomeScene);
             //shopButton.onClick.AddListener(LoadMyShopScene);
 
             //DoneButton.onClick.AddListener(OnDoneButtonClick);
 
-            //CancelButton.onClick.AddListener(() =>
-            //{
-            //    HandleCancel();
-            //});
+            CancelButton.onClick.AddListener(() =>
+            {
+                HandleCancel();
+            });
 
 
             //TestPCButton.onClick.AddListener(TestnewlyCreatePC);
@@ -303,65 +314,67 @@ namespace PartsInventory
         //    About.gameObject.SetActive(false);
         //}
 
-        //public void HandleCancel()
-        //{
-        //    DialogBox.gameObject.SetActive(true);
-        //    YesButton.gameObject.SetActive(true);
-        //    NoButton.gameObject.SetActive(true);
-        //    DialogButton.gameObject.SetActive(false);
+        public void HandleCancel()
+        {
+            DialogBox.gameObject.SetActive(true);
+            YesButton.gameObject.SetActive(true);
+            NoButton.gameObject.SetActive(true);
+            DialogButton.gameObject.SetActive(false);
 
-        //    if (GameManager.Instance.BeenModified)
-        //    {
-        //        DialogText.text = "You are currently Modifying a PC... \n Do you Want to Cancel your Build? \n If yes, Previous Parts will return to the PC...";
-        //    }
-        //    else
-        //    {
-        //        DialogText.text = "Do you Want to Cancel your Build?, \n All Items will be Return In your Inventory...";
-        //    }
+            if (GameManager.instance.BeenModified)
+            {
+                DialogText.text = "You are currently Modifying a PC... \n Do you Want to Cancel your Build? \n If yes, Previous Parts will return to the PC...";
+            }
+            else
+            {
+                DialogText.text = "Do you Want to Cancel your Build?, \n All Items will be Return In your Inventory...";
+            }
+            
 
-        //    YesButton.onClick.AddListener(() => {
+            YesButton.onClick.AddListener(() =>
+            {
 
 
-        //        if (GameManager.Instance.BeenModified)
-        //        {
+                if (GameManager.instance.BeenModified)
+                {
 
-        //            if (recentlyBackedItems.Count > 0)
-        //            {
-        //                foreach (var kvp in recentlyBackedItems)
-        //                {
-        //                    lastUsedItems[kvp.Key] = kvp.Value;
-        //                    totalUsedItemsPrice += kvp.Value.item.Price;
+                    if (recentlyBackedItems.Count > 0)
+                    {
+                        foreach (var kvp in recentlyBackedItems)
+                        {
+                            lastUsedItems[kvp.Key] = kvp.Value;
+                            //totalUsedItemsPrice += kvp.Value.item.Price;
 
-        //                }
-        //                recentlyBackedItems.Clear();
-        //            }
+                        }
+                        recentlyBackedItems.Clear();
+                    }
 
-        //            OnDoneButtonClick();
-        //            Success.Stop();
-        //            LTA.HideSuccess();
+                    //OnDoneButtonClick();
+                    //Success.Stop();
+                    //LTA.HideSuccess();
 
-        //            GameManager.Instance.BeenModified = false;
-        //        }
-        //        else
-        //        {
+                    GameManager.instance.BeenModified = false;
+                }
+                else
+                {
 
-        //            PriceText.text = "$0.00";
-        //            NameText.text = "PC1";
-        //            RenameTxt.text = "";
-        //            BackAllCurrentlyItem();
+                    //PriceText.text = "$0.00";
+                    //NameText.text = "PC1";
+                    //RenameTxt.text = "";
+                    BackAllCurrentlyItem();
 
-        //            GameManager.Instance.BeenModified = false;
-        //        }
-        //        CloseDialog();
-        //    });
+                    GameManager.instance.BeenModified = false;
+                }
+                CloseDialog();
+            });
 
-        //    NoButton.onClick.AddListener(() =>
-        //    {
-        //        CloseDialog();
+            NoButton.onClick.AddListener(() =>
+            {
+                CloseDialog();
 
-        //    });
+            });
 
-        //}
+        }
         //using an event
         public void UpdateInventory(InventoryItem updatedItems)
         {
@@ -415,12 +428,12 @@ namespace PartsInventory
             {
                 if (lastUsedItems.ContainsKey(categories))
                 {
-                    //HandleBackItem(categories);
+                    HandleBackItem(categories);
                 }
             }
             lastUsedItems.Clear();
             usedItems.Clear();
-           // CancelButton.interactable = false;
+           CancelButton.interactable = false;
             Debug.LogError("Triggered");
         }
 
@@ -458,44 +471,52 @@ namespace PartsInventory
         }
         public void onStartClickables()
         {
+            //inventoryUI.InitializeInventoryUI(GetUsedSlotsCount());
+            //inventoryUI.InitializeInventoryUI(initialItems.Count);//inventoryData.Size
             inventoryUI.OnDescriptionRequested += HandleDescriptionRequest;
             inventoryUI.OnSwapItems += HandleSwapItems;
             //inventoryUI.OnStartDragging += HandleDragging;
             inventoryUI.OnItemActionRequested += HandleItemActionRequest;
             OnDescriptionRequested += HandleDescriptionRequests;//create new event handler
 
-            //CaseButton.onClick.AddListener(() => { OpenFiltered("Case"); });
-            //MBButton.onClick.AddListener(() => OpenFiltered("Motherboard"));
-            //CPUButton.onClick.AddListener(() => OpenFiltered("CPU"));
-            //CPUFButton.onClick.AddListener(() => OpenFiltered("CPU Fan"));
-            //RAMButton.onClick.AddListener(() => OpenFiltered("RAM"));
-            //GPUButton.onClick.AddListener(() => OpenFiltered("Video Card"));
-            //STRG1Button.onClick.AddListener(() => OpenFiltered("Storage"));
-            //PSUButton.onClick.AddListener(() => OpenFiltered("PSU"));
-            //InventoryButton.onClick.AddListener(() => ToggleALLButton());
-            //XButton.onClick.AddListener(() => inventoryUI.Hide());
+            CaseButton.onClick.AddListener(() => { OpenFiltered("Case"); });
+            MBButton.onClick.AddListener(() => OpenFiltered("Motherboard"));
+            CPUButton.onClick.AddListener(() => OpenFiltered("CPU"));
+            CPUFButton.onClick.AddListener(() => OpenFiltered("CPU Fan"));
+            RAMButton.onClick.AddListener(() => OpenFiltered("RAM"));
+            GPUButton.onClick.AddListener(() => OpenFiltered("Video Card"));
+            STRG1Button.onClick.AddListener(() => OpenFiltered("Storage"));
+            PSUButton.onClick.AddListener(() => OpenFiltered("PSU"));
+            InventoryButton.onClick.AddListener(() => ToggleALLButton());
+            XButton.onClick.AddListener(() => OnInventExit());
             //XButton.gameObject.SetActive(false);
 
             useButton.onClick.AddListener(HandleUseButton);
-            sellButton.onClick.AddListener(HandleSellButton);
+            //sellButton.onClick.AddListener(HandleSellButton);
 
-            //MBXButton.onClick.AddListener(() => HandleBackItem("Motherboard"));
-            //CPUXButton.onClick.AddListener(() => HandleBackItem("CPU"));
-            //CPUFXButton.onClick.AddListener(() => HandleBackItem("CPU Fan"));
-            //RAMXButton.onClick.AddListener(() => HandleBackItem("RAM"));
-            //GPUXButton.onClick.AddListener(() => HandleBackItem("Video Card"));
-            //STRG1XButton.onClick.AddListener(() => HandleBackItem("Storage"));
-            //PSUXButton.onClick.AddListener(() => HandleBackItem("PSU"));
+            MBXButton.onClick.AddListener(() => HandleBackItem("Motherboard"));
+            CPUXButton.onClick.AddListener(() => HandleBackItem("CPU"));
+            CPUFXButton.onClick.AddListener(() => HandleBackItem("CPU Fan"));
+            RAMXButton.onClick.AddListener(() => HandleBackItem("RAM"));
+            GPUXButton.onClick.AddListener(() => HandleBackItem("Video Card"));
+            STRG1XButton.onClick.AddListener(() => HandleBackItem("Storage"));
+            PSUXButton.onClick.AddListener(() => HandleBackItem("PSU"));
 
             //DialogButton.onClick.AddListener(CloseDialog);
         }
-        private void PrepareUI()
+        public void OnInventExit()
         {
-            inventoryUI.InitializeInventoryUI(GetUsedSlotsCount());
-            //inventoryUI.InitializeInventoryUI(initialItems.Count);//inventoryData.Size
-            
+            PartsButton.gameObject.SetActive(true);
+            ComputerButton.gameObject.SetActive(true);
+            DisplayText.text = "Inventory".ToUpper();
 
+            if (ComputerPanel.activeSelf)
+            {
+                ComputerPanel.SetActive(false);
+                PartsPanel.SetActive(true);
+            }
 
+           
 
         }
 
@@ -538,7 +559,7 @@ namespace PartsInventory
         private void HandleSellButton()
         {
 
-            int tempIndex = GameManager.instance.tempindex;
+            int tempIndex = GameManager.instance.Partstempindex;
 
             if (ToogleFiltered)
             {
@@ -572,7 +593,7 @@ namespace PartsInventory
                             inventoryUI.ResetSelection();
                             inventoryUI.SelectItemAtIndex(tempIndex);
                             HandleDescriptionRequests(tempIndex);
-                            GameManager.instance.tempindex = tempIndex;
+                            GameManager.instance.Partstempindex = tempIndex;
 
                             //HandleItemSelection(tempIndex);
 
@@ -644,7 +665,7 @@ namespace PartsInventory
         private void HandleUseButton()
         {
 
-            int tempIndex = GameManager.instance.tempindex;
+            int tempIndex = GameManager.instance.Partstempindex;
             Debug.Log("Using item with temporary index: " + tempIndex);
 
 
@@ -664,146 +685,166 @@ namespace PartsInventory
 
 
         }
-        //private void CloseDialog()
-        //{
-        //    DialogBox.gameObject.SetActive(false);
-        //}
+        private void CloseDialog()
+        {
+            DialogBox.gameObject.SetActive(false);
+        }
 
-        //private void Unused(InventoryItem inventoryItem, string category)
-        //{
+        private void Unused(InventoryItem inventoryItem, string category)
+        {
 
-        //    if (CaseImage.sprite == null)
-        //    {
-        //        DialogBox.gameObject.SetActive(true);
-        //        DialogText.text = "Can't Use this " + category + " without the Case";
-        //        YesButton.gameObject.SetActive(false);
-        //        NoButton.gameObject.SetActive(false);
-        //        DialogButton.gameObject.SetActive(true);
-        //        try
-        //        {
+            if (CaseImage.sprite == null)
+            {
+                DialogBox.gameObject.SetActive(true);
+                DialogText.text = "Can't Use this " + category + " without the Case";
+                YesButton.gameObject.SetActive(false);
+                NoButton.gameObject.SetActive(false);
+                DialogButton.gameObject.SetActive(true);
+                try
+                {
 
-        //            HandleBackItem(category);
+                    HandleBackItem(category);
 
-        //            if (category == "CPU")
-        //            {
-        //                ApplyThermal.gameObject.SetActive(false);
-        //            }
-
-
-
-        //        }
-        //        catch (Exception) { }
-        //    }
-        //    else if (MBImage.sprite == null)
-        //    {
-        //        DialogBox.gameObject.SetActive(true);
-        //        DialogText.text = "Can't Use this " + category + " without the Motherboard";
-        //        YesButton.gameObject.SetActive(false);
-        //        NoButton.gameObject.SetActive(false);
-        //        DialogButton.gameObject.SetActive(true);
-        //        try
-        //        {
-        //            HandleBackItem(category);
-
-        //            if (category == "CPU")
-        //            {
-        //                ApplyThermal.gameObject.SetActive(false);
-        //            }
-
-        //        }
-        //        catch (Exception) { }
-        //    }
+                    if (category == "CPU")
+                    {
+                        //ApplyThermal.gameObject.SetActive(false);
+                    }
 
 
-        //    Debug.Log(inventoryItem.quantity);
-        //}
 
-        //public void HandleBackItem(string category)
-        //{
+                }
+                catch (Exception) { }
+            }
+            else if (MBImage.sprite == null)
+            {
+                DialogBox.gameObject.SetActive(true);
+                DialogText.text = "Can't Use this " + category + " without the Motherboard";
+                YesButton.gameObject.SetActive(false);
+                NoButton.gameObject.SetActive(false);
+                DialogButton.gameObject.SetActive(true);
+                try
+                {
+                    HandleBackItem(category);
 
-        //    if (lastUsedItems.ContainsKey(category))
-        //    {
-        //        recentlyBackedItems[category] = lastUsedItems[category];
-        //    }
-        //    else if (recentlyBackedItems.ContainsKey(category))
-        //    {
-        //        recentlyBackedItems.Remove(category);
-        //    }
+                    if (category == "CPU")
+                    {
+                        //ApplyThermal.gameObject.SetActive(false);
+                    }
 
-        //    InventoryItem previousUsedItem = lastUsedItems[category];
-        //    inventoryData.AddItem(previousUsedItem.ChangeQuantity(previousUsedItem.quantity - lastUsedItems[category].quantity + 1));
+                }
+                catch (Exception) { }
+            }
 
-        //    switch (category)
-        //    {
-        //        case "Case":
-        //            CaseImage.gameObject.SetActive(false);
-        //            CaseImage.sprite = null;
-        //            break;
-        //        case "Motherboard":
-        //            MBImage.gameObject.SetActive(false);
-        //            MBImage.sprite = null;
 
-        //            CPUButton.interactable = false;
-        //            CPUFButton.interactable = false;
-        //            RAMButton.interactable = false;
-        //            GPUButton.interactable = false;
-        //            STRG1Button.interactable = false;
-        //            PSUButton.interactable = false;
-        //            try
-        //            {
-        //                string[] categoriesToHandle = { "CPU", "CPU Fan", "RAM", "Video Card", "Storage", "PSU" };
-        //                //int index = inventoryData.inventoryItems.IndexOf(previousUsedItem);
-        //                //inventoryData.RemoveItem(index, 1);
-        //                foreach (string categories in categoriesToHandle)
-        //                {
-        //                    if (lastUsedItems.ContainsKey(categories))
-        //                    {
-        //                        HandleBackItem(categories);
-        //                    }
-        //                }
-        //            }
-        //            catch (Exception) { }
-        //            GameManager.Instance.PSUImagesNeeds.Remove(category);
-        //            break;
-        //        case "CPU":
-        //            CPUImage.gameObject.SetActive(false);
-        //            CPUImage.sprite = null;
-        //            GameManager.Instance.PSUImagesNeeds.Remove(category);
-        //            break;
-        //        case "CPU Fan":
-        //            CPUFImage.gameObject.SetActive(false);
-        //            CPUFImage.sprite = null;
-        //            break;
-        //        case "RAM":
-        //            RAMImage.gameObject.SetActive(false);
-        //            RAMImage.sprite = null;
-        //            break;
-        //        case "Video Card":
-        //            GPUImage.gameObject.SetActive(false);
-        //            GPUImage.sprite = null;
-        //            GameManager.Instance.PSUImagesNeeds.Remove(category);
-        //            break;
-        //        case "Storage":
-        //            STRG1Image.gameObject.SetActive(false);
-        //            STRG1Image.sprite = null;
-        //            GameManager.Instance.PSUImagesNeeds.Remove(category);
-        //            break;
-        //        case "PSU":
-        //            PSUImage.gameObject.SetActive(false);
-        //            PSUImage.sprite = null;
-        //            GameManager.Instance.PSUImagesNeeds.Remove(category);
-        //            break;
+            Debug.Log(inventoryItem.quantity);
+        }
 
-        //    }
-        //    OnGameObjectStateChanged();
-        //    usedItems.Remove(previousUsedItem);
-        //    lastUsedItems.Remove(category);
-        //    GameManager.Instance.itemsToTransfer.Remove(previousUsedItem);
-        //    totalUsedItemsPrice -= previousUsedItem.item.Price;
+        public void HandleBackItem(string category)
+        {
 
-        //    // Display the updated total price.
-        //    DisplayPrices(totalUsedItemsPrice);
-        //}
+            if (lastUsedItems.ContainsKey(category))
+            {
+                recentlyBackedItems[category] = lastUsedItems[category];
+            }
+            else if (recentlyBackedItems.ContainsKey(category))
+            {
+                recentlyBackedItems.Remove(category);
+            }
+
+            InventoryItem previousUsedItem = lastUsedItems[category];
+            inventoryData.AddItem(previousUsedItem.ChangeQuantity(previousUsedItem.quantity - lastUsedItems[category].quantity + 1));
+
+            switch (category)
+            {
+                case "Case":
+                    CaseImage.gameObject.SetActive(false);
+                    CaseImage.sprite = null;
+                    break;
+                case "Motherboard":
+                    MBImage.gameObject.SetActive(false);
+                    MBImage.sprite = null;
+
+                    CPUButton.interactable = false;
+                    CPUFButton.interactable = false;
+                    RAMButton.interactable = false;
+                    GPUButton.interactable = false;
+                    STRG1Button.interactable = false;
+                    PSUButton.interactable = false;
+                    try
+                    {
+                        string[] categoriesToHandle = { "CPU", "CPU Fan", "RAM", "Video Card", "Storage", "PSU" };
+                        //int index = inventoryData.inventoryItems.IndexOf(previousUsedItem);
+                        //inventoryData.RemoveItem(index, 1);
+                        foreach (string categories in categoriesToHandle)
+                        {
+                            if (lastUsedItems.ContainsKey(categories))
+                            {
+                                HandleBackItem(categories);
+                            }
+                        }
+                    }
+                    catch (Exception) { }
+                    //GameManager.instance.PSUImagesNeeds.Remove(category);
+                    break;
+                case "CPU":
+                    CPUImage.gameObject.SetActive(false);
+                    CPUImage.sprite = null;
+                    
+                    //GameManager.instance.PSUImagesNeeds.Remove(category);
+                    break;
+                case "CPU Fan":
+                    CPUFImage.gameObject.SetActive(false);
+                    CPUFImage.sprite = null;
+                    
+                    
+                    break;
+                case "RAM":
+                    RAMImage.gameObject.SetActive(false);
+                    RAMImage.sprite = null;
+                    
+                    
+                    break;
+                case "Video Card":
+                    GPUImage.gameObject.SetActive(false);
+                    GPUImage.sprite = null;
+                   
+                    //GameManager.Instance.PSUImagesNeeds.Remove(category);
+                    break;
+                case "Storage":
+                    STRG1Image.gameObject.SetActive(false);
+                    STRG1Image.sprite = null;
+                   
+                    //GameManager.Instance.PSUImagesNeeds.Remove(category);
+                    break;
+                case "PSU":
+                    PSUImage.gameObject.SetActive(false);
+                    PSUImage.sprite = null;
+                    
+                    // GameManager.Instance.PSUImagesNeeds.Remove(category);
+                    break;
+
+           }
+            if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUImage.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
+            {
+                PSUButton.interactable = false;
+                if (lastUsedItems.ContainsKey("PSU"))
+                {
+                    BackItem(previousUsedItem,"PSU");
+                    PSUImage.gameObject.SetActive(false);
+                    PSUImage.sprite = null;
+                    lastUsedItems.Remove("PSU");
+                }
+            }
+
+            OnGameObjectStateChanged();
+            usedItems.Remove(previousUsedItem);
+            lastUsedItems.Remove(category);
+            GameManager.instance.itemsToTransfer.Remove(previousUsedItem);
+           // totalUsedItemsPrice -= previousUsedItem.item.Price;
+
+            // Display the updated total price.
+            //DisplayPrices(totalUsedItemsPrice);
+        }
         public Dictionary<string, InventoryItem> recentlyBackedItems = new Dictionary<string, InventoryItem>();
         public List<InventoryItem> usedItems = new List<InventoryItem>();
         private bool HasItemBeenUsed(InventoryItem inventoryItem)
@@ -819,81 +860,81 @@ namespace PartsInventory
             if (HasItemBeenUsed(inventoryItem))
             {
                 inventoryUI.Hide();
-                //DialogBox.gameObject.SetActive(true);
-                //DialogText.text = "Item already In use...";
-                //YesButton.gameObject.SetActive(false);
-                //NoButton.gameObject.SetActive(false);
-                //DialogButton.gameObject.SetActive(true);
+                DialogBox.gameObject.SetActive(true);
+                DialogText.text = "Item already In use...";
+                YesButton.gameObject.SetActive(false);
+                NoButton.gameObject.SetActive(false);
+                DialogButton.gameObject.SetActive(true);
             }
             else
             {
-                useSound.Play();
-                //MBImage.sprite = inventoryItem.item.ItemImage; // this is for the whole inventory
-                //UseItems(inventoryItem, category);
+                //useSound.Play();
+                MBImage.sprite = inventoryItem.item.ItemImage; // this is for the whole inventory
+                UseItems(inventoryItem, category);
                 inventoryData.RemoveItem(itemIndex, 1);
-               // BackItem(inventoryItem, category);
+                BackItem(inventoryItem, category);
 
                 //totalUsedItemsPrice += inventoryItem.item.Price;
-                DisplayPrices(totalUsedItemsPrice);
+                // DisplayPrices(totalUsedItemsPrice);
 
 
 
-                //if (category != "Case")
-                //{
+                if (category != "Case")
+                {
 
-                //   // Unused(inventoryItem, category);
-                //}
+                    Unused(inventoryItem, category);
+                }
 
-                //if (CaseImage.sprite == null && MBImage.sprite == null)
-                //{
-                //    usedItems.Remove(inventoryItem);
-                //}
-                //else if (CaseImage.sprite == null || MBImage.sprite == null)
-                //{
-                //    usedItems.Remove(inventoryItem);
-                //}
-                //else
-                //{
-                //    usedItems.Add(inventoryItem);
-                //}
+                if (CaseImage.sprite == null && MBImage.sprite == null)
+                {
+                    usedItems.Remove(inventoryItem);
+                }
+                else if (CaseImage.sprite == null || MBImage.sprite == null)
+                {
+                    usedItems.Remove(inventoryItem);
+                }
+                else
+                {
+                    usedItems.Add(inventoryItem);
+                }
 
-                //if (category == "CPU")
-                //{
-                //    ApplyThermal.gameObject.SetActive(true);
-                //    AT.SetCPUImage(inventoryItem.item.ItemImage);
-                //}
+                if (category == "CPU")
+                {
+                   // ApplyThermal.gameObject.SetActive(true);
+                   // AT.SetCPUImage(inventoryItem.item.ItemImage);
+                }
 
-                //if (category == "PSU")
-                //{
-                //    if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
-                //    {
-                //        DialogBox.gameObject.SetActive(true);
-                //        DialogText.text = "Can't Use this " + category + " without the needed Parts";
-                //        YesButton.gameObject.SetActive(false);
-                //        NoButton.gameObject.SetActive(false);
-                //        DialogButton.gameObject.SetActive(true);
-                //        try
-                //        {
-                //            HandleBackItem(category);
+                if (category == "PSU")
+                {
+                    if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
+                    {
+                        DialogBox.gameObject.SetActive(true);
+                        DialogText.text = "Can't Use this " + category + " without the needed Parts";
+                        YesButton.gameObject.SetActive(false);
+                        NoButton.gameObject.SetActive(false);
+                        DialogButton.gameObject.SetActive(true);
+                        try
+                        {
+                            HandleBackItem(category);
 
-                //        }
-                //        catch (Exception) { }
-                //    }
-                //    else
-                //    {
-                //        SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
-                //    }
+                        }
+                        catch (Exception) { }
+                    }
+                    else
+                    {
+                       // SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
+                    }
 
-                //}
+                }
             }
 
 
 
         }
-        private void DisplayPrices(double totalPrice)
-        {
-            //PriceText.text = "$" + totalPrice.ToString("F2");
-        }
+        //private void DisplayPrices(double totalPrice)
+        //{
+        //    //PriceText.text = "$" + totalPrice.ToString("F2");
+        //}
 
         public double totalUsedItemsPrice = 0.0;
         public void HandleItemRightActionRequest(int tempIndex)//for filtered
@@ -907,178 +948,178 @@ namespace PartsInventory
                 if (HasItemBeenUsed(inventoryItem))
                 {
                     inventoryUI.Hide();
-                    //DialogBox.gameObject.SetActive(true);
-                    //DialogText.text = "Item already In use...";
-                    //YesButton.gameObject.SetActive(false);
-                    //NoButton.gameObject.SetActive(false);
-                    //DialogButton.gameObject.SetActive(true);
+                    DialogBox.gameObject.SetActive(true);
+                    DialogText.text = "Item already In use...";
+                    YesButton.gameObject.SetActive(false);
+                    NoButton.gameObject.SetActive(false);
+                    DialogButton.gameObject.SetActive(true);
                 }
                 else
                 {
-                    useSound.Play();
+                   // useSound.Play();
                     usedItems.Remove(inventoryItem);
-                    //UseItems(inventoryItem, category);
+                    UseItems(inventoryItem, category);
                     int index = inventoryData.inventoryItems.IndexOf(inventoryItem);
 
                     inventoryData.RemoveItem(index, 1);
-                   // BackItem(inventoryItem, category);
+                    BackItem(inventoryItem, category);
 
-                  //  totalUsedItemsPrice += inventoryItem.item.Price;
-                    DisplayPrices(totalUsedItemsPrice);
+                    //  totalUsedItemsPrice += inventoryItem.item.Price;
+                    //DisplayPrices(totalUsedItemsPrice);
 
-                    //if (category != "Case")
-                    //{
-                    //    Unused(inventoryItem, category);
-                    //}
+                    if (category != "Case")
+                    {
+                        Unused(inventoryItem, category);
+                    }
 
-                    //if (CaseImage.sprite == null && MBImage.sprite == null)
-                    //{
-                    //    usedItems.Remove(inventoryItem);
-                    //}
-                    //else if (CaseImage.sprite == null || MBImage.sprite == null)
-                    //{
-                    //    usedItems.Remove(inventoryItem);
-                    //}
-                    //else
-                    //{
-                    //    usedItems.Add(inventoryItem);
-                    //}
+                    if (CaseImage.sprite == null && MBImage.sprite == null)
+                    {
+                        usedItems.Remove(inventoryItem);
+                    }
+                    else if (CaseImage.sprite == null || MBImage.sprite == null)
+                    {
+                        usedItems.Remove(inventoryItem);
+                    }
+                    else
+                    {
+                        usedItems.Add(inventoryItem);
+                    }
 
-                    //if (category == "CPU")
-                    //{
-                    //    ApplyThermal.gameObject.SetActive(true);
-                    //    AT.SetCPUImage(inventoryItem.item.ItemImage);
-                    //}
+                    if (category == "CPU")
+                    {
+                       // ApplyThermal.gameObject.SetActive(true);
+                       // AT.SetCPUImage(inventoryItem.item.ItemImage);
+                    }
 
-                    //if (category == "PSU")
-                    //{
-                    //    if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
-                    //    {
-                    //        DialogBox.gameObject.SetActive(true);
-                    //        DialogText.text = "Can't Use this " + category + " without the needed Parts";
-                    //        YesButton.gameObject.SetActive(false);
-                    //        NoButton.gameObject.SetActive(false);
-                    //        DialogButton.gameObject.SetActive(true);
-                    //        try
-                    //        {
-                    //            HandleBackItem(category);
+                    if (category == "PSU")
+                    {
+                        if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
+                        {
+                            DialogBox.gameObject.SetActive(true);
+                            DialogText.text = "Can't Use this " + category + " without the needed Parts";
+                            YesButton.gameObject.SetActive(false);
+                            NoButton.gameObject.SetActive(false);
+                            DialogButton.gameObject.SetActive(true);
+                            try
+                            {
+                                HandleBackItem(category);
 
-                    //        }
-                    //        catch (Exception) { }
-                    //    }
-                    //    else
-                    //    {
-                    //        SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
-                    //    }
+                            }
+                            catch (Exception) { }
+                        }
+                        else
+                        {
+                            //SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
+                        }
 
 
-                    //}
+                    }
 
                 }
 
             }
         }
 
-        //private void BackItem(InventoryItem inventoryItem, string category)
-        //{
-        //    if (!string.IsNullOrEmpty(category))
-        //    {
-        //        // Check if a previous item was used in the same category
-        //        if (lastUsedItems.ContainsKey(category))
-        //        {
-        //            InventoryItem previousUsedItem = lastUsedItems[category];
-        //            if (!inventoryItem.Equals(previousUsedItem))
-        //            {
-        //                // The item has changed, so remove it from the lastUsedItems and adjust the total price
-        //                totalUsedItemsPrice -= previousUsedItem.item.Price;
-        //                inventoryData.AddItem(previousUsedItem.ChangeQuantity(previousUsedItem.quantity - lastUsedItems[category].quantity + 1));
-        //                Debug.Log(previousUsedItem.quantity);
-        //                usedItems.Remove(previousUsedItem);
-        //                GameManager.Instance.itemsToTransfer.Remove(previousUsedItem);
-        //                lastUsedItems.Remove(category);
+        private void BackItem(InventoryItem inventoryItem, string category)
+        {
+            if (!string.IsNullOrEmpty(category))
+            {
+                // Check if a previous item was used in the same category
+                if (lastUsedItems.ContainsKey(category))
+                {
+                    InventoryItem previousUsedItem = lastUsedItems[category];
+                    if (!inventoryItem.Equals(previousUsedItem))
+                    {
+                        // The item has changed, so remove it from the lastUsedItems and adjust the total price
+                        //totalUsedItemsPrice -= previousUsedItem.item.Price;
+                        inventoryData.AddItem(previousUsedItem.ChangeQuantity(previousUsedItem.quantity - lastUsedItems[category].quantity + 1));
+                        Debug.Log(previousUsedItem.quantity);
+                        usedItems.Remove(previousUsedItem);
+                        GameManager.instance.itemsToTransfer.Remove(previousUsedItem);
+                        lastUsedItems.Remove(category);
 
-        //            }
-        //            else
-        //            {
-        //                // The item hasn't changed, so add it back to the inventory
-        //                totalUsedItemsPrice -= previousUsedItem.item.Price;
-        //                totalUsedItemsPrice += inventoryItem.item.Price;
-        //                inventoryData.AddItem(previousUsedItem.ChangeQuantity(previousUsedItem.quantity - lastUsedItems[category].quantity + 1));
-        //                Debug.Log(previousUsedItem.quantity);
-        //                usedItems.Remove(previousUsedItem);
-        //                GameManager.Instance.itemsToTransfer.Remove(previousUsedItem);
-        //            }
-        //        }
+                    }
+                    else
+                    {
+                        // The item hasn't changed, so add it back to the inventory
+                        //totalUsedItemsPrice -= previousUsedItem.item.Price;
+                        //totalUsedItemsPrice += inventoryItem.item.Price;
+                        inventoryData.AddItem(previousUsedItem.ChangeQuantity(previousUsedItem.quantity - lastUsedItems[category].quantity + 1));
+                        Debug.Log(previousUsedItem.quantity);
+                        usedItems.Remove(previousUsedItem);
+                        GameManager.instance.itemsToTransfer.Remove(previousUsedItem);
+                    }
+                }
 
-        //    }
-        //    // Update the last used item for the category
-        //    lastUsedItems[category] = inventoryItem;
-        //    //Debug.LogError("added to lastitem");
-        //    DisplayPrices(totalUsedItemsPrice);
-        //}
+            }
+            // Update the last used item for the category
+            lastUsedItems[category] = inventoryItem;
+            //Debug.LogError("added to lastitem");
+            //DisplayPrices(totalUsedItemsPrice);
+        }
 
         //public ApplyThermalPaste AT;
 
-        //public void UseItems(InventoryItem inventoryItem, string category)
-        //{
-        //    switch (category)
-        //    {
-        //        case "Case":
-        //            CaseImage.gameObject.SetActive(true);
-        //            CaseImage.sprite = inventoryItem.item.ItemImage;
-        //            MBButton.interactable = true;
-        //            CancelButton.interactable = true;
-        //            break;
-        //        case "Motherboard":
-        //            MBImage.gameObject.SetActive(true);
-        //            MBImage.sprite = inventoryItem.item.ItemImage;
-        //            CPUButton.interactable = true;
-        //            CPUFButton.interactable = true;
-        //            RAMButton.interactable = true;
-        //            GPUButton.interactable = true;
-        //            STRG1Button.interactable = true;
-        //            GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
-        //            break;
-        //        case "CPU":
-        //            CPUImage.gameObject.SetActive(true);
-        //            CPUImage.sprite = inventoryItem.item.ItemImage;
-        //            GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
-        //            //ApplyThermal.gameObject.SetActive(true);
-        //            //AT.SetCPUImage(inventoryItem.item.ItemImage);
-        //            break;
-        //        case "CPU Fan":
-        //            CPUFImage.gameObject.SetActive(true);
-        //            CPUFImage.sprite = inventoryItem.item.ItemImage;
-        //            break;
-        //        case "RAM":
-        //            RAMImage.gameObject.SetActive(true);
-        //            RAMImage.sprite = inventoryItem.item.ItemImage;
-        //            break;
-        //        case "Video Card":
-        //            GPUImage.gameObject.SetActive(true);
-        //            GPUImage.sprite = inventoryItem.item.ItemImage;
-        //            GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
-        //            break;
-        //        case "Storage":
-        //            STRG1Image.gameObject.SetActive(true);
-        //            STRG1Image.sprite = inventoryItem.item.ItemImage;
-        //            GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
-        //            break;
+        public void UseItems(InventoryItem inventoryItem, string category)
+        {
+            switch (category)
+            {
+                case "Case":
+                    CaseImage.gameObject.SetActive(true);
+                    CaseImage.sprite = inventoryItem.item.ItemImage;
+                    MBButton.interactable = true;
+                    CancelButton.interactable = true;
+                    break;
+                case "Motherboard":
+                    MBImage.gameObject.SetActive(true);
+                    MBImage.sprite = inventoryItem.item.ItemImage;
+                    CPUButton.interactable = true;
+                    CPUFButton.interactable = true;
+                    RAMButton.interactable = true;
+                    GPUButton.interactable = true;
+                    STRG1Button.interactable = true;
+                    //GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
+                    break;
+                case "CPU":
+                    CPUImage.gameObject.SetActive(true);
+                    CPUImage.sprite = inventoryItem.item.ItemImage;
+                    //GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
+                    //ApplyThermal.gameObject.SetActive(true);
+                    //AT.SetCPUImage(inventoryItem.item.ItemImage);
+                    break;
+                case "CPU Fan":
+                    CPUFImage.gameObject.SetActive(true);
+                    CPUFImage.sprite = inventoryItem.item.ItemImage;
+                    break;
+                case "RAM":
+                    RAMImage.gameObject.SetActive(true);
+                    RAMImage.sprite = inventoryItem.item.ItemImage;
+                    break;
+                case "Video Card":
+                    GPUImage.gameObject.SetActive(true);
+                    GPUImage.sprite = inventoryItem.item.ItemImage;
+                    //GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
+                    break;
+                case "Storage":
+                    STRG1Image.gameObject.SetActive(true);
+                    STRG1Image.sprite = inventoryItem.item.ItemImage;
+                   // GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
+                    break;
 
-        //        case "PSU":
-        //            PSUImage.gameObject.SetActive(true);
-        //            PSUImage.sprite = inventoryItem.item.ItemImage;
-        //            GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
-        //            break;
+                case "PSU":
+                    PSUImage.gameObject.SetActive(true);
+                    PSUImage.sprite = inventoryItem.item.ItemImage;
+                  //  GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
+                    break;
 
-        //    }
-        //    if (CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUImage.isActiveAndEnabled && STRG1Image.isActiveAndEnabled)
-        //    {
-        //        PSUButton.interactable = true;
-        //    }
-        //    OnGameObjectStateChanged();
-        //    inventoryUI.Hide();
-        //}
+            }
+            if (CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUImage.isActiveAndEnabled && STRG1Image.isActiveAndEnabled)
+            {
+                PSUButton.interactable = true;
+            }
+            OnGameObjectStateChanged();
+            inventoryUI.Hide();
+        }
 
 
         //private void HandleDragging(int itemIndex)
@@ -1137,12 +1178,12 @@ namespace PartsInventory
        // float cooldownDuration = 1f;
         public void Update()
         {
-            //OnGameObjectStateChanged();
+            OnGameObjectStateChanged();
             ////inventoryData.SaveItems();
-            //if (CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled)
-            //{
-            //    PSUButton.interactable = true;
-            //}
+            if (CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUImage.isActiveAndEnabled && STRG1Image.isActiveAndEnabled)
+            {
+                PSUButton.interactable = true;
+            }
 
             //if ((PlayerPrefs.GetInt("TutorialDone") == 1))
             //{
@@ -1204,9 +1245,11 @@ namespace PartsInventory
         }
         public GameObject ModifyingPC;
 
-        private void ToggleALLButton()
+        public void ToggleALLButton()
         {
             //infoButton.gameObject.SetActive(false);
+            PartsButton.gameObject.SetActive(true);
+            ComputerButton.gameObject.SetActive(true);
             ToogleFiltered = false;
             Debug.Log("Toggle: false");
             inventoryUI.ResetSelection();
@@ -1221,9 +1264,11 @@ namespace PartsInventory
         {
             //infoButton.gameObject.SetActive(true);
             Debug.Log("Toggle: true");
+            PartsButton.gameObject.SetActive(false);
+            ComputerButton.gameObject.SetActive(false);
             ShowCategory(category);
             infocategory = category;
-            //DisplayText.text = "   " + category;
+            DisplayText.text = category;
             int i = 0;
             if (inventoryUI.isActiveAndEnabled == false)
             {
@@ -1249,7 +1294,7 @@ namespace PartsInventory
             {
                 inventoryUI.Show();
 
-                //DisplayText.text = "Inventory".ToUpper();
+                DisplayText.text = "Inventory".ToUpper();
                 foreach (var item in inventoryData.GetCurrentInventoryState())
                 {
                     inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity);
