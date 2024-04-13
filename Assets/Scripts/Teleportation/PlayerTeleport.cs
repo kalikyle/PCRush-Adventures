@@ -47,6 +47,7 @@ using UnityEngine.SceneManagement;
             else if (OpenBuild == true  && homeTeleport == null)
             {
                 BuildRoom.gameObject.SetActive(true);
+                OpenBuild = false;
                 
             }
         }

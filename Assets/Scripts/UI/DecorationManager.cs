@@ -48,7 +48,7 @@ public class DecorationManager : MonoBehaviour
     private Dictionary<DecorEdit, List<DecorationItem>> removedDecorations = new Dictionary<DecorEdit, List<DecorationItem>>();
 
 
-    private async void Start()
+    private void Start()
     {
        // ExecuteAfterDelay(2f);
         // Disable the panel and set up button click listeners
@@ -57,17 +57,13 @@ public class DecorationManager : MonoBehaviour
         editButton.onClick.AddListener(OnEditButtonClick);
         //GameManager.instance.LoadDecorPrefabs(MainDecorpanel.transform);
 
-        await Task.Delay(2000);
-        await Loadall();
+       
     }
 
-    public async Task Loadall()
+    public async void Awake()
     {
-       await LoadAllDecorationsFromFirestore();
-    }
-    public void Awake()
-    {
-        //LoadDecorProperties();
+        await Task.Delay(1000);
+        await LoadAllDecorationsFromFirestore();
     }
 
     public void DecorClicked()
@@ -601,7 +597,7 @@ public class DecorationManager : MonoBehaviour
                 DecorEdit newDecoration = Instantiate(decorationPrefab, MainDecorpanel.transform);
 
                 // Set the decoration image
-                newDecoration.GetComponent<Image>().sprite = decorationData.decorationImage;
+                
                 // Set the decoration position, rotation, and scale
                 newDecoration.transform.position = decorationData.position;
                 newDecoration.transform.rotation = decorationData.rotation;
@@ -611,9 +607,12 @@ public class DecorationManager : MonoBehaviour
                 RectTransform newDecorationRectTransform = newDecoration.GetComponent<RectTransform>();
                 newDecorationRectTransform.sizeDelta = decorationData.scaledSize;
 
+                // newDecoration.GetComponent<Image>().sprite = decorationData.decorationImage;
 
-
-
+                if (decorationData != null && decorationData.decorationImage != null)
+                {
+                    newDecoration.GetComponent<Image>().sprite = decorationData.decorationImage;
+                }
                 // Load associated items
                 string associatedItemNames = docSnap.GetValue<string>("associatedItems");
 
