@@ -68,34 +68,37 @@ public class PlayerController : MonoBehaviour
         //        isMoving = false;
         //    }
         //}
-
-        if (!playerTeleport.DeskPanel.activeSelf)
+        if (!playerTeleport.BuildRoom.activeSelf)
         {
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
+            
+           
+                input.x = Input.GetAxisRaw("Horizontal");
+                input.y = Input.GetAxisRaw("Vertical");
 
-            // Normalize the input vector to allow diagonal movement
-            input.Normalize();
+                // Normalize the input vector to allow diagonal movement
+                input.Normalize();
 
-            animator.SetFloat("moveX", input.x);
-            animator.SetFloat("moveY", input.y);
+                animator.SetFloat("moveX", input.x);
+                animator.SetFloat("moveY", input.y);
 
-            // Calculate velocity vector based on input and speed
-            Vector2 velocity = input * moveSpeed;
+                // Calculate velocity vector based on input and speed
+                Vector2 velocity = input * moveSpeed;
 
-            // Apply velocity to Rigidbody2D
-            r2d.velocity = velocity;
+                // Apply velocity to Rigidbody2D
+                r2d.velocity = velocity;
 
-            // Set isMoving flag based on input magnitude
-            animator.SetBool("isMoving", input.magnitude > 0);
+                // Set isMoving flag based on input magnitude
+                animator.SetBool("isMoving", input.magnitude > 0);
 
-            // Adjust player's rotation based on movement direction
-            if (input != Vector2.zero)
-            {
-                float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                // Adjust player's rotation based on movement direction
+                if (input != Vector2.zero)
+                {
+                    float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
+                    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                }
             }
-        }
+          
+        
     }
     private void OnCollisionStay2D(Collision2D collision)
     {

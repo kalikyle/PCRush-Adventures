@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDeskName()
     {
-        PlayerDesk.text = PlayerName + "'s Desk";
+        PlayerDesk.text = "- " + PlayerName + "'s Desk -";
     }
 
     public async void SaveCharInfo(string userID, string playerName)

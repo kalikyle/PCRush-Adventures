@@ -248,7 +248,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         }
         private void Update()
         {
-            if (!playerTeleport.DeskPanel.activeSelf)
+            if (!playerTeleport.DeskPanel.activeSelf && !playerTeleport.BuildRoom.activeSelf)
             {
                 // Check if movement is allowed
                 if (canMove)
