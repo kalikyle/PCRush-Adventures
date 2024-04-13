@@ -62,8 +62,6 @@ namespace PartsInventory.UI
             temporaryIndex = index;
         }
 
-
-
         public void OnPointerClick(PointerEventData pointerdata)
         {
 

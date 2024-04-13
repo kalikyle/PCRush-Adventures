@@ -14,6 +14,8 @@ namespace PartsInventory.UI
         private RectTransform contentPanel;
         [SerializeField]
         private UIPartsInventoryDesc itemDesc;
+
+        public GameObject PartsInventPanel;
         //[SerializeField]
         //private MouseFollower mousefollower;
 
@@ -142,7 +144,7 @@ namespace PartsInventory.UI
         public void Show()
         {
 
-            gameObject.SetActive(true);
+            PartsInventPanel.gameObject.SetActive(true);
             itemDesc.ResetDescription();
             //IC.XButton.gameObject.SetActive(true);
             ResetSelection();
@@ -174,7 +176,7 @@ namespace PartsInventory.UI
         public void Hide()
         {
             itemDesc.Hide();
-            gameObject.SetActive(false);
+            PartsInventPanel.gameObject.SetActive(false);
             //IC.XButton.gameObject.SetActive(false);
             ResetDraggedItem();
         }
