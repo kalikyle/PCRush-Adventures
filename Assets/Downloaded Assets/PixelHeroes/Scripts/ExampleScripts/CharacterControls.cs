@@ -246,9 +246,29 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         {
             _animator = GetComponent<Animator>();
         }
+
+        public bool IsSceneLoaded(string sceneName)
+        {
+            int sceneCount = SceneManager.sceneCount;
+
+            for (int i = 0; i < sceneCount; i++)
+            {
+                Scene loadedScene = SceneManager.GetSceneAt(i);
+
+                // Check if the loaded scene's name matches the target scene name
+                if (loadedScene.name == sceneName)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    
+
         private void Update()
         {
-            if (!playerTeleport.DeskPanel.activeSelf && !playerTeleport.BuildRoom.activeSelf)
+            if (!playerTeleport.DeskPanel.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
             {
                 // Check if movement is allowed
                 if (canMove)

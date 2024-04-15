@@ -12,6 +12,9 @@ using UnityEngine.UI;
 using Inventory.Model;
 using static Inventory.Model.PartsInventorySO;
 using PartsInventory.Model;
+using PC.UI;
+using PC;
+using PC.Model;
 
 namespace PartsInventory
 {
@@ -23,8 +26,8 @@ namespace PartsInventory
         [SerializeField]
         private PartsInventorySO inventoryData;
 
-        //[SerializeField]
-        // private PCInventSO PCData;
+        [SerializeField]
+        private PCInventSO PCData;
 
 
         // public GlossaryScript GS;
@@ -169,14 +172,14 @@ namespace PartsInventory
 
         public UIPartsInventoryItem items;
 
-        [SerializeField]
-        public GameObject SuccesfullyCreated;
+        //[SerializeField]
+        //public GameObject SuccesfullyCreated;
 
-        [SerializeField]
-        public Image SuccesfullPCImage;
+        //[SerializeField]
+        //public Image SuccesfullPCImage;
 
-        [SerializeField]
-        public TMP_Text SuccesfullPCName;
+        //[SerializeField]
+        //public TMP_Text SuccesfullPCName;
 
 
         [SerializeField]
@@ -251,7 +254,7 @@ namespace PartsInventory
             //backButton.onClick.AddListener(LoadMyHomeScene);
             //shopButton.onClick.AddListener(LoadMyShopScene);
 
-            //DoneButton.onClick.AddListener(OnDoneButtonClick);
+            DoneButton.onClick.AddListener(OnDoneButtonClick);
 
             CancelButton.onClick.AddListener(() =>
             {
@@ -1264,6 +1267,7 @@ namespace PartsInventory
         {
             //infoButton.gameObject.SetActive(true);
             Debug.Log("Toggle: true");
+            PartsPanel.SetActive(true);
             PartsButton.gameObject.SetActive(false);
             ComputerButton.gameObject.SetActive(false);
             ShowCategory(category);
@@ -1290,8 +1294,8 @@ namespace PartsInventory
         public void OpenInvBTN()
         {
 
-            if (inventoryUI.isActiveAndEnabled == false)
-            {
+           // if (inventoryUI.isActiveAndEnabled == false)
+           // {
                 inventoryUI.Show();
 
                 DisplayText.text = "Inventory".ToUpper();
@@ -1299,13 +1303,13 @@ namespace PartsInventory
                 {
                     inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity);
                 }
-            }
-            else
-            {
+          //  }
+            //else
+            //{
 
-                inventoryUI.Hide();
+            //    inventoryUI.Hide();
 
-            }
+            //}
 
         }
 
@@ -1329,36 +1333,36 @@ namespace PartsInventory
         //    LTA.hideBuild();
         //    LTA.HideSuccess();
         //}
-        //public PCSO ConvertLastUsedItemsToPCSOList()
-        //{
+        public PCSO ConvertLastUsedItemsToPCSOList()
+        {
 
-        //    PCSO pcso = ScriptableObject.CreateInstance<PCSO>();
+            PCSO pcso = ScriptableObject.CreateInstance<PCSO>();
 
-        //    pcso.name = NameText.text;
-        //    pcso.PCName = NameText.text;
-        //    pcso.PCImage = lastUsedItems.ContainsKey("Case") ? lastUsedItems["Case"].item.ItemImage : null;
-        //    pcso.PCPrice = totalUsedItemsPrice;
-        //    pcso.Case = lastUsedItems.ContainsKey("Case") ? lastUsedItems["Case"].item : null;
-        //    pcso.Motherboard = lastUsedItems.ContainsKey("Motherboard") ? lastUsedItems["Motherboard"].item : null;
-        //    pcso.CPU = lastUsedItems.ContainsKey("CPU") ? lastUsedItems["CPU"].item : null;
-        //    pcso.CPUFan = lastUsedItems.ContainsKey("CPU Fan") ? lastUsedItems["CPU Fan"].item : null;
-        //    pcso.RAM = lastUsedItems.ContainsKey("RAM") ? lastUsedItems["RAM"].item : null;
-        //    pcso.GPU = lastUsedItems.ContainsKey("Video Card") ? lastUsedItems["Video Card"].item : null;
-        //    pcso.STORAGE = lastUsedItems.ContainsKey("Storage") ? lastUsedItems["Storage"].item : null;
-        //    pcso.PSU = lastUsedItems.ContainsKey("PSU") ? lastUsedItems["PSU"].item : null;
-        //    pcso.TestStatus = "Untested";
-        //    // During UnityEditor, save the ScriptableObject asset
-        //    //string savePath = "Assets/Data/COMPUTERS/";
-        //    //string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath(savePath + pcso.name + ".asset");
-        //    //AssetDatabase.CreateAsset(pcso, assetPathAndName);
-        //    //AssetDatabase.SaveAssets();
-        //    //AssetDatabase.Refresh();
-        //    //CreatedComputers.Add(pcso);
-        //    SavePCSOData(pcso);
-        //    GameManager.Instance.SaveUniqueIndex(UniqueIndex);
-        //    // Add the created PCSO to the list
-        //    return pcso;
-        //}
+            pcso.name = "PC1";// NameText.text;
+            pcso.PCName = "PC1";// NameText.text;
+            pcso.PCImage = lastUsedItems.ContainsKey("Case") ? lastUsedItems["Case"].item.ItemImage : null;
+            //pcso.PCPrice = totalUsedItemsPrice;
+            pcso.Case = lastUsedItems.ContainsKey("Case") ? lastUsedItems["Case"].item : null;
+            pcso.Motherboard = lastUsedItems.ContainsKey("Motherboard") ? lastUsedItems["Motherboard"].item : null;
+            pcso.CPU = lastUsedItems.ContainsKey("CPU") ? lastUsedItems["CPU"].item : null;
+            pcso.CPUFan = lastUsedItems.ContainsKey("CPU Fan") ? lastUsedItems["CPU Fan"].item : null;
+            pcso.RAM = lastUsedItems.ContainsKey("RAM") ? lastUsedItems["RAM"].item : null;
+            pcso.GPU = lastUsedItems.ContainsKey("Video Card") ? lastUsedItems["Video Card"].item : null;
+            pcso.STORAGE = lastUsedItems.ContainsKey("Storage") ? lastUsedItems["Storage"].item : null;
+            pcso.PSU = lastUsedItems.ContainsKey("PSU") ? lastUsedItems["PSU"].item : null;
+            pcso.inUse = false;
+            // During UnityEditor, save the ScriptableObject asset
+            //string savePath = "Assets/Data/COMPUTERS/";
+            //string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath(savePath + pcso.name + ".asset");
+            //AssetDatabase.CreateAsset(pcso, assetPathAndName);
+            //AssetDatabase.SaveAssets();
+            //AssetDatabase.Refresh();
+            //CreatedComputers.Add(pcso);
+            //SavePCSOData(pcso);
+            //GameManager.Instance.SaveUniqueIndex(UniqueIndex);
+            // Add the created PCSO to the list
+            return pcso;
+        }
         //public void SavePCSOData(PCSO pcso)
         //{
         //    // Convert PCSO data to JSON (you can use other serialization methods)
@@ -1401,140 +1405,140 @@ namespace PartsInventory
 
         //public AudioSource Success;
 
-        //[SerializeField]
-        //private PCPage PCpage;
-        //[SerializeField]
-        //private PCPlayerController PCC;
+        [SerializeField]
+        private PCPage PCpage;
+        [SerializeField]
+        private PCPlayerController PCC;
 
         //public TMP_Text Modified;
-        //public void OnDoneButtonClick()
-        //{
+        public void OnDoneButtonClick()
+        {
 
-        //    if (RenameTxt.text == "")
-        //    {
-        //        RenamePC.gameObject.SetActive(true);
-        //        RenameTxt.text = "PC1";
-        //    }
-        //    else
-        //    {
+            //if (RenameTxt.text == "")
+            //{
+            //    RenamePC.gameObject.SetActive(true);
+            //    RenameTxt.text = "PC1";
+            //}
+            //else
+            // {
 
-        //        // Call the AddPCSOList method when the button is clicked
-        //        //PCSO pcso = ConvertLastUsedItemsToPCSOList();
+            // Call the AddPCSOList method when the button is clicked
+            //PCSO pcso = ConvertLastUsedItemsToPCSOList();
 
-        //        PCSO PC = ConvertLastUsedItemsToPCSOList();
-        //        PCData.AddPCSOList(PC);
+            PCSO PC = ConvertLastUsedItemsToPCSOList();
+            PCData.AddPCSOList(PC);
 
-        //        if (!GameManager.Instance.BeenModified)
-        //        {
-        //            GameManager.Instance.experience += 2;
-        //            GameManager.Instance.SaveData();
-        //            _2exp.gameObject.SetActive(true);
-        //            Success.Play();
-        //            SuccesfullyCreated.gameObject.SetActive(true);
-        //            SuccesfullPCName.text = PC.PCName;
-        //            SuccesfullPCImage.sprite = PC.PCImage;
-        //            LTA.ShowSuccessPC();
-        //        }
-        //        else
-        //        {
-        //            _2exp.gameObject.SetActive(false);
-        //            Success.Play();
-        //            SuccesfullyCreated.gameObject.SetActive(true);
-        //            Modified.text = "Your Computer Has been Successfully Modified!";
-        //            SuccesfullPCName.text = PC.PCName;
-        //            SuccesfullPCImage.sprite = PC.PCImage;
-        //            LTA.ShowSuccessPC();
-        //        }
+            //if (!GameManager.instance.BeenModified)
+            //{
+            //    //GameManager.instance.experience += 2;
+            //    //GameManager.instance.SaveData();
+            //    //_2exp.gameObject.SetActive(true);
+            //    //Success.Play();
+            //    //SuccesfullyCreated.gameObject.SetActive(true);
+            //    //SuccesfullPCName.text = PC.PCName;
+            //    //SuccesfullPCImage.sprite = PC.PCImage;
+            //    //LTA.ShowSuccessPC();
+            //}
+            //else
+            //{
+            //    //_2exp.gameObject.SetActive(false);
+            //    //Success.Play();
+            //    //SuccesfullyCreated.gameObject.SetActive(true);
+            //    ////Modified.text = "Your Computer Has been Successfully Modified!";
+            //    //SuccesfullPCName.text = PC.PCName;
+            //    //SuccesfullPCImage.sprite = PC.PCImage;
+            //    //LTA.ShowSuccessPC();
+            //}
 
-        //        //Debug.LogError("Added");
-        //        //Debug.LogError(PCData.ComputerItems.Count);
-        //        CaseImage.gameObject.SetActive(false);
-        //        MBImage.gameObject.SetActive(false);
-        //        CPUImage.gameObject.SetActive(false);
-        //        CPUFImage.gameObject.SetActive(false);
-        //        RAMImage.gameObject.SetActive(false);
-        //        GPUImage.gameObject.SetActive(false);
-        //        STRG1Image.gameObject.SetActive(false);
-        //        PSUImage.gameObject.SetActive(false);
+            //Debug.LogError("Added");
+            //Debug.LogError(PCData.ComputerItems.Count);
+            CaseImage.gameObject.SetActive(false);
+            MBImage.gameObject.SetActive(false);
+            CPUImage.gameObject.SetActive(false);
+            CPUFImage.gameObject.SetActive(false);
+            RAMImage.gameObject.SetActive(false);
+            GPUImage.gameObject.SetActive(false);
+            STRG1Image.gameObject.SetActive(false);
+            PSUImage.gameObject.SetActive(false);
 
-        //        CaseImage.sprite = null;
-        //        MBImage.sprite = null;
+            CaseImage.sprite = null;
+            MBImage.sprite = null;
 
-        //        MBButton.interactable = false;
-        //        CPUButton.interactable = false;
-        //        CPUFButton.interactable = false;
-        //        RAMButton.interactable = false;
-        //        GPUButton.interactable = false;
-        //        STRG1Button.interactable = false;
-        //        PSUButton.interactable = false;
+            MBButton.interactable = false;
+            CPUButton.interactable = false;
+            CPUFButton.interactable = false;
+            RAMButton.interactable = false;
+            GPUButton.interactable = false;
+            STRG1Button.interactable = false;
+            PSUButton.interactable = false;
 
-        //        usedItems.Clear();
-        //        lastUsedItems.Clear();
-        //        totalUsedItemsPrice = 0;
-        //        PriceText.text = "$0.00";
-        //        NameText.text = "PC1";
-        //        RenameTxt.text = "";
-        //        //GameManager.Instance.itemsToTransfer.Clear();
+            usedItems.Clear();
+            lastUsedItems.Clear();
+            //totalUsedItemsPrice = 0;
+            //PriceText.text = "$0.00";
+            //NameText.text = "PC1";
+            //RenameTxt.text = "";
+            //GameManager.Instance.itemsToTransfer.Clear();
 
-        //        OnGameObjectStateChanged();
-        //        PCpage.AddAnotherPC();
-        //        //GameManager.Instance.itemsToTransfer.Clear();
+            OnGameObjectStateChanged();
+            PCpage.AddAnotherPC();
+            //GameManager.Instance.itemsToTransfer.Clear();
 
-        //        // Optional: You can perform additional actions after adding the PC items
-        //        GameManager.Instance.PSUImagesNeeds.Clear();
+            // Optional: You can perform additional actions after adding the PC items
+            //GameManager.instance.PSUImagesNeeds.Clear();
 
-        //        CancelButton.interactable = false;
-        //        GameManager.Instance.BeenModified = false;
+            CancelButton.interactable = false;
+            GameManager.instance.BeenModified = false;
 
-        //        Debug.Log("PCSO items added to ComputerItems list.");
-        //    }
+            Debug.Log("PCSO items added to ComputerItems list.");
+            //  }
+        }
+
+            //}
+            //public void CheckifBuildingbeforeQuit()
+            //{
+            //    if (lastUsedItems.Count > 0)
+            //    {
+            //        if (GameManager.Instance.BeenModified)
+            //        {
+            //            if (recentlyBackedItems.Count > 0)
+            //            {
+            //                foreach (var kvp in recentlyBackedItems)
+            //                {
+            //                    lastUsedItems[kvp.Key] = kvp.Value;
+            //                    totalUsedItemsPrice += kvp.Value.item.Price;
+            //                }
+            //                recentlyBackedItems.Clear();
+            //            }
+            //            OnDoneButtonClick();
+
+            //            GameManager.Instance.BeenModified = false;
+            //        }
+            //        else
+            //        {
+            //            BackAllCurrentlyItem();
+            //            GameManager.Instance.BeenModified = false;
+            //        }
+            //        inventoryData.SaveItems();
+            //    }
+
+            //}
+
+            //private void OnApplicationQuit()
+            //{
+            //    // Save the player prefs data when the game is quitting.
+            //    // GameManager.Instance.SaveInitialItems(initialItems);
+            //   try {
+            //        inventoryData.SaveItems();
+
+            //        // PCData.SavePCItems();
+            //        //if this is use the items will be removed
+            //        //GameManager.Instance.SaveInitialItems(initialItems);
+            //        //SaveInitialItems();
+            //    }
+            //    catch (Exception) { }
 
 
-        //}
-        //public void CheckifBuildingbeforeQuit()
-        //{
-        //    if (lastUsedItems.Count > 0)
-        //    {
-        //        if (GameManager.Instance.BeenModified)
-        //        {
-        //            if (recentlyBackedItems.Count > 0)
-        //            {
-        //                foreach (var kvp in recentlyBackedItems)
-        //                {
-        //                    lastUsedItems[kvp.Key] = kvp.Value;
-        //                    totalUsedItemsPrice += kvp.Value.item.Price;
-        //                }
-        //                recentlyBackedItems.Clear();
-        //            }
-        //            OnDoneButtonClick();
-
-        //            GameManager.Instance.BeenModified = false;
-        //        }
-        //        else
-        //        {
-        //            BackAllCurrentlyItem();
-        //            GameManager.Instance.BeenModified = false;
-        //        }
-        //        inventoryData.SaveItems();
-        //    }
-           
-        //}
-
-        //private void OnApplicationQuit()
-        //{
-        //    // Save the player prefs data when the game is quitting.
-        //    // GameManager.Instance.SaveInitialItems(initialItems);
-        //   try {
-        //        inventoryData.SaveItems();
-
-        //        // PCData.SavePCItems();
-        //        //if this is use the items will be removed
-        //        //GameManager.Instance.SaveInitialItems(initialItems);
-        //        //SaveInitialItems();
-        //    }
-        //    catch (Exception) { }
-
-
-        //}
-    }
+            //}
+        }
 }
