@@ -1008,9 +1008,8 @@ namespace PC
         public void OpenPCInv()
         {
           
-                if (PCMenu.isActiveAndEnabled == false)
-                {
-                    PCMenu.Show();
+                
+                    //PCMenu.Show();
                 //Anim.HideAllAnimation();
                 foreach (var item in PCData.GetCurrentInventoryState())
                 {
@@ -1019,7 +1018,7 @@ namespace PC
                 }
 
 
-                }
+                
      
             
         }

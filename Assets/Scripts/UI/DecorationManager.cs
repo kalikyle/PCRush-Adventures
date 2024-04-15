@@ -616,13 +616,18 @@ public class DecorationManager : MonoBehaviour
                 // Load associated items
                 string associatedItemNames = docSnap.GetValue<string>("associatedItems");
 
+
+
                 DecorationItem decorationItems = JsonUtility.FromJson<DecorationItem>(associatedItemNames);
 
+                
+                    Debug.Log(decorationItems.item.Name);
+                    ListofUseDecors.Add(decorationItems);
+                    newDecoration.AddAssociatedItem(decorationItems);
+                
 
                 //DecorationItem item = decordata.FindLocalItem(itemName);
-                Debug.Log(decorationItems.item.Name);
-                ListofUseDecors.Add(decorationItems);
-                newDecoration.AddAssociatedItem(decorationItems);
+               
 
 
                 // Add the loaded decoration to the list of placed decorations

@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PCName>k__BackingField: PC1
   <PCImage>k__BackingField: {fileID: 21300000, guid: 7f651023b234ac947bdf9e051c7801e2, type: 3}
-  <PCPrice>k__BackingField: 0
   <Case>k__BackingField: {fileID: 11400000, guid: 7d495c70b2242e143a801a9ce39a1182, type: 2}
   <Motherboard>k__BackingField: {fileID: 11400000, guid: f55b63010fc492e498cad99f0943cafe, type: 2}
   <CPU>k__BackingField: {fileID: 11400000, guid: 2cf66d163e5625542beabb8d3fad6deb, type: 2}
@@ -23,7 +22,7 @@ MonoBehaviour:
   <GPU>k__BackingField: {fileID: 11400000, guid: 0b331a5df50f4504da2674c4879c9054, type: 2}
   <STORAGE>k__BackingField: {fileID: 11400000, guid: 762dd0335b583054bab852f36f2f4e45, type: 2}
   <PSU>k__BackingField: {fileID: 11400000, guid: da8cd884f5d04f84ea486d27dbc8c150, type: 2}
-  <inUse>k__BackingField: 0
+  <inUse>k__BackingField: 1
   <Attack>k__BackingField: 0
   <Health>k__BackingField: 0
   <Mana>k__BackingField: 0
