@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebbe20e2504ae5b4cbe96aea80cfa9ea, type: 3}
+  m_Name: PC1
+  m_EditorClassIdentifier: 
+  <PCName>k__BackingField: PC1
+  <PCImage>k__BackingField: {fileID: 21300000, guid: 7f651023b234ac947bdf9e051c7801e2, type: 3}
+  <PCPrice>k__BackingField: 0
+  <Case>k__BackingField: {fileID: 11400000, guid: 7d495c70b2242e143a801a9ce39a1182, type: 2}
+  <Motherboard>k__BackingField: {fileID: 11400000, guid: f55b63010fc492e498cad99f0943cafe, type: 2}
+  <CPU>k__BackingField: {fileID: 11400000, guid: 2cf66d163e5625542beabb8d3fad6deb, type: 2}
+  <CPUFan>k__BackingField: {fileID: 11400000, guid: 7410b06a0ae74c444adcac29e917bd63, type: 2}
+  <RAM>k__BackingField: {fileID: 11400000, guid: 704a6e9bfe1096140b1ad48f403bdba9, type: 2}
+  <GPU>k__BackingField: {fileID: 11400000, guid: 0b331a5df50f4504da2674c4879c9054, type: 2}
+  <STORAGE>k__BackingField: {fileID: 11400000, guid: 762dd0335b583054bab852f36f2f4e45, type: 2}
+  <PSU>k__BackingField: {fileID: 11400000, guid: da8cd884f5d04f84ea486d27dbc8c150, type: 2}
+  <inUse>k__BackingField: 0
+  <Attack>k__BackingField: 0
+  <Health>k__BackingField: 0
+  <Mana>k__BackingField: 0

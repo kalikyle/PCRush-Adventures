@@ -295,7 +295,7 @@ public class GameManager : MonoBehaviour
                 // Create a new ShopItem instance and assign the deserialized item data
               
                 
-                 item.item.InUse = true;
+                item.item.InUse = true;
                        
                 Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                                                                  //Debug.Log("Category: " + item.item.Category);
@@ -571,13 +571,16 @@ public class GameManager : MonoBehaviour
         //DC.LoadInitialItems();
 
     }
-
+    //this is the start when click play button
     public async void AtTheStart()
     {
         if (UserID != "")
         {
             DisableFirstall();
             charBuilder.LoadSavedData();
+
+            await Task.Delay(500);
+            await DecorMan.LoadAllDecorationsFromFirestore();
 
             // If initial items have already been saved, load in-use items
             await Task.Delay(500);
@@ -588,6 +591,7 @@ public class GameManager : MonoBehaviour
             SaveSoldItems();
 
             RetrievePlayerInfo(UserID);
+
         }
     }
     public void ClearPlayerPrefsIfUserIDNotFound(string userID)

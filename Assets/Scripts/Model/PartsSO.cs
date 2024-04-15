@@ -31,13 +31,13 @@ namespace PartsInventory.Model
 
 
         [field: SerializeField]
-        public double attack { get; set; }
+        public double Attack { get; set; }
 
         [field: SerializeField]
-        public double health { get; set; }
+        public double Health { get; set; }
 
         [field: SerializeField]
-        public double healthregen { get; set; }
+        public double Mana { get; set; }
 
 
         //[field: SerializeField]

@@ -60,10 +60,10 @@ public class DecorationManager : MonoBehaviour
        
     }
 
-    public async void Awake()
+    public void Awake()
     {
-        await Task.Delay(1000);
-        await LoadAllDecorationsFromFirestore();
+        //await Task.Delay(1000);
+        //await LoadAllDecorationsFromFirestore();
     }
 
     public void DecorClicked()
@@ -575,7 +575,7 @@ public class DecorationManager : MonoBehaviour
 
     }
 
-    private async Task LoadAllDecorationsFromFirestore()
+    public async Task LoadAllDecorationsFromFirestore()
     {
         if (GameManager.instance.UserID != "")
         {
