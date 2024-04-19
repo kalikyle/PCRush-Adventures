@@ -49,7 +49,7 @@ namespace PC
         public UnityEngine.UI.Button ModifyButton;
 
         [SerializeField]
-        public UnityEngine.UI.Button TestButton;
+        public UnityEngine.UI.Button UseButton;
 
         [SerializeField]
         public UnityEngine.UI.Button submitButton;
@@ -675,25 +675,27 @@ namespace PC
                 
 
             //    });
-            //TestButton.onClick.AddListener(() => TestComputer(PCIndexOutside));
+            UseButton.onClick.AddListener(() => UseComputer(PCIndexOutside));
 
             //OrderButton.onClick.AddListener(() => Anim.HideAllAnimation());
         }
         private int TestedPCint;
-        public void TestComputer(int index)
+        public void UseComputer(int index)
         {
-            PCeventTrigger1.enabled = true;
-            PCeventTrigger2.enabled = false;
-            MonitorScreen.gameObject.SetActive(false);
-            TurnOffButton.gameObject.SetActive(false);
-            TurnOnButton.gameObject.SetActive(true);
-            PCeventTrigger1.enabled = true;
+            //PCeventTrigger1.enabled = true;
+            //PCeventTrigger2.enabled = false;
+            //MonitorScreen.gameObject.SetActive(false);
+            //TurnOffButton.gameObject.SetActive(false);
+            //TurnOnButton.gameObject.SetActive(true);
+            //PCeventTrigger1.enabled = true;
             PCMenu.Hide();
-            TestingComputerPanel.SetActive(true);
-            EmptyComputerPanel.SetActive(false);
+            //TestingComputerPanel.SetActive(true);
+            //EmptyComputerPanel.SetActive(false);
+
             Computer PCs = PCData.GetItemAt(index);
             PCSO PCitem = PCs.PC;
 
+            PCImage.gameObject.SetActive(true);
             PCImage.sprite = PCitem.PCImage;
             PCName.text = PCitem.PCName;
             //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
@@ -736,10 +738,9 @@ namespace PC
             PCImagePlaceholder.gameObject.SetActive(true);
             PCImagePlaceholder.sprite = PCitem.PCImage;
 
+            PCitem.inUse = true;
 
             TestedPCint = index;
-
-            
 
            
         }

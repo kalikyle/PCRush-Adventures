@@ -611,7 +611,7 @@ public class DecorationManager : MonoBehaviour
 
                 if (decorationData != null && decorationData.decorationImage != null)
                 {
-                    newDecoration.GetComponent<Image>().sprite = decorationData.decorationImage;
+                    newDecoration.DecorImage.sprite = decorationData.decorationImage;
                 }
                 // Load associated items
                 string associatedItemNames = docSnap.GetValue<string>("associatedItems");
@@ -663,7 +663,7 @@ public class DecorationData
         position = decor.transform.position;
         rotation = decor.transform.rotation;
         scale = decor.transform.localScale;
-        decorationImage = decor.GetComponent<Image>().sprite;
+        decorationImage = decor.DecorImage.sprite;
         //scaledSize = new Vector2(decor.GetComponent<RectTransform>().sizeDelta.x * scale.x, decor.GetComponent<RectTransform>().sizeDelta.y * scale.y);
         scaledSize = new Vector2(
         Mathf.Abs(decor.GetComponent<RectTransform>().sizeDelta.x * positiveScale.x),
