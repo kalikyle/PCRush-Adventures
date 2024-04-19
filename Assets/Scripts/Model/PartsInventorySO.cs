@@ -39,7 +39,7 @@ namespace Inventory.Model
             AddItem(item.item, item.quantity);
         }
 
-        public void AddItem(PartsSO item, int quantity)
+        public int AddItem(PartsSO item, int quantity)
         {
             if (item.IsStackable == false)
             {
@@ -50,11 +50,11 @@ namespace Inventory.Model
                         quantity -= AddItemToFirstFreeSlot(item, quantity);
                     }
                     InformAboutChange();
-                    return;
+                    return quantity;
                 }
             }
-            quantity = AddStackebleItem(item, quantity);
             InformAboutChange();
+            return quantity = AddStackebleItem(item, quantity);
         }
 
 

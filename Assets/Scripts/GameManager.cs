@@ -4,6 +4,7 @@ using Firebase;
 using Firebase.Auth;
 using Firebase.Extensions;
 using Firebase.Firestore;
+using PartsInventory.Model;
 //using Firebase.Analytics;
 using Shop;
 using Shop.Model;
@@ -598,13 +599,13 @@ public class GameManager : MonoBehaviour
        
         Debug.Log(UserID);
         // player page
-                                                           
 
-       
+        StartCoroutine(DropPartsInRandomPosition());
 
-       
+
+
         //EnableDefault();
-        
+
 
         //DC.LoadInitialItems();
 
@@ -786,7 +787,56 @@ public class GameManager : MonoBehaviour
     {
         DecorMan.DecorRemove();
     }
-    
+
+    public PartsCollect partsCollectPrefab;
+    public float dropDuration = 5f;
+    public Vector2 spawnAreaSize = new Vector2(5f, 5f);
+    public Transform partsToCollect;
+    public List<PartsSO> partsList = new List<PartsSO>();
+
+    private IEnumerator DropPartsInRandomPosition()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(dropDuration);
+
+            // Get the bounds of the parent object
+            Bounds parentBounds = GetParentBounds();
+
+            // Calculate a random position within the bounds of the parent object
+            Vector3 randomPosition = new Vector3(
+                UnityEngine.Random.Range(parentBounds.min.x, parentBounds.max.x),
+                UnityEngine.Random.Range(parentBounds.min.y, parentBounds.max.y),
+                0f);
+
+            // Instantiate PartsCollect prefab at the calculated random position
+            PartsCollect newPartsCollect = Instantiate(partsCollectPrefab, randomPosition, Quaternion.identity);
+
+            // Set the parent of the instantiated prefab
+            if (partsToCollect != null)
+            {
+                newPartsCollect.transform.SetParent(partsToCollect);
+            }
+        }
+    }
+    private Bounds GetParentBounds()
+    {
+        // Get the renderer component of the parent object
+        Collider2D parentCollider = partsToCollect.GetComponent<Collider2D>();
+
+
+        // If the parent object has a renderer component, return its bounds
+        if (parentCollider != null)
+        {
+            return parentCollider.bounds;
+        }
+        else
+        {
+            // If the parent object does not have a renderer, return default bounds
+            Debug.LogWarning("Parent object does not have a renderer component. Using default bounds.");
+            return new Bounds(Vector3.zero, Vector3.one);
+        }
+    }
 }
 [System.Serializable]
 public class DecorationItemList
