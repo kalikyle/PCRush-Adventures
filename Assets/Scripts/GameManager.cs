@@ -159,38 +159,38 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public async Task LoadInUseItems()
-    {
+    //public async Task LoadInUseItems()
+    //{
        
-        string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
+    //    string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
 
-        foreach (string category in categories)
-        {
-            // Check if the item in this category is both sold and in use
+    //    foreach (string category in categories)
+    //    {
+    //        // Check if the item in this category is both sold and in use
 
-            // Load the in-use items from Firestore for this category
-            //await LoadInSoldItemsFromFirestore(category);
-            await LoadInUseItemsFromFirestore(category);
+    //        // Load the in-use items from Firestore for this category
+    //        //await LoadInSoldItemsFromFirestore(category);
+    //        await LoadInUseItemsFromFirestore(category);
               
         
-        }
-    }
+    //    }
+    //}
 
-    public async Task LoadSoldItems()
-    {
+    //public async Task LoadSoldItems()
+    //{
 
-        string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
+    //    string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
 
-        foreach (string category in categories)
-        {
-            // Check if the item in this category is both sold and in use
+    //    foreach (string category in categories)
+    //    {
+    //        // Check if the item in this category is both sold and in use
 
-            // Load the in-use items from Firestore for this category
-            await LoadInSoldItemsFromFirestore(category);
+    //        // Load the in-use items from Firestore for this category
+    //        await LoadInSoldItemsFromFirestore(category);
 
 
-        }
-    }
+    //    }
+    //}
     public void SaveSoldItems()
     {
         
@@ -313,39 +313,77 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Error loading in-use items from Firestore: " + ex.Message);
         }
     }
-    public async Task LoadInSoldItemsFromFirestore(string category)
+    //public async Task LoadInSoldItemsFromFirestore(string category)
+    //{
+    //    try
+    //    {
+    //        CollectionReference equippedItemsRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection)
+    //        .Document(UserID).Collection("EquippedItems").Document("SoldItems").Collection(category);
+
+    //        // Get all documents in the "InUseItems" subcollection for the specified category
+    //        QuerySnapshot inUseItemsSnapshot = await equippedItemsRef.GetSnapshotAsync();
+
+    //        // Iterate through the documents and handle each item
+    //        foreach (DocumentSnapshot docSnapshot in inUseItemsSnapshot.Documents)
+    //        {
+    //            // Deserialize the item data
+    //            string jsonData = docSnapshot.GetValue<string>("itemData");
+    //            Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
+
+    //            // Shop.Model.ShopItem item = new Shop.Model.ShopItem();
+    //            // Deserialize the item part
+    //            Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
+
+    //            // Create a new ShopItem instance and assign the deserialized item data
+    //            item.item.Sold = true;
+
+
+    //            Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
+    //                                                             //Debug.Log("Category: " + item.item.Category);
+
+    //            //UpdateSprite(item);
+
+
+
+    //        }
+    //    }
+    //    catch (System.Exception ex)
+    //    {
+    //        Debug.LogError("Error loading in-use items from Firestore: " + ex.Message);
+    //    }
+    //}
+
+    public async Task LoadInSoldItemsFromFirestore(string[] categories)
     {
         try
         {
-            CollectionReference equippedItemsRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection)
-            .Document(UserID).Collection("EquippedItems").Document("SoldItems").Collection(category);
-
-            // Get all documents in the "InUseItems" subcollection for the specified category
-            QuerySnapshot inUseItemsSnapshot = await equippedItemsRef.GetSnapshotAsync();
-
-            // Iterate through the documents and handle each item
-            foreach (DocumentSnapshot docSnapshot in inUseItemsSnapshot.Documents)
+            foreach (string category in categories)
             {
-                // Deserialize the item data
-                string jsonData = docSnapshot.GetValue<string>("itemData");
-                Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
+                CollectionReference equippedItemsRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection)
+                    .Document(UserID).Collection("EquippedItems").Document("SoldItems").Collection(category);
 
-                // Shop.Model.ShopItem item = new Shop.Model.ShopItem();
-                // Deserialize the item part
-                Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
+                // Get all documents in the "InUseItems" subcollection for the specified category
+                QuerySnapshot inUseItemsSnapshot = await equippedItemsRef.GetSnapshotAsync();
 
-                // Create a new ShopItem instance and assign the deserialized item data
-                item.item.Sold = true;
-                
+                // Iterate through the documents and handle each item
+                foreach (DocumentSnapshot docSnapshot in inUseItemsSnapshot.Documents)
+                {
+                    // Deserialize the item data
+                    string jsonData = docSnapshot.GetValue<string>("itemData");
+                    Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
 
-                Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
-                                                                 //Debug.Log("Category: " + item.item.Category);
+                    // Deserialize the item data into a ShopItem object
+                    Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
 
-                //UpdateSprite(item);
+                    // Update item properties (e.g., set Sold flag)
+                    item.item.Sold = true;
 
+                    Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
+                }
 
-
+                await LoadInUseItemsFromFirestore(category);
             }
+
         }
         catch (System.Exception ex)
         {
@@ -353,7 +391,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+
 
 
     private void UpdateSprite(Shop.Model.ShopItem item)
@@ -576,19 +614,20 @@ public class GameManager : MonoBehaviour
     {
         if (UserID != "")
         {
+            string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
             DisableFirstall();
             charBuilder.LoadSavedData();
 
-            await Task.Delay(500);
-            await DecorMan.LoadAllDecorationsFromFirestore();
-
             // If initial items have already been saved, load in-use items
+            //await Task.Delay(500);
+            ////await LoadInUseItems();
             await Task.Delay(500);
-            await LoadInUseItems();
-            await Task.Delay(500);
-            await LoadSoldItems();
+            //await LoadSoldItems();
+            await LoadInSoldItemsFromFirestore(categories);
             await Task.Delay(500);
             SaveSoldItems();
+            await Task.Delay(500);
+            await DecorMan.LoadAllDecorationsFromFirestore();
 
             RetrievePlayerInfo(UserID);
 

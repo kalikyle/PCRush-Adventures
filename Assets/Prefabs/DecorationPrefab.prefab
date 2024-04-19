@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 4038686940512202533}
   Border: {fileID: 2257964891015070991}
-  Clicked: {fileID: 0}
+  DecorImage: {fileID: 3493655828365750362}
   minSize: 50
   sizeStep: 10
   rotationStep: 15

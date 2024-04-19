@@ -15,7 +15,8 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
 {
     public RectTransform rectTransform;
     public GameObject Border;
-    public GameObject Clicked;
+    //public GameObject Clicked;
+    public Image DecorImage;
     public float minSize = 50f;
     public float sizeStep = 10f;
     public float rotationStep = 15f;
