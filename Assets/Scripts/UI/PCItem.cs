@@ -17,10 +17,15 @@ namespace PC.UI
         private Image BackgroundImage;
 
         [SerializeField]
+        public Image InUse;
+
+        [SerializeField]
         private TMP_Text PCName;
 
         [SerializeField]
         private Image borderImage;
+
+        
 
         public event Action<PCItem> OnItemClicked, OnRightMouseBtnClick;
 
@@ -50,6 +55,7 @@ namespace PC.UI
             this.PCImage.sprite = sprite;
             this.PCName.text = PCName;
             this.BackgroundImage.sprite = backimage;
+           
             //empty = false;
         }
         public void Select()

@@ -11,6 +11,7 @@ public class PickUpSystem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         PartsCollect parts = collision.GetComponent<PartsCollect>();
         if(parts != null)
         {
@@ -22,6 +23,13 @@ public class PickUpSystem : MonoBehaviour
             else
             {
                 parts.Quantity = reminder;
+            }
+
+            if (GameManager.instance.ComputerInv.activeSelf)
+            {
+
+                GameManager.instance.ComputerInv.SetActive(false);
+
             }
 
             partsData.PartsSaveItems();

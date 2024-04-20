@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
-  <Name>k__BackingField: Case 1
+  <Name>k__BackingField: 'Grey Case '
   <rarity>k__BackingField: Common
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 7f651023b234ac947bdf9e051c7801e2, type: 3}
   <Category>k__BackingField: Case
-  <attack>k__BackingField: 0
-  <health>k__BackingField: 0
-  <healthregen>k__BackingField: 0
+  <Attack>k__BackingField: 0
+  <Health>k__BackingField: 0
+  <Mana>k__BackingField: 0

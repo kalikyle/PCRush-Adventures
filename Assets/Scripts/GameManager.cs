@@ -59,6 +59,10 @@ public class GameManager : MonoBehaviour
     public Button ResizeDecButton;
     public Button DoneButton;
 
+
+    public GameObject UIExplore;
+    public GameObject ComputerInv;
+
     //public GameObject DecorClickedUI;
 
     public bool clicked = false;
@@ -311,7 +315,7 @@ public class GameManager : MonoBehaviour
     //    { "PC", jsonData }
     //};
 
-    
+
 
     //    // Set the data of the document
     //    await DecordocRef.SetAsync(dataDict);
@@ -342,6 +346,9 @@ public class GameManager : MonoBehaviour
     //}
 
     //tosave
+
+    public List<string> pcsoDocumentIds = new List<string>();
+    public string pcsothatinUse;
     public async Task SavePCSO(PCSO pcso)
     {
         // Convert the PCSO object to JSON
@@ -357,7 +364,8 @@ public class GameManager : MonoBehaviour
         // Set the data in the Firestore document using the generated document ID
         await docRef.SetAsync(new Dictionary<string, object> { { "PC", pcsoJson } });
 
-        
+        pcsoDocumentIds.Insert(0, docRef.Id);
+
     }
     //to update
     //public async Task UpdatePCSOItemList()
@@ -498,7 +506,7 @@ public class GameManager : MonoBehaviour
     //        Debug.LogError("Error loading in-use items from Firestore: " + ex.Message);
     //    }
     //}
-    public Shop.Model.ShopItem item = new Shop.Model.ShopItem();
+    public Shop.Model.ShopItem item;
     public async Task LoadInSoldItemsFromFirestore(string[] categories)
     {
         try
@@ -526,7 +534,7 @@ public class GameManager : MonoBehaviour
 
                     Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                 }
-
+                
                 await LoadInUseItemsFromFirestore(category);
             }
 
@@ -639,6 +647,8 @@ public class GameManager : MonoBehaviour
 
             // Create a reference to the subcollection for equipped items
             CollectionReference equippedItemsRef = docRef.Collection("EquippedItems");
+
+
         if (item.item.InUse)
         {
             // Determine the subcollection based on whether the item is sold or in use
@@ -722,6 +732,9 @@ public class GameManager : MonoBehaviour
     {
         if (UserID != "")
         {
+
+            UIExplore.SetActive(true);
+
             string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
             DisableFirstall();
             charBuilder.LoadSavedData();
@@ -738,7 +751,7 @@ public class GameManager : MonoBehaviour
             await DecorMan.LoadAllDecorationsFromFirestore();
 
             RetrievePlayerInfo(UserID);
-
+            
         }
     }
     public void ClearPlayerPrefsIfUserIDNotFound(string userID)
