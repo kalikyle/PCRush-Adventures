@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using TMPro;
 using Unity.VisualScripting;
@@ -51,6 +52,9 @@ namespace PC
 
         [SerializeField]
         public UnityEngine.UI.Button UseButton;
+
+        [SerializeField]
+        public UnityEngine.UI.Button InUseButton;
 
         [SerializeField]
         public UnityEngine.UI.Button submitButton;
@@ -283,11 +287,14 @@ namespace PC
         //        Debug.LogWarning("PCSO document does not exist in Firestore.");
         //    }
         //}
+        
 
-        private async void LoadPCSOList()
+
+
+        public async void LoadPCSOList()
         {
             PCData.ComputerItems.Clear();
-
+            GameManager.instance.pcsoDocumentIds.Clear();
             // Get a reference to the Firestore collection containing the PCSO documents
             CollectionReference collectionRef = FirebaseFirestore.DefaultInstance
                 .Collection(GameManager.instance.UserCollection)
@@ -300,6 +307,10 @@ namespace PC
             // Iterate through the retrieved documents
             foreach (DocumentSnapshot docSnapshot in querySnapshot.Documents)
             {
+               
+                string documentId = docSnapshot.Id;
+                GameManager.instance.pcsoDocumentIds.Add(documentId);
+
                 // Deserialize the PCSO data from the Firestore document
                 string pcsoJson = docSnapshot.GetValue<string>("PC");
 
@@ -314,6 +325,65 @@ namespace PC
                     // Add the loaded PCSO to the PCData.ComputerItems list
                     PCData.AddPCSOList(loadedPCSO);
                     PCpage.AddAnotherPC();
+
+
+                    if(loadedPCSO.inUse == true)
+                    {
+                        UseloadComputer(loadedPCSO);
+                        GameManager.instance.pcsothatinUse = documentId;
+                    }
+                    // Optionally perform any other actions with the loaded PCSO
+                }
+            }
+
+            // Log a message indicating the successful loading of PCSO items
+            Debug.Log("PCSO items loaded from Firestore.");
+        }
+
+
+        public async void LoadUpdatePCSOList()
+        {
+            PCData.ComputerItems.Clear();
+            GameManager.instance.pcsoDocumentIds.Clear();
+            // Get a reference to the Firestore collection containing the PCSO documents
+            CollectionReference collectionRef = FirebaseFirestore.DefaultInstance
+                .Collection(GameManager.instance.UserCollection)
+                .Document(GameManager.instance.UserID)
+                .Collection("ComputersCollection");
+
+            // Fetch all documents from the PCSO collection asynchronously
+            QuerySnapshot querySnapshot = await collectionRef.GetSnapshotAsync();
+
+            // Iterate through the retrieved documents
+            foreach (DocumentSnapshot docSnapshot in querySnapshot.Documents)
+            {
+
+                string documentId = docSnapshot.Id;
+                GameManager.instance.pcsoDocumentIds.Add(documentId);
+
+                // Deserialize the PCSO data from the Firestore document
+                string pcsoJson = docSnapshot.GetValue<string>("PC");
+
+                if (!string.IsNullOrEmpty(pcsoJson))
+                {
+                    // Create a new PCSO instance
+                    PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
+
+                    // Deserialize the JSON data into the PCSO object
+                    JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+                    // Add the loaded PCSO to the PCData.ComputerItems list
+                    PCData.AddPCSOList(loadedPCSO);
+                    PCpage.AddAnotherPC();
+
+                    OnInventOpen();
+
+
+                    if (loadedPCSO.inUse == true)
+                    {
+                        UseloadComputer(loadedPCSO);
+                        GameManager.instance.pcsothatinUse = documentId;
+                    }
                     // Optionally perform any other actions with the loaded PCSO
                 }
             }
@@ -365,6 +435,20 @@ namespace PC
         //    }
         //}
 
+
+        public void OnInventOpen()
+        {
+            
+               
+                PCpage.ResetSelection();
+                PCpage.ClearItems();
+                PCpage.InitializedPCs(GetUsedSlotsCount());
+            //inventoryData.PartsSaveItems();
+                OpenPCInv();
+
+
+            
+        }
         public void Start()
         {
             //LoadPCSOList();
@@ -805,7 +889,7 @@ namespace PC
             //    InfoButton.gameObject.SetActive(true);
             //});
 
-            
+
             //XButton.onClick.AddListener(() => {
             //    PCMenu.Hide();
             //    //OC.selectedMissionIndex = -1;
@@ -814,29 +898,21 @@ namespace PC
             //ModifyButton.onClick.AddListener(() => {
 
             //    HandleRightActionRequest(PCIndexOutside);
-                
+
 
             //    });
             UseButton.onClick.AddListener(() => UseComputer(PCIndexOutside));
 
+
+
+
             //OrderButton.onClick.AddListener(() => Anim.HideAllAnimation());
         }
         private int TestedPCint;
-        public void UseComputer(int index)
+
+        public void UseloadComputer(PCSO PCitem)
         {
-            //PCeventTrigger1.enabled = true;
-            //PCeventTrigger2.enabled = false;
-            //MonitorScreen.gameObject.SetActive(false);
-            //TurnOffButton.gameObject.SetActive(false);
-            //TurnOnButton.gameObject.SetActive(true);
-            //PCeventTrigger1.enabled = true;
-            PCMenu.Hide();
-            //TestingComputerPanel.SetActive(true);
-            //EmptyComputerPanel.SetActive(false);
-
-            Computer PCs = PCData.GetItemAt(index);
-            PCSO PCitem = PCs.PC;
-
+            
             theClickable.gameObject.SetActive(true);
             PCImage.gameObject.SetActive(true);
             PCImage.sprite = PCitem.PCImage;
@@ -854,42 +930,228 @@ namespace PC
 
             //Status.text = PCitem.TestStatus;
 
-            
+
             CaseImage.sprite = PCitem.Case.ItemImage;
 
-           
+
             MBImage.sprite = PCitem.Motherboard.ItemImage;
 
-          
+
             CPUImage.sprite = PCitem.CPU.ItemImage;
 
-           
+
             CPUFImage.sprite = PCitem.CPUFan.ItemImage;
 
-          
+
             RAMImage.sprite = PCitem.RAM.ItemImage;
 
-           
+
             GPUImage.sprite = PCitem.GPU.ItemImage;
 
-        
+
             STRGImage.sprite = PCitem.STORAGE.ItemImage;
 
-          
-            PSUImage.sprite =  PCitem.PSU.ItemImage;
+
+            PSUImage.sprite = PCitem.PSU.ItemImage;
 
             PCImagePlaceholder.gameObject.SetActive(true);
             PCImagePlaceholder.sprite = PCitem.PCImage;
-
-            PCitem.inUse = true;
-
-            TestedPCint = index;
-
-           
-
-           
         }
-        public void ReturnPC()
+
+        public PlayerTeleport PT;
+
+        public async void UseComputer(int index)
+        {
+            if (PT.DeskPanel.activeSelf) {
+                PCMenu.Hide();
+                //TestingComputerPanel.SetActive(true);
+                //EmptyComputerPanel.SetActive(false);
+
+                Computer PCs = PCData.GetItemAt(index);
+                PCSO PCitem = PCs.PC;
+                string documentId = GameManager.instance.pcsoDocumentIds[index];
+
+                theClickable.gameObject.SetActive(true);
+                PCImage.gameObject.SetActive(true);
+                PCImage.sprite = PCitem.PCImage;
+                PCName.text = PCitem.PCName;
+                //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
+
+                CaseName.text = PCitem.Case.Name;
+                MBName.text = PCitem.Motherboard.Name;
+                CPUName.text = PCitem.CPU.Name;
+                CPUFName.text = PCitem.CPUFan.Name;
+                RAMName.text = PCitem.RAM.Name;
+                GPUName.text = PCitem.GPU.Name;
+                STRGName.text = PCitem.STORAGE.Name;
+                PSUName.text = PCitem.PSU.Name;
+
+                //Status.text = PCitem.TestStatus;
+
+
+                CaseImage.sprite = PCitem.Case.ItemImage;
+
+
+                MBImage.sprite = PCitem.Motherboard.ItemImage;
+
+
+                CPUImage.sprite = PCitem.CPU.ItemImage;
+
+
+                CPUFImage.sprite = PCitem.CPUFan.ItemImage;
+
+
+                RAMImage.sprite = PCitem.RAM.ItemImage;
+
+
+                GPUImage.sprite = PCitem.GPU.ItemImage;
+
+
+                STRGImage.sprite = PCitem.STORAGE.ItemImage;
+
+
+                PSUImage.sprite = PCitem.PSU.ItemImage;
+
+                PCImagePlaceholder.gameObject.SetActive(true);
+                PCImagePlaceholder.sprite = PCitem.PCImage;
+
+                PCitem.inUse = true;
+
+                TestedPCint = index;
+
+                await UpdatePCSO(documentId, PCitem);
+
+
+            }
+            else
+            {
+                DialogBox.gameObject.SetActive(true);
+                DialogText.text = "Can't Use this Computer, \n Go to Your Desk First...";
+                YesButton.gameObject.SetActive(false);
+                NoButton.gameObject.SetActive(false);
+                exitButton.gameObject.SetActive(true);
+            }
+            
+            //PCeventTrigger1.enabled = true;
+            //PCeventTrigger2.enabled = false;
+            //MonitorScreen.gameObject.SetActive(false);
+            //TurnOffButton.gameObject.SetActive(false);
+            //TurnOnButton.gameObject.SetActive(true);
+            //PCeventTrigger1.enabled = true;
+
+            
+
+            
+
+
+
+        }
+
+        public async Task UpdatePCSO(string documentId, PCSO updatedPCSO)
+        {
+            try
+            {
+                // Convert the updated PCSO object to JSON
+                string updatedPCSOJson = JsonUtility.ToJson(updatedPCSO);
+                //pcsothatinUse = documentId;
+
+                if (!string.IsNullOrEmpty(GameManager.instance.pcsothatinUse) && GameManager.instance.pcsothatinUse != documentId)
+                {
+                    // Update the PCSO that was previously in use to set inUse = false
+                    await UpdatePCSOInUseStatus(GameManager.instance.pcsothatinUse, false);
+                }
+
+
+                // Get a reference to the Firestore document to be updated
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance
+                    .Collection(GameManager.instance.UserCollection)
+                    .Document(GameManager.instance.UserID)
+                    .Collection("ComputersCollection")
+                    .Document(documentId);
+
+                // Create a dictionary to store the updated PCSO data
+                Dictionary<string, object> updateData = new Dictionary<string, object>
+        {
+            { "PC", updatedPCSOJson }
+        };
+
+                // Update the Firestore document with the new data
+                await docRef.UpdateAsync(updateData);
+                GameManager.instance.pcsothatinUse = documentId;
+                Debug.Log("PCSO document updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error updating PCSO document: " + ex.Message);
+            }
+        }
+
+        private async Task UpdatePCSOInUseStatus(string pcsothatinUse, bool inUseStatus)
+        {
+            try
+            {
+                // Get a reference to the Firestore document to be updated
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance
+                    .Collection(GameManager.instance.UserCollection)
+                    .Document(GameManager.instance.UserID)
+                    .Collection("ComputersCollection")
+                    .Document(pcsothatinUse);
+
+                // Fetch the document snapshot
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+                // Check if the document exists
+                if (snapshot.Exists)
+                {
+                    // Deserialize the PCSO data from the Firestore document
+                    string pcsoJson = snapshot.GetValue<string>("PC");
+
+                    if (!string.IsNullOrEmpty(pcsoJson))
+                    {
+                        // Deserialize the JSON data into a PCSO object
+                        //PCSO loadedPCSO = JsonUtility.FromJson<PCSO>(pcsoJson);
+
+                        PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
+
+                        // Deserialize the JSON data into the PCSO object
+                        JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+                        // Update the inUse status
+                        loadedPCSO.inUse = inUseStatus;
+
+                        // Convert the updated PCSO object back to JSON
+                        string updatedPCSOJson = JsonUtility.ToJson(loadedPCSO);
+
+                        // Create a dictionary to update the inUse status
+                        Dictionary<string, object> updateData = new Dictionary<string, object>
+                {
+                    { "PC", updatedPCSOJson }
+                };
+
+                        // Update the Firestore document with the new inUse status
+                        await docRef.UpdateAsync(updateData);
+
+                        Debug.Log("PCSO inUse status updated successfully.");
+
+                        
+                    }
+                    else
+                    {
+                        Debug.LogWarning("PCSO JSON data is empty or invalid.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("PCSO document does not exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error updating PCSO inUse status: " + ex.Message);
+            }
+        }
+
+            public void ReturnPC()
         {
            
             TestingComputerPanel.SetActive(false);
@@ -1083,6 +1345,9 @@ namespace PC
             PCpage.UpdateDescription(PCindex, PCitems.PCImage, PCitems.Case.ItemImage, PCitems.Motherboard.ItemImage, PCitems.CPU.ItemImage, PCitems.CPUFan.ItemImage, PCitems.RAM.ItemImage, PCitems.GPU.ItemImage, PCitems.STORAGE.ItemImage, PCitems.PSU.ItemImage,
             PCitems.PCName, PCitems.Case.Name, PCitems.Motherboard.Name, PCitems.CPU.Name, PCitems.CPUFan.Name, PCitems.RAM.Name, PCitems.GPU.Name, PCitems.STORAGE.Name, PCitems.PSU.Name, PCitems.inUse);
             PCIndexOutside = PCindex;
+
+
+
         }
         //public LeanTweenAnimate LTA;
         public Canvas MainMenu;

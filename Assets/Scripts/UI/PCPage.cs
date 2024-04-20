@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PC.UI
 {
@@ -22,6 +23,9 @@ namespace PC.UI
 
         [SerializeField]
         private Sprite NotInUseImage;
+
+
+       
 
 
         public List<PCItem> ListOfPCs = new List<PCItem>();
@@ -71,6 +75,16 @@ namespace PC.UI
             uiItem.OnItemClicked += HandleItemSelection;
             uiItem.OnRightMouseBtnClick += HandleRightClickAction;
         }
+
+        public void ClearItems()
+        {
+            foreach (var item in ListOfPCs)
+            {
+                item.gameObject.SetActive(false);// Assuming ListOfShopItems contains the GameObjects of shop items
+            }
+            ListOfPCs.Clear();
+        }
+
         public void Awake()
         {
            
@@ -95,11 +109,15 @@ namespace PC.UI
             {
                 if (inUse == true)
                 {
+                    
                     ListOfPCs[ItemIndex].SetData(InUseImage,PCimage, PCname);
+                    ListOfPCs[ItemIndex].InUse.gameObject.SetActive(true);
                 }
                 else
                 {
+                    //disable inuse sprite
                     ListOfPCs[ItemIndex].SetData(NotInUseImage, PCimage, PCname);
+                    ListOfPCs[ItemIndex].InUse.gameObject.SetActive(false);
                 }
 
             }

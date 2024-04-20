@@ -53,6 +53,13 @@ namespace PC.UI
         private Image STRGImage;
         [SerializeField]
         private Image PSUImage;
+
+
+        [SerializeField]
+        private Button UseButton;
+
+        [SerializeField]
+        private Button UsedButton;
         public void Start()
         {
             
@@ -129,6 +136,19 @@ namespace PC.UI
 
             PSUImage.gameObject.SetActive(true);
             PSUImage.sprite = psusprite;
+
+
+
+            if(inUse == true){
+                UsedButton.gameObject.SetActive (true);
+                UseButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                UseButton.gameObject.SetActive (true);
+                UsedButton.gameObject.SetActive(false);
+            }
+
 
         }
         public void Show()

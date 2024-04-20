@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 
         public bool OpenDesk = false;
         public bool OpenBuild = false;
-
+        public bool EditorOpen = false;
     
 
     
@@ -34,20 +34,24 @@ using UnityEngine.SceneManagement;
                     DeskPanel.gameObject.SetActive(true);
                     GameManager.instance.PlayerDeskName();
                     UIPanel.gameObject.SetActive(true);
+                    GameManager.instance.UIExplore.SetActive(false);
                     OpenDesk = false;
                 }
-                else if (GameManager.instance.OpenEditor == true && homeTeleport == null)
+                else if (GameManager.instance.OpenEditor == true && homeTeleport == null && EditorOpen == false)
                 {
-
+                    
                     SceneManager.LoadScene(1, LoadSceneMode.Additive);
-                    //GameManager.instance.OpenEditor = false;
-                }
+                    EditorOpen = true;
+                    GameManager.instance.UIExplore.SetActive(false);
+                //GameManager.instance.OpenEditor = false;
+            }
                 else if (OpenBuild == true && homeTeleport == null)
                 {
                     BuildRoom.gameObject.SetActive(true);
                     OpenBuild = false;
+                    GameManager.instance.UIExplore.SetActive(false);
 
-                }
+            }
 
         }
             //for desk
@@ -117,7 +121,8 @@ using UnityEngine.SceneManagement;
             if (collision.CompareTag("Editor"))
             {
                GameManager.instance.OpenEditor = false;
-            }
+               EditorOpen = false;
+        }
         if (collision.CompareTag("Build"))
         {
             OpenBuild = false;

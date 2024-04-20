@@ -1296,13 +1296,17 @@ namespace PartsInventory
 
         }
         public string infocategory = null;
+        public GameObject usebuttonpanel;
         public void OpenFiltered(string category)
         {
             //infoButton.gameObject.SetActive(true);
+            
             Debug.Log("Toggle: true");
+            
             PartsPanel.SetActive(true);
             PartsButton.gameObject.SetActive(false);
             ComputerButton.gameObject.SetActive(false);
+            usebuttonpanel.gameObject.SetActive(true);
             ShowCategory(category);
             infocategory = category;
             DisplayText.text = category;
