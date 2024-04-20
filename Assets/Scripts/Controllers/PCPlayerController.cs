@@ -1,3 +1,4 @@
+using Firebase.Firestore;
 using Inventory;
 using Inventory.Model;
 using PartsInventory;
@@ -198,6 +199,8 @@ namespace PC
         public TMP_Text ClientName;
         public Image ClientImage;
 
+        public GameObject theClickable;
+
         //[SerializeField]
         //private MissionConSO OrderData;
 
@@ -225,11 +228,150 @@ namespace PC
         {
             PCMenu.Hide();
         }
+        IEnumerator DelayedComputerLoad()
+        {
+            // Wait for 1 second
+            yield return new WaitForSeconds(2f);
+
+            // Now load initial items
+            //LoadComputerItems();
+            LoadPCSOList();
+        }
+        //private async void LoadPCSOLists()
+        //{
+        //    PCData.ComputerItems.Clear();
+        //    // Get a reference to the Firestore document containing the PCSO data
+        //    DocumentReference docRef = FirebaseFirestore.DefaultInstance
+        //        .Collection(GameManager.instance.UserCollection)
+        //        .Document(GameManager.instance.UserID)
+        //        .Collection("PCSOCollection")
+        //        .Document("PCSOItem");
+
+        //    // Fetch the document snapshot asynchronously
+        //    DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+
+        //    if (snapshot.Exists)
+        //    {
+        //        // Retrieve the serialized JSON array of PCSO data from Firestore
+        //        string pcsoJson = snapshot.GetValue<string>("pcsoData");
+
+        //        if (!string.IsNullOrEmpty(pcsoJson))
+        //        {
+        //            // Deserialize the JSON array into an array of PCSO objects
+
+
+        //            // Clear existing items in PCData.ComputerItems
+
+
+        //            // Add each loaded PCSO item to PCData.ComputerItems
+
+        //            PCSO newPCSO = ScriptableObject.CreateInstance<PCSO>();
+
+        //            // Copy the data from the loaded PCSO to the new instance
+        //            JsonUtility.FromJsonOverwrite(pcsoJson, newPCSO);
+
+        //            PCData.AddPCSOList(newPCSO);
+        //            PCpage.AddAnotherPC();
+
+
+        //            Debug.Log("PCSO items loaded from Firestore.");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning("PCSO document does not exist in Firestore.");
+        //    }
+        //}
+
+        private async void LoadPCSOList()
+        {
+            PCData.ComputerItems.Clear();
+
+            // Get a reference to the Firestore collection containing the PCSO documents
+            CollectionReference collectionRef = FirebaseFirestore.DefaultInstance
+                .Collection(GameManager.instance.UserCollection)
+                .Document(GameManager.instance.UserID)
+                .Collection("ComputersCollection");
+
+            // Fetch all documents from the PCSO collection asynchronously
+            QuerySnapshot querySnapshot = await collectionRef.GetSnapshotAsync();
+
+            // Iterate through the retrieved documents
+            foreach (DocumentSnapshot docSnapshot in querySnapshot.Documents)
+            {
+                // Deserialize the PCSO data from the Firestore document
+                string pcsoJson = docSnapshot.GetValue<string>("PC");
+
+                if (!string.IsNullOrEmpty(pcsoJson))
+                {
+                    // Create a new PCSO instance
+                    PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
+
+                    // Deserialize the JSON data into the PCSO object
+                    JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+                    // Add the loaded PCSO to the PCData.ComputerItems list
+                    PCData.AddPCSOList(loadedPCSO);
+                    PCpage.AddAnotherPC();
+                    // Optionally perform any other actions with the loaded PCSO
+                }
+            }
+
+            // Log a message indicating the successful loading of PCSO items
+            Debug.Log("PCSO items loaded from Firestore.");
+        }
+
+
+        //public async void LoadComputerItems()
+        //{
+        //    if (GameManager.instance.UserID != "")
+        //    {
+        //        try
+        //        {
+        //            DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+        //            CollectionReference subDocRef = docRef.Collection("ComputerInventory");
+        //            DocumentReference decorDocRef = subDocRef.Document("ComputerInvent");
+
+        //            DocumentSnapshot snapshot = await decorDocRef.GetSnapshotAsync();
+
+        //            if (snapshot.Exists)
+        //            {
+        //                string jsonData = snapshot.GetValue<string>("PC");
+        //                ComputerList loadedData = JsonUtility.FromJson<ComputerList>(jsonData);
+
+        //                if (loadedData != null)
+        //                {
+        //                    PCData.ComputerItems.Clear();
+        //                         foreach (var item in loadedData.Items)
+        //                            {
+
+        //                            PCData.ComputerItems.Add(item);
+        //                            PCData.AddItem(item);
+        //                          }
+
+        //                    Debug.Log("Parts items loaded from Firestore.");
+        //                }
+        //            }
+        //            else
+        //            {
+        //                Debug.Log("No initial parts items found in Firestore for player.");
+        //            }
+        //        }
+        //        catch (System.Exception ex)
+        //        {
+        //            Debug.LogError("Failed to load initial parts items from Firestore: " + ex.Message);
+        //        }
+        //    }
+        //}
+
         public void Start()
         {
-           //LoadPCSOList();
-           PrepareUI();
+            //LoadPCSOList();
+            StartCoroutine(DelayedComputerLoad());
+            PrepareUI();
             //PCData.Initialize();
+            
 
 
             //PCeventTrigger1.enabled = false;
@@ -260,10 +402,10 @@ namespace PC
             //        InventCon.BackAllCurrentlyItem();
             //    }
 
-               
+
             //    ModifyPC(PCIndexOutside);
             //    DialogBox.gameObject.SetActive(false);
-                
+
             //});
 
             //NoButton.onClick.AddListener(() =>
@@ -276,13 +418,13 @@ namespace PC
 
             //TurnOnButton.onClick.AddListener(() =>
             //{
-                
+
             //    TurnOnFuntions();
             //});
 
             //TurnOffButton.onClick.AddListener(() =>
             //{
-                
+
             //    TurnOffFuntions();
             //});
 
@@ -695,6 +837,7 @@ namespace PC
             Computer PCs = PCData.GetItemAt(index);
             PCSO PCitem = PCs.PC;
 
+            theClickable.gameObject.SetActive(true);
             PCImage.gameObject.SetActive(true);
             PCImage.sprite = PCitem.PCImage;
             PCName.text = PCitem.PCName;
@@ -741,6 +884,8 @@ namespace PC
             PCitem.inUse = true;
 
             TestedPCint = index;
+
+           
 
            
         }
@@ -1010,7 +1155,7 @@ namespace PC
         {
           
                 
-                    //PCMenu.Show();
+                //PCMenu.Show();
                 //Anim.HideAllAnimation();
                 foreach (var item in PCData.GetCurrentInventoryState())
                 {

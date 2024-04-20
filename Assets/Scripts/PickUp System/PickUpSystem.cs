@@ -23,6 +23,8 @@ public class PickUpSystem : MonoBehaviour
             {
                 parts.Quantity = reminder;
             }
+
+            partsData.PartsSaveItems();
         }
     }
 

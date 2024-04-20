@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Decoration.Model.DecorSO;
 using static UnityEditor.Progress;
 
 namespace Inventory.Model
@@ -28,10 +29,12 @@ namespace Inventory.Model
             }
         }
 
-        public void SaveItems()
+        
+
+        public void PartsSaveItems()
         {
-           // GameManager.instance.SaveInitialItems(inventoryItems);
-            //SaveInitialItems(inventoryItems);
+            GameManager.instance.SaveComputerParts(inventoryItems);
+            //SaveInitialItems(DecorationItems);
         }
 
         public void AddItem(InventoryItem item)

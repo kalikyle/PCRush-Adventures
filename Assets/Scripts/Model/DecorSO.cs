@@ -35,6 +35,8 @@ namespace Decoration.Model
             //SaveInitialItems(DecorationItems);
         }
 
+        
+
         public void AddItem(DecorationItem item)
         {
             AddItem(item.item, item.quantity);
