@@ -15,6 +15,7 @@ using PartsInventory.Model;
 using PC.UI;
 using PC;
 using PC.Model;
+using Firebase.Firestore;
 
 namespace PartsInventory
 {
@@ -217,20 +218,76 @@ namespace PartsInventory
             // Call this method to check and update the Done button
             CheckAndUpdateDoneButton();
         }
+        public async void LoadPartsItems()
+        {
+            if (GameManager.instance.UserID != "")
+            {
+                try
+                {
+                    DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+                    CollectionReference subDocRef = docRef.Collection("PartsInventory");
+                    DocumentReference decorDocRef = subDocRef.Document("PartsInvent");
 
+                    DocumentSnapshot snapshot = await decorDocRef.GetSnapshotAsync();
+
+                    if (snapshot.Exists)
+                    {
+                        string jsonData = snapshot.GetValue<string>("Parts");
+                        PartsItemList loadedData = JsonUtility.FromJson<PartsItemList>(jsonData);
+
+                        if (loadedData != null)
+                        {
+                            initialItems.Clear();
+                            GameManager.instance.itemsToTransfer.Clear();
+                            inventoryData.Initialize();
+                            inventoryData.OnInventoryUpdated += UpdateInventoryUI;
+
+                            foreach (var item in loadedData.Items)
+                            {
+                                GameManager.instance.itemsToTransfer.Add(item);
+                                if (!item.isEmpty)
+                                {
+                                    inventoryData.AddItem(item);
+                                }
+                            }
+
+                            Debug.Log("Parts items loaded from Firestore.");
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("No initial parts items found in Firestore for player.");
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError("Failed to load initial parts items from Firestore: " + ex.Message);
+                }
+            }
+        }
+
+        IEnumerator DelayedPartsLoad()
+        {
+            // Wait for 1 second
+            yield return new WaitForSeconds(2f);
+
+            // Now load initial items
+            LoadPartsItems();
+        }
         private void Start()
         {
             //LoadPCSO();
-
+            
             // LoadInitialItems();
             GameManager.instance.OnItemsToTransferUpdated += UpdateInventory;
             //PrepareInventoryData();
-            ToggleALLButton();
+            //ToggleALLButton();
+            StartCoroutine(DelayedPartsLoad());
             //inventoryData.Initialize();
             //PrepareUI();
             CheckAndUpdateDoneButton();
-            onStartClickables();
 
+            onStartClickables();
 
             CaseImage.gameObject.SetActive(false);
             MBImage.gameObject.SetActive(false);
@@ -259,6 +316,7 @@ namespace PartsInventory
             CancelButton.onClick.AddListener(() =>
             {
                 HandleCancel();
+
             });
 
 
@@ -369,6 +427,7 @@ namespace PartsInventory
                     GameManager.instance.BeenModified = false;
                 }
                 CloseDialog();
+                inventoryData.PartsSaveItems();
             });
 
             NoButton.onClick.AddListener(() =>
@@ -376,7 +435,7 @@ namespace PartsInventory
                 CloseDialog();
 
             });
-
+            
         }
         //using an event
         public void UpdateInventory(InventoryItem updatedItems)
@@ -387,43 +446,13 @@ namespace PartsInventory
             //inventoryData.Initialize();
             inventoryData.OnInventoryUpdated += UpdateInventoryUI;
             inventoryData.AddItem(updatedItems);
+            inventoryData.PartsSaveItems();
             //initialItems.Clear();
         }
 
         public List<InventoryItem> InventoryfilteredItems;
         public Dictionary<int, int> tempToOriginalIndexMapping = new Dictionary<int, int>();
-        /*public void SaveInitialItems()
-         {
-             string jsonData = JsonUtility.ToJson(new InventoryItemList { Items = initialItems });
-             PlayerPrefs.SetString("SavedInitialItems", jsonData);
-             PlayerPrefs.Save();
-             //Debug.LogError("Data has been Saved");
-         }*/
-
-        //public void LoadInitialItems()
-        //{
-
-        //    string savedData = PlayerPrefs.GetString("SavedInitialItems");
-        //    InventoryItemList loadedData = JsonUtility.FromJson<InventoryItemList>(savedData);
-        //    if (loadedData != null)
-        //    {
-        //        initialItems.Clear();
-        //        GameManager.Instance.itemsToTransfer.Clear();
-        //        inventoryData.Initialize();
-        //        inventoryData.OnInventoryUpdated += UpdateInventoryUI;
-        //        //inventoryData.inventoryItems.Clear();
-
-        //        foreach (var item in loadedData.Items)
-        //        {
-        //            GameManager.Instance.itemsToTransfer.Add(item);
-        //            //initialItems.Add(item);
-        //            if (item.isEmpty) { continue; }
-        //            inventoryData.AddItem(item);
-        //        }
-        //        Debug.LogWarning("Data has been Loaded");
-        //    }
-
-        //}
+       
         public void BackAllCurrentlyItem()
         {
             string[] categoriesToHandle = { "Case", "Motherboard", "CPU", "CPU Fan", "RAM", "Video Card", "Storage", "PSU" };
@@ -684,6 +713,8 @@ namespace PartsInventory
                 HandleItemActionRequest(tempIndex);
 
             }
+            inventoryData.PartsSaveItems();
+            //inventoryData.SaveItems();
 
 
 
@@ -843,6 +874,7 @@ namespace PartsInventory
             usedItems.Remove(previousUsedItem);
             lastUsedItems.Remove(category);
             GameManager.instance.itemsToTransfer.Remove(previousUsedItem);
+            inventoryData.PartsSaveItems();
            // totalUsedItemsPrice -= previousUsedItem.item.Price;
 
             // Display the updated total price.
@@ -1258,6 +1290,7 @@ namespace PartsInventory
             inventoryUI.ResetSelection();
             inventoryUI.ClearItems();
             inventoryUI.InitializeInventoryUI(GetUsedSlotsCount());
+            //inventoryData.PartsSaveItems();
             OpenInvBTN();
 
 
@@ -1427,6 +1460,8 @@ namespace PartsInventory
 
             PCSO PC = ConvertLastUsedItemsToPCSOList();
             PCData.AddPCSOList(PC);
+            PCData.ComputerSave(PC);
+            //GameManager.instance.SavePCSO(PC);
 
             //if (!GameManager.instance.BeenModified)
             //{

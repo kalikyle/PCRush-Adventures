@@ -5,6 +5,7 @@ using Firebase.Auth;
 using Firebase.Extensions;
 using Firebase.Firestore;
 using PartsInventory.Model;
+using PC.Model;
 //using Firebase.Analytics;
 using Shop;
 using Shop.Model;
@@ -271,6 +272,150 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("decoration items saved to Firestore.");
     }
+
+    public async void SaveComputerParts(List<InventoryItem> items)
+    {
+        // Convert the list of items to JSON
+        string jsonData = JsonUtility.ToJson(new PartsItemList { Items = items });
+
+        DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+
+        CollectionReference SubDocRef = docRef.Collection("PartsInventory");
+
+        DocumentReference DecordocRef = SubDocRef.Document("PartsInvent");
+        // Create a dictionary to store the data
+        Dictionary<string, object> dataDict = new Dictionary<string, object>
+    {
+        { "Parts", jsonData }
+    };
+
+        // Set the data of the document
+        await DecordocRef.SetAsync(dataDict);
+
+        Debug.Log("Parts items saved to Firestore.");
+    }
+
+    //public async void SaveComputer(List<Computer> items)
+    //{
+    //    // Convert the list of items to JSON
+    //    string jsonData = JsonUtility.ToJson(new ComputerList { Items = items });
+
+    //    DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+
+    //    CollectionReference SubDocRef = docRef.Collection("ComputerInventory");
+
+    //    DocumentReference DecordocRef = SubDocRef.Document("ComputerInvent");
+    //    // Create a dictionary to store the data
+    //    Dictionary<string, object> dataDict = new Dictionary<string, object>
+    //{
+    //    { "PC", jsonData }
+    //};
+
+    
+
+    //    // Set the data of the document
+    //    await DecordocRef.SetAsync(dataDict);
+
+    //    Debug.Log("Computers saved to Firestore.");
+    //}
+
+    //public async void SavePCSO(PCSO pcso)
+    //{
+    //    // Convert the PCSO object to JSON
+    //    string pcsoJson = JsonUtility.ToJson(pcso);
+
+    //    // Get a reference to the Firestore document where you want to store the PCSO data
+    //    DocumentReference docRef = FirebaseFirestore.DefaultInstance
+    //        .Collection(GameManager.instance.UserCollection)
+    //        .Document(GameManager.instance.UserID)
+    //        .Collection("PCSOCollection")
+    //        .Document("PCSOItem");
+
+    //    // Create a dictionary to store the PCSO data
+    //    Dictionary<string, object> dataDict = new Dictionary<string, object>
+    //{
+    //    { "pcsoData", pcsoJson }
+    //};
+
+    //    // Set the data in the Firestore document
+    //    await docRef.SetAsync(dataDict);
+    //}
+
+    //tosave
+    public async Task SavePCSO(PCSO pcso)
+    {
+        // Convert the PCSO object to JSON
+        string pcsoJson = JsonUtility.ToJson(pcso);
+
+        // Get a reference to the Firestore document where you want to store the PCSO data
+        DocumentReference docRef = FirebaseFirestore.DefaultInstance
+            .Collection(GameManager.instance.UserCollection)
+            .Document(GameManager.instance.UserID)
+            .Collection("ComputersCollection")
+            .Document();
+
+        // Set the data in the Firestore document using the generated document ID
+        await docRef.SetAsync(new Dictionary<string, object> { { "PC", pcsoJson } });
+
+        
+    }
+    //to update
+    //public async Task UpdatePCSOItemList()
+    //{
+    //    // Get a reference to the Firestore document for the PCSOItem
+    //    DocumentReference docRef = FirebaseFirestore.DefaultInstance
+    //        .Collection(GameManager.instance.UserCollection)
+    //        .Document(GameManager.instance.UserID)
+    //        .Collection("PCSOCollection")
+    //        .Document("PCSOItem");
+
+    //    // Run a Firestore transaction to update the PCSOItem document
+    //    await FirebaseFirestore.DefaultInstance.RunTransactionAsync(async transaction =>
+    //    {
+    //        // Retrieve the current PCSO list data from Firestore
+    //        DocumentSnapshot snapshot = await transaction.GetSnapshotAsync(docRef);
+    //        List<object> currentPCSOList = snapshot.Exists ? (List<object>)snapshot.GetValue("pcsoList") : new List<object>();
+
+    //        // Generate a new entry for the updated PCSO list (e.g., with the latest PCSO ID)
+    //        Dictionary<string, object> newPCSOEntry = new Dictionary<string, object>
+    //    {
+    //        { "pcsoID", currentPCSOList.Count }, // Use a unique ID or index for each PCSO
+    //        { "pcsoData", JsonUtility.ToJson(currentPCSOList[currentPCSOList.Count - 1]) } // Save the latest PCSO data
+    //    };
+
+    //        // Append the new PCSO entry to the current PCSO list
+    //        currentPCSOList.Add(newPCSOEntry);
+
+    //        // Update the PCSOItem document with the updated PCSO list
+    //        transaction.Set(docRef, new Dictionary<string, object> { { "pcsoList", currentPCSOList } });
+
+    //        // Return a success result (you can handle this as needed)
+    //        return true;
+    //    });
+    //}
+
+    //public async void SavePCSOList(List<PCSO> pcsoList)
+    //{
+    //    // Convert the list of PCSO objects to JSON
+    //    string pcsoListJson = JsonUtility.ToJson(new PCList { PCSOs = pcsoList });
+
+    //    // Get a reference to the Firestore document where you want to store the PCSO list
+    //    DocumentReference docRef = FirebaseFirestore.DefaultInstance
+    //        .Collection(GameManager.instance.UserCollection)
+    //        .Document(GameManager.instance.UserID)
+    //        .Collection("PCSOCollection")
+    //        .Document("PCSOItem");
+
+    //    // Create a dictionary to store the PCSO list data
+    //    Dictionary<string, object> dataDict = new Dictionary<string, object>
+    //{
+    //    { "pcsoListData", pcsoListJson }
+    //};
+
+    //    // Set the data in the Firestore document
+    //    await docRef.SetAsync(dataDict);
+    //}
+
     public async Task LoadInUseItemsFromFirestore(string category)
     {
         try
@@ -291,7 +436,7 @@ public class GameManager : MonoBehaviour
 
                 // Shop.Model.ShopItem item = new Shop.Model.ShopItem();
                 // Deserialize the item part
-                Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
+                /*Shop.Model.ShopItem*/ item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
 
                 // Create a new ShopItem instance and assign the deserialized item data
               
@@ -353,7 +498,7 @@ public class GameManager : MonoBehaviour
     //        Debug.LogError("Error loading in-use items from Firestore: " + ex.Message);
     //    }
     //}
-
+    public Shop.Model.ShopItem item = new Shop.Model.ShopItem();
     public async Task LoadInSoldItemsFromFirestore(string[] categories)
     {
         try
@@ -374,7 +519,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
 
                     // Deserialize the item data into a ShopItem object
-                    Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
+                    /*Shop.Model.ShopItem*/ item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
 
                     // Update item properties (e.g., set Sold flag)
                     item.item.Sold = true;
@@ -388,7 +533,7 @@ public class GameManager : MonoBehaviour
         }
         catch (System.Exception ex)
         {
-            Debug.LogError("Error loading in-use items from Firestore: " + ex.Message);
+            Debug.LogError("Error loading sold items from Firestore: " + ex.Message);
         }
     }
 
@@ -432,45 +577,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    private void AddEquippedItemToDictionary(Shop.Model.ShopItem item)
-    {
-        if (equippedItemsByCategory.ContainsKey(item.item.Category))
-        {
-            equippedItemsByCategory[item.item.Category] = item;
-
-        }
-        else
-        {
-            
-            equippedItemsByCategory.Add(item.item.Category, item);
-
-        }
-
-        // Check if the item category is "Monitor" and if it's sold and in use
-        if (item.item.Category == "Monitor" && item.item.Sold && item.item.InUse)
-        {
-            Monitor.sprite = item.item.ItemImage;
-        }
-        if (item.item.Category == "Mouse" && item.item.Sold && item.item.InUse)
-        {
-            Mouse.sprite = item.item.ItemImage;
-        }
-        if (item.item.Category == "Keyboard" && item.item.Sold && item.item.InUse)
-        {
-            Keyboard.sprite = item.item.ItemImage;
-        }
-        if (item.item.Category == "Desk" && item.item.Sold && item.item.InUse)
-        {
-            Desk.sprite = item.item.ItemImage;
-        }
-        if (item.item.Category == "Background" && item.item.Sold && item.item.InUse)
-        {
-            Background.sprite = item.item.ItemImage;
-        }
-
-        
-    }
-    public async void SaveItemToFirestore(Shop.Model.ShopItem item)//needfix
+     public async void SaveItemToFirestore(Shop.Model.ShopItem item)//needfix
     {
         try
         {
@@ -844,6 +951,23 @@ public class DecorationItemList
     public List<DecorationItem> Items;
 }
 
+[System.Serializable]
+public class PartsItemList
+{
+    public List<InventoryItem> Items;
+}
+
+//[System.Serializable]
+//public class ComputerList
+//{
+//    public List<Computer> Items;
+//}
+
+//[System.Serializable]
+//public class PCList
+//{
+//    public List<PCSO> PCSOs;
+//}
 
 
 

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: PCs
   m_EditorClassIdentifier: 
   ComputerItems:
-  - PC: {fileID: 11400000, guid: b960b9852254f7f40b5dc8562899095a, type: 2}
+  - PC: {fileID: 0}
+  - PC: {fileID: 0}
   <Size>k__BackingField: 999

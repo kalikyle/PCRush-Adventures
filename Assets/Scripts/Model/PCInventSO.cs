@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Inventory.Model.PartsInventorySO;
 //using static Inventory.Model.InventorySO;
 //using static UnityEditor.Progress;
 
@@ -30,6 +31,13 @@ namespace PC.Model
                 ComputerItems.Add(Computer.GetEmptyItem());
                 //Debug.LogError("Initialize");
             }
+        }
+
+        public async void ComputerSave(PCSO PC)
+        {
+            
+           await GameManager.instance.SavePCSO(PC);
+            //SaveInitialItems(DecorationItems);
         }
         public void AddItem(PCSO PCitems)
         {
@@ -73,8 +81,8 @@ namespace PC.Model
                 };
                 // Add the Computer item to the ComputerItems list
                 ComputerItems.Add(computer);
-            
 
+           
             InformAboutChange();
         }
         public Dictionary<int, Computer> GetCurrentInventoryState()
