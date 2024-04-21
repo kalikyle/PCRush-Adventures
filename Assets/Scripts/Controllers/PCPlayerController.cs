@@ -455,49 +455,52 @@ namespace PC
             StartCoroutine(DelayedComputerLoad());
             PrepareUI();
             //PCData.Initialize();
-            
-
 
             //PCeventTrigger1.enabled = false;
             //PCeventTrigger2.enabled = false;
 
 
-            //YesButton.onClick.AddListener(() =>
-            //{
-            //    //LTA.showBuild();
+            YesButton.onClick.AddListener(() =>
+            {
+                //LTA.showBuild();
+                InventCon.lastUsedItems.Clear();
+                if (GameManager.instance.BeenModified)
+                {
+                    if (InventCon.recentlyBackedItems.Count > 0)
+                    {
+                        foreach (var kvp in InventCon.recentlyBackedItems)
+                        {
+                            InventCon.lastUsedItems[kvp.Key] = kvp.Value;
+                            //InventCon.inventoryData.RemoveItem(InventCon.lastUsedItems[kvp.Key], 1);
+                            //InventCon.totalUsedItemsPrice += kvp.Value.item.Price;
+                        }
+                        InventCon.recentlyBackedItems.Clear();
+                    }
+                    //InventCon.OnDoneButtonClick();
+                    //InventCon.Success.Stop();
+                    //LTA.HideSuccess();
 
-            //    if (GameManager.instance.BeenModified)
-            //    {
-            //        if (InventCon.recentlyBackedItems.Count > 0)
-            //        {
-            //            foreach (var kvp in InventCon.recentlyBackedItems)
-            //            {
-            //                InventCon.lastUsedItems[kvp.Key] = kvp.Value;
-            //                //InventCon.totalUsedItemsPrice += kvp.Value.item.Price;
-            //            }
-            //            InventCon.recentlyBackedItems.Clear();
-            //        }
-            //        //InventCon.OnDoneButtonClick();
-            //       // InventCon.Success.Stop();
-            //        //LTA.HideSuccess();
-            //    }
-            //    else
-            //    {
-            //        InventCon.BackAllCurrentlyItem();
-            //    }
+                   
+                    
+                }
+                else
+                {
+                    InventCon.BackAllCurrentlyItem();
+                }
 
 
-            //    ModifyPC(PCIndexOutside);
-            //    DialogBox.gameObject.SetActive(false);
+                ModifyPC(PCIndexOutside);
+                DialogBox.gameObject.SetActive(false);
 
-            //});
 
-            //NoButton.onClick.AddListener(() =>
-            //{
-            //    //LTA.showBuild();
-            //    LoadMyDeskScene();
-            //    DialogBox.gameObject.SetActive(false);
-            //});
+            });
+
+            NoButton.onClick.AddListener(() =>
+            {
+                //LTA.showBuild();
+                //LoadMyDeskScene();
+                DialogBox.gameObject.SetActive(false);
+            });
 
 
             //TurnOnButton.onClick.AddListener(() =>
@@ -875,7 +878,7 @@ namespace PC
         {
             PCpage.InitializedPCs(GetUsedSlotsCount());
             this.PCpage.OnDescriptionRequested += HandleDescriptionRequest;
-            this.PCpage.OnItemActionRequested += HandleRightActionRequest;
+            //this.PCpage.OnItemActionRequested += HandleRightActionRequest;
 
             //BuildButton.onClick.AddListener(LoadMyDeskScene);
             //ShopButton.onClick.AddListener(LoadMyShopScene);
@@ -902,7 +905,7 @@ namespace PC
 
             //    });
             UseButton.onClick.AddListener(() => UseComputer(PCIndexOutside));
-
+            ModifyButton.onClick.AddListener(() => ModifyComputer(PCIndexOutside));
 
 
 
@@ -1151,7 +1154,87 @@ namespace PC
             }
         }
 
-            public void ReturnPC()
+
+
+        public async Task ModifyPCSOs(string pcsothatisModified, PCSO pc)
+        {
+            try
+            {
+                // Get a reference to the Firestore document to be updated
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance
+                    .Collection(GameManager.instance.UserCollection)
+                    .Document(GameManager.instance.UserID)
+                    .Collection("ComputersCollection")
+                    .Document(pcsothatisModified);
+
+                // Fetch the document snapshot
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+                // Check if the document exists
+                if (snapshot.Exists)
+                {
+                    // Deserialize the PCSO data from the Firestore document
+                    string pcsoJson = snapshot.GetValue<string>("PC");
+
+                    if (!string.IsNullOrEmpty(pcsoJson))
+                    {
+                        // Deserialize the JSON data into a PCSO object
+                        //PCSO loadedPCSO = JsonUtility.FromJson<PCSO>(pcsoJson);
+
+                        PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
+
+                        // Deserialize the JSON data into the PCSO object
+                        JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+                        if (loadedPCSO.inUse == true)
+                        {
+                            loadedPCSO = pc;
+                            loadedPCSO.inUse = true;
+                            UseloadComputer(loadedPCSO);
+                            GameManager.instance.pcsothatinUse = pcsothatisModified;
+
+                        }
+                        else
+                        {
+                            // Update the inUse status
+                            loadedPCSO = pc;
+                        }
+
+                      
+
+                        // Convert the updated PCSO object back to JSON
+                        string updatedPCSOJson = JsonUtility.ToJson(loadedPCSO);
+
+                        // Create a dictionary to update the inUse status
+                        Dictionary<string, object> updateData = new Dictionary<string, object>
+                {
+                    { "PC", updatedPCSOJson }
+                };
+
+                        // Update the Firestore document with the new inUse status
+                        await docRef.UpdateAsync(updateData);
+
+                        Debug.Log("PCSO inUse status updated successfully.");
+
+
+                    }
+                    else
+                    {
+                        Debug.LogWarning("PCSO JSON data is empty or invalid.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("PCSO document does not exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error updating PCSO inUse status: " + ex.Message);
+            }
+        }
+
+        public void ReturnPC()
         {
            
             TestingComputerPanel.SetActive(false);
@@ -1237,19 +1320,20 @@ namespace PC
         public void ModifyPC(int PCIndex)
         {
             //Debug.LogError(PCIndex);
-            LoadMyDeskScene();
+            //LoadMyDeskScene();
             Computer PCs = PCData.GetItemAt(PCIndex);
+            GameManager.instance.pcsothatisModified = GameManager.instance.pcsoDocumentIds[PCIndex];
             GameManager.instance.BeenModified = true;
 
             InventCon.usedItems.Clear();//clear first all the lastusedItems
             InventCon.lastUsedItems.Clear();
-            ClearPCs(PCIndex);
-
-
+            //ClearPCs(PCIndex);
             //InventCon.NameText.text = PCs.PC.PCName;
             //InventCon.RenameTxt.text = PCs.PC.PCName;
            // InventCon.PriceText.text = "$" + PCs.PC.PCPrice.ToString("F2");
-           // InventCon.totalUsedItemsPrice = PCs.PC.PCPrice;
+             InventCon.ModifyingPC.gameObject.SetActive(true);
+             InventCon.pcName.gameObject.SetActive(true);
+             InventCon.newpc.gameObject.SetActive(true);
 
 
             string[] categories = new string[]
@@ -1296,25 +1380,38 @@ namespace PC
                         PCparts.item = PCs.PC.PSU;
                         break;
                 }
+
+               
+
                 InventCon.UseItems(PCparts, category);
                 InventCon.usedItems.Add(PCparts);
                 InventCon.lastUsedItems[category] = PCparts;
             }
-           
+
+            if (PCs.PC.inUse == true)
+            {
+                InventCon.Inuse.gameObject.SetActive(true);
+            }
+            else
+            {
+                InventCon.Inuse.gameObject.SetActive(false);
+            }
+
         }
 
         
 
-        private void HandleRightActionRequest(int PCIndex)
+        private void ModifyComputer(int PCIndex)
         {
 
             if (InventCon.lastUsedItems.Count > 0)
             {
+                DialogBox.gameObject.SetActive(true);
                 YesButton.gameObject.SetActive(true);
                 NoButton.gameObject.SetActive(true);
                 exitButton.gameObject.SetActive(false);
                 // List has values
-                DialogBox.gameObject.SetActive(true);
+               
 
                 if (GameManager.instance.BeenModified) {
                     DialogText.text = "You're currently Modifying a computer... \n Would you like to alter this computer? \n If Yes, The currently in modifying computer will be back to the Computer's Inventory.";
@@ -1334,7 +1431,7 @@ namespace PC
                 
             }
             PCIndexOutside = PCIndex;
-            ReturnPC();
+            //ReturnPC();
         }
         private int PCIndexOutside = 0;
         private void HandleDescriptionRequest(int PCindex)
