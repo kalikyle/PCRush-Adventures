@@ -341,6 +341,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
             SceneManager.UnloadSceneAsync(1);
             GameManager.instance.LoadCharacter();
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, playerName.text);
+            GameManager.instance.UIExplore.SetActive(true);
             //SceneManager.LoadSceneAsync(0);
         }
 

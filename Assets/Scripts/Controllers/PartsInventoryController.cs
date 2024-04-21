@@ -25,7 +25,7 @@ namespace PartsInventory
         private UIPartsInventoryPage inventoryUI;
 
         [SerializeField]
-        private PartsInventorySO inventoryData;
+        public PartsInventorySO inventoryData;
 
         [SerializeField]
         private PCInventSO PCData;
@@ -80,6 +80,9 @@ namespace PartsInventory
         public Button DoneButton;
 
         [SerializeField]
+        public Button DisassmebleButton;
+
+        [SerializeField]
         public Image DialogBox;
         [SerializeField]
         public TMP_Text DialogText;
@@ -120,8 +123,19 @@ namespace PartsInventory
 
         [SerializeField]
         public TMP_Text DisplayText;
-        //[SerializeField]
-        //public TMP_Text PriceText;
+
+        [SerializeField]
+        public GameObject ModifyingPC;
+
+        [SerializeField]
+        public GameObject newpc;
+
+        [SerializeField]
+        public GameObject pcName;
+
+        [SerializeField]
+        public GameObject Inuse;
+
         //[SerializeField]
         //public TMP_Text NameText;
 
@@ -319,6 +333,58 @@ namespace PartsInventory
 
             });
 
+            YesButton.onClick.AddListener(() =>
+            {
+
+                
+                if (GameManager.instance.BeenModified)
+                {
+
+                    if (recentlyBackedItems.Count > 0)
+                    {
+                        foreach (var kvp in recentlyBackedItems)
+                        {
+                            lastUsedItems[kvp.Key] = kvp.Value;
+                            //inventoryData.RemoveItem(lastUsedItems[kvp.Key], 1);
+                            Debug.LogError(kvp.Value);
+                            //totalUsedItemsPrice += kvp.Value.item.Price;
+
+                        }
+                        recentlyBackedItems.Clear();
+                    }
+
+
+                    ModifyingPC.gameObject.SetActive(false);
+                    pcName.gameObject.SetActive(false);
+                    Inuse.gameObject.SetActive(false);
+
+                    //OnDoneButtonClick();
+                    BackAllCurrentlyItem();
+
+                    GameManager.instance.BeenModified = false;
+                }
+                else
+                {
+
+                    //PriceText.text = "$0.00";
+                    //NameText.text = "PC1";
+                    //RenameTxt.text = "";
+                    BackAllCurrentlyItem();
+                    newpc.gameObject.SetActive(false);
+                    GameManager.instance.BeenModified = false;
+                }
+
+                
+                CloseDialog();
+                inventoryData.PartsSaveItems();
+            });
+
+            NoButton.onClick.AddListener(() =>
+            {
+                CloseDialog();
+
+            });
+
 
             //TestPCButton.onClick.AddListener(TestnewlyCreatePC);
 
@@ -392,49 +458,7 @@ namespace PartsInventory
             }
             
 
-            YesButton.onClick.AddListener(() =>
-            {
-
-
-                if (GameManager.instance.BeenModified)
-                {
-
-                    if (recentlyBackedItems.Count > 0)
-                    {
-                        foreach (var kvp in recentlyBackedItems)
-                        {
-                            lastUsedItems[kvp.Key] = kvp.Value;
-                            //totalUsedItemsPrice += kvp.Value.item.Price;
-
-                        }
-                        recentlyBackedItems.Clear();
-                    }
-
-                    //OnDoneButtonClick();
-                    //Success.Stop();
-                    //LTA.HideSuccess();
-
-                    GameManager.instance.BeenModified = false;
-                }
-                else
-                {
-
-                    //PriceText.text = "$0.00";
-                    //NameText.text = "PC1";
-                    //RenameTxt.text = "";
-                    BackAllCurrentlyItem();
-
-                    GameManager.instance.BeenModified = false;
-                }
-                CloseDialog();
-                inventoryData.PartsSaveItems();
-            });
-
-            NoButton.onClick.AddListener(() =>
-            {
-                CloseDialog();
-
-            });
+           
             
         }
         //using an event
@@ -465,7 +489,7 @@ namespace PartsInventory
             }
             lastUsedItems.Clear();
             usedItems.Clear();
-           CancelButton.interactable = false;
+            CancelButton.interactable = false;
             Debug.LogError("Triggered");
         }
 
@@ -775,7 +799,7 @@ namespace PartsInventory
 
         public void HandleBackItem(string category)
         {
-
+            Debug.LogError(category);
             if (lastUsedItems.ContainsKey(category))
             {
                 recentlyBackedItems[category] = lastUsedItems[category];
@@ -806,7 +830,7 @@ namespace PartsInventory
                     PSUButton.interactable = false;
                     try
                     {
-                        string[] categoriesToHandle = { "CPU", "CPU Fan", "RAM", "Video Card", "Storage", "PSU" };
+                        string[] categoriesToHandle = { "CPU", "CPU Fan", "RAM", "Video Card", "Storage", "PSU"};
                         //int index = inventoryData.inventoryItems.IndexOf(previousUsedItem);
                         //inventoryData.RemoveItem(index, 1);
                         foreach (string categories in categoriesToHandle)
@@ -853,7 +877,6 @@ namespace PartsInventory
                 case "PSU":
                     PSUImage.gameObject.SetActive(false);
                     PSUImage.sprite = null;
-                    
                     // GameManager.Instance.PSUImagesNeeds.Remove(category);
                     break;
 
@@ -866,6 +889,7 @@ namespace PartsInventory
                     BackItem(previousUsedItem,"PSU");
                     PSUImage.gameObject.SetActive(false);
                     PSUImage.sprite = null;
+                    recentlyBackedItems["PSU"] = lastUsedItems["PSU"];
                     lastUsedItems.Remove("PSU");
                 }
             }
@@ -875,7 +899,7 @@ namespace PartsInventory
             lastUsedItems.Remove(category);
             GameManager.instance.itemsToTransfer.Remove(previousUsedItem);
             inventoryData.PartsSaveItems();
-           // totalUsedItemsPrice -= previousUsedItem.item.Price;
+            //totalUsedItemsPrice -= previousUsedItem.item.Price;
 
             // Display the updated total price.
             //DisplayPrices(totalUsedItemsPrice);
@@ -1104,6 +1128,16 @@ namespace PartsInventory
                     CaseImage.sprite = inventoryItem.item.ItemImage;
                     MBButton.interactable = true;
                     CancelButton.interactable = true;
+
+                    if(GameManager.instance.BeenModified == false)
+                    {
+                        newpc.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        newpc.gameObject.SetActive(false);
+                    }
+
                     break;
                 case "Motherboard":
                     MBImage.gameObject.SetActive(true);
@@ -1278,7 +1312,7 @@ namespace PartsInventory
             //}
 
         }
-        public GameObject ModifyingPC;
+        
 
         public void ToggleALLButton()
         {
@@ -1448,7 +1482,7 @@ namespace PartsInventory
         private PCPlayerController PCC;
 
         //public TMP_Text Modified;
-        public void OnDoneButtonClick()
+        public async void OnDoneButtonClick()
         {
 
             //if (RenameTxt.text == "")
@@ -1463,74 +1497,86 @@ namespace PartsInventory
             //PCSO pcso = ConvertLastUsedItemsToPCSOList();
 
             PCSO PC = ConvertLastUsedItemsToPCSOList();
-            PCData.AddPCSOList(PC);
-            PCData.ComputerSave(PC);
-            //GameManager.instance.SavePCSO(PC);
 
-            //if (!GameManager.instance.BeenModified)
-            //{
-            //    //GameManager.instance.experience += 2;
-            //    //GameManager.instance.SaveData();
-            //    //_2exp.gameObject.SetActive(true);
-            //    //Success.Play();
-            //    //SuccesfullyCreated.gameObject.SetActive(true);
-            //    //SuccesfullPCName.text = PC.PCName;
-            //    //SuccesfullPCImage.sprite = PC.PCImage;
-            //    //LTA.ShowSuccessPC();
-            //}
-            //else
-            //{
-            //    //_2exp.gameObject.SetActive(false);
-            //    //Success.Play();
-            //    //SuccesfullyCreated.gameObject.SetActive(true);
-            //    ////Modified.text = "Your Computer Has been Successfully Modified!";
-            //    //SuccesfullPCName.text = PC.PCName;
-            //    //SuccesfullPCImage.sprite = PC.PCImage;
-            //    //LTA.ShowSuccessPC();
-            //}
+            if (!GameManager.instance.BeenModified) // not modified pc 
+            {
+                Debug.LogError("not Modified");
+                PCData.AddPCSOList(PC);
+                PCData.ComputerSave(PC);
+                CaseImage.gameObject.SetActive(false);
+                MBImage.gameObject.SetActive(false);
+                CPUImage.gameObject.SetActive(false);
+                CPUFImage.gameObject.SetActive(false);
+                RAMImage.gameObject.SetActive(false);
+                GPUImage.gameObject.SetActive(false);
+                STRG1Image.gameObject.SetActive(false);
+                PSUImage.gameObject.SetActive(false);
 
-            //Debug.LogError("Added");
-            //Debug.LogError(PCData.ComputerItems.Count);
-            CaseImage.gameObject.SetActive(false);
-            MBImage.gameObject.SetActive(false);
-            CPUImage.gameObject.SetActive(false);
-            CPUFImage.gameObject.SetActive(false);
-            RAMImage.gameObject.SetActive(false);
-            GPUImage.gameObject.SetActive(false);
-            STRG1Image.gameObject.SetActive(false);
-            PSUImage.gameObject.SetActive(false);
+                CaseImage.sprite = null;
+                MBImage.sprite = null;
 
-            CaseImage.sprite = null;
-            MBImage.sprite = null;
+                MBButton.interactable = false;
+                CPUButton.interactable = false;
+                CPUFButton.interactable = false;
+                RAMButton.interactable = false;
+                GPUButton.interactable = false;
+                STRG1Button.interactable = false;
+                PSUButton.interactable = false;
 
-            MBButton.interactable = false;
-            CPUButton.interactable = false;
-            CPUFButton.interactable = false;
-            RAMButton.interactable = false;
-            GPUButton.interactable = false;
-            STRG1Button.interactable = false;
-            PSUButton.interactable = false;
+                usedItems.Clear();
+                lastUsedItems.Clear();
+               
 
-            usedItems.Clear();
-            lastUsedItems.Clear();
-            //totalUsedItemsPrice = 0;
-            //PriceText.text = "$0.00";
-            //NameText.text = "PC1";
-            //RenameTxt.text = "";
-            //GameManager.Instance.itemsToTransfer.Clear();
+                OnGameObjectStateChanged();
+                PCpage.AddAnotherPC();
+                
 
-            OnGameObjectStateChanged();
-            PCpage.AddAnotherPC();
-            //GameManager.Instance.itemsToTransfer.Clear();
+                CancelButton.interactable = false;
+                GameManager.instance.BeenModified = false;
 
-            // Optional: You can perform additional actions after adding the PC items
-            //GameManager.instance.PSUImagesNeeds.Clear();
+                Debug.Log("PCSO items added to ComputerItems list.");
+            }
+            else // modified pc 
+            {
+                Debug.LogError("Modified");
+                await PCC.ModifyPCSOs(GameManager.instance.pcsothatisModified,PC);
+                CaseImage.gameObject.SetActive(false);
+                MBImage.gameObject.SetActive(false);
+                CPUImage.gameObject.SetActive(false);
+                CPUFImage.gameObject.SetActive(false);
+                RAMImage.gameObject.SetActive(false);
+                GPUImage.gameObject.SetActive(false);
+                STRG1Image.gameObject.SetActive(false);
+                PSUImage.gameObject.SetActive(false);
 
-            CancelButton.interactable = false;
-            GameManager.instance.BeenModified = false;
+                CaseImage.sprite = null;
+                MBImage.sprite = null;
 
-            Debug.Log("PCSO items added to ComputerItems list.");
-            //  }
+                MBButton.interactable = false;
+                CPUButton.interactable = false;
+                CPUFButton.interactable = false;
+                RAMButton.interactable = false;
+                GPUButton.interactable = false;
+                STRG1Button.interactable = false;
+                PSUButton.interactable = false;
+
+                usedItems.Clear();
+                lastUsedItems.Clear();
+
+
+                OnGameObjectStateChanged();
+
+
+                CancelButton.interactable = false;
+                GameManager.instance.BeenModified = false;
+
+
+
+            }
+            ModifyingPC.gameObject.SetActive(false);
+            pcName.gameObject.SetActive(false);
+            Inuse.gameObject.SetActive(false);
+            newpc.gameObject.SetActive(false);
         }
 
             //}

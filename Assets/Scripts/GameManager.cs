@@ -349,6 +349,7 @@ public class GameManager : MonoBehaviour
 
     public List<string> pcsoDocumentIds = new List<string>();
     public string pcsothatinUse;
+    public string pcsothatisModified;
     public async Task SavePCSO(PCSO pcso)
     {
         // Convert the PCSO object to JSON

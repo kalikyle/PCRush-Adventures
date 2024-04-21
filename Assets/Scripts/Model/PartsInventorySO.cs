@@ -154,6 +154,38 @@ namespace Inventory.Model
             catch (Exception) { }
 
         }
+        internal void RemoveItem(InventoryItem itemToRemove, int amount)
+        {
+            try
+            {
+                // Find the index of the itemToRemove in the inventoryItems list
+                int indexToRemove = inventoryItems.FindIndex(item => item.Equals(itemToRemove));
+
+                if (indexToRemove != -1)
+                {
+                    int currentQuantity = inventoryItems[indexToRemove].quantity;
+
+                    if (currentQuantity <= amount)
+                    {
+                        // Remove the entire item.
+                        inventoryItems.RemoveAt(indexToRemove);
+                        GameManager.instance.itemsToTransfer.RemoveAt(indexToRemove);
+                        InformAboutChange();
+                    }
+                    else
+                    {
+                        // Decrease the item quantity.
+                        inventoryItems[indexToRemove] = inventoryItems[indexToRemove].ChangeQuantity(currentQuantity - amount);
+                        GameManager.instance.itemsToTransfer[indexToRemove] = GameManager.instance.itemsToTransfer[indexToRemove].ChangeQuantity(currentQuantity - amount);
+                        InformAboutChange();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Handle any exceptions here
+            }
+        }
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState()
         {
