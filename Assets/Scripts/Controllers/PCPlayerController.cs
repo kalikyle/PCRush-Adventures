@@ -471,6 +471,7 @@ namespace PC
                         foreach (var kvp in InventCon.recentlyBackedItems)
                         {
                             InventCon.lastUsedItems[kvp.Key] = kvp.Value;
+                            InventCon.inventoryData.RemoveItem(kvp.Value.item.name, 1);
                             //InventCon.inventoryData.RemoveItem(InventCon.lastUsedItems[kvp.Key], 1);
                             //InventCon.totalUsedItemsPrice += kvp.Value.item.Price;
                         }
