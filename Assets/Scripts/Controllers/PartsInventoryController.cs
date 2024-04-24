@@ -345,8 +345,8 @@ namespace PartsInventory
                         foreach (var kvp in recentlyBackedItems)
                         {
                             lastUsedItems[kvp.Key] = kvp.Value;
-                            //inventoryData.RemoveItem(lastUsedItems[kvp.Key], 1);
-                            Debug.LogError(kvp.Value);
+                            inventoryData.RemoveItem(kvp.Value.item.name, 2);
+                            Debug.LogError(kvp.Value.item.name);
                             //totalUsedItemsPrice += kvp.Value.item.Price;
 
                         }
@@ -799,7 +799,7 @@ namespace PartsInventory
 
         public void HandleBackItem(string category)
         {
-            Debug.LogError(category);
+            //Debug.LogError(category);
             if (lastUsedItems.ContainsKey(category))
             {
                 recentlyBackedItems[category] = lastUsedItems[category];
