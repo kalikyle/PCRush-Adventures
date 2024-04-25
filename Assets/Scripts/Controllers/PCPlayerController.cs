@@ -231,6 +231,7 @@ namespace PC
         public void Awake()
         {
             PCMenu.Hide();
+            StartCoroutine(DelayedComputerLoad());
         }
         IEnumerator DelayedComputerLoad()
         {
@@ -293,6 +294,7 @@ namespace PC
 
         public async void LoadPCSOList()
         {
+           
             PCData.ComputerItems.Clear();
             GameManager.instance.pcsoDocumentIds.Clear();
             // Get a reference to the Firestore collection containing the PCSO documents
@@ -452,7 +454,7 @@ namespace PC
         public void Start()
         {
             //LoadPCSOList();
-            StartCoroutine(DelayedComputerLoad());
+            //StartCoroutine(DelayedComputerLoad());
             PrepareUI();
             //PCData.Initialize();
 

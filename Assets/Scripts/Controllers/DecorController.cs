@@ -30,9 +30,13 @@ namespace Decoration
             PrepareUI();
             DecorUI.ResetSelection();
 
-            StartCoroutine(DelayedLoad());
+           
             //LoadInitialItems();
 
+        }
+        private void Awake()
+        {
+            StartCoroutine(DelayedLoad());
         }
         IEnumerator DelayedLoad()
         {

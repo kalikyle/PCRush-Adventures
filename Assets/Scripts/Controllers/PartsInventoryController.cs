@@ -1501,7 +1501,7 @@ namespace PartsInventory
 
             if (!GameManager.instance.BeenModified) // not modified pc 
             {
-                Debug.LogError("not Modified");
+                Debug.LogError("New Computer");
                 PCData.AddPCSOList(PC);
                 PCData.ComputerSave(PC);
                 CaseImage.gameObject.SetActive(false);
