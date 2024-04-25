@@ -1338,6 +1338,7 @@ namespace PartsInventory
             Debug.Log("Toggle: true");
             
             PartsPanel.SetActive(true);
+            ComputerPanel.SetActive(false);
             PartsButton.gameObject.SetActive(false);
             ComputerButton.gameObject.SetActive(false);
             usebuttonpanel.gameObject.SetActive(true);
