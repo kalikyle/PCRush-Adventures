@@ -94,6 +94,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
 
         }
 
+
         private void ChangesIndexes()
         {
 
@@ -114,7 +115,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
                     {
                         layer.Controls.Dropdown.value = BodyIndex + (layer.CanBeEmpty ? 1 : 0);
                         layer.Color = ParseColorFromString(BodyColor);
-                            Layers.Single(i => i.Name == "Head").Color = ParseColorFromString(BodyColor);
+                        Layers.Single(i => i.Name == "Head").Color = ParseColorFromString(BodyColor);
                         Rebuild(layer);
                         //layer.Controls.Dropdown.onValueChanged.AddListener(BodyIndex => SetIndex(layer, BodyIndex));
                         //Rebuild(layer);
@@ -342,6 +343,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
             GameManager.instance.LoadCharacter();
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, playerName.text);
             GameManager.instance.UIExplore.SetActive(true);
+            CharacterBuilder.CombineHeadAndHairSprites();
             //SceneManager.LoadSceneAsync(0);
         }
 

@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.PixelHeroes.Scripts.CollectionScripts;
+using Assets.PixelHeroes.Scripts.EditorScripts;
 using Assets.PixelHeroes.Scripts.Utils;
 using Firebase.Extensions;
 using Firebase.Firestore;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Assets.PixelHeroes.Scripts.CharacterScrips
 {
@@ -103,47 +105,176 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
 
             SpriteLibrary.spriteLibraryAsset = spriteLibraryAsset;
             CharChanged = 1;
+           
             SaveChanges();
+
+           
         }
+       
 
-
-        public void SaveChangess()
+        public void CombineHeadAndHairSprites()
         {
 
-            // Save each layer's data to PlayerPrefs
-            PlayerPrefs.SetString("Head", Head);
-            PlayerPrefs.SetString("Body", Body);
-            PlayerPrefs.SetString("Hair", Hair);
-            PlayerPrefs.SetString("Armor", Armor);
-            PlayerPrefs.SetString("Helmet", Helmet);
-            PlayerPrefs.SetString("Weapon", Weapon);
-            PlayerPrefs.SetString("Shield", Shield);
-            PlayerPrefs.SetString("Cape", Cape);
-            PlayerPrefs.SetString("Back", Back);
-            PlayerPrefs.SetInt("CharChanged", CharChanged);
-
-            // Save PlayerPrefs
-            PlayerPrefs.Save();
+            int specificX = 0; // The x-coordinate of the top-left corner of the area
+            int specificY = 0;
+            float specificWidth = 64; // The width of the area
+            float specificHeight = 64;
 
 
+            Rect zoomedRect = new Rect(specificX, specificY, specificWidth, specificHeight);
+            Sprite _rebuildSprite = Sprite.Create(Texture, zoomedRect, new Vector2(0.5f, 0.5f));
+            GameManager.instance.PlayerImage.sprite = _rebuildSprite;
+
+
+            //// Retrieve the head and hair sprites from the SpriteCollection
+            //Sprite headSprite = null;
+            //Sprite hairSprite = null;
+            //string[] Headparts = Head.Split('#');
+            //string HeadTextureName = Headparts[0];
+            //string[] Hairparts = Hair.Split('#');
+            //string HairTextureName = Hairparts[0];
+            //float specificWidth = 64; // The width of the area
+            //float specificHeight = 64;
+            //// Find the head and hair sprites in the SpriteCollection
+            //foreach (var layer in SpriteCollection.Layers)
+            //{
+            //    if (layer.Name == "Head")
+            //    {
+            //        var texture = layer.Textures.FirstOrDefault(t => t.name == HeadTextureName);
+            //        if (texture != null)
+            //        {
+            //            int specificX = 0; // The x-coordinate of the top-left corner of the area
+            //            int specificY = 0; // The y-coordinate of the top-left corner of the area
+            //             // The height of the area
+
+            //            // Create a rectangle representing the zoomed area in the texture
+            //            Rect zoomedRect = new Rect(specificX, specificY, specificWidth, specificHeight);
+            //            headSprite = Sprite.Create(texture, zoomedRect, new Vector2(0.5f,0.5f));
+            //        }
+            //        else
+            //        {
+            //            Debug.LogError("Head texture not found in the layer.");
+            //        }
+            //    }
+            //    else if (layer.Name == "Hair")
+            //    {
+            //        var texture = layer.Textures.FirstOrDefault(t => t.name == HairTextureName);
+            //        if (texture != null)
+            //        {
+            //            int specificX = 0; // The x-coordinate of the top-left corner of the area
+            //            int specificY = 0; // The y-coordinate of the top-left corner of the area
+            //            // The height of the area
+
+            //            // Create a rectangle representing the zoomed area in the texture
+            //            Rect zoomedRect = new Rect(specificX, specificY, specificWidth, specificHeight);
+            //            hairSprite = Sprite.Create(texture, zoomedRect, new Vector2(0.5f, 0.5f));
+            //        }
+            //        else
+            //        {
+            //            Debug.LogError("Hair texture not found in the layer.");
+            //        }
+            //    }
+
+            //    //GameManager.instance.PlayerImagehead.sprite = headSprite;
+            //   // GameManager.instance.PlayerImagehair.sprite = hairSprite;
+
+            //}
+            //GameManager.instance.PlayerImage.sprite = headSprite;
+
+            //// Check if both head and hair sprites are found
+            //if (headSprite != null && hairSprite != null)
+            //{
+            //    // Calculate the width and height of the combined texture
+            //    // Calculate the combined width and height using the zoomed rectangles
+            //    int combinedWidth = Mathf.Max(64, 64);
+            //    int combinedHeight = Mathf.Max((int)specificHeight,64);
+
+            //    // Create a new texture to hold the combined sprites
+            //    Texture2D combinedTexture = new Texture2D(combinedWidth, combinedHeight, TextureFormat.RGBA32, false);
+
+            //    // Copy the head sprite onto the combined texture
+            //    Color[] headPixels = headSprite.texture.GetPixels();
+            //    combinedTexture.SetPixels((int)headSprite.textureRect.x, (int)headSprite.textureRect.y, (int)headSprite.textureRect.width, (int)headSprite.textureRect.height, headPixels);
+
+            //    // Calculate the offset to position the hair sprite relative to the head sprite
+            //    int xOffset = (int)(hairSprite.textureRect.x - headSprite.textureRect.x);
+            //    int yOffset = (int)(hairSprite.textureRect.y - headSprite.textureRect.y);
+
+            //    // Copy the hair sprite onto the combined texture, overlaying it on top of the head sprite
+            //    Color[] hairPixels = hairSprite.texture.GetPixels();
+            //    for (int y = 0; y < hairSprite.textureRect.height; y++)
+            //    {
+            //        for (int x = 0; x < hairSprite.textureRect.width; x++)
+            //        {
+            //            int combinedX = x + xOffset;
+            //            int combinedY = y + yOffset;
+
+            //            // Check if the combined coordinates are within the bounds of the combined texture
+            //            if (combinedX >= 0 && combinedX < combinedWidth && combinedY >= 0 && combinedY < combinedHeight)
+            //            {
+            //                Color hairPixel = hairPixels[x + y * (int)hairSprite.textureRect.width];
+            //                // Only overlay non-transparent pixels
+            //                if (hairPixel.a > 0)
+            //                {
+            //                    combinedTexture.SetPixel(combinedX, combinedY, hairPixel);
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //    // Apply changes to the combined texture
+            //    combinedTexture.Apply();
+
+            //    // Create a sprite from the combined texture
+            //    Sprite combinedSprite = Sprite.Create(combinedTexture, new Rect(0, 0, combinedTexture.width, combinedTexture.height), Vector2.one * 0.5f);
+
+            //    // Assign the combined sprite to the player image or wherever it's needed
+            //    GameManager.instance.PlayerImage.sprite = combinedSprite;
+            //}
+            //else
+            //{
+            //    Debug.LogError("Head or hair sprite not found in the SpriteCollection.");
+            //}
         }
-        public void LoadSavedDatas()
-        {
-            // Load each layer's data from PlayerPrefs
-            Head = PlayerPrefs.GetString("Head");
-            Body = PlayerPrefs.GetString("Body");
-            Hair = PlayerPrefs.GetString("Hair");
-            Armor = PlayerPrefs.GetString("Armor");
-            Helmet = PlayerPrefs.GetString("Helmet");
-            Weapon = PlayerPrefs.GetString("Weapon");
-            Shield = PlayerPrefs.GetString("Shield");
-            Cape = PlayerPrefs.GetString("Cape");
-            Back = PlayerPrefs.GetString("Back");
-
-            Rebuild();
 
 
-        }
+        //public void SaveChangess()
+        //{
+
+        //    // Save each layer's data to PlayerPrefs
+        //    PlayerPrefs.SetString("Head", Head);
+        //    PlayerPrefs.SetString("Body", Body);
+        //    PlayerPrefs.SetString("Hair", Hair);
+        //    PlayerPrefs.SetString("Armor", Armor);
+        //    PlayerPrefs.SetString("Helmet", Helmet);
+        //    PlayerPrefs.SetString("Weapon", Weapon);
+        //    PlayerPrefs.SetString("Shield", Shield);
+        //    PlayerPrefs.SetString("Cape", Cape);
+        //    PlayerPrefs.SetString("Back", Back);
+        //    PlayerPrefs.SetInt("CharChanged", CharChanged);
+
+        //    // Save PlayerPrefs
+        //    PlayerPrefs.Save();
+
+
+        //}
+        //public void LoadSavedDatas()
+        //{
+        //    // Load each layer's data from PlayerPrefs
+        //    Head = PlayerPrefs.GetString("Head");
+        //    Body = PlayerPrefs.GetString("Body");
+        //    Hair = PlayerPrefs.GetString("Hair");
+        //    Armor = PlayerPrefs.GetString("Armor");
+        //    Helmet = PlayerPrefs.GetString("Helmet");
+        //    Weapon = PlayerPrefs.GetString("Weapon");
+        //    Shield = PlayerPrefs.GetString("Shield");
+        //    Cape = PlayerPrefs.GetString("Cape");
+        //    Back = PlayerPrefs.GetString("Back");
+
+        //    Rebuild();
+
+
+        //}
 
 
         public string DocumentId => GameManager.instance.UserID; // Combine UserID with "PlayerCharacters" for the document ID
@@ -224,6 +355,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
 
                                     // Rebuild character using the loaded data
                                     Rebuild();
+                                    CombineHeadAndHairSprites();
 
                                     Debug.Log("Character data loaded from Firestore.");
                                 }

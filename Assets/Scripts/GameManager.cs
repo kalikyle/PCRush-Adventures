@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject UIExplore;
     public GameObject ComputerInv;
+    public GameObject InGamePanel;
 
     //public GameObject DecorClickedUI;
 
@@ -88,13 +89,17 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, Shop.Model.ShopItem> equippedItemsByCategory = new Dictionary<string, Shop.Model.ShopItem>();
     //public DecorEdit de;
     public TMP_Text PlayerDesk;
+    public TMP_Text Playerui;
+    public Image PlayerImage;
+ 
 
 
 
 
     public void PlayerDeskName()
     {
-        PlayerDesk.text = "- " + PlayerName + "'s Desk -";
+        PlayerDesk.text = PlayerName + "'s Desk ";
+        Playerui.text = PlayerName;
     }
 
     public async void SaveCharInfo(string userID, string playerName)
@@ -836,15 +841,23 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+       
     }
+    
     // Update is called once per frame
     void Update()
     {
         UserIDTxt.text = UserID;
+        Playerui.text = PlayerName;
 
         if (UserID != "")
         {
             RetrievePlayerInfo(UserID);
+            InGamePanel.gameObject.SetActive(true);
+        }
+        else
+        {
+            InGamePanel.gameObject.SetActive(false);
         }
     }
     public void UpdateShop(string category)
