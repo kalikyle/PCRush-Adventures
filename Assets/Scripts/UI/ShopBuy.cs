@@ -502,6 +502,7 @@ public class ShopBuy : MonoBehaviour
                 Debug.Log("Item added to inventory ");
                 value = 1;
                 displayText.text = value.ToString();
+                UpdatePriceDisplay();
             }
 
         }
@@ -614,8 +615,12 @@ public class ShopBuy : MonoBehaviour
                     {
                     GameManager.instance.Mouse.sprite = shpItem.item.ItemImage;
                     }
+                    if (shpItem.item.Category == "MousePad")
+                    {
+                        GameManager.instance.MousePad.sprite = shpItem.item.ItemImage;
+                    }
 
-                    if(shpItem.item.Category == "Desk")
+            if (shpItem.item.Category == "Desk")
                     {
                     GameManager.instance.Desk.sprite = shpItem.item.ItemImage;
                     }
@@ -662,6 +667,11 @@ public class ShopBuy : MonoBehaviour
                         if (shpItem.item.Category == "Mouse")
                         {
                             GameManager.instance.Mouse.sprite = shpItem.item.ItemImage;
+                        }
+
+                        if (shpItem.item.Category == "MousePad")
+                        {
+                            GameManager.instance.MousePad.sprite = shpItem.item.ItemImage;
                         }
 
                         if (shpItem.item.Category == "Desk")

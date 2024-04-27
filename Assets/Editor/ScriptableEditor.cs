@@ -8,7 +8,7 @@ namespace Shop.Model.Editor
     [CustomEditor(typeof(ShopItemSO))]
     public class MonitorShopItemSOEditor : UnityEditor.Editor
     {
-        private string[] categoryOptions = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background", "Decorations" };
+        private string[] categoryOptions = new string[] { "Monitor", "Mouse", "MousePad" ,"Keyboard", "Desk", "Background", "Decorations" };
 
         public override void OnInspectorGUI()
         {
