@@ -37,6 +37,8 @@ namespace Shop
         [SerializeField]
         private Sprite BackImageforMouse;
         [SerializeField]
+        private Sprite BackImageforMousepad;
+        [SerializeField]
         private Sprite BackImageforDesk;
         [SerializeField]
         private Sprite BackImageforBackground;
@@ -170,6 +172,10 @@ namespace Shop
             else if (Category == "Mouse")
             {
                 ImageBackgroundCategory = BackImageforMouse;
+            }
+            else if (Category == "MousePad")
+            {
+                ImageBackgroundCategory = BackImageforMousepad;
             }
             else if (Category == "Desk")
             {

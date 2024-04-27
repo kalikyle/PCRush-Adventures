@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     public Image Monitor;
     public Image Keyboard;
     public Image Mouse;
+    public Image MousePad;
     public Image Desk;
     public Image Background;
 
@@ -572,6 +573,9 @@ public class GameManager : MonoBehaviour
             case "Mouse":
                 Mouse.sprite = item.item.ItemImage;
                 break;
+            case "MousePad":
+                MousePad.sprite = item.item.ItemImage;
+                break;
             case "Keyboard":
                 Keyboard.sprite = item.item.ItemImage;
                 break;
@@ -736,7 +740,7 @@ public class GameManager : MonoBehaviour
 
             UIExplore.SetActive(true);
 
-            string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
+            string[] categories = new string[] { "Monitor", "Mouse","MousePad", "Keyboard", "Desk", "Background" };
             DisableFirstall();
             charBuilder.LoadSavedData();
 
