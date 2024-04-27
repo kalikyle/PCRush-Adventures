@@ -25,34 +25,7 @@ public class PlayerTeleport : MonoBehaviour
     {
         Enter.onClick.AddListener(() =>
         {
-            Enter.gameObject.SetActive(false);
-            if (homeTeleport != null)
-            {
-                transform.position = homeTeleport.GetComponent<Teleporter>().HomeDestination().position;
-            }
-            else if (OpenDesk == true && homeTeleport == null)
-            {
-                DeskPanel.gameObject.SetActive(true);
-                GameManager.instance.PlayerDeskName();
-                UIPanel.gameObject.SetActive(true);
-                GameManager.instance.UIExplore.SetActive(false);
-                OpenDesk = false;
-            }
-            else if (GameManager.instance.OpenEditor == true && homeTeleport == null && EditorOpen == false)
-            {
-
-                SceneManager.LoadScene(1, LoadSceneMode.Additive);
-                EditorOpen = true;
-                GameManager.instance.UIExplore.SetActive(false);
-                //GameManager.instance.OpenEditor = false;
-            }
-            else if (OpenBuild == true && homeTeleport == null)
-            {
-                BuildRoom.gameObject.SetActive(true);
-                OpenBuild = false;
-                GameManager.instance.UIExplore.SetActive(false);
-
-            }
+            TheTeleporter();
         });
     }
 
@@ -61,42 +34,43 @@ public class PlayerTeleport : MonoBehaviour
             //for doors
             if (Input.GetKeyDown(KeyCode.E))
             {
-            Enter.gameObject.SetActive(false);
-            if (homeTeleport != null)
-                {
-                    transform.position = homeTeleport.GetComponent<Teleporter>().HomeDestination().position;
-                }
-                else if (OpenDesk == true && homeTeleport == null)
-                {
-                    DeskPanel.gameObject.SetActive(true);
-                    GameManager.instance.PlayerDeskName();
-                    UIPanel.gameObject.SetActive(true);
-                    GameManager.instance.UIExplore.SetActive(false);
-                    OpenDesk = false;
-                }
-                else if (GameManager.instance.OpenEditor == true && homeTeleport == null && EditorOpen == false)
-                {
-                    
-                    SceneManager.LoadScene(1, LoadSceneMode.Additive);
-                    EditorOpen = true;
-                    GameManager.instance.UIExplore.SetActive(false);
-                //GameManager.instance.OpenEditor = false;
+               TheTeleporter();
             }
-                else if (OpenBuild == true && homeTeleport == null)
-                {
-                    BuildRoom.gameObject.SetActive(true);
-                    OpenBuild = false;
-                    GameManager.instance.UIExplore.SetActive(false);
+            
+        
+        }
+    public void TheTeleporter()
+    {
+        Enter.gameObject.SetActive(false);
+        if (homeTeleport != null)
+        {
+            transform.position = homeTeleport.GetComponent<Teleporter>().HomeDestination().position;
+        }
+        else if (OpenDesk == true && homeTeleport == null)
+        {
+            DeskPanel.gameObject.SetActive(true);
+            GameManager.instance.PlayerDeskName();
+            UIPanel.gameObject.SetActive(true);
+            GameManager.instance.UIExplore.SetActive(false);
+            OpenDesk = false;
+        }
+        else if (GameManager.instance.OpenEditor == true && homeTeleport == null && EditorOpen == false)
+        {
 
-            }
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+            EditorOpen = true;
+            GameManager.instance.UIExplore.SetActive(false);
+            //GameManager.instance.OpenEditor = false;
+        }
+        else if (OpenBuild == true && homeTeleport == null)
+        {
+            BuildRoom.gameObject.SetActive(true);
+            OpenBuild = false;
+            GameManager.instance.UIExplore.SetActive(false);
 
         }
-            //for desk
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-               
-        }
-        }
+    }
+
         //IMPORTANT: for other teleports, you just need to place game objects, create another tag and then just copy the code here
         private void OnTriggerEnter2D(Collider2D collision)
         {
