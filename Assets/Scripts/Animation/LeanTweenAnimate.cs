@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LeanTweenAnimate : MonoBehaviour
 {
-    public GameObject RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, lodingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename;
+    public GameObject RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename;
     bool open = true;
     bool close = false;
     public void RenamePanelOpen()
@@ -87,7 +87,7 @@ public class LeanTweenAnimate : MonoBehaviour
         LeanTween.scale(CLI2, new Vector3(1f, 1f, 1f), 1f).setOnComplete(CLI3Open);
         LeanTween.scale(CLI3, new Vector3(1f, 1f, 1f), 1.5f).setOnComplete(BIOSOpen);
         LeanTween.scale(BIOS, new Vector3(1f, 1f, 1f), 3f).setOnComplete(LOADINGOpen);
-        LeanTween.rotateAround(lodingcircle, Vector3.forward, -360, 5f).setOnComplete(INSTALLOpen);
+        LeanTween.rotateAround(loadingcircle, Vector3.forward, 360, 5f).setOnComplete(INSTALLOpen);
     }
 
     public void InstallingOS()
