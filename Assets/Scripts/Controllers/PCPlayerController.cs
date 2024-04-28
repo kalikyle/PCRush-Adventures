@@ -1237,6 +1237,99 @@ namespace PC
             }
         }
 
+
+        public async Task ModifyPCName(string pcsothatisModified, string name)
+        {
+            try
+            {
+                // Get a reference to the Firestore document to be updated
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance
+                    .Collection(GameManager.instance.UserCollection)
+                    .Document(GameManager.instance.UserID)
+                    .Collection("ComputersCollection")
+                    .Document(pcsothatisModified);
+
+                // Fetch the document snapshot
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+                // Check if the document exists
+                if (snapshot.Exists)
+                {
+                    // Deserialize the PCSO data from the Firestore document
+                    string pcsoJson = snapshot.GetValue<string>("PC");
+
+                    if (!string.IsNullOrEmpty(pcsoJson))
+                    {
+                        // Deserialize the JSON data into a PCSO object
+                        //PCSO loadedPCSO = JsonUtility.FromJson<PCSO>(pcsoJson);
+
+                        PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
+
+                        // Deserialize the JSON data into the PCSO object
+                        JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+                          
+                           loadedPCSO.name = name;
+                           loadedPCSO.PCName = name;
+
+                        // Convert the updated PCSO object back to JSON
+                        string updatedPCSOJson = JsonUtility.ToJson(loadedPCSO);
+
+                        // Create a dictionary to update the inUse status
+                        Dictionary<string, object> updateData = new Dictionary<string, object>
+                {
+                    { "PC", updatedPCSOJson }
+                };
+
+                        // Update the Firestore document with the new inUse status
+                        await docRef.UpdateAsync(updateData);
+
+                        Debug.Log("PCSO inUse status updated successfully.");
+
+
+                    }
+                    else
+                    {
+                        Debug.LogWarning("PCSO JSON data is empty or invalid.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("PCSO document does not exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error updating PCSO inUse status: " + ex.Message);
+            }
+        }
+
+        public async void DeletePC(string documentID)
+        {
+            await DeletePCDocument(documentID);
+        }
+        public async Task DeletePCDocument(string documentId)
+        {
+            try
+            {
+                // Get a reference to the Firestore document to be deleted
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance
+                    .Collection(GameManager.instance.UserCollection)
+                    .Document(GameManager.instance.UserID)
+                    .Collection("ComputersCollection")
+                    .Document(documentId);
+
+                // Delete the Firestore document
+                await docRef.DeleteAsync();
+
+                Debug.Log("PCSO document deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error deleting PCSO document: " + ex.Message);
+            }
+        }
+
         public void ReturnPC()
         {
            
@@ -1389,8 +1482,12 @@ namespace PC
                 InventCon.UseItems(PCparts, category);
                 InventCon.usedItems.Add(PCparts);
                 InventCon.lastUsedItems[category] = PCparts;
-            }
 
+            }
+            InventCon.RenameTxt.text = PCs.PC.PCName;
+            InventCon.PCNameTxt.text = PCs.PC.PCName;
+            InventCon.pcname = PCs.PC.PCName;
+            InventCon.DisassmebleButton.gameObject.SetActive(true);
             if (PCs.PC.inUse == true)
             {
                 InventCon.Inuse.gameObject.SetActive(true);

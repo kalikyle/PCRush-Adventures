@@ -137,7 +137,11 @@ public class PlayerTeleport : MonoBehaviour
     }
         private void OnTriggerExit2D(Collider2D collision)
         {
-        Enter.gameObject.SetActive(false);
+        if(Enter != null)
+        {
+            Enter.gameObject.SetActive(false);
+        }
+        
         //for home
         if (collision.CompareTag("Home"))
             {
