@@ -89,9 +89,14 @@ namespace PartsInventory
         [SerializeField]
         public Button DialogButton;
         [SerializeField]
-        public Button YesButton;
+        public Button CanYesButton;
         [SerializeField]
-        public Button NoButton;
+        public Button CanNoButton;
+
+        [SerializeField]
+        public Button DisYesButton;
+        [SerializeField]
+        public Button DisNoButton;
 
         //[SerializeField]
         //public Button backButton;
@@ -176,8 +181,11 @@ namespace PartsInventory
         //[SerializeField]
         //public Canvas GameGlossary;
 
-        //[SerializeField]
-        //public TMP_InputField RenameTxt;
+        [SerializeField]
+        public TMP_InputField RenameTxt;
+        [SerializeField]
+        public TMP_Text PCNameTxt;
+
 
         [SerializeField]
         public GameObject[] objectsToCheck;
@@ -325,65 +333,15 @@ namespace PartsInventory
             //backButton.onClick.AddListener(LoadMyHomeScene);
             //shopButton.onClick.AddListener(LoadMyShopScene);
 
-            DoneButton.onClick.AddListener(OnDoneButtonClick);
+            //DoneButton.onClick.AddListener(OnDoneButtonClick);
 
-            CancelButton.onClick.AddListener(() =>
-            {
-                HandleCancel();
+            //CancelButton.onClick.AddListener(() =>
+            //{
+            //    HandleCancel();
 
-            });
+            //});
 
-            YesButton.onClick.AddListener(() =>
-            {
-
-                
-                if (GameManager.instance.BeenModified)
-                {
-
-                    if (recentlyBackedItems.Count > 0)
-                    {
-                        foreach (var kvp in recentlyBackedItems)
-                        {
-                            lastUsedItems[kvp.Key] = kvp.Value;
-                            inventoryData.RemoveItem(kvp.Value.item.name, 2);
-                            Debug.LogError(kvp.Value.item.name);
-                            //totalUsedItemsPrice += kvp.Value.item.Price;
-
-                        }
-                        recentlyBackedItems.Clear();
-                    }
-
-
-                    ModifyingPC.gameObject.SetActive(false);
-                    pcName.gameObject.SetActive(false);
-                    Inuse.gameObject.SetActive(false);
-
-                    //OnDoneButtonClick();
-                    BackAllCurrentlyItem();
-
-                    GameManager.instance.BeenModified = false;
-                }
-                else
-                {
-
-                    //PriceText.text = "$0.00";
-                    //NameText.text = "PC1";
-                    //RenameTxt.text = "";
-                    BackAllCurrentlyItem();
-                    newpc.gameObject.SetActive(false);
-                    GameManager.instance.BeenModified = false;
-                }
-
-                
-                CloseDialog();
-                inventoryData.PartsSaveItems();
-            });
-
-            NoButton.onClick.AddListener(() =>
-            {
-                CloseDialog();
-
-            });
+            
 
 
             //TestPCButton.onClick.AddListener(TestnewlyCreatePC);
@@ -444,8 +402,10 @@ namespace PartsInventory
         public void HandleCancel()
         {
             DialogBox.gameObject.SetActive(true);
-            YesButton.gameObject.SetActive(true);
-            NoButton.gameObject.SetActive(true);
+            CanYesButton.gameObject.SetActive(true);
+            CanNoButton.gameObject.SetActive(true);
+            DisYesButton.gameObject.SetActive(false);
+            DisNoButton.gameObject.SetActive(false);
             DialogButton.gameObject.SetActive(false);
 
             if (GameManager.instance.BeenModified)
@@ -456,10 +416,64 @@ namespace PartsInventory
             {
                 DialogText.text = "Do you Want to Cancel your Build?, \n All Items will be Return In your Inventory...";
             }
-            
 
-           
-            
+
+            CanYesButton.onClick.AddListener(() =>
+            {
+
+
+                if (GameManager.instance.BeenModified)
+                {
+
+                    if (recentlyBackedItems.Count > 0)
+                    {
+                        foreach (var kvp in recentlyBackedItems)
+                        {
+                            lastUsedItems[kvp.Key] = kvp.Value;
+                            inventoryData.RemoveItem(kvp.Value.item.name, 2);
+                            Debug.LogError(kvp.Value.item.name);
+                            //totalUsedItemsPrice += kvp.Value.item.Price;
+
+                        }
+                        recentlyBackedItems.Clear();
+                    }
+
+
+                    ModifyingPC.gameObject.SetActive(false);
+                    pcName.gameObject.SetActive(false);
+                    Inuse.gameObject.SetActive(false);
+
+                    //OnDoneButtonClick();
+                    BackAllCurrentlyItem();
+
+                    GameManager.instance.BeenModified = false;
+                }
+                else
+                {
+
+                    //PriceText.text = "$0.00";
+                    //NameText.text = "PC1";
+                    //RenameTxt.text = "";
+                    BackAllCurrentlyItem();
+                    newpc.gameObject.SetActive(false);
+                    GameManager.instance.BeenModified = false;
+                }
+
+
+                CloseDialog();
+                inventoryData.PartsSaveItems();
+                DisassmebleButton.gameObject.SetActive(false);
+            });
+
+            CanNoButton.onClick.AddListener(() =>
+            {
+                CloseDialog();
+
+            });
+
+
+
+
         }
         //using an event
         public void UpdateInventory(InventoryItem updatedItems)
@@ -755,8 +769,10 @@ namespace PartsInventory
             {
                 DialogBox.gameObject.SetActive(true);
                 DialogText.text = "Can't Use this " + category + " without the Case";
-                YesButton.gameObject.SetActive(false);
-                NoButton.gameObject.SetActive(false);
+                CanYesButton.gameObject.SetActive(false);
+                CanNoButton.gameObject.SetActive(false);
+                DisYesButton.gameObject.SetActive(false);
+                DisNoButton.gameObject.SetActive(false);
                 DialogButton.gameObject.SetActive(true);
                 try
                 {
@@ -777,8 +793,10 @@ namespace PartsInventory
             {
                 DialogBox.gameObject.SetActive(true);
                 DialogText.text = "Can't Use this " + category + " without the Motherboard";
-                YesButton.gameObject.SetActive(false);
-                NoButton.gameObject.SetActive(false);
+                CanYesButton.gameObject.SetActive(false);
+                CanNoButton.gameObject.SetActive(false);
+                DisYesButton.gameObject.SetActive(false);
+                DisNoButton.gameObject.SetActive(false);
                 DialogButton.gameObject.SetActive(true);
                 try
                 {
@@ -921,8 +939,10 @@ namespace PartsInventory
                 inventoryUI.Hide();
                 DialogBox.gameObject.SetActive(true);
                 DialogText.text = "Item already In use...";
-                YesButton.gameObject.SetActive(false);
-                NoButton.gameObject.SetActive(false);
+                CanYesButton.gameObject.SetActive(false);
+                CanNoButton.gameObject.SetActive(false);
+                DisYesButton.gameObject.SetActive(false);
+                DisNoButton.gameObject.SetActive(false);
                 DialogButton.gameObject.SetActive(true);
             }
             else
@@ -969,8 +989,10 @@ namespace PartsInventory
                     {
                         DialogBox.gameObject.SetActive(true);
                         DialogText.text = "Can't Use this " + category + " without the needed Parts";
-                        YesButton.gameObject.SetActive(false);
-                        NoButton.gameObject.SetActive(false);
+                        CanYesButton.gameObject.SetActive(false);
+                        CanNoButton.gameObject.SetActive(false);
+                        DisYesButton.gameObject.SetActive(false);
+                        DisNoButton.gameObject.SetActive(false);
                         DialogButton.gameObject.SetActive(true);
                         try
                         {
@@ -1009,8 +1031,10 @@ namespace PartsInventory
                     inventoryUI.Hide();
                     DialogBox.gameObject.SetActive(true);
                     DialogText.text = "Item already In use...";
-                    YesButton.gameObject.SetActive(false);
-                    NoButton.gameObject.SetActive(false);
+                    CanYesButton.gameObject.SetActive(false);
+                    CanNoButton.gameObject.SetActive(false);
+                    DisYesButton.gameObject.SetActive(false);
+                    DisNoButton.gameObject.SetActive(false);
                     DialogButton.gameObject.SetActive(true);
                 }
                 else
@@ -1056,8 +1080,10 @@ namespace PartsInventory
                         {
                             DialogBox.gameObject.SetActive(true);
                             DialogText.text = "Can't Use this " + category + " without the needed Parts";
-                            YesButton.gameObject.SetActive(false);
-                            NoButton.gameObject.SetActive(false);
+                            CanYesButton.gameObject.SetActive(false);
+                            CanNoButton.gameObject.SetActive(false);
+                            DisYesButton.gameObject.SetActive(false);
+                            DisNoButton.gameObject.SetActive(false);
                             DialogButton.gameObject.SetActive(true);
                             try
                             {
@@ -1410,8 +1436,8 @@ namespace PartsInventory
 
             PCSO pcso = ScriptableObject.CreateInstance<PCSO>();
 
-            pcso.name = "PC1";// NameText.text;
-            pcso.PCName = "PC1";// NameText.text;
+            pcso.name = pcname;//PCNameTxt.text;
+            pcso.PCName = pcname;//PCNameTxt.text;
             pcso.PCImage = lastUsedItems.ContainsKey("Case") ? lastUsedItems["Case"].item.ItemImage : null;
             //pcso.PCPrice = totalUsedItemsPrice;
             pcso.Case = lastUsedItems.ContainsKey("Case") ? lastUsedItems["Case"].item : null;
@@ -1423,16 +1449,7 @@ namespace PartsInventory
             pcso.STORAGE = lastUsedItems.ContainsKey("Storage") ? lastUsedItems["Storage"].item : null;
             pcso.PSU = lastUsedItems.ContainsKey("PSU") ? lastUsedItems["PSU"].item : null;
             pcso.inUse = false;
-            // During UnityEditor, save the ScriptableObject asset
-            //string savePath = "Assets/Data/COMPUTERS/";
-            //string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath(savePath + pcso.name + ".asset");
-            //AssetDatabase.CreateAsset(pcso, assetPathAndName);
-            //AssetDatabase.SaveAssets();
-            //AssetDatabase.Refresh();
-            //CreatedComputers.Add(pcso);
-            //SavePCSOData(pcso);
-            //GameManager.Instance.SaveUniqueIndex(UniqueIndex);
-            // Add the created PCSO to the list
+            
             return pcso;
         }
         //public void SavePCSOData(PCSO pcso)
@@ -1482,7 +1499,109 @@ namespace PartsInventory
         [SerializeField]
         private PCPlayerController PCC;
 
+        public LeanTweenAnimate LTA;
+
+
+        public GameObject RenamePanel;
+
         //public TMP_Text Modified;
+        public string pcname;
+        public async void RenamePC()
+        {
+            pcname = RenameTxt.text;
+            if(pcname == "")
+            {
+                pcname = "PC1";
+            }
+
+            if (!GameManager.instance.BeenModified) 
+            { //new pc 
+
+                await PCC.ModifyPCName(GameManager.instance.pcsoDocumentIds[0], pcname);
+
+            }
+            else
+            {
+                await PCC.ModifyPCName(GameManager.instance.pcsothatisModified, pcname);
+            }
+
+            PCNameTxt.text = pcname;
+
+    }
+
+        public void DisassemblePC()
+        {
+
+
+            if(GameManager.instance.pcsothatisModified == GameManager.instance.pcsothatinUse)
+            {
+                DialogBox.gameObject.SetActive(true);
+                CanYesButton.gameObject.SetActive(false);
+                CanNoButton.gameObject.SetActive(false);
+                DisYesButton.gameObject.SetActive(false);
+                DisNoButton.gameObject.SetActive(false);
+                DialogButton.gameObject.SetActive(true);
+
+
+                DialogText.text = "You Can't Disassemble This PC, because this PC is currently IN-USE \n Change your PC in Desk First Before Disassembling this PC";
+            }
+            else
+            {
+                DialogBox.gameObject.SetActive(true);
+                CanYesButton.gameObject.SetActive(false);
+                CanNoButton.gameObject.SetActive(false);
+                DisYesButton.gameObject.SetActive(true);
+                DisNoButton.gameObject.SetActive(true);
+                DialogButton.gameObject.SetActive(false);
+
+
+                DialogText.text = "Are you Sure you want to Dissamble this PC? \n This PC will be remove in your computer Inventory but the parts will be back into your Parts Inventory";
+
+
+
+
+                DisYesButton.onClick.AddListener(() =>
+                {
+                    // Create a copy of the keys to iterate over
+                    var keys = new List<string>(lastUsedItems.Keys);
+
+                    if (keys.Count > 0)
+                    {
+                        foreach (var key in keys)
+                        {
+                            // Get the value corresponding to the key
+                            var value = lastUsedItems[key];
+
+                            // Remove the item
+                            BackItem(value, key);
+                            inventoryData.RemoveItem(value.item.name, 1);
+                        }
+                    }
+
+                    ModifyingPC.gameObject.SetActive(false);
+                    pcName.gameObject.SetActive(false);
+                    Inuse.gameObject.SetActive(false);
+                    PCC.DeletePC(GameManager.instance.pcsothatisModified);
+                    GameManager.instance.pcsoDocumentIds.Remove(GameManager.instance.pcsothatisModified);
+                    //OnDoneButtonClick();
+                    BackAllCurrentlyItem();
+
+                    GameManager.instance.BeenModified = false;
+
+                    lastUsedItems.Clear();
+                    CloseDialog();
+                    DisassmebleButton.gameObject.SetActive(false);
+                    inventoryData.PartsSaveItems();
+                });
+
+                DisNoButton.onClick.AddListener(() =>
+                {
+                    CloseDialog();
+
+                });
+            }
+            
+        }
         public async void OnDoneButtonClick()
         {
 
@@ -1536,6 +1655,10 @@ namespace PartsInventory
                 GameManager.instance.BeenModified = false;
 
                 Debug.Log("PCSO items added to ComputerItems list.");
+
+                //RenamePanel.gameObject.SetActive(true);
+                LTA.InstallOS();
+                RenameTxt.text = "PC1";
             }
             else // modified pc 
             {
@@ -1578,6 +1701,8 @@ namespace PartsInventory
             pcName.gameObject.SetActive(false);
             Inuse.gameObject.SetActive(false);
             newpc.gameObject.SetActive(false);
+            DisassmebleButton.gameObject.SetActive(false);
+            pcname = "PC1";
         }
 
             //}
