@@ -1,3 +1,6 @@
+using Firebase.Auth;
+using PC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,21 +11,28 @@ public class ImageSpriteAnimation : MonoBehaviour
     public Image m_Image;
 
     public Sprite[] m_SpriteArray;
+   
     public float m_Speed = .02f;
 
     private int m_IndexSprite;
     Coroutine m_CorotineAnim;
     bool IsDone;
+    public PCPlayerController PCC;
+    public bool TurnOnPC;
+
     public void Func_PlayUIAnim()
     {
         IsDone = false;
+        m_Image.gameObject.SetActive(true);
         StartCoroutine(Func_PlayAnimUI());
+        
     }
 
     public void Func_StopUIAnim()
     {
         IsDone = true;
         StopCoroutine(Func_PlayAnimUI());
+        m_Image.gameObject.SetActive(false);
     }
     IEnumerator Func_PlayAnimUI()
     {
@@ -33,7 +43,49 @@ public class ImageSpriteAnimation : MonoBehaviour
         }
         m_Image.sprite = m_SpriteArray[m_IndexSprite];
         m_IndexSprite += 1;
-        if (IsDone == false)
+        if (IsDone == false) {
+
             m_CorotineAnim = StartCoroutine(Func_PlayAnimUI());
+        }
+           
+      if(TurnOnPC == true)
+        {
+            if (m_IndexSprite == m_SpriteArray.Length - 1)
+            {
+                Func_StopUIAnim();
+                PCC.OpenDesktop();
+
+            }
+
+        }
+        else
+        {
+            if (m_IndexSprite == m_SpriteArray.Length - 1)
+            {
+
+                Func_StopUIAnim();
+
+            }
+        }
+
+      
+        
     }
+
+    public void TurnOn() {
+        TurnOnPC = true;
+        Func_PlayUIAnim();
+       
+
+    }
+    public void TurnOff()
+    {
+        PCC.CloseDesktop();
+        TurnOnPC = false;
+        Func_PlayUIAnim();
+        
+    }
+
+
+   
 }
