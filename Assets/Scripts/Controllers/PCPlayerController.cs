@@ -205,6 +205,9 @@ namespace PC
 
         public GameObject theClickable;
 
+        public GameObject Desktop;
+        public GameObject UIPanel;
+
         //[SerializeField]
         //private MissionConSO OrderData;
 
@@ -289,7 +292,16 @@ namespace PC
         //    }
         //}
         
-
+        public void OpenDesktop()
+        {
+            Desktop.SetActive(true);
+            UIPanel.SetActive(false);
+        }
+        public void CloseDesktop()
+        {
+            Desktop.SetActive(false);
+            UIPanel.SetActive(true);
+        }
 
 
         public async void LoadPCSOList()
