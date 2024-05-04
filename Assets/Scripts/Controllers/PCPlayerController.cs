@@ -306,52 +306,54 @@ namespace PC
 
         public async void LoadPCSOList()
         {
-           
-            PCData.ComputerItems.Clear();
-            GameManager.instance.pcsoDocumentIds.Clear();
-            // Get a reference to the Firestore collection containing the PCSO documents
-            CollectionReference collectionRef = FirebaseFirestore.DefaultInstance
-                .Collection(GameManager.instance.UserCollection)
-                .Document(GameManager.instance.UserID)
-                .Collection("ComputersCollection");
-
-            // Fetch all documents from the PCSO collection asynchronously
-            QuerySnapshot querySnapshot = await collectionRef.GetSnapshotAsync();
-
-            // Iterate through the retrieved documents
-            foreach (DocumentSnapshot docSnapshot in querySnapshot.Documents)
+            if (GameManager.instance.UserID != "")
             {
-               
-                string documentId = docSnapshot.Id;
-                GameManager.instance.pcsoDocumentIds.Add(documentId);
+                PCData.ComputerItems.Clear();
+                GameManager.instance.pcsoDocumentIds.Clear();
+                // Get a reference to the Firestore collection containing the PCSO documents
+                CollectionReference collectionRef = FirebaseFirestore.DefaultInstance
+                    .Collection(GameManager.instance.UserCollection)
+                    .Document(GameManager.instance.UserID)
+                    .Collection("ComputersCollection");
 
-                // Deserialize the PCSO data from the Firestore document
-                string pcsoJson = docSnapshot.GetValue<string>("PC");
+                // Fetch all documents from the PCSO collection asynchronously
+                QuerySnapshot querySnapshot = await collectionRef.GetSnapshotAsync();
 
-                if (!string.IsNullOrEmpty(pcsoJson))
+                // Iterate through the retrieved documents
+                foreach (DocumentSnapshot docSnapshot in querySnapshot.Documents)
                 {
-                    // Create a new PCSO instance
-                    PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
 
-                    // Deserialize the JSON data into the PCSO object
-                    JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+                    string documentId = docSnapshot.Id;
+                    GameManager.instance.pcsoDocumentIds.Add(documentId);
 
-                    // Add the loaded PCSO to the PCData.ComputerItems list
-                    PCData.AddPCSOList(loadedPCSO);
-                    PCpage.AddAnotherPC();
+                    // Deserialize the PCSO data from the Firestore document
+                    string pcsoJson = docSnapshot.GetValue<string>("PC");
 
-
-                    if(loadedPCSO.inUse == true)
+                    if (!string.IsNullOrEmpty(pcsoJson))
                     {
-                        UseloadComputer(loadedPCSO);
-                        GameManager.instance.pcsothatinUse = documentId;
-                    }
-                    // Optionally perform any other actions with the loaded PCSO
-                }
-            }
+                        // Create a new PCSO instance
+                        PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
 
-            // Log a message indicating the successful loading of PCSO items
-            Debug.Log("PCSO items loaded from Firestore.");
+                        // Deserialize the JSON data into the PCSO object
+                        JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+                        // Add the loaded PCSO to the PCData.ComputerItems list
+                        PCData.AddPCSOList(loadedPCSO);
+                        PCpage.AddAnotherPC();
+
+
+                        if (loadedPCSO.inUse == true)
+                        {
+                            UseloadComputer(loadedPCSO);
+                            GameManager.instance.pcsothatinUse = documentId;
+                        }
+                        // Optionally perform any other actions with the loaded PCSO
+                    }
+                }
+
+                // Log a message indicating the successful loading of PCSO items
+                Debug.Log("PCSO items loaded from Firestore.");
+            }
         }
 
 
