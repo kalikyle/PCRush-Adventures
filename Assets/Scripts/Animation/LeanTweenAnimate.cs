@@ -6,7 +6,7 @@ public class LeanTweenAnimate : MonoBehaviour
 {
     public GameObject RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename;
     bool open = true;
-    bool close = false;
+    //bool close = false;
     public void RenamePanelOpen()
     {
         RenamePanel.SetActive(open);
