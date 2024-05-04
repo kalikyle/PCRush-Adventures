@@ -9,6 +9,7 @@ TagManager:
   - Desk
   - Editor
   - Build
+  - Worlds
   layers:
   - Default
   - TransparentFX

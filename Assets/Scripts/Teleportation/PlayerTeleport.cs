@@ -10,15 +10,19 @@ public class PlayerTeleport : MonoBehaviour
         private GameObject homeTeleport;
         public GameObject DeskPanel;
         public GameObject UIPanel;
+        public GameObject inExplorePanel;
         public GameObject BuildRoom;
+        public GameObject Desktop;
+        public GameObject GameMap;
 
         public Button Enter;
         public TMP_Text Name;
+        public TMP_Text WorldName;
 
-    public bool OpenDesk = false;
+        public bool OpenDesk = false;
         public bool OpenBuild = false;
         public bool EditorOpen = false;
-
+       public bool BackToHomeWorld = false;
 
 
     public void Start()
@@ -39,12 +43,30 @@ public class PlayerTeleport : MonoBehaviour
             
         
         }
+
+
+    public void ToCPUWorld()
+    {
+        Vector3 destination = new Vector3(216.45f, -46.33f, 0);
+        transform.position = destination;
+        WorldName.text = "CPU World";
+    }
     public void TheTeleporter()
     {
         Enter.gameObject.SetActive(false);
         if (homeTeleport != null)
         {
             transform.position = homeTeleport.GetComponent<Teleporter>().HomeDestination().position;
+
+            if(BackToHomeWorld == true)
+            {
+                DeskPanel.SetActive(true);
+                Desktop.SetActive(true);
+                GameMap.SetActive(true);
+                inExplorePanel.SetActive(false);
+                WorldName.text = "Home World";
+                BackToHomeWorld = false;
+            }
         }
         else if (OpenDesk == true && homeTeleport == null)
         {
@@ -112,13 +134,20 @@ public class PlayerTeleport : MonoBehaviour
                    }
             }
 
+        if (collision.CompareTag("Worlds"))
+        {
+            homeTeleport = collision.gameObject;
+            BackToHomeWorld = true;
+        }
+
             ///////////////////////////////////
             if (collision.CompareTag("Desk"))
             {
             Enter.gameObject.SetActive(true);
             OpenDesk = true;
                 Name.text = "Enter Your Desk";
-            }
+           
+        }
             if (collision.CompareTag("Editor"))
             {
             Enter.gameObject.SetActive(true);
@@ -161,11 +190,27 @@ public class PlayerTeleport : MonoBehaviour
                 }
             }
 
-            ///////////////////////////////////
-            if (collision.CompareTag("Desk"))
+
+        if (collision.CompareTag("Worlds"))
+        {
+            if (collision.gameObject == homeTeleport)
+            {
+
+                homeTeleport = null;
+            }
+            BackToHomeWorld = false;
+        }
+
+
+
+        ///////////////////////////////////
+        if (collision.CompareTag("Desk"))
             {
                 OpenDesk = false;
-            }
+
+            
+
+        }
             if (collision.CompareTag("Editor"))
             {
                GameManager.instance.OpenEditor = false;
