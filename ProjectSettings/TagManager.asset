@@ -10,6 +10,7 @@ TagManager:
   - Editor
   - Build
   - Worlds
+  - CPUExchanger
   layers:
   - Default
   - TransparentFX
