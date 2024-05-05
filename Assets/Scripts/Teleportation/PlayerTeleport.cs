@@ -134,14 +134,23 @@ public class PlayerTeleport : MonoBehaviour
                    }
             }
 
+        //otherworlds
         if (collision.CompareTag("Worlds"))
         {
             homeTeleport = collision.gameObject;
             BackToHomeWorld = true;
         }
 
-            ///////////////////////////////////
-            if (collision.CompareTag("Desk"))
+        //otherworldhouses
+
+        if (collision.CompareTag("CPUExchanger"))
+        {
+            homeTeleport = collision.gameObject;
+            
+        }
+
+        ///////////////////////////////////
+        if (collision.CompareTag("Desk"))
             {
             Enter.gameObject.SetActive(true);
             OpenDesk = true;
@@ -190,7 +199,7 @@ public class PlayerTeleport : MonoBehaviour
                 }
             }
 
-
+        //otherworlds
         if (collision.CompareTag("Worlds"))
         {
             if (collision.gameObject == homeTeleport)
@@ -201,7 +210,16 @@ public class PlayerTeleport : MonoBehaviour
             BackToHomeWorld = false;
         }
 
+        //otherworlds houses
+        if (collision.CompareTag("CPUExchanger"))
+        {
+            if (collision.gameObject == homeTeleport)
+            {
 
+                homeTeleport = null;
+            }
+            
+        }
 
         ///////////////////////////////////
         if (collision.CompareTag("Desk"))
