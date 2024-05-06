@@ -24,6 +24,9 @@ namespace Swords.UI
         [SerializeField]
         private Image borderImage;
 
+        [SerializeField]
+        public SwordBuy swordBuy;
+
         public event Action<SwordsItem> OnItemClicked;
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -36,7 +39,7 @@ namespace Swords.UI
             {
                 OnItemClicked?.Invoke(this);
                 //OnItemClickeds?.Invoke(temporaryIndex);
-                //shopBuy.SelectItem(this);
+                swordBuy.SelectItem(this);
 
                 //OnItemPurchaseClicked?.Invoke(this);
 
