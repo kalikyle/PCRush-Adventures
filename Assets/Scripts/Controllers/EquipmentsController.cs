@@ -78,9 +78,11 @@ public class EquipmentsController : MonoBehaviour
 
 
         // Call the methods after the delay
+
         PrepareUI();
         ToggleALLButton();
         swordsPage.Show();
+        swordsPage.ResetSelection();
     }
 
     public void ShowAllCategory()
