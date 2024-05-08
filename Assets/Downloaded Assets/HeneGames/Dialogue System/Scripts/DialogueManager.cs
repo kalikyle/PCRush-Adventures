@@ -291,6 +291,8 @@ namespace HeneGames.DialogueSystem
             }
         }
 
+        
+
         public int CurrentSentenceLenght()
         {
             if(sentences.Count <= 0)

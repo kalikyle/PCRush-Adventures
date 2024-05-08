@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     public DecorController DC;
     public Shop.Model.ShopSO so;
     public DecorationManager DecorMan;
+    public EquipmentsController Equipments;
 
     public bool isEditing = false;
     public TMP_Text UserIDTxt;
@@ -64,6 +65,8 @@ public class GameManager : MonoBehaviour
     public GameObject UIExplore;
     public GameObject ComputerInv;
     public GameObject InGamePanel;
+
+    public GameObject SwordDealerPanel;
 
     //public GameObject DecorClickedUI;
 
@@ -95,7 +98,10 @@ public class GameManager : MonoBehaviour
 
 
 
-
+    public void OpenSwordShop()
+    {
+        Equipments.OpenShop();
+    }
     public void PlayerDeskName()
     {
         PlayerDesk.text = PlayerName + "'s Desk ";

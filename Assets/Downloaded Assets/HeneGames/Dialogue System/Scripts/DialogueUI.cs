@@ -42,6 +42,7 @@ namespace HeneGames.DialogueSystem
         [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private GameObject dialogueWindow;
         [SerializeField] private GameObject interactionUI;
+        [SerializeField] private GameObject YesorNo;
 
         [Header("Settings")]
         [SerializeField] private bool animateText = true;
@@ -176,6 +177,36 @@ namespace HeneGames.DialogueSystem
 
             return currentDialogueManager.CurrentSentenceLenght();
         }
+
+        public void OpenPanels()
+        {
+           
+                if (nameText.text == "Sword Dealer")
+                {
+                    GameManager.instance.SwordDealerPanel.SetActive(true);
+                    GameManager.instance.OpenSwordShop();
+                
+                Debug.Log(nameText.text);
+
+            }
+                else if (nameText.text == "The Exchanger")
+                {
+                Debug.Log(nameText.text);
+            }
+            else
+            {
+                Debug.Log("none");
+            }
+
+            currentDialogueManager.StopDialogue();
+
+        }
+
+        public void StopDialogue()
+        {
+            currentDialogueManager.StopDialogue();
+        }
+
 
         IEnumerator WriteTextToTextmesh(string _text, TextMeshProUGUI _textMeshObject)
         {

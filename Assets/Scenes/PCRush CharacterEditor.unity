@@ -226,7 +226,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f2da6333f0000403f2da6333f0000003f28af213f0000403f28af213f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -317,7 +317,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f2da6333f0000403f2da6333f0000003f28af213f0000403f28af213f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b324a4685d480b346b084e8a5dbacbde, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e33023d0a9883f34dbbd1d501f4e3a78, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -513,7 +513,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000002da6333f0000803e2da6333f0000000028af213f0000803e28af213f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -604,7 +604,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000002da6333f0000803e2da6333f0000000028af213f0000803e28af213f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -949,7 +949,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f24b80f3e0000403f24b80f3e0000003f24b88f3d0000403f24b88f3d
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -1040,7 +1040,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f24b80f3e0000403f24b80f3e0000003f24b88f3d0000403f24b88f3d
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -1090,7 +1090,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -50}
+  m_AnchoredPosition: {x: 0, y: -125}
   m_SizeDelta: {x: 300, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &79229751
@@ -1234,7 +1234,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003694573f0000803e3694573f00000000319d453f0000803e319d453f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -1325,7 +1325,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003694573f0000803e3694573f00000000319d453f0000803e319d453f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -1444,7 +1444,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f2da6333f0000803f2da6333f0000403f28af213f0000803f28af213f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -1535,7 +1535,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f2da6333f0000803f2da6333f0000403f28af213f0000803f28af213f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -1899,6 +1899,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 859390166036325259, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 78.70003
+      objectReference: {fileID: 0}
     - target: {fileID: 859390166083785451, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1910,6 +1914,30 @@ PrefabInstance:
     - target: {fileID: 859390166083785451, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166100744433, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Text
+      value: brightness
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166100744433, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    - target: {fileID: 859390166100744433, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166100744433, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166100744435, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 62.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166313358537, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 79.2
       objectReference: {fileID: 0}
     - target: {fileID: 859390166364659229, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1979,6 +2007,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 859390166449160746, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166449160746, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166449160746, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.r
+      value: 0.99518895
+      objectReference: {fileID: 0}
     - target: {fileID: 859390166449160747, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1986,6 +2026,22 @@ PrefabInstance:
     - target: {fileID: 859390166449160747, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166528274337, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 78.70002
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166580260619, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.b
+      value: 0.08627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166580260619, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.g
+      value: 0.98823535
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166580260619, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9843138
       objectReference: {fileID: 0}
     - target: {fileID: 859390166580260660, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2027,6 +2083,14 @@ PrefabInstance:
       propertyPath: m_MinValue
       value: -180
       objectReference: {fileID: 0}
+    - target: {fileID: 859390166635158312, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 78.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166678058265, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 78.7
+      objectReference: {fileID: 0}
     - target: {fileID: 859390166712798474, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -2047,6 +2111,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 859390166742079018, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 86.20003
+      objectReference: {fileID: 0}
     - target: {fileID: 859390166842315273, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2062,6 +2130,26 @@ PrefabInstance:
     - target: {fileID: 859390166842315273, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166847989273, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Text
+      value: saturation
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166847989273, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    - target: {fileID: 859390166847989273, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166847989273, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166847989275, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 61.900017
       objectReference: {fileID: 0}
     - target: {fileID: 859390166957819843, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2082,6 +2170,22 @@ PrefabInstance:
     - target: {fileID: 859390166957819852, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390166974158679, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 78.70003
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390167037755918, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.b
+      value: 0.09019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390167037755918, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.g
+      value: 0.98823535
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390167037755918, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9843138
       objectReference: {fileID: 0}
     - target: {fileID: 859390167037755919, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2115,6 +2219,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 859390167248885620, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 78.70002
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390167485299172, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Text
+      value: Hue
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390167485299172, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    - target: {fileID: 859390167485299172, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390167485299172, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390167485299174, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 6.6
+      objectReference: {fileID: 0}
     - target: {fileID: 859390167587937409, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2127,6 +2255,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 859390167736375874, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 79.20002
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390167815266775, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 79.20002
+      objectReference: {fileID: 0}
     - target: {fileID: 859390167897663742, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_Text
       value: CLOTHES
@@ -2138,6 +2274,14 @@ PrefabInstance:
     - target: {fileID: 859390167897663742, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_FontData.m_FontStyle
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390168004887107, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 85.70003
+      objectReference: {fileID: 0}
+    - target: {fileID: 859390168023560073, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 85.70001
       objectReference: {fileID: 0}
     - target: {fileID: 859390168069510144, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_Name
@@ -2759,6 +2903,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 8562a1ac5e553ea4983557d2301d8310, type: 3}
+    - target: {fileID: 5491535146856824245, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 5491535146856824245, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 5491535146856824245, guid: 7de7ffa6443f07340867480c31126481, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8207547
+      objectReference: {fileID: 0}
     - target: {fileID: 5520730315768661588, guid: 7de7ffa6443f07340867480c31126481, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -3115,7 +3271,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3a8b693f0000403f3a8b693f0000003f3694573f0000403f3694573f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -3206,7 +3362,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3a8b693f0000403f3a8b693f0000003f3694573f0000403f3694573f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -3306,8 +3462,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.75
-  m_fontSizeBase: 19.75
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3593,7 +3749,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3f827b3f0000403f3f827b3f0000003f3a8b693f0000403f3a8b693f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -3684,7 +3840,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3f827b3f0000403f3f827b3f0000003f3a8b693f0000403f3a8b693f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -3803,7 +3959,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3694d73e0000403f3694d73e0000003f2da6b33e0000403f2da6b33e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -3894,7 +4050,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3694d73e0000403f3694d73e0000003f2da6b33e0000403f2da6b33e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -4013,7 +4169,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f24b88f3e0000403f24b88f3e0000003f3694573e0000403f3694573e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -4104,7 +4260,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f24b88f3e0000403f24b88f3e0000003f3694573e0000403f3694573e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -4314,7 +4470,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003f827b3f0000803e3f827b3f000000003a8b693f0000803e3a8b693f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -4592,7 +4748,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003f82fb3e0000803e3f82fb3e000000003694d73e0000803e3694d73e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -4683,7 +4839,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003f82fb3e0000803e3f82fb3e000000003694d73e0000803e3694d73e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -6051,7 +6207,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3694573f0000403f3694573f0000003f319d453f0000403f319d453f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -6142,7 +6298,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3694573f0000403f3694573f0000003f319d453f0000403f319d453f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -11184,7 +11340,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3694573f0000803f3694573f0000403f319d453f0000803f319d453f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -11275,7 +11431,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3694573f0000803f3694573f0000403f319d453f0000803f319d453f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -11478,15 +11634,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255609
-  m_fontColor: {r: 0.97641206, g: 1, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 1
+  m_colorMode: 2
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 0.9093014, b: 0, a: 1}
+    bottomRight: {r: 1, g: 0.9093014, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -11496,8 +11652,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -11906,7 +12062,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000024b88f3d0000803e24b88f3d00000000000000000000803e00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -11997,7 +12153,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000024b88f3d0000803e24b88f3d00000000000000000000803e00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -12116,7 +12272,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003a8b693f0000803e3a8b693f000000003694573f0000803e3694573f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -12207,7 +12363,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003a8b693f0000803e3a8b693f000000003694573f0000803e3694573f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -12326,7 +12482,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003694573e0000803e3694573e0000000024b80f3e0000803e24b80f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -12417,7 +12573,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003694573e0000803e3694573e0000000024b80f3e0000803e24b80f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -12536,7 +12692,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f319d453f0000403f319d453f0000003f2da6333f0000403f2da6333f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -12627,7 +12783,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f319d453f0000403f319d453f0000003f2da6333f0000403f2da6333f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -12746,7 +12902,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e28af213f0000003f28af213f0000803e24b80f3f0000003f24b80f3f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -12837,7 +12993,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e28af213f0000003f28af213f0000803e24b80f3f0000003f24b80f3f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -12956,7 +13112,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e24b80f3e0000003f24b80f3e0000803e24b88f3d0000003f24b88f3d
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -13047,7 +13203,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e24b80f3e0000003f24b80f3e0000803e24b88f3d0000003f24b88f3d
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -14399,7 +14555,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f319d453f0000803f319d453f0000403f2da6333f0000803f2da6333f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -14490,7 +14646,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f319d453f0000803f319d453f0000403f2da6333f0000803f2da6333f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -15798,7 +15954,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f24b80f3f0000403f24b80f3f0000003f3f82fb3e0000403f3f82fb3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -15889,7 +16045,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f24b80f3f0000403f24b80f3f0000003f3f82fb3e0000403f3f82fb3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -16008,7 +16164,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3f827b3f0000003f3f827b3f0000803e3a8b693f0000003f3a8b693f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -16099,7 +16255,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3f827b3f0000003f3f827b3f0000803e3a8b693f0000003f3a8b693f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -16218,7 +16374,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f24b88f3e0000803f24b88f3e0000403f3694573e0000803f3694573e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -16309,7 +16465,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f24b88f3e0000803f24b88f3e0000403f3694573e0000803f3694573e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -16683,7 +16839,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3a8b693f0000003f3a8b693f0000803e3694573f0000003f3694573f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -16774,7 +16930,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3a8b693f0000003f3a8b693f0000803e3694573f0000003f3694573f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -18075,8 +18231,8 @@ MonoBehaviour:
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
   m_RegexValue: 
-  m_GlobalPointSize: 19.75
-  m_CharacterLimit: 0
+  m_GlobalPointSize: 40
+  m_CharacterLimit: 6
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -18259,8 +18415,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.75
-  m_fontSizeBase: 19.75
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -18377,6 +18533,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &807376014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 807376015}
+  - component: {fileID: 807376017}
+  - component: {fileID: 807376016}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &807376015
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807376014}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3.2914119, y: 6.2948256, z: 3.2914119}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1504188633}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.02, y: 0}
+  m_SizeDelta: {x: 101.01, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &807376016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807376014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -1276137150, guid: 92df6f2b946a1494b8e90c962bc4e540, type: 3}
+  m_Type: 2
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 4
+--- !u!222 &807376017
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807376014}
+  m_CullTransparentMesh: 1
 --- !u!213 &887132747
 Sprite:
   m_ObjectHideFlags: 0
@@ -18480,7 +18711,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e24b88f3e0000003f24b88f3e0000803e3694573e0000003f3694573e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -18571,7 +18802,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e24b88f3e0000003f24b88f3e0000803e3694573e0000003f3694573e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -18976,7 +19207,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f24b80f3e0000803f24b80f3e0000403f24b88f3d0000803f24b88f3d
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -19067,7 +19298,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f24b80f3e0000803f24b80f3e0000403f24b88f3d0000803f24b88f3d
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -19584,7 +19815,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f2da6b33e0000403f2da6b33e0000003f24b88f3e0000403f24b88f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -19675,7 +19906,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f2da6b33e0000403f2da6b33e0000003f24b88f3e0000403f24b88f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -19794,7 +20025,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3f82fb3e0000403f3f82fb3e0000003f3694d73e0000403f3694d73e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -19885,7 +20116,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3f82fb3e0000403f3f82fb3e0000003f3694d73e0000403f3694d73e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20004,7 +20235,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3f82fb3e0000003f3f82fb3e0000803e3694d73e0000003f3694d73e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20095,7 +20326,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3f82fb3e0000003f3f82fb3e0000803e3694d73e0000003f3694d73e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20214,7 +20445,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3694573e0000003f3694573e0000803e24b80f3e0000003f24b80f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20305,7 +20536,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3694573e0000003f3694573e0000803e24b80f3e0000003f24b80f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20424,7 +20655,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e319d453f0000003f319d453f0000803e2da6333f0000003f2da6333f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20515,7 +20746,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e319d453f0000003f319d453f0000803e2da6333f0000003f2da6333f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20634,7 +20865,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f24b88f3d0000803f24b88f3d0000403f000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20725,7 +20956,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f24b88f3d0000803f24b88f3d0000403f000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20991,7 +21222,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3f827b3f0000803f3f827b3f0000403f3a8b693f0000803f3a8b693f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -21082,7 +21313,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3f827b3f0000803f3f827b3f0000403f3a8b693f0000803f3a8b693f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -21201,7 +21432,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000002da6b33e0000803e2da6b33e0000000024b88f3e0000803e24b88f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -21292,7 +21523,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000002da6b33e0000803e2da6b33e0000000024b88f3e0000803e24b88f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -21637,7 +21868,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f2da6b33e0000803f2da6b33e0000403f24b88f3e0000803f24b88f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -21728,7 +21959,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f2da6b33e0000803f2da6b33e0000403f24b88f3e0000803f24b88f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -21847,7 +22078,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e2da6333f0000003f2da6333f0000803e28af213f0000003f28af213f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -21938,7 +22169,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e2da6333f0000003f2da6333f0000803e28af213f0000003f28af213f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -22180,7 +22411,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e2da6b33e0000003f2da6b33e0000803e24b88f3e0000003f24b88f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -22271,7 +22502,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e2da6b33e0000003f2da6b33e0000803e24b88f3e0000003f24b88f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -22485,7 +22716,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f24b80f3f0000803f24b80f3f0000403f3f82fb3e0000803f3f82fb3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -22576,7 +22807,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f24b80f3f0000803f24b80f3f0000403f3f82fb3e0000803f3f82fb3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -22695,7 +22926,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000024b80f3f0000803e24b80f3f000000003f82fb3e0000803e3f82fb3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -22786,7 +23017,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000024b80f3f0000803e24b80f3f000000003f82fb3e0000803e3f82fb3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -25423,7 +25654,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000024b88f3e0000803e24b88f3e000000003694573e0000803e3694573e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -25514,7 +25745,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000024b88f3e0000803e24b88f3e000000003694573e0000803e3694573e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -25560,6 +25791,7 @@ RectTransform:
   m_LocalScale: {x: 1.2138891, y: 1.2138891, z: 1.2138891}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 807376015}
   - {fileID: 79229750}
   - {fileID: 1055815653}
   - {fileID: 125519581}
@@ -25583,7 +25815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8370417, g: 0.8490566, b: 0.8471002, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.24705882}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -25711,7 +25943,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000028af213f0000803e28af213f0000000024b80f3f0000803e24b80f3f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -25802,7 +26034,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000028af213f0000803e28af213f0000000024b80f3f0000803e24b80f3f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -26355,7 +26587,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000024b80f3e0000803e24b80f3e0000000024b88f3d0000803e24b88f3d
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -26446,7 +26678,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000024b80f3e0000803e24b80f3e0000000024b88f3d0000803e24b88f3d
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -27754,7 +27986,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3f82fb3e0000803f3f82fb3e0000403f3694d73e0000803f3694d73e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -27845,7 +28077,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3f82fb3e0000803f3f82fb3e0000403f3694d73e0000803f3694d73e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -27964,7 +28196,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e24b88f3d0000003f24b88f3d0000803e000000000000003f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -28055,7 +28287,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e24b88f3d0000003f24b88f3d0000803e000000000000003f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -28174,7 +28406,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd0000000000000000319d453f0000803e319d453f000000002da6333f0000803e2da6333f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -28265,7 +28497,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd0000000000000000319d453f0000803e319d453f000000002da6333f0000803e2da6333f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -28384,7 +28616,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3694d73e0000003f3694d73e0000803e2da6b33e0000003f2da6b33e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -28475,7 +28707,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3694d73e0000003f3694d73e0000803e2da6b33e0000003f2da6b33e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -28594,7 +28826,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3694d73e0000803f3694d73e0000403f2da6b33e0000803f2da6b33e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -28685,7 +28917,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3694d73e0000803f3694d73e0000403f2da6b33e0000803f2da6b33e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -28804,7 +29036,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e24b80f3f0000003f24b80f3f0000803e3f82fb3e0000003f3f82fb3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -28895,7 +29127,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e24b80f3f0000003f24b80f3f0000803e3f82fb3e0000003f3f82fb3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -29014,7 +29246,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f28af213f0000403f28af213f0000003f24b80f3f0000403f24b80f3f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -29105,7 +29337,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f28af213f0000403f28af213f0000003f24b80f3f0000403f24b80f3f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -30465,7 +30697,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f24b88f3d0000403f24b88f3d0000003f000000000000403f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -30556,7 +30788,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f24b88f3d0000403f24b88f3d0000003f000000000000403f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -30675,7 +30907,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3694573e0000403f3694573e0000003f24b80f3e0000403f24b80f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -30766,7 +30998,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000003f3694573e0000403f3694573e0000003f24b80f3e0000403f24b80f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -30885,7 +31117,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003694d73e0000803e3694d73e000000002da6b33e0000803e2da6b33e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -30976,7 +31208,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd00000000000000003694d73e0000803e3694d73e000000002da6b33e0000803e2da6b33e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -31172,7 +31404,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3694573f0000003f3694573f0000803e319d453f0000003f319d453f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -31263,7 +31495,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000803e3694573f0000003f3694573f0000803e319d453f0000003f319d453f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -31382,7 +31614,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3694573e0000803f3694573e0000403f24b80f3e0000803f24b80f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -31473,7 +31705,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3694573e0000803f3694573e0000403f24b80f3e0000803f24b80f3e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -31592,7 +31824,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f28af213f0000803f28af213f0000403f24b80f3f0000803f24b80f3f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -31683,7 +31915,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f28af213f0000803f28af213f0000403f24b80f3f0000803f24b80f3f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -31802,7 +32034,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3a8b693f0000803f3a8b693f0000403f3694573f0000803f3694573f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -31893,7 +32125,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 0ad7a3be295c0f3f000000000ad7a33e295c0f3f000000000ad7a3be0ad7a3bd000000000ad7a33e0ad7a3bd000000000000403f3a8b693f0000803f3a8b693f0000403f3694573f0000803f3694573f
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -32078,8 +32310,8 @@ Transform:
   m_GameObject: {fileID: 375063816738576796}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.069732, z: 0}
+  m_LocalScale: {x: 1.3447, y: 1.3447, z: 1.3447}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 375063815515883427}
