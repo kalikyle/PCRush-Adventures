@@ -19,6 +19,7 @@ public class PickUpSystem : MonoBehaviour
             if(reminder == 0)
             {
                 parts.DestroyItem();
+                GameManager.instance.packagescollected++;
             }
             else
             {

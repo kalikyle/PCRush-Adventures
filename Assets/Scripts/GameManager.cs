@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     //player info
     public string PlayerName;
+    public int PlayerLevel = 1;
 
 
     public List<DecorationItem> removedItemsDuringEditing = new List<DecorationItem>();
@@ -94,8 +95,11 @@ public class GameManager : MonoBehaviour
     public TMP_Text PlayerDesk;
     public TMP_Text Playerui;
     public Image PlayerImage;
- 
 
+    public int packagescollected = 0;
+
+    
+    public QuestEvent questEvents;
 
 
     public void OpenSwordShop()
@@ -725,7 +729,7 @@ public class GameManager : MonoBehaviour
     {
 
 
-
+       
         UserID = PlayerPrefs.GetString("UserID", "");
         ClearPlayerPrefsIfUserIDNotFound(UserID);
 
@@ -746,6 +750,7 @@ public class GameManager : MonoBehaviour
     //this is the start when click play button
     public async void AtTheStart()
     {
+       
         if (UserID != "")
         {
 
@@ -905,16 +910,21 @@ public class GameManager : MonoBehaviour
     }
     private void Awake()
     {
+        //questEvents = new QuestEvent();
         if (instance == null)
         {
+            
             instance = this;
             DontDestroyOnLoad(gameObject);
+            
         }
         else
         {
             // If another instance already exists, destroy this one
             Destroy(gameObject);
         }
+        //questEvents = new QuestEvent();
+
     }
     public void DecorUseEnable( DecorationItem Item)
     {
