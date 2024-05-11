@@ -30,7 +30,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
         public List<LayerEditor> Layers;
         public CharacterBuilder CharacterBuilder;
         public Sprite EmptyIcon;
-
+        public UserSetup UserSetup;
         public TMP_InputField playerName;
 
         public static event Action<string> SliceTextureRequest = path => {};
@@ -340,11 +340,29 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
         public void UnloadThisScene()
         {
 
-            SceneManager.UnloadSceneAsync(1);
-            GameManager.instance.LoadCharacter();
-            GameManager.instance.SaveCharInfo(GameManager.instance.UserID, playerName.text);
-            GameManager.instance.UIExplore.SetActive(true);
-            CharacterBuilder.CombineHeadAndHairSprites();
+            if(GameManager.instance.OpenEditor == true)
+            {
+                SceneManager.UnloadSceneAsync(1);
+                GameManager.instance.LoadCharacter();
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, playerName.text);
+                GameManager.instance.UIExplore.SetActive(true);
+                CharacterBuilder.CombineHeadAndHairSprites();
+
+            }
+            else
+            {
+                UserSetup.CharEditor.gameObject.SetActive(false);
+                UserSetup.IntroCanvas.gameObject.SetActive(true);
+            }
+          
+
+            
+            //SceneManager.UnloadSceneAsync(1);
+            //GameManager.instance.LoadCharacter();
+            //GameManager.instance.SaveCharInfo(GameManager.instance.UserID, playerName.text);
+            //GameManager.instance.UIExplore.SetActive(true);
+            //CharacterBuilder.CombineHeadAndHairSprites();
+
             //SceneManager.LoadSceneAsync(0);
         }
 

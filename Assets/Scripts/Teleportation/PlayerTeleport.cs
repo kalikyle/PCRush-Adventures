@@ -19,6 +19,8 @@ public class PlayerTeleport : MonoBehaviour
         public TMP_Text Name;
         public TMP_Text WorldName;
 
+        public LeanTweenAnimate LTA;
+
         public bool OpenDesk = false;
         public bool OpenBuild = false;
         public bool EditorOpen = false;
@@ -50,9 +52,11 @@ public class PlayerTeleport : MonoBehaviour
         Vector3 destination = new Vector3(216.45f, -46.33f, 0);
         transform.position = destination;
         WorldName.text = "CPU World";
+        LTA.OpenTeleAnim();
     }
     public void TheTeleporter()
     {
+
         Enter.gameObject.SetActive(false);
         if (homeTeleport != null)
         {
@@ -67,6 +71,8 @@ public class PlayerTeleport : MonoBehaviour
                 WorldName.text = "Home World";
                 BackToHomeWorld = false;
             }
+
+            LTA.OpenTeleAnim();
         }
         else if (OpenDesk == true && homeTeleport == null)
         {
@@ -92,6 +98,7 @@ public class PlayerTeleport : MonoBehaviour
             GameManager.instance.UIExplore.SetActive(false);
 
         }
+        
     }
 
         //IMPORTANT: for other teleports, you just need to place game objects, create another tag and then just copy the code here

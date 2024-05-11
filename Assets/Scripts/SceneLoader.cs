@@ -45,6 +45,42 @@ public class SceneLoader : MonoBehaviour
 
 
     }
+
+    public void manualLoading()
+    {
+        LoadingCanvas.SetActive(true);
+        StartCoroutine(ManualLoading());
+    }
+
+    IEnumerator ManualLoading()
+    {
+        
+
+        float loadingTime = 2f;
+        float elapsedTime = 0f;
+
+        // Start loading the scene
+        
+
+        while (elapsedTime < loadingTime)
+        {
+            // Calculate progress based on elapsed time
+            float progress = Mathf.Clamp01(elapsedTime / loadingTime);
+            loadingslider.value = progress;
+
+            // Increment elapsed time
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        // Ensure the loading slider reaches 100% at the end
+        loadingslider.value = 1;
+
+        // Deactivate loading canvas and reset slider
+        LoadingCanvas.SetActive(false);
+        loadingslider.value = 0;
+    }
     
 
     

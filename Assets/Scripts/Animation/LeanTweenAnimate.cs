@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LeanTweenAnimate : MonoBehaviour
 {
-    public GameObject RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename;
+    public GameObject RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim;
     bool open = true;
     //bool close = false;
     public void RenamePanelOpen()
@@ -77,7 +77,23 @@ public class LeanTweenAnimate : MonoBehaviour
         rename.SetActive(open);
     }
 
+    public void TeleClose()
+    {
+        teleanim.SetActive(false);
+    }
 
+    public void OpenTeleAnim()
+    {
+        //teleanim.SetActive(open);
+        //LeanTween.scale(teleanim, new Vector3(41f, 41f, 41f), .5f);
+        LeanTween.scale(teleanim, new Vector3(1f, 1f, 1f), .08f).setEaseInOutSine().setOnComplete(CloseTeleAnim);
+        
+    }
+    public void CloseTeleAnim()
+    {
+        LeanTween.scale(teleanim, new Vector3(150f, 150f, 150f), .08f).setDelay(1f).setEaseInOutSine();
+        //TeleClose();
+    }
     public void InstallOS()
     {
         RenamePanelOpen();
