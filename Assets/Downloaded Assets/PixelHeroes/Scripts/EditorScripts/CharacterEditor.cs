@@ -61,6 +61,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
 
                 StartCoroutine(LoadIndexesWithDelay());
                 CharacterBuilder.LoadSavedData();
+                //GameManager.instance.LoadCharacter();
             }
 
                 foreach (var layer in Layers)
@@ -331,14 +332,14 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
             
         }
 
-        
+
 
 
         // Rebuild the character with loaded data
 
         public void UnloadThisScene()
         {
-            
+
             SceneManager.UnloadSceneAsync(1);
             GameManager.instance.LoadCharacter();
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, playerName.text);
@@ -347,7 +348,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
             //SceneManager.LoadSceneAsync(0);
         }
 
-       
+
 
 
 #if UNITY_EDITOR

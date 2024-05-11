@@ -79,7 +79,8 @@ public class PlayerTeleport : MonoBehaviour
         else if (GameManager.instance.OpenEditor == true && homeTeleport == null && EditorOpen == false)
         {
 
-            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+            GameManager.instance.scene.LoadScene();
+            //SceneManager.LoadScene(1, LoadSceneMode.Additive);
             EditorOpen = true;
             GameManager.instance.UIExplore.SetActive(false);
             //GameManager.instance.OpenEditor = false;
