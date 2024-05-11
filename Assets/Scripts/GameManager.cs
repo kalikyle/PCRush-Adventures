@@ -753,6 +753,7 @@ public class GameManager : MonoBehaviour
 
             string[] categories = new string[] { "Monitor", "Mouse","MousePad", "Keyboard", "Desk", "Background" };
             DisableFirstall();
+            //LoadCharacter();
             charBuilder.LoadSavedData();
 
             // If initial items have already been saved, load in-use items
@@ -770,12 +771,14 @@ public class GameManager : MonoBehaviour
             
         }
     }
+    public SceneLoader scene;
     public void ClearPlayerPrefsIfUserIDNotFound(string userID)
     {
         if (userID == "")
         {
             Debug.Log("UserID is null or empty.");
-            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+            scene.LoadScene();
+            //SceneManager.LoadScene(1, LoadSceneMode.Additive);
             EnableDefault();
         }
         else
@@ -797,13 +800,16 @@ public class GameManager : MonoBehaviour
                         PlayerPrefs.DeleteAll();
                         UserID = "";
                         Debug.Log("PlayerPrefs cleared because userID was not found in Firestore.");
-                        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+
+                        scene.LoadScene();
+                        //SceneManager.LoadScene(1, LoadSceneMode.Additive);
                         EnableDefault();
                     }
                     else
                     {
                         Debug.Log("UserID found in Firestore. PlayerPrefs not cleared.");
-                        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+                        scene.LoadScene();
+                        //SceneManager.LoadScene(1, LoadSceneMode.Additive);
                         EnableDefault();
                     }
                 }
