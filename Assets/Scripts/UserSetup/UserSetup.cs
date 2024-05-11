@@ -22,6 +22,7 @@ public class UserSetup : MonoBehaviour
     public GameObject Login;
     public GameObject PlayPanel;
     public GameObject LogInCanvas;
+    public GameObject IntroCanvas;
 
     public TMP_InputField playerName;
 
@@ -92,6 +93,7 @@ public class UserSetup : MonoBehaviour
             Login.gameObject.SetActive(false);
             UnloadThisScene();
             GameManager.instance.AtTheStart();
+            GameManager.instance.scene.manualLoading();
         }
     }
     public void UnloadThisScene()
