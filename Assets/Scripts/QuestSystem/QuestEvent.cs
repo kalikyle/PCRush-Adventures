@@ -42,4 +42,15 @@ public class QuestEvent : MonoBehaviour
             onQuestStateChange(quest);
         }
     }
+
+
+    public event Action<string, int, QuestStepState> onQuestStepStateChange;
+
+    public void QuestStepStateChange(string id, int stepindex, QuestStepState questStepState)
+    {
+        if (onQuestStepStateChange != null)
+        {
+            onQuestStepStateChange(id, stepindex, questStepState);
+        }
+    }
 }
