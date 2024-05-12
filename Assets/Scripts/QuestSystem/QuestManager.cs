@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,13 +66,18 @@ public class QuestManager : MonoBehaviour
         GameManager.instance.questEvents.onStartQuest -= StartQuest;
         GameManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
         GameManager.instance.questEvents.onFinishQuest -= FinishQuest;
+        GameManager.instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
     }
+
+    
 
     private void Start()
     {
         GameManager.instance.questEvents.onStartQuest += StartQuest;
         GameManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
         GameManager.instance.questEvents.onFinishQuest += FinishQuest;
+        GameManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
+
         foreach (Quest quest in questMap.Values)
         {
             GameManager.instance.questEvents.QuestStateChange(quest);
@@ -148,5 +154,42 @@ public class QuestManager : MonoBehaviour
             Debug.LogError("ID not Found");
         }
         return quest;
+    }
+
+    private void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)
+    {
+        Quest quest = GetQuestId(id);
+        quest.StoreQuestStepState(questStepState, stepIndex);
+        ChangeQuestState(id, quest.state);
+    }
+
+
+    private void OnApplicationQuit()
+    {
+        foreach(Quest quest in questMap.Values)
+        {
+            QuestData questData = quest.GetQuestData();
+            Debug.Log(quest.info.id);
+            Debug.Log(questData.state);
+            Debug.Log(questData.questStepIndex);
+
+            foreach(QuestStepState stepState in questData.questStepStates)
+            {
+                Debug.Log(stepState.state);
+            }
+
+        }
+    }
+
+    // to be saved in firebase
+    private void SaveQuest(Quest quest)
+    {
+        try
+        {
+
+        }catch(Exception e)
+        {
+
+        }
     }
 }

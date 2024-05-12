@@ -19,6 +19,14 @@ public class CollectPackageStep1 : QuestStep
         {
             FinishQuestStep();
         }
+
+        UpdateState();
+    }
+
+    private void UpdateState()
+    {
+        string state = packagecollected.ToString();
+        ChangeState(state);
     }
     public void Start()
     {
