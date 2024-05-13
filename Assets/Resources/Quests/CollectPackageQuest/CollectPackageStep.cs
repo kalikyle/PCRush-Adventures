@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,22 @@ public class CollectPackageStep : QuestStep
         {
             FinishQuestStep();
         }
+        UpdateState();
     }
+
+    private void UpdateState()
+    {
+        string state = packagecollected.ToString();
+        ChangeState(state);
+    }
+
+    protected override void SetQuestStepState(string state)
+    {
+        GameManager.instance.packagescollected = System.Int32.Parse(state);
+        packagecollected = GameManager.instance.packagescollected;
+        UpdateState();
+    }
+
     public void Start()
     {
         

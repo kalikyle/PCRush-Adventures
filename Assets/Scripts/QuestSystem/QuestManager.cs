@@ -1,7 +1,11 @@
+using Firebase.Firestore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnityEditor.Search;
 using UnityEngine;
+using static Decoration.Model.DecorSO;
 
 public class QuestManager : MonoBehaviour
 {
@@ -10,7 +14,8 @@ public class QuestManager : MonoBehaviour
 
     private void Awake()
     {
-        questMap = CreateQuestMap();
+        
+       
 
         //Quest quest = GetQuestId("PackageQuest");
         //Debug.Log(quest.info.displayName);
@@ -32,14 +37,17 @@ public class QuestManager : MonoBehaviour
     {
         GetPlayerLevel();
 
-
-        foreach (Quest quest in questMap.Values)
+        try
         {
-            if(quest.state == QuestState.REQUIREMENT_NOT_MET && CheckRequirements(quest))
+            foreach (Quest quest in questMap.Values)
             {
-                ChangeQuestState(quest.info.id, QuestState.CAN_START);
+                if (quest.state == QuestState.REQUIREMENT_NOT_MET && CheckRequirements(quest))
+                {
+                    ChangeQuestState(quest.info.id, QuestState.CAN_START);
+                }
             }
         }
+        catch (Exception ) { }
     }
 
     private bool CheckRequirements(Quest quest)
@@ -71,8 +79,10 @@ public class QuestManager : MonoBehaviour
 
     
 
-    private void Start()
+    private async void Start()
     {
+        questMap = await CreateQuestMap();
+
         GameManager.instance.questEvents.onStartQuest += StartQuest;
         GameManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
         GameManager.instance.questEvents.onFinishQuest += FinishQuest;
@@ -80,6 +90,12 @@ public class QuestManager : MonoBehaviour
 
         foreach (Quest quest in questMap.Values)
         {
+
+            if (quest.state == QuestState.IN_PROGRESS)
+            {
+                quest.InstantiateCurrentQuestStep(this.transform);
+            }
+
             GameManager.instance.questEvents.QuestStateChange(quest);
         }
     }
@@ -129,7 +145,7 @@ public class QuestManager : MonoBehaviour
        
     }
 
-    private Dictionary<string, Quest> CreateQuestMap()
+    private async Task<Dictionary<string, Quest>> CreateQuestMap()
     {
         QuestInfoSO[] allquest = Resources.LoadAll<QuestInfoSO>("Quests");
 
@@ -141,7 +157,8 @@ public class QuestManager : MonoBehaviour
             {
                 Debug.LogWarning("Duplicated ID!");
             }
-            idToQuestMap.Add(questInfo.id, new Quest(questInfo));
+            Quest quest = await LoadQuest(questInfo);
+            idToQuestMap.Add(questInfo.id, quest);
         }
         return idToQuestMap;
     }
@@ -168,28 +185,130 @@ public class QuestManager : MonoBehaviour
     {
         foreach(Quest quest in questMap.Values)
         {
-            QuestData questData = quest.GetQuestData();
-            Debug.Log(quest.info.id);
-            Debug.Log(questData.state);
-            Debug.Log(questData.questStepIndex);
-
-            foreach(QuestStepState stepState in questData.questStepStates)
-            {
-                Debug.Log(stepState.state);
-            }
+            SaveQuest(quest);
 
         }
     }
 
     // to be saved in firebase
-    private void SaveQuest(Quest quest)
+    //private void SaveQuest(Quest quest)
+    //{
+    //    try
+    //    {
+    //        QuestData questData = quest.GetQuestData();
+    //        string serializeData = JsonUtility.ToJson(questData);
+    //        PlayerPrefs.SetString(quest.info.id, serializeData);
+
+    //    }catch(Exception e)
+    //    {
+    //        Debug.LogError("failed to save data;");
+    //    }
+    //}
+
+    public async void SaveQuest(Quest quest)
     {
         try
         {
+        QuestData questData = quest.GetQuestData();
+        // Convert the list of items to JSON
+        string serializeData = JsonUtility.ToJson(questData);
 
-        }catch(Exception e)
-        {
+        DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+
+        CollectionReference SubDocRef = docRef.Collection("Quests");
+
+        DocumentReference DecordocRef = SubDocRef.Document(quest.info.id);
+        // Create a dictionary to store the data
+        Dictionary<string, object> dataDict = new Dictionary<string, object>
+    {
+        { "questData", serializeData }
+    };
+
+        // Set the data of the document
+        await DecordocRef.SetAsync(dataDict);
+
+        Debug.Log(serializeData + "has been saved");
 
         }
+        catch (Exception ex)
+       {
+           Debug.LogError("failed to save data;" + ex);
+       }
     }
+
+    //private Quest LoadQuest(QuestInfoSO questInfo)
+    //{
+    //    Quest quest = null;
+    //    try
+    //    {
+
+    //        if (PlayerPrefs.HasKey(questInfo.id))
+    //        {
+    //            string serializedData = PlayerPrefs.GetString(questInfo.id);
+    //            QuestData questData = JsonUtility.FromJson<QuestData>(serializedData);
+    //            quest = new Quest(questInfo, questData.state, questData.questStepIndex, questData.questStepStates);
+    //        }
+    //        else
+    //        {
+    //            quest = new Quest(questInfo);
+    //        }
+
+
+    //    }catch (Exception ex)
+    //    {
+    //        Debug.LogError("failed to load data;");
+    //    }
+    //    return quest;
+    //}
+
+    private async Task<Quest> LoadQuest(QuestInfoSO questInfo)
+    {
+       
+        Quest quest = null;
+        try
+        {
+            if (GameManager.instance.UserID == "")
+            {
+                Debug.LogWarning("new User " + questInfo.id);
+                // Create a new quest if the document does not exist
+                quest = new Quest(questInfo);
+            }
+            else
+            {
+                // Get a reference to the Firestore document
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection)
+                                                    .Document(GameManager.instance.UserID).Collection("Quests")
+                                                    .Document(questInfo.id);
+
+                // Fetch the document snapshot
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+                // Check if the document exists
+                if (snapshot.Exists)
+                {
+                    // Deserialize the JSON data from Firestore into QuestData
+                    string serializedData = snapshot.GetValue<string>("questData");
+                    QuestData questData = JsonUtility.FromJson<QuestData>(serializedData);
+
+                    // Create the quest object
+                    quest = new Quest(questInfo, questData.state, questData.questStepIndex, questData.questStepStates);
+                }
+                else
+                {
+                    Debug.LogWarning("Quest document does not exist for ID: " + questInfo.id);
+                    // Create a new quest if the document does not exist
+                    quest = new Quest(questInfo);
+                }
+            }
+        
+            
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Failed to load quest data: " + ex.Message);
+        }
+        return quest;
+    }
+
+    
 }
