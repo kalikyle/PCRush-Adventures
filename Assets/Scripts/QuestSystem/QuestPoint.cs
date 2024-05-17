@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -25,12 +26,14 @@ public class QuestPoint : MonoBehaviour
     private void Awake()
     {
         questId = questinfoForPoint.id;
+       
     }
 
     private void Start()
     {
         GameManager.instance.questEvents.onQuestStateChange += QuestStateChange;
-        
+
+       
     }
 
     private void OnEnable()
@@ -45,12 +48,12 @@ public class QuestPoint : MonoBehaviour
 
     private void startQuest()
     {
-        if (!playerIsNear)
-        {
-            return;
-        }
+        //if (!playerIsNear)
+        //{
+        //    return;
+        //}
 
-        if(currentQuestState.Equals(QuestState.CAN_START) && StartPoint)
+        if (currentQuestState.Equals(QuestState.CAN_START) && StartPoint)
         {
             GameManager.instance.questEvents.StartQuest(questId);
         }
@@ -65,13 +68,11 @@ public class QuestPoint : MonoBehaviour
         //GameManager.instance.questEvents.FinishQuest(questId);
     }
 
-    public void Update()
+    public async void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            startQuest();
-            //Debug.LogError("start");
-        }
+        await Task.Delay(2000);
+
+        startQuest();
     }
 
     private void QuestStateChange(Quest quest)

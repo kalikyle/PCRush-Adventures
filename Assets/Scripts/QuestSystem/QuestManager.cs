@@ -9,6 +9,9 @@ using static Decoration.Model.DecorSO;
 
 public class QuestManager : MonoBehaviour
 {
+
+    [Header("Config")]
+    [SerializeField] private bool LoadQuestState = true;
     private Dictionary<string, Quest> questMap;
     //private int PlayerLevel = 0;
 
@@ -284,7 +287,7 @@ public class QuestManager : MonoBehaviour
                 DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
 
                 // Check if the document exists
-                if (snapshot.Exists)
+                if (snapshot.Exists && LoadQuestState)
                 {
                     // Deserialize the JSON data from Firestore into QuestData
                     string serializedData = snapshot.GetValue<string>("questData");

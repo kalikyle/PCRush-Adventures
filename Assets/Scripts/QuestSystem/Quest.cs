@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class Quest 
@@ -83,6 +84,7 @@ public class Quest
         if(stepIndex < questStepStates.Length)
         {
             questStepStates[stepIndex].state = questStepState.state;
+            questStepStates[stepIndex].status = questStepState.status;
         }
         else
         {
@@ -95,5 +97,74 @@ public class Quest
         return new QuestData(state, currentQuestStepIndex, questStepStates);
     }
 
-    
+    public string GetFullStatusText()
+    {
+        string fullStatus = "";
+
+        if(state == QuestState.REQUIREMENT_NOT_MET)
+        {
+            fullStatus = "Requirements are not yet met to start this quest.";
+        }
+        else if (state == QuestState.CAN_START)
+        {
+            fullStatus = "This quest Can be Started!";
+        }
+        else
+        {
+            for (int i = 0; i < currentQuestStepIndex; i++)
+            {
+                
+                    fullStatus += "<s>" + info.questStepsPrefab[i].name + ": " + questStepStates[i].status + "</s>\n";
+                
+            }
+
+            if (Currentstepexist())
+            {
+                fullStatus += info.questStepsPrefab[currentQuestStepIndex].name + ": " + questStepStates[currentQuestStepIndex].status;
+            }
+
+            if(state == QuestState.CAN_FINISH)
+            {
+                fullStatus += "The quest is ready to Finish!";
+            }
+            else if (state == QuestState.FINISHED)
+            {
+                fullStatus += "This Quest has been Finished!";
+            }
+        }
+        return fullStatus;
+    }
+
+    public string currentStatus()
+    {
+        string cstatus = "";
+        if (Currentstepexist())
+        {
+            cstatus = questStepStates[currentQuestStepIndex].status;
+          
+        }
+        else
+        {
+            if (state == QuestState.CAN_FINISH)
+            {
+                cstatus = "The quest is ready to Finish!";
+            }
+            else if (state == QuestState.FINISHED)
+            {
+                cstatus = "This Quest has been Finished!";
+            }
+        }
+        return cstatus;
+    }
+
+    public string currentQuestStep()
+    {
+        string cstatus = "";
+        if (Currentstepexist())
+        {
+            cstatus = info.questStepsPrefab[currentQuestStepIndex].name;
+        }
+        
+        return cstatus;
+    }
 }

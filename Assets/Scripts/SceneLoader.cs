@@ -80,6 +80,7 @@ public class SceneLoader : MonoBehaviour
         // Deactivate loading canvas and reset slider
         LoadingCanvas.SetActive(false);
         loadingslider.value = 0;
+        GameManager.instance.LTA.OpenTeleAnim();
     }
     
 

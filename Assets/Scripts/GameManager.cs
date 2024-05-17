@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public Shop.Model.ShopSO so;
     public DecorationManager DecorMan;
     public EquipmentsController Equipments;
+    public LeanTweenAnimate LTA;
 
     public bool isEditing = false;
     public TMP_Text UserIDTxt;

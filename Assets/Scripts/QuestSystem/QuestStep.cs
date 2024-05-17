@@ -19,6 +19,7 @@ public abstract class QuestStep : MonoBehaviour
         if(questStepState != null && questStepState != "")
         {
             SetQuestStepState(questStepState);
+            
         }
     }
 
@@ -34,9 +35,9 @@ public abstract class QuestStep : MonoBehaviour
         }
     }
 
-    protected void ChangeState(string newState)
+    protected void ChangeState(string newState, string newStatus)
     {
-        GameManager.instance.questEvents.QuestStepStateChange(questId, stepIndex, new QuestStepState(newState));
+        GameManager.instance.questEvents.QuestStepStateChange(questId, stepIndex, new QuestStepState(newState, newStatus));
     }
 
     protected abstract void SetQuestStepState(string state);
