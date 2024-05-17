@@ -7,6 +7,11 @@ public class CollectPackageStep1 : QuestStep
     private int packagecollected = 0;
     private int packagetobecollected = 10;
 
+    public void Start()
+    {
+        //packageCollected();
+    }
+
     public void Update()
     {
         packagecollected = GameManager.instance.packagescollected;
@@ -30,7 +35,8 @@ public class CollectPackageStep1 : QuestStep
     private void UpdateState()
     {
         string state = packagecollected.ToString();
-        ChangeState(state);
+        string status = packagecollected + " / " + packagetobecollected;
+        ChangeState(state, status);
     }
 
     protected override void SetQuestStepState(string state)
@@ -40,8 +46,5 @@ public class CollectPackageStep1 : QuestStep
         packagecollected = GameManager.instance.packagescollected;
         UpdateState();
     }
-    public void Start()
-    {
-        
-    }
+   
 }

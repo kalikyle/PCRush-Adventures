@@ -94,6 +94,7 @@ public class UserSetup : MonoBehaviour
             UnloadThisScene();
             GameManager.instance.AtTheStart();
             GameManager.instance.scene.manualLoading();
+
         }
     }
     public void UnloadThisScene()
