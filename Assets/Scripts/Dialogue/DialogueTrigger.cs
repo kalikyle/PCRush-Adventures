@@ -11,20 +11,24 @@ public class DialogueTrigger : MonoBehaviour
 
 
     [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJSON;
+    /*[SerializeField]*/ public TextAsset inkJSON;
 
     private bool playerInRange;
 
 
-    private void Awake() 
+    private void Awake()
     {
         playerInRange = false;
         visualCue.SetActive(false);
     }
 
-    public void Start()
+   
+
+    public void OnEnable()
     {
-        DialogueManager.GetInstance().talktoBTN.onClick.AddListener(() => DialogueManager.GetInstance().EnterDialogueMode(inkJSON));
+        
+        DialogueManager.GetInstance().talktoBTN.onClick.AddListener(EnterDialogue);
+       
     }
 
     private void Update()
@@ -34,15 +38,17 @@ public class DialogueTrigger : MonoBehaviour
             visualCue.SetActive(true);
             DialogueManager.GetInstance().talktoBTN.gameObject.SetActive(true);
 
+
             if (Input.GetKeyDown(KeyCode.I))
             {
-                DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                EnterDialogue();
             }
         }
         else
         {
             visualCue.SetActive(false);
-            DialogueManager.GetInstance().talktoBTN.gameObject.SetActive(false);
+           DialogueManager.GetInstance().talktoBTN.gameObject.SetActive(false);
+
         }
     }
 
@@ -51,21 +57,21 @@ public class DialogueTrigger : MonoBehaviour
         if (collider.gameObject.tag == "Player")
         {
             playerInRange = true;
+           
         }
     }
-    //private void OnTriggerStay2D(Collider2D collider)
-    //{
-    //    if (collider.gameObject.tag == "Player")
-    //    {
-    //        playerInRange = true;
-    //    }
-    //}
+
+    public void EnterDialogue()
+    {
+        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+    }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Player")
         {
             playerInRange = false;
+            
             DialogueManager.GetInstance().ExitDialogueMode();
         }
     }
