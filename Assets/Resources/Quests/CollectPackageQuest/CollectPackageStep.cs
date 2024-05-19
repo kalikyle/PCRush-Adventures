@@ -9,9 +9,18 @@ public class CollectPackageStep : QuestStep
     private int packagetobecollected = 8;
     private int previousPackageCollected = 0;
 
+    [Header("Ink JSON")]
+    [SerializeField] private TextAsset inkJSON;
 
     public void Start()
     {
+
+        if (packagecollected == 0)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+            DialogueManager.GetInstance().TriggerSection("first");
+        }
+
         packageCollected();
     }
     public void Update()
@@ -25,7 +34,11 @@ public class CollectPackageStep : QuestStep
             // Update the previousPackageCollected to the new value
             previousPackageCollected = packagecollected;
         }
+
+        
     }
+
+   
 
     public void packageCollected()
     {

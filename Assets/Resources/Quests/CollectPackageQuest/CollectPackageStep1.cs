@@ -7,9 +7,14 @@ public class CollectPackageStep1 : QuestStep
     private int packagecollected = 0;
     private int packagetobecollected = 10;
 
+    [Header("Ink JSON")]
+    [SerializeField] private TextAsset inkJSON;
     public void Start()
     {
         //packageCollected();
+
+        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+        DialogueManager.GetInstance().TriggerSection("second");
     }
 
     public void Update()

@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     public DecorationManager DecorMan;
     public EquipmentsController Equipments;
     public LeanTweenAnimate LTA;
+    public QuestPoint qp;
 
     public bool isEditing = false;
     public TMP_Text UserIDTxt;
@@ -96,6 +97,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text PlayerDesk;
     public TMP_Text Playerui;
     public Image PlayerImage;
+    //public Sprite playersprite;
 
     public int packagescollected = 0;
 
@@ -111,6 +113,11 @@ public class GameManager : MonoBehaviour
     {
         PlayerDesk.text = PlayerName + "'s Desk ";
         Playerui.text = PlayerName;
+    }
+
+    public void StartQuest()
+    {
+        qp.startQuest();
     }
 
     public async void SaveCharInfo(string userID, string playerName)
