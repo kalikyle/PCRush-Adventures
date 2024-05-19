@@ -33,6 +33,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             visualCue.SetActive(true);
             DialogueManager.GetInstance().talktoBTN.gameObject.SetActive(true);
+
             if (Input.GetKeyDown(KeyCode.I))
             {
                 DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
@@ -52,6 +53,13 @@ public class DialogueTrigger : MonoBehaviour
             playerInRange = true;
         }
     }
+    //private void OnTriggerStay2D(Collider2D collider)
+    //{
+    //    if (collider.gameObject.tag == "Player")
+    //    {
+    //        playerInRange = true;
+    //    }
+    //}
 
     private void OnTriggerExit2D(Collider2D collider)
     {

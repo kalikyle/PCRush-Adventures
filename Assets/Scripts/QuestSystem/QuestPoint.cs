@@ -18,6 +18,9 @@ public class QuestPoint : MonoBehaviour
 
     private QuestState currentQuestState;
 
+    //[Header("Ink JSON")]
+    //[SerializeField] private TextAsset inkJSON;
+
 
     [Header("Config")]
     [SerializeField] private bool StartPoint = true;
@@ -46,13 +49,15 @@ public class QuestPoint : MonoBehaviour
         GameManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
     }
 
-    private void startQuest()
+    public void startQuest()
     {
         //if (!playerIsNear)
         //{
         //    return;
         //}
 
+
+        //DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
         if (currentQuestState.Equals(QuestState.CAN_START) && StartPoint)
         {
             GameManager.instance.questEvents.StartQuest(questId);
@@ -72,7 +77,11 @@ public class QuestPoint : MonoBehaviour
     {
         await Task.Delay(2000);
 
-        startQuest();
+        if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
+        {
+            startQuest();
+        }
+       
     }
 
     private void QuestStateChange(Quest quest)
@@ -92,6 +101,14 @@ public class QuestPoint : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D otherCollider)
+    {
+        if (otherCollider.CompareTag("Player"))
+        {
+            playerIsNear = true;
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D otherCollider)
     {
         if (otherCollider.CompareTag("Player"))
@@ -99,4 +116,6 @@ public class QuestPoint : MonoBehaviour
             playerIsNear = false;
         }
     }
+
+    
 }

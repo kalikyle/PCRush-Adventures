@@ -94,6 +94,7 @@ public class UserSetup : MonoBehaviour
             UnloadThisScene();
             GameManager.instance.AtTheStart();
             GameManager.instance.scene.manualLoading();
+            
 
         }
     }
@@ -101,6 +102,7 @@ public class UserSetup : MonoBehaviour
     {
         SceneManager.UnloadSceneAsync(1);
         GameManager.instance.LoadCharacter();
+        GameManager.instance.StartQuest();
         //SceneManager.LoadSceneAsync(0);
     }
     void SignInWithGoogle()

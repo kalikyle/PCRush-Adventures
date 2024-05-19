@@ -20,6 +20,7 @@ public class unloadscene : MonoBehaviour
         userSetup.IntroCanvas.SetActive(false);
 
         GameManager.instance.scene.manualLoading();
+        GameManager.instance.StartQuest();
     }
 
     // Update is called once per frame

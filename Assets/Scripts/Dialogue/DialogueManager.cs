@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 
+
 public class DialogueManager : MonoBehaviour
 {
     private static DialogueManager instance;
@@ -19,10 +20,15 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI displayNameText;
     [SerializeField] private Image portraitImage;
 
-    [SerializeField] public Button talktoBTN;
+    public Button talktoBTN;
+
+    [Header("Load Global Ink File")]
+    [SerializeField] private TextAsset LoadInkGlobal;
 
 
-    public List<Sprite> sprites = new List<Sprite>();
+    public Sprite PlayerSprite;
+    [SerializeField] private List<Sprite> sprites = new List<Sprite>();
+    //private List<Sprite> runtimeSprites = new List<Sprite>();
 
 
 
@@ -35,6 +41,7 @@ public class DialogueManager : MonoBehaviour
     private const string SPEAKER_TAG = "speaker";
     private const string PORTRAIT_TAG = "portrait";
 
+    private DialogueVariables dialogueVariables;
 
 
     private Story currentStory;
@@ -48,6 +55,7 @@ public class DialogueManager : MonoBehaviour
         }
         instance = this;
 
+        dialogueVariables = new DialogueVariables(LoadInkGlobal);
         
     }
 
@@ -60,8 +68,10 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
+        
+        
 
-
+        
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
         foreach (GameObject choice in choices)
@@ -69,20 +79,23 @@ public class DialogueManager : MonoBehaviour
             choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
             index++;
         }
+       
     }
 
     private void Update()
     {
+        
         // return right away if dialogue isn't playing
         if (!dialogueIsPlaying)
         {
             return;
         }
-       
+        
 
         if (Input.GetKeyDown(KeyCode.F)){
             ContinueStory();
         }
+       
     }
 
     public void EnterDialogueMode(TextAsset inkJSON)
@@ -91,10 +104,18 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
 
+        dialogueVariables.StartListening(currentStory);
+        SetPlayerNameVariable(GameManager.instance.PlayerName);
+
+
         ContinueStory();
 
     }
-
+    private void SetPlayerNameVariable(string playerName)
+    {
+        // Set the Ink variable "player_Name" to the playerName
+        currentStory.variablesState["player_Name"] = playerName;
+    }
     public void ContinueStory()
     {
         if (currentStory.canContinue)
@@ -135,7 +156,18 @@ public class DialogueManager : MonoBehaviour
                     break;
                 case PORTRAIT_TAG:
                     int index = Convert.ToInt32(tagValue);
-                    portraitImage.sprite = sprites[index];
+                    
+
+                    if(index == 0)
+                    {
+                        portraitImage.sprite = PlayerSprite;
+                    }
+                    else
+                    {
+                        portraitImage.sprite = sprites[index];
+                    }
+
+
                     break;
                 //case LAYOUT_TAG:
                 //    layoutAnimator.Play(tagValue);
@@ -151,8 +183,8 @@ public class DialogueManager : MonoBehaviour
     }
     public void ExitDialogueMode()
     {
-      
 
+        dialogueVariables.StopListening(currentStory);
        
 
         dialogueIsPlaying = false;
@@ -203,5 +235,33 @@ public class DialogueManager : MonoBehaviour
     {
         currentStory.ChooseChoiceIndex(choiceindex);
         ContinueStory();
+    }
+
+    public Ink.Runtime.Object GetVariableState(string variableName)
+    {
+        Ink.Runtime.Object variableValue = null;
+        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
+        if (variableValue == null)
+        {
+            Debug.LogWarning("Ink Variable was found to be null: " + variableName);
+        }
+        return variableValue;
+    }
+    public void OnApplicationQuit()
+    {
+        if(dialogueVariables != null)
+        {
+            dialogueVariables.SaveVariables();
+        }
+    }
+
+    public void TriggerSection(string section)
+    {
+        // Start the Ink story from the beginning
+        currentStory.ChoosePathString(section);
+        ContinueStory();
+
+        // Continue the story until reaching the desired knot
+
     }
 }

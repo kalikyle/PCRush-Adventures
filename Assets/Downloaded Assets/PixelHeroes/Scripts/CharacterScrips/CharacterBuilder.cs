@@ -114,16 +114,47 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
 
         public void CombineHeadAndHairSprites()
         {
+            try
+            {
 
-            int specificX = 0; // The x-coordinate of the top-left corner of the area
-            int specificY = 0;
-            float specificWidth = 64; // The width of the area
-            float specificHeight = 64;
+                int specificX = 0; // The x-coordinate of the top-left corner of the area
+                int specificY = 0;
+                float specificWidth = 64; // The width of the area
+                float specificHeight = 64;
 
 
-            Rect zoomedRect = new Rect(specificX, specificY, specificWidth, specificHeight);
-            Sprite _rebuildSprite = Sprite.Create(Texture, zoomedRect, new Vector2(0.5f, 0.5f));
-            GameManager.instance.PlayerImage.sprite = _rebuildSprite;
+                Rect zoomedRect = new Rect(specificX, specificY, specificWidth, specificHeight);
+                Sprite _rebuildSprite = Sprite.Create(Texture, zoomedRect, new Vector2(0.5f, 0.5f));
+                _rebuildSprite.name = "PlayerSprite";
+
+                DialogueManager.GetInstance().PlayerSprite = _rebuildSprite;
+                //bool spriteExists = false;
+
+                //foreach (var sprite in DialogueManager.GetInstance().PlayerSprite)
+                //{
+                //    if (sprite.name == _rebuildSprite.name)
+                //    {
+                //        spriteExists = true;
+                //        break;
+                //    }
+                //}
+
+                // Insert the sprite at the top of the list if it doesn't already exist
+                //if (!spriteExists)
+                //{
+                   
+                //}
+                //else
+                //{
+                //    Debug.Log("Sprite with the same name already exists in the list. Not inserting again.");
+                //}
+
+                //GameManager.instance.playersprite = _rebuildSprite;
+                GameManager.instance.PlayerImage.sprite = _rebuildSprite;
+
+            }
+            catch { }
+            
 
 
             //// Retrieve the head and hair sprites from the SpriteCollection

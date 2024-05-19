@@ -1,0 +1,1 @@
+﻿INCLUDE Global.ink
