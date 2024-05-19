@@ -6,6 +6,7 @@ using Ink.Runtime;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
+using Shop.UI;
 
 
 public class DialogueManager : MonoBehaviour
@@ -40,6 +41,7 @@ public class DialogueManager : MonoBehaviour
 
     private const string SPEAKER_TAG = "speaker";
     private const string PORTRAIT_TAG = "portrait";
+    private const string CHOICE_TAG = "choice";
 
     private DialogueVariables dialogueVariables;
 
@@ -79,9 +81,12 @@ public class DialogueManager : MonoBehaviour
             choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
             index++;
         }
-       
-    }
 
+        talktoBTN.gameObject.SetActive(false);
+    
+
+}
+    
     private void Update()
     {
         
@@ -90,6 +95,7 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
+        
         
 
         if (Input.GetKeyDown(KeyCode.F)){
@@ -107,6 +113,8 @@ public class DialogueManager : MonoBehaviour
         dialogueVariables.StartListening(currentStory);
         SetPlayerNameVariable(GameManager.instance.PlayerName);
 
+        // Handle external function calls from the Ink script
+        //currentStory.BindExternalFunction("open_shop_panel", () => OpenShopPanel());
 
         ContinueStory();
 
@@ -166,15 +174,18 @@ public class DialogueManager : MonoBehaviour
                     {
                         portraitImage.sprite = sprites[index];
                     }
+                    break;
 
+                case CHOICE_TAG:
+                    if (tagValue.Equals("yes"))
+                    {
+                        GameManager.instance.SwordDealerPanel.SetActive(true);
+                        GameManager.instance.OpenSwordShop();
+                    }
+                    
 
                     break;
-                //case LAYOUT_TAG:
-                //    layoutAnimator.Play(tagValue);
-                //    break;
-                //case AUDIO_TAG:
-                //    SetCurrentAudioInfo(tagValue);
-                //    break;
+
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
                     break;
@@ -185,8 +196,6 @@ public class DialogueManager : MonoBehaviour
     {
 
         dialogueVariables.StopListening(currentStory);
-       
-
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";

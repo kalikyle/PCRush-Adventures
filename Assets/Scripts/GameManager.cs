@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
     public Button DoneButton;
 
 
+
     public GameObject UIExplore;
     public GameObject ComputerInv;
     public GameObject InGamePanel;
