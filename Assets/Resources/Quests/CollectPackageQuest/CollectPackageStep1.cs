@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CollectPackageStep1 : QuestStep
@@ -12,7 +13,7 @@ public class CollectPackageStep1 : QuestStep
     public void Start()
     {
         //packageCollected();
-
+       
         DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
         DialogueManager.GetInstance().TriggerSection("second");
     }

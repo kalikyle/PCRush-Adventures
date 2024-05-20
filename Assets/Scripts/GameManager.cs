@@ -1,9 +1,11 @@
 using Assets.PixelHeroes.Scripts.CharacterScrips;
+using Assets.PixelHeroes.Scripts.CollectionScripts;
 using Decoration;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Extensions;
 using Firebase.Firestore;
+using OtherWorld.Model;
 using PartsInventory.Model;
 using PC.Model;
 //using Firebase.Analytics;
@@ -22,6 +24,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
 using static Inventory.Model.PartsInventorySO;
+using static OtherWorld.Model.OWInvSO;
 //using static UnityEditor.Progress;
 //using static UnityEditorInternal.ReorderableList;
 
@@ -64,6 +67,7 @@ public class GameManager : MonoBehaviour
     public Button DoneButton;
 
 
+    public SpriteCollection SpriteCollections;
 
     public GameObject UIExplore;
     public GameObject ComputerInv;
@@ -80,6 +84,13 @@ public class GameManager : MonoBehaviour
     public event Action<InventoryItem> OnItemsToTransferUpdated;
     public List<InventoryItem> itemsToTransfer = new List<InventoryItem>();
     public int Partstempindex;
+
+
+
+    public event Action<OtherWorldItem> OnOWItemsToTransferUpdated;
+    public List<OtherWorldItem> OWitemsToTransfer = new List<OtherWorldItem>();
+    public int OWstempindex;
+
 
     //player info
     public string PlayerName;
@@ -260,19 +271,25 @@ public class GameManager : MonoBehaviour
        DecorToTransfer.Add(item);
        OnDecorToTransferUpdated?.Invoke(item);
     }
+
+    public void AddItemToTransfer(OtherWorldItem item)
+    {
+        OWitemsToTransfer.Add(item);
+        OnOWItemsToTransferUpdated.Invoke(item);
+    }
     public void AddItemToTransfer(InventoryItem item)
     {
         itemsToTransfer.Add(item);
         OnItemsToTransferUpdated?.Invoke(item);
     }
-    public void SaveDecorInitialItemss(List<DecorationItem> items)
-    {
+    //public void SaveDecorInitialItemss(List<DecorationItem> items)
+    //{
 
-        string jsonData = JsonUtility.ToJson(new DecorationItemList { Items = items });
-        PlayerPrefs.SetString("SavedInitialItems", jsonData);
-        PlayerPrefs.Save();
-        //Debug.LogError("Data has been Saved");
-    }
+    //    string jsonData = JsonUtility.ToJson(new DecorationItemList { Items = items });
+    //    PlayerPrefs.SetString("SavedInitialItems", jsonData);
+    //    PlayerPrefs.Save();
+    //    //Debug.LogError("Data has been Saved");
+    //}
     public async void SaveDecorInitialItems(List<DecorationItem> items)
     {
         // Convert the list of items to JSON
@@ -323,6 +340,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Parts items saved to Firestore.");
     }
+
 
     //public async void SaveComputer(List<Computer> items)
     //{
@@ -391,6 +409,25 @@ public class GameManager : MonoBehaviour
         await docRef.SetAsync(new Dictionary<string, object> { { "PC", pcsoJson } });
 
         pcsoDocumentIds.Insert(0, docRef.Id);
+
+    }
+
+    public async Task SaveOWItems(OtherWorldItemSO invItem, int quantity)
+    {
+        // Convert the PCSO object to JSON
+        string itemJson = JsonUtility.ToJson(invItem);
+
+        // Get a reference to the Firestore document where you want to store the PCSO data
+        DocumentReference docRef = FirebaseFirestore.DefaultInstance
+            .Collection(GameManager.instance.UserCollection)
+            .Document(GameManager.instance.UserID)
+            .Collection("OtherWorldInventory")
+            .Document();
+
+        // Set the data in the Firestore document using the generated document ID
+        await docRef.SetAsync(new Dictionary<string, object> { { "Items", itemJson }, { "Quantity", quantity }});
+
+        //pcsoDocumentIds.Insert(0, docRef.Id);
 
     }
     //to update
@@ -1017,6 +1054,12 @@ public class DecorationItemList
 public class PartsItemList
 {
     public List<InventoryItem> Items;
+}
+
+[System.Serializable]
+public class OtherWorldInventory
+{
+    public List<OtherWorldItem> Items;
 }
 
 //[System.Serializable]

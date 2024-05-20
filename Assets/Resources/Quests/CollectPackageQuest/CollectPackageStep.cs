@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CollectPackageStep : QuestStep
@@ -12,11 +13,12 @@ public class CollectPackageStep : QuestStep
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
-    public void Start()
+    public async void Start()
     {
-
+       
         if (packagecollected == 0)
         {
+            await Task.Delay(1500);
             DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
             DialogueManager.GetInstance().TriggerSection("first");
         }

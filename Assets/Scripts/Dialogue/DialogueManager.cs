@@ -71,15 +71,14 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         
-        
-
-        
+       
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
         foreach (GameObject choice in choices)
         {
             choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
             index++;
+
         }
 
         talktoBTN.gameObject.SetActive(false);
@@ -154,7 +153,7 @@ public class DialogueManager : MonoBehaviour
             }
             string tagKey = splitTag[0].Trim();
             string tagValue = splitTag[1].Trim();
-
+            
             // handle the tag
             switch (tagKey)
             {
@@ -179,8 +178,14 @@ public class DialogueManager : MonoBehaviour
                 case CHOICE_TAG:
                     if (tagValue.Equals("yes"))
                     {
-                        GameManager.instance.SwordDealerPanel.SetActive(true);
-                        GameManager.instance.OpenSwordShop();
+                       
+                            GameManager.instance.SwordDealerPanel.SetActive(true);
+                            GameManager.instance.OpenSwordShop();
+                        
+                        
+                            
+                        
+                        
                     }
                     
 
@@ -212,6 +217,13 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogError("More choices were given than the UI can support. Number of choices given: "
                 + currentChoices.Count);
+        }else if (currentChoices.Count == 0)
+        {
+            continueIcon.SetActive(true);
+        }
+        else
+        {
+            continueIcon.SetActive(false);
         }
 
         int index = 0;
