@@ -17,10 +17,8 @@ public class EquipmentsController : MonoBehaviour
 
     [SerializeField]
     private SwordItemsSO swordsData;
-
-    public SpriteCollection SpriteCollection;
-    public List<LayerEditor> Layers;
-    public CharacterBuilder CharacterBuilder;
+    //public List<LayerEditor> Layers;
+    //public CharacterBuilder CharacterBuilder;
 
 
 
@@ -90,7 +88,7 @@ public class EquipmentsController : MonoBehaviour
         //shopBuy.ToggleTF = false;
         //shopBuy.ToggleBSE = false;
         //itemsShownInAllCategory.Clear();
-        var spriteArray = SpriteCollection.Layers;
+        var spriteArray = GameManager.instance.SpriteCollections.Layers;
 
 
         var nonEmptyItems = swordsData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);

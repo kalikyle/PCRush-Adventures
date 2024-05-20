@@ -579,6 +579,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deec0b59c33af4c428c8408ce813e676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  so: {fileID: 11400000, guid: 756e28e3be51e42498f8553c5909d083, type: 2}
+  data: {fileID: 11400000, guid: 5562c209b20ad9944a2a23ec70ed2bfd, type: 2}
+  buyButton: {fileID: 1805678110591017805}
+  SpriteCollection: {fileID: 11400000, guid: 490ae32d2288bb44c860168dd03613ca, type: 2}
 --- !u!1 &6397393890678037832
 GameObject:
   m_ObjectHideFlags: 0
