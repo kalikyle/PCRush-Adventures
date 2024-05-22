@@ -5,6 +5,7 @@ using Firebase;
 using Firebase.Auth;
 using Firebase.Extensions;
 using Firebase.Firestore;
+using OtherWorld;
 using OtherWorld.Model;
 using PartsInventory.Model;
 using PC.Model;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
     public EquipmentsController Equipments;
     public LeanTweenAnimate LTA;
     public QuestPoint qp;
+    public OWInvController OWC;
 
     public bool isEditing = false;
     public TMP_Text UserIDTxt;
@@ -393,6 +395,26 @@ public class GameManager : MonoBehaviour
     public List<string> pcsoDocumentIds = new List<string>();
     public string pcsothatinUse;
     public string pcsothatisModified;
+
+
+
+
+    public List<string> SwordsDocumentIds = new List<string>();
+    public string SwordinUse;
+    public List<string> ArmorDocumentIds = new List<string>();
+    public string ArmorinUse;
+    public List<string> HelmetDocumentIds = new List<string>();
+    public string HelmetinUse;
+    public List<string> ShieldDocumentIds = new List<string>();
+    public string ShieldinUse;
+
+
+    public void LoadOtherWorldInventory()
+    {
+        StartCoroutine(OWC.OtherWorldInventory());
+    }
+
+    public string clickedInventoryItemID;
     public async Task SavePCSO(PCSO pcso)
     {
         // Convert the PCSO object to JSON
@@ -426,6 +448,11 @@ public class GameManager : MonoBehaviour
 
         // Set the data in the Firestore document using the generated document ID
         await docRef.SetAsync(new Dictionary<string, object> { { "Items", itemJson }, { "Quantity", quantity }});
+
+        if(invItem.Category == "Sword")
+        {
+            SwordsDocumentIds.Insert(0, docRef.Id);
+        }
 
         //pcsoDocumentIds.Insert(0, docRef.Id);
 

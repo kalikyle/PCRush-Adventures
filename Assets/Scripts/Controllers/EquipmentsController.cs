@@ -17,6 +17,7 @@ public class EquipmentsController : MonoBehaviour
 
     [SerializeField]
     private SwordItemsSO swordsData;
+
     //public List<LayerEditor> Layers;
     //public CharacterBuilder CharacterBuilder;
 

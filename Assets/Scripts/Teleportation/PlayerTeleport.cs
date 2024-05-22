@@ -24,7 +24,7 @@ public class PlayerTeleport : MonoBehaviour
         public bool OpenDesk = false;
         public bool OpenBuild = false;
         public bool EditorOpen = false;
-       public bool BackToHomeWorld = false;
+        public bool BackToHomeWorld = false;
 
 
     public void Start()
@@ -53,6 +53,7 @@ public class PlayerTeleport : MonoBehaviour
         transform.position = destination;
         WorldName.text = "CPU World";
         LTA.OpenTeleAnim();
+        GameManager.instance.LoadOtherWorldInventory();
     }
     public void TheTeleporter()
     {
@@ -70,8 +71,9 @@ public class PlayerTeleport : MonoBehaviour
                 inExplorePanel.SetActive(false);
                 WorldName.text = "Home World";
                 BackToHomeWorld = false;
+                GameManager.instance.LoadCharacter();
             }
-
+           
             LTA.OpenTeleAnim();
         }
         else if (OpenDesk == true && homeTeleport == null)

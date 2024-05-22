@@ -31,6 +31,10 @@ namespace OtherWorld.Model
         [field: SerializeField]
         public double Attack { get; set; }
 
+
+        [field: SerializeField]
+        public bool inUse { get; set; }
+
         //[field: SerializeField]
         //public double Health { get; set; }
 

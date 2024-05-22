@@ -1,3 +1,6 @@
+using Assets.PixelHeroes.Scripts.CharacterScrips;
+using Assets.PixelHeroes.Scripts.CollectionScripts;
+using Assets.PixelHeroes.Scripts.EditorScripts;
 using Firebase.Firestore;
 using Inventory.Model;
 using OtherWorld.Model;
@@ -9,6 +12,8 @@ using PC.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using static Inventory.Model.PartsInventorySO;
@@ -27,6 +32,13 @@ namespace OtherWorld
         public List<OtherWorldItem> initialItems = new List<OtherWorldItem>();
         public event Action<int> OnDescriptionRequested;
 
+        public List<LayerEditor> Layers;
+        public CharacterBuilder CharacterBuilder;
+
+        public Image SwordImage;
+
+        public Button EquipBTN;
+
         //public OWInvItem items;
 
 
@@ -42,18 +54,46 @@ namespace OtherWorld
             inventoryUI.OnDescriptionRequested += HandleDescriptionRequest;
             inventoryUI.OnItemActionRequested += HandleItemActionRequest;
             OnDescriptionRequested += HandleDescriptionRequests;
-            
+            EquipBTN.onClick.AddListener(HandleUseButton);
+
+        }
+
+
+        private void HandleUseButton()
+        {
+
+            int tempIndex = GameManager.instance.OWstempindex;
+            Debug.Log("Using item with temporary index: " + tempIndex);
+
+
+            if (ToogleFiltered)
+            {
+                Debug.Log(ToogleFiltered);
+                HandleItemRightActionRequest(tempIndex);
+
+            }
+            else
+            {
+                Debug.Log(ToogleFiltered);
+                HandleItemActionRequest(tempIndex);
+
+            }
+            //inventoryData.PartsSaveItems();
+            //inventoryData.SaveItems();
+
+
+
         }
 
         public void Awake()
         {
-            StartCoroutine(DelayedItemsLoad());
+            //StartCoroutine(OtherWorldInventory());
         }
 
-        IEnumerator DelayedItemsLoad()
+        public IEnumerator OtherWorldInventory()
         {
             // Wait for 1 second
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(.5f);
 
             // Now load initial items
             //LoadComputerItems();
@@ -82,7 +122,7 @@ namespace OtherWorld
                 {
 
                     string documentId = docSnapshot.Id;
-                    GameManager.instance.pcsoDocumentIds.Add(documentId);
+                    
 
                     // Deserialize the PCSO data from the Firestore document
                     string itemJson = docSnapshot.GetValue<string>("Items");
@@ -121,7 +161,20 @@ namespace OtherWorld
 
 
                         inventoryData.AddItem(inventoryItem);
-                        // Optionally perform any other actions with the loaded PCSO
+
+                        if (inventoryItem.item.Category == "Sword")
+                        {
+                            
+                            GameManager.instance.SwordsDocumentIds.Add(documentId);
+                            if (inventoryItem.item.inUse)
+                            {
+                                //UseloadComputer(loadedPCSO);
+                                UseItem(inventoryItem);
+                                GameManager.instance.SwordinUse = documentId;
+                            }
+
+                           
+                        }
                     }
                 }
 
@@ -278,6 +331,12 @@ namespace OtherWorld
             }
             OtherWorldItemSO item = inventoryItem.item;
             inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name, item.Category, item.Attack.ToString());
+            if (item.Category == "Sword")
+            {
+                GameManager.instance.clickedInventoryItemID = GameManager.instance.SwordsDocumentIds[itemIndex];
+            }
+
+
         }
         public void HandleDescriptionRequests(int obj)
         {
@@ -288,6 +347,12 @@ namespace OtherWorld
                 {
                     OtherWorldItemSO item = shopItem.item;
                     inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, item.Attack.ToString());//update description
+
+                    if(item.Category == "Sword")
+                    {
+                        GameManager.instance.clickedInventoryItemID = GameManager.instance.SwordsDocumentIds[obj];
+                    }
+                    
                 }
             }
         }
@@ -301,91 +366,297 @@ namespace OtherWorld
             }
         }
 
-        public void HandleItemActionRequest(int itemIndex)//for all
+        public void HandleItemRightActionRequest(int tempIndex)//for filtered
         {
 
-            OtherWorldItem inventoryItem = inventoryData.GetItemAt(itemIndex);
-            string category = inventoryItem.item.Category;
-
-            Debug.Log("Item has been click");
-
-            //if (HasItemBeenUsed(inventoryItem))
+            //if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndex))
             //{
-            //    inventoryUI.Hide();
-            //    DialogBox.gameObject.SetActive(true);
-            //    DialogText.text = "Item already In use...";
-            //    CanYesButton.gameObject.SetActive(false);
-            //    CanNoButton.gameObject.SetActive(false);
-            //    DisYesButton.gameObject.SetActive(false);
-            //    DisNoButton.gameObject.SetActive(false);
-            //    DialogButton.gameObject.SetActive(true);
-            //}
-            //else
-            //{
-            //    //useSound.Play();
-            //    MBImage.sprite = inventoryItem.item.ItemImage; // this is for the whole inventory
-            //    UseItems(inventoryItem, category);
-            //    inventoryData.RemoveItem(itemIndex, 1);
-            //    BackItem(inventoryItem, category);
 
-            //    //totalUsedItemsPrice += inventoryItem.item.Price;
-            //    // DisplayPrices(totalUsedItemsPrice);
-
-
-
-            //    if (category != "Case")
+            //    InventoryItem inventoryItem = InventoryfilteredItems[originalIndex];
+            //    string category = inventoryItem.item.Category;
+            //    if (HasItemBeenUsed(inventoryItem))
             //    {
-
-            //        Unused(inventoryItem, category);
-            //    }
-
-            //    if (CaseImage.sprite == null && MBImage.sprite == null)
-            //    {
-            //        usedItems.Remove(inventoryItem);
-            //    }
-            //    else if (CaseImage.sprite == null || MBImage.sprite == null)
-            //    {
-            //        usedItems.Remove(inventoryItem);
+            //        inventoryUI.Hide();
+            //        DialogBox.gameObject.SetActive(true);
+            //        DialogText.text = "Item already In use...";
+            //        CanYesButton.gameObject.SetActive(false);
+            //        CanNoButton.gameObject.SetActive(false);
+            //        DisYesButton.gameObject.SetActive(false);
+            //        DisNoButton.gameObject.SetActive(false);
+            //        DialogButton.gameObject.SetActive(true);
             //    }
             //    else
             //    {
-            //        usedItems.Add(inventoryItem);
-            //    }
+            //        // useSound.Play();
+            //        usedItems.Remove(inventoryItem);
+            //        UseItems(inventoryItem, category);
+            //        int index = inventoryData.inventoryItems.IndexOf(inventoryItem);
 
-            //    if (category == "CPU")
-            //    {
-            //        // ApplyThermal.gameObject.SetActive(true);
-            //        // AT.SetCPUImage(inventoryItem.item.ItemImage);
-            //    }
+            //        inventoryData.RemoveItem(index, 1);
+            //        BackItem(inventoryItem, category);
 
-            //    if (category == "PSU")
-            //    {
-            //        if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
+            //        //  totalUsedItemsPrice += inventoryItem.item.Price;
+            //        //DisplayPrices(totalUsedItemsPrice);
+
+            //        if (category != "Case")
             //        {
-            //            DialogBox.gameObject.SetActive(true);
-            //            DialogText.text = "Can't Use this " + category + " without the needed Parts";
-            //            CanYesButton.gameObject.SetActive(false);
-            //            CanNoButton.gameObject.SetActive(false);
-            //            DisYesButton.gameObject.SetActive(false);
-            //            DisNoButton.gameObject.SetActive(false);
-            //            DialogButton.gameObject.SetActive(true);
-            //            try
-            //            {
-            //                HandleBackItem(category);
+            //            Unused(inventoryItem, category);
+            //        }
 
-            //            }
-            //            catch (Exception) { }
+            //        if (CaseImage.sprite == null && MBImage.sprite == null)
+            //        {
+            //            usedItems.Remove(inventoryItem);
+            //        }
+            //        else if (CaseImage.sprite == null || MBImage.sprite == null)
+            //        {
+            //            usedItems.Remove(inventoryItem);
             //        }
             //        else
             //        {
-            //            // SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
+            //            usedItems.Add(inventoryItem);
+            //        }
+
+            //        if (category == "CPU")
+            //        {
+            //            // ApplyThermal.gameObject.SetActive(true);
+            //            // AT.SetCPUImage(inventoryItem.item.ItemImage);
+            //        }
+
+            //        if (category == "PSU")
+            //        {
+            //            if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
+            //            {
+            //                DialogBox.gameObject.SetActive(true);
+            //                DialogText.text = "Can't Use this " + category + " without the needed Parts";
+            //                CanYesButton.gameObject.SetActive(false);
+            //                CanNoButton.gameObject.SetActive(false);
+            //                DisYesButton.gameObject.SetActive(false);
+            //                DisNoButton.gameObject.SetActive(false);
+            //                DialogButton.gameObject.SetActive(true);
+            //                try
+            //                {
+            //                    HandleBackItem(category);
+
+            //                }
+            //                catch (Exception) { }
+            //            }
+            //            else
+            //            {
+            //                //SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
+            //            }
+
+
             //        }
 
             //    }
+
             //}
+        }
+        //for all 
+
+        public void UseItem(OtherWorldItem inventoryItem)//for all
+        {
+
+            OtherWorldItemSO inventItem = inventoryItem.item;
+            string category = inventoryItem.item.Category;
 
 
+            if (category == "Sword")
+            {
 
+                SwordImage.gameObject.SetActive(true);
+                SwordImage.sprite = inventoryItem.item.ItemImage;
+
+                foreach (var layer in Layers)
+                {
+
+                    if (layer.Controls)
+                    {
+                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                        if (layer.Name == "Weapon")
+                        {
+                            SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+                            Rebuild(layer);
+                        }
+
+                    }
+
+                }
+               
+            }
+
+        }
+
+        public async void HandleItemActionRequest(int itemIndex)//for all
+        {
+
+            OtherWorldItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            OtherWorldItemSO inventItem = inventoryItem.item;
+            string category = inventoryItem.item.Category;
+
+
+            if (category == "Sword")
+            {
+
+                SwordImage.gameObject.SetActive(true);
+                SwordImage.sprite = inventoryItem.item.ItemImage;
+
+                foreach (var layer in Layers)
+                {
+
+                    if (layer.Controls)
+                    {
+                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                        if (layer.Name == "Weapon")
+                        {
+                            SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+                            Rebuild(layer);
+                        }
+
+                    }
+
+                }
+                inventoryItem.item.inUse = true;
+                await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
+            }
+            
+         }
+
+        private void SetIndex(LayerEditor layer, int index)
+        {
+            if (layer.CanBeEmpty) index--;
+
+            layer.SetIndex(index);
+
+            if (layer.Name == "Body")
+            {
+                Layers.Single(i => i.Name == "Head").SetIndex(index);
+            }
+
+            Rebuild(layer);
+        }
+
+        private void Rebuild(LayerEditor layer)
+        {
+            var layers = Layers.ToDictionary(i => i.Name, i => i.SpriteData);
+
+            CharacterBuilder.Head = layers["Head"];
+            CharacterBuilder.Body = layers["Body"];
+            CharacterBuilder.Hair = layers["Hair"];
+            CharacterBuilder.Armor = layers["Armor"];
+            CharacterBuilder.Helmet = layers["Helmet"];
+            CharacterBuilder.Weapon = layers["Weapon"];
+            CharacterBuilder.Shield = layers["Shield"];
+            CharacterBuilder.Cape = layers["Cape"];
+            CharacterBuilder.Back = layers["Back"];
+            CharacterBuilder.Rebuilds(layer?.Name);
+
+
+        }
+        public async Task UpdateInventoryItem(string documentId, OtherWorldItemSO UpdatedItem)
+        {
+            try
+            {
+                // Convert the updated PCSO object to JSON
+                string updatedPCSOJson = JsonUtility.ToJson(UpdatedItem);
+                //pcsothatinUse = documentId;
+
+                if (!string.IsNullOrEmpty(GameManager.instance.SwordinUse) && GameManager.instance.SwordinUse != documentId)
+                {
+                    // Update the PCSO that was previously in use to set inUse = false
+                    await UpdateInventoryInUse(GameManager.instance.SwordinUse, false);
+                }
+
+
+                // Get a reference to the Firestore document to be updated
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance
+                    .Collection(GameManager.instance.UserCollection)
+                    .Document(GameManager.instance.UserID)
+                    .Collection("OtherWorldInventory")
+                    .Document(documentId);
+
+                // Create a dictionary to store the updated PCSO data
+                Dictionary<string, object> updateData = new Dictionary<string, object>
+        {
+            { "Items", updatedPCSOJson }
+        };
+
+                // Update the Firestore document with the new data
+                await docRef.UpdateAsync(updateData);
+                GameManager.instance.SwordinUse = documentId;
+                Debug.Log("PCSO document updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error updating PCSO document: " + ex.Message);
+            }
+        }
+
+        private async Task UpdateInventoryInUse(string ItemThatinUse, bool inUseStatus)
+        {
+            try
+            {
+                // Get a reference to the Firestore document to be updated
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance
+                    .Collection(GameManager.instance.UserCollection)
+                    .Document(GameManager.instance.UserID)
+                    .Collection("OtherWorldInventory")
+                    .Document(ItemThatinUse);
+
+                // Fetch the document snapshot
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+                // Check if the document exists
+                if (snapshot.Exists)
+                {
+                    // Deserialize the PCSO data from the Firestore document
+                    string pcsoJson = snapshot.GetValue<string>("Items");
+
+                    if (!string.IsNullOrEmpty(pcsoJson))
+                    {
+                        // Deserialize the JSON data into a PCSO object
+                        //PCSO loadedPCSO = JsonUtility.FromJson<PCSO>(pcsoJson);
+
+                        OtherWorldItemSO loadedPCSO = ScriptableObject.CreateInstance<OtherWorldItemSO>();
+
+                        // Deserialize the JSON data into the PCSO object
+                        JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+                        // Update the inUse status
+                        loadedPCSO.inUse = inUseStatus;
+
+                        // Convert the updated PCSO object back to JSON
+                        string updatedPCSOJson = JsonUtility.ToJson(loadedPCSO);
+
+                        // Create a dictionary to update the inUse status
+                        Dictionary<string, object> updateData = new Dictionary<string, object>
+                {
+                    { "Items", updatedPCSOJson }
+                };
+
+                        // Update the Firestore document with the new inUse status
+                        await docRef.UpdateAsync(updateData);
+
+                        Debug.Log("PCSO inUse status updated successfully.");
+
+
+                    }
+                    else
+                    {
+                        Debug.LogWarning("PCSO JSON data is empty or invalid.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("PCSO document does not exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error updating PCSO inUse status: " + ex.Message);
+            }
         }
 
 
