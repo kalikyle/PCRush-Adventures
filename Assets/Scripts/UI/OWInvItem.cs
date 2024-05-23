@@ -20,6 +20,10 @@ namespace OtherWorld.UI
         private TMP_Text itemQuantity;
         [SerializeField]
         private Image borderImage;
+        [SerializeField]
+        public Image EquippedImage;
+        [SerializeField]
+        public Image QuantityPanel;
 
 
         //this whole code is for the border only when its clicked and also when dragged

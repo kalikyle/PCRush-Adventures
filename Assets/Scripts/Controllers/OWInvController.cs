@@ -80,6 +80,8 @@ namespace OtherWorld
             }
             //inventoryData.PartsSaveItems();
             //inventoryData.SaveItems();
+            //StartCoroutine(OtherWorldInventory());
+            //inventoryData.OnInventoryUpdated += UpdateInventoryUI;
 
 
 
@@ -204,7 +206,7 @@ namespace OtherWorld
             //inventoryUI.ResetAllItems();
             foreach (var item in inventoryState)
             {
-                inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity, item.Value.item.Name);
+                inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity, item.Value.item.Name, item.Value.item.inUse);
             }
         }
 
@@ -232,6 +234,7 @@ namespace OtherWorld
             inventoryUI.InitializeInventoryUI(GetUsedSlotsCount());
             //inventoryData.PartsSaveItems();
             OpenInvBTN();
+           
 
 
         }
@@ -259,7 +262,7 @@ namespace OtherWorld
 
                 foreach (var item in InventoryfilteredItems)
                 {
-                    inventoryUI.UpdateData(i, item.item.ItemImage, item.quantity, item.item.Name);
+                    inventoryUI.UpdateData(i, item.item.ItemImage, item.quantity, item.item.Name, item.item.inUse);
                     i++;
                 }
             }
@@ -280,7 +283,7 @@ namespace OtherWorld
             //DisplayText.text = "Inventory".ToUpper();
             foreach (var item in inventoryData.GetCurrentInventoryState())
             {
-                inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity, item.Value.item.Name);
+                inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity, item.Value.item.Name, item.Value.item.inUse);
             }
            
 
