@@ -71,11 +71,43 @@ namespace OtherWorld.UI
 
         }
 
-        public void UpdateData(int itemIndex, Sprite ItemImage, int quantity, string ItemName)
+        public void UpdateData(int itemIndex, Sprite ItemImage, int quantity, string ItemName, bool InUse)
         {
             if (ListofItems.Count > itemIndex)
             {
-                ListofItems[itemIndex].SetData(ItemImage, quantity, ItemName);
+                
+
+
+                if (InUse == true)
+                {
+                    ListofItems[itemIndex].SetData(ItemImage, quantity, ItemName);
+                    ListofItems[itemIndex].EquippedImage.gameObject.SetActive(true);
+                    UpdateQuantity(quantity, itemIndex);
+
+                }
+                else
+                {
+                    ListofItems[itemIndex].SetData(ItemImage, quantity, ItemName);
+                    ListofItems[itemIndex].EquippedImage.gameObject.SetActive(false);
+                    UpdateQuantity(quantity, itemIndex);
+                }
+
+
+
+
+            }
+        }
+
+        public void UpdateQuantity(int quantity, int itemIndex)
+        {
+
+            if (quantity == 1)
+            {
+                ListofItems[itemIndex].QuantityPanel.gameObject.SetActive(false);
+            }
+            else
+            {
+                ListofItems[itemIndex].QuantityPanel.gameObject.SetActive(true);
             }
         }
 
