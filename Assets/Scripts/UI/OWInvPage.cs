@@ -26,6 +26,7 @@ namespace OtherWorld.UI
 
         public event Action<int> OnDescriptionRequested, OnItemActionRequested, OnStartDragging;
         public event Action<int, int> OnSwapItems;
+        public GameObject InventPanel;
         // Start is called before the first frame update
         private void Awake()
         {
@@ -177,8 +178,8 @@ namespace OtherWorld.UI
         public void Show()
         {
 
-            //PartsInventPanel.gameObject.SetActive(true);
-            itemDesc.ResetDescription();
+            InventPanel.gameObject.SetActive(true);
+            //itemDesc.ResetDescription();
             //OWC.XButton.gameObject.SetActive(true);
             ResetSelection();
         }
@@ -209,7 +210,7 @@ namespace OtherWorld.UI
         public void Hide()
         {
             itemDesc.Hide();
-            //PartsInventPanel.gameObject.SetActive(false);
+            InventPanel.gameObject.SetActive(false);
             //OWC.XButton.gameObject.SetActive(false);
             ResetDraggedItem();
         }

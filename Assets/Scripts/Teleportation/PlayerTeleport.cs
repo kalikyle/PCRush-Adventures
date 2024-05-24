@@ -15,6 +15,7 @@ public class PlayerTeleport : MonoBehaviour
         public GameObject Desktop;
         public GameObject GameMap;
 
+        public GameObject InvBTN;
         public Button Enter;
         public TMP_Text Name;
         public TMP_Text WorldName;
@@ -54,6 +55,7 @@ public class PlayerTeleport : MonoBehaviour
         WorldName.text = "CPU World";
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
+        InvBTN.gameObject.SetActive(true);
     }
     public void TheTeleporter()
     {
@@ -72,6 +74,7 @@ public class PlayerTeleport : MonoBehaviour
                 WorldName.text = "Home World";
                 BackToHomeWorld = false;
                 GameManager.instance.LoadCharacter();
+                InvBTN.gameObject.SetActive(false);
             }
            
             LTA.OpenTeleAnim();
@@ -149,6 +152,9 @@ public class PlayerTeleport : MonoBehaviour
         {
             homeTeleport = collision.gameObject;
             BackToHomeWorld = true;
+            Enter.gameObject.SetActive(true);
+
+            Name.text = "Back To Home";
         }
 
         //otherworldhouses

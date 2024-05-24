@@ -11,7 +11,6 @@ using System.Diagnostics;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Firebase.Firestore;
-using static TreeEditor.TextureAtlas;
 using System.Collections;
 using System.Reflection;
 using System.Drawing;

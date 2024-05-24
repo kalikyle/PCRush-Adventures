@@ -26,7 +26,7 @@ using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
 using static Inventory.Model.PartsInventorySO;
 using static OtherWorld.Model.OWInvSO;
-//using static UnityEditor.Progress;
+//
 //using static UnityEditorInternal.ReorderableList;
 
 public class GameManager : MonoBehaviour
@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text PlayerDesk;
     public TMP_Text Playerui;
     public Image PlayerImage;
+    public Image PlayerOWImage;
     //public Sprite playersprite;
 
     public int packagescollected = 0;

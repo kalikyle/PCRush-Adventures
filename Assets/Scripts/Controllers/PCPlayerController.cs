@@ -22,7 +22,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static Inventory.Model.PartsInventorySO;
 //using static Inventory.Model.InventorySO;
-//using static UnityEditor.Progress;
+//
 using Image = UnityEngine.UI.Image;
 
 namespace PC

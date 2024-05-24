@@ -11,7 +11,7 @@ using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
 using static Inventory.Model.PartsInventorySO;
 using static OtherWorld.Model.OWInvSO;
-using static UnityEditor.Progress;
+
 
 public class SwordBuy : MonoBehaviour
 {

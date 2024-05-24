@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
-//using static UnityEditor.Progress;
+//
 
 public class ShopBuy : MonoBehaviour
 {
