@@ -7,7 +7,6 @@ using Firebase.Extensions;
 using Firebase.Firestore;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Assets.PixelHeroes.Scripts.CharacterScrips
 {
@@ -201,6 +200,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
                 _rebuildSprite.name = "PlayerSprite";
 
                 DialogueManager.GetInstance().PlayerSprite = _rebuildSprite;
+
                 //bool spriteExists = false;
 
                 //foreach (var sprite in DialogueManager.GetInstance().PlayerSprite)
@@ -223,6 +223,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
                 //}
 
                 //GameManager.instance.playersprite = _rebuildSprite;
+                GameManager.instance.PlayerOWImage.sprite = _rebuildSprite;
                 GameManager.instance.PlayerImage.sprite = _rebuildSprite;
 
             }

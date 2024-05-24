@@ -240,7 +240,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private bool canMove = true;
         private bool moving = false;
 
-        private string[] attackAnimations = { "Slash", "Attack", "Jab" , "Shot"};
+        private string[] attackAnimations = { "Slash", "Attack", "Jab"};
 
         private void Awake()
         {

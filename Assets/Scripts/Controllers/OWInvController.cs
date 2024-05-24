@@ -61,9 +61,13 @@ namespace OtherWorld
 
         private void HandleUseButton()
         {
+           
+            
 
             int tempIndex = GameManager.instance.OWstempindex;
             Debug.Log("Using item with temporary index: " + tempIndex);
+
+          
 
 
             if (ToogleFiltered)
@@ -78,15 +82,32 @@ namespace OtherWorld
                 HandleItemActionRequest(tempIndex);
 
             }
-            //inventoryData.PartsSaveItems();
-            //inventoryData.SaveItems();
-            //StartCoroutine(OtherWorldInventory());
-            //inventoryData.OnInventoryUpdated += UpdateInventoryUI;
+
+
+
+            StartCoroutine(OpenOtherWorldInventory());
+
+
+
+
+
+
 
 
 
         }
 
+        public IEnumerator OpenOtherWorldInventory()
+        {
+
+            inventoryData.OWinventoryItems.Clear();
+            yield return new WaitForSeconds(.2f);
+            LoadItemsList();
+            yield return new WaitForSeconds(.2f);
+            ToggleALLButton();
+            
+
+        }
         public void Awake()
         {
             //StartCoroutine(OtherWorldInventory());
@@ -106,6 +127,7 @@ namespace OtherWorld
         {
             var spriteArray = GameManager.instance.SpriteCollections.Layers;
             int spriteIndex;
+            GameManager.instance.SwordsDocumentIds.Clear();
             if (GameManager.instance.UserID != "")
             {
                 inventoryData.Initialize();
@@ -166,7 +188,7 @@ namespace OtherWorld
 
                         if (inventoryItem.item.Category == "Sword")
                         {
-                            
+                           
                             GameManager.instance.SwordsDocumentIds.Add(documentId);
                             if (inventoryItem.item.inUse)
                             {
@@ -195,7 +217,12 @@ namespace OtherWorld
             inventoryData.AddItem(updatedItems);
             inventoryData.OWSaveItems(updatedItems.item, updatedItems.quantity);
             //initialItems.Clear();
+
+            inventoryData.OWinventoryItems.Clear();
+            StartCoroutine(OtherWorldInventory());
         }
+
+        
 
         public List<OtherWorldItem> InventoryfilteredItems;
         public Dictionary<int, int> tempToOriginalIndexMapping = new Dictionary<int, int>();
@@ -208,6 +235,8 @@ namespace OtherWorld
             {
                 inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity, item.Value.item.Name, item.Value.item.inUse);
             }
+
+            
         }
 
         private int GetUsedSlotsCount()//this will only used the slots with items
