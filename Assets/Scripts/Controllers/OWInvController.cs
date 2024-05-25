@@ -36,7 +36,7 @@ namespace OtherWorld
         public CharacterBuilder CharacterBuilder;
 
         public Image SwordImage;
-
+        public Image ArmorImage;
         public Button EquipBTN;
 
         //public OWInvItem items;
@@ -127,7 +127,9 @@ namespace OtherWorld
         {
             var spriteArray = GameManager.instance.SpriteCollections.Layers;
             int spriteIndex;
-            GameManager.instance.SwordsDocumentIds.Clear();
+            GameManager.instance.SwordDocumentIds.Clear();
+            GameManager.instance.ArmorDocumentIds.Clear();
+            GameManager.instance.AllDocumentIds.Clear();
             if (GameManager.instance.UserID != "")
             {
                 inventoryData.Initialize();
@@ -165,40 +167,53 @@ namespace OtherWorld
                         inventoryItem.item = loadedItem;
                         inventoryItem.quantity = intJson;
 
-
-                        spriteIndex = loadedItem.SpriteIndex;
-                        if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-                        {
-
-                            Texture2D texture = spriteArray[8].Textures[spriteIndex];
-                            Texture2D text2 = spriteArray[8].GetIcon(texture);
-                            // Create a sprite from the texture
-                            Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
-
-  
-
-                            inventoryItem.item.ItemImage = sprite;
-
-                        }
-
-
-
-
-                        inventoryData.AddItem(inventoryItem);
-
                         if (inventoryItem.item.Category == "Sword")
                         {
+                            spriteIndex = loadedItem.SpriteIndex;
+                            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+                            {
+
+                                Texture2D texture = spriteArray[8].Textures[spriteIndex];
+                                Texture2D text2 = spriteArray[8].GetIcon(texture);
+                                // Create a sprite from the texture
+                                Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+                                inventoryItem.item.ItemImage = sprite;
+
+                            }
+                                inventoryData.AddItem(inventoryItem);
+                                GameManager.instance.SwordDocumentIds.Add(documentId);
+                                if (inventoryItem.item.inUse)
+                                {
+                                    //UseloadComputer(loadedPCSO);
+                                    UseItem(inventoryItem);
+                                    GameManager.instance.SwordinUse = documentId;
+                                }
+
                            
-                            GameManager.instance.SwordsDocumentIds.Add(documentId);
+                        }else if (inventoryItem.item.Category == "Armor")
+                        {
+                            spriteIndex = loadedItem.SpriteIndex;
+                            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+                            {
+
+                                Texture2D texture = spriteArray[3].Textures[spriteIndex];
+                                Texture2D text2 = spriteArray[3].GetIcon(texture);
+                                // Create a sprite from the texture
+                                Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+                                inventoryItem.item.ItemImage = sprite;
+
+                            }
+                            inventoryData.AddItem(inventoryItem);
+                            GameManager.instance.ArmorDocumentIds.Add(documentId);
                             if (inventoryItem.item.inUse)
                             {
                                 //UseloadComputer(loadedPCSO);
                                 UseItem(inventoryItem);
-                                GameManager.instance.SwordinUse = documentId;
+                                GameManager.instance.ArmorinUse = documentId;
                             }
-
-                           
                         }
+
+                        GameManager.instance.AllDocumentIds.Add(documentId);
                     }
                 }
 
@@ -363,10 +378,17 @@ namespace OtherWorld
             }
             OtherWorldItemSO item = inventoryItem.item;
             inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name, item.Category, item.Attack.ToString());
-            if (item.Category == "Sword")
-            {
-                GameManager.instance.clickedInventoryItemID = GameManager.instance.SwordsDocumentIds[itemIndex];
-            }
+
+            //if (item.Category == "Sword")
+            //{
+            //    GameManager.instance.clickedInventoryItemID = GameManager.instance.SwordDocumentIds[itemIndex];
+            //}
+            //else if (item.Category == "Armor")
+            //{
+            //    GameManager.instance.clickedInventoryItemID = GameManager.instance.ArmorDocumentIds[itemIndex];
+            //}
+            GameManager.instance.clickedInventoryItemID = GameManager.instance.AllDocumentIds[itemIndex];
+
 
 
         }
@@ -380,11 +402,17 @@ namespace OtherWorld
                     OtherWorldItemSO item = shopItem.item;
                     inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, item.Attack.ToString());//update description
 
-                    if(item.Category == "Sword")
-                    {
-                        GameManager.instance.clickedInventoryItemID = GameManager.instance.SwordsDocumentIds[obj];
-                    }
-                    
+                    //if(item.Category == "Sword")
+                    //{
+                    //    GameManager.instance.clickedInventoryItemID = GameManager.instance.SwordDocumentIds[obj];
+                    //}
+                    //else if (item.Category == "Armor")
+                    //{
+                    //    GameManager.instance.clickedInventoryItemID = GameManager.instance.ArmorDocumentIds[obj];
+                    //}
+
+                    GameManager.instance.clickedInventoryItemID = GameManager.instance.AllDocumentIds[obj];
+
                 }
             }
         }
@@ -517,6 +545,30 @@ namespace OtherWorld
                 }
                
             }
+            else if (category == "Armor")
+            {
+
+                ArmorImage.gameObject.SetActive(true);
+                ArmorImage.sprite = inventoryItem.item.ItemImage;
+
+                foreach (var layer in Layers)
+                {
+
+                    if (layer.Controls)
+                    {
+                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                        if (layer.Name == "Armor")
+                        {
+                            SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+                            Rebuild(layer);
+                        }
+
+                    }
+
+                }
+
+            }
 
         }
 
@@ -553,8 +605,33 @@ namespace OtherWorld
                 inventoryItem.item.inUse = true;
                 await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
             }
-            
-         }
+            else if (category == "Armor")
+            {
+
+                ArmorImage.gameObject.SetActive(true);
+                ArmorImage.sprite = inventoryItem.item.ItemImage;
+
+                foreach (var layer in Layers)
+                {
+
+                    if (layer.Controls)
+                    {
+                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                        if (layer.Name == "Armor")
+                        {
+                            SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+                            Rebuild(layer);
+                        }
+
+                    }
+
+                }
+                inventoryItem.item.inUse = true;
+                await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
+            }
+
+        }
 
         private void SetIndex(LayerEditor layer, int index)
         {
@@ -594,12 +671,24 @@ namespace OtherWorld
                 // Convert the updated PCSO object to JSON
                 string updatedPCSOJson = JsonUtility.ToJson(UpdatedItem);
                 //pcsothatinUse = documentId;
-
-                if (!string.IsNullOrEmpty(GameManager.instance.SwordinUse) && GameManager.instance.SwordinUse != documentId)
+                if(UpdatedItem.Category == "Sword")
                 {
-                    // Update the PCSO that was previously in use to set inUse = false
-                    await UpdateInventoryInUse(GameManager.instance.SwordinUse, false);
+                    if (!string.IsNullOrEmpty(GameManager.instance.SwordinUse) && GameManager.instance.SwordinUse != documentId)
+                    {
+                        // Update the PCSO that was previously in use to set inUse = false
+                        await UpdateInventoryInUse(GameManager.instance.SwordinUse, false);
+                    }
+
+                }else if (UpdatedItem.Category == "Armor")
+                {
+                    if (!string.IsNullOrEmpty(GameManager.instance.ArmorinUse) && GameManager.instance.ArmorinUse != documentId)
+                    {
+                        // Update the PCSO that was previously in use to set inUse = false
+                        await UpdateInventoryInUse(GameManager.instance.ArmorinUse, false);
+                    }
                 }
+
+               
 
 
                 // Get a reference to the Firestore document to be updated
@@ -617,7 +706,15 @@ namespace OtherWorld
 
                 // Update the Firestore document with the new data
                 await docRef.UpdateAsync(updateData);
-                GameManager.instance.SwordinUse = documentId;
+
+                if(UpdatedItem.Category == "Sword")
+                {
+                    GameManager.instance.SwordinUse = documentId;
+                }else if (UpdatedItem.Category == "Armor")
+                {
+                    GameManager.instance.ArmorinUse = documentId;
+                }
+               
                 Debug.Log("PCSO document updated successfully.");
             }
             catch (Exception ex)

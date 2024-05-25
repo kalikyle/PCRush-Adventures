@@ -14,22 +14,34 @@ public class InternetChecker : MonoBehaviour
             Debug.LogError("Target GameObject is not assigned.");
             return;
         }
+
+        StartCoroutine(CheckInternetPeriodically());
     }
 
-    private void Update()
+  
+    private IEnumerator CheckInternetPeriodically()
     {
-        CheckInternet();
+        while (true)
+        {
+            CheckInternet();
+            yield return new WaitForSeconds(3f);
+        }
     }
 
     private void CheckInternet()
     {
-        if (Application.internetReachability == NetworkReachability.NotReachable)
+        NetworkReachability reachability = Application.internetReachability;
+        Debug.Log("Internet Reachability: " + reachability);
+
+        if (reachability == NetworkReachability.NotReachable)
         {
             targetGameObject.gameObject.SetActive(true);
+            Debug.Log("No internet connection.");
         }
         else
         {
             targetGameObject.gameObject.SetActive(false);
+            Debug.Log("Internet connection available.");
         }
     }
 }

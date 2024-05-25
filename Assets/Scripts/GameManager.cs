@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
     public GameObject InGamePanel;
 
     public GameObject SwordDealerPanel;
+    public GameObject ArmorDealerPanel;
 
     //public GameObject DecorClickedUI;
 
@@ -122,7 +123,12 @@ public class GameManager : MonoBehaviour
 
     public void OpenSwordShop()
     {
-        Equipments.OpenShop();
+        Equipments.SwordsOpenShop();
+    }
+
+    public void OpenArmorShop()
+    {
+        Equipments.ArmorsOpenShop();
     }
     public void PlayerDeskName()
     {
@@ -399,8 +405,8 @@ public class GameManager : MonoBehaviour
 
 
 
-
-    public List<string> SwordsDocumentIds = new List<string>();
+    public List<string> AllDocumentIds = new List<string>();
+    public List<string> SwordDocumentIds = new List<string>();
     public string SwordinUse;
     public List<string> ArmorDocumentIds = new List<string>();
     public string ArmorinUse;
@@ -452,8 +458,14 @@ public class GameManager : MonoBehaviour
 
         if(invItem.Category == "Sword")
         {
-            SwordsDocumentIds.Insert(0, docRef.Id);
+            SwordDocumentIds.Insert(0, docRef.Id);
         }
+        if (invItem.Category == "Armor")
+        {
+            ArmorDocumentIds.Insert(0, docRef.Id);
+        }
+
+        AllDocumentIds.Insert(0,docRef.Id);
 
         //pcsoDocumentIds.Insert(0, docRef.Id);
 

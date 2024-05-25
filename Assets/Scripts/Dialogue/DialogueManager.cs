@@ -176,16 +176,17 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case CHOICE_TAG:
-                    if (tagValue.Equals("yes"))
+                    if (tagValue.Equals("swordyes"))
                     {
+                       
                        
                             GameManager.instance.SwordDealerPanel.SetActive(true);
                             GameManager.instance.OpenSwordShop();
                         
-                        
-                            
-                        
-                        
+                    }else if (tagValue.Equals("Armoryes"))
+                    {
+                        GameManager.instance.ArmorDealerPanel.SetActive(true);
+                        GameManager.instance.OpenArmorShop();
                     }
                     
 
@@ -285,4 +286,5 @@ public class DialogueManager : MonoBehaviour
         // Continue the story until reaching the desired knot
 
     }
+  
 }
