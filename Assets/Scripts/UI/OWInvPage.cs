@@ -244,9 +244,9 @@ namespace OtherWorld.UI
             ListofItems.Add(uiItem);//add shop items in the list
             uiItem.SetData(ItemImage, quantity, ItemName);
 
-            //int itemIndex = OWC.InventoryfilteredItems.Count - 1;//this is for the filtered items
-            //Debug.Log(OWC.InventoryfilteredItems.Count);
-           // uiItem.SetTemporaryIndex(itemIndex);
+            int itemIndex = OWC.InventoryfilteredItems.Count - 1;//this is for the filtered items
+            Debug.Log(OWC.InventoryfilteredItems.Count);
+            uiItem.SetTemporaryIndex(itemIndex);
 
 
             uiItem.OnItemClickeds += (tempIndex) =>
@@ -256,7 +256,7 @@ namespace OtherWorld.UI
                 if (OWC != null)
                 {
 
-                    //OWC.HandleItemSelection(tempIndex);
+                    OWC.HandleItemSelection(tempIndex);
 
 
 

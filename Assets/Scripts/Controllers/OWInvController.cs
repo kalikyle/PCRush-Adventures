@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static Inventory.Model.PartsInventorySO;
@@ -38,6 +39,7 @@ namespace OtherWorld
         public Image SwordImage;
         public Image ArmorImage;
         public Button EquipBTN;
+        public TMP_Dropdown DropDcategory;
 
         //public OWInvItem items;
 
@@ -57,7 +59,27 @@ namespace OtherWorld
             EquipBTN.onClick.AddListener(HandleUseButton);
 
         }
+        public string openedCategory;
+        public void HandleCategory(int val)
+        {
 
+            switch (val)
+            {
+                case 0://all
+                    ToggleALLButton();
+                    openedCategory = null;
+                    break;
+                case 1:
+                    OpenFiltered("Sword");
+                    openedCategory = "Sword";
+
+                    break;
+                case 2:
+                    OpenFiltered("Armor");
+                    openedCategory = "Armor";
+                    break;
+            }
+        }
 
         private void HandleUseButton()
         {
@@ -84,8 +106,14 @@ namespace OtherWorld
             }
 
 
-
-            StartCoroutine(OpenOtherWorldInventory());
+            if(ToogleFiltered == false) {
+                StartCoroutine(OpenOtherWorldInventory());
+            }
+            else
+            {
+                StartCoroutine(OpenOtherWorldInventoryCategory());
+            }
+           
 
 
 
@@ -108,6 +136,18 @@ namespace OtherWorld
             
 
         }
+        public IEnumerator OpenOtherWorldInventoryCategory()
+        {
+
+            inventoryData.OWinventoryItems.Clear();
+            yield return new WaitForSeconds(.2f);
+            LoadItemsList();
+            yield return new WaitForSeconds(.2f);
+            OpenFiltered(openedCategory);
+
+
+        }
+
         public void Awake()
         {
             //StartCoroutine(OtherWorldInventory());
@@ -276,6 +316,8 @@ namespace OtherWorld
             inventoryUI.ResetSelection();
             inventoryUI.ClearItems();
             inventoryUI.InitializeInventoryUI(GetUsedSlotsCount());
+            //HandleCategory(0);
+            DropDcategory.value = 0;
             //inventoryData.PartsSaveItems();
             OpenInvBTN();
            
@@ -300,8 +342,8 @@ namespace OtherWorld
             //infocategory = category;
             //DisplayText.text = category;
             int i = 0;
-            if (inventoryUI.isActiveAndEnabled == false)
-            {
+            //if (inventoryUI.isActiveAndEnabled == false)
+            //{
                 inventoryUI.Show();
 
                 foreach (var item in InventoryfilteredItems)
@@ -309,12 +351,12 @@ namespace OtherWorld
                     inventoryUI.UpdateData(i, item.item.ItemImage, item.quantity, item.item.Name, item.item.inUse);
                     i++;
                 }
-            }
-            else
-            {
-                inventoryUI.Hide();
+            //}
+            //else
+            //{
+            //    //inventoryUI.Hide();
 
-            }
+            //}
         }
 
         public void OpenInvBTN()
@@ -402,16 +444,16 @@ namespace OtherWorld
                     OtherWorldItemSO item = shopItem.item;
                     inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, item.Attack.ToString());//update description
 
-                    //if(item.Category == "Sword")
-                    //{
-                    //    GameManager.instance.clickedInventoryItemID = GameManager.instance.SwordDocumentIds[obj];
-                    //}
-                    //else if (item.Category == "Armor")
-                    //{
-                    //    GameManager.instance.clickedInventoryItemID = GameManager.instance.ArmorDocumentIds[obj];
-                    //}
+                    if (item.Category == "Sword")
+                    {
+                        GameManager.instance.clickedInventoryItemID = GameManager.instance.SwordDocumentIds[obj];
+                    }
+                    else if (item.Category == "Armor")
+                    {
+                        GameManager.instance.clickedInventoryItemID = GameManager.instance.ArmorDocumentIds[obj];
+                    }
 
-                    GameManager.instance.clickedInventoryItemID = GameManager.instance.AllDocumentIds[obj];
+                    //GameManager.instance.clickedInventoryItemID = GameManager.instance.AllDocumentIds[obj];
 
                 }
             }
@@ -426,91 +468,70 @@ namespace OtherWorld
             }
         }
 
-        public void HandleItemRightActionRequest(int tempIndex)//for filtered
+        public async void HandleItemRightActionRequest(int tempIndex)//for filtered
         {
 
-            //if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndex))
-            //{
+            if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndex))
+            {
 
-            //    InventoryItem inventoryItem = InventoryfilteredItems[originalIndex];
-            //    string category = inventoryItem.item.Category;
-            //    if (HasItemBeenUsed(inventoryItem))
-            //    {
-            //        inventoryUI.Hide();
-            //        DialogBox.gameObject.SetActive(true);
-            //        DialogText.text = "Item already In use...";
-            //        CanYesButton.gameObject.SetActive(false);
-            //        CanNoButton.gameObject.SetActive(false);
-            //        DisYesButton.gameObject.SetActive(false);
-            //        DisNoButton.gameObject.SetActive(false);
-            //        DialogButton.gameObject.SetActive(true);
-            //    }
-            //    else
-            //    {
-            //        // useSound.Play();
-            //        usedItems.Remove(inventoryItem);
-            //        UseItems(inventoryItem, category);
-            //        int index = inventoryData.inventoryItems.IndexOf(inventoryItem);
-
-            //        inventoryData.RemoveItem(index, 1);
-            //        BackItem(inventoryItem, category);
-
-            //        //  totalUsedItemsPrice += inventoryItem.item.Price;
-            //        //DisplayPrices(totalUsedItemsPrice);
-
-            //        if (category != "Case")
-            //        {
-            //            Unused(inventoryItem, category);
-            //        }
-
-            //        if (CaseImage.sprite == null && MBImage.sprite == null)
-            //        {
-            //            usedItems.Remove(inventoryItem);
-            //        }
-            //        else if (CaseImage.sprite == null || MBImage.sprite == null)
-            //        {
-            //            usedItems.Remove(inventoryItem);
-            //        }
-            //        else
-            //        {
-            //            usedItems.Add(inventoryItem);
-            //        }
-
-            //        if (category == "CPU")
-            //        {
-            //            // ApplyThermal.gameObject.SetActive(true);
-            //            // AT.SetCPUImage(inventoryItem.item.ItemImage);
-            //        }
-
-            //        if (category == "PSU")
-            //        {
-            //            if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
-            //            {
-            //                DialogBox.gameObject.SetActive(true);
-            //                DialogText.text = "Can't Use this " + category + " without the needed Parts";
-            //                CanYesButton.gameObject.SetActive(false);
-            //                CanNoButton.gameObject.SetActive(false);
-            //                DisYesButton.gameObject.SetActive(false);
-            //                DisNoButton.gameObject.SetActive(false);
-            //                DialogButton.gameObject.SetActive(true);
-            //                try
-            //                {
-            //                    HandleBackItem(category);
-
-            //                }
-            //                catch (Exception) { }
-            //            }
-            //            else
-            //            {
-            //                //SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
-            //            }
+                OtherWorldItem inventoryItem = InventoryfilteredItems[originalIndex];
+                OtherWorldItemSO inventItem = inventoryItem.item;
+                string category = inventoryItem.item.Category;
 
 
-            //        }
 
-            //    }
+                if (category == "Sword")
+                {
 
-            //}
+                    SwordImage.gameObject.SetActive(true);
+                    SwordImage.sprite = inventoryItem.item.ItemImage;
+
+                    foreach (var layer in Layers)
+                    {
+
+                        if (layer.Controls)
+                        {
+                            layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                            if (layer.Name == "Weapon")
+                            {
+                                SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+                                Rebuild(layer);
+                            }
+
+                        }
+
+                    }
+                    inventoryItem.item.inUse = true;
+                    await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
+                }
+                else if (category == "Armor")
+                {
+
+                    ArmorImage.gameObject.SetActive(true);
+                    ArmorImage.sprite = inventoryItem.item.ItemImage;
+
+                    foreach (var layer in Layers)
+                    {
+
+                        if (layer.Controls)
+                        {
+                            layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                            if (layer.Name == "Armor")
+                            {
+                                SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+                                Rebuild(layer);
+                            }
+
+                        }
+
+                    }
+                    inventoryItem.item.inUse = true;
+                    await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
+                }
+
+            }
         }
         //for all 
 
