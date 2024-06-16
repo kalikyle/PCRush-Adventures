@@ -458,6 +458,12 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
                                     // Repeat for other fields...
 
 
+                                    // Initialize the DefaultCharacter dictionary
+                                    GameManager.instance.DefaultCharacter["Helmet"] = Helmet;
+                                    GameManager.instance.DefaultCharacter["Shield"] = Shield;
+                                    GameManager.instance.DefaultCharacter["Armor"] = Armor;
+                                    GameManager.instance.DefaultCharacter["Weapon"] = Weapon;
+
                                     // Rebuild character using the loaded data
                                     Rebuild();
                                     CombineHeadAndHairSprites();
