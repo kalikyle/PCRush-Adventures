@@ -120,6 +120,8 @@ public class GameManager : MonoBehaviour
     
     public QuestEvent questEvents;
 
+    public Dictionary<string, string> DefaultCharacter = new Dictionary<string, string>();
+
 
     public void OpenSwordShop()
     {

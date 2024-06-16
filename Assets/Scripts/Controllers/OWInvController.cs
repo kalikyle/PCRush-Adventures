@@ -41,6 +41,10 @@ namespace OtherWorld
         public Button EquipBTN;
         public TMP_Dropdown DropDcategory;
 
+
+        public Button SwordXBTN;
+        public Button ArmorXBTN;
+
         //public OWInvItem items;
 
 
@@ -57,6 +61,8 @@ namespace OtherWorld
             inventoryUI.OnItemActionRequested += HandleItemActionRequest;
             OnDescriptionRequested += HandleDescriptionRequests;
             EquipBTN.onClick.AddListener(HandleUseButton);
+            SwordXBTN.onClick.AddListener(() => BackOWEquipment("Sword"));
+            ArmorXBTN.onClick.AddListener(() => BackOWEquipment("Armor"));
 
         }
         public string openedCategory;
@@ -262,6 +268,7 @@ namespace OtherWorld
             }
         }
 
+       
         public void UpdateInventory(OtherWorldItem updatedItems)
         {
             //inventoryData.inventoryItems.Clear();
@@ -468,6 +475,123 @@ namespace OtherWorld
             }
         }
 
+        public int FindLayerIndex(string layerName, string textureName)
+        {
+            int layerIndex = -1;
+            for (int i = 0; i < GameManager.instance.SpriteCollections.Layers.Count; i++)
+            {
+                if (GameManager.instance.SpriteCollections.Layers[i].Name == layerName)
+                {
+                    layerIndex = i;
+                    break;
+                }
+            }
+
+            // If the layer with the specified name is found
+            if (layerIndex != -1)
+            {
+                // Iterate through the textures of the specified layer
+                var textures = GameManager.instance.SpriteCollections.Layers[layerIndex].Textures;
+                for (int j = 0; j < textures.Count; j++)
+                {
+                    // Check if the name of the current texture matches the input textureName
+                    if (textures[j].name == textureName)
+                    {
+                        // Return the index of the texture within the layer
+                        return j;
+                    }
+                }
+            }
+
+            // Return -1 if the layerName or textureName is not found in the SpriteCollection
+            return -1;
+        }
+        public async void BackOWEquipment(string category)
+        {
+            
+            if (category == "Sword")
+            {
+
+                SwordImage.gameObject.SetActive(false);
+                SwordImage.sprite = null;
+
+                if (!string.IsNullOrEmpty(GameManager.instance.SwordinUse))
+                {
+                    // Update the PCSO that was previously in use to set inUse = false
+                    await UpdateInventoryInUse(GameManager.instance.SwordinUse, false);
+                }
+
+                string[] Weaponparts = GameManager.instance.DefaultCharacter["Weapon"].Split('#');
+                string WeaponTextureName = Weaponparts[0];
+
+                int WeaponIndex = FindLayerIndex("Weapon", WeaponTextureName);
+
+                foreach (var layer in Layers)
+                {
+
+                    if (layer.Controls)
+                    {
+                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                        if (layer.Name == "Weapon")
+                        {
+                            SetIndex(layer, WeaponIndex + (layer.CanBeEmpty ? 1 : 0));
+                            Rebuild(layer);
+                        }
+
+                    }
+
+                }
+
+            }
+
+            if (category == "Armor")
+            {
+
+                ArmorImage.gameObject.SetActive(false);
+                ArmorImage.sprite = null;
+
+                if (!string.IsNullOrEmpty(GameManager.instance.ArmorinUse))
+                {
+                    
+                    await UpdateInventoryInUse(GameManager.instance.ArmorinUse, false);
+                }
+
+                string[] Armorparts = GameManager.instance.DefaultCharacter["Armor"].Split('#');
+                string ArmorTextureName = Armorparts[0];
+
+                int ArmorIndex = FindLayerIndex("Armor", ArmorTextureName);
+
+                foreach (var layer in Layers)
+                {
+
+                    if (layer.Controls)
+                    {
+                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                        if (layer.Name == "Armor")
+                        {
+                            SetIndex(layer, ArmorIndex + (layer.CanBeEmpty ? 1 : 0));
+                            Rebuild(layer);
+                        }
+
+                    }
+
+                }
+
+            }
+
+
+            if (ToogleFiltered == false)
+            {
+                StartCoroutine(OpenOtherWorldInventory());
+            }
+            else
+            {
+                StartCoroutine(OpenOtherWorldInventoryCategory());
+            }
+
+        }
         public async void HandleItemRightActionRequest(int tempIndex)//for filtered
         {
 
