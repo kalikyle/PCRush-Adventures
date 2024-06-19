@@ -227,6 +227,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public Character Character;
         public float WalkSpeed = 1f;
         public int runSpeed = 2;
+        public float pushForce = 5f;
 
         public PlayerTeleport playerTeleport;
 
@@ -236,6 +237,11 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public Canvas NoInternet;
 
         public Rigidbody2D r2d;
+
+        //public GameObject gameObjects;
+        public Transform CircleOrigin;
+        public float radius;
+        //public Health health;
 
         private bool canMove = true;
         private bool moving = false;
@@ -264,8 +270,110 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
             return false;
         }
-    
 
+
+        //private void Update()
+        //{
+        //    if (!NoInternet.isActiveAndEnabled)
+        //    {
+        //        if (!DialogueManager.GetInstance().dialogueIsPlaying)
+        //        {
+        //            if (!playerTeleport.DeskPanel.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
+        //            {
+        //                // Check if movement is allowed
+        //                if (canMove)
+        //                {
+        //                    // Handle movement input
+        //                    _input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
+        //                    _input.y = UnityEngine.Input.GetAxisRaw("Vertical");
+
+        //                    // Set animation parameters based on input
+        //                    if (_input != Vector2.zero)
+        //                    {
+        //                        _input.Normalize();
+
+        //                        // Turn the character based on input direction
+        //                        if (_input.x < 0) // If moving left
+        //                        {
+        //                            Turn(-1); // Turn left (face left)
+        //                        }
+        //                        else if (_input.x > 0) // If moving right
+        //                        {
+        //                            Turn(1); // Turn right (face right)
+        //                        }
+        //                        // Calculate velocity vector based on input and speed
+        //                        Vector2 velocity = _input * WalkSpeed;
+        //                        // Apply velocity to Rigidbody2D
+        //                        r2d.velocity = velocity;
+        //                        Move(_input);
+
+        //                        // Stop the attack animation if the player is moving
+        //                        foreach (string attackAnimation in attackAnimations)
+        //                        {
+        //                            _animator.SetBool(attackAnimation, false);
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        r2d.velocity = Vector2.zero;
+        //                        _animator.SetBool("Idle", true);
+        //                        _animator.SetBool("Walking", false);
+        //                        _animator.SetBool("Running", false);
+        //                        moving = false;
+        //                    }
+
+        //                    if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && moving)
+        //                    {
+        //                        // Set running animation
+        //                        _animator.SetBool("Running", true);
+        //                        _animator.SetBool("Walking", false);
+
+        //                        // Calculate velocity vector based on input and running speed
+        //                        Vector2 velocity = _input * (WalkSpeed + runSpeed);
+        //                        // Apply velocity to Rigidbody2D
+        //                        r2d.velocity = velocity;
+        //                    }
+        //                }
+
+        //                // Handle attack input
+        //                if (UnityEngine.Input.GetMouseButtonDown(0))
+        //                {
+        //                    // Stop the attack animation if the player is moving
+        //                    if (_input != Vector2.zero)
+        //                    {
+        //                        foreach (string attackAnimation in attackAnimations)
+        //                        {
+        //                            _animator.SetBool(attackAnimation, false);
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        // Choose a random attack animation
+        //                        string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
+        //                        // Set the selected animation
+        //                        _animator.SetBool(randomAttackAnimation, true);
+        //                    }
+        //                    DetectColliders();
+        //                }
+        //            }
+        //            else
+        //            {
+        //                // Stop movement and animations if DeskPanel is active
+        //                r2d.velocity = Vector2.zero;
+        //                _animator.SetBool("Idle", true);
+        //                _animator.SetBool("Walking", false);
+        //                _animator.SetBool("Running", false);
+        //                moving = false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ResetMovement();
+        //        }
+
+        //    }
+
+        //}
         private void Update()
         {
             if (!NoInternet.isActiveAndEnabled)
@@ -301,11 +409,10 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                                 r2d.velocity = velocity;
                                 Move(_input);
 
-                                // Stop the attack animation if the player is moving
-                                foreach (string attackAnimation in attackAnimations)
-                                {
-                                    _animator.SetBool(attackAnimation, false);
-                                }
+                                // Set movement animations
+                                _animator.SetBool("Idle", false);
+                                _animator.SetBool("Walking", true);
+                                _animator.SetBool("Running", false);
                             }
                             else
                             {
@@ -313,10 +420,9 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                                 _animator.SetBool("Idle", true);
                                 _animator.SetBool("Walking", false);
                                 _animator.SetBool("Running", false);
-                                moving = false;
                             }
 
-                            if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && moving)
+                            if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && _input != Vector2.zero)
                             {
                                 // Set running animation
                                 _animator.SetBool("Running", true);
@@ -332,21 +438,13 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                         // Handle attack input
                         if (UnityEngine.Input.GetMouseButtonDown(0))
                         {
-                            // Stop the attack animation if the player is moving
-                            if (_input != Vector2.zero)
-                            {
-                                foreach (string attackAnimation in attackAnimations)
-                                {
-                                    _animator.SetBool(attackAnimation, false);
-                                }
-                            }
-                            else
-                            {
-                                // Choose a random attack animation
-                                string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
-                                // Set the selected animation
-                                _animator.SetBool(randomAttackAnimation, true);
-                            }
+                            // Choose a random attack animation
+                            string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
+                            // Set the selected animation trigger
+                            _animator.SetTrigger(randomAttackAnimation);
+
+                            // Detect colliders for attack hit detection
+                            DetectColliders();
                         }
                     }
                     else
@@ -356,18 +454,14 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                         _animator.SetBool("Idle", true);
                         _animator.SetBool("Walking", false);
                         _animator.SetBool("Running", false);
-                        moving = false;
                     }
                 }
                 else
                 {
                     ResetMovement();
                 }
-
             }
-           
         }
-
         public void ResetMovement()
         {
             r2d.velocity = Vector2.zero;
@@ -424,6 +518,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     // Handle attack input
                     if (UnityEngine.Input.GetMouseButtonDown(0))
                     {
+                        
                         //_animator.SetBool("Slash", true);
                         // Choose a random attack animation
                         string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
@@ -489,6 +584,46 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             // Apply the new scale to the character
             Character.transform.localScale = scale;
         }
-       
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.blue;
+            Vector3 position = CircleOrigin == null ? Vector3.zero : CircleOrigin.position;
+            Gizmos.DrawWireSphere(position, radius);
+        }
+
+        public void DetectColliders()
+        {
+            foreach (Collider2D collider in Physics2D.OverlapCircleAll(CircleOrigin.position,radius))
+            {
+                //Debug.LogError(collider.name);
+                Health health;
+                if(health = collider.GetComponent<Health>())
+                {
+                    health.GetHit(1, transform.gameObject);
+                    if (gameObject.layer != collider.gameObject.layer)
+                    {
+                        collider.GetComponent<Animator>().SetBool("Hit", true);
+                    }
+
+
+                    Vector2 pushDirection = (collider.transform.position - transform.position).normalized;
+
+                    // Apply push force to the collider
+                    Rigidbody2D colliderRigidbody = collider.GetComponent<Rigidbody2D>();
+                    if (colliderRigidbody != null)
+                    {
+                        // Adjust this value as needed
+                        colliderRigidbody.AddForce(pushDirection * pushForce, ForceMode2D.Impulse);
+                    }
+
+                }
+
+                
+            }
+        }
+
     }
+
+   
 }
