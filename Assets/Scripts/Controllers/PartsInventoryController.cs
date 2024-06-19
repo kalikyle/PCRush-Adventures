@@ -578,7 +578,7 @@ namespace PartsInventory
         {
             PartsButton.gameObject.SetActive(true);
             ComputerButton.gameObject.SetActive(true);
-            DisplayText.text = "Inventory".ToUpper();
+            DisplayText.text = "HARDWARES".ToUpper();
 
             if (ComputerPanel.activeSelf)
             {
@@ -1396,7 +1396,7 @@ namespace PartsInventory
            // {
                 inventoryUI.Show();
 
-                DisplayText.text = "Inventory".ToUpper();
+                DisplayText.text = "Hardwares".ToUpper();
                 foreach (var item in inventoryData.GetCurrentInventoryState())
                 {
                     inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity);
