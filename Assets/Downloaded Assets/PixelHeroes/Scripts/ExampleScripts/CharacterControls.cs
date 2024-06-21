@@ -1,6 +1,9 @@
 ﻿using Assets.PixelHeroes.Scripts.CharacterScrips;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 using AnimationState = Assets.PixelHeroes.Scripts.CharacterScrips.AnimationState;
 
@@ -228,6 +231,10 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public float WalkSpeed = 1f;
         public int runSpeed = 2;
         public float pushForce = 5f;
+        public int attack = 1;
+        public Slider healthSlider;
+        public TMP_Text hitPoints;
+        public bool isDead = false;
 
         public PlayerTeleport playerTeleport;
 
@@ -241,6 +248,9 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         //public GameObject gameObjects;
         public Transform CircleOrigin;
         public float radius;
+
+        public GameObject floatingTextPrefab; // Reference to the floating text prefab
+        public Transform damageCanvas; // Reference to the Damage Canvas object public GameObject floatingTextPrefab; // Reference to the floating text prefab
         //public Health health;
 
         private bool canMove = true;
@@ -251,6 +261,11 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+
+            Health health;
+            health = GetComponent<Health>();
+            health.maxHealth = GameManager.instance.PlayerHealth;
+            health.currentHealth = GameManager.instance.PlayerHealth;
         }
 
         public bool IsSceneLoaded(string sceneName)
@@ -270,7 +285,15 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
             return false;
         }
-
+        private void ShowFloatingText(int damage)
+        {
+            if (floatingTextPrefab != null && damageCanvas != null)
+            {
+                GameObject floatingText = Instantiate(floatingTextPrefab, transform.position, Quaternion.identity, damageCanvas);
+                DamageText floatingTextComponent = floatingText.GetComponent<DamageText>();
+                floatingTextComponent.SetText(damage.ToString(), Color.yellow);
+            }
+        }
 
         //private void Update()
         //{
@@ -376,91 +399,151 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         //}
         private void Update()
         {
-            if (!NoInternet.isActiveAndEnabled)
+            if(isDead == false)
             {
-                if (!DialogueManager.GetInstance().dialogueIsPlaying)
+                if (!NoInternet.isActiveAndEnabled)
                 {
-                    if (!playerTeleport.DeskPanel.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
+                    if (!DialogueManager.GetInstance().dialogueIsPlaying)
                     {
-                        // Check if movement is allowed
-                        if (canMove)
+                        if (!playerTeleport.DeskPanel.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
                         {
-                            // Handle movement input
-                            _input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
-                            _input.y = UnityEngine.Input.GetAxisRaw("Vertical");
-
-                            // Set animation parameters based on input
-                            if (_input != Vector2.zero)
+                            // Check if movement is allowed
+                            if (canMove)
                             {
-                                _input.Normalize();
+                                // Handle movement input
+                                _input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
+                                _input.y = UnityEngine.Input.GetAxisRaw("Vertical");
 
-                                // Turn the character based on input direction
-                                if (_input.x < 0) // If moving left
+                                // Set animation parameters based on input
+                                if (_input != Vector2.zero)
                                 {
-                                    Turn(-1); // Turn left (face left)
+                                    _input.Normalize();
+
+                                    // Turn the character based on input direction
+                                    if (_input.x < 0) // If moving left
+                                    {
+                                        Turn(-1); // Turn left (face left)
+                                    }
+                                    else if (_input.x > 0) // If moving right
+                                    {
+                                        Turn(1); // Turn right (face right)
+                                    }
+                                    // Calculate velocity vector based on input and speed
+                                    Vector2 velocity = _input * WalkSpeed;
+                                    // Apply velocity to Rigidbody2D
+                                    r2d.velocity = velocity;
+                                    Move(_input);
+
+                                    // Set movement animations
+                                    _animator.SetBool("Idle", false);
+                                    _animator.SetBool("Walking", true);
+                                    _animator.SetBool("Running", false);
                                 }
-                                else if (_input.x > 0) // If moving right
+                                else
                                 {
-                                    Turn(1); // Turn right (face right)
+                                    r2d.velocity = Vector2.zero;
+                                    _animator.SetBool("Idle", true);
+                                    _animator.SetBool("Walking", false);
+                                    _animator.SetBool("Running", false);
                                 }
-                                // Calculate velocity vector based on input and speed
-                                Vector2 velocity = _input * WalkSpeed;
-                                // Apply velocity to Rigidbody2D
-                                r2d.velocity = velocity;
-                                Move(_input);
 
-                                // Set movement animations
-                                _animator.SetBool("Idle", false);
-                                _animator.SetBool("Walking", true);
-                                _animator.SetBool("Running", false);
-                            }
-                            else
-                            {
-                                r2d.velocity = Vector2.zero;
-                                _animator.SetBool("Idle", true);
-                                _animator.SetBool("Walking", false);
-                                _animator.SetBool("Running", false);
+                                if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && _input != Vector2.zero)
+                                {
+                                    // Set running animation
+                                    _animator.SetBool("Running", true);
+                                    _animator.SetBool("Walking", false);
+
+                                    // Calculate velocity vector based on input and running speed
+                                    Vector2 velocity = _input * (WalkSpeed + runSpeed);
+                                    // Apply velocity to Rigidbody2D
+                                    r2d.velocity = velocity;
+                                }
                             }
 
-                            if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && _input != Vector2.zero)
+                            // Handle attack input
+                            if (UnityEngine.Input.GetMouseButtonDown(0))
                             {
-                                // Set running animation
-                                _animator.SetBool("Running", true);
-                                _animator.SetBool("Walking", false);
+                                // Choose a random attack animation
+                                string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
+                                // Set the selected animation trigger
+                                _animator.SetTrigger(randomAttackAnimation);
 
-                                // Calculate velocity vector based on input and running speed
-                                Vector2 velocity = _input * (WalkSpeed + runSpeed);
-                                // Apply velocity to Rigidbody2D
-                                r2d.velocity = velocity;
+                                // Detect colliders for attack hit detection
+                                DetectColliders();
                             }
                         }
-
-                        // Handle attack input
-                        if (UnityEngine.Input.GetMouseButtonDown(0))
+                        else
                         {
-                            // Choose a random attack animation
-                            string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
-                            // Set the selected animation trigger
-                            _animator.SetTrigger(randomAttackAnimation);
-
-                            // Detect colliders for attack hit detection
-                            DetectColliders();
+                            // Stop movement and animations if DeskPanel is active
+                            r2d.velocity = Vector2.zero;
+                            _animator.SetBool("Idle", true);
+                            _animator.SetBool("Walking", false);
+                            _animator.SetBool("Running", false);
                         }
                     }
                     else
                     {
-                        // Stop movement and animations if DeskPanel is active
-                        r2d.velocity = Vector2.zero;
-                        _animator.SetBool("Idle", true);
-                        _animator.SetBool("Walking", false);
-                        _animator.SetBool("Running", false);
+                        ResetMovement();
                     }
                 }
-                else
+            }
+            
+            
+
+
+            Health health;
+            if (health = this.GetComponent<Health>())
+            {
+                healthSlider.maxValue = health.maxHealth;
+                healthSlider.value = health.currentHealth;
+                hitPoints.text = health.currentHealth.ToString() + " HP";
+
+
+                if (health.isDead || health.currentHealth == 0)
                 {
-                    ResetMovement();
+                    isDead = true;
+                    //enemyCollider.isTrigger = true;
+                    _animator.SetBool("Dead", true);
+                    StartCoroutine(HandleDeath());
+
                 }
             }
+
+
+        }
+
+        private IEnumerator HandleDeath()
+        {
+            yield return new WaitForSeconds(3f); // Wait for 5 seconds
+
+            // Teleport player to respawn point
+            Transform respawnPoint = GetRespawnPoint(); // Implement this method to get the respawn point
+            if (respawnPoint != null)
+            {
+                transform.position = respawnPoint.position;
+            }
+
+            // Reset the player's state
+            isDead = false;
+            Health health = GetComponent<Health>();
+            if (health != null)
+            {
+                health.isDead = false;
+                health.currentHealth = health.maxHealth; // Restore health
+            }
+
+            // Reset animator parameters
+            _animator.ResetTrigger("Dead");
+            _animator.SetBool("Idle", true);
+            _animator.SetBool("Walking", false);
+            _animator.SetBool("Running", false);
+        }
+
+        public Transform respawnPoint;
+
+        private Transform GetRespawnPoint()
+        {
+            return respawnPoint;
         }
         public void ResetMovement()
         {
@@ -564,10 +647,12 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             moving = true;
 
         }
+
+        public Transform CharacterBody;
         private void Turn(int direction)
         {
             // Get the current scale of the character
-            Vector3 scale = Character.transform.localScale;
+            Vector3 scale = CharacterBody.localScale;
 
             // Set the scale's x component based on the direction
             if (direction > 0)
@@ -582,7 +667,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             }
 
             // Apply the new scale to the character
-            Character.transform.localScale = scale;
+            CharacterBody.localScale = scale;
         }
 
         private void OnDrawGizmosSelected()
@@ -600,10 +685,14 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 Health health;
                 if(health = collider.GetComponent<Health>())
                 {
-                    health.GetHit(1, transform.gameObject);
+                    //attack
+                    health.GetHit(attack, transform.gameObject);
+
                     if (gameObject.layer != collider.gameObject.layer)
                     {
+                        ShowFloatingText(attack);
                         collider.GetComponent<Animator>().SetBool("Hit", true);
+                       
                     }
 
 

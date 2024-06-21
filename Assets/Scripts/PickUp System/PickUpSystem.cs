@@ -13,6 +13,8 @@ public class PickUpSystem : MonoBehaviour
     {
         
         PartsCollect parts = collision.GetComponent<PartsCollect>();
+        Coin coins = collision.GetComponent<Coin>();
+
         if(parts != null)
         {
             int reminder = partsData.AddItem(parts.parts, parts.Quantity);
@@ -35,6 +37,13 @@ public class PickUpSystem : MonoBehaviour
 
             partsData.PartsSaveItems();
         }
+
+
+        if(coins != null)
+        {
+            coins.DestroyItem();
+            Debug.LogError(coins.coinValue);
+        }
     }
 
 
@@ -42,7 +51,7 @@ public class PickUpSystem : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("wow");  
+        //Debug.Log("wow");  
     }
 
     // Update is called once per frame

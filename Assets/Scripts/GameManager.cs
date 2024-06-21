@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
     //player info
     public string PlayerName;
     public int PlayerLevel = 1;
+    public int PlayerHealth = 100;
 
 
     public List<DecorationItem> removedItemsDuringEditing = new List<DecorationItem>();
@@ -113,6 +114,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text Playerui;
     public Image PlayerImage;
     public Image PlayerOWImage;
+
     //public Sprite playersprite;
 
     public int packagescollected = 0;
