@@ -12,6 +12,9 @@ public class HordeTrigger : MonoBehaviour
     public Canvas CPUWorldCanvas;
     public GameObject ONHordeUI;
     public GameObject ExploreUI;
+    public GameObject QuestUI;
+    public GameObject TopPanelUI;
+    public GameObject ButtonsPanelUI;
     public GameObject Wall;
 
     private float countdownTime = 120f; // Countdown time in seconds (2 minutes)
@@ -60,6 +63,9 @@ public class HordeTrigger : MonoBehaviour
                 isTimerRunning = false;
                 CPUWorldCanvas.gameObject.SetActive(true);
                 ExploreUI.SetActive(true);
+                QuestUI.SetActive(true);
+                TopPanelUI.SetActive(true);
+                ButtonsPanelUI.SetActive(true);
                 ONHordeUI.SetActive(false);
                 Wall.gameObject.SetActive(false);
             }
@@ -74,7 +80,10 @@ public class HordeTrigger : MonoBehaviour
         isTimerRunning = true; // Start the timer
 
         CPUWorldCanvas.gameObject.SetActive(false);
-        ExploreUI.SetActive(false);
+        ExploreUI.SetActive(true);
+        QuestUI.SetActive(false);
+        TopPanelUI.SetActive(false);
+        ButtonsPanelUI.SetActive(false);
         ONHordeUI.SetActive(true);
         Wall.gameObject.SetActive(true);
     }

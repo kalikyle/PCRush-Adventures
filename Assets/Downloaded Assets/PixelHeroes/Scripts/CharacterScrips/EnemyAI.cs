@@ -12,11 +12,23 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public float WalkSpeed = 1f;
         public float RunSpeed = 2f;
         public float AttackRange = 1f;
+        public int Attack = 1;
+
         public Transform Player;
 
         public Transform EnemyBody;
         public float DetectionRange = 5f;
         public float AttackCooldown = 1f;
+
+
+        public GameObject coinPrefab; // The coin prefab to instantiate
+        public int numberOfCoinsToDrop = 5; // Number of coins to drop
+        public int CoinValueToDrop = 1;
+        public float dropRadius = 1f;
+        public float dropDuration = 0.5f; // Duration of the drop animation
+        public Vector3 dropOffset = new Vector3(0, 2, 0); // Offset for the drop effect
+        public float initialUpwardsDistance = 1f;
+        public float upwardsDuration = 0.2f;
 
         private Animator _animator;
         private Vector2 _input;
@@ -30,13 +42,16 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public Slider healthSlider;
         public TMP_Text hitPoints;
         private Collider2D enemyCollider;
+        public GameObject floatingTextPrefab; // Reference to the floating text prefab
+        public Transform damageCanvas; // Reference to the Damage Canvas object
+
 
         public void Start()
         {
 
 
             enemyCollider = GetComponent<Collider2D>();
-
+           
         }
         private void Awake()
         {
@@ -44,6 +59,15 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             r2d = GetComponent<Rigidbody2D>();
         }
 
+        private void ShowFloatingText(int damage)
+        {
+            if (floatingTextPrefab != null && damageCanvas != null)
+            {
+                GameObject floatingText = Instantiate(floatingTextPrefab, transform.position, Quaternion.identity, damageCanvas);
+                DamageText floatingTextComponent = floatingText.GetComponent<DamageText>();
+                floatingTextComponent.SetText(damage.ToString(), Color.red);
+            }
+        }
         private void Update()
         {
             
@@ -80,6 +104,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                         isDead = true;
                         _animator.SetBool("Dead", true);
                         enemyCollider.isTrigger = true;
+                        
                         //Destroy(collider);
                         StartCoroutine(HandleDeath());
 
@@ -90,7 +115,50 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         }
 
 
+        private void DropCoins(Vector3 position)
+        {
+            for (int i = 0; i < numberOfCoinsToDrop; i++)
+            {
+                // Calculate a random position around the enemy within the drop radius
+                Vector3 randomPosition = position + new Vector3(
+                    UnityEngine.Random.Range(-dropRadius, dropRadius),
+                    UnityEngine.Random.Range(-dropRadius, dropRadius),
+                    0f);
 
+                //Vector3 startPosition = randomPosition + dropOffset;
+
+                // Instantiate the coin prefab at the calculated random position
+                //GameObject coin = Instantiate(coinPrefab, position, Quaternion.identity);
+
+
+                //LeanTween.move(coin, randomPosition, dropDuration).setEase(LeanTweenType.easeOutBounce);
+                //LeanTween.rotateZ(coin, 360, dropDuration).setEase(LeanTweenType.easeInOutCubic).setLoopClamp();
+
+                GameObject coin = Instantiate(coinPrefab, position, Quaternion.identity);
+
+                Coin coinComponent = coin.GetComponent<Coin>();
+                if (coinComponent != null)
+                {
+                    coinComponent.coinValue = CoinValueToDrop; // Set the coin value as needed
+                }
+
+                // Calculate the upwards position
+                Vector3 curvedUpwardsPosition = position + new Vector3(
+                Random.Range(-dropRadius, dropRadius), initialUpwardsDistance, 0);
+
+
+                Vector3 finalPosition = curvedUpwardsPosition + new Vector3(0, -initialUpwardsDistance, 0);
+                // Animate the coin moving up and to the side in a curve, then falling to the random position with a bounce
+                LeanTween.move(coin, curvedUpwardsPosition, upwardsDuration).setEase(LeanTweenType.easeOutQuad).setOnComplete(() =>
+                {
+                    LeanTween.move(coin, finalPosition, dropDuration).setEase(LeanTweenType.easeOutBounce);
+                    LeanTween.rotateZ(coin, 360, dropDuration).setEase(LeanTweenType.easeInOutCubic).setLoopClamp();
+                });
+            }
+        }
+
+
+        
 
         private void MoveTowardsPlayer()
         {
@@ -165,7 +233,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 Health health;
                 if (health = collider.GetComponent<Health>())
                 {
-                    health.GetHit(1, transform.gameObject);
+                    health.GetHit(Attack, transform.gameObject);
+                    ShowFloatingText(Attack);
                     if (gameObject.layer != collider.gameObject.layer)
                     {
                         collider.GetComponent<Animator>().SetBool("Hit", true);
@@ -175,7 +244,16 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         }
         private IEnumerator HandleDeath()
         {
+
+            if (enemyCollider.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+            {
+                rb.velocity = Vector2.zero;
+            }
+
+            
+
             yield return new WaitForSeconds(0.9f);
+            DropCoins(enemyCollider.transform.position);
             Destroy(gameObject);
         }
 
