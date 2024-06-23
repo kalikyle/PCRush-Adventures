@@ -238,7 +238,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
         public PlayerTeleport playerTeleport;
 
-        private Animator _animator;
+        public Animator _animator;
         private Vector2 _input;
 
         public Canvas NoInternet;
