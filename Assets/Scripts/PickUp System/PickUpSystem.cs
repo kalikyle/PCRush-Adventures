@@ -1,3 +1,4 @@
+using Assets.PixelHeroes.Scripts.ExampleScripts;
 using Inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,11 +55,19 @@ public class PickUpSystem : MonoBehaviour
             hearts.DestroyItem();
             Debug.LogError(hearts.HeartValue);
             Health health;
+            CharacterControls charcon;
+
+
             if (health = this.GetComponent<Health>())
             {
                 //add the health
                 health.currentHealth += hearts.HeartValue;
                
+            }
+
+            if(charcon = this.GetComponent<CharacterControls>())
+            {
+                charcon._animator.SetBool("Heal", true);
             }
         }
     }
