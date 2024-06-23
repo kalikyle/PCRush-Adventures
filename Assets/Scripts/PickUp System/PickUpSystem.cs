@@ -14,8 +14,9 @@ public class PickUpSystem : MonoBehaviour
         
         PartsCollect parts = collision.GetComponent<PartsCollect>();
         Coin coins = collision.GetComponent<Coin>();
+        Heart hearts = collision.GetComponent<Heart>();
 
-        if(parts != null)
+        if (parts != null)
         {
             int reminder = partsData.AddItem(parts.parts, parts.Quantity);
             if(reminder == 0)
@@ -42,7 +43,23 @@ public class PickUpSystem : MonoBehaviour
         if(coins != null)
         {
             coins.DestroyItem();
+            //add coins
             Debug.LogError(coins.coinValue);
+        }
+
+
+        if (hearts != null)
+        {
+           
+            hearts.DestroyItem();
+            Debug.LogError(hearts.HeartValue);
+            Health health;
+            if (health = this.GetComponent<Health>())
+            {
+                //add the health
+                health.currentHealth += hearts.HeartValue;
+               
+            }
         }
     }
 

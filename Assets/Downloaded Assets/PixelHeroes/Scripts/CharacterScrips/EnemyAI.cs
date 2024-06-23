@@ -24,6 +24,14 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public GameObject coinPrefab; // The coin prefab to instantiate
         public int numberOfCoinsToDrop = 5; // Number of coins to drop
         public int CoinValueToDrop = 1;
+
+
+        public GameObject heartPrefab; // The coin prefab to instantiate
+        public int numberOfHeartsToDrop = 1; // Number of coins to drop
+        public int HeartValueToDrop = 1;
+
+
+
         public float dropRadius = 1f;
         public float dropDuration = 0.5f; // Duration of the drop animation
         public Vector3 dropOffset = new Vector3(0, 2, 0); // Offset for the drop effect
@@ -38,6 +46,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private string[] attackAnimations = { "Attack" };
         private bool isMoving = false;
         private bool isDead = false;
+        private bool isRecovering = false;
+        public float recoveryTime = 1f; // Time in seconds to recover from being hit
 
         public Slider healthSlider;
         public TMP_Text hitPoints;
@@ -51,7 +61,13 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
 
             enemyCollider = GetComponent<Collider2D>();
-           
+
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                Player = playerObj.transform;
+            }
+
         }
         private void Awake()
         {
@@ -157,8 +173,39 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             }
         }
 
+        private void DropHearts(Vector3 position)
+        {
+            for (int i = 0; i < numberOfHeartsToDrop; i++)
+            {
+                // Calculate a random position around the enemy within the drop radius
+                Vector3 randomPosition = position + new Vector3(
+                    UnityEngine.Random.Range(-dropRadius, dropRadius),
+                    UnityEngine.Random.Range(-dropRadius, dropRadius),
+                    0f);
 
-        
+                GameObject heart = Instantiate(heartPrefab, position, Quaternion.identity);
+
+                Heart heartComponent = heart.GetComponent<Heart>();
+                if (heartComponent != null)
+                {
+                    heartComponent.HeartValue = HeartValueToDrop; // Set the coin value as needed
+                }
+
+                // Calculate the upwards position
+                Vector3 curvedUpwardsPosition = position + new Vector3(
+                Random.Range(-dropRadius, dropRadius), initialUpwardsDistance, 0);
+
+
+                Vector3 finalPosition = curvedUpwardsPosition + new Vector3(0, -initialUpwardsDistance, 0);
+               
+                LeanTween.move(heart, curvedUpwardsPosition, upwardsDuration).setEase(LeanTweenType.easeOutQuad).setOnComplete(() =>
+                {
+                    LeanTween.move(heart, finalPosition, dropDuration).setEase(LeanTweenType.easeOutBounce);
+                    LeanTween.rotateZ(heart, 360, dropDuration).setEase(LeanTweenType.easeInOutCubic).setLoopClamp();
+                });
+            }
+        }
+
 
         private void MoveTowardsPlayer()
         {
@@ -238,9 +285,16 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     if (gameObject.layer != collider.gameObject.layer)
                     {
                         collider.GetComponent<Animator>().SetBool("Hit", true);
+                        StartCoroutine(HitRecovery());
                     }
                 }
             }
+        }
+        private IEnumerator HitRecovery()
+        {
+            isRecovering = true;
+            yield return new WaitForSeconds(recoveryTime);
+            isRecovering = false;
         }
         private IEnumerator HandleDeath()
         {
@@ -254,6 +308,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
             yield return new WaitForSeconds(0.9f);
             DropCoins(enemyCollider.transform.position);
+            DropHearts(enemyCollider.transform.position);
             Destroy(gameObject);
         }
 

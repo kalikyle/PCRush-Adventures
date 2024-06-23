@@ -1,3 +1,4 @@
+using Assets.PixelHeroes.Scripts.ExampleScripts;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,7 +18,16 @@ public class HordeTrigger : MonoBehaviour
     public GameObject ButtonsPanelUI;
     public GameObject Wall;
 
-    private float countdownTime = 120f; // Countdown time in seconds (2 minutes)
+    public Transform EnemiesObject;
+
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
+
+    public GameObject enemyPrefab; // The enemy AI prefab to spawn
+    public Transform spawnArea; // The Transform defining the center of the spawning area
+    public Vector2 areaSize = new Vector2(10f, 10f); // The size of the spawning area
+    public float spawnInterval = 2f; // Time interval between spawns
+
+    public float countdownTime = 60f; // Countdown time in seconds (2 minutes)
     private bool isTimerRunning = false;
 
     private void Start()
@@ -68,10 +78,87 @@ public class HordeTrigger : MonoBehaviour
                 ButtonsPanelUI.SetActive(true);
                 ONHordeUI.SetActive(false);
                 Wall.gameObject.SetActive(false);
+                StopAllCoroutines();
+                DestroyAllEnemies();
             }
 
             UpdateTimerText(countdownTime);
         }
+    }
+
+
+    private IEnumerator SpawnEnemies()
+    {
+        while (isTimerRunning)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(spawnInterval);
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        // Calculate random position within the spawn area
+        Vector3 randomPosition = new Vector3(
+            Random.Range(spawnArea.position.x - areaSize.x / 2, spawnArea.position.x + areaSize.x / 2),
+            Random.Range(spawnArea.position.y - areaSize.y / 2, spawnArea.position.y + areaSize.y / 2),
+            spawnArea.position.z
+        );
+
+        // Instantiate the enemy at the random position
+        //Instantiate(enemyPrefab, randomPosition, Quaternion.identity, EnemiesObject);
+
+        GameObject enemy = Instantiate(enemyPrefab, randomPosition, Quaternion.identity, EnemiesObject);
+
+        // Get the EnemyAI component from the instantiated enemy
+        EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+
+        if (enemyAI != null)
+        {
+            // Assign random values to the enemyAI properties
+            enemyAI.numberOfHeartsToDrop = Random.Range(0, 2); // 0 or 1
+            enemyAI.numberOfCoinsToDrop = Random.Range(0, 6); // 1 to 5
+            enemyAI.HeartValueToDrop = Random.Range(1, 6); // 1 to 5
+            enemyAI.CoinValueToDrop = Random.Range(1, 6); // 1 to 5
+        }
+
+        spawnedEnemies.Add(enemy);
+    }
+
+    private void DestroyAllEnemies()
+    {
+        foreach (GameObject enemy in spawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                //Destroy(enemy);
+
+                Health health = enemy.GetComponent<Health>();
+                EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+
+                if (enemyAI != null)
+                {
+
+                    enemyAI.numberOfHeartsToDrop = 0;
+                    enemyAI.numberOfCoinsToDrop = 0;
+                    enemyAI.HeartValueToDrop = 0;
+                    enemyAI.CoinValueToDrop = 0;
+
+                }
+
+
+                if (health != null)
+                {
+                    
+                    health.currentHealth = 0;
+                }
+
+                 
+
+            }
+        }
+
+        spawnedEnemies.Clear(); // Clear the list of enemies
     }
 
     private void StartTimer()
@@ -86,6 +173,8 @@ public class HordeTrigger : MonoBehaviour
         ButtonsPanelUI.SetActive(false);
         ONHordeUI.SetActive(true);
         Wall.gameObject.SetActive(true);
+
+        StartCoroutine(SpawnEnemies());
     }
 
     private void UpdateTimerText(float time)

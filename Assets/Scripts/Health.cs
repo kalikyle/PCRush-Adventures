@@ -22,6 +22,14 @@ public class Health : MonoBehaviour
         
     }
 
+    public void Update()
+    {
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
     public void InitializeHealth(int healthValue)
     {
         currentHealth = healthValue;
