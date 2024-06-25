@@ -15610,6 +15610,9 @@ MonoBehaviour:
   heartPrefab: {fileID: 3017227482341972875, guid: 98e6bf55a0f5f3240bf3141966ea2e87, type: 3}
   numberOfHeartsToDrop: 1
   HeartValueToDrop: 5
+  MaterialPrefab: {fileID: 3316352308487018853, guid: 22f38b1f96a842747a96caa479945ab4, type: 3}
+  numberOfMaterialToDrop: 1
+  MaterialValueToDrop: 1
   dropRadius: 1
   dropDuration: 1
   dropOffset: {x: 0, y: 2, z: 0}

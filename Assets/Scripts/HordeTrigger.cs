@@ -18,6 +18,14 @@ public class HordeTrigger : MonoBehaviour
     public GameObject ButtonsPanelUI;
     public GameObject Wall;
 
+
+    public PickUpSystem PickUpSystem;
+
+    public TMP_Text CoinsCollected;
+    public TMP_Text MaterialsCollected;
+
+
+
     public Transform EnemiesObject;
 
     private List<GameObject> spawnedEnemies = new List<GameObject>();
@@ -80,9 +88,36 @@ public class HordeTrigger : MonoBehaviour
                 Wall.gameObject.SetActive(false);
                 StopAllCoroutines();
                 DestroyAllEnemies();
+
+                PickUpSystem.coins = 0;
+                PickUpSystem.materials = 0;
             }
 
             UpdateTimerText(countdownTime);
+
+
+
+            if (PickUpSystem.coins == 0)
+            {
+                CoinsCollected.gameObject.SetActive(false);
+            }
+            else
+            {
+                CoinsCollected.gameObject.SetActive(true);
+                CoinsCollected.text = PickUpSystem.coins.ToString();
+            }
+
+            if (PickUpSystem.materials == 0)
+            {
+                MaterialsCollected.gameObject.SetActive(false);
+            }
+            else
+            {
+                MaterialsCollected.gameObject.SetActive(true);
+                MaterialsCollected.text = PickUpSystem.materials.ToString();
+            }
+
+
         }
     }
 
@@ -120,6 +155,8 @@ public class HordeTrigger : MonoBehaviour
             enemyAI.numberOfCoinsToDrop = Random.Range(0, 6); // 1 to 5
             enemyAI.HeartValueToDrop = Random.Range(1, 6); // 1 to 5
             enemyAI.CoinValueToDrop = Random.Range(1, 6); // 1 to 5
+            enemyAI.numberOfMaterialToDrop = Random.Range(0, 2);
+            enemyAI.MaterialValueToDrop = 1;
         }
 
         spawnedEnemies.Add(enemy);
@@ -143,6 +180,11 @@ public class HordeTrigger : MonoBehaviour
                     enemyAI.numberOfCoinsToDrop = 0;
                     enemyAI.HeartValueToDrop = 0;
                     enemyAI.CoinValueToDrop = 0;
+
+
+                    enemyAI.numberOfMaterialToDrop = 0;
+                    enemyAI.MaterialValueToDrop = 0;
+
 
                 }
 

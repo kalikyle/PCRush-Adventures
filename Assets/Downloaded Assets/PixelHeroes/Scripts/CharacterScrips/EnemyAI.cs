@@ -31,6 +31,10 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public int HeartValueToDrop = 1;
 
 
+        public GameObject MaterialPrefab; // The coin prefab to instantiate
+        public int numberOfMaterialToDrop = 1; // Number of coins to drop
+        public int MaterialValueToDrop = 1;
+
 
         public float dropRadius = 1f;
         public float dropDuration = 0.5f; // Duration of the drop animation
@@ -207,6 +211,40 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         }
 
 
+        private void DropMaterials(Vector3 position)
+        {
+            for (int i = 0; i < numberOfMaterialToDrop; i++)
+            {
+                // Calculate a random position around the enemy within the drop radius
+                Vector3 randomPosition = position + new Vector3(
+                    UnityEngine.Random.Range(-dropRadius, dropRadius),
+                    UnityEngine.Random.Range(-dropRadius, dropRadius),
+                    0f);
+
+                GameObject material = Instantiate(MaterialPrefab, position, Quaternion.identity);
+
+                SiliconWaferMaterial SWN = material.GetComponent<SiliconWaferMaterial>();
+                if (SWN != null)
+                {
+                    SWN.MaterialValue = MaterialValueToDrop; // Set the coin value as needed
+                }
+
+                // Calculate the upwards position
+                Vector3 curvedUpwardsPosition = position + new Vector3(
+                Random.Range(-dropRadius, dropRadius), initialUpwardsDistance, 0);
+
+
+                Vector3 finalPosition = curvedUpwardsPosition + new Vector3(0, -initialUpwardsDistance, 0);
+
+                LeanTween.move(material, curvedUpwardsPosition, upwardsDuration).setEase(LeanTweenType.easeOutQuad).setOnComplete(() =>
+                {
+                    LeanTween.move(material, finalPosition, dropDuration).setEase(LeanTweenType.easeOutBounce);
+                    LeanTween.rotateZ(material, 360, dropDuration).setEase(LeanTweenType.easeInOutCubic).setLoopClamp();
+                });
+            }
+        }
+
+
         private void MoveTowardsPlayer()
         {
             Vector2 direction = (Player.position - transform.position).normalized;
@@ -309,6 +347,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             yield return new WaitForSeconds(0.9f);
             DropCoins(enemyCollider.transform.position);
             DropHearts(enemyCollider.transform.position);
+            DropMaterials(enemyCollider.transform.position);
             Destroy(gameObject);
         }
 
