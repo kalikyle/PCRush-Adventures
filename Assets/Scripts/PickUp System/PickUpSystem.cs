@@ -10,12 +10,17 @@ public class PickUpSystem : MonoBehaviour
     private PartsInventorySO partsData;
 
 
+    public int coins = 0;
+    public int materials = 0;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
         PartsCollect parts = collision.GetComponent<PartsCollect>();
         Coin coins = collision.GetComponent<Coin>();
         Heart hearts = collision.GetComponent<Heart>();
+        SiliconWaferMaterial SWM = collision.GetComponent<SiliconWaferMaterial>();
+
 
         if (parts != null)
         {
@@ -45,7 +50,9 @@ public class PickUpSystem : MonoBehaviour
         {
             coins.DestroyItem();
             //add coins
-            Debug.LogError(coins.coinValue);
+            //Debug.LogError(coins.coinValue);
+
+            this.coins += coins.coinValue;
         }
 
 
@@ -69,6 +76,18 @@ public class PickUpSystem : MonoBehaviour
             {
                 charcon._animator.SetBool("Heal", true);
             }
+        }
+
+
+        if(SWM != null)
+        {
+            SWM.DestroyItem();
+            //add coins
+            //Debug.LogError(SWM.MaterialValue);
+
+            materials += SWM.MaterialValue;
+
+
         }
     }
 
