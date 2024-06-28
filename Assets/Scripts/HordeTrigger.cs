@@ -1,9 +1,12 @@
 using Assets.PixelHeroes.Scripts.ExampleScripts;
+using OtherWorld.Model;
+using Swords.UI;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static OtherWorld.Model.OWInvSO;
 
 public class HordeTrigger : MonoBehaviour
 {
@@ -86,6 +89,8 @@ public class HordeTrigger : MonoBehaviour
                 ButtonsPanelUI.SetActive(true);
                 ONHordeUI.SetActive(false);
                 Wall.gameObject.SetActive(false);
+
+                getMaterials();
                 StopAllCoroutines();
                 DestroyAllEnemies();
 
@@ -120,7 +125,59 @@ public class HordeTrigger : MonoBehaviour
 
         }
     }
+    public void getMaterials()
+    {
+        OtherWorldItem inventoryItem = ConvertMaterialsToInventoryItem();
 
+        if (inventoryItem.isEmpty)
+        {
+
+            Debug.LogError("Null inventory item returned from conversion.");
+        }
+        else
+        {
+
+            //data.AddItem(inventoryItem);
+            //data.AddItemList(inventoryItem.item);
+            GameManager.instance.AddItemToTransfer(inventoryItem);
+            Debug.LogError("Item added to inventory ");
+        }
+    }
+
+    private OtherWorldItem ConvertMaterialsToInventoryItem()
+    {
+        
+        OtherWorldItem inventoryItem = new OtherWorldItem();
+        
+        inventoryItem.quantity = PickUpSystem.materials;
+        inventoryItem.item = ConvertMaterial();
+
+        return inventoryItem;
+    }
+
+    public OtherWorldItemSO ConvertMaterial()
+    {
+        OtherWorldItemSO inventoryItems = ScriptableObject.CreateInstance<OtherWorldItemSO>();
+
+        inventoryItems.name = PickUpSystem.materialname;
+
+        var spriteArray = GameManager.instance.SpriteCollections.Layers;
+
+        inventoryItems.Name = PickUpSystem.materialname;
+        inventoryItems.Attack = -1;
+        inventoryItems.ItemImage = PickUpSystem.materialImage;
+        inventoryItems.Category = "Materials";
+
+        //if want not stackable
+        inventoryItems.IsStackable = true;
+        inventoryItems.MaxStackableSize = 9999;
+        inventoryItems.SpriteIndex = -1;
+        // if stackable
+        //inventoryItems.IsStackable = true;
+        //inventoryItems.MaxStackableSize = 99;
+
+        return inventoryItems;
+    }
 
     private IEnumerator SpawnEnemies()
     {

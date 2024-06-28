@@ -223,10 +223,11 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
                 GameObject material = Instantiate(MaterialPrefab, position, Quaternion.identity);
 
-                SiliconWaferMaterial SWN = material.GetComponent<SiliconWaferMaterial>();
+                Materials SWN = material.GetComponent<Materials>();
                 if (SWN != null)
                 {
-                    SWN.MaterialValue = MaterialValueToDrop; // Set the coin value as needed
+                    SWN.MaterialValue = MaterialValueToDrop;
+                    SWN.MaterialName = "Silicon Wafer";// Set the coin value as needed
                 }
 
                 // Calculate the upwards position
