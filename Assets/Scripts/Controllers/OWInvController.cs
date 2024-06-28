@@ -84,6 +84,11 @@ namespace OtherWorld
                     OpenFiltered("Armor");
                     openedCategory = "Armor";
                     break;
+
+                case 3:
+                    OpenFiltered("Materials");
+                    openedCategory = "Materials";
+                    break;
             }
         }
 
@@ -175,6 +180,7 @@ namespace OtherWorld
             int spriteIndex;
             GameManager.instance.SwordDocumentIds.Clear();
             GameManager.instance.ArmorDocumentIds.Clear();
+            GameManager.instance.MaterialsDocumentIds.Clear();
             GameManager.instance.AllDocumentIds.Clear();
             if (GameManager.instance.UserID != "")
             {
@@ -257,6 +263,13 @@ namespace OtherWorld
                                 UseItem(inventoryItem);
                                 GameManager.instance.ArmorinUse = documentId;
                             }
+                        }
+
+                        else if (inventoryItem.item.Category == "Materials")
+                        {
+                            inventoryItem.item.ItemImage = loadedItem.ItemImage;
+                            inventoryData.AddItem(inventoryItem);
+                            GameManager.instance.MaterialsDocumentIds.Add(documentId);
                         }
 
                         GameManager.instance.AllDocumentIds.Add(documentId);
@@ -655,6 +668,15 @@ namespace OtherWorld
                     await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
                 }
 
+                else if (category == "Materials")
+                {
+
+                    Debug.LogError("Cant Use this Item");
+                }
+
+
+
+
             }
         }
         //for all 
@@ -774,6 +796,11 @@ namespace OtherWorld
                 }
                 inventoryItem.item.inUse = true;
                 await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
+            }
+            else if (category == "Materials")
+            {
+
+                Debug.LogError("Cant Use this Item");
             }
 
         }

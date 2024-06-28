@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SiliconWaferMaterial : MonoBehaviour
+public class Materials : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField]
@@ -13,6 +14,12 @@ public class SiliconWaferMaterial : MonoBehaviour
     [SerializeField]
 
     public int MaterialValue;
+
+
+
+    [SerializeField]
+
+    public string MaterialName = "";
 
     void Start()
     {

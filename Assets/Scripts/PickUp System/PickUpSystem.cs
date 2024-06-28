@@ -3,6 +3,7 @@ using Inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickUpSystem : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PickUpSystem : MonoBehaviour
 
     public int coins = 0;
     public int materials = 0;
+    public string materialname;
+    public Sprite materialImage;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -19,7 +22,7 @@ public class PickUpSystem : MonoBehaviour
         PartsCollect parts = collision.GetComponent<PartsCollect>();
         Coin coins = collision.GetComponent<Coin>();
         Heart hearts = collision.GetComponent<Heart>();
-        SiliconWaferMaterial SWM = collision.GetComponent<SiliconWaferMaterial>();
+        Materials SWM = collision.GetComponent<Materials>();
 
 
         if (parts != null)
@@ -84,9 +87,9 @@ public class PickUpSystem : MonoBehaviour
             SWM.DestroyItem();
             //add coins
             //Debug.LogError(SWM.MaterialValue);
-
             materials += SWM.MaterialValue;
-
+            materialname = SWM.MaterialName;
+            materialImage = SWM.GetComponent<SpriteRenderer>().sprite;
 
         }
     }

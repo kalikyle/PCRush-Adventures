@@ -17,6 +17,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
@@ -420,6 +421,8 @@ public class GameManager : MonoBehaviour
     public string ShieldinUse;
 
 
+    public List<string> MaterialsDocumentIds = new List<string>();
+
     public void LoadOtherWorldInventory()
     {
         StartCoroutine(OWC.OtherWorldInventory());
@@ -445,7 +448,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public async Task SaveOWItems(OtherWorldItemSO invItem, int quantity)
+    public async Task SaveOWItemss(OtherWorldItemSO invItem, int quantity)
     {
         // Convert the PCSO object to JSON
         string itemJson = JsonUtility.ToJson(invItem);
@@ -468,12 +471,90 @@ public class GameManager : MonoBehaviour
         {
             ArmorDocumentIds.Insert(0, docRef.Id);
         }
+        if(invItem.Category == "Materials")
+        {
+            MaterialsDocumentIds.Insert(0, docRef.Id);
+        }
 
         AllDocumentIds.Insert(0,docRef.Id);
 
         //pcsoDocumentIds.Insert(0, docRef.Id);
 
     }
+
+    public async Task SaveOWItems(OtherWorldItemSO invItem, int quantity)
+    {
+        // Convert the item object to JSON
+        string itemJson = JsonUtility.ToJson(invItem);
+
+        // Get a reference to the Firestore collection where you want to store the item data
+        CollectionReference collectionRef = FirebaseFirestore.DefaultInstance
+            .Collection(GameManager.instance.UserCollection)
+            .Document(GameManager.instance.UserID)
+            .Collection("OtherWorldInventory");
+
+
+        QuerySnapshot querySnapshot = await collectionRef.GetSnapshotAsync();
+
+        bool itemExists = false;
+
+        foreach (var docSnapshot in querySnapshot.Documents)
+        {
+            // Deserialize the JSON data from the Firestore document
+            string existingItemJson = docSnapshot.GetValue<string>("Items");
+            //OtherWorldItemSO existingItem = JsonUtility.FromJson<OtherWorldItemSO>(existingItemJson);
+
+            OtherWorldItemSO loadedItem = ScriptableObject.CreateInstance<OtherWorldItemSO>();
+
+            // Deserialize the JSON data into the PCSO object
+            JsonUtility.FromJsonOverwrite(existingItemJson, loadedItem);
+            OtherWorldItem existingItem = new OtherWorldItem();
+
+            existingItem.item = loadedItem;
+
+
+            // Check if the category is "Materials" and the name matches
+            if (existingItem.item.Category == "Materials" && existingItem.item.Name == invItem.Name)
+            {
+                itemExists = true;
+
+                int existingQuantity = docSnapshot.GetValue<int>("Quantity");
+                int newQuantity = existingQuantity + quantity;
+
+                await docSnapshot.Reference.UpdateAsync(new Dictionary<string, object> { { "Quantity", newQuantity } });
+
+               
+
+            }
+            
+        }
+
+        if(itemExists == false) 
+        {
+            // If no item with the same name exists, create a new document
+            DocumentReference docRef = collectionRef.Document();
+
+            await docRef.SetAsync(new Dictionary<string, object> { { "Items", itemJson }, { "Quantity", quantity } });
+
+            // Update the document ID lists
+            if (invItem.Category == "Sword")
+            {
+                SwordDocumentIds.Insert(0, docRef.Id);
+            }
+            else if (invItem.Category == "Armor")
+            {
+                ArmorDocumentIds.Insert(0, docRef.Id);
+            }
+            else if (invItem.Category == "Materials")
+            {
+                MaterialsDocumentIds.Insert(0, docRef.Id);
+            }
+
+            AllDocumentIds.Insert(0, docRef.Id);
+        }
+
+    }
+
     //to update
     //public async Task UpdatePCSOItemList()
     //{
