@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject SwordDealerPanel;
     public GameObject ArmorDealerPanel;
+    public GameObject CPUExhangerPanel;
 
     //public GameObject DecorClickedUI;
 

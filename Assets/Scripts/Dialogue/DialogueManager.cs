@@ -187,6 +187,10 @@ public class DialogueManager : MonoBehaviour
                     {
                         GameManager.instance.ArmorDealerPanel.SetActive(true);
                         GameManager.instance.OpenArmorShop();
+
+                    }else if (tagValue.Equals("exchangeyes"))
+                    {
+                        GameManager.instance.CPUExhangerPanel.SetActive(true);
                     }
                     
 
