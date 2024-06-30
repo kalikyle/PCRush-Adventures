@@ -191,6 +191,7 @@ public class DialogueManager : MonoBehaviour
                     }else if (tagValue.Equals("exchangeyes"))
                     {
                         GameManager.instance.CPUExhangerPanel.SetActive(true);
+                        GameManager.instance.OpenCPUWorldExhanger();
                     }
                     
 
