@@ -1,6 +1,7 @@
 using Assets.PixelHeroes.Scripts.CharacterScrips;
 using Assets.PixelHeroes.Scripts.CollectionScripts;
 using Decoration;
+using Exchanger;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Extensions;
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
     public LeanTweenAnimate LTA;
     public QuestPoint qp;
     public OWInvController OWC;
+    public ExchangerController Exchanger;
 
     public bool isEditing = false;
     public TMP_Text UserIDTxt;
@@ -135,6 +137,11 @@ public class GameManager : MonoBehaviour
     public void OpenArmorShop()
     {
         Equipments.ArmorsOpenShop();
+    }
+
+    public void OpenCPUWorldExhanger()
+    {
+        Exchanger.CPUsOpenShop();
     }
     public void PlayerDeskName()
     {
