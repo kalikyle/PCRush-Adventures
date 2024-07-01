@@ -13,4 +13,21 @@ MonoBehaviour:
   m_Name: Exchanger
   m_EditorClassIdentifier: 
   Procies:
+  - item: {fileID: 11400000, guid: a1387118df12cf14da0ac713c644f101, type: 2}
+  - item: {fileID: 11400000, guid: a1387118df12cf14da0ac713c644f101, type: 2}
+  - item: {fileID: 11400000, guid: a1387118df12cf14da0ac713c644f101, type: 2}
+  - item: {fileID: 11400000, guid: a1387118df12cf14da0ac713c644f101, type: 2}
+  - item: {fileID: 11400000, guid: a1387118df12cf14da0ac713c644f101, type: 2}
+  - item: {fileID: 11400000, guid: a1387118df12cf14da0ac713c644f101, type: 2}
+  - item: {fileID: 11400000, guid: a1387118df12cf14da0ac713c644f101, type: 2}
+  - item: {fileID: 11400000, guid: a1387118df12cf14da0ac713c644f101, type: 2}
+  - item: {fileID: 11400000, guid: a1387118df12cf14da0ac713c644f101, type: 2}
+  - item: {fileID: 11400000, guid: 4754b36fc6166b94dbfb7ef535cd30fe, type: 2}
   - item: {fileID: 11400000, guid: d11f1756ccdc0a547ab834594ad65a70, type: 2}
+  - item: {fileID: 11400000, guid: e8bf4578159d4e242b42c2ce990488de, type: 2}
+  - item: {fileID: 11400000, guid: e8bf4578159d4e242b42c2ce990488de, type: 2}
+  - item: {fileID: 11400000, guid: d11f1756ccdc0a547ab834594ad65a70, type: 2}
+  - item: {fileID: 11400000, guid: 4754b36fc6166b94dbfb7ef535cd30fe, type: 2}
+  - item: {fileID: 11400000, guid: e8bf4578159d4e242b42c2ce990488de, type: 2}
+  - item: {fileID: 11400000, guid: e8bf4578159d4e242b42c2ce990488de, type: 2}
+  size: 3
