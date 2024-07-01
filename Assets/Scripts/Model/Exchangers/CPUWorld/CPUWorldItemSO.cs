@@ -86,7 +86,7 @@ namespace Exchanger.Model.CPUWorld
 
             foreach (var cpu in Procies)
             {
-                if (cpu.item.Level == playerLevel)
+                if (cpu.item.Level <= playerLevel)
                 {
                     matchingCPUs.Add(cpu);
                 }

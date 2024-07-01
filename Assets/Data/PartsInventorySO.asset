@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: PartsInventorySO
   m_EditorClassIdentifier: 
   inventoryItems:
-  - quantity: 37
-    item: {fileID: 11400000, guid: f55b63010fc492e498cad99f0943cafe, type: 2}
-  - quantity: 20
-    item: {fileID: 11400000, guid: da8cd884f5d04f84ea486d27dbc8c150, type: 2}
-  - quantity: 25
-    item: {fileID: 11400000, guid: 762dd0335b583054bab852f36f2f4e45, type: 2}
-  - quantity: 46
-    item: {fileID: 11400000, guid: 0b331a5df50f4504da2674c4879c9054, type: 2}
-  - quantity: 17
-    item: {fileID: 11400000, guid: 7410b06a0ae74c444adcac29e917bd63, type: 2}
-  - quantity: 16
-    item: {fileID: 11400000, guid: 704a6e9bfe1096140b1ad48f403bdba9, type: 2}
-  - quantity: 27
-    item: {fileID: 11400000, guid: 2cf66d163e5625542beabb8d3fad6deb, type: 2}
-  - quantity: 25
-    item: {fileID: 11400000, guid: 7d495c70b2242e143a801a9ce39a1182, type: 2}
+  - quantity: 0
+    item: {fileID: 0}
+  - quantity: 0
+    item: {fileID: 0}
+  - quantity: 0
+    item: {fileID: 0}
+  - quantity: 0
+    item: {fileID: 0}
+  - quantity: 0
+    item: {fileID: 0}
+  - quantity: 0
+    item: {fileID: 0}
+  - quantity: 0
+    item: {fileID: 0}
+  - quantity: 0
+    item: {fileID: 0}
   - quantity: 0
     item: {fileID: 0}
   - quantity: 0

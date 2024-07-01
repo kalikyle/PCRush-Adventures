@@ -142,6 +142,7 @@ public class UserSetup : MonoBehaviour
             //initials
             GameManager.instance.SaveSoldItems();
             GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+            GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
 
         });
     }

@@ -305,7 +305,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.1}
+  m_AnchoredPosition: {x: 0, y: -2.4}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3597738285628828774
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CPU 1
+  m_text: AMD Ryzen 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5f4d1333b92ede64eb7ed25661333bdd, type: 2}
   m_sharedMaterial: {fileID: 8434204097625658175, guid: 5f4d1333b92ede64eb7ed25661333bdd, type: 2}
@@ -373,9 +373,9 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -1.56
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -40.93
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -399,7 +399,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 16.993599, y: 0, z: 16.615982, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1066,6 +1066,12 @@ MonoBehaviour:
   so: {fileID: 11400000, guid: 722aa71f74e9de74194d2359158237fc, type: 2}
   data: {fileID: 11400000, guid: 5562c209b20ad9944a2a23ec70ed2bfd, type: 2}
   buyButton: {fileID: 3080725031039787209}
+  displayText: {fileID: 4411343587434724743}
+  priceText: {fileID: 6735797894878737495}
+  incrementButton: {fileID: 4224112190168093530}
+  decrementButton: {fileID: 6604950702800758890}
+  ItemPrice: 0
+  Parts: {fileID: 1266663629434456192, guid: 6cd143459416c7f49a4d83562d50a7ea, type: 3}
 --- !u!1 &5952174884417585713
 GameObject:
   m_ObjectHideFlags: 0
