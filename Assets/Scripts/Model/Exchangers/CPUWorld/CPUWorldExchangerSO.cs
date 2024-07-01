@@ -23,6 +23,9 @@ namespace Exchanger.Model.CPUWorld
         public int MaterialsAmountNeed { get; set; }
 
 
+        [field: SerializeField]
+        public int Level { get; set; }
+
     }
 }
 

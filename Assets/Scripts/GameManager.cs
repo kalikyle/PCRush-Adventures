@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
 
     //player info
     public string PlayerName;
-    public int PlayerLevel = 1;
+    public int PlayerLevel = 2;
     public int PlayerHealth = 100;
 
 

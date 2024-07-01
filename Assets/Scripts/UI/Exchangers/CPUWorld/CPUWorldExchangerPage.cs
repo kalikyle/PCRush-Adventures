@@ -1,7 +1,9 @@
 using Swords.UI;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Exchanger.UI.CPUWorld
 {
@@ -14,30 +16,65 @@ namespace Exchanger.UI.CPUWorld
         [SerializeField]
         private RectTransform contentPanel;
 
+        public TMP_Text Time;
 
-        public List<CPUWorldExchangerItem> ListOfSwordsItems = new List<CPUWorldExchangerItem>();
+        
+        public List<CPUWorldExchangerItem> ListOfCPUItems = new List<CPUWorldExchangerItem>();
         void Start()
         {
 
         }
-        public void InitializedShop(int inventorysize)
+        public void UpdateTimer(string timeText)
+        {
+            Time.text = timeText;
+        }
+
+        public void InitializedCPU(int inventorysize)
         {
             for (int i = 0; i < inventorysize; i++)
             {
                 CPUWorldExchangerItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
                 uiItem.transform.SetParent(contentPanel);
                 uiItem.transform.localScale = new Vector3(1, 1, 1);
-                ListOfSwordsItems.Add(uiItem);
+                ListOfCPUItems.Add(uiItem);
                 uiItem.SetTemporaryIndex(i);
                 uiItem.OnItemClicked += HandleItemSelection;
                 //uiItem.OnRightMouseBtnClick += HandleShowItemActions;
 
             }
+
+            //StartCoroutine(SpawnMissions(inventorysize));
         }
+
+        private IEnumerator SpawnMissions(int numberOfMissions)
+        {
+            for (int i = 0; i < numberOfMissions; i++)
+            {
+                CPUWorldExchangerItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+                uiItem.transform.SetParent(contentPanel);
+                uiItem.transform.localScale = new Vector3(1, 1, 1);
+                ListOfCPUItems.Add(uiItem);
+                uiItem.SetTemporaryIndex(i);
+                uiItem.OnItemClicked += HandleItemSelection;
+
+                yield return new WaitForSeconds(3f); // Wait for 5 seconds before spawning the next mission
+            }
+        }
+
+        public bool IsCPUVisible(int missionId)
+        {
+            if (missionId >= 0 && missionId < ListOfCPUItems.Count)
+            {
+                // Assuming the mission UI object is active or visible based on its game object's active status
+                return ListOfCPUItems[missionId].gameObject.activeSelf;
+            }
+            return false;
+        }
+
 
         private void HandleItemSelection(CPUWorldExchangerItem item)
         {
-            int index = ListOfSwordsItems.IndexOf(item);
+            int index = ListOfCPUItems.IndexOf(item);
             if (index == -1)
             {
                 return;
@@ -48,7 +85,7 @@ namespace Exchanger.UI.CPUWorld
 
         private void DeselectAllItems()
         {
-            foreach (CPUWorldExchangerItem item in ListOfSwordsItems)
+            foreach (CPUWorldExchangerItem item in ListOfCPUItems)
             {
                 item.DeSelect();
             }
@@ -63,20 +100,20 @@ namespace Exchanger.UI.CPUWorld
 
         public void UpdateData(int itemIndex, Sprite CPUImage, Sprite MaterialNeed, string CPUName, int Material, double stats)
         {
-            if (ListOfSwordsItems.Count > itemIndex)
+            if (ListOfCPUItems.Count > itemIndex)
             {
-                ListOfSwordsItems[itemIndex].SetData(CPUImage, MaterialNeed, CPUName, Material.ToString(), stats.ToString());//this will add to the shop
+                ListOfCPUItems[itemIndex].SetData(CPUImage, MaterialNeed, CPUName, Material.ToString(), stats.ToString());//this will add to the shop
 
             }
 
         }
         public void ClearItems()
         {
-            foreach (var item in ListOfSwordsItems)
+            foreach (var item in ListOfCPUItems)
             {
                 item.gameObject.SetActive(false);// Assuming ListOfShopItems contains the GameObjects of shop items
             }
-            ListOfSwordsItems.Clear();
+            ListOfCPUItems.Clear();
         }
         public void Show()//show are looping in the controller using update method
         {
