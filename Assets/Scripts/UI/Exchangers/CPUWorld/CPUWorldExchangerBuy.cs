@@ -1,10 +1,13 @@
 using Exchanger.Model.CPUWorld;
 using OtherWorld.Model;
+using PC.UI;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static OtherWorld.Model.OWInvSO;
+using static UnityEditor.Progress;
 
 public class CPUWorldExchangerBuy : MonoBehaviour
 {
@@ -14,10 +17,69 @@ public class CPUWorldExchangerBuy : MonoBehaviour
     public Button buyButton;
     private int value = 1;
 
+    public TMP_Text displayText;
+    public TMP_Text priceText;
+    public Button incrementButton;
+    public Button decrementButton;
+
+
+    public double ItemPrice = 0;
+    private int minValue = 1; // Minimum value (decrement limit)
+    private int maxValue = 99;// Maximum value (increment limit)
+    double total;
+
     public void Start()
     {
+        incrementButton.onClick.AddListener(IncrementValue);
+        decrementButton.onClick.AddListener(DecrementValue);
         buyButton.onClick.AddListener(HandleThePurchase);
     }
+    private void IncrementValue()
+    {
+        if (value < maxValue)
+        {
+            value++;
+            UpdateDisplay();
+            UpdatePriceDisplay();
+
+
+        }
+    }
+
+    private void DecrementValue()
+    {
+        if (value > minValue)
+        {
+            value--;
+            UpdateDisplay();
+            UpdatePriceDisplay();
+
+
+        }
+    }
+
+    private void UpdatePriceDisplay()
+    {
+        total = ItemPrice * value;
+        if (priceText != null)
+        {
+            priceText.text = total.ToString();
+
+        }
+
+    }
+
+    private void UpdateDisplay()
+    {
+
+        if (displayText != null)
+        {
+            displayText.text = value.ToString();
+
+        }
+
+    }
+
     public void SelectItem(CPUWorldExchangerItem item)
     {
 
@@ -52,8 +114,8 @@ public class CPUWorldExchangerBuy : MonoBehaviour
 
         int index = item.temporaryIndex;
         CPUs sp = GetItemAt(index);
-        //ItemPrice = sp.item.Price;
-        //total = sp.item.Price;
+        ItemPrice = sp.item.MaterialsAmountNeed;
+        total = sp.item.MaterialsAmountNeed;
 
 
 
@@ -76,14 +138,14 @@ public class CPUWorldExchangerBuy : MonoBehaviour
     {
         if (toBuy.Count > 0)
         {
-            CPUWorldExchangerItem swordItem = toBuy[0];
-            if (swordItem != null)
+            CPUWorldExchangerItem CPUItem = toBuy[0];
+            if (CPUItem != null)
             {
                 //you can place the condition for currency here
 
 
 
-                SwordBuys(swordItem);
+                CPUBuys(CPUItem);
 
 
 
@@ -92,10 +154,16 @@ public class CPUWorldExchangerBuy : MonoBehaviour
 
                 //Debug.Log("The item is " + ConvertShopItemToInventoryItem(shopItem).item.Name);
                 //Debug.Log("Quantity: " + ConvertShopItemToInventoryItem(shopItem).quantity);
-                swordItem.DeSelect();
-                //value = 1;
-                //displayText.text = value.ToString();
-                //priceText.text = "$" + ConvertShopItemToInventoryItem(shopItem).item.Price.ToString();
+                CPUItem.DeSelect();
+
+                value = 1;
+                displayText.text = value.ToString();
+
+                int index = CPUItem.temporaryIndex;
+                CPUs sp = GetItemAt(index);
+
+                priceText.text = sp.item.MaterialsAmountNeed.ToString();
+
 
 
             }
@@ -148,17 +216,17 @@ public class CPUWorldExchangerBuy : MonoBehaviour
     //    }
 
 
-
+    public PartsCollect Parts; 
     //}
-
-    public void SwordBuys(CPUWorldExchangerItem swordItem)
+    public void CPUBuys(CPUWorldExchangerItem CPUItem)
     {
-        if (swordItem != null)
+        if (CPUItem != null)
         {
             Debug.Log("Buyedd");
-            OtherWorldItem inventoryItem = ConvertShopItemToDecorationItem(swordItem);
 
-            if (inventoryItem.isEmpty)
+           Parts = ConvertCPUtoCollect(CPUItem);
+
+            if (Parts == null)
             {
 
                 Debug.LogWarning("Null inventory item returned from conversion.");
@@ -166,10 +234,29 @@ public class CPUWorldExchangerBuy : MonoBehaviour
             else
             {
 
-                //data.AddItem(inventoryItem);
-                //data.AddItemList(inventoryItem.item);
-                GameManager.instance.AddItemToTransfer(inventoryItem);
-                Debug.Log("Item added to inventory ");
+                Bounds parentBounds = GameManager.instance.GetParentBounds();
+
+                // Calculate a random position within the bounds of the parent object
+                Vector3 randomPosition = new Vector3(
+                    UnityEngine.Random.Range(parentBounds.min.x, parentBounds.max.x),
+                    UnityEngine.Random.Range(parentBounds.min.y, parentBounds.max.y),
+                    0f);
+
+
+
+                // Instantiate or update the GameObject based on the retrieved data
+                var obj = Instantiate(Parts, randomPosition, Quaternion.identity, GameManager.instance.partsToCollect);
+
+                obj.transform.localScale = new Vector3(0.71716f, 0.71716f, 0.71716f);
+
+                GameManager.instance.PartsToCollect.Add(obj.gameObject);
+                GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
+
+
+                Debug.Log("GameObject instantiated/updated: " + obj.name);
+
+
+                Debug.Log("Item Delivered ");
             }
 
         }
@@ -180,12 +267,10 @@ public class CPUWorldExchangerBuy : MonoBehaviour
 
     }
 
-    public OtherWorldItem ConvertShopItemToDecorationItem(CPUWorldExchangerItem shopItem)
+    public PartsCollect ConvertCPUtoCollect(CPUWorldExchangerItem shopItem)
     {
 
         List<CPUs> shopItems = so.Procies;
-        OtherWorldItem inventoryItem = new OtherWorldItem();
-
         int tempIndexs;
         int originalIndex;
         int tempIndex;
@@ -213,9 +298,8 @@ public class CPUWorldExchangerBuy : MonoBehaviour
 
             if (!shpItem.isEmpty)
             {
-
-                //inventoryItem.item = ConvertSword(shpItem);
-
+                Parts.parts = shpItem.item.Parts;
+               
 
             }
             else
@@ -228,11 +312,9 @@ public class CPUWorldExchangerBuy : MonoBehaviour
             Debug.LogError("Mapping not found for temporary index: " + tempIndex);
         }
 
+        Parts.Quantity = value;
 
-
-        inventoryItem.quantity = 1;
-
-        return inventoryItem;
+        return Parts;
 
     }
 

@@ -97,6 +97,10 @@ public class QuestManager : MonoBehaviour
             {
                 quest.InstantiateCurrentQuestStep(this.transform);
             }
+            else if (quest.state == QuestState.FINISHED)
+            {
+                GameManager.instance.packagescollected = 8;
+            }
 
             GameManager.instance.questEvents.QuestStateChange(quest);
         }

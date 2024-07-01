@@ -8,12 +8,11 @@ using UnityEngine;
 public class PartsCollect : MonoBehaviour
 
 {
-
     public Sprite packageimage;
 
     [field: SerializeField]
 
-    public PartsSO parts { get; private set; }
+    public PartsSO parts { get; set; }
 
     [field: SerializeField]
 
@@ -21,7 +20,7 @@ public class PartsCollect : MonoBehaviour
 
     [SerializeField]
 
-    public float duration = 0.3f;
+    private float duration = 0.3f;
 
     [SerializeField]
     private float changeInterval = 3f;
@@ -32,7 +31,8 @@ public class PartsCollect : MonoBehaviour
     void Start()
     {
         GetComponent<SpriteRenderer>().sprite = packageimage;   //parts.ItemImage;
-        StartCoroutine(ChangePartsAndQuantity());
+        //StartCoroutine(DropFromPartsList());
+        //FirstDrop();
     }
 
     internal void DestroyItem()
@@ -41,7 +41,7 @@ public class PartsCollect : MonoBehaviour
         StartCoroutine(AnimatePickUp());
     }
 
-    private IEnumerator ChangePartsAndQuantity()
+    private IEnumerator ChangePartsAndQuantity() // orig
     {
         while (true)
         {
@@ -62,7 +62,7 @@ public class PartsCollect : MonoBehaviour
         }
     }
 
-    private PartsSO GetRandomPartsSO()
+        private PartsSO GetRandomPartsSO() // orig
     {
         if ( GameManager.instance.partsList != null && GameManager.instance.partsList.Count > 0)
         {

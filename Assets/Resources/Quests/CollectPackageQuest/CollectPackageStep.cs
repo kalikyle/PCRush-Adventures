@@ -47,6 +47,7 @@ public class CollectPackageStep : QuestStep
         if(packagecollected >= packagetobecollected)
         {
             FinishQuestStep();
+            
         }
         UpdateState();
     }

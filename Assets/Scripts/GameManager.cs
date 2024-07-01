@@ -22,6 +22,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -904,7 +906,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Error deleting previous item in use: " + ex.Message);
         }
     }
-    private void Start()
+    private async void Start()
     {
 
 
@@ -914,9 +916,19 @@ public class GameManager : MonoBehaviour
 
        
         Debug.Log(UserID);
+
+        if (partsToCollect != null)
+        {
+            // Iterate over all children of the partsToCollect GameObject
+            foreach (Transform child in partsToCollect)
+            {
+                // Add each child GameObject to the PartsToCollect list
+                PartsToCollect.Add(child.gameObject);
+            }
+        }
         // player page
 
-        StartCoroutine(DropPartsInRandomPosition());
+        //StartCoroutine(DropPartsInRandomPosition());
 
 
 
@@ -924,7 +936,114 @@ public class GameManager : MonoBehaviour
 
 
         //DC.LoadInitialItems();
+        //FirstDrop();
+        //await Task.Delay(3000);
+        //DropAllPartsInRandomPositions();
 
+        //StartCoroutine(FirstDropAndPosition());
+        await Task.Delay(2000);
+        if (UserID != "")
+        {
+            if (packagescollected == 0)
+            {
+                SaveGameObjectsToFirestore(PartsToCollect);
+            }
+            else
+            {
+                await LoadGameObjectsFromFirestore();
+
+            }
+        }
+
+
+
+
+    }
+
+    private async Task LoadGameObjectsFromFirestore()
+    {
+        try
+        {
+           
+            // Get a reference to the Firestore document
+            DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection).Document(UserID);
+
+            // Create a reference to the subcollection for parts
+            CollectionReference partsCollectionRef = docRef.Collection("ToCollectPackages");
+
+            // Clear existing objects in partsToCollect
+            ClearPartsToCollect();
+
+            // Query to get all documents in the parts collection
+            QuerySnapshot snapshot = await partsCollectionRef.GetSnapshotAsync();
+
+            foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
+            {
+                // Deserialize the data from Firestore
+                string jsonData = documentSnapshot.GetValue<string>("data");
+                GameObjectData data = JsonUtility.FromJson<GameObjectData>(jsonData);
+
+               
+                // Instantiate or update the GameObject in partsToCollect based on the retrieved data
+                InstantiateOrUpdateGameObject(data);
+               
+                
+            }
+
+            Debug.Log("GameObjects loaded from Firestore.");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error loading GameObjects from Firestore: " + ex.Message);
+        }
+    }
+
+    private void ClearPartsToCollect()
+    {
+        // Destroy all existing children of partsToCollect
+        
+        foreach (Transform child in partsToCollect)
+        {
+            Destroy(child.gameObject);
+        }
+        PartsToCollect.Clear();
+    }
+
+    private void InstantiateOrUpdateGameObject(GameObjectData data)
+    {
+        partsCollectPrefab.parts = data.parts;
+        partsCollectPrefab.Quantity = data.Quantity;
+        // Instantiate or update the GameObject based on the retrieved data
+        var obj = Instantiate(partsCollectPrefab, data.position, Quaternion.identity, partsToCollect);
+        obj.name = data.name;
+
+        obj.transform.localScale = data.scale;
+
+        PartsToCollect.Add(obj.gameObject);
+      
+
+        Debug.Log("GameObject instantiated/updated: " + obj.name);
+    }
+
+
+    public async void CollectObject(GameObject collectedObject)
+    {
+        if (collectedObject != null && PartsToCollect.Contains(collectedObject))
+        {
+            // Remove the collected object from PartsToCollect
+            PartsToCollect.Remove(collectedObject);
+
+            // Save updated PartsToCollect list to Firestore
+            await Task.Delay(5000);
+            SaveGameObjectsToFirestore(PartsToCollect);
+
+            // Optionally, destroy or deactivate the collected object
+            //Destroy(collectedObject);
+        }
+        else
+        {
+            Debug.LogWarning("The collected object is null or not found in PartsToCollect list.");
+        }
     }
     //this is the start when click play button
     public async void AtTheStart()
@@ -952,7 +1071,13 @@ public class GameManager : MonoBehaviour
             await DecorMan.LoadAllDecorationsFromFirestore();
 
             RetrievePlayerInfo(UserID);
+
+
             
+
+
+
+
         }
     }
     public SceneLoader scene;
@@ -1132,8 +1257,138 @@ public class GameManager : MonoBehaviour
     public Vector2 spawnAreaSize = new Vector2(5f, 5f);
     public Transform partsToCollect;
     public List<PartsSO> partsList = new List<PartsSO>();
+    public List<GameObject> PartsToCollect = new List<GameObject>();
 
-    private IEnumerator DropPartsInRandomPosition()
+
+
+    //public List<PartsCollect> parts = new List<PartsCollect>();
+
+
+    //private IEnumerator FirstDropAndPosition()
+    //{
+    //    if (partsList != null && partsList.Count > 0)
+    //    {
+    //        // Create and store all parts
+    //        for (int i = 0; i < partsList.Count; i++)
+    //        {
+    //            // Instantiate a new PartsCollect object for each part in the list
+    //            PartsCollect newPartsCollect = Instantiate(partsCollectPrefab);
+
+    //            // Assign the current part from the list to the new instance
+    //            newPartsCollect.currentParts = partsList[i];
+
+    //            // Set the quantity to 1
+    //            newPartsCollect.currentQuantity = 1;
+
+    //            // Assign the new PartsSO and Quantity
+    //            newPartsCollect.parts = newPartsCollect.currentParts;
+    //            newPartsCollect.Quantity = newPartsCollect.currentQuantity;
+
+    //            // Set the sprite of the object based on the new PartsSO
+    //            // newPartsCollect.GetComponent<SpriteRenderer>().sprite = newPartsCollect.packageimage;
+
+    //            // Add the new instance to the parts list
+    //            parts.Add(newPartsCollect);
+    //        }
+
+    //        // Wait for the specified delay
+    //        yield return new WaitForSeconds(3.0f);
+
+    //        // Drop all parts in random positions
+    //        Bounds parentBounds = GetParentBounds();
+
+    //        foreach (var part in parts)
+    //        {
+    //            // Calculate a random position within the bounds of the parent object
+    //            Vector3 randomPosition = new Vector3(
+    //                UnityEngine.Random.Range(parentBounds.min.x, parentBounds.max.x),
+    //                UnityEngine.Random.Range(parentBounds.min.y, parentBounds.max.y),
+    //                0f);
+
+    //            // Set the position of the part to the calculated random position
+    //            part.transform.position = randomPosition;
+
+    //            // Set the parent of the instantiated prefab
+    //            if (partsToCollect != null)
+    //            {
+    //                part.transform.SetParent(partsToCollect);
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("PartsManager or partsList is not assigned or empty.");
+    //    }
+    //}
+    public async void SaveGameObjectsToFirestore(List<GameObject> gameObjects)
+    {
+        try
+        {
+            // Get a reference to the Firestore document
+            DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection).Document(UserID);
+
+            // Create a reference to the subcollection for parts
+            CollectionReference partsCollectionRef = docRef.Collection("ToCollectPackages");
+
+            // Clear existing data in Firestore
+            await DeleteExistingParts(partsCollectionRef);
+
+            // Iterate over the gameObjects and save their data to Firestore
+            foreach (GameObject obj in gameObjects)
+            {
+                // Create a new GameObjectData instance
+                GameObjectData data = new GameObjectData
+                {
+                    name = obj.name,
+                    position = obj.transform.position,
+                    parts = obj.gameObject.GetComponent<PartsCollect>().parts,
+                    Quantity = obj.gameObject.GetComponent<PartsCollect>().Quantity,
+                    scale = new Vector3(0.71716f, 0.71716f, 0.71716f)
+
+                };
+
+                // Serialize the GameObjectData
+                string jsonData = JsonUtility.ToJson(data);
+
+                // Create a new document for the GameObject
+                DocumentReference partDocRef = partsCollectionRef.Document();
+
+                // Save the serialized data to Firestore
+                await partDocRef.SetAsync(new Dictionary<string, object>
+                {
+                    { "data", jsonData }
+                });
+
+                Debug.Log("GameObject saved to Firestore: " + obj.name);
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error saving GameObject to Firestore: " + ex.Message);
+        }
+    }
+
+    private async Task DeleteExistingParts(CollectionReference partsCollectionRef)
+    {
+        try
+        {
+            // Query to get the existing parts
+            QuerySnapshot snapshot = await partsCollectionRef.GetSnapshotAsync();
+            foreach (DocumentSnapshot docSnap in snapshot.Documents)
+            {
+                // Delete the existing part
+                await docSnap.Reference.DeleteAsync();
+                Debug.Log("Existing part deleted: " + docSnap.Id);
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error deleting existing parts: " + ex.Message);
+        }
+    }
+
+
+    private IEnumerator DropPartsInRandomPosition() // orig
     {
         while (true)
         {
@@ -1158,7 +1413,8 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    private Bounds GetParentBounds()
+
+    public Bounds GetParentBounds()
     {
         // Get the renderer component of the parent object
         Collider2D parentCollider = partsToCollect.GetComponent<Collider2D>();
@@ -1193,6 +1449,16 @@ public class PartsItemList
 public class OtherWorldInventory
 {
     public List<OtherWorldItem> Items;
+}
+
+[System.Serializable]
+public class GameObjectData
+{
+    public string name;
+    public PartsSO parts;
+    public int Quantity;
+    public Vector3 position;
+    public Vector3 scale;
 }
 
 //[System.Serializable]

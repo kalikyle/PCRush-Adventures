@@ -30,8 +30,10 @@ public class PickUpSystem : MonoBehaviour
             int reminder = partsData.AddItem(parts.parts, parts.Quantity);
             if(reminder == 0)
             {
+                GameManager.instance.packagescollected += 1;
+                GameManager.instance.CollectObject(parts.gameObject);
                 parts.DestroyItem();
-                GameManager.instance.packagescollected++;
+                
             }
             else
             {
@@ -44,7 +46,7 @@ public class PickUpSystem : MonoBehaviour
                 GameManager.instance.ComputerInv.SetActive(false);
 
             }
-
+            
             partsData.PartsSaveItems();
         }
 
