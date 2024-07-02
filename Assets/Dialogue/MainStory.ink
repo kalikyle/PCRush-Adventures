@@ -9,7 +9,9 @@ I should collect those packages #speaker: {player_Name} #portrait: 0
 -> DONE
 
 === second ===
-I need two More #speaker: {player_Name} #portrait: 0
+Wow, these are computer parts #speaker: {player_Name} #portrait: 0
+but the only problem is I don't know how to assemble these #speaker: {player_Name} #portrait: 0
+ow, I know a person that can help me... #speaker: {player_Name} #portrait: 0
 
 
 -> DONE

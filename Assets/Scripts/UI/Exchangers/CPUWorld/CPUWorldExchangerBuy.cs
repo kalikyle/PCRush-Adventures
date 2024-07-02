@@ -1,9 +1,12 @@
 using Exchanger.Model.CPUWorld;
+using Firebase.Firestore;
 using OtherWorld.Model;
 using PC.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting.AssemblyQualifiedNameParser;
 using UnityEngine;
 using UnityEngine.UI;
 using static OtherWorld.Model.OWInvSO;
@@ -134,7 +137,35 @@ public class CPUWorldExchangerBuy : MonoBehaviour
         return so.Procies[obj];
     }
 
-    private void HandleThePurchase()
+    private async Task<int> GetMaterialQuantity(string materialName)
+    {
+        CollectionReference collectionRef = FirebaseFirestore.DefaultInstance
+            .Collection(GameManager.instance.UserCollection)
+            .Document(GameManager.instance.UserID)
+            .Collection("OtherWorldInventory");
+
+        QuerySnapshot querySnapshot = await collectionRef.GetSnapshotAsync();
+
+        foreach (var docSnapshot in querySnapshot.Documents)
+        {
+            string existingItemJson = docSnapshot.GetValue<string>("Items");
+            OtherWorldItemSO loadedItem = ScriptableObject.CreateInstance<OtherWorldItemSO>();
+            JsonUtility.FromJsonOverwrite(existingItemJson, loadedItem);
+            OtherWorldItem existingItem = new OtherWorldItem
+            {
+                item = loadedItem
+            };
+
+            if (existingItem.item.Category == "Materials" && existingItem.item.Name == materialName)
+            {
+                return docSnapshot.GetValue<int>("Quantity");
+            }
+        }
+
+        return 0; // If material is not found, return 0
+    }
+
+    private async void HandleThePurchase()
     {
         if (toBuy.Count > 0)
         {
@@ -142,28 +173,43 @@ public class CPUWorldExchangerBuy : MonoBehaviour
             if (CPUItem != null)
             {
                 //you can place the condition for currency here
-
-
-
-                CPUBuys(CPUItem);
-
-
-
-                //ConvertShopItemToInventoryItem(shopItem);
-                Debug.Log("The item has been purchase");
-
-                //Debug.Log("The item is " + ConvertShopItemToInventoryItem(shopItem).item.Name);
-                //Debug.Log("Quantity: " + ConvertShopItemToInventoryItem(shopItem).quantity);
-                CPUItem.DeSelect();
-
-                value = 1;
-                displayText.text = value.ToString();
-
                 int index = CPUItem.temporaryIndex;
                 CPUs sp = GetItemAt(index);
 
-                priceText.text = sp.item.MaterialsAmountNeed.ToString();
+                string MaterialName = sp.item.MaterialsNeed.name;
+                double requiredamount = total;
 
+                int currentQuantity = await GetMaterialQuantity(MaterialName);
+
+                if (currentQuantity >= requiredamount)
+                {
+                    CPUBuys(CPUItem);
+
+                    // Deduct the used quantity
+                    OtherWorldItemSO newItemSO = ScriptableObject.CreateInstance<OtherWorldItemSO>();
+                    newItemSO.Name = MaterialName;
+                    newItemSO.Category = "Materials";
+                    int quantityToDeduct = -(int)requiredamount;
+
+
+                    await GameManager.instance.SaveOWItems(newItemSO, quantityToDeduct);
+
+                    Debug.Log("The item has been purchase");
+
+                    GameManager.instance.LoadOtherWorldInventory();
+
+
+                    CPUItem.DeSelect();
+
+                    value = 1;
+                    displayText.text = value.ToString();
+                    priceText.text = sp.item.MaterialsAmountNeed.ToString();
+
+                }
+                else
+                {
+                    Debug.LogError("You dont have enough of this Item!");
+                }
 
 
             }
