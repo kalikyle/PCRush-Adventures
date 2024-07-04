@@ -26,6 +26,7 @@ public class QuestLogUI : MonoBehaviour
 
     [SerializeField] private TMP_Text QuestName;
     [SerializeField] private TMP_Text questStatus;
+    [SerializeField] private TMP_Text questInfo;
     [SerializeField] private GameObject QuestPanel;
 
 
@@ -36,6 +37,8 @@ public class QuestLogUI : MonoBehaviour
         GameManager.instance.questEvents.onQuestStateChange += QuestStateChange;
         GameManager.instance.questEvents.onQuestStateChange += UpdateQuest;
         GameManager.instance.questEvents.onQuestStateChange += UpdateUI;
+
+        
 
     }
 
@@ -106,7 +109,11 @@ public class QuestLogUI : MonoBehaviour
 
         QuestName.text = quest.currentQuestStep();
         questStatus.text = quest.currentStatus();
+
+        questInfo.text = quest.currentQuestStepInfo();
         
+
+
 
 
         levelRequirementsText.text = "Level " + quest.info.levelRequirement;

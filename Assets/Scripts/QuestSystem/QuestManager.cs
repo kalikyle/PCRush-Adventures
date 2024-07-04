@@ -52,6 +52,8 @@ public class QuestManager : MonoBehaviour
         catch (Exception ) { }
     }
 
+    
+
     private bool CheckRequirements(Quest quest)
     {
         bool meetrequirment = true;
