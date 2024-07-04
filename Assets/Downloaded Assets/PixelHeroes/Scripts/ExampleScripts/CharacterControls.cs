@@ -231,7 +231,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public float WalkSpeed = 1f;
         public int runSpeed = 2;
         public float pushForce = 5f;
-        public int attack = 1;
+        //public int attack = 1;
         public Slider healthSlider;
         public TMP_Text hitPoints;
         public bool isDead = false;
@@ -686,11 +686,11 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 if(health = collider.GetComponent<Health>())
                 {
                     //attack
-                    health.GetHit(attack, transform.gameObject);
+                    health.GetHit(GameManager.instance.PlayerAttack, transform.gameObject);
 
                     if (gameObject.layer != collider.gameObject.layer)
                     {
-                        ShowFloatingText(attack);
+                        ShowFloatingText(GameManager.instance.PlayerAttack);
                         collider.GetComponent<Animator>().SetBool("Hit", true);
                        
                     }

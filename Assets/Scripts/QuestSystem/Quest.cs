@@ -9,9 +9,11 @@ public class Quest
 
     public QuestState state;
 
-    private int currentQuestStepIndex;
+    public int currentQuestStepIndex;
     private QuestStepState[] questStepStates;
 
+
+    
 
     public Quest(QuestInfoSO questinfo)
     {
@@ -114,7 +116,7 @@ public class Quest
             for (int i = 0; i < currentQuestStepIndex; i++)
             {
                 
-                    fullStatus += "<s>" + info.questStepsPrefab[i].name + ": " + questStepStates[i].status + "</s>\n";
+                fullStatus += "<s>" + info.questStepsPrefab[i].name + ": " + questStepStates[i].status + "</s>\n";
                 
             }
 
@@ -167,4 +169,36 @@ public class Quest
         
         return cstatus;
     }
-}
+
+    public string currentQuestStepInfo()
+    {
+        string cstatus = "";
+        if (Currentstepexist())
+        {
+            GameObject questStepPrefab = info.questStepsPrefab[currentQuestStepIndex];
+            CollectPackageStep collectPackageStep = questStepPrefab.GetComponent<CollectPackageStep>();
+            GoToIan goToIan = questStepPrefab.GetComponent<GoToIan>();
+
+
+            if (collectPackageStep != null)
+            {
+                cstatus = collectPackageStep.StepInfo;
+            }
+
+            if(goToIan != null)
+            {
+                cstatus = goToIan.StepInfo;
+            }
+            
+        }
+
+        return cstatus;
+    }
+
+    
+
+
+    }
+
+
+  

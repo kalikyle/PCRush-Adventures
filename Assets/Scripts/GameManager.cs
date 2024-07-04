@@ -103,8 +103,13 @@ public class GameManager : MonoBehaviour
 
     //player info
     public string PlayerName;
-    public int PlayerLevel = 2;
+    public int PlayerLevel = 1;
     public int PlayerHealth = 100;
+    public int PlayerMoney = 0;
+    public int PlayerGems = 0;
+    public int PlayerAttack = 1;
+    public int PlayerExpToLevelUp = 20;
+    public int PlayerEXP = 0;
 
 
     public List<DecorationItem> removedItemsDuringEditing = new List<DecorationItem>();
@@ -120,6 +125,11 @@ public class GameManager : MonoBehaviour
     public TMP_Text Playerui;
     public Image PlayerImage;
     public Image PlayerOWImage;
+    public TMP_Text PlayerMoneyText;
+    public TMP_Text PlayerGemsText;
+    public TMP_Text PlayerLevelText;
+    public Slider PlayerLevelSlide;
+
 
     //public Sprite playersprite;
 
@@ -134,6 +144,19 @@ public class GameManager : MonoBehaviour
     public void OpenSwordShop()
     {
         Equipments.SwordsOpenShop();
+    }
+
+    public void CurrencyText()
+    {
+        PlayerMoneyText.text = PlayerMoney.ToString();
+        PlayerGemsText.text = PlayerGems.ToString();
+    }
+
+    public void PlayerLevelUpdate()
+    {
+        PlayerLevelText.text = PlayerLevel.ToString();
+        PlayerLevelSlide.value = PlayerEXP;
+        PlayerLevelSlide.maxValue = PlayerExpToLevelUp;
     }
 
     public void OpenArmorShop()
@@ -172,7 +195,14 @@ public class GameManager : MonoBehaviour
         // Create a dictionary to store the playerName
         Dictionary<string, object> playerNameData = new Dictionary<string, object>
         {
-            { "playerName", playerName }
+            { "playerName", playerName },
+            { "playerLevel", PlayerLevel },
+             { "playerHealth", PlayerHealth },
+             { "playerMoney", PlayerMoney },
+             { "playerGems", PlayerGems },
+             {"playerAttack", PlayerAttack },
+             {"playerEXP", PlayerEXP},
+            {"playerEXPNeedtoLevelUp", PlayerExpToLevelUp }
             //add other fields
         };
 
@@ -211,7 +241,13 @@ public class GameManager : MonoBehaviour
             {
                 // Extract the playerName from the document data
                 PlayerName = snapshot.GetValue<string>("playerName");
-
+                PlayerHealth = snapshot.GetValue<int>("playerHealth");
+                PlayerMoney = snapshot.GetValue<int>("playerMoney");
+                PlayerGems = snapshot.GetValue<int>("playerGems");
+                PlayerAttack = snapshot.GetValue<int>("playerAttack");
+                PlayerLevel = snapshot.GetValue<int>("playerLevel");
+                PlayerEXP = snapshot.GetValue<int>("playerEXP");
+                PlayerExpToLevelUp = snapshot.GetValue<int>("playerEXPNeedtoLevelUp");
             }
             else
             {
@@ -223,11 +259,14 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Error retrieving playerName: " + ex.Message);
         }
     }
-
+    public void OnApplicationQuit()
+    {
+        SaveCharInfo(UserID, PlayerName);
+    }
 
     //public async Task LoadInUseItems()
     //{
-       
+
     //    string[] categories = new string[] { "Monitor", "Mouse", "Keyboard", "Desk", "Background" };
 
     //    foreach (string category in categories)
@@ -237,8 +276,8 @@ public class GameManager : MonoBehaviour
     //        // Load the in-use items from Firestore for this category
     //        //await LoadInSoldItemsFromFirestore(category);
     //        await LoadInUseItemsFromFirestore(category);
-              
-        
+
+
     //    }
     //}
 
@@ -990,7 +1029,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Error deleting previous item in use: " + ex.Message);
         }
     }
-    private async void Start()
+    private void Start()
     {
 
 
@@ -1025,26 +1064,14 @@ public class GameManager : MonoBehaviour
         //DropAllPartsInRandomPositions();
 
         //StartCoroutine(FirstDropAndPosition());
-        await Task.Delay(2000);
-        if (UserID != "")
-        {
-            if (packagescollected == 0)
-            {
-                SaveGameObjectsToFirestore(PartsToCollect);
-            }
-            else
-            {
-                await LoadGameObjectsFromFirestore();
-
-            }
-        }
+        
 
 
 
 
     }
 
-    private async Task LoadGameObjectsFromFirestore()
+    public async Task LoadGameObjectsFromFirestore()
     {
         try
         {
@@ -1156,11 +1183,11 @@ public class GameManager : MonoBehaviour
 
             RetrievePlayerInfo(UserID);
 
-
-            
-
-
-
+                if (packagescollected != 0)
+                {
+                    //SaveGameObjectsToFirestore(PartsToCollect);
+                    await LoadGameObjectsFromFirestore();
+                }
 
         }
     }
@@ -1254,6 +1281,8 @@ public class GameManager : MonoBehaviour
     {
         UserIDTxt.text = UserID;
         Playerui.text = PlayerName;
+        CurrencyText();
+        PlayerLevelUpdate();
 
         if (UserID != "")
         {
@@ -1264,6 +1293,9 @@ public class GameManager : MonoBehaviour
         {
             InGamePanel.gameObject.SetActive(false);
         }
+
+
+
     }
     public void UpdateShop(string category)
     {

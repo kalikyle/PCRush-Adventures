@@ -10,6 +10,8 @@ public class CollectPackageStep : QuestStep
     private int packagetobecollected = 8;
     private int previousPackageCollected = 0;
 
+    public string StepInfo = "Exit Your Room and Collect those Unknown Packages at the front of your home door.";
+
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
@@ -50,6 +52,7 @@ public class CollectPackageStep : QuestStep
             
         }
         UpdateState();
+        
     }
 
 
@@ -62,12 +65,14 @@ public class CollectPackageStep : QuestStep
         ChangeState(state, status);
     }
 
-    protected override void SetQuestStepState(string state)
+    protected override  void SetQuestStepState(string state)
     {
         //Debug.LogError(state);
         GameManager.instance.packagescollected = System.Int32.Parse(state);
         packagecollected = GameManager.instance.packagescollected;
         UpdateState();
-    }
 
+
+        
+    }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GoToIan : QuestStep
@@ -10,12 +11,15 @@ public class GoToIan : QuestStep
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
+    public string StepInfo = "Go Outside your house, and find your friend Ian. His house have Orange roof located at the southeast of the Map";
+
 
     private GameObject targetGameObject;
     private bool hasReachedTarget = false;
 
-    public void Start()
+    public async void Start()
     {
+        GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
         // Find the target GameObject by name in the scene
         if (!string.IsNullOrEmpty(targetGameObjectName))
         {
@@ -27,6 +31,7 @@ public class GoToIan : QuestStep
             }
             else
             {
+                await Task.Delay(1500);
                 Debug.Log("Navigate to " + targetGameObject.name + ".");
                 DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
                 DialogueManager.GetInstance().TriggerSection("second");
