@@ -2,12 +2,14 @@ using Exchanger.Model.CPUWorld;
 using Firebase.Firestore;
 using OtherWorld.Model;
 using PC.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting.AssemblyQualifiedNameParser;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static OtherWorld.Model.OWInvSO;
 using static UnityEditor.Progress;
@@ -30,6 +32,10 @@ public class CPUWorldExchangerBuy : MonoBehaviour
     private int minValue = 1; // Minimum value (decrement limit)
     private int maxValue = 99;// Maximum value (increment limit)
     double total;
+
+
+   
+
 
     public void Start()
     {
@@ -71,10 +77,14 @@ public class CPUWorldExchangerBuy : MonoBehaviour
         }
 
     }
+    public void ResetQuantity()
+    {
+        value = 1;
+        UpdateDisplay();
+    }
 
     private void UpdateDisplay()
     {
-
         if (displayText != null)
         {
             displayText.text = value.ToString();

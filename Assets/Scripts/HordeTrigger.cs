@@ -91,6 +91,7 @@ public class HordeTrigger : MonoBehaviour
                 Wall.gameObject.SetActive(false);
 
                 getMaterials();
+                GetMoney();
                 StopAllCoroutines();
                 DestroyAllEnemies();
 
@@ -142,6 +143,12 @@ public class HordeTrigger : MonoBehaviour
             GameManager.instance.AddItemToTransfer(inventoryItem);
             Debug.LogError("Item added to inventory ");
         }
+    }
+
+    public void GetMoney()
+    {
+        GameManager.instance.PlayerMoney += PickUpSystem.coins;
+        GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
     }
 
     private OtherWorldItem ConvertMaterialsToInventoryItem()
@@ -285,10 +292,21 @@ public class HordeTrigger : MonoBehaviour
 
     private void StopTimer()
     {
-        isTimerRunning = false; // Stop the timer
+        countdownTime = 0f;
+        isTimerRunning = false;
         CPUWorldCanvas.gameObject.SetActive(true);
         ExploreUI.SetActive(true);
+        QuestUI.SetActive(true);
+        TopPanelUI.SetActive(true);
+        ButtonsPanelUI.SetActive(true);
         ONHordeUI.SetActive(false);
         Wall.gameObject.SetActive(false);
+
+        //getMaterials();
+        StopAllCoroutines();
+        DestroyAllEnemies();
+
+        PickUpSystem.coins = 0;
+        PickUpSystem.materials = 0;
     }
 }

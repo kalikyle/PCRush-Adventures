@@ -52,8 +52,6 @@ public class ArmorBuy : MonoBehaviour
 
         int index = item.temporaryIndex;
         Armor.Model.Armors sp = GetItemAt(index);
-        //ItemPrice = sp.item.Price;
-        //total = sp.item.Price;
 
 
 
@@ -81,21 +79,19 @@ public class ArmorBuy : MonoBehaviour
             {
                 //you can place the condition for currency here
 
+               
+                    ArmorBuys(swordItem);
+                    Debug.Log("The item has been purchase");
+
+                
+
+              
 
 
-                SwordBuys(swordItem);
 
-
-
-                //ConvertShopItemToInventoryItem(shopItem);
-                Debug.Log("The item has been purchase");
-
-                //Debug.Log("The item is " + ConvertShopItemToInventoryItem(shopItem).item.Name);
-                //Debug.Log("Quantity: " + ConvertShopItemToInventoryItem(shopItem).quantity);
+                
                 swordItem.DeSelect();
-                //value = 1;
-                //displayText.text = value.ToString();
-                //priceText.text = "$" + ConvertShopItemToInventoryItem(shopItem).item.Price.ToString();
+                
 
 
             }
@@ -151,7 +147,7 @@ public class ArmorBuy : MonoBehaviour
 
     //}
 
-    public void SwordBuys(Armor.UI.ArmorsItem swordItem)
+    public void ArmorBuys(Armor.UI.ArmorsItem swordItem)
     {
         if (swordItem != null)
         {
@@ -166,10 +162,19 @@ public class ArmorBuy : MonoBehaviour
             else
             {
 
-                //data.AddItem(inventoryItem);
-                //data.AddItemList(inventoryItem.item);
-                GameManager.instance.AddItemToTransfer(inventoryItem);
-                Debug.Log("Item added to inventory ");
+                int ArmorPrice = Armor.item.Price;
+                if (GameManager.instance.PlayerMoney >= ArmorPrice)
+                {
+                    GameManager.instance.AddItemToTransfer(inventoryItem);   
+                    Debug.Log("The item has been purchase");
+
+                    GameManager.instance.PlayerMoney -= ArmorPrice;
+                    GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                }
+                else
+                {
+                    Debug.LogError("You dont have enough money");
+                }
             }
 
         }
@@ -179,7 +184,7 @@ public class ArmorBuy : MonoBehaviour
         }
 
     }
-
+    private Armor.Model.Armors Armor;
     public OtherWorldItem ConvertShopItemToDecorationItem(Armor.UI.ArmorsItem shopItem)
     {
 
@@ -215,7 +220,7 @@ public class ArmorBuy : MonoBehaviour
             {
 
                 inventoryItem.item = ConvertSword(shpItem);
-
+                Armor = shpItem;
 
             }
             else

@@ -88,9 +88,10 @@ public class SwordBuy : MonoBehaviour
             {
                 //you can place the condition for currency here
 
-
+                
 
                 SwordBuys(swordItem);
+                
 
 
 
@@ -172,11 +173,21 @@ public class SwordBuy : MonoBehaviour
             }
             else
             {
+                int swordPrice = Sword.item.Price;
+                if(GameManager.instance.PlayerMoney >= swordPrice)
+                {
+                    GameManager.instance.AddItemToTransfer(inventoryItem);
+                    Debug.Log("Item added to inventory ");
+
+                    GameManager.instance.PlayerMoney -= swordPrice;
+                    GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                }
+                else
+                {
+                    Debug.LogError("You dont have enough money");
+                }
                 
-                //data.AddItem(inventoryItem);
-                //data.AddItemList(inventoryItem.item);
-                GameManager.instance.AddItemToTransfer(inventoryItem);
-                Debug.Log("Item added to inventory ");
+                
             }
 
         }
@@ -186,7 +197,7 @@ public class SwordBuy : MonoBehaviour
         }
 
     }
-
+    public Swords.Model.Swords Sword;
     public OtherWorldItem ConvertShopItemToDecorationItem(Swords.UI.SwordsItem shopItem)
     {
        
@@ -222,7 +233,7 @@ public class SwordBuy : MonoBehaviour
                 {
 
                 inventoryItem.item = ConvertSword(shpItem);
-               
+                Sword = shpItem;
 
             }
                 else

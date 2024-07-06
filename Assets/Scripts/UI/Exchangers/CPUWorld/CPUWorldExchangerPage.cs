@@ -13,6 +13,7 @@ namespace Exchanger.UI.CPUWorld
     {
         [SerializeField]
         private CPUWorldExchangerItem itemPrefab;
+        
         [SerializeField]
         private RectTransform contentPanel;
 
@@ -20,6 +21,7 @@ namespace Exchanger.UI.CPUWorld
 
         
         public List<CPUWorldExchangerItem> ListOfCPUItems = new List<CPUWorldExchangerItem>();
+       
         void Start()
         {
 
@@ -34,11 +36,14 @@ namespace Exchanger.UI.CPUWorld
             for (int i = 0; i < inventorysize; i++)
             {
                 CPUWorldExchangerItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+               
                 uiItem.transform.SetParent(contentPanel);
                 uiItem.transform.localScale = new Vector3(1, 1, 1);
                 ListOfCPUItems.Add(uiItem);
+                
                 uiItem.SetTemporaryIndex(i);
                 uiItem.OnItemClicked += HandleItemSelection;
+                
                 //uiItem.OnRightMouseBtnClick += HandleShowItemActions;
 
             }
@@ -56,7 +61,7 @@ namespace Exchanger.UI.CPUWorld
                 ListOfCPUItems.Add(uiItem);
                 uiItem.SetTemporaryIndex(i);
                 uiItem.OnItemClicked += HandleItemSelection;
-
+                //buyItem.OnItemClicked += HandleItemSelectionBuy;
                 yield return new WaitForSeconds(3f); // Wait for 5 seconds before spawning the next mission
             }
         }
@@ -81,21 +86,52 @@ namespace Exchanger.UI.CPUWorld
             }
             //OnDescriptionRequested?.Invoke(index);
             DeselectAllItems();
+            
         }
+
+        //private void HandleItemSelectionBuy(CPUWorldExchangerBuy item)
+        //{
+        //    int index = ListOfCPUItemsBuy.IndexOf(item);
+        //    if (index == -1)
+        //    {
+        //        return;
+        //    }
+            
+        //    ResetQuantity();
+        //}
 
         private void DeselectAllItems()
         {
             foreach (CPUWorldExchangerItem item in ListOfCPUItems)
             {
                 item.DeSelect();
+                
             }
         }
+
+        private void ResetQuantity()
+        {
+            foreach (CPUWorldExchangerItem item in ListOfCPUItems)
+            {
+                item.ResetQuantity();
+
+            }
+        }
+        //private void ResetQuantity()
+        //{
+        //    foreach (CPUWorldExchangerBuy item in ListOfCPUItemsBuy)
+        //    {
+        //        item.ResetQuantity();
+        //    }
+        //}
 
         public void ResetSelection()
         {
             //shopDesc.Hide();
             //shopDesc.ResetDescription();
             DeselectAllItems();
+            ResetQuantity();
+            //ResetQuantity();
         }
 
         public void UpdateData(int itemIndex, Sprite CPUImage, Sprite MaterialNeed, string CPUName, int Material, double stats)

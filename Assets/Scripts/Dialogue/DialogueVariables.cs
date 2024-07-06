@@ -82,7 +82,11 @@ public class DialogueVariables
 
     public void StopListening(Story story)
     {
-        story.variablesState.variableChangedEvent -= VariableChanged;
+        try
+        {
+            story.variablesState.variableChangedEvent -= VariableChanged;
+        }
+        catch{ }
     }
 
     private void VariableChanged(string name, Ink.Runtime.Object value)

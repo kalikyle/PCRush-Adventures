@@ -177,6 +177,8 @@ public class ShopBuy : MonoBehaviour
             {
                 //you can place the condition for currency here
 
+                
+
               
                
                     HandlePurchase(shopItem);
@@ -359,16 +361,7 @@ public class ShopBuy : MonoBehaviour
             }
             else
             {
-                shpItem.item.Sold = true;
-                shpItem.item.InUse = true;
-                GameManager.instance.SaveItemToFirestore(shpItem);
-                GameManager.instance.SaveUsedItemToFirestore(shpItem);
-
-                previousItem(shpItem);
-
-                EquipButton.gameObject.SetActive(false);
-                buyButton.gameObject.SetActive(false);
-                EquippedButton.gameObject.SetActive(true);
+                BuyItemAndCheck(shpItem);
             }
 
 
@@ -385,16 +378,7 @@ public class ShopBuy : MonoBehaviour
             }
             else
             {
-                shpItem.item.Sold = true;
-                shpItem.item.InUse = true;
-                GameManager.instance.SaveItemToFirestore(shpItem);
-                GameManager.instance.SaveUsedItemToFirestore(shpItem);
-
-                previousItem(shpItem);
-
-                EquipButton.gameObject.SetActive(false);
-                buyButton.gameObject.SetActive(false);
-                EquippedButton.gameObject.SetActive(true);
+                BuyItemAndCheck(shpItem);
             }
         }
         else if (ToggleTF == false && ToggleBSE == false)// for all
@@ -425,17 +409,8 @@ public class ShopBuy : MonoBehaviour
                 }
                 else
                 {
-                    shpItem.item.Sold = true;
-                    shpItem.item.InUse = true;
-                    GameManager.instance.SaveItemToFirestore(shpItem);
-                    GameManager.instance.SaveUsedItemToFirestore(shpItem);
-
-                    previousItem(shpItem);
-
-                    EquipButton.gameObject.SetActive(false);
-                    buyButton.gameObject.SetActive(false);
-                    EquippedButton.gameObject.SetActive(true);
-                } 
+                    BuyItemAndCheck(shpItem);
+                }
             }
             else
             {
@@ -445,6 +420,37 @@ public class ShopBuy : MonoBehaviour
        
 
     }
+
+    private void BuyItemAndCheck(Shop.Model.ShopItem shpItem)
+    {
+        if (GameManager.instance.PlayerMoney >= shpItem.item.Price)
+        {
+
+            ItemsBuy(shpItem);
+
+            GameManager.instance.PlayerMoney -= shpItem.item.Price;
+            GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+        }
+        else
+        {
+            Debug.LogError("You dont have enough money");
+        }
+    }
+
+    private void ItemsBuy(Shop.Model.ShopItem shpItem)
+    {
+        shpItem.item.Sold = true;
+        shpItem.item.InUse = true;
+        GameManager.instance.SaveItemToFirestore(shpItem);
+        GameManager.instance.SaveUsedItemToFirestore(shpItem);
+
+        previousItem(shpItem);
+
+        EquipButton.gameObject.SetActive(false);
+        buyButton.gameObject.SetActive(false);
+        EquippedButton.gameObject.SetActive(true);
+    }
+
     public void DecorBuy(Shop.UI.ShopItem shopItem)
     {
         if (shopItem != null)
@@ -455,54 +461,29 @@ public class ShopBuy : MonoBehaviour
 
             if (inventoryItem.isEmpty)
             {
-                // Add the converted item to the inventory's initialItems list
-                //inventoryController.itemsToTransfer.Add(inventoryItem);
                 Debug.LogWarning("Null inventory item returned from conversion.");
             }
             else
             {
-                //place the if else here for currency
-                /* GameManager dataManager = FindObjectOfType<GameManager>();
-                 dataManager.AddItemToTransfer(inventoryItem);*/
-                //if (GameManager.Instance.PCMoney >= total)
-               // {
 
-                    //GameManager.Instance.PCMoney -= total;
+                if (GameManager.instance.PlayerMoney >= total)
+                {
+
                     GameManager.instance.AddItemToTransfer(inventoryItem);
-                    //GameManager.Instance.UpdatePCMoneyText();
-                    //GameManager.Instance.SavePCMoney(); // Save the updated PCMoney
+
+                    GameManager.instance.PlayerMoney -= (int)total;
+                    GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                    Debug.Log("Item added to inventory ");
+                    value = 1;
+                    displayText.text = value.ToString();
+                    UpdatePriceDisplay();
 
 
-
-                    //GameManager.Instance.PopImage.gameObject.SetActive(true);
-                    //GameManager.Instance.ShowPopUp(inventoryItem, total);
-                    //buySound.Play();
-                    //GameManager.Instance.PopupItemImage.sprite = inventoryItem.item.ItemImage;
-                    //GameManager.Instance.Quantity.text = inventoryItem.quantity.ToString() + "X";
-                    //GameManager.Instance.ItemName.text = inventoryItem.item.Name;
-                    //GameManager.Instance.Price.text = "For $" + total.ToString();
-
-                    // Update the PCMoney text UI
-              //  }
-            //    else
-              //  {
-                    //GameManager.Instance.DialogBox.gameObject.SetActive(true);
-                    //GameManager.Instance.DialogText.text = "Insufficient PCMoney! \n Sell Some Parts to Restore your PCMoney...";
-                    //InsufficientSound.Play();
-             //   }
-
-                // AddedtoCart.Add(inventoryItem);
-
-
-
-
-
-                //inventdata.inventoryItems.Add(inventoryItem);
-
-                Debug.Log("Item added to inventory ");
-                value = 1;
-                displayText.text = value.ToString();
-                UpdatePriceDisplay();
+                }
+                else
+                {
+                    Debug.LogError("You dont have enough money");
+                }
             }
 
         }
