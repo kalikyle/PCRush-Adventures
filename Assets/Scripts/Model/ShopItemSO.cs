@@ -23,7 +23,7 @@ namespace Shop.Model
         public Sprite ItemImage { get; set; } //sprite
 
         [field: SerializeField]
-        public double Price { get; set; }
+        public int Price { get; set; }
 
         [field: SerializeField]
         public bool Sold { get; set; }

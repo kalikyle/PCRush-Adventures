@@ -51,7 +51,13 @@ public class CPUWorldExchangerItem : MonoBehaviour, IPointerEnterHandler
     public void DeSelect()
     {
         borderImage.enabled = false;
+        
         //monitorBuy.buyButton.interactable = false;
+    }
+
+    public void ResetQuantity()
+    {
+        CPUBuy.ResetQuantity();
     }
     public void ResetData()
     {

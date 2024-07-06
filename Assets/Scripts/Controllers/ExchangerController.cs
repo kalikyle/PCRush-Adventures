@@ -175,6 +175,7 @@ namespace Exchanger
         {
             CPUsData.ShuffleCPUs();
             InitializeCPUs();
+            CPUsPage.ResetSelection();
         }
 
         private void RefreshCPUs()
@@ -182,7 +183,7 @@ namespace Exchanger
             CPUsData.ShuffleCPUs();
             InitializeCPUs();
             remainingTime = Time;
-
+            CPUsPage.ResetSelection();
         }
 
         private void UpdateTimerDisplay()
