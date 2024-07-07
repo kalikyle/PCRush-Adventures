@@ -34,11 +34,11 @@ namespace PC.UI
         //public string pcname, pcprice, casen, mbn, cpun, cpufn, ramn, gpun, strgn, psun;
         public event Action<int> OnDescriptionRequested, OnItemActionRequested;
         public void UpdateDescription(int index,Sprite pcsprite, Sprite casesprite, Sprite mbsprite, Sprite cpusprite, Sprite cpufsprite, Sprite ramsprite, Sprite gpusprite, Sprite strgsprite, Sprite psusprite,
-        string PCname, string Casename, string mbname, string cpuname, string cpufname, string ramname, string gpuname, string strgname, string psuname, bool InUse)
+        string PCname, string Casename, string mbname, string cpuname, string cpufname, string ramname, string gpuname, string strgname, string psuname, bool InUse, string perks)
         {
 
             PCDescription.SetDescription(pcsprite, casesprite,mbsprite,  cpusprite, cpufsprite, ramsprite,  gpusprite, strgsprite, psusprite,
-            PCname,  Casename, mbname,  cpuname,  cpufname,  ramname,  gpuname, strgname, psuname, InUse);
+            PCname,  Casename, mbname,  cpuname,  cpufname,  ramname,  gpuname, strgname, psuname, InUse, perks);
             DeselectAllItems();
             ListOfPCs[index].Select();
 

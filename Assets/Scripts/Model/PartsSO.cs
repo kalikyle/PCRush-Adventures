@@ -30,8 +30,13 @@ namespace PartsInventory.Model
         public string Category { get; set; }
 
 
+
+
+
+        //Perks
+
         [field: SerializeField]
-        public double Attack { get; set; }
+        public double AttackDamage { get; set; }
 
         [field: SerializeField]
         public double Health { get; set; }
@@ -39,8 +44,21 @@ namespace PartsInventory.Model
         [field: SerializeField]
         public double Mana { get; set; }
 
+        [field: SerializeField]
+        public double HealthRegen { get; set; }
 
-        //[field: SerializeField]
-        //public double Price { get; set; }
+        [field: SerializeField]
+        public double WalkSpeed { get; set; }
+
+        [field: SerializeField]
+        public double Armor { get; set; }
+
+        [field: SerializeField]
+        public double AttackSpeed { get; set; }
+
+        [field: SerializeField]
+        public double CriticalHit { get; set; }
+
+
     }
 }

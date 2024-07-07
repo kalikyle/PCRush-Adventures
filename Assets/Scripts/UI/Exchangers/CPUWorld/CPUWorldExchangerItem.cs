@@ -24,6 +24,9 @@ public class CPUWorldExchangerItem : MonoBehaviour, IPointerEnterHandler
     public TMP_Text stats;
 
     [SerializeField]
+    public TMP_Text Rarity;
+
+    [SerializeField]
     private Image borderImage;
 
     [SerializeField]
@@ -64,7 +67,7 @@ public class CPUWorldExchangerItem : MonoBehaviour, IPointerEnterHandler
 
         CPUImage.gameObject.SetActive(false);
     }
-    public void SetData(Sprite CPUSprite, Sprite MaterialNeeds, string name, string Price, string stat)//quantity has been removed
+    public void SetData(Sprite CPUSprite, Sprite MaterialNeeds, string name, string rarity, string Price, string stat)//quantity has been removed
     {
         CPUImage.gameObject.SetActive(true);
 
@@ -74,6 +77,7 @@ public class CPUWorldExchangerItem : MonoBehaviour, IPointerEnterHandler
         CPUName.text = name;
         CPUPrice.text = Price;
         stats.text = stat;
+        Rarity.text = rarity;
 
 
 

@@ -34,6 +34,9 @@ namespace PC.UI
         [SerializeField]
         private TMP_Text PSUName;
 
+        [SerializeField]
+        private TMP_Text Perks;
+
         //[SerializeField]
         //private TMP_Text Status;
 
@@ -95,7 +98,7 @@ namespace PC.UI
             PSUImage.gameObject.SetActive(false);
         }
         public void SetDescription(Sprite pcsprite, Sprite casesprite, Sprite mbsprite, Sprite cpusprite, Sprite cpufsprite, Sprite ramsprite, Sprite gpusprite, Sprite strgsprite, Sprite psusprite,
-        string PCname, string Casename, string mbname, string cpuname, string cpufname, string ramname, string gpuname, string strgname, string psuname, bool inUse)
+        string PCname, string Casename, string mbname, string cpuname, string cpufname, string ramname, string gpuname, string strgname, string psuname, bool inUse, string perks)
         {
             PCImage.gameObject.SetActive(true);
             PCImage.sprite = pcsprite;
@@ -110,6 +113,7 @@ namespace PC.UI
             GPUName.text = gpuname;
             STRGName.text = strgname;
             PSUName.text = psuname;
+            Perks.text = perks;
 
            // Status.text = status;
 
@@ -137,7 +141,7 @@ namespace PC.UI
             PSUImage.gameObject.SetActive(true);
             PSUImage.sprite = psusprite;
 
-
+            
 
             if(inUse == true){
                 UsedButton.gameObject.SetActive (true);

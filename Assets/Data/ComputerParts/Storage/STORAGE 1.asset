@@ -18,6 +18,11 @@ MonoBehaviour:
   <rarity>k__BackingField: Common
   <ItemImage>k__BackingField: {fileID: 21300000, guid: b223459949862e34bbbf340c3a6f5db4, type: 3}
   <Category>k__BackingField: Storage
-  <attack>k__BackingField: 0
-  <health>k__BackingField: 0
-  <healthregen>k__BackingField: 0
+  <AttackDamage>k__BackingField: 10
+  <Health>k__BackingField: 10
+  <Mana>k__BackingField: 0
+  <HealthRegen>k__BackingField: 0
+  <WalkSpeed>k__BackingField: 0
+  <Armor>k__BackingField: 0
+  <AttackSpeed>k__BackingField: 0
+  <CriticalHit>k__BackingField: 0

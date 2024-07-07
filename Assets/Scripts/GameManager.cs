@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
     public int PlayerAttack = 1;
     public int PlayerExpToLevelUp = 20;
     public int PlayerEXP = 0;
-
+    
 
     public List<DecorationItem> removedItemsDuringEditing = new List<DecorationItem>();
     public event Action<DecorationItem> OnDecorToTransferUpdated;

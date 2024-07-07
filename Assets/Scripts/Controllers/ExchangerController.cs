@@ -142,8 +142,44 @@ namespace Exchanger
                     // Access the sprite from the SpriteRenderer
                     Sprite itemSprite = spriteRenderer.sprite;
 
+                    string perks = "";
+
+                    // Check each perk property and accumulate non-zero values
+                    if (item.Value.item.Parts.AttackDamage != 0)
+                    {
+                        perks += "Attack Damage +" + item.Value.item.Parts.AttackDamage + "\n";
+                    }
+                    if (item.Value.item.Parts.Health != 0)
+                    {
+                        perks += "Health +" + item.Value.item.Parts.Health + "\n";
+                    }
+                    if (item.Value.item.Parts.Mana != 0)
+                    {
+                        perks += "Mana +" + item.Value.item.Parts.Mana + "\n";
+                    }
+                    if (item.Value.item.Parts.HealthRegen != 0)
+                    {
+                        perks += "Health Regen  +" + item.Value.item.Parts.HealthRegen + "\n";
+                    }
+                    if (item.Value.item.Parts.WalkSpeed != 0)
+                    {
+                        perks += "Walk Speed +" + item.Value.item.Parts.WalkSpeed + "\n";
+                    }
+                    if (item.Value.item.Parts.Armor != 0)
+                    {
+                        perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
+                    }
+                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    {
+                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                    }
+                    if (item.Value.item.Parts.CriticalHit != 0)
+                    {
+                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                    }
+
                     // Now update your UI element using the retrieved sprite
-                    CPUsPage.UpdateData(item.Key, item.Value.item.Parts.ItemImage, itemSprite, item.Value.item.Parts.Name, item.Value.item.MaterialsAmountNeed, item.Value.item.Parts.Attack);
+                    CPUsPage.UpdateData(item.Key, item.Value.item.Parts.ItemImage, itemSprite, item.Value.item.Parts.Name, item.Value.item.Parts.rarity, item.Value.item.MaterialsAmountNeed, perks);
                 }
                 else
                 {

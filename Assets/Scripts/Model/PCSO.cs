@@ -48,8 +48,10 @@ public class PCSO : ScriptableObject
     [field: SerializeField]
     public bool inUse { get; set; }
 
+    //Perks
+
     [field: SerializeField]
-    public double Attack { get; set; }
+    public double AttackDamage { get; set; }
 
     [field: SerializeField]
     public double Health { get; set; }
@@ -57,31 +59,47 @@ public class PCSO : ScriptableObject
     [field: SerializeField]
     public double Mana { get; set; }
 
+    [field: SerializeField]
+    public double HealthRegen { get; set; }
+
+    [field: SerializeField]
+    public double WalkSpeed { get; set; }
+
+    [field: SerializeField]
+    public double Armor { get; set; }
+
+    [field: SerializeField]
+    public double AttackSpeed { get; set; }
+
+    [field: SerializeField]
+    public double CriticalHit { get; set; }
 
 
 
-    public void CopyFrom(PCSO other)
-    {
-        // Copy data fields from 'other' PCSO to this PCSO
 
-        this.PCName = other.PCName;
-        this.PCImage = other.PCImage;
-        this.Case = other.Case;
-        this.Motherboard = other.Motherboard;
-        this.CPU = other.CPU;
-        this.CPUFan = other.CPUFan;
-        this.RAM = other.RAM;
-        this.GPU = other.GPU;
-        this.STORAGE = other.STORAGE;
-        this.PSU = other.PSU;
-        this.inUse = other.inUse;
-        this.Attack = other.Attack;
-        this.Health = other.Health;
-        this.Mana = other.Mana; // Assuming Sprite is a reference type and you want to share the same Sprite object
+    //public void CopyFrom(PCSO other)
+    //{
+    //    // Copy data fields from 'other' PCSO to this PCSO
 
-        // If 'pcsoImage' is a texture-based property, you might need to create a new Sprite instance to avoid sharing the same object reference:
-        // this.pcsoImage = Sprite.Create(other.pcsoImage.texture, other.pcsoImage.rect, Vector2.zero);
-    }
+    //    this.PCName = other.PCName;
+    //    this.PCImage = other.PCImage;
+    //    this.Case = other.Case;
+    //    this.Motherboard = other.Motherboard;
+    //    this.CPU = other.CPU;
+    //    this.CPUFan = other.CPUFan;
+    //    this.RAM = other.RAM;
+    //    this.GPU = other.GPU;
+    //    this.STORAGE = other.STORAGE;
+    //    this.PSU = other.PSU;
+    //    this.inUse = other.inUse;
+    //    this.AttackDamage = other.AttackDamage;
+    //    this.Health = other.Health;
+    //    this.Mana = other.Mana;
+    //    // Assuming Sprite is a reference type and you want to share the same Sprite object
+
+    //    // If 'pcsoImage' is a texture-based property, you might need to create a new Sprite instance to avoid sharing the same object reference:
+    //    // this.pcsoImage = Sprite.Create(other.pcsoImage.texture, other.pcsoImage.rect, Vector2.zero);
+    //}
 
     /*public void Save()
     {

@@ -134,11 +134,11 @@ namespace Exchanger.UI.CPUWorld
             //ResetQuantity();
         }
 
-        public void UpdateData(int itemIndex, Sprite CPUImage, Sprite MaterialNeed, string CPUName, int Material, double stats)
+        public void UpdateData(int itemIndex, Sprite CPUImage, Sprite MaterialNeed, string CPUName, string rarity, int Material, string stats)
         {
             if (ListOfCPUItems.Count > itemIndex)
             {
-                ListOfCPUItems[itemIndex].SetData(CPUImage, MaterialNeed, CPUName, Material.ToString(), stats.ToString());//this will add to the shop
+                ListOfCPUItems[itemIndex].SetData(CPUImage, MaterialNeed, CPUName, rarity, Material.ToString(), stats);//this will add to the shop
 
             }
 
