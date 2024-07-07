@@ -16,6 +16,7 @@ using PC.UI;
 using PC;
 using PC.Model;
 using Firebase.Firestore;
+using System.Linq;
 
 namespace PartsInventory
 {
@@ -217,6 +218,10 @@ namespace PartsInventory
         public GameObject About;
 
 
+
+        public TMP_Text Perks;
+        public Dictionary<string, int> PerksDictionary = new Dictionary<string, int>();
+
         private bool AreAllObjectsActiveAndEnabled()
         {
             foreach (GameObject obj in objectsToCheck)
@@ -341,7 +346,13 @@ namespace PartsInventory
 
             //});
 
-            
+            //DisassmebleButton.onClick.AddListener(() =>
+            //{
+            //    DisassemblePC();
+
+            //});
+
+
 
 
             //TestPCButton.onClick.AddListener(TestnewlyCreatePC);
@@ -420,61 +431,69 @@ namespace PartsInventory
 
             CanYesButton.onClick.AddListener(() =>
             {
-
-
-                if (GameManager.instance.BeenModified)
-                {
-
-                    if (recentlyBackedItems.Count > 0)
-                    {
-                        foreach (var kvp in recentlyBackedItems)
-                        {
-                            lastUsedItems[kvp.Key] = kvp.Value;
-                            inventoryData.RemoveItem(kvp.Value.item.name, 2);
-                            Debug.LogError(kvp.Value.item.name);
-                            //totalUsedItemsPrice += kvp.Value.item.Price;
-
-                        }
-                        recentlyBackedItems.Clear();
-                    }
-
-
-                    ModifyingPC.gameObject.SetActive(false);
-                    pcName.gameObject.SetActive(false);
-                    Inuse.gameObject.SetActive(false);
-
-                    //OnDoneButtonClick();
-                    BackAllCurrentlyItem();
-
-                    GameManager.instance.BeenModified = false;
-                }
-                else
-                {
-
-                    //PriceText.text = "$0.00";
-                    //NameText.text = "PC1";
-                    //RenameTxt.text = "";
-                    BackAllCurrentlyItem();
-                    newpc.gameObject.SetActive(false);
-                    GameManager.instance.BeenModified = false;
-                }
-
-
-                CloseDialog();
-                inventoryData.PartsSaveItems();
-                DisassmebleButton.gameObject.SetActive(false);
+                YesCancelIt();
             });
 
             CanNoButton.onClick.AddListener(() =>
             {
                 CloseDialog();
-
             });
 
 
 
 
         }
+
+        private void YesCancelIt()
+        {
+            if (GameManager.instance.BeenModified)
+            {
+
+                if (recentlyBackedItems.Count > 0)
+                {
+                    foreach (var kvp in recentlyBackedItems)
+                    {
+                        lastUsedItems[kvp.Key] = kvp.Value;
+                        inventoryData.RemoveItem(kvp.Value.item.name, 1);
+                        Debug.LogError(kvp.Value.item.name);
+                        //totalUsedItemsPrice += kvp.Value.item.Price;
+
+                    }
+                    recentlyBackedItems.Clear();
+                }
+
+                OnDoneButtonClick();
+
+                ModifyingPC.gameObject.SetActive(false);
+                pcName.gameObject.SetActive(false);
+                Inuse.gameObject.SetActive(false);
+
+
+                GameManager.instance.BeenModified = false;
+
+                lastUsedItems.Clear();
+
+            }
+            else
+            {
+
+
+                newpc.gameObject.SetActive(false);
+                GameManager.instance.BeenModified = false;
+                BackAllCurrentlyItem();
+                lastUsedItems.Clear();
+            }
+
+
+            CloseDialog();
+            inventoryData.PartsSaveItems();
+            DisassmebleButton.gameObject.SetActive(false);
+
+            PerksDictionary.Clear();
+            Perks.text = "";
+
+        }
+
         //using an event
         public void UpdateInventory(InventoryItem updatedItems)
         {
@@ -501,6 +520,7 @@ namespace PartsInventory
                     HandleBackItem(categories);
                 }
             }
+            Perks.text = "";
             lastUsedItems.Clear();
             usedItems.Clear();
             CancelButton.interactable = false;
@@ -817,6 +837,7 @@ namespace PartsInventory
 
         public void HandleBackItem(string category)
         {
+
             //Debug.LogError(category);
             if (lastUsedItems.ContainsKey(category))
             {
@@ -829,7 +850,7 @@ namespace PartsInventory
 
             InventoryItem previousUsedItem = lastUsedItems[category];
             inventoryData.AddItem(previousUsedItem.ChangeQuantity(previousUsedItem.quantity - lastUsedItems[category].quantity + 1));
-
+            UpdatePerksDictionary(previousUsedItem, false);
             switch (category)
             {
                 case "Case":
@@ -952,7 +973,7 @@ namespace PartsInventory
                 UseItems(inventoryItem, category);
                 inventoryData.RemoveItem(itemIndex, 1);
                 BackItem(inventoryItem, category);
-
+                
                 //totalUsedItemsPrice += inventoryItem.item.Price;
                 // DisplayPrices(totalUsedItemsPrice);
 
@@ -1007,6 +1028,8 @@ namespace PartsInventory
                     }
 
                 }
+
+               
             }
 
 
@@ -1046,7 +1069,7 @@ namespace PartsInventory
 
                     inventoryData.RemoveItem(index, 1);
                     BackItem(inventoryItem, category);
-
+                   // UpdatePerksDictionary(inventoryItem, true);
                     //  totalUsedItemsPrice += inventoryItem.item.Price;
                     //DisplayPrices(totalUsedItemsPrice);
 
@@ -1099,10 +1122,45 @@ namespace PartsInventory
 
 
                     }
-
+                    
                 }
 
             }
+        }
+
+        private void UpdatePerksDictionary(InventoryItem item, bool add)
+        {
+            // Helper function to add or remove perk
+            void AddOrRemovePerk(string perkName, double value)
+            {
+                if (value == 0) return;
+
+                if (PerksDictionary.ContainsKey(perkName))
+                {
+                    PerksDictionary[perkName] += (int)value * (add ? 1 : -1);
+                    if (PerksDictionary[perkName] == 0)
+                    {
+                        PerksDictionary.Remove(perkName);
+                    }
+                }
+                else if (add)
+                {
+                    PerksDictionary[perkName] = (int)value;
+                }
+            }
+
+            // Add or remove perks
+            AddOrRemovePerk("Attack Damage", item.item.AttackDamage);
+            AddOrRemovePerk("Health", item.item.Health);
+            AddOrRemovePerk("Mana", item.item.Mana);
+            AddOrRemovePerk("Health Regen", item.item.HealthRegen);
+            AddOrRemovePerk("Walk Speed", item.item.WalkSpeed);
+            AddOrRemovePerk("Armor", item.item.Armor);
+            AddOrRemovePerk("Attack Speed", item.item.AttackSpeed);
+            AddOrRemovePerk("Critical Hit", item.item.CriticalHit);
+
+            // Update the Perks text
+            Perks.text = string.Join("\n", PerksDictionary.Select(kv => $"{kv.Key} +{kv.Value}"));
         }
 
         private void BackItem(InventoryItem inventoryItem, string category)
@@ -1138,6 +1196,7 @@ namespace PartsInventory
 
             }
             // Update the last used item for the category
+            //UpdatePerksDictionary(inventoryItem, false);
             lastUsedItems[category] = inventoryItem;
             //Debug.LogError("added to lastitem");
             //DisplayPrices(totalUsedItemsPrice);
@@ -1147,6 +1206,7 @@ namespace PartsInventory
 
         public void UseItems(InventoryItem inventoryItem, string category)
         {
+            UpdatePerksDictionary(inventoryItem, true);
             switch (category)
             {
                 case "Case":
@@ -1243,8 +1303,13 @@ namespace PartsInventory
 
             }
             PartsSO item = inventoryItem.item;
-            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name,  item.Category, item.rarity, "perks");
+            
+
+            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name, item.Category, item.rarity, ItemPerks(item));
         }
+
+        
+
         public void HandleDescriptionRequests(int obj)
         {
             if (obj >= 0 && obj < InventoryfilteredItems.Count)
@@ -1253,9 +1318,50 @@ namespace PartsInventory
                 if (!shopItem.isEmpty)
                 {
                     PartsSO item = shopItem.item;
-                    inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, item.rarity, "perks");//update description
+                    inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, item.rarity, ItemPerks(item));//update description
                 }
             }
+        }
+
+        private string ItemPerks(PartsSO item)
+        {
+            string perks = "";
+
+            // Check each perk property and accumulate non-zero values
+            if (item.AttackDamage != 0)
+            {
+                perks += "Attack Damage +" + item.AttackDamage + "\n";
+            }
+            if (item.Health != 0)
+            {
+                perks += "Health +" + item.Health + "\n";
+            }
+            if (item.Mana != 0)
+            {
+                perks += "Mana +" + item.Mana + "\n";
+            }
+            if (item.HealthRegen != 0)
+            {
+                perks += "Health Regen  +" + item.HealthRegen + "\n";
+            }
+            if (item.WalkSpeed != 0)
+            {
+                perks += "Walk Speed +" + item.WalkSpeed + "\n";
+            }
+            if (item.Armor != 0)
+            {
+                perks += "Armor +" + item.Armor + "\n";
+            }
+            if (item.AttackSpeed != 0)
+            {
+                perks += "Attack Speed +" + item.AttackSpeed + "\n";
+            }
+            if (item.CriticalHit != 0)
+            {
+                perks += "Critical Hit +" + item.CriticalHit + "\n";
+            }
+
+            return perks;
         }
 
         public void HandleItemSelection(int tempIndex)
@@ -1449,7 +1555,17 @@ namespace PartsInventory
             pcso.STORAGE = lastUsedItems.ContainsKey("Storage") ? lastUsedItems["Storage"].item : null;
             pcso.PSU = lastUsedItems.ContainsKey("PSU") ? lastUsedItems["PSU"].item : null;
             pcso.inUse = false;
-            
+
+
+            pcso.AttackDamage = PerksDictionary.ContainsKey("Attack Damage") ? PerksDictionary["Attack Damage"] : 0;
+            pcso.Health = PerksDictionary.ContainsKey("Health") ? PerksDictionary["Health"] : 0;
+            pcso.Mana = PerksDictionary.ContainsKey("Mana") ? PerksDictionary["Mana"] : 0;
+            pcso.HealthRegen = PerksDictionary.ContainsKey("Health Regen") ? PerksDictionary["Health Regen"] : 0;
+            pcso.WalkSpeed = PerksDictionary.ContainsKey("Walk Speed") ? PerksDictionary["Walk Speed"] : 0;
+            pcso.Armor = PerksDictionary.ContainsKey("Armor") ? PerksDictionary["Armor"] : 0;
+            pcso.AttackSpeed = PerksDictionary.ContainsKey("Attack Speed") ? PerksDictionary["Attack Speed"] : 0;
+            pcso.CriticalHit = PerksDictionary.ContainsKey("Critical Hit") ? PerksDictionary["Critical Hit"] : 0;
+
             return pcso;
         }
         //public void SavePCSOData(PCSO pcso)
@@ -1592,6 +1708,11 @@ namespace PartsInventory
                     CloseDialog();
                     DisassmebleButton.gameObject.SetActive(false);
                     inventoryData.PartsSaveItems();
+                    PCpage.ClearItems();
+                    PerksDictionary.Clear();
+                    Perks.text = "";
+
+
                 });
 
                 DisNoButton.onClick.AddListener(() =>
@@ -1604,17 +1725,6 @@ namespace PartsInventory
         }
         public async void OnDoneButtonClick()
         {
-
-            //if (RenameTxt.text == "")
-            //{
-            //    RenamePC.gameObject.SetActive(true);
-            //    RenameTxt.text = "PC1";
-            //}
-            //else
-            // {
-
-            // Call the AddPCSOList method when the button is clicked
-            //PCSO pcso = ConvertLastUsedItemsToPCSOList();
 
             PCSO PC = ConvertLastUsedItemsToPCSOList();
 
@@ -1659,6 +1769,8 @@ namespace PartsInventory
                 //RenamePanel.gameObject.SetActive(true);
                 LTA.InstallOS();
                 RenameTxt.text = "PC1";
+                
+                
             }
             else // modified pc 
             {
@@ -1703,53 +1815,54 @@ namespace PartsInventory
             newpc.gameObject.SetActive(false);
             DisassmebleButton.gameObject.SetActive(false);
             pcname = "PC1";
+            PerksDictionary.Clear();
+            Perks.text = "";
         }
 
-            //}
-            //public void CheckifBuildingbeforeQuit()
-            //{
-            //    if (lastUsedItems.Count > 0)
-            //    {
-            //        if (GameManager.Instance.BeenModified)
-            //        {
-            //            if (recentlyBackedItems.Count > 0)
-            //            {
-            //                foreach (var kvp in recentlyBackedItems)
-            //                {
-            //                    lastUsedItems[kvp.Key] = kvp.Value;
-            //                    totalUsedItemsPrice += kvp.Value.item.Price;
-            //                }
-            //                recentlyBackedItems.Clear();
-            //            }
-            //            OnDoneButtonClick();
+        //}
+        //public void CheckifBuildingbeforeQuit()
+        //{
+        //    if (lastUsedItems.Count > 0)
+        //    {
+        //        if (GameManager.Instance.BeenModified)
+        //        {
+        //            if (recentlyBackedItems.Count > 0)
+        //            {
+        //                foreach (var kvp in recentlyBackedItems)
+        //                {
+        //                    lastUsedItems[kvp.Key] = kvp.Value;
+        //                    totalUsedItemsPrice += kvp.Value.item.Price;
+        //                }
+        //                recentlyBackedItems.Clear();
+        //            }
+        //            OnDoneButtonClick();
 
-            //            GameManager.Instance.BeenModified = false;
-            //        }
-            //        else
-            //        {
-            //            BackAllCurrentlyItem();
-            //            GameManager.Instance.BeenModified = false;
-            //        }
-            //        inventoryData.SaveItems();
-            //    }
+        //            GameManager.Instance.BeenModified = false;
+        //        }
+        //        else
+        //        {
+        //            BackAllCurrentlyItem();
+        //            GameManager.Instance.BeenModified = false;
+        //        }
+        //        inventoryData.SaveItems();
+        //    }
 
-            //}
+        //}
 
-            //private void OnApplicationQuit()
-            //{
-            //    // Save the player prefs data when the game is quitting.
-            //    // GameManager.Instance.SaveInitialItems(initialItems);
-            //   try {
-            //        inventoryData.SaveItems();
+        private void OnApplicationQuit()
+        {
+            
+            try
+            {
+                if (lastUsedItems.Count > 0) {
 
-            //        // PCData.SavePCItems();
-            //        //if this is use the items will be removed
-            //        //GameManager.Instance.SaveInitialItems(initialItems);
-            //        //SaveInitialItems();
-            //    }
-            //    catch (Exception) { }
+                    YesCancelIt();
+                }
+                
+            }
+            catch (Exception) { }
 
 
-            //}
         }
+    }
 }

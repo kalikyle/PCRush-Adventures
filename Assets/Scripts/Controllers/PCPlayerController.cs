@@ -2,6 +2,7 @@ using Firebase.Firestore;
 using Inventory;
 using Inventory.Model;
 using PartsInventory;
+using PartsInventory.Model;
 using PC.Model;
 using PC.UI;
 using System;
@@ -21,6 +22,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static Inventory.Model.PartsInventorySO;
+using static UnityEditor.Progress;
+
 //using static Inventory.Model.InventorySO;
 //
 using Image = UnityEngine.UI.Image;
@@ -142,7 +145,7 @@ namespace PC
         private TMP_Text PSUName;
 
         [SerializeField]
-        private TMP_Text Status;
+        private TMP_Text Perks;
 
         [SerializeField]
         private Image CaseImage;
@@ -948,6 +951,8 @@ namespace PC
             STRGName.text = PCitem.STORAGE.Name;
             PSUName.text = PCitem.PSU.Name;
 
+            Perks.text = ItemPerks(PCitem);
+
             //Status.text = PCitem.TestStatus;
 
 
@@ -1431,9 +1436,11 @@ namespace PC
         {
             //Debug.LogError(PCIndex);
             //LoadMyDeskScene();
+
+            GameManager.instance.BeenModified = true;
             Computer PCs = PCData.GetItemAt(PCIndex);
             GameManager.instance.pcsothatisModified = GameManager.instance.pcsoDocumentIds[PCIndex];
-            GameManager.instance.BeenModified = true;
+           
 
             InventCon.usedItems.Clear();//clear first all the lastusedItems
             InventCon.lastUsedItems.Clear();
@@ -1553,13 +1560,60 @@ namespace PC
             Computer PCs = PCData.GetItemAt(PCindex);
             if(PCs.isEmpty) { return; }
             PCSO PCitems = PCs.PC;
+
+
             PCpage.UpdateDescription(PCindex, PCitems.PCImage, PCitems.Case.ItemImage, PCitems.Motherboard.ItemImage, PCitems.CPU.ItemImage, PCitems.CPUFan.ItemImage, PCitems.RAM.ItemImage, PCitems.GPU.ItemImage, PCitems.STORAGE.ItemImage, PCitems.PSU.ItemImage,
-            PCitems.PCName, PCitems.Case.Name, PCitems.Motherboard.Name, PCitems.CPU.Name, PCitems.CPUFan.Name, PCitems.RAM.Name, PCitems.GPU.Name, PCitems.STORAGE.Name, PCitems.PSU.Name, PCitems.inUse);
+            PCitems.PCName, PCitems.Case.Name, PCitems.Motherboard.Name, PCitems.CPU.Name, PCitems.CPUFan.Name, PCitems.RAM.Name, PCitems.GPU.Name, PCitems.STORAGE.Name, PCitems.PSU.Name, PCitems.inUse, ItemPerks(PCitems));
             PCIndexOutside = PCindex;
 
 
 
         }
+
+
+        private string ItemPerks(PCSO item)
+        {
+            string perks = "";
+
+            // Check each perk property and accumulate non-zero values
+            if (item.AttackDamage != 0)
+            {
+                perks += "Attack Damage +" + item.AttackDamage + "\n";
+            }
+            if (item.Health != 0)
+            {
+                perks += "Health +" + item.Health + "\n";
+            }
+            if (item.Mana != 0)
+            {
+                perks += "Mana +" + item.Mana + "\n";
+            }
+            if (item.HealthRegen != 0)
+            {
+                perks += "Health Regen  +" + item.HealthRegen + "\n";
+            }
+            if (item.WalkSpeed != 0)
+            {
+                perks += "Walk Speed +" + item.WalkSpeed + "\n";
+            }
+            if (item.Armor != 0)
+            {
+                perks += "Armor +" + item.Armor + "\n";
+            }
+            if (item.AttackSpeed != 0)
+            {
+                perks += "Attack Speed +" + item.AttackSpeed + "\n";
+            }
+            if (item.CriticalHit != 0)
+            {
+                perks += "Critical Hit +" + item.CriticalHit + "\n";
+            }
+
+            return perks;
+        }
+
+
+
         //public LeanTweenAnimate LTA;
         public Canvas MainMenu;
         //float lastKeyPressTime = 0f;
