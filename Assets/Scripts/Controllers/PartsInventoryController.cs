@@ -455,7 +455,7 @@ namespace PartsInventory
                     {
                         lastUsedItems[kvp.Key] = kvp.Value;
                         inventoryData.RemoveItem(kvp.Value.item.name, 1);
-                        Debug.LogError(kvp.Value.item.name);
+                        UpdatePerksDictionary(kvp.Value, true);
                         //totalUsedItemsPrice += kvp.Value.item.Price;
 
                     }
@@ -488,7 +488,6 @@ namespace PartsInventory
             CloseDialog();
             inventoryData.PartsSaveItems();
             DisassmebleButton.gameObject.SetActive(false);
-
             PerksDictionary.Clear();
             Perks.text = "";
 
@@ -838,7 +837,7 @@ namespace PartsInventory
         public void HandleBackItem(string category)
         {
 
-            //Debug.LogError(category);
+
             if (lastUsedItems.ContainsKey(category))
             {
                 recentlyBackedItems[category] = lastUsedItems[category];
@@ -869,9 +868,7 @@ namespace PartsInventory
                     PSUButton.interactable = false;
                     try
                     {
-                        string[] categoriesToHandle = { "CPU", "CPU Fan", "RAM", "Video Card", "Storage", "PSU"};
-                        //int index = inventoryData.inventoryItems.IndexOf(previousUsedItem);
-                        //inventoryData.RemoveItem(index, 1);
+                        string[] categoriesToHandle = { "CPU", "CPU Fan", "RAM", "Video Card", "Storage", "PSU" };
                         foreach (string categories in categoriesToHandle)
                         {
                             if (lastUsedItems.ContainsKey(categories))
@@ -886,31 +883,31 @@ namespace PartsInventory
                 case "CPU":
                     CPUImage.gameObject.SetActive(false);
                     CPUImage.sprite = null;
-                    
+
                     //GameManager.instance.PSUImagesNeeds.Remove(category);
                     break;
                 case "CPU Fan":
                     CPUFImage.gameObject.SetActive(false);
                     CPUFImage.sprite = null;
-                    
-                    
+
+
                     break;
                 case "RAM":
                     RAMImage.gameObject.SetActive(false);
                     RAMImage.sprite = null;
-                    
-                    
+
+
                     break;
                 case "Video Card":
                     GPUImage.gameObject.SetActive(false);
                     GPUImage.sprite = null;
-                   
+
                     //GameManager.Instance.PSUImagesNeeds.Remove(category);
                     break;
                 case "Storage":
                     STRG1Image.gameObject.SetActive(false);
                     STRG1Image.sprite = null;
-                   
+
                     //GameManager.Instance.PSUImagesNeeds.Remove(category);
                     break;
                 case "PSU":
@@ -919,13 +916,13 @@ namespace PartsInventory
                     // GameManager.Instance.PSUImagesNeeds.Remove(category);
                     break;
 
-           }
+            }
             if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUImage.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
             {
                 PSUButton.interactable = false;
                 if (lastUsedItems.ContainsKey("PSU"))
                 {
-                    BackItem(previousUsedItem,"PSU");
+                    BackItem(lastUsedItems["PSU"], "PSU");
                     PSUImage.gameObject.SetActive(false);
                     PSUImage.sprite = null;
                     recentlyBackedItems["PSU"] = lastUsedItems["PSU"];
@@ -938,11 +935,13 @@ namespace PartsInventory
             lastUsedItems.Remove(category);
             GameManager.instance.itemsToTransfer.Remove(previousUsedItem);
             inventoryData.PartsSaveItems();
-            //totalUsedItemsPrice -= previousUsedItem.item.Price;
 
-            // Display the updated total price.
-            //DisplayPrices(totalUsedItemsPrice);
         }
+
+
+
+
+
         public Dictionary<string, InventoryItem> recentlyBackedItems = new Dictionary<string, InventoryItem>();
         public List<InventoryItem> usedItems = new List<InventoryItem>();
         private bool HasItemBeenUsed(InventoryItem inventoryItem)
@@ -1755,6 +1754,7 @@ namespace PartsInventory
 
                 usedItems.Clear();
                 lastUsedItems.Clear();
+                recentlyBackedItems.Clear();
                
 
                 OnGameObjectStateChanged();
@@ -1798,6 +1798,7 @@ namespace PartsInventory
 
                 usedItems.Clear();
                 lastUsedItems.Clear();
+                recentlyBackedItems.Clear();
 
 
                 OnGameObjectStateChanged();
