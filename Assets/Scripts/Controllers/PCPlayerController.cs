@@ -940,6 +940,7 @@ namespace PC
             PCImage.gameObject.SetActive(true);
             PCImage.sprite = PCitem.PCImage;
             PCName.text = PCitem.PCName;
+            Perks.text = ItemPerks(PCitem);
             //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
 
             CaseName.text = PCitem.Case.Name;
@@ -951,7 +952,7 @@ namespace PC
             STRGName.text = PCitem.STORAGE.Name;
             PSUName.text = PCitem.PSU.Name;
 
-            Perks.text = ItemPerks(PCitem);
+            
 
             //Status.text = PCitem.TestStatus;
 
@@ -1000,6 +1001,7 @@ namespace PC
                 PCImage.gameObject.SetActive(true);
                 PCImage.sprite = PCitem.PCImage;
                 PCName.text = PCitem.PCName;
+                Perks.text = ItemPerks(PCitem);
                 //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
 
                 CaseName.text = PCitem.Case.Name;
