@@ -225,6 +225,9 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
                 //GameManager.instance.playersprite = _rebuildSprite;
                 GameManager.instance.PlayerOWImage.sprite = _rebuildSprite;
                 GameManager.instance.PlayerImage.sprite = _rebuildSprite;
+                GameManager.instance.PlayerStatsImage.sprite = _rebuildSprite;
+
+                
 
             }
             catch { }

@@ -74,6 +74,9 @@ public class PCSO : ScriptableObject
     [field: SerializeField]
     public double CriticalHit { get; set; }
 
+    [field: SerializeField]
+    public double CriticalChance { get; set; }
+
 
 
 

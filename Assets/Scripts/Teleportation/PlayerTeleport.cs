@@ -16,6 +16,7 @@ public class PlayerTeleport : MonoBehaviour
         public GameObject GameMap;
 
         public GameObject InvBTN;
+        public GameObject EquippedStats;
         public Button Enter;
         public TMP_Text Name;
         public TMP_Text WorldName;
@@ -56,6 +57,7 @@ public class PlayerTeleport : MonoBehaviour
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
+        EquippedStats.gameObject.SetActive(true);
     }
     public void TheTeleporter()
     {
@@ -75,6 +77,7 @@ public class PlayerTeleport : MonoBehaviour
                 BackToHomeWorld = false;
                 GameManager.instance.LoadCharacter();
                 InvBTN.gameObject.SetActive(false);
+                EquippedStats.gameObject.SetActive(false);
             }
            
             LTA.OpenTeleAnim();

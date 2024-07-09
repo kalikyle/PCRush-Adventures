@@ -373,6 +373,9 @@ namespace PC
             // Fetch all documents from the PCSO collection asynchronously
             QuerySnapshot querySnapshot = await collectionRef.GetSnapshotAsync();
 
+            
+
+
             // Iterate through the retrieved documents
             foreach (DocumentSnapshot docSnapshot in querySnapshot.Documents)
             {
@@ -402,6 +405,7 @@ namespace PC
                     {
                         UseloadComputer(loadedPCSO);
                         GameManager.instance.pcsothatinUse = documentId;
+                        
                     }
                     // Optionally perform any other actions with the loaded PCSO
                 }
@@ -941,6 +945,11 @@ namespace PC
             PCImage.sprite = PCitem.PCImage;
             PCName.text = PCitem.PCName;
             Perks.text = ItemPerks(PCitem);
+
+            GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.AttackSpeed, PCitem.CriticalHit, PCitem.CriticalChance);
+            GameManager.instance.StatsUsedPCPanel.SetActive(true);
+            GameManager.instance.StatsPCImageUsed.sprite = PCitem.PCImage;
+            GameManager.instance.StatsPCName.text = PCitem.PCName;
             //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
 
             CaseName.text = PCitem.Case.Name;
@@ -1002,6 +1011,12 @@ namespace PC
                 PCImage.sprite = PCitem.PCImage;
                 PCName.text = PCitem.PCName;
                 Perks.text = ItemPerks(PCitem);
+
+
+                GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.AttackSpeed, PCitem.CriticalHit, PCitem.CriticalChance);
+                GameManager.instance.StatsUsedPCPanel.SetActive(true);
+                GameManager.instance.StatsPCImageUsed.sprite = PCitem.PCImage;
+                GameManager.instance.StatsPCName.text = PCitem.PCName;
                 //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
 
                 CaseName.text = PCitem.Case.Name;

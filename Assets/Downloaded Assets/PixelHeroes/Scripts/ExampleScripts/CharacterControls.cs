@@ -227,6 +227,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         //        Character.CharacterController.height = 0.16f;
         //    }
         //}
+
         public Character Character;
         public float WalkSpeed = 1f;
         public int runSpeed = 2;
@@ -686,11 +687,11 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 if(health = collider.GetComponent<Health>())
                 {
                     //attack
-                    health.GetHit(GameManager.instance.PlayerAttack, transform.gameObject);
+                    health.GetHit(GameManager.instance.PlayerAttackDamage, transform.gameObject);
 
                     if (gameObject.layer != collider.gameObject.layer)
                     {
-                        ShowFloatingText(GameManager.instance.PlayerAttack);
+                        ShowFloatingText(GameManager.instance.PlayerAttackDamage);
                         collider.GetComponent<Animator>().SetBool("Hit", true);
                        
                     }

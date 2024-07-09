@@ -36,10 +36,8 @@ using static OtherWorld.Model.OWInvSO;
 public class GameManager : MonoBehaviour
 {
    
-
     public string UserID;
     public string UserCollection = "users";
-    // Start is called before the first frame update
     public static GameManager instance;
     public CharacterBuilder charBuilder;
     public int ShopSize = 100;
@@ -94,30 +92,55 @@ public class GameManager : MonoBehaviour
     public List<InventoryItem> itemsToTransfer = new List<InventoryItem>();
     public int Partstempindex;
 
-
-
     public event Action<OtherWorldItem> OnOWItemsToTransferUpdated;
     public List<OtherWorldItem> OWitemsToTransfer = new List<OtherWorldItem>();
     public int OWstempindex;
-
-
-    //player info
-    public string PlayerName;
-    public int PlayerLevel = 1;
-    public int PlayerHealth = 100;
-    public int PlayerMoney = 0;
-    public int PlayerGems = 0;
-    public int PlayerAttack = 1;
-    public int PlayerExpToLevelUp = 20;
-    public int PlayerEXP = 0;
-    
 
     public List<DecorationItem> removedItemsDuringEditing = new List<DecorationItem>();
     public event Action<DecorationItem> OnDecorToTransferUpdated;
     public List<DecorationItem> DecorToTransfer = new List<DecorationItem>();
     public int tempindex;
 
+    //player info
+    public string PlayerName;
+    public int PlayerMoney = 0;
+    public int PlayerGems = 0;
+    public int PlayerLevel = 1;
+    public int PlayerExpToLevelUp = 20;
+    public int PlayerEXP = 0;
 
+    //player base stats
+    public int PlayerAttackDamage = 1;
+    public int PlayerHealth = 100;
+    public int PlayerMana = 100;
+    public int PlayerHealthRegen = 1;
+    public int PlayerWalkSpeed = 1;
+    public int PlayerArmor = 50;
+    public int PlayerAttackSpeed = 1;
+    public int PlayerCriticalHit = 1;
+    public double PlayerCriticalChance = 1;
+
+    //player PC stats
+    public double PlayerPCAttackDamage = 0;
+    public double PlayerPCHealth = 0;
+    public double PlayerPCMana = 0;
+    public double PlayerPCHealthRegen = 0;
+    public double PlayerPCWalkSpeed = 0;
+    public double PlayerPCArmor = 0;
+    public double PlayerPCAttackSpeed = 0;
+    public double PlayerPCCriticalHit = 0;
+    public double PlayerPCCriticalChance = 0;
+
+    //player Total Stats
+    public double PlayerTotalAttackDamage = 0;
+    public double PlayerTotalHealth = 0;
+    public double PlayerTotalMana = 0;
+    public double PlayerTotalHealthRegen = 0;
+    public double PlayerTotalWalkSpeed = 0;
+    public double PlayerTotalArmor = 0;
+    public double PlayerTotalAttackSpeed = 0;
+    public double PlayerTotalCriticalHit = 0;
+    public double PlayerTotalCriticalChance = 0;
 
     public Dictionary<string, Shop.Model.ShopItem> equippedItemsByCategory = new Dictionary<string, Shop.Model.ShopItem>();
     //public DecorEdit de;
@@ -130,15 +153,101 @@ public class GameManager : MonoBehaviour
     public TMP_Text PlayerLevelText;
     public Slider PlayerLevelSlide;
 
+    //Player Stats UI
+    public TMP_Text BaseAttackDamage;
+    public TMP_Text BaseHealth;
+    public TMP_Text BaseMana;
+    public TMP_Text BaseHealthRegen;
+    public TMP_Text BaseWalkSpeed;
+    public TMP_Text BaseArmor;
+    public TMP_Text BaseAttackSpeed;
+    public TMP_Text BaseCriticalHit;
+    public TMP_Text BaseCriticalChance;
 
-    //public Sprite playersprite;
+    public TMP_Text PCAttackDamage;
+    public TMP_Text PCHealth;
+    public TMP_Text PCMana;
+    public TMP_Text PCHealthRegen;
+    public TMP_Text PCWalkSpeed;
+    public TMP_Text PCArmor;
+    public TMP_Text PCAttackSpeed;
+    public TMP_Text PCCriticalHit;
+    public TMP_Text PCCriticalChance;
 
+    public TMP_Text TotalAttackDamage;
+    public TMP_Text TotalHealth;
+    public TMP_Text TotalMana;
+    public TMP_Text TotalHealthRegen;
+    public TMP_Text TotalWalkSpeed;
+    public TMP_Text TotalArmor;
+    public TMP_Text TotalAttackSpeed;
+    public TMP_Text TotalCriticalHit;
+    public TMP_Text TotalCriticalChance;
+
+    public TMP_Text StatsPlayerName;
+    public Image PlayerStatsImage;
+
+    public Image StatsSwordImage;
+    public Image StatsArmorImage;
+    public Image StatsHelmetImage;
+    public Image StatsShieldImage;
+
+    public GameObject StatsUsedPCPanel;
+    public Image StatsPCImageUsed;
+    public TMP_Text StatsPCName;
+
+    //for Quest
     public int packagescollected = 0;
-
-    
     public QuestEvent questEvents;
 
+
     public Dictionary<string, string> DefaultCharacter = new Dictionary<string, string>();
+
+
+    public void ThePlayerStats()
+    {
+        BaseAttackDamage.text = PlayerAttackDamage.ToString();
+        BaseHealth.text = PlayerHealth.ToString();
+        BaseMana.text = PlayerMana.ToString();
+        BaseHealthRegen.text = PlayerHealthRegen.ToString();
+        BaseWalkSpeed.text = PlayerWalkSpeed.ToString();
+        BaseArmor.text = PlayerArmor.ToString();
+        BaseAttackSpeed.text = PlayerAttackSpeed.ToString();
+        BaseCriticalHit.text = PlayerCriticalHit.ToString();
+        BaseCriticalChance.text = PlayerCriticalChance.ToString();
+
+        PCAttackDamage.text = PlayerPCAttackDamage.ToString();
+        PCHealth.text = PlayerPCHealth.ToString();
+        PCMana.text = PlayerPCMana.ToString();
+        PCHealthRegen.text= PlayerPCHealthRegen.ToString();
+        PCWalkSpeed.text = PlayerPCWalkSpeed.ToString();
+        PCArmor.text = PlayerPCArmor.ToString();
+        PCAttackSpeed.text = PlayerPCAttackSpeed.ToString();
+        PCCriticalHit.text = PlayerPCCriticalHit.ToString();
+        PCCriticalChance.text = PlayerPCCriticalChance.ToString();
+
+
+        PlayerTotalAttackDamage = PlayerAttackDamage + PlayerPCAttackDamage;
+        PlayerTotalHealth = PlayerHealth + PlayerPCHealth;
+        PlayerTotalMana = PlayerMana + PlayerPCMana;
+        PlayerTotalHealthRegen = PlayerHealthRegen + PlayerPCHealthRegen;
+        PlayerTotalWalkSpeed = PlayerWalkSpeed + PlayerPCWalkSpeed;
+        PlayerTotalArmor = PlayerArmor + PlayerPCArmor;
+        PlayerTotalAttackSpeed = PlayerAttackSpeed + PlayerPCAttackSpeed;
+        PlayerTotalCriticalHit = PlayerCriticalHit + PlayerPCCriticalHit;
+        PlayerTotalCriticalChance = PlayerCriticalChance + PlayerPCCriticalChance;
+
+        TotalAttackDamage.text = PlayerTotalAttackDamage.ToString();
+        TotalHealth.text = PlayerTotalHealth.ToString();
+        TotalMana.text = PlayerTotalMana.ToString();
+        TotalHealthRegen.text = PlayerTotalHealthRegen.ToString();
+        TotalWalkSpeed.text = PlayerTotalWalkSpeed.ToString();
+        TotalArmor.text = PlayerTotalArmor.ToString();
+        TotalAttackSpeed.text = PlayerTotalAttackSpeed.ToString();
+        TotalCriticalHit.text = PlayerTotalCriticalHit.ToString();
+        TotalCriticalChance.text = PlayerTotalCriticalChance.ToString();
+
+    }
 
 
     public void OpenSwordShop()
@@ -172,6 +281,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerDesk.text = PlayerName + "'s Desk ";
         Playerui.text = PlayerName;
+        StatsPlayerName.text = PlayerName;
     }
 
     public void StartQuest()
@@ -195,16 +305,26 @@ public class GameManager : MonoBehaviour
         // Create a dictionary to store the playerName
         Dictionary<string, object> playerNameData = new Dictionary<string, object>
         {
+            //player info
             { "playerName", playerName },
+            { "playerMoney", PlayerMoney },
+            { "playerGems", PlayerGems },
             { "playerLevel", PlayerLevel },
-             { "playerHealth", PlayerHealth },
-             { "playerMoney", PlayerMoney },
-             { "playerGems", PlayerGems },
-             {"playerAttack", PlayerAttack },
-             {"playerEXP", PlayerEXP},
-            {"playerEXPNeedtoLevelUp", PlayerExpToLevelUp }
-            //add other fields
+            {"playerEXP", PlayerEXP},
+            {"playerEXPNeedtoLevelUp", PlayerExpToLevelUp },
+            //player stats
+            {"playerAttack", PlayerAttackDamage },
+            { "playerHealth", PlayerHealth },
+            { "playerMana", PlayerMana },
+            { "playerHealthRegen", PlayerHealthRegen },
+            { "playerWalkSpeed", PlayerWalkSpeed },
+            { "playerArmor", PlayerArmor },
+            { "playerAttackSpeed", PlayerAttackSpeed },
+            { "playerCriticalHit", PlayerCriticalHit },
+            { "playerCriticalChance", PlayerCriticalChance },
         };
+
+
 
         try
         {
@@ -220,6 +340,7 @@ public class GameManager : MonoBehaviour
 
     public async void RetrievePlayerInfo(string userID)
     {
+
         // Check if the UserID is not null or empty
         if (string.IsNullOrEmpty(userID))
         {
@@ -239,20 +360,31 @@ public class GameManager : MonoBehaviour
             // Check if the document exists
             if (snapshot.Exists)
             {
-                // Extract the playerName from the document data
+                // load player info
                 PlayerName = snapshot.GetValue<string>("playerName");
-                PlayerHealth = snapshot.GetValue<int>("playerHealth");
                 PlayerMoney = snapshot.GetValue<int>("playerMoney");
                 PlayerGems = snapshot.GetValue<int>("playerGems");
-                PlayerAttack = snapshot.GetValue<int>("playerAttack");
                 PlayerLevel = snapshot.GetValue<int>("playerLevel");
                 PlayerEXP = snapshot.GetValue<int>("playerEXP");
                 PlayerExpToLevelUp = snapshot.GetValue<int>("playerEXPNeedtoLevelUp");
+
+                // load player stats
+                PlayerAttackDamage = snapshot.GetValue<int>("playerAttack");
+                PlayerHealth = snapshot.GetValue<int>("playerHealth");
+                PlayerMana = snapshot.GetValue<int>("playerMana");
+                PlayerHealthRegen = snapshot.GetValue<int>("playerHealthRegen");
+                PlayerWalkSpeed = snapshot.GetValue<int>("playerWalkSpeed");
+                PlayerArmor = snapshot.GetValue<int>("playerArmor");
+                PlayerAttackSpeed = snapshot.GetValue<int>("playerAttackSpeed");
+                PlayerCriticalHit = snapshot.GetValue<int>("playerCriticalHit");
+                PlayerCriticalChance = snapshot.GetValue<double>("playerCriticalChance");
             }
             else
             {
                 Debug.LogWarning("Document does not exist for UserID: " + userID);
             }
+
+            ThePlayerStats();
         }
         catch (System.Exception ex)
         {
@@ -262,6 +394,19 @@ public class GameManager : MonoBehaviour
     public void OnApplicationQuit()
     {
         SaveCharInfo(UserID, PlayerName);
+    }
+
+    public void GetPCStats(double AttackDamage, double Health, double Mana, double HealthRegen, double WalkSpeed, double Armor, double AttackSpeed, double CriticalHit, double CriticalChance)
+    {
+        PlayerPCAttackDamage = AttackDamage;
+        PlayerPCHealth = Health;
+        PlayerPCMana = Mana;
+        PlayerPCHealthRegen = HealthRegen;
+        PlayerPCWalkSpeed = WalkSpeed;
+        PlayerPCArmor = Armor;
+        PlayerPCAttackSpeed = AttackSpeed;
+        PlayerPCCriticalHit = CriticalHit;
+        PlayerPCCriticalChance = CriticalChance;
     }
 
     //public async Task LoadInUseItems()

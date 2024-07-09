@@ -38,6 +38,7 @@ namespace OtherWorld
 
         public Image SwordImage;
         public Image ArmorImage;
+
         public Button EquipBTN;
         public TMP_Dropdown DropDcategory;
 
@@ -527,6 +528,8 @@ namespace OtherWorld
 
                 SwordImage.gameObject.SetActive(false);
                 SwordImage.sprite = null;
+                GameManager.instance.StatsSwordImage.gameObject.SetActive(false);
+                GameManager.instance.StatsSwordImage.sprite = null;
 
                 if (!string.IsNullOrEmpty(GameManager.instance.SwordinUse))
                 {
@@ -563,6 +566,8 @@ namespace OtherWorld
 
                 ArmorImage.gameObject.SetActive(false);
                 ArmorImage.sprite = null;
+                GameManager.instance.StatsArmorImage.gameObject.SetActive(false);
+                GameManager.instance.StatsArmorImage.sprite = null;
 
                 if (!string.IsNullOrEmpty(GameManager.instance.ArmorinUse))
                 {
@@ -622,6 +627,8 @@ namespace OtherWorld
 
                     SwordImage.gameObject.SetActive(true);
                     SwordImage.sprite = inventoryItem.item.ItemImage;
+                    GameManager.instance.StatsSwordImage.gameObject.SetActive(true);
+                    GameManager.instance.StatsSwordImage.sprite = inventoryItem.item.ItemImage;
 
                     foreach (var layer in Layers)
                     {
@@ -647,6 +654,8 @@ namespace OtherWorld
 
                     ArmorImage.gameObject.SetActive(true);
                     ArmorImage.sprite = inventoryItem.item.ItemImage;
+                    GameManager.instance.StatsArmorImage.gameObject.SetActive(true);
+                    GameManager.instance.StatsArmorImage.sprite = inventoryItem.item.ItemImage;
 
                     foreach (var layer in Layers)
                     {
@@ -693,6 +702,8 @@ namespace OtherWorld
 
                 SwordImage.gameObject.SetActive(true);
                 SwordImage.sprite = inventoryItem.item.ItemImage;
+                GameManager.instance.StatsSwordImage.gameObject.SetActive(true);
+                GameManager.instance.StatsSwordImage.sprite = inventoryItem.item.ItemImage;
 
                 foreach (var layer in Layers)
                 {
@@ -717,6 +728,8 @@ namespace OtherWorld
 
                 ArmorImage.gameObject.SetActive(true);
                 ArmorImage.sprite = inventoryItem.item.ItemImage;
+                GameManager.instance.StatsArmorImage.gameObject.SetActive(true);
+                GameManager.instance.StatsArmorImage.sprite = inventoryItem.item.ItemImage;
 
                 foreach (var layer in Layers)
                 {
@@ -752,6 +765,8 @@ namespace OtherWorld
 
                 SwordImage.gameObject.SetActive(true);
                 SwordImage.sprite = inventoryItem.item.ItemImage;
+                GameManager.instance.StatsSwordImage.gameObject.SetActive(true);
+                GameManager.instance.StatsSwordImage.sprite = inventoryItem.item.ItemImage;
 
                 foreach (var layer in Layers)
                 {
@@ -777,6 +792,8 @@ namespace OtherWorld
 
                 ArmorImage.gameObject.SetActive(true);
                 ArmorImage.sprite = inventoryItem.item.ItemImage;
+                GameManager.instance.StatsArmorImage.gameObject.SetActive(true);
+                GameManager.instance.StatsArmorImage.sprite = inventoryItem.item.ItemImage;
 
                 foreach (var layer in Layers)
                 {
