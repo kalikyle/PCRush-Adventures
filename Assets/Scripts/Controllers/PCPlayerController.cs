@@ -242,7 +242,7 @@ namespace PC
         IEnumerator DelayedComputerLoad()
         {
             // Wait for 1 second
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
 
             // Now load initial items
             //LoadComputerItems();
@@ -942,7 +942,7 @@ namespace PC
             
             theClickable.gameObject.SetActive(true);
             PCImage.gameObject.SetActive(true);
-            PCImage.sprite = PCitem.PCImage;
+            PCImage.sprite = PCitem.Case.ItemImage;
             PCName.text = PCitem.PCName;
             Perks.text = ItemPerks(PCitem);
 
@@ -1008,7 +1008,7 @@ namespace PC
 
                 theClickable.gameObject.SetActive(true);
                 PCImage.gameObject.SetActive(true);
-                PCImage.sprite = PCitem.PCImage;
+                PCImage.sprite = PCitem.Case.ItemImage;
                 PCName.text = PCitem.PCName;
                 Perks.text = ItemPerks(PCitem);
 

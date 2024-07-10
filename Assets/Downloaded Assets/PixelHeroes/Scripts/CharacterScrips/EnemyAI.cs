@@ -2,6 +2,7 @@ using Assets.PixelHeroes.Scripts.CharacterScrips;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 namespace Assets.PixelHeroes.Scripts.ExampleScripts
@@ -13,9 +14,10 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public float RunSpeed = 2f;
         public float AttackRange = 1f;
         public int Attack = 1;
+        public int ExpMultiplier = 1;
 
         public Transform Player;
-
+        private Transform MaterialsAndCoinsDropOff;
         public Transform EnemyBody;
         public float DetectionRange = 5f;
         public float AttackCooldown = 1f;
@@ -59,10 +61,12 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public GameObject floatingTextPrefab; // Reference to the floating text prefab
         public Transform damageCanvas; // Reference to the Damage Canvas object
 
+       
 
         public void Start()
         {
 
+            MaterialsAndCoinsDropOff = GameObject.Find("MaterialsAndCoinsDropOff").transform;
 
             enemyCollider = GetComponent<Collider2D>();
 
@@ -154,7 +158,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 //LeanTween.move(coin, randomPosition, dropDuration).setEase(LeanTweenType.easeOutBounce);
                 //LeanTween.rotateZ(coin, 360, dropDuration).setEase(LeanTweenType.easeInOutCubic).setLoopClamp();
 
-                GameObject coin = Instantiate(coinPrefab, position, Quaternion.identity);
+                GameObject coin = Instantiate(coinPrefab, position, Quaternion.identity, MaterialsAndCoinsDropOff);
 
                 Coin coinComponent = coin.GetComponent<Coin>();
                 if (coinComponent != null)
@@ -174,6 +178,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     LeanTween.move(coin, finalPosition, dropDuration).setEase(LeanTweenType.easeOutBounce);
                     LeanTween.rotateZ(coin, 360, dropDuration).setEase(LeanTweenType.easeInOutCubic).setLoopClamp();
                 });
+
             }
         }
 
@@ -187,7 +192,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     UnityEngine.Random.Range(-dropRadius, dropRadius),
                     0f);
 
-                GameObject heart = Instantiate(heartPrefab, position, Quaternion.identity);
+                GameObject heart = Instantiate(heartPrefab, position, Quaternion.identity, MaterialsAndCoinsDropOff);
 
                 Heart heartComponent = heart.GetComponent<Heart>();
                 if (heartComponent != null)
@@ -207,6 +212,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     LeanTween.move(heart, finalPosition, dropDuration).setEase(LeanTweenType.easeOutBounce);
                     LeanTween.rotateZ(heart, 360, dropDuration).setEase(LeanTweenType.easeInOutCubic).setLoopClamp();
                 });
+
+                
             }
         }
 
@@ -221,7 +228,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     UnityEngine.Random.Range(-dropRadius, dropRadius),
                     0f);
 
-                GameObject material = Instantiate(MaterialPrefab, position, Quaternion.identity);
+                GameObject material = Instantiate(MaterialPrefab, position, Quaternion.identity, MaterialsAndCoinsDropOff);
 
                 Materials SWN = material.GetComponent<Materials>();
                 if (SWN != null)
@@ -242,6 +249,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     LeanTween.move(material, finalPosition, dropDuration).setEase(LeanTweenType.easeOutBounce);
                     LeanTween.rotateZ(material, 360, dropDuration).setEase(LeanTweenType.easeInOutCubic).setLoopClamp();
                 });
+
+                
             }
         }
 
@@ -312,15 +321,51 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             Gizmos.DrawWireSphere(position, AttackRange);
         }
 
+        //public void DetectColliders()
+        //{
+        //    foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, AttackRange))
+        //    {
+        //        Health health;
+        //        if (health = collider.GetComponent<Health>())
+        //        {
+        //            health.GetHit(Attack, transform.gameObject);
+        //            ShowFloatingText(Attack);
+        //            if (gameObject.layer != collider.gameObject.layer)
+        //            {
+        //                collider.GetComponent<Animator>().SetBool("Hit", true);
+        //                StartCoroutine(HitRecovery());
+        //            }
+        //        }
+        //    }
+        //}
         public void DetectColliders()
         {
             foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, AttackRange))
             {
-                Health health;
-                if (health = collider.GetComponent<Health>())
+                PlayerArmor armor = collider.GetComponent<PlayerArmor>();
+                Health health = collider.GetComponent<Health>();
+
+                if (armor != null && !armor.isEmpty)
+                {
+                    armor.GetHit(Attack, transform.gameObject);
+                    ShowFloatingText(Attack);
+
+                    if (armor.currentArmor <= 0)
+                    {
+                        armor.isEmpty = true;
+                    }
+
+                    if (gameObject.layer != collider.gameObject.layer)
+                    {
+                        collider.GetComponent<Animator>().SetBool("Hit", true);
+                        StartCoroutine(HitRecovery());
+                    }
+                }
+                else if (health != null)
                 {
                     health.GetHit(Attack, transform.gameObject);
                     ShowFloatingText(Attack);
+
                     if (gameObject.layer != collider.gameObject.layer)
                     {
                         collider.GetComponent<Animator>().SetBool("Hit", true);
@@ -329,6 +374,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 }
             }
         }
+
         private IEnumerator HitRecovery()
         {
             isRecovering = true;
@@ -350,6 +396,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             DropHearts(enemyCollider.transform.position);
             DropMaterials(enemyCollider.transform.position);
             Destroy(gameObject);
+
+            GameManager.instance.TempEnemyKilled += 1;
         }
 
     }

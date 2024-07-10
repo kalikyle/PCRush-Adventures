@@ -20,18 +20,22 @@ public class HordeTrigger : MonoBehaviour
     public GameObject TopPanelUI;
     public GameObject ButtonsPanelUI;
     public GameObject Wall;
+    
+    public GameObject CoinsAndMaterialsDropped;
 
 
     public PickUpSystem PickUpSystem;
 
     public TMP_Text CoinsCollected;
     public TMP_Text MaterialsCollected;
-
+    public TMP_Text Enemykilled;
 
 
     public Transform EnemiesObject;
 
     private List<GameObject> spawnedEnemies = new List<GameObject>();
+    private Dictionary<string, int> EnemyExperienceMultiplier = new Dictionary<string, int>();
+
 
     public GameObject enemyPrefab; // The enemy AI prefab to spawn
     public Transform spawnArea; // The Transform defining the center of the spawning area
@@ -94,9 +98,12 @@ public class HordeTrigger : MonoBehaviour
                 GetMoney();
                 StopAllCoroutines();
                 DestroyAllEnemies();
+                getExperience();
 
                 PickUpSystem.coins = 0;
                 PickUpSystem.materials = 0;
+                GameManager.instance.TempEnemyKilled = 0;
+                EnemyExperienceMultiplier.Clear();
             }
 
             UpdateTimerText(countdownTime);
@@ -124,7 +131,32 @@ public class HordeTrigger : MonoBehaviour
             }
 
 
+            if (GameManager.instance.TempEnemyKilled == 0) {
+
+                Enemykilled.gameObject.SetActive(false);
+
+            }
+            else
+            {
+                Enemykilled.gameObject.SetActive(true);
+                Enemykilled.text = GameManager.instance.TempEnemyKilled.ToString();
+            }
+
+
         }
+    }
+
+    public void getExperience()
+    {
+        int totalExperience = 0;
+
+        foreach (var pair in EnemyExperienceMultiplier)
+        {
+            totalExperience += pair.Value * GameManager.instance.TempEnemyKilled;
+        }
+
+        GameManager.instance.PlayerEXP += totalExperience;
+        GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
     }
     public void getMaterials()
     {
@@ -223,11 +255,21 @@ public class HordeTrigger : MonoBehaviour
             enemyAI.MaterialValueToDrop = 1;
         }
 
+        EnemyExperienceMultiplier[enemyAI.name] = enemyAI.ExpMultiplier;
         spawnedEnemies.Add(enemy);
+
+        
     }
 
     private void DestroyAllEnemies()
     {
+        // Destroy all children of CoinsAndMaterialsDropped
+        foreach (Transform child in CoinsAndMaterialsDropped.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+
         foreach (GameObject enemy in spawnedEnemies)
         {
             if (enemy != null)
@@ -308,5 +350,7 @@ public class HordeTrigger : MonoBehaviour
 
         PickUpSystem.coins = 0;
         PickUpSystem.materials = 0;
+        GameManager.instance.TempEnemyKilled = 0;
+        EnemyExperienceMultiplier.Clear();
     }
 }

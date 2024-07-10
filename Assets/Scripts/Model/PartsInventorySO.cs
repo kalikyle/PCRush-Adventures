@@ -1,3 +1,4 @@
+using PartsInventory;
 using PartsInventory.Model;
 using System;
 using System.Collections;
@@ -5,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static Decoration.Model.DecorSO;
+using static UnityEditor.Progress;
 
 
 namespace Inventory.Model
@@ -16,6 +18,7 @@ namespace Inventory.Model
         public List<InventoryItem> inventoryItems;
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
         [field: SerializeField]
+
         public int Size { get; private set; }//this will add a size field in unity//sets to 999
 
 
@@ -147,6 +150,8 @@ namespace Inventory.Model
                         inventoryItems[itemIndex] = inventoryItems[itemIndex].ChangeQuantity(currentQuantity - amount);
                         GameManager.instance.itemsToTransfer[itemIndex] = GameManager.instance.itemsToTransfer[itemIndex].ChangeQuantity(currentQuantity - amount);
                         InformAboutChange();
+
+                        
                     }
 
                 }

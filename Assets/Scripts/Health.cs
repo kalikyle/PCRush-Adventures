@@ -9,8 +9,7 @@ public class Health : MonoBehaviour
     [SerializeField]
     public int currentHealth, maxHealth;
 
-   
-
+  
     public UnityEvent<GameObject> OnHitWithReference, OnDeathWithReference;
 
     [SerializeField]

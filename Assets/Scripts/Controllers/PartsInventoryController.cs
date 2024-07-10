@@ -1127,7 +1127,7 @@ namespace PartsInventory
             }
         }
 
-        private void UpdatePerksDictionary(InventoryItem item, bool add)
+        public void UpdatePerksDictionary(InventoryItem item, bool add)
         {
             // Helper function to add or remove perk
             void AddOrRemovePerk(string perkName, double value)
@@ -1179,6 +1179,7 @@ namespace PartsInventory
                         usedItems.Remove(previousUsedItem);
                         GameManager.instance.itemsToTransfer.Remove(previousUsedItem);
                         lastUsedItems.Remove(category);
+                        UpdatePerksDictionary(previousUsedItem, false);
 
                     }
                     else
