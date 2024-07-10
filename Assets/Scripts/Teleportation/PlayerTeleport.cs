@@ -45,12 +45,13 @@ public class PlayerTeleport : MonoBehaviour
                TheTeleporter();
             }
             
-        
+    
         }
 
 
     public void ToCPUWorld()
     {
+        GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(216.45f, -46.33f, 0);
         transform.position = destination;
         WorldName.text = "CPU World";
@@ -78,6 +79,7 @@ public class PlayerTeleport : MonoBehaviour
                 GameManager.instance.LoadCharacter();
                 InvBTN.gameObject.SetActive(false);
                 EquippedStats.gameObject.SetActive(false);
+                GameManager.instance.InHomeWorld = true;
             }
            
             LTA.OpenTeleAnim();

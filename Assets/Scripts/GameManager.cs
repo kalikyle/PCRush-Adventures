@@ -142,8 +142,14 @@ public class GameManager : MonoBehaviour
     public double PlayerTotalCriticalHit = 0;
     public double PlayerTotalCriticalChance = 0;
 
+
+    public bool InHomeWorld = true;
+    public int TempEnemyKilled = 0;
+
     public Dictionary<string, Shop.Model.ShopItem> equippedItemsByCategory = new Dictionary<string, Shop.Model.ShopItem>();
-    //public DecorEdit de;
+    
+
+    //in Explore UI
     public TMP_Text PlayerDesk;
     public TMP_Text Playerui;
     public Image PlayerImage;
@@ -152,6 +158,12 @@ public class GameManager : MonoBehaviour
     public TMP_Text PlayerGemsText;
     public TMP_Text PlayerLevelText;
     public Slider PlayerLevelSlide;
+    public Slider healthSlider;
+    public TMP_Text HealthhitPoints;
+    public Slider manaSlider;
+    public TMP_Text manaText;
+    public Slider ArmorSlider;
+    public TMP_Text armorText;
 
     //Player Stats UI
     public TMP_Text BaseAttackDamage;
@@ -195,6 +207,19 @@ public class GameManager : MonoBehaviour
     public GameObject StatsUsedPCPanel;
     public Image StatsPCImageUsed;
     public TMP_Text StatsPCName;
+
+    public Slider StatsPlayerLevelSlider;
+    public TMP_Text StatsPlayerLevel;
+    public TMP_Text StatsCurrentExp;
+
+    public Slider StatsPlayerHealthSlider;
+    public TMP_Text StatsCurrentHealthText;
+
+    public Slider StatsmanaSlider;
+    public TMP_Text StatsmanaText;
+
+    public Slider StatsArmorSlider;
+    public TMP_Text StatsarmorText;
 
     //for Quest
     public int packagescollected = 0;
@@ -266,6 +291,13 @@ public class GameManager : MonoBehaviour
         PlayerLevelText.text = PlayerLevel.ToString();
         PlayerLevelSlide.value = PlayerEXP;
         PlayerLevelSlide.maxValue = PlayerExpToLevelUp;
+
+
+        StatsPlayerLevelSlider.value = PlayerEXP;
+        StatsPlayerLevelSlider.maxValue = PlayerExpToLevelUp;
+        StatsPlayerLevel.text = PlayerLevel.ToString();
+        StatsCurrentExp.text = PlayerEXP.ToString() + " / " + PlayerExpToLevelUp.ToString();
+
     }
 
     public void OpenArmorShop()
@@ -378,13 +410,15 @@ public class GameManager : MonoBehaviour
                 PlayerAttackSpeed = snapshot.GetValue<int>("playerAttackSpeed");
                 PlayerCriticalHit = snapshot.GetValue<int>("playerCriticalHit");
                 PlayerCriticalChance = snapshot.GetValue<double>("playerCriticalChance");
+
+                
             }
             else
             {
                 Debug.LogWarning("Document does not exist for UserID: " + userID);
             }
-
             ThePlayerStats();
+
         }
         catch (System.Exception ex)
         {
@@ -1209,8 +1243,8 @@ public class GameManager : MonoBehaviour
         //DropAllPartsInRandomPositions();
 
         //StartCoroutine(FirstDropAndPosition());
-        
 
+        ThePlayerStats();
 
 
 
@@ -1314,7 +1348,7 @@ public class GameManager : MonoBehaviour
             DisableFirstall();
             //LoadCharacter();
             charBuilder.LoadSavedData();
-
+           
             // If initial items have already been saved, load in-use items
             //await Task.Delay(500);
             ////await LoadInUseItems();
@@ -1426,8 +1460,10 @@ public class GameManager : MonoBehaviour
     {
         UserIDTxt.text = UserID;
         Playerui.text = PlayerName;
+        StatsPlayerName.text = PlayerName;
         CurrencyText();
         PlayerLevelUpdate();
+        
 
         if (UserID != "")
         {
