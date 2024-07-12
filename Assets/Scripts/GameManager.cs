@@ -305,6 +305,12 @@ public class GameManager : MonoBehaviour
         Equipments.ArmorsOpenShop();
     }
 
+    public void AddPlayerExp(int EXP)
+    {
+        PlayerEXP += EXP;
+        SaveCharInfo(UserID, PlayerName);
+    }
+
     public void OpenCPUWorldExhanger()
     {
         Exchanger.CPUsOpenShop();

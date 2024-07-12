@@ -336,10 +336,10 @@ namespace PC
                     {
                         // Create a new PCSO instance
                         PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
-
+                        
                         // Deserialize the JSON data into the PCSO object
                         JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
-
+                        loadedPCSO.PCImage = loadedPCSO.Case.ItemImage;
                         // Add the loaded PCSO to the PCData.ComputerItems list
                         PCData.AddPCSOList(loadedPCSO);
                         PCpage.AddAnotherPC();

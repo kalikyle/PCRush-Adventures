@@ -384,6 +384,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private IEnumerator HandleDeath()
         {
 
+          
             if (enemyCollider.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
             {
                 rb.velocity = Vector2.zero;
@@ -398,6 +399,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             Destroy(gameObject);
 
             GameManager.instance.TempEnemyKilled += 1;
+
+
         }
 
     }
