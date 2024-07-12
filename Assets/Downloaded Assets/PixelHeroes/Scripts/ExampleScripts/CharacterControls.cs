@@ -96,7 +96,6 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 }
             }
 
-
             HandlePlayerHealth();
             HandlePlayerMana();
             HandlePlayerArmor();
@@ -314,14 +313,16 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         {
             while (true)
             {
-                if(GameManager.instance.InHomeWorld == true)
+                if (GameManager.instance.InHomeWorld == true)
                 {
+
                     if (health.currentHealth < GameManager.instance.PlayerTotalHealth)
                     {
                         health.currentHealth = (int)Mathf.Min((float)(health.currentHealth + GameManager.instance.PlayerTotalHealthRegen), (float)GameManager.instance.PlayerTotalHealth);
                     }
+
                 }
-                yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1f);
             }
         }
 

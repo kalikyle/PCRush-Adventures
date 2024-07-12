@@ -3,6 +3,7 @@ using OtherWorld.Model;
 using Swords.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -76,7 +77,7 @@ public class HordeTrigger : MonoBehaviour
         UpdateTimerText(countdownTime); // Initialize the timer text
     }
 
-    private void Update()
+    private async void Update()
     {
         if (isTimerRunning)
         {
@@ -102,6 +103,8 @@ public class HordeTrigger : MonoBehaviour
 
                 PickUpSystem.coins = 0;
                 PickUpSystem.materials = 0;
+
+                await Task.Delay(1500);
                 GameManager.instance.TempEnemyKilled = 0;
                 EnemyExperienceMultiplier.Clear();
             }
@@ -155,8 +158,7 @@ public class HordeTrigger : MonoBehaviour
             totalExperience += pair.Value * GameManager.instance.TempEnemyKilled;
         }
 
-        GameManager.instance.PlayerEXP += totalExperience;
-        GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+        GameManager.instance.AddPlayerExp(totalExperience);
     }
     public void getMaterials()
     {
@@ -263,6 +265,7 @@ public class HordeTrigger : MonoBehaviour
 
     private void DestroyAllEnemies()
     {
+
         // Destroy all children of CoinsAndMaterialsDropped
         foreach (Transform child in CoinsAndMaterialsDropped.transform)
         {
@@ -305,7 +308,6 @@ public class HordeTrigger : MonoBehaviour
 
             }
         }
-
         spawnedEnemies.Clear(); // Clear the list of enemies
     }
 
@@ -332,8 +334,11 @@ public class HordeTrigger : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    private void StopTimer()
+    private async void StopTimer()
     {
+
+
+
         countdownTime = 0f;
         isTimerRunning = false;
         CPUWorldCanvas.gameObject.SetActive(true);
@@ -348,9 +353,16 @@ public class HordeTrigger : MonoBehaviour
         StopAllCoroutines();
         DestroyAllEnemies();
 
+        
         PickUpSystem.coins = 0;
         PickUpSystem.materials = 0;
+
+
+
+        await Task.Delay(1500);
         GameManager.instance.TempEnemyKilled = 0;
         EnemyExperienceMultiplier.Clear();
+
+
     }
 }

@@ -162,6 +162,13 @@ namespace PartsInventory
         [SerializeField]
         private Image PSUImage;
 
+
+        [SerializeField]
+        private Image OnSuccessPCImage;
+
+        [SerializeField]
+        private TMP_Text OnSuccessPCname;
+
         //[SerializeField]
         //private Canvas Buildscene;
         //[SerializeField]
@@ -1634,7 +1641,7 @@ namespace PartsInventory
             { //new pc 
 
                 await PCC.ModifyPCName(GameManager.instance.pcsoDocumentIds[0], pcname);
-
+                LTA.ShowSuccessPC();
             }
             else
             {
@@ -1642,8 +1649,9 @@ namespace PartsInventory
             }
 
             PCNameTxt.text = pcname;
+            OnSuccessPCname.text = pcname;
 
-    }
+        }
 
         public void DisassemblePC()
         {
@@ -1730,9 +1738,21 @@ namespace PartsInventory
 
             if (!GameManager.instance.BeenModified) // not modified pc 
             {
+
+
                 Debug.LogError("New Computer");
                 PCData.AddPCSOList(PC);
                 PCData.ComputerSave(PC);
+
+
+                LTA.Plusexp.gameObject.SetActive(true);
+                LTA.Plusexp.text = "+50 EXP " +
+                    "\n for New Computer";
+                GameManager.instance.AddPlayerExp(50);
+
+                //OnSuccessPCname.text = pcname;
+                OnSuccessPCImage.sprite = PC.PCImage;
+               
                 CaseImage.gameObject.SetActive(false);
                 MBImage.gameObject.SetActive(false);
                 CPUImage.gameObject.SetActive(false);
@@ -1769,6 +1789,7 @@ namespace PartsInventory
 
                 //RenamePanel.gameObject.SetActive(true);
                 LTA.InstallOS();
+                
                 RenameTxt.text = "PC1";
                 
                 
@@ -1777,6 +1798,13 @@ namespace PartsInventory
             {
                 Debug.LogError("Modified");
                 await PCC.ModifyPCSOs(GameManager.instance.pcsothatisModified,PC);
+
+                OnSuccessPCname.text = pcname;
+                OnSuccessPCImage.sprite = PC.PCImage;
+
+                LTA.Plusexp.gameObject.SetActive(true);
+                LTA.Plusexp.text = "Successfully Modified PC";
+
                 CaseImage.gameObject.SetActive(false);
                 MBImage.gameObject.SetActive(false);
                 CPUImage.gameObject.SetActive(false);
@@ -1803,6 +1831,9 @@ namespace PartsInventory
 
 
                 OnGameObjectStateChanged();
+
+
+                LTA.ShowSuccessPC();
 
 
                 CancelButton.interactable = false;
