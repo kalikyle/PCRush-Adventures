@@ -80,6 +80,7 @@ public class PlayerTeleport : MonoBehaviour
                 InvBTN.gameObject.SetActive(false);
                 EquippedStats.gameObject.SetActive(false);
                 GameManager.instance.InHomeWorld = true;
+                GameManager.instance.UnequipEquipment();
             }
            
             LTA.OpenTeleAnim();

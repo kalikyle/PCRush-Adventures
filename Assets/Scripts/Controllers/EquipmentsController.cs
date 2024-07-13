@@ -155,7 +155,20 @@ public class EquipmentsController : MonoBehaviour
                         Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
 
 
-                        swordsPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.attack.ToString());
+                string perks = "";
+                // Check each perk property and accumulate non-zero values
+                if (item.Value.item.AttackDamage != 0)
+                {
+                    perks += "Attack Damage +" + item.Value.item.AttackDamage + "\n";
+                }
+                if (item.Value.item.AttackSpeed != 0)
+                {
+                    perks += "Attack Speed +" + item.Value.item.AttackSpeed + "\n";
+                }
+                
+
+
+                swordsPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
                         // Now you can use the sprite as needed
                         // For example, you can assign it to an image component
                         // imageComponent.sprite = sprite;
@@ -266,8 +279,20 @@ public class EquipmentsController : MonoBehaviour
                 // Create a sprite from the texture
                 Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
 
+                string perks = "";
+                // Check each perk property and accumulate non-zero values
+                if (item.Value.item.Armor != 0)
+                {
+                    perks += "Armor +" + item.Value.item.Armor + "\n";
+                }
+                if (item.Value.item.Mana != 0)
+                {
+                    perks += "Mana +" + item.Value.item.Mana + "\n";
+                }
 
-                armorsPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.Armor.ToString());
+
+
+                armorsPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
                 // Now you can use the sprite as needed
                 // For example, you can assign it to an image component
                 // imageComponent.sprite = sprite;

@@ -440,7 +440,7 @@ namespace OtherWorld
 
             }
             OtherWorldItemSO item = inventoryItem.item;
-            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name, item.Category, item.Attack.ToString());
+            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name, item.Category, ItemPerks(item));
 
             //if (item.Category == "Sword")
             //{
@@ -455,6 +455,34 @@ namespace OtherWorld
 
 
         }
+
+
+        private string ItemPerks(OtherWorldItemSO item)
+        {
+            string perks = "";
+
+            // Check each perk property and accumulate non-zero values
+            if (item.AttackDamage != 0)
+            {
+                perks += "Attack Damage +" + item.AttackDamage + "\n";
+            }
+            if (item.Mana != 0)
+            {
+                perks += "Mana +" + item.Mana + "\n";
+            }
+            if (item.Armor != 0)
+            {
+                perks += "Armor +" + item.Armor + "\n";
+            }
+            if (item.AttackSpeed != 0)
+            {
+                perks += "Attack Speed +" + item.AttackSpeed + "\n";
+            }
+
+            return perks;
+        }
+
+
         public void HandleDescriptionRequests(int obj)
         {
             if (obj >= 0 && obj < InventoryfilteredItems.Count)
@@ -463,7 +491,11 @@ namespace OtherWorld
                 if (!shopItem.isEmpty)
                 {
                     OtherWorldItemSO item = shopItem.item;
-                    inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, item.Attack.ToString());//update description
+
+
+
+
+                    inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, ItemPerks(item));//update description
 
                     if (item.Category == "Sword")
                     {
@@ -530,7 +562,8 @@ namespace OtherWorld
                 SwordImage.sprite = null;
                 GameManager.instance.StatsSwordImage.gameObject.SetActive(false);
                 GameManager.instance.StatsSwordImage.sprite = null;
-
+                GameManager.instance.EquipmentAttackDamage = 0;
+                GameManager.instance.EquipmentAttackSpeed = 0;
                 if (!string.IsNullOrEmpty(GameManager.instance.SwordinUse))
                 {
                     // Update the PCSO that was previously in use to set inUse = false
@@ -568,7 +601,8 @@ namespace OtherWorld
                 ArmorImage.sprite = null;
                 GameManager.instance.StatsArmorImage.gameObject.SetActive(false);
                 GameManager.instance.StatsArmorImage.sprite = null;
-
+                GameManager.instance.EquipmentArmor = 0;
+                GameManager.instance.EquipmentMana = 0;
                 if (!string.IsNullOrEmpty(GameManager.instance.ArmorinUse))
                 {
                     
@@ -624,55 +658,13 @@ namespace OtherWorld
 
                 if (category == "Sword")
                 {
-
-                    SwordImage.gameObject.SetActive(true);
-                    SwordImage.sprite = inventoryItem.item.ItemImage;
-                    GameManager.instance.StatsSwordImage.gameObject.SetActive(true);
-                    GameManager.instance.StatsSwordImage.sprite = inventoryItem.item.ItemImage;
-
-                    foreach (var layer in Layers)
-                    {
-
-                        if (layer.Controls)
-                        {
-                            layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
-
-                            if (layer.Name == "Weapon")
-                            {
-                                SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
-                                Rebuild(layer);
-                            }
-
-                        }
-
-                    }
+                    EquipSword(inventoryItem);
                     inventoryItem.item.inUse = true;
                     await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
                 }
                 else if (category == "Armor")
                 {
-
-                    ArmorImage.gameObject.SetActive(true);
-                    ArmorImage.sprite = inventoryItem.item.ItemImage;
-                    GameManager.instance.StatsArmorImage.gameObject.SetActive(true);
-                    GameManager.instance.StatsArmorImage.sprite = inventoryItem.item.ItemImage;
-
-                    foreach (var layer in Layers)
-                    {
-
-                        if (layer.Controls)
-                        {
-                            layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
-
-                            if (layer.Name == "Armor")
-                            {
-                                SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
-                                Rebuild(layer);
-                            }
-
-                        }
-
-                    }
+                    EquipArmor(inventoryItem);
                     inventoryItem.item.inUse = true;
                     await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
                 }
@@ -688,6 +680,90 @@ namespace OtherWorld
 
             }
         }
+
+        private void EquipArmor(OtherWorldItem inventoryItem)
+        {
+            ArmorImage.gameObject.SetActive(true);
+            ArmorImage.sprite = inventoryItem.item.ItemImage;
+            GameManager.instance.StatsArmorImage.gameObject.SetActive(true);
+            GameManager.instance.StatsArmorImage.sprite = inventoryItem.item.ItemImage;
+
+            if (inventoryItem.item.Armor != 0)
+            {
+
+                GameManager.instance.EquipmentArmor = (int)inventoryItem.item.Armor;
+            }
+
+            if (inventoryItem.item.Mana != 0)
+            {
+
+                GameManager.instance.EquipmentMana = (int)inventoryItem.item.Mana;
+
+            }
+
+            foreach (var layer in Layers)
+            {
+
+                if (layer.Controls)
+                {
+                    layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                    if (layer.Name == "Armor")
+                    {
+                        SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+                        Rebuild(layer);
+                    }
+
+                }
+
+            }
+
+           
+        }
+
+        private void EquipSword(OtherWorldItem inventoryItem)
+        {
+            SwordImage.gameObject.SetActive(true);
+            SwordImage.sprite = inventoryItem.item.ItemImage;
+            GameManager.instance.StatsSwordImage.gameObject.SetActive(true);
+            GameManager.instance.StatsSwordImage.sprite = inventoryItem.item.ItemImage;
+
+            if (inventoryItem.item.AttackDamage != 0)
+            {
+               
+                GameManager.instance.EquipmentAttackDamage = (int)inventoryItem.item.AttackDamage;
+               
+            }
+
+            if (inventoryItem.item.AttackSpeed != 0)
+            {
+
+                GameManager.instance.EquipmentAttackSpeed = (int)inventoryItem.item.AttackSpeed;
+
+            }
+
+
+            foreach (var layer in Layers)
+            {
+
+                if (layer.Controls)
+                {
+                    layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                    if (layer.Name == "Weapon")
+                    {
+                        SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+                        Rebuild(layer);
+                    }
+
+                }
+
+            }
+
+
+            
+        }
+
         //for all 
 
         public void UseItem(OtherWorldItem inventoryItem)//for all
@@ -700,53 +776,13 @@ namespace OtherWorld
             if (category == "Sword")
             {
 
-                SwordImage.gameObject.SetActive(true);
-                SwordImage.sprite = inventoryItem.item.ItemImage;
-                GameManager.instance.StatsSwordImage.gameObject.SetActive(true);
-                GameManager.instance.StatsSwordImage.sprite = inventoryItem.item.ItemImage;
-
-                foreach (var layer in Layers)
-                {
-
-                    if (layer.Controls)
-                    {
-                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
-
-                        if (layer.Name == "Weapon")
-                        {
-                            SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
-                            Rebuild(layer);
-                        }
-
-                    }
-
-                }
+                EquipSword(inventoryItem);
                
             }
             else if (category == "Armor")
             {
 
-                ArmorImage.gameObject.SetActive(true);
-                ArmorImage.sprite = inventoryItem.item.ItemImage;
-                GameManager.instance.StatsArmorImage.gameObject.SetActive(true);
-                GameManager.instance.StatsArmorImage.sprite = inventoryItem.item.ItemImage;
-
-                foreach (var layer in Layers)
-                {
-
-                    if (layer.Controls)
-                    {
-                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
-
-                        if (layer.Name == "Armor")
-                        {
-                            SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
-                            Rebuild(layer);
-                        }
-
-                    }
-
-                }
+                EquipArmor(inventoryItem);
 
             }
 
@@ -763,54 +799,17 @@ namespace OtherWorld
             if (category == "Sword")
             {
 
-                SwordImage.gameObject.SetActive(true);
-                SwordImage.sprite = inventoryItem.item.ItemImage;
-                GameManager.instance.StatsSwordImage.gameObject.SetActive(true);
-                GameManager.instance.StatsSwordImage.sprite = inventoryItem.item.ItemImage;
+                EquipSword(inventoryItem);
 
-                foreach (var layer in Layers)
-                {
-
-                    if (layer.Controls)
-                    {
-                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
-
-                        if (layer.Name == "Weapon")
-                        {
-                            SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
-                            Rebuild(layer);
-                        }
-
-                    }
-
-                }
                 inventoryItem.item.inUse = true;
                 await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
             }
             else if (category == "Armor")
             {
 
-                ArmorImage.gameObject.SetActive(true);
-                ArmorImage.sprite = inventoryItem.item.ItemImage;
-                GameManager.instance.StatsArmorImage.gameObject.SetActive(true);
-                GameManager.instance.StatsArmorImage.sprite = inventoryItem.item.ItemImage;
 
-                foreach (var layer in Layers)
-                {
+                EquipArmor(inventoryItem);
 
-                    if (layer.Controls)
-                    {
-                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
-
-                        if (layer.Name == "Armor")
-                        {
-                            SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
-                            Rebuild(layer);
-                        }
-
-                    }
-
-                }
                 inventoryItem.item.inUse = true;
                 await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
             }

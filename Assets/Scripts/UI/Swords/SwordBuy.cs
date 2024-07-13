@@ -263,7 +263,8 @@ public class SwordBuy : MonoBehaviour
         int spriteIndex;
 
         inventoryItems.Name = shpItem.item.Name;
-        inventoryItems.Attack = shpItem.item.attack;
+        inventoryItems.AttackDamage = shpItem.item.AttackDamage;
+        inventoryItems.AttackSpeed = shpItem.item.AttackSpeed;
         spriteIndex = shpItem.item.SpriteIndex;
 
         if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
