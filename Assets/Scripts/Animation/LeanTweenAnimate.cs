@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class LeanTweenAnimate : MonoBehaviour
 {
-    public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose;
-    public TMP_Text Plusexp;
+    public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl,  coinscollectedtxt,materialscollecttxt,expcollectedtxt, hordeImage, horderfinish, btnnice;
+    public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
     //bool close = false;
 
@@ -130,6 +130,8 @@ public class LeanTweenAnimate : MonoBehaviour
         LeanTween.alpha(circling.GetComponent<RectTransform>(), 1f, .8f).setDelay(1f);
         LeanTween.rotateAround(circling, Vector3.forward, -360, 5f).setLoopClamp();
     }
+
+    
     public void ShowSuccessPC()
     {
         Circling();
@@ -174,5 +176,79 @@ public class LeanTweenAnimate : MonoBehaviour
     void Update()
     {
         
+    }
+
+   
+    // animation for finish horde
+    public void HordeFinish()
+    {
+        Circling2();
+        LeanTween.scale(hordefinishpanl, new Vector3(1f, 1f, 1f), .8f).setEase(LeanTweenType.easeOutElastic);
+
+
+        LeanTween.scale(hordeImage, new Vector3(10f, 10f, 10f), 1f).setDelay(.5f).setEase(LeanTweenType.easeOutBounce);
+        LeanTween.moveLocal(hordeImage, new Vector3(0f, 134.7f, 0f), .7f).setDelay(2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(hordeImage, new Vector3(1f, 1f, 1f), 1f).setDelay(.5f).setEase(LeanTweenType.easeInCubic).setOnComplete(showLabels);
+
+    }
+
+    public void Circling2()
+    {
+        LeanTween.alpha(circling2.GetComponent<RectTransform>(), 1f, .8f).setDelay(1f);
+        LeanTween.rotateAround(circling2, Vector3.forward, -360, 5f).setLoopClamp();
+    }
+
+    public void showLabels()
+    {
+
+        LeanTween.scale(horderfinish, new Vector3(1f, 1f, 1f), 1f).setDelay(.5f).setEase(LeanTweenType.easeOutBounce);
+        LeanTween.scale(hordeworld.gameObject, new Vector3(1f, 1f, 1f), 1f).setDelay(1f).setEase(LeanTweenType.easeOutBounce);
+        LeanTween.scale(hordenum.gameObject, new Vector3(1f, 1f, 1f), 1f).setDelay(1.5f).setEase(LeanTweenType.easeOutBounce).setOnComplete(showCollected);
+       
+    }
+    public void showCollected() {
+
+        LeanTween.moveLocal(coinscollectedtxt, new Vector3(-24.4f, -28f, 0f), .7f).setDelay(.5f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.moveLocal(coinscollected.gameObject, new Vector3(88.9f, -12.9f, 0f), .7f).setDelay(.5f).setEase(LeanTweenType.easeInCubic);
+
+        LeanTween.moveLocal(materialscollecttxt, new Vector3(-24.4f, -68f, 0f), .7f).setDelay(1.5f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.moveLocal(materialscollect.gameObject, new Vector3(106.6f, -56.6f, 0f), .7f).setDelay(1.5f).setEase(LeanTweenType.easeInCubic);
+
+        LeanTween.moveLocal(expcollectedtxt, new Vector3(-24.4f, -112.7f, 0f), .7f).setDelay(2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.moveLocal(expcollected.gameObject, new Vector3(130f, -103f, 0f), .7f).setDelay(2f).setEase(LeanTweenType.easeInCubic).setOnComplete(showKills);
+    }
+
+    public void showKills()
+    {
+        LeanTween.moveLocal(showkills.gameObject, new Vector3(252.9f, -96f, 0f), .7f).setDelay(.5f).setEase(LeanTweenType.easeInCubic).setOnComplete(niceButton);
+    }
+    public void niceButton()
+    {
+        LeanTween.scale(btnnice, new Vector3(1f, 1f, 1f), 2f).setDelay(.5f).setEase(LeanTweenType.easeOutElastic);
+    }
+
+    public void HideFinishHorde()
+    {
+        LeanTween.scale(btnnice, new Vector3(0f, 0f, 0f), 2f).setDelay(.5f).setEase(LeanTweenType.easeOutElastic);
+
+        LeanTween.scale(hordefinishpanl, new Vector3(0f, 0f, 0f), 0f).setEase(LeanTweenType.easeOutBounce);
+        LeanTween.scale(hordeImage, new Vector3(1f, 1f, 1f), 1f).setDelay(.5f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.moveLocal(hordeImage.gameObject, new Vector3(0f, -2f, 0f), .7f).setDelay(2f).setEase(LeanTweenType.easeInCubic);
+
+        LeanTween.scale(horderfinish, new Vector3(0f, 0f, 0f), 1f).setDelay(1f).setEase(LeanTweenType.easeOutBounce);
+        LeanTween.scale(hordeworld.gameObject, new Vector3(0f, 0f, 0f), 1f).setDelay(1.5f).setEase(LeanTweenType.easeOutBounce);
+        LeanTween.scale(hordenum.gameObject, new Vector3(0f, 0f, 0f), 1f).setDelay(2f).setEase(LeanTweenType.easeOutBounce);
+
+        LeanTween.moveLocal(coinscollectedtxt, new Vector3(-465f, -28f, 0f), .7f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.moveLocal(coinscollected.gameObject, new Vector3(434f, -12.9f, 0f), .7f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+
+        LeanTween.moveLocal(materialscollecttxt, new Vector3(-522f, -68f, 0f), .7f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.moveLocal(materialscollect.gameObject, new Vector3(449f, -56.6f, 0f), .7f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+
+        LeanTween.moveLocal(expcollectedtxt, new Vector3(-395f, -112.7f, 0f), .7f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.moveLocal(expcollected.gameObject, new Vector3(474f, -103f, 0f), .7f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+
+        LeanTween.moveLocal(showkills.gameObject, new Vector3(252.9f, -257f, 0f), .7f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+
     }
 }

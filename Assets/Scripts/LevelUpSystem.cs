@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class LevelUpSystem : MonoBehaviour
         {
             if(GameManager.instance.PlayerEXP > GameManager.instance.PlayerExpToLevelUp)
             {
-                GameManager.instance.PlayerEXP = GameManager.instance.PlayerExpToLevelUp - GameManager.instance.PlayerEXP;
+                GameManager.instance.PlayerEXP = Math.Abs(GameManager.instance.PlayerExpToLevelUp - GameManager.instance.PlayerEXP);
             }
             else
             {

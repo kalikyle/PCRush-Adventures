@@ -46,6 +46,8 @@ public class HordeTrigger : MonoBehaviour
     public float countdownTime = 60f; // Countdown time in seconds (2 minutes)
     private bool isTimerRunning = false;
 
+    public LeanTweenAnimate LTA;
+
     private void Start()
     {
         if (timerText == null)
@@ -94,6 +96,8 @@ public class HordeTrigger : MonoBehaviour
                 ButtonsPanelUI.SetActive(true);
                 ONHordeUI.SetActive(false);
                 Wall.gameObject.SetActive(false);
+
+                LTA.HordeFinish();
 
                 getMaterials();
                 GetMoney();
@@ -152,21 +156,24 @@ public class HordeTrigger : MonoBehaviour
     public void getExperience()
     {
         int totalExperience = 0;
-
         foreach (var pair in EnemyExperienceMultiplier)
         {
             totalExperience += pair.Value * GameManager.instance.TempEnemyKilled;
+            
         }
+
+        LTA.expcollected.text = totalExperience.ToString();
+        LTA.showkills.text = GameManager.instance.TempEnemyKilled.ToString();
 
         GameManager.instance.AddPlayerExp(totalExperience);
     }
     public void getMaterials()
     {
         OtherWorldItem inventoryItem = ConvertMaterialsToInventoryItem();
-
+        
         if (inventoryItem.isEmpty)
         {
-
+            GameManager.instance.ShowPopUpEquipments(inventoryItem);
             Debug.LogError("Null inventory item returned from conversion.");
         }
         else
@@ -181,13 +188,14 @@ public class HordeTrigger : MonoBehaviour
 
     public void GetMoney()
     {
+        LTA.coinscollected.text = PickUpSystem.coins.ToString();
         GameManager.instance.PlayerMoney += PickUpSystem.coins;
         GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
     }
 
     private OtherWorldItem ConvertMaterialsToInventoryItem()
     {
-        
+        LTA.materialscollect.text = PickUpSystem.materials.ToString();
         OtherWorldItem inventoryItem = new OtherWorldItem();
         
         inventoryItem.quantity = PickUpSystem.materials;

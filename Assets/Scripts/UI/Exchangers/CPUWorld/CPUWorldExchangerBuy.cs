@@ -307,11 +307,9 @@ public class CPUWorldExchangerBuy : MonoBehaviour
 
                 GameManager.instance.PartsToCollect.Add(obj.gameObject);
                 GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
-
+                GameManager.instance.ShowPopUp(Parts, true);
 
                 Debug.Log("GameObject instantiated/updated: " + obj.name);
-
-
                 Debug.Log("Item Delivered ");
             }
 
