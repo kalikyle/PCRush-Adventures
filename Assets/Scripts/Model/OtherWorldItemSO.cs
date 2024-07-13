@@ -29,17 +29,23 @@ namespace OtherWorld.Model
         public string Category { get; set; }
 
         [field: SerializeField]
-        public double Attack { get; set; }
+        public bool inUse { get; set; }
+
+
+
+        //perks
+        [field: SerializeField]
+        public double AttackDamage { get; set; }
+
+        [field: SerializeField]
+        public double AttackSpeed { get; set; }
 
 
         [field: SerializeField]
-        public bool inUse { get; set; }
+        public double Armor { get; set; }
 
-        //[field: SerializeField]
-        //public double Health { get; set; }
-
-        //[field: SerializeField]
-        //public double Mana { get; set; }
+        [field: SerializeField]
+        public double Mana { get; set; }
     }
 
 }

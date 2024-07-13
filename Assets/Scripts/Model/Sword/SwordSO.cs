@@ -17,13 +17,17 @@ namespace Swords.Model
         public string Name { get; set; }
 
         [field: SerializeField]
-        public double attack { get; set; }
-
-        [field: SerializeField]
         public int SpriteIndex { get; set; } //sprite
 
         [field: SerializeField]
         public int Price { get; set; }
+
+
+        //perks
+        [field: SerializeField]
+        public double AttackDamage { get; set; }
+        [field: SerializeField]
+        public double AttackSpeed { get; set; }
 
     }
 }

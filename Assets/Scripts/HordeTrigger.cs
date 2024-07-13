@@ -213,7 +213,6 @@ public class HordeTrigger : MonoBehaviour
         var spriteArray = GameManager.instance.SpriteCollections.Layers;
 
         inventoryItems.Name = PickUpSystem.materialname;
-        inventoryItems.Attack = -1;
         inventoryItems.ItemImage = PickUpSystem.materialImage;
         inventoryItems.Category = "Materials";
 

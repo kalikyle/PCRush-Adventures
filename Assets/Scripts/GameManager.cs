@@ -143,6 +143,12 @@ public class GameManager : MonoBehaviour
     public double PlayerTotalCriticalChance = 0;
 
 
+    public int EquipmentAttackDamage = 0;
+    public int EquipmentAttackSpeed = 0;
+    public int EquipmentMana = 0;
+    public int EquipmentArmor = 0;
+
+
     public bool InHomeWorld = true;
     public int TempEnemyKilled = 0;
 
@@ -255,14 +261,56 @@ public class GameManager : MonoBehaviour
         PCCriticalHit.text = PlayerPCCriticalHit.ToString();
         PCCriticalChance.text = PlayerPCCriticalChance.ToString();
 
+        if(EquipmentAttackDamage != 0)
+        {
+            PlayerTotalAttackDamage = PlayerAttackDamage + EquipmentAttackDamage + PlayerPCAttackDamage;
+            BaseAttackDamage.text = PlayerAttackDamage.ToString()  + " (+ " + EquipmentAttackDamage + ")";
+        }
+        else
+        {
+            PlayerTotalAttackDamage = PlayerAttackDamage + PlayerPCAttackDamage;
+        }
+        
 
-        PlayerTotalAttackDamage = PlayerAttackDamage + PlayerPCAttackDamage;
         PlayerTotalHealth = PlayerHealth + PlayerPCHealth;
-        PlayerTotalMana = PlayerMana + PlayerPCMana;
+
+
+        if(EquipmentMana != 0)
+        {
+            PlayerTotalMana = PlayerMana + EquipmentMana + PlayerPCMana;
+            BaseMana.text = PlayerMana.ToString() + " (+ " + EquipmentMana + ")";
+        }
+        else
+        {
+            PlayerTotalMana = PlayerMana + PlayerPCMana;
+        }
+       
         PlayerTotalHealthRegen = PlayerHealthRegen + PlayerPCHealthRegen;
         PlayerTotalWalkSpeed = PlayerWalkSpeed + PlayerPCWalkSpeed;
-        PlayerTotalArmor = PlayerArmor + PlayerPCArmor;
-        PlayerTotalAttackSpeed = PlayerAttackSpeed + PlayerPCAttackSpeed;
+
+        if(EquipmentArmor != 0)
+        {
+            PlayerTotalArmor = PlayerArmor + EquipmentArmor + PlayerPCArmor;
+            BaseArmor.text = PlayerArmor.ToString() + " (+ " + EquipmentArmor + ")";
+        }
+        else
+        {
+            PlayerTotalArmor = PlayerArmor + PlayerPCArmor;
+        }
+        
+
+        if(EquipmentAttackSpeed != 0)
+        {
+            PlayerTotalAttackSpeed = PlayerAttackSpeed  + EquipmentAttackSpeed + PlayerPCAttackSpeed;
+            BaseAttackSpeed.text = PlayerAttackSpeed.ToString() + " (+ " + EquipmentAttackSpeed + ")";
+        }
+        else
+        {
+            PlayerTotalAttackSpeed = PlayerAttackSpeed + PlayerPCAttackSpeed;
+        }
+        
+
+
         PlayerTotalCriticalHit = PlayerCriticalHit + PlayerPCCriticalHit;
         PlayerTotalCriticalChance = PlayerCriticalChance + PlayerPCCriticalChance;
 
@@ -276,6 +324,14 @@ public class GameManager : MonoBehaviour
         TotalCriticalHit.text = PlayerTotalCriticalHit.ToString();
         TotalCriticalChance.text = PlayerTotalCriticalChance.ToString();
 
+    }
+
+    public void UnequipEquipment()
+    {
+        EquipmentAttackDamage = 0;
+        EquipmentAttackSpeed = 0;
+        EquipmentMana = 0;
+        EquipmentArmor = 0;
     }
 
 

@@ -249,7 +249,8 @@ public class ArmorBuy : MonoBehaviour
         int spriteIndex;
 
         inventoryItems.Name = shpItem.item.Name;
-        inventoryItems.Attack = shpItem.item.Armor;
+        inventoryItems.Armor = shpItem.item.Armor;
+        inventoryItems.Mana = shpItem.item.Mana;
         spriteIndex = shpItem.item.SpriteIndex;
 
         if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)

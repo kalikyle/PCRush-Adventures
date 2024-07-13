@@ -19,6 +19,13 @@ namespace OtherWorld.UI
         [SerializeField]
         private TMP_Text Perks;
 
+        [SerializeField]
+        private Button Equip;
+
+
+        [SerializeField]
+        private Button Sell;
+
         public void Awake()
         {
             ResetDescription();
@@ -43,6 +50,18 @@ namespace OtherWorld.UI
             Category.text = category;
            
             Perks.text = perks;
+
+            if(category == "Materials")
+            {
+                Equip.gameObject.SetActive(false);
+                Sell.gameObject.SetActive(false);
+                Perks.text = "Go to the Material Exchanger to Exchange this Material into a Computer Part";
+            }
+            else
+            {
+                Equip.gameObject.SetActive(true);
+                Sell.gameObject.SetActive(true);
+            }
 
         }
         public void Show()

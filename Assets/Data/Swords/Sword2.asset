@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sword2
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Sword
-  <attack>k__BackingField: 5
   <SpriteIndex>k__BackingField: 1
   <Price>k__BackingField: 100
+  <AttackDamage>k__BackingField: 5
+  <AttackSpeed>k__BackingField: 0
