@@ -176,6 +176,7 @@ public class SwordBuy : MonoBehaviour
                 int swordPrice = Sword.item.Price;
                 if(GameManager.instance.PlayerMoney >= swordPrice)
                 {
+                    GameManager.instance.ShowPopUpEquipments(inventoryItem);
                     GameManager.instance.AddItemToTransfer(inventoryItem);
                     Debug.Log("Item added to inventory ");
 

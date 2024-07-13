@@ -226,6 +226,10 @@ public class GameManager : MonoBehaviour
     public QuestEvent questEvents;
 
 
+    [SerializeField] private GameObject notifpopup;// Reference to the parent transform where the popups will be placed
+    [SerializeField] private GameObject Equipnotifpopup;
+    [SerializeField] private Transform notifpPopUpParent;
+
     public Dictionary<string, string> DefaultCharacter = new Dictionary<string, string>();
 
 
@@ -403,7 +407,7 @@ public class GameManager : MonoBehaviour
                 PlayerMoney = snapshot.GetValue<int>("playerMoney");
                 PlayerGems = snapshot.GetValue<int>("playerGems");
                 PlayerLevel = snapshot.GetValue<int>("playerLevel");
-                PlayerEXP = snapshot.GetValue<int>("playerEXP");
+                PlayerEXP = Math.Abs(snapshot.GetValue<int>("playerEXP"));
                 PlayerExpToLevelUp = snapshot.GetValue<int>("playerEXPNeedtoLevelUp");
 
                 // load player stats
@@ -1735,6 +1739,137 @@ public class GameManager : MonoBehaviour
             return new Bounds(Vector3.zero, Vector3.one);
         }
     }
+
+
+
+    public void ShowPopUp(PartsCollect inventoryItem, bool cpuBuy)
+    {
+        GameObject newShopPopup = Instantiate(notifpopup, notifpPopUpParent); // Instantiate the popup as a child of the designated parent
+
+        LeanTween.moveLocal(newShopPopup, new Vector3(264.7f, 133.7f, 0f), 2f)
+            .setEase(LeanTweenType.easeOutExpo)
+            .setOnComplete(() => HidePopUp(newShopPopup));
+
+        UpdateShopPopup(newShopPopup, inventoryItem, cpuBuy);
+    }
+
+    private void HidePopUp(GameObject shopPopup)
+    {
+        LeanTween.moveLocal(shopPopup, new Vector3(508.4f, 133.7f, 0f), 1f)
+            .setDelay(1f)
+            .setEase(LeanTweenType.easeOutExpo)
+            .setOnComplete(() => Destroy(shopPopup));
+    }
+
+    private void UpdateShopPopup(GameObject shopPopup, PartsCollect inventoryItem, bool cpuBuy)
+    {
+        Image[] images = shopPopup.GetComponentsInChildren<Image>();
+        TMP_Text[] texts = shopPopup.GetComponentsInChildren<TMP_Text>();
+
+        foreach (var image in images)
+        {
+            // Check conditions or naming conventions to identify the image elements you need to update
+            if (image.gameObject.name == "ItemImage") // Assuming the GameObject name is set in the editor
+            {
+                image.sprite = inventoryItem.parts.ItemImage;
+                break; // Assuming there's only one image to update
+            }
+        }
+
+        foreach (var text in texts)
+        {
+            // Check conditions or naming conventions to identify the text elements you need to update
+            if (text.gameObject.name == "Quantity") // Assuming the GameObject name is set in the editor
+            {
+                text.text = inventoryItem.Quantity.ToString() + "X";
+            }
+            else if (text.gameObject.name == "ItemName") // Assuming the GameObject name is set in the editor
+            {
+                text.text = inventoryItem.parts.Name;
+            }
+            else if (text.gameObject.name == "Category")
+            {
+
+                text.text = inventoryItem.parts.Category;
+            }
+
+
+            if(cpuBuy == true)
+            {
+                if (text.gameObject.name == "Info")
+                {
+
+                    text.text = "Item has been Delivered To Your Home";
+                }
+            }
+            else
+            {
+                if (text.gameObject.name == "Info")
+                {
+
+                    text.text = "Item Has been added to your hardware inventory";
+                }
+            }
+
+        }
+    }
+
+
+    //for equipements
+    public void ShowPopUpEquipments(OtherWorldItem inventoryItem)
+    {
+        GameObject newShopPopup = Instantiate(Equipnotifpopup, notifpPopUpParent); // Instantiate the popup as a child of the designated parent
+
+        LeanTween.moveLocal(newShopPopup, new Vector3(264.7f, 133.7f, 0f), 2f)
+            .setEase(LeanTweenType.easeOutExpo)
+            .setOnComplete(() => HidePopUpEquipments(newShopPopup));
+
+        UpdateShopPopupEquipments(newShopPopup, inventoryItem);
+    }
+
+    private void HidePopUpEquipments(GameObject shopPopup)
+    {
+        LeanTween.moveLocal(shopPopup, new Vector3(508.4f, 133.7f, 0f), 1f)
+            .setDelay(1f)
+            .setEase(LeanTweenType.easeOutExpo)
+            .setOnComplete(() => Destroy(shopPopup));
+    }
+
+    private void UpdateShopPopupEquipments(GameObject shopPopup, OtherWorldItem inventoryItem)
+    {
+        Image[] images = shopPopup.GetComponentsInChildren<Image>();
+        TMP_Text[] texts = shopPopup.GetComponentsInChildren<TMP_Text>();
+
+        foreach (var image in images)
+        {
+            // Check conditions or naming conventions to identify the image elements you need to update
+            if (image.gameObject.name == "ItemImage") // Assuming the GameObject name is set in the editor
+            {
+                image.sprite = inventoryItem.item.ItemImage;
+                break; // Assuming there's only one image to update
+            }
+        }
+
+        foreach (var text in texts)
+        {
+            // Check conditions or naming conventions to identify the text elements you need to update
+            if (text.gameObject.name == "Quantity") // Assuming the GameObject name is set in the editor
+            {
+                text.text = inventoryItem.quantity.ToString() + "X";
+            }
+            else if (text.gameObject.name == "ItemName") // Assuming the GameObject name is set in the editor
+            {
+                text.text = inventoryItem.item.Name;
+            }
+            else if (text.gameObject.name == "Category")
+            {
+
+                text.text = inventoryItem.item.Category;
+            }
+
+        }
+    }
+
 }
 [System.Serializable]
 public class DecorationItemList

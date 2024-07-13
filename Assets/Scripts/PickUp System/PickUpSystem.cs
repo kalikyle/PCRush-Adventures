@@ -46,8 +46,9 @@ public class PickUpSystem : MonoBehaviour
                 GameManager.instance.ComputerInv.SetActive(false);
 
             }
-            
+            GameManager.instance.ShowPopUp(parts, false);
             partsData.PartsSaveItems();
+
         }
 
 

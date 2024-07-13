@@ -167,7 +167,7 @@ public class ArmorBuy : MonoBehaviour
                 {
                     GameManager.instance.AddItemToTransfer(inventoryItem);   
                     Debug.Log("The item has been purchase");
-
+                    GameManager.instance.ShowPopUpEquipments(inventoryItem);
                     GameManager.instance.PlayerMoney -= ArmorPrice;
                     GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
                 }
