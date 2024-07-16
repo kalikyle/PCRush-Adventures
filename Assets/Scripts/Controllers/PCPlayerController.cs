@@ -22,7 +22,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static Inventory.Model.PartsInventorySO;
-//using static UnityEditor.Progress;
+using static UnityEditor.Progress;
 
 //using static Inventory.Model.InventorySO;
 //

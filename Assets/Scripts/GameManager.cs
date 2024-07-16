@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -230,14 +231,9 @@ public class GameManager : MonoBehaviour
     public int packagescollected = 0;
     public QuestEvent questEvents;
 
-    //for shop ui
-    public TMP_Text ShopGold;
-    public TMP_Text ShopGem;
 
-    //FOR NOTIFS
-    [SerializeField] private GameObject notifpopup;
+    [SerializeField] private GameObject notifpopup;// Reference to the parent transform where the popups will be placed
     [SerializeField] private GameObject Equipnotifpopup;
-    [SerializeField] private GameObject Itemsnotifpopup;
     [SerializeField] private Transform notifpPopUpParent;
 
     public Dictionary<string, string> DefaultCharacter = new Dictionary<string, string>();
@@ -348,8 +344,6 @@ public class GameManager : MonoBehaviour
     {
         PlayerMoneyText.text = PlayerMoney.ToString();
         PlayerGemsText.text = PlayerGems.ToString();
-        ShopGold.text = PlayerMoney.ToString();
-        ShopGem.text = PlayerGems.ToString();
     }
 
     public void PlayerLevelUpdate()
@@ -1929,124 +1923,10 @@ public class GameManager : MonoBehaviour
                 text.text = inventoryItem.item.Category;
             }
 
-           
-
-        }
-    }
-   
-
-    //for Items
-    public void ShowPopUpItems(Shop.Model.ShopItem inventoryItem)
-    {
-        GameObject newShopPopup = Instantiate(Itemsnotifpopup, notifpPopUpParent); // Instantiate the popup as a child of the designated parent
-
-        LeanTween.moveLocal(newShopPopup, new Vector3(264.7f, 133.7f, 0f), 2f)
-            .setEase(LeanTweenType.easeOutExpo)
-            .setOnComplete(() => HidePopUpItems(newShopPopup));
-
-        UpdateShopPopupItems(newShopPopup, inventoryItem);
-    }
-    public void ShowPopUpItems(DecorationItem inventoryItem)
-    {
-        GameObject newShopPopup = Instantiate(Itemsnotifpopup, notifpPopUpParent); // Instantiate the popup as a child of the designated parent
-
-        LeanTween.moveLocal(newShopPopup, new Vector3(264.7f, 133.7f, 0f), 2f)
-            .setEase(LeanTweenType.easeOutExpo)
-            .setOnComplete(() => HidePopUpItems(newShopPopup));
-
-        UpdateShopPopupItems(newShopPopup, inventoryItem);
-    }
-
-    private void HidePopUpItems(GameObject shopPopup)
-    {
-        LeanTween.moveLocal(shopPopup, new Vector3(508.4f, 133.7f, 0f), 1f)
-            .setDelay(1f)
-            .setEase(LeanTweenType.easeOutExpo)
-            .setOnComplete(() => Destroy(shopPopup));
-    }
-
-    private void UpdateShopPopupItems(GameObject shopPopup, Shop.Model.ShopItem inventoryItem)
-    {
-        Image[] images = shopPopup.GetComponentsInChildren<Image>();
-        TMP_Text[] texts = shopPopup.GetComponentsInChildren<TMP_Text>();
-
-        foreach (var image in images)
-        {
-            // Check conditions or naming conventions to identify the image elements you need to update
-            if (image.gameObject.name == "ItemImage") // Assuming the GameObject name is set in the editor
-            {
-                image.sprite = inventoryItem.item.ItemImage;
-                break; // Assuming there's only one image to update
-            }
-        }
-
-        foreach (var text in texts)
-        {
-            if (text.gameObject.name == "Quantity") // Assuming the GameObject name is set in the editor
-            {
-                text.text = "";
-            }
-           else if (text.gameObject.name == "ItemName") // Assuming the GameObject name is set in the editor
-            {
-                text.text = inventoryItem.item.Name;
-            }
-            else if (text.gameObject.name == "Category")
-            {
-
-                text.text = inventoryItem.item.Category;
-            }
-             else if (text.gameObject.name == "Info")
-             {
-
-                    text.text = "This " + inventoryItem.item.Category + " Has been sold and Equipped";
-             }
-            
-
         }
     }
 
-    private void UpdateShopPopupItems(GameObject shopPopup, DecorationItem inventoryItem )
-    {
-        Image[] images = shopPopup.GetComponentsInChildren<Image>();
-        TMP_Text[] texts = shopPopup.GetComponentsInChildren<TMP_Text>();
-
-        foreach (var image in images)
-        {
-            // Check conditions or naming conventions to identify the image elements you need to update
-            if (image.gameObject.name == "ItemImage") // Assuming the GameObject name is set in the editor
-            {
-                image.sprite = inventoryItem.item.ItemImage;
-                break; // Assuming there's only one image to update
-            }
-        }
-
-        foreach (var text in texts)
-        {
-            if (text.gameObject.name == "Quantity") // Assuming the GameObject name is set in the editor
-            {
-                text.text = inventoryItem.quantity.ToString() + "X";
-            }
-
-            else if (text.gameObject.name == "ItemName") // Assuming the GameObject name is set in the editor
-            {
-                text.text = inventoryItem.item.Name;
-            }
-            else if (text.gameObject.name == "Category")
-            {
-
-                text.text = inventoryItem.item.Category;
-            }
-
-
-            if (text.gameObject.name == "Info")
-            {
-
-                text.text = "This Decoration has been sent to Decoration Inventory";
-            }
-
-        }
-       }
-  }
+}
 [System.Serializable]
 public class DecorationItemList
 {
