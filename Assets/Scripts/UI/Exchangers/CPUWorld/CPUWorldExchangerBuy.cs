@@ -12,7 +12,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static OtherWorld.Model.OWInvSO;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 public class CPUWorldExchangerBuy : MonoBehaviour
 {

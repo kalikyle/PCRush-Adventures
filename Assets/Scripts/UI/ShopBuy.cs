@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static Decoration.Model.DecorSO;
+using static Inventory.Model.PartsInventorySO;
 //
 
 public class ShopBuy : MonoBehaviour
@@ -427,9 +428,9 @@ public class ShopBuy : MonoBehaviour
         {
 
             ItemsBuy(shpItem);
-
             GameManager.instance.PlayerMoney -= shpItem.item.Price;
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            GameManager.instance.ShowPopUpItems(shpItem);
         }
         else
         {
@@ -473,7 +474,9 @@ public class ShopBuy : MonoBehaviour
 
                     GameManager.instance.PlayerMoney -= (int)total;
                     GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                    
                     Debug.Log("Item added to inventory ");
+                    GameManager.instance.ShowPopUpItems(inventoryItem);
                     value = 1;
                     displayText.text = value.ToString();
                     UpdatePriceDisplay();
