@@ -193,7 +193,12 @@ public class DialogueManager : MonoBehaviour
                         GameManager.instance.CPUExhangerPanel.SetActive(true);
                         GameManager.instance.OpenCPUWorldExhanger();
                     }
-                    
+                    else if (tagValue.Equals("ramexchangeyes"))
+                    {
+                        GameManager.instance.RAMExhangerPanel.SetActive(true);
+                        GameManager.instance.OpenRAMWorldExhanger();
+                    }
+
 
                     break;
 

@@ -11,38 +11,43 @@ using static OtherWorld.Model.OWInvSO;
 
 public class HordeTrigger : MonoBehaviour
 {
-    public TMP_Text timerText; // Reference to the Text component for displaying the timer
-    public Button startButton; // Reference to the Button to start the timer
+
+    public PickUpSystem PickUpSystem;
+
+    public TMP_Text timerText; 
+
+    public Button startButton;
     public Button stopButton;
+
     public Canvas CPUWorldCanvas;
     public GameObject ONHordeUI;
     public GameObject ExploreUI;
     public GameObject QuestUI;
     public GameObject TopPanelUI;
     public GameObject ButtonsPanelUI;
+
+    //for CPU World
     public GameObject Wall;
-    
     public GameObject CoinsAndMaterialsDropped;
+    public Transform EnemiesObject;
+    public Transform spawnArea; // The Transform defining the center of the spawning area
+    public Vector2 areaSize = new Vector2(10f, 10f); // The size of the spawning area
+    public GameObject enemyPrefab; // The enemy AI prefab to spawn
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
 
 
-    public PickUpSystem PickUpSystem;
+
 
     public TMP_Text CoinsCollected;
     public TMP_Text MaterialsCollected;
     public TMP_Text Enemykilled;
 
 
-    public Transform EnemiesObject;
-
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
+  
     private Dictionary<string, int> EnemyExperienceMultiplier = new Dictionary<string, int>();
 
 
-    public GameObject enemyPrefab; // The enemy AI prefab to spawn
-    public Transform spawnArea; // The Transform defining the center of the spawning area
-    public Vector2 areaSize = new Vector2(10f, 10f); // The size of the spawning area
     public float spawnInterval = 2f; // Time interval between spawns
-
     public float countdownTime = 60f; // Countdown time in seconds (2 minutes)
     private bool isTimerRunning = false;
 
