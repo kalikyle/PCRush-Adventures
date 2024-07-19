@@ -27,6 +27,11 @@ public class Health : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+
+        if(currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
     }
 
     public void InitializeHealth(int healthValue)

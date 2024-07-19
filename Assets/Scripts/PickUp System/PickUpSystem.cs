@@ -88,8 +88,7 @@ public class PickUpSystem : MonoBehaviour
         if(SWM != null)
         {
             SWM.DestroyItem();
-            //add coins
-            //Debug.LogError(SWM.MaterialValue);
+            
             materials += SWM.MaterialValue;
             materialname = SWM.MaterialName;
             materialImage = SWM.GetComponent<SpriteRenderer>().sprite;

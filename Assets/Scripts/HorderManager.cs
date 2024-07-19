@@ -2,7 +2,9 @@ using Assets.PixelHeroes.Scripts.ExampleScripts;
 using OtherWorld.Model;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static OtherWorld.Model.OWInvSO;
@@ -16,6 +18,7 @@ public class HorderManager : MonoBehaviour
 
     public PickUpSystem PickUpSystem;
     public LeanTweenAnimate LTA;
+    public GameObject OnHordeUI;
     public GameObject ExploreUI;
     public GameObject QuestUI;
     public GameObject TopPanelUI;
@@ -25,14 +28,50 @@ public class HorderManager : MonoBehaviour
     public TMP_Text MaterialsCollected;
     public TMP_Text EnemyKilled;
 
+    // Scene-specific references for CPU
+    public Canvas CPUWorldCanvas;
+    public GameObject Wall;
+    public GameObject CoinsAndMaterialsDropped;
+    public Button cpuStartButton;
+    public PolygonCollider2D CPU1spawnAreaCollider; // Add this line
+
+    // Scene-specific references for RAM
+    public Canvas RAMWorldCanvas;
+    public GameObject ramWall;
+    public GameObject RamCoinsAndMaterialsDropped;
+    public Button ramStartButton;
+    public PolygonCollider2D RAM1spawnAreaCollider; // Add this line
+
+    // General stop button (e.g., in the Horde UI)
+    public Button generalStopButton;
+
+    private Dictionary<string, GameObject> MaterialsandCoinsDrop = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> walls = new Dictionary<string, GameObject>();
+    private Dictionary<string, Canvas> worldCanvases = new Dictionary<string, Canvas>();
+
     private Dictionary<string, int> EnemyExperienceMultiplier = new Dictionary<string, int>();
 
     private void Start()
     {
+
+        MaterialsandCoinsDrop["cpu1"] = CoinsAndMaterialsDropped;
+        MaterialsandCoinsDrop["ram1"] = RamCoinsAndMaterialsDropped;
+
+
+        walls["cpu1"] = Wall;
+        walls["ram1"] = ramWall;
+
+        worldCanvases["cpu1"] = CPUWorldCanvas;
+        worldCanvases["ram1"] = RAMWorldCanvas;
+
+        cpuStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "cpu1")));
+
+        ramStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "ram1")));
+
+        generalStopButton.onClick.AddListener(StopCurrentHorde);
+
         foreach (var config in hordeConfigs)
         {
-            config.HordeCanvas.transform.Find("StartButton").GetComponent<Button>().onClick.AddListener(() => StartHorde(config));
-            config.HordeCanvas.transform.Find("StopButton").GetComponent<Button>().onClick.AddListener(() => StopHorde(config));
             UpdateTimerText(config, config.countdownTime); // Initialize the timer text
         }
     }
@@ -61,43 +100,91 @@ public class HorderManager : MonoBehaviour
         config.countdownTime = 120f; // Reset the countdown time to 2 minutes
         isTimerRunning = true; // Start the timer
 
-        config.HordeCanvas.gameObject.SetActive(false);
+        if (worldCanvases.TryGetValue(config.HordeName, out var canvas))
+        {
+            canvas.gameObject.SetActive(false);
+        }
+        OnHordeUI.SetActive(true);
         ExploreUI.SetActive(true);
         QuestUI.SetActive(false);
         TopPanelUI.SetActive(false);
         ButtonsPanelUI.SetActive(false);
-        config.Wall.gameObject.SetActive(true);
+
+        if (walls.TryGetValue(config.HordeName, out var wall))
+        {
+            wall.gameObject.SetActive(true);
+        }
 
         StartCoroutine(SpawnEnemies(config));
     }
 
-    private void StopHorde(HordeConfig config)
+    private async void StopHorde(HordeConfig config)
     {
-        config.countdownTime = 0f;
-        isTimerRunning = false;
-        EndHorde(config);
-    }
+        if (config == null) return; // Avoid null reference errors
 
-    private void EndHorde(HordeConfig config)
-    {
-        config.HordeCanvas.gameObject.SetActive(true);
+        if (worldCanvases.TryGetValue(config.HordeName, out var canvas))
+        {
+            canvas.gameObject.SetActive(true);
+        }
+        OnHordeUI.SetActive(false);
         ExploreUI.SetActive(true);
         QuestUI.SetActive(true);
         TopPanelUI.SetActive(true);
         ButtonsPanelUI.SetActive(true);
-        config.Wall.gameObject.SetActive(false);
+
+        if (walls.TryGetValue(config.HordeName, out var wall))
+        {
+            wall.gameObject.SetActive(false);
+        }
+
+
+        config.countdownTime = 0f;
+        isTimerRunning = false;
+        StopAllCoroutines();
+        DestroyAllEnemies(config);
+
+        PickUpSystem.coins = 0;
+        PickUpSystem.materials = 0;
+
+        await Task.Delay(1500);
+        GameManager.instance.TempEnemyKilled = 0;
+        EnemyExperienceMultiplier.Clear();
+    }
+
+    public void StopCurrentHorde()
+    {
+        StopHorde(currentHordeConfig);
+    }
+
+    private async void EndHorde(HordeConfig config)
+    {
+        if (worldCanvases.TryGetValue(config.HordeName, out var canvas))
+        {
+            canvas.gameObject.SetActive(true);
+        }
+        OnHordeUI.SetActive(false);
+        ExploreUI.SetActive(true);
+        QuestUI.SetActive(true);
+        TopPanelUI.SetActive(true);
+        ButtonsPanelUI.SetActive(true);
+
+        if (walls.TryGetValue(config.HordeName, out var wall))
+        {
+            wall.gameObject.SetActive(false);
+        }
 
         LTA.HordeFinish();
 
         getMaterials();
         GetMoney();
+        getExperience();
         StopAllCoroutines();
         DestroyAllEnemies(config);
-        getExperience();
-
+        
         PickUpSystem.coins = 0;
         PickUpSystem.materials = 0;
 
+        await Task.Delay(1500);
         GameManager.instance.TempEnemyKilled = 0;
         EnemyExperienceMultiplier.Clear();
     }
@@ -111,15 +198,60 @@ public class HorderManager : MonoBehaviour
         }
     }
 
+    //private void SpawnEnemy(HordeConfig config)
+    //{
+    //    if (!spawnAreas.TryGetValue(config.HordeName, out var spawnArea) ||
+    //        !enemiesObjects.TryGetValue(config.HordeName, out var enemiesObject))
+    //    {
+    //        Debug.LogError("Spawn area or enemies object not found for horde: " + config.HordeName);
+    //        return;
+    //    }
+
+    //    Vector3 randomPosition = new Vector3(
+    //        Random.Range(spawnArea.position.x - config.areaSize.x / 2, spawnArea.position.x + config.areaSize.x / 2),
+    //        Random.Range(spawnArea.position.y - config.areaSize.y / 2, spawnArea.position.y + config.areaSize.y / 2),
+    //        spawnArea.position.z
+    //    );
+
+    //    GameObject enemy = Instantiate(config.enemyPrefab, randomPosition, Quaternion.identity, enemiesObject);
+
+    //    EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+
+    //    if (enemyAI != null)
+    //    {
+    //        enemyAI.numberOfHeartsToDrop = Random.Range(0, 2);
+    //        enemyAI.numberOfCoinsToDrop = Random.Range(0, 6);
+    //        enemyAI.HeartValueToDrop = Random.Range(1, 6);
+    //        enemyAI.CoinValueToDrop = Random.Range(1, 6);
+    //        enemyAI.numberOfMaterialToDrop = Random.Range(0, 2);
+    //        enemyAI.MaterialValueToDrop = 1;
+    //    }
+
+    //    EnemyExperienceMultiplier[enemyAI.name] = enemyAI.ExpMultiplier;
+    //    spawnedEnemies.Add(enemy);
+    //}
+
     private void SpawnEnemy(HordeConfig config)
     {
-        Vector3 randomPosition = new Vector3(
-            Random.Range(config.spawnArea.position.x - config.areaSize.x / 2, config.spawnArea.position.x + config.areaSize.x / 2),
-            Random.Range(config.spawnArea.position.y - config.areaSize.y / 2, config.spawnArea.position.y + config.areaSize.y / 2),
-            config.spawnArea.position.z
-        );
+        PolygonCollider2D spawnAreaCollider = null;
 
-        GameObject enemy = Instantiate(config.enemyPrefab, randomPosition, Quaternion.identity, config.EnemiesObject);
+        if (config.HordeName == "cpu1")
+        {
+            spawnAreaCollider = CPU1spawnAreaCollider;
+        }
+        else if (config.HordeName == "ram1")
+        {
+            spawnAreaCollider = RAM1spawnAreaCollider;
+        }
+
+        if (spawnAreaCollider == null || !spawnAreaCollider.enabled)
+        {
+            Debug.LogError("Spawn area collider not found or disabled for horde: " + config.HordeName);
+            return;
+        }
+
+        Vector3 randomPosition = GetRandomPointInPolygon(spawnAreaCollider);
+        GameObject enemy = Instantiate(config.enemyPrefab, randomPosition, Quaternion.identity);
 
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
 
@@ -137,11 +269,62 @@ public class HorderManager : MonoBehaviour
         spawnedEnemies.Add(enemy);
     }
 
+    private Vector3 GetRandomPointInPolygon(PolygonCollider2D collider)
+    {
+        Bounds bounds = collider.bounds;
+        Vector2 min = bounds.min;
+        Vector2 max = bounds.max;
+
+        while (true)
+        {
+            Vector2 randomPoint = new Vector2(
+                Random.Range(min.x, max.x),
+                Random.Range(min.y, max.y)
+            );
+
+            if (PointInPolygon(collider, randomPoint))
+            {
+                return randomPoint;
+            }
+        }
+    }
+
+    private bool PointInPolygon(PolygonCollider2D collider, Vector2 point)
+    {
+        bool inside = false;
+        Vector2[] points = collider.points;
+        int j = points.Length - 1;
+
+        for (int i = 0; i < points.Length; j = i++)
+        {
+            Vector2 pi = collider.transform.TransformPoint(points[i]);
+            Vector2 pj = collider.transform.TransformPoint(points[j]);
+
+            if ((pi.y > point.y) != (pj.y > point.y) &&
+                (point.x < (pj.x - pi.x) * (point.y - pi.y) / (pj.y - pi.y) + pi.x))
+            {
+                inside = !inside;
+            }
+        }
+
+        return inside;
+    }
+
+
     private void DestroyAllEnemies(HordeConfig config)
     {
-        foreach (Transform child in config.CoinsAndMaterialsDropped.transform)
+
+        //foreach (Transform child in CoinsAndMaterialsDropped.transform)
+        //{
+        //    Destroy(child.gameObject);
+        //}
+
+        if (MaterialsandCoinsDrop.TryGetValue(config.HordeName, out var coinsandmat))
         {
-            Destroy(child.gameObject);
+            foreach (Transform child in coinsandmat.transform)
+        {
+             Destroy(child.gameObject);
+        }
         }
 
         foreach (GameObject enemy in spawnedEnemies)
@@ -179,34 +362,32 @@ public class HorderManager : MonoBehaviour
 
     private void UpdateUI(HordeConfig config)
     {
-        if (PickUpSystem.coins == 0)
+        CoinsCollected.gameObject.SetActive(PickUpSystem.coins > 0);
+        CoinsCollected.text = PickUpSystem.coins.ToString();
+
+        MaterialsCollected.gameObject.SetActive(PickUpSystem.materials > 0);
+        MaterialsCollected.text = PickUpSystem.materials.ToString();
+
+        if (MaterialsCollected.transform.childCount > 0)
         {
-            CoinsCollected.gameObject.SetActive(false);
-        }
-        else
-        {
-            CoinsCollected.gameObject.SetActive(true);
-            CoinsCollected.text = PickUpSystem.coins.ToString();
+            Image materialImage = MaterialsCollected.transform.GetChild(0).GetComponent<Image>();
+            if (materialImage != null)
+            {
+                materialImage.sprite = PickUpSystem.materialImage;
+            }
         }
 
-        if (PickUpSystem.materials == 0)
-        {
-            MaterialsCollected.gameObject.SetActive(false);
-        }
-        else
-        {
-            MaterialsCollected.gameObject.SetActive(true);
-            MaterialsCollected.text = PickUpSystem.materials.ToString();
-        }
+        EnemyKilled.gameObject.SetActive(GameManager.instance.TempEnemyKilled > 0);
+        EnemyKilled.text = GameManager.instance.TempEnemyKilled.ToString();
 
-        if (GameManager.instance.TempEnemyKilled == 0)
+        if (EnemyKilled.transform.childCount > 0)
         {
-            EnemyKilled.gameObject.SetActive(false);
-        }
-        else
-        {
-            EnemyKilled.gameObject.SetActive(true);
-            EnemyKilled.text = GameManager.instance.TempEnemyKilled.ToString();
+            Image materialImage = EnemyKilled.transform.GetChild(0).GetComponent<Image>();
+            if (materialImage != null)
+            {
+                EnemyAI enemyAI = config.enemyPrefab.GetComponent<EnemyAI>();
+                materialImage.sprite = enemyAI.EnemyImage;
+            }
         }
     }
 

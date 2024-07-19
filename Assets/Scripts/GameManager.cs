@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour
     public QuestPoint qp;
     public OWInvController OWC;
     public ExchangerController Exchanger;
+    public HorderManager Hordemanager;
+    public Health PlayerHealthScript;
+    public PlayerArmor PlayerArmorScript;
 
     public bool isEditing = false;
     public TMP_Text UserIDTxt;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LeanTweenAnimate : MonoBehaviour
 {
-    public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl,  coinscollectedtxt,materialscollecttxt,expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap;
+    public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl,  coinscollectedtxt,materialscollecttxt,expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap, Diedpanel,youdiedText, diedtextsub,skull;
     public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
     //bool close = false;
@@ -151,8 +151,12 @@ public class LeanTweenAnimate : MonoBehaviour
         LeanTween.alpha(circling.GetComponent<RectTransform>(), 1f, .8f).setDelay(1f);
         LeanTween.rotateAround(circling, Vector3.forward, -360, 5f).setLoopClamp();
     }
+    public void Circlingskull()
+    {
+        LeanTween.alpha(skull.GetComponent<RectTransform>(), 1f, .8f).setDelay(1f);
+        LeanTween.rotateAround(skull, Vector3.forward, -360, 5f).setLoopClamp();
+    }
 
-    
     public void ShowSuccessPC()
     {
         Circling();
@@ -199,6 +203,30 @@ public class LeanTweenAnimate : MonoBehaviour
         
     }
 
+
+    public void YouDied()
+    {
+        Circlingskull();
+        LeanTween.scale(Diedpanel, new Vector3(1f, 1f, 1f), .8f).setEase(LeanTweenType.easeOutElastic);
+
+        LeanTween.scale(youdiedText, new Vector3(3f, 3f, 3f), 1f).setDelay(.5f).setEase(LeanTweenType.easeOutBounce);
+        LeanTween.moveLocal(youdiedText, new Vector3(0f, 133f, 0f), .7f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(youdiedText, new Vector3(1f, 1f, 1f), 1f).setDelay(.5f).setEase(LeanTweenType.easeInCubic);
+
+
+        LeanTween.moveLocal(diedtextsub, new Vector3(0f, -162f, 0f), .7f).setEase(LeanTweenType.easeInCubic).setOnComplete(HideYouDied);
+    }
+    public void HideYouDied()
+    {
+        LeanTween.scale(Diedpanel, new Vector3(0f, 0f, 0f), .8f).setDelay(4f).setEase(LeanTweenType.easeOutElastic);
+
+
+        LeanTween.moveLocal(youdiedText, new Vector3(0f, 4f, 0f), .7f).setDelay(4f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(youdiedText, new Vector3(0f, 0f, 0f), 1f).setDelay(4f).setEase(LeanTweenType.easeOutBounce);
+
+
+        LeanTween.moveLocal(diedtextsub, new Vector3(0f, -268f, 0f), .7f).setDelay(4f).setEase(LeanTweenType.easeInCubic);
+    }
    
     // animation for finish horde
     public void HordeFinish()

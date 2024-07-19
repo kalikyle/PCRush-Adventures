@@ -15612,6 +15612,7 @@ MonoBehaviour:
   numberOfHeartsToDrop: 1
   HeartValueToDrop: 5
   MaterialPrefab: {fileID: 3316352308487018853, guid: a4f3cb7053b40cb449ac6ea55dd4cddf, type: 3}
+  MaterialName: Memory Chip
   numberOfMaterialToDrop: 1
   MaterialValueToDrop: 1
   dropRadius: 1
@@ -15624,6 +15625,7 @@ MonoBehaviour:
   hitPoints: {fileID: 6967909581131199628}
   floatingTextPrefab: {fileID: 4652368944077129396, guid: fa5cc75cff4e5934b840c9c3566bf7e4, type: 3}
   damageCanvas: {fileID: 7601561232433407804}
+  EnemyImage: {fileID: 4723107735738678597, guid: a81d861e5c4fa254099102fcc03e98bc, type: 3}
 --- !u!1 &8459416156559206296
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,11 @@ public class PlayerArmor : MonoBehaviour
         {
             currentArmor = maxArmor;
         }
+
+        if (currentArmor < 0)
+        {
+            currentArmor = 0;
+        }
     }
 
     public void InitializeArmor(int healthValue)

@@ -1012,11 +1012,12 @@ namespace PC
                 PCName.text = PCitem.PCName;
                 Perks.text = ItemPerks(PCitem);
 
-
+               
                 GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.AttackSpeed, PCitem.CriticalHit, PCitem.CriticalChance);
                 GameManager.instance.StatsUsedPCPanel.SetActive(true);
                 GameManager.instance.StatsPCImageUsed.sprite = PCitem.PCImage;
                 GameManager.instance.StatsPCName.text = PCitem.PCName;
+                
                 //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
 
                 CaseName.text = PCitem.Case.Name;
@@ -1061,8 +1062,11 @@ namespace PC
 
                 TestedPCint = index;
 
-                await UpdatePCSO(documentId, PCitem);
+                
 
+                await UpdatePCSO(documentId, PCitem);
+                GameManager.instance.PlayerArmorScript.currentArmor = (int)GameManager.instance.PlayerTotalArmor;
+                GameManager.instance.PlayerHealthScript.currentHealth = (int)GameManager.instance.PlayerTotalHealth;
 
             }
             else
