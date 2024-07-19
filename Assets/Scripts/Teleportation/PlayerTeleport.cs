@@ -71,6 +71,22 @@ public class PlayerTeleport : MonoBehaviour
         InvBTN.gameObject.SetActive(true);
         EquippedStats.gameObject.SetActive(true);
     }
+    public void BackToTheHomeWorld()
+    {
+        DeskPanel.SetActive(true);
+        Desktop.SetActive(true);
+        GameMap.SetActive(true);
+        inExplorePanel.SetActive(false);
+        WorldName.text = "Home World";
+        BackToHomeWorld = false;
+        GameManager.instance.LoadCharacter();
+        InvBTN.gameObject.SetActive(false);
+        EquippedStats.gameObject.SetActive(false);
+        GameManager.instance.InHomeWorld = true;
+        GameManager.instance.UnequipEquipment();
+        LTA.OpenGameMap();
+    }
+    
     public void TheTeleporter()
     {
 
@@ -81,18 +97,7 @@ public class PlayerTeleport : MonoBehaviour
 
             if(BackToHomeWorld == true)
             {
-                DeskPanel.SetActive(true);
-                Desktop.SetActive(true);
-                GameMap.SetActive(true);
-                inExplorePanel.SetActive(false);
-                WorldName.text = "Home World";
-                BackToHomeWorld = false;
-                GameManager.instance.LoadCharacter();
-                InvBTN.gameObject.SetActive(false);
-                EquippedStats.gameObject.SetActive(false);
-                GameManager.instance.InHomeWorld = true;
-                GameManager.instance.UnequipEquipment();
-                LTA.OpenGameMap();
+                BackToTheHomeWorld();
             }
            
             LTA.OpenTeleAnim();

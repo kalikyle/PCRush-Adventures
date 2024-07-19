@@ -15600,6 +15600,7 @@ MonoBehaviour:
   RunSpeed: 2
   AttackRange: 0.92
   Attack: 1
+  ExpMultiplier: 1
   Player: {fileID: 0}
   EnemyBody: {fileID: 3020889638043703352}
   DetectionRange: 10
@@ -15611,6 +15612,7 @@ MonoBehaviour:
   numberOfHeartsToDrop: 1
   HeartValueToDrop: 5
   MaterialPrefab: {fileID: 3316352308487018853, guid: 22f38b1f96a842747a96caa479945ab4, type: 3}
+  MaterialName: Silicon Wafer
   numberOfMaterialToDrop: 1
   MaterialValueToDrop: 1
   dropRadius: 1
@@ -15623,6 +15625,7 @@ MonoBehaviour:
   hitPoints: {fileID: 6967909581131199628}
   floatingTextPrefab: {fileID: 4652368944077129396, guid: fa5cc75cff4e5934b840c9c3566bf7e4, type: 3}
   damageCanvas: {fileID: 7601561232433407804}
+  EnemyImage: {fileID: 4723107735738678597, guid: 8e43b4ed05e63c3419aa20cfb5d8cc49, type: 3}
 --- !u!1 &8459416156559206296
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private float AttackSpeed = 1.0f; // Set this to the desired attack speed
 
         public PlayerTeleport playerTeleport;
-
+        
         public Animator _animator;
         private Vector2 _input;
 
@@ -69,6 +69,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             
             StartCoroutine(ManaRegenCoroutine());
             StartCoroutine(HealthRegenCoroutine(health));
+            //StartCoroutine(ArmorRegenCoroutine(armor));
         }
 
         private void Update()
@@ -178,9 +179,18 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     isDead = true;
                     //enemyCollider.isTrigger = true;
                     _animator.SetBool("Dead", true);
-                    StartCoroutine(HandleDeath());
-
+                    triggerDied();
                 }
+            }
+        }
+        bool isDeadAnimate = false;
+        public void triggerDied()
+        {
+           if(isDeadAnimate == false)
+            {
+                GameManager.instance.LTA.YouDied();
+                isDeadAnimate = true;
+                HandleDeath();
             }
         }
 
@@ -326,18 +336,45 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             }
         }
 
-
-
-        private IEnumerator HandleDeath()
+        private IEnumerator ArmorRegenCoroutine(PlayerArmor armor)
         {
-            yield return new WaitForSeconds(3f); // Wait for 5 seconds
+            while (true)
+            {
+                if (GameManager.instance.InHomeWorld == true)
+                {
 
-            // Teleport player to respawn point
+                    if (armor.currentArmor < GameManager.instance.PlayerTotalArmor)
+                    {
+                        armor.currentArmor = (int)Mathf.Min((float)(armor.currentArmor + 5), (float)GameManager.instance.PlayerTotalArmor);
+                    }
+
+                }
+                yield return new WaitForSeconds(1f);
+            }
+        }
+
+        public GameObject RespawnPoint;
+        public Transform GetRespawnPoint()
+        {
+            return RespawnPoint.transform;
+        }
+
+        private async void HandleDeath()
+        {
+            GameManager.instance.Hordemanager.StopCurrentHorde();
+            await Task.Delay(5000);
+
+            GameManager.instance.LTA.OpenTeleAnim();
+            //// Teleport player to respawn point
             Transform respawnPoint = GetRespawnPoint(); // Implement this method to get the respawn point
             if (respawnPoint != null)
             {
                 transform.position = respawnPoint.position;
             }
+
+           
+
+            playerTeleport.BackToTheHomeWorld();
 
             // Reset the player's state
             isDead = false;
@@ -348,19 +385,20 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 health.currentHealth = health.maxHealth; // Restore health
             }
 
+            PlayerArmor armor = GetComponent<PlayerArmor>();
+            if (armor != null)
+            {
+                armor.currentArmor = armor.maxArmor; // Restore armor
+            }
+
             // Reset animator parameters
             _animator.ResetTrigger("Dead");
             _animator.SetBool("Idle", true);
             _animator.SetBool("Walking", false);
             _animator.SetBool("Running", false);
+            isDeadAnimate = false;
         }
 
-        public Transform respawnPoint;
-
-        private Transform GetRespawnPoint()
-        {
-            return respawnPoint;
-        }
         public void ResetMovement()
         {
             r2d.velocity = Vector2.zero;

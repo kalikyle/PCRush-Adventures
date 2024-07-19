@@ -33,7 +33,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public int HeartValueToDrop = 1;
 
 
-        public GameObject MaterialPrefab; // The coin prefab to instantiate
+        public GameObject MaterialPrefab;
+        public string MaterialName;// The coin prefab to instantiate
         public int numberOfMaterialToDrop = 1; // Number of coins to drop
         public int MaterialValueToDrop = 1;
 
@@ -59,7 +60,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public TMP_Text hitPoints;
         private Collider2D enemyCollider;
         public GameObject floatingTextPrefab; // Reference to the floating text prefab
-        public Transform damageCanvas; // Reference to the Damage Canvas object
+        public Transform damageCanvas;
+        public Sprite EnemyImage;// Reference to the Damage Canvas object
 
        
 
@@ -234,7 +236,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 if (SWN != null)
                 {
                     SWN.MaterialValue = MaterialValueToDrop;
-                    SWN.MaterialName = "Silicon Wafer";// Set the coin value as needed
+                    SWN.MaterialName = MaterialName;
                 }
 
                 // Calculate the upwards position
