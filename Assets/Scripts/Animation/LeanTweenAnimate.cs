@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LeanTweenAnimate : MonoBehaviour
 {
-    public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl,  coinscollectedtxt,materialscollecttxt,expcollectedtxt, hordeImage, horderfinish, btnnice;
+    public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl,  coinscollectedtxt,materialscollecttxt,expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap;
     public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
     //bool close = false;
@@ -96,6 +96,27 @@ public class LeanTweenAnimate : MonoBehaviour
         //LeanTween.scale(teleanim, new Vector3(41f, 41f, 41f), .5f);
         LeanTween.scale(teleanim, new Vector3(1f, 1f, 1f), .08f).setEaseInOutSine().setOnComplete(CloseTeleAnim);
         
+    }
+
+    public void OpenGameMenu()
+    {
+        LeanTween.scale(GameMenu, new Vector3(0.7121839f, 0.7121839f, 0.7121839f), .2f).setEaseInOutSine();
+
+    }
+    public void HideGameMenu()
+    {
+        LeanTween.scale(GameMenu, new Vector3(0f, 0f, 0f), .08f).setEaseInOutSine();
+
+    }
+    public void OpenGameMap()
+    {
+        LeanTween.scale(GameMap, new Vector3(1f, 1f, 1f), .2f).setEaseInOutSine();
+
+    }
+    public void HideGameMap()
+    {
+        LeanTween.scale(GameMap, new Vector3(0f, 0f, 0f), .08f).setEaseInOutSine();
+
     }
     public void CloseTeleAnim()
     {

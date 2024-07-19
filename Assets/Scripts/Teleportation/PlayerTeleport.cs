@@ -60,6 +60,17 @@ public class PlayerTeleport : MonoBehaviour
         InvBTN.gameObject.SetActive(true);
         EquippedStats.gameObject.SetActive(true);
     }
+    public void ToRAMWorld()
+    {
+        GameManager.instance.InHomeWorld = false;
+        Vector3 destination = new Vector3(386.05f, -61.49f, 0);
+        transform.position = destination;
+        WorldName.text = "RAM World";
+        LTA.OpenTeleAnim();
+        GameManager.instance.LoadOtherWorldInventory();
+        InvBTN.gameObject.SetActive(true);
+        EquippedStats.gameObject.SetActive(true);
+    }
     public void TheTeleporter()
     {
 
@@ -81,6 +92,7 @@ public class PlayerTeleport : MonoBehaviour
                 EquippedStats.gameObject.SetActive(false);
                 GameManager.instance.InHomeWorld = true;
                 GameManager.instance.UnequipEquipment();
+                LTA.OpenGameMap();
             }
            
             LTA.OpenTeleAnim();
@@ -168,7 +180,37 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("CPUExchanger"))
         {
             homeTeleport = collision.gameObject;
-            
+            Enter.gameObject.SetActive(true);
+
+            if (collision.gameObject.name == "EnterDoor")
+            {
+                Name.text = "Enter Exchanger House";
+            }
+
+            else if (collision.gameObject.name == "ExitDoor")
+            {
+                Name.text = "Exit House";
+            }
+
+
+        }
+
+        if (collision.CompareTag("RAMExchanger"))
+        {
+            homeTeleport = collision.gameObject;
+            Enter.gameObject.SetActive(true);
+
+            if (collision.gameObject.name == "EnterDoor")
+            {
+                Name.text = "Enter Exchanger House";
+            }
+
+            else if (collision.gameObject.name == "ExitDoor")
+            {
+                Name.text = "Exit House";
+            }
+
+
         }
 
         ///////////////////////////////////

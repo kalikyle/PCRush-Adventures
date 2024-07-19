@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 863c1f6cd20636842a26028d87ea2641, type: 3}
+  m_Name: RAM 3
+  m_EditorClassIdentifier: 
+  <Parts>k__BackingField: {fileID: 11400000, guid: e06c479c11a94e044982973c4148b0d8, type: 2}
+  <MaterialsNeed>k__BackingField: {fileID: 3316352308487018853, guid: a4f3cb7053b40cb449ac6ea55dd4cddf, type: 3}
+  <MaterialsAmountNeed>k__BackingField: 80
+  <Level>k__BackingField: 2

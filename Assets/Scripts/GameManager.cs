@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
     public GameObject SwordDealerPanel;
     public GameObject ArmorDealerPanel;
     public GameObject CPUExhangerPanel;
+    public GameObject RAMExhangerPanel;
 
     //public GameObject DecorClickedUI;
 
@@ -380,6 +381,10 @@ public class GameManager : MonoBehaviour
     public void OpenCPUWorldExhanger()
     {
         Exchanger.CPUsOpenShop();
+    }
+    public void OpenRAMWorldExhanger()
+    {
+        Exchanger.RAMsOpenShop();
     }
     public void PlayerDeskName()
     {
