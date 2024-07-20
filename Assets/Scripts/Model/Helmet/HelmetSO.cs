@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HelmetSO : MonoBehaviour
+namespace Helmets.Model
 {
-    // Start is called before the first frame update
-    void Start()
+    [CreateAssetMenu]
+    public class HelmetSO : ScriptableObject
     {
-        
-    }
+        public int ID => GetInstanceID();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        [field: SerializeField]
+        public string Name { get; set; }
+
+        [field: SerializeField]
+        public int SpriteIndex { get; set; } //sprite
+
+        [field: SerializeField]
+        public int Price { get; set; }
+
+
+        //perks
+        [field: SerializeField]
+        public double Health { get; set; }
+        [field: SerializeField]
+        public double HealthRegen { get; set; }
     }
 }

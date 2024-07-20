@@ -40,12 +40,23 @@ namespace OtherWorld.Model
         [field: SerializeField]
         public double AttackSpeed { get; set; }
 
-
         [field: SerializeField]
         public double Armor { get; set; }
 
         [field: SerializeField]
         public double Mana { get; set; }
+
+        [field: SerializeField]
+        public double Health { get; set; }
+
+        [field: SerializeField]
+        public double HealthRegen { get; set; }
+
+        [field: SerializeField]
+        public double CriticalHit { get; set; }
+
+        [field: SerializeField]
+        public double CriticalChance { get; set; }
     }
 
 }

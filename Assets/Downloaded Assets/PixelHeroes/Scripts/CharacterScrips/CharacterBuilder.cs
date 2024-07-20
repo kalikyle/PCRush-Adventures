@@ -177,10 +177,6 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
 
             SpriteLibrary.spriteLibraryAsset = spriteLibraryAsset;
             CharChanged = 1;
-
-           
-
-
         }
 
 
@@ -463,9 +459,9 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
 
                                     // Initialize the DefaultCharacter dictionary
                                     GameManager.instance.DefaultCharacter["Helmet"] = Helmet;
-                                    GameManager.instance.DefaultCharacter["Shield"] = Shield;
                                     GameManager.instance.DefaultCharacter["Armor"] = Armor;
                                     GameManager.instance.DefaultCharacter["Weapon"] = Weapon;
+                                    GameManager.instance.DefaultCharacter["Shield"] = Shield;
 
                                     // Rebuild character using the loaded data
                                     Rebuild();

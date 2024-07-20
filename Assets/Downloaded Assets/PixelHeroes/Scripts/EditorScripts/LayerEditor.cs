@@ -20,7 +20,23 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
         [HideInInspector] public Color Color = Color.white;
 
         public string SpriteData => Index == -1 || Hidden ? "" : $"{Content.Textures[Index].name}#{ColorUtility.ToHtmlStringRGB(Color)}/{Controls.Hue.value}:{Controls.Saturation.value}:{Controls.Brightness.value}";
+        //public string SpriteData
+        //{
+        //    get
+        //    {
+        //        if (Index == -1 || Hidden || Content?.Textures == null || Controls == null)
+        //        {
+        //            Debug.LogWarning("SpriteData is null or invalid");
+        //            return "";
+        //        }
+        //        else
+        //        {
+        //            return $"{Content.Textures[Index]?.name}#{ColorUtility.ToHtmlStringRGB(Color)}/{Controls.Hue.value}:{Controls.Saturation.value}:{Controls.Brightness.value}";
+        //        }
 
+               
+        //    }
+        //}
         public void Switch(int direction)
         {
             Index += direction;

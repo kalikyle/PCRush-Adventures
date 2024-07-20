@@ -10,6 +10,10 @@ using Swords.UI;
 using Swords.Model;
 using Armor.UI;
 using Armor.Model;
+using Helmets.UI;
+using Helmets.Model;
+using Shield.UI;
+using Shield.Model;
 
 public class EquipmentsController : MonoBehaviour
 {
@@ -25,13 +29,19 @@ public class EquipmentsController : MonoBehaviour
     [SerializeField]
     private ArmorItemsSO armorsData;
 
-    //public List<LayerEditor> Layers;
-    //public CharacterBuilder CharacterBuilder;
+    [SerializeField]
+    private HelmetPage helmetPage;
+
+    [SerializeField]
+    private HelmetItemSO helmetData;
+
+    [SerializeField]
+    private ShieldPage shieldPage;
+
+    [SerializeField]
+    private ShieldItemSO shieldData;
 
 
-
-    //[SerializeField]
-    //public ShopBuy shopBuy;
 
     void Start()
     {
@@ -58,6 +68,15 @@ public class EquipmentsController : MonoBehaviour
 
     }
 
+    private void HelmetPrepareUI()
+    {
+        helmetPage.InitializedShop(HelmetsGetUsedSlotsCount());
+    }
+
+    private void ShieldPrepareUI()
+    {
+        shieldPage.InitializedShop(ShieldsGetUsedSlotsCount());
+    }
     public int SwordsGetUsedSlotsCount()//this will only used the slots with items
     {
         int usedSlots = 0;
@@ -301,6 +320,177 @@ public class EquipmentsController : MonoBehaviour
             }
             //    }
             //}
+        }
+    }
+
+
+
+    //for Helmet
+    public int HelmetsGetUsedSlotsCount()//this will only used the slots with items
+    {
+        int usedSlots = 0;
+        foreach (var item in helmetData.Helmet)
+        {
+            if (!item.isEmpty)
+            {
+                usedSlots++;
+            }
+        }
+        return usedSlots;
+    }
+
+    public void HelmetsToggleALLButton()
+    {
+        helmetPage.ResetSelection();
+        helmetPage.ClearItems();
+        helmetPage.InitializedShop(HelmetsGetUsedSlotsCount());
+        HelmetsShowAllCategory();
+
+    }
+
+    public void HelmetsOpenShop()
+    {
+
+
+        // Call the methods after the delay
+
+        HelmetPrepareUI();
+        HelmetsToggleALLButton();
+        helmetPage.Show();
+        helmetPage.ResetSelection();
+    }
+
+    public void HelmetsShowAllCategory()
+    {
+        
+        var spriteArray = GameManager.instance.SpriteCollections.Layers;
+
+
+        var nonEmptyItems = helmetData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
+
+        int displayedItemsCount = 0;
+        foreach (var item in nonEmptyItems)
+        {
+           
+
+
+            if (displayedItemsCount >= HelmetsGetUsedSlotsCount())
+                break;
+
+            int spriteIndex = item.Value.item.SpriteIndex;
+
+
+
+           
+
+
+            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+            {
+
+                Texture2D texture = spriteArray[7].Textures[spriteIndex];
+                Texture2D text2 = spriteArray[7].GetIcon(texture);
+                // Create a sprite from the texture
+                Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+
+                string perks = "";
+                // Check each perk property and accumulate non-zero values
+                if (item.Value.item.Health != 0)
+                {
+                    perks += "Health +" + item.Value.item.Health + "\n";
+                }
+                if (item.Value.item.HealthRegen != 0)
+                {
+                    perks += "Health Regen +" + item.Value.item.HealthRegen + "\n";
+                }
+
+                helmetPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
+                
+                displayedItemsCount++;
+            }
+            
+        }
+    }
+
+    //for Shield
+    public int ShieldsGetUsedSlotsCount()//this will only used the slots with items
+    {
+        int usedSlots = 0;
+        foreach (var item in shieldData.Shield)
+        {
+            if (!item.isEmpty)
+            {
+                usedSlots++;
+            }
+        }
+        return usedSlots;
+    }
+
+    public void ShieldsToggleALLButton()
+    {
+        shieldPage.ResetSelection();
+        shieldPage.ClearItems();
+        shieldPage.InitializedShop(ShieldsGetUsedSlotsCount());
+        ShieldsShowAllCategory();
+
+    }
+
+    public void ShieldsOpenShop()
+    {
+
+
+        // Call the methods after the delay
+
+        ShieldPrepareUI();
+        ShieldsToggleALLButton();
+        shieldPage.Show();
+        shieldPage.ResetSelection();
+    }
+
+    public void ShieldsShowAllCategory()
+    {
+
+        var spriteArray = GameManager.instance.SpriteCollections.Layers;
+
+
+        var nonEmptyItems = shieldData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
+
+        int displayedItemsCount = 0;
+        foreach (var item in nonEmptyItems)
+        {
+
+
+
+            if (displayedItemsCount >= ShieldsGetUsedSlotsCount())
+                break;
+
+            int spriteIndex = item.Value.item.SpriteIndex;
+
+
+            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+            {
+
+                Texture2D texture = spriteArray[1].Textures[spriteIndex];
+                Texture2D text2 = spriteArray[1].GetIcon(texture);
+                // Create a sprite from the texture
+                Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+
+                string perks = "";
+                // Check each perk property and accumulate non-zero values
+                if (item.Value.item.CriticalHit != 0)
+
+                {
+                    perks += "Critical Hit +" + item.Value.item.CriticalHit + "\n";
+                }
+                if (item.Value.item.CriticalChance != 0)
+                {
+                    perks += "Critical Chance +" + item.Value.item.CriticalChance + "\n";
+                }
+
+                shieldPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
+
+                displayedItemsCount++;
+            }
+
         }
     }
 
