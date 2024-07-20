@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldSO : MonoBehaviour
+namespace Shield.Model
 {
-    // Start is called before the first frame update
-    void Start()
+    [CreateAssetMenu]
+    public class ShieldSO : ScriptableObject
     {
-        
-    }
+        public int ID => GetInstanceID();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        [field: SerializeField]
+        public string Name { get; set; }
+
+        [field: SerializeField]
+        public int SpriteIndex { get; set; } //sprite
+
+        [field: SerializeField]
+        public int Price { get; set; }
+
+
+        //perks
+        [field: SerializeField]
+        public double CriticalHit { get; set; }
+        [field: SerializeField]
+        public double CriticalChance { get; set; }
     }
 }

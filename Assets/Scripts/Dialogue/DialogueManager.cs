@@ -188,7 +188,23 @@ public class DialogueManager : MonoBehaviour
                         GameManager.instance.ArmorDealerPanel.SetActive(true);
                         GameManager.instance.OpenArmorShop();
 
-                    }else if (tagValue.Equals("exchangeyes"))
+
+
+                    }
+                    else if (tagValue.Equals("helmetyes"))
+                    {
+                        GameManager.instance.HelmetDealerPanel.SetActive(true);
+                        GameManager.instance.OpenHelmetShop();
+
+                    }
+                    else if (tagValue.Equals("shieldyes"))
+                    {
+                        GameManager.instance.ShieldDealerPanel.SetActive(true);
+                        GameManager.instance.OpenShieldShop();
+
+                    }
+
+                    else if (tagValue.Equals("exchangeyes"))
                     {
                         GameManager.instance.CPUExhangerPanel.SetActive(true);
                         GameManager.instance.OpenCPUWorldExhanger();

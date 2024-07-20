@@ -38,6 +38,8 @@ namespace OtherWorld
 
         public Image SwordImage;
         public Image ArmorImage;
+        public Image HelmetImage;
+        public Image ShieldImage;
 
         public Button EquipBTN;
         public TMP_Dropdown DropDcategory;
@@ -45,6 +47,8 @@ namespace OtherWorld
 
         public Button SwordXBTN;
         public Button ArmorXBTN;
+        public Button HelmetXBTN;
+        public Button ShieldXBTN;
 
         //public OWInvItem items;
 
@@ -62,8 +66,11 @@ namespace OtherWorld
             inventoryUI.OnItemActionRequested += HandleItemActionRequest;
             OnDescriptionRequested += HandleDescriptionRequests;
             EquipBTN.onClick.AddListener(HandleUseButton);
+
             SwordXBTN.onClick.AddListener(() => BackOWEquipment("Sword"));
             ArmorXBTN.onClick.AddListener(() => BackOWEquipment("Armor"));
+            HelmetXBTN.onClick.AddListener(() => BackOWEquipment("Helmet"));
+            ShieldXBTN.onClick.AddListener(() => BackOWEquipment("Shield"));
 
         }
         public string openedCategory;
@@ -77,16 +84,24 @@ namespace OtherWorld
                     openedCategory = null;
                     break;
                 case 1:
-                    OpenFiltered("Sword");
-                    openedCategory = "Sword";
-
+                    OpenFiltered("Helmet");
+                    openedCategory = "Helmet";
                     break;
                 case 2:
+                    
+                    OpenFiltered("Sword");
+                    openedCategory = "Sword";
+                    break;
+                case 3:
+                    
                     OpenFiltered("Armor");
                     openedCategory = "Armor";
                     break;
-
-                case 3:
+                case 4:
+                    OpenFiltered("Shield");
+                    openedCategory = "Shield";
+                    break;
+                case 5:
                     OpenFiltered("Materials");
                     openedCategory = "Materials";
                     break;
@@ -126,15 +141,6 @@ namespace OtherWorld
                 StartCoroutine(OpenOtherWorldInventoryCategory());
             }
            
-
-
-
-
-
-
-
-
-
         }
 
         public IEnumerator OpenOtherWorldInventory()
@@ -179,10 +185,15 @@ namespace OtherWorld
         {
             var spriteArray = GameManager.instance.SpriteCollections.Layers;
             int spriteIndex;
+
             GameManager.instance.SwordDocumentIds.Clear();
             GameManager.instance.ArmorDocumentIds.Clear();
+            GameManager.instance.HelmetDocumentIds.Clear();
+            GameManager.instance.ShieldDocumentIds.Clear();
+
             GameManager.instance.MaterialsDocumentIds.Clear();
             GameManager.instance.AllDocumentIds.Clear();
+
             if (GameManager.instance.UserID != "")
             {
                 inventoryData.Initialize();
@@ -243,7 +254,8 @@ namespace OtherWorld
                                 }
 
                            
-                        }else if (inventoryItem.item.Category == "Armor")
+                        }
+                        if (inventoryItem.item.Category == "Armor")
                         {
                             spriteIndex = loadedItem.SpriteIndex;
                             if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
@@ -265,8 +277,52 @@ namespace OtherWorld
                                 GameManager.instance.ArmorinUse = documentId;
                             }
                         }
+                        if (inventoryItem.item.Category == "Helmet")
+                        {
+                            spriteIndex = loadedItem.SpriteIndex;
+                            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+                            {
 
-                        else if (inventoryItem.item.Category == "Materials")
+                                Texture2D texture = spriteArray[7].Textures[spriteIndex];
+                                Texture2D text2 = spriteArray[7].GetIcon(texture);
+                                // Create a sprite from the texture
+                                Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+                                inventoryItem.item.ItemImage = sprite;
+
+                            }
+                            inventoryData.AddItem(inventoryItem);
+                            GameManager.instance.HelmetDocumentIds.Add(documentId);
+                            if (inventoryItem.item.inUse)
+                            {
+                                //UseloadComputer(loadedPCSO);
+                                UseItem(inventoryItem);
+                                GameManager.instance.HelmetinUse = documentId;
+                            }
+                        }
+                        if (inventoryItem.item.Category == "Shield")
+                        {
+                            spriteIndex = loadedItem.SpriteIndex;
+                            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+                            {
+
+                                Texture2D texture = spriteArray[1].Textures[spriteIndex];
+                                Texture2D text2 = spriteArray[1].GetIcon(texture);
+                                // Create a sprite from the texture
+                                Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+                                inventoryItem.item.ItemImage = sprite;
+
+                            }
+                            inventoryData.AddItem(inventoryItem);
+                            GameManager.instance.ShieldDocumentIds.Add(documentId);
+                            if (inventoryItem.item.inUse)
+                            {
+                                //UseloadComputer(loadedPCSO);
+                                UseItem(inventoryItem);
+                                GameManager.instance.ShieldinUse = documentId;
+                            }
+                        }
+
+                        if (inventoryItem.item.Category == "Materials")
                         {
                             inventoryItem.item.ItemImage = loadedItem.ItemImage;
                             inventoryData.AddItem(inventoryItem);
@@ -478,6 +534,23 @@ namespace OtherWorld
             {
                 perks += "Attack Speed +" + item.AttackSpeed + "\n";
             }
+            if (item.Health != 0)
+            {
+                perks += "Health +" + item.Health + "\n";
+            }
+            if (item.HealthRegen != 0)
+            {
+                perks += "Health Regen +" + item.HealthRegen + "\n";
+            }
+            if (item.CriticalHit != 0)
+            {
+                perks += "Critical Hit +" + item.CriticalHit + "\n";
+            }
+
+            if (item.CriticalChance != 0)
+            {
+                perks += "Critical Chance +" + item.CriticalChance + "\n";
+            }
 
             return perks;
         }
@@ -505,7 +578,14 @@ namespace OtherWorld
                     {
                         GameManager.instance.clickedInventoryItemID = GameManager.instance.ArmorDocumentIds[obj];
                     }
-
+                    else if (item.Category == "Helmet")
+                    {
+                        GameManager.instance.clickedInventoryItemID = GameManager.instance.HelmetDocumentIds[obj];
+                    }
+                    else if (item.Category == "Shield")
+                    {
+                        GameManager.instance.clickedInventoryItemID = GameManager.instance.ShieldDocumentIds[obj];
+                    }
                     //GameManager.instance.clickedInventoryItemID = GameManager.instance.AllDocumentIds[obj];
 
                 }
@@ -554,7 +634,7 @@ namespace OtherWorld
         }
         public async void BackOWEquipment(string category)
         {
-            
+
             if (category == "Sword")
             {
 
@@ -594,7 +674,7 @@ namespace OtherWorld
 
             }
 
-            if (category == "Armor")
+            else if (category == "Armor")
             {
 
                 ArmorImage.gameObject.SetActive(false);
@@ -605,7 +685,7 @@ namespace OtherWorld
                 GameManager.instance.EquipmentMana = 0;
                 if (!string.IsNullOrEmpty(GameManager.instance.ArmorinUse))
                 {
-                    
+
                     await UpdateInventoryInUse(GameManager.instance.ArmorinUse, false);
                 }
 
@@ -633,6 +713,80 @@ namespace OtherWorld
 
             }
 
+            else if (category == "Helmet")
+            { 
+                HelmetImage.gameObject.SetActive(false);
+                HelmetImage.sprite = null;
+                GameManager.instance.StatsHelmetImage.gameObject.SetActive(false);
+                GameManager.instance.StatsHelmetImage.sprite = null;
+                GameManager.instance.EquipmentHealth = 0;
+                GameManager.instance.EquipmentHealthRegen = 0;
+                if (!string.IsNullOrEmpty(GameManager.instance.HelmetinUse))
+                {
+
+                    await UpdateInventoryInUse(GameManager.instance.HelmetinUse, false);
+                }
+
+                string[] Helmetparts = GameManager.instance.DefaultCharacter["Helmet"].Split('#');
+                string HelmetTextureName = Helmetparts[0];
+
+                int HelmetIndex = FindLayerIndex("Helmet", HelmetTextureName);
+
+                foreach (var layer in Layers)
+                {
+
+                    if (layer.Controls)
+                    {
+                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                        if (layer.Name == "Helmet")
+                        {
+                            SetIndex(layer, HelmetIndex + (layer.CanBeEmpty ? 1 : 0));
+                            Rebuild(layer);
+                        }
+
+                    }
+
+                }
+            }
+
+            else if (category == "Shield")
+            {
+
+                ShieldImage.gameObject.SetActive(false);
+                ShieldImage.sprite = null;
+                GameManager.instance.StatsShieldImage.gameObject.SetActive(false);
+                GameManager.instance.StatsShieldImage.sprite = null;
+                GameManager.instance.EquipmentCriticalHit = 0;
+                GameManager.instance.EquipmentCriticalChance = 0;
+                if (!string.IsNullOrEmpty(GameManager.instance.ShieldinUse))
+                {
+
+                    await UpdateInventoryInUse(GameManager.instance.ShieldinUse, false);
+                }
+
+                string[] Shieldparts = GameManager.instance.DefaultCharacter["Shield"].Split('#');
+                string ShieldTextureName = Shieldparts[0];
+
+                int ShieldIndex = FindLayerIndex("Shield", ShieldTextureName);
+
+                foreach (var layer in Layers)
+                {
+
+                    if (layer.Controls)
+                    {
+                        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                        if (layer.Name == "Shield")
+                        {
+                            SetIndex(layer, ShieldIndex + (layer.CanBeEmpty ? 1 : 0));
+                            Rebuild(layer);
+                        }
+
+                    }
+
+                }
+            }
 
             if (ToogleFiltered == false)
             {
@@ -642,7 +796,6 @@ namespace OtherWorld
             {
                 StartCoroutine(OpenOtherWorldInventoryCategory());
             }
-
         }
         public async void HandleItemRightActionRequest(int tempIndex)//for filtered
         {
@@ -665,6 +818,18 @@ namespace OtherWorld
                 else if (category == "Armor")
                 {
                     EquipArmor(inventoryItem);
+                    inventoryItem.item.inUse = true;
+                    await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
+                }
+                else if (category == "Helmet")
+                {
+                    EquipHelmet(inventoryItem);
+                    inventoryItem.item.inUse = true;
+                    await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
+                }
+                else if (category == "Shield")
+                {
+                    EquipShield(inventoryItem);
                     inventoryItem.item.inUse = true;
                     await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
                 }
@@ -763,7 +928,110 @@ namespace OtherWorld
 
             
         }
+       
+        private void EquipHelmet(OtherWorldItem inventoryItem)
+        {
+           
+            HelmetImage.gameObject.SetActive(true);
+            HelmetImage.sprite = inventoryItem.item.ItemImage;
+            GameManager.instance.StatsHelmetImage.gameObject.SetActive(true);
+            GameManager.instance.StatsHelmetImage.sprite = inventoryItem.item.ItemImage;
 
+            if (inventoryItem.item.Health != 0)
+            {
+
+                GameManager.instance.EquipmentHealth = (int)inventoryItem.item.Health;
+
+            }
+
+            if (inventoryItem.item.HealthRegen != 0)
+            {
+
+                GameManager.instance.EquipmentHealth = (int)inventoryItem.item.HealthRegen;
+
+            }
+
+
+            foreach (var layer in Layers)
+            {
+
+                if (layer.Controls)
+                {
+                    layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+                    if (layer.Name == "Helmet")
+                    {
+                       
+                        SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+                        Rebuild(layer);
+                    }
+
+                }
+
+            }
+        }
+        
+        private void EquipShield(OtherWorldItem inventoryItem)
+        {
+            ShieldImage.gameObject.SetActive(true);
+            ShieldImage.sprite = inventoryItem.item.ItemImage;
+            GameManager.instance.StatsShieldImage.gameObject.SetActive(true);
+            GameManager.instance.StatsShieldImage.sprite = inventoryItem.item.ItemImage;
+
+            if (inventoryItem.item.CriticalHit != 0)
+            {
+
+                GameManager.instance.EquipmentCriticalHit = (int)inventoryItem.item.CriticalHit;
+
+            }
+
+            if (inventoryItem.item.CriticalChance != 0)
+            {
+
+                GameManager.instance.EquipmentCriticalChance = (int)inventoryItem.item.CriticalChance;
+
+            }
+            //foreach (var layer in Layers)
+            //{
+            //    if (layer.Controls)
+            //    {
+            //        layer.Content = GameManager.instance.SpriteCollections.Layers.Single(i => i.Name == layer.Name);
+
+            //        if (layer.Name == "Shield")
+            //        {
+            //            SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+            //            Rebuild(layer);
+            //        }
+            //    }
+
+            //}
+
+            foreach (var layer in Layers)
+            {
+                layer.Content = GameManager.instance.SpriteCollections.Layers.SingleOrDefault(i => i.Name == layer.Name);
+                if (layer.Content == null)
+                {
+                    Debug.LogWarning($"Layer content not found for {layer.Name}");
+                }
+            }
+
+            foreach (var layer in Layers)
+            {
+                if (layer.Controls)
+                {
+                    if (layer.Name == "Shield")
+                    {
+                        SetIndex(layer, inventoryItem.item.SpriteIndex + (layer.CanBeEmpty ? 1 : 0));
+                        Rebuild(layer);
+                    }
+                }
+            }
+
+
+
+
+
+        }
         //for all 
 
         public void UseItem(OtherWorldItem inventoryItem)//for all
@@ -783,6 +1051,19 @@ namespace OtherWorld
             {
 
                 EquipArmor(inventoryItem);
+
+            }
+
+            else if (category == "Helmet")
+            {
+
+                EquipHelmet(inventoryItem);
+
+            }
+            else if (category == "Shield")
+            {
+
+                EquipShield(inventoryItem);
 
             }
 
@@ -813,6 +1094,20 @@ namespace OtherWorld
                 inventoryItem.item.inUse = true;
                 await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
             }
+            else if (category == "Helmet")
+            {
+
+                EquipHelmet(inventoryItem);
+                inventoryItem.item.inUse = true;
+                await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
+            }
+            else if (category == "Shield")
+            {
+                EquipShield(inventoryItem);
+
+                inventoryItem.item.inUse = true;
+                await UpdateInventoryItem(GameManager.instance.clickedInventoryItemID, inventoryItem.item);
+            }
             else if (category == "Materials")
             {
 
@@ -832,13 +1127,13 @@ namespace OtherWorld
                 Layers.Single(i => i.Name == "Head").SetIndex(index);
             }
 
-            Rebuild(layer);
+            //Rebuild(layer);
         }
 
         private void Rebuild(LayerEditor layer)
         {
             var layers = Layers.ToDictionary(i => i.Name, i => i.SpriteData);
-
+           
             CharacterBuilder.Head = layers["Head"];
             CharacterBuilder.Body = layers["Body"];
             CharacterBuilder.Hair = layers["Hair"];
@@ -849,7 +1144,6 @@ namespace OtherWorld
             CharacterBuilder.Cape = layers["Cape"];
             CharacterBuilder.Back = layers["Back"];
             CharacterBuilder.Rebuilds(layer?.Name);
-
 
         }
         public async Task UpdateInventoryItem(string documentId, OtherWorldItemSO UpdatedItem)
@@ -875,8 +1169,24 @@ namespace OtherWorld
                         await UpdateInventoryInUse(GameManager.instance.ArmorinUse, false);
                     }
                 }
+                else if (UpdatedItem.Category == "Helmet")
+                {
+                    if (!string.IsNullOrEmpty(GameManager.instance.HelmetinUse) && GameManager.instance.HelmetinUse != documentId)
+                    {
+                        // Update the PCSO that was previously in use to set inUse = false
+                        await UpdateInventoryInUse(GameManager.instance.HelmetinUse, false);
+                    }
+                }
+                else if (UpdatedItem.Category == "Shield")
+                {
+                    if (!string.IsNullOrEmpty(GameManager.instance.ShieldinUse) && GameManager.instance.ShieldinUse != documentId)
+                    {
+                        // Update the PCSO that was previously in use to set inUse = false
+                        await UpdateInventoryInUse(GameManager.instance.ShieldinUse, false);
+                    }
+                }
 
-               
+
 
 
                 // Get a reference to the Firestore document to be updated
@@ -902,7 +1212,15 @@ namespace OtherWorld
                 {
                     GameManager.instance.ArmorinUse = documentId;
                 }
-               
+                else if (UpdatedItem.Category == "Helmet")
+                {
+                    GameManager.instance.HelmetinUse = documentId;
+                }
+                else if (UpdatedItem.Category == "Shield")
+                {
+                    GameManager.instance.ShieldinUse = documentId;
+                }
+
                 Debug.Log("PCSO document updated successfully.");
             }
             catch (Exception ex)

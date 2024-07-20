@@ -82,6 +82,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject SwordDealerPanel;
     public GameObject ArmorDealerPanel;
+    public GameObject HelmetDealerPanel;
+    public GameObject ShieldDealerPanel;
+
+
     public GameObject CPUExhangerPanel;
     public GameObject RAMExhangerPanel;
 
@@ -150,6 +154,10 @@ public class GameManager : MonoBehaviour
     public int EquipmentAttackSpeed = 0;
     public int EquipmentMana = 0;
     public int EquipmentArmor = 0;
+    public int EquipmentHealth = 0;
+    public int EquipmentHealthRegen= 0;
+    public int EquipmentCriticalHit = 0;
+    public int EquipmentCriticalChance = 0;
 
 
     public bool InHomeWorld = true;
@@ -278,10 +286,16 @@ public class GameManager : MonoBehaviour
         {
             PlayerTotalAttackDamage = PlayerAttackDamage + PlayerPCAttackDamage;
         }
-        
 
-        PlayerTotalHealth = PlayerHealth + PlayerPCHealth;
-
+        if (EquipmentHealth != 0)
+        {
+            PlayerTotalHealth = PlayerHealth + EquipmentHealth + PlayerPCHealth;
+            BaseHealth.text = PlayerHealth.ToString() + " (+ " + EquipmentHealth + ")";
+        }
+        else
+        {
+            PlayerTotalHealth = PlayerHealth + PlayerPCHealth;
+        }
 
         if(EquipmentMana != 0)
         {
@@ -292,8 +306,18 @@ public class GameManager : MonoBehaviour
         {
             PlayerTotalMana = PlayerMana + PlayerPCMana;
         }
-       
-        PlayerTotalHealthRegen = PlayerHealthRegen + PlayerPCHealthRegen;
+
+        if (EquipmentHealthRegen != 0)
+        {
+            PlayerTotalHealthRegen = PlayerHealthRegen + EquipmentHealthRegen + PlayerPCHealthRegen;
+            BaseHealthRegen.text = PlayerHealthRegen.ToString() + " (+ " + EquipmentHealthRegen + ")";
+        }
+        else
+        {
+            PlayerTotalHealthRegen = PlayerHealthRegen + PlayerPCHealthRegen;
+        }
+
+        
         PlayerTotalWalkSpeed = PlayerWalkSpeed + PlayerPCWalkSpeed;
 
         if(EquipmentArmor != 0)
@@ -316,12 +340,28 @@ public class GameManager : MonoBehaviour
         {
             PlayerTotalAttackSpeed = PlayerAttackSpeed + PlayerPCAttackSpeed;
         }
-        
 
+        if (EquipmentCriticalHit != 0)
+        {
+            PlayerTotalCriticalHit = PlayerCriticalHit + EquipmentCriticalHit + PlayerPCCriticalHit;
+            BaseCriticalHit.text = PlayerCriticalHit.ToString() + " (+ " + EquipmentCriticalHit + ")";
+        }
+        else
+        {
+            PlayerTotalCriticalHit = PlayerCriticalHit + PlayerPCCriticalHit;
+        }
 
-        PlayerTotalCriticalHit = PlayerCriticalHit + PlayerPCCriticalHit;
-        PlayerTotalCriticalChance = PlayerCriticalChance + PlayerPCCriticalChance;
+        if (EquipmentCriticalChance != 0)
+        {
+            PlayerTotalCriticalChance = PlayerCriticalChance + EquipmentCriticalChance + PlayerPCCriticalChance;
+            BaseCriticalChance.text = PlayerCriticalChance.ToString() + " (+ " + EquipmentCriticalChance + ")";
+        }
+        else
+        {
+            PlayerTotalCriticalChance = PlayerCriticalChance + PlayerPCCriticalChance;
+        }
 
+       
         TotalAttackDamage.text = PlayerTotalAttackDamage.ToString();
         TotalHealth.text = PlayerTotalHealth.ToString();
         TotalMana.text = PlayerTotalMana.ToString();
@@ -340,13 +380,14 @@ public class GameManager : MonoBehaviour
         EquipmentAttackSpeed = 0;
         EquipmentMana = 0;
         EquipmentArmor = 0;
+        EquipmentHealth = 0;
+        EquipmentHealthRegen = 0;
+        EquipmentCriticalHit = 0;
+        EquipmentCriticalChance = 0;
     }
 
 
-    public void OpenSwordShop()
-    {
-        Equipments.SwordsOpenShop();
-    }
+    
 
     public void CurrencyText()
     {
@@ -369,10 +410,21 @@ public class GameManager : MonoBehaviour
         StatsCurrentExp.text = PlayerEXP.ToString() + " / " + PlayerExpToLevelUp.ToString();
 
     }
-
+    public void OpenSwordShop()
+    {
+        Equipments.SwordsOpenShop();
+    }
     public void OpenArmorShop()
     {
         Equipments.ArmorsOpenShop();
+    }
+    public void OpenHelmetShop()
+    {
+        Equipments.HelmetsOpenShop();
+    }
+    public void OpenShieldShop()
+    {
+        Equipments.ShieldsOpenShop();
     }
 
     public void AddPlayerExp(int EXP)
@@ -929,6 +981,14 @@ public class GameManager : MonoBehaviour
             {
                 ArmorDocumentIds.Insert(0, docRef.Id);
             }
+            else if (invItem.Category == "Helmet")
+            {
+                HelmetDocumentIds.Insert(0, docRef.Id);
+            }
+            else if (invItem.Category == "Shield")
+            {
+                ShieldDocumentIds.Insert(0, docRef.Id);
+            }
             else if (invItem.Category == "Materials")
             {
                 MaterialsDocumentIds.Insert(0, docRef.Id);
@@ -942,6 +1002,8 @@ public class GameManager : MonoBehaviour
             // Remove the document ID from the lists if it was deleted
             SwordDocumentIds.Remove(documentIdToDelete);
             ArmorDocumentIds.Remove(documentIdToDelete);
+            HelmetDocumentIds.Remove(documentIdToDelete);
+            ShieldDocumentIds.Remove(documentIdToDelete);
             MaterialsDocumentIds.Remove(documentIdToDelete);
             AllDocumentIds.Remove(documentIdToDelete);
         }

@@ -33,7 +33,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
         public TMP_InputField playerName;
 
         public static event Action<string> SliceTextureRequest = path => {};
-        public static event Action<string> CreateSpriteLibraryRequest = path => { };
+        public static event Action<string> CreateSpriteLibraryRequest = path => {};
 
         public int HeadIndex = 0;
         public int BodyIndex = 0;
