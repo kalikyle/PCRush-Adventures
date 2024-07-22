@@ -139,7 +139,7 @@ public class RAMWorldExchangerBuy : MonoBehaviour
 
     public RAMs GetItemAt(int obj)
     {
-        return so.Procies[obj];
+        return so.rams[obj];
     }
 
     private async Task<int> GetMaterialQuantity(string materialName)
@@ -284,7 +284,7 @@ public class RAMWorldExchangerBuy : MonoBehaviour
     public PartsCollect ConvertRAMtoCollect(RAMWorldExchangerItem shopItem)
     {
 
-        List<RAMs> shopItems = so.Procies;
+        List<RAMs> shopItems = so.rams;
         int tempIndexs;
         int originalIndex;
         int tempIndex;

@@ -10,34 +10,34 @@ namespace Exchanger.Model.RAMWorld
     public class RAMWorldItemSO : ScriptableObject
     {
         [SerializeField]
-        public List<RAMs> Procies;
+        public List<RAMs> rams;
         public int size = 3;
         public event Action<Dictionary<int, RAMs>> OnRAMsUpdated;
 
         public RAMs GetItemAt(int obj)
         {
-            return Procies[obj];
+            return rams[obj];
         }
 
         public Dictionary<int, RAMs> GetCurrentInventoryState()
         {
             Dictionary<int, RAMs> returnValue = new Dictionary<int, RAMs>();
-            for (int i = 0; i < Procies.Count; i++)
+            for (int i = 0; i < rams.Count; i++)
             {
-                if (Procies[i].isEmpty)
+                if (rams[i].isEmpty)
                 {
                     continue;
                 }
-                returnValue[i] = Procies[i];
+                returnValue[i] = rams[i];
             }
             return returnValue;
         }
 
         public void ReplaceRAM(int oldIndex, RAMs newMission)
         {
-            if (oldIndex >= 0 && oldIndex < Procies.Count)
+            if (oldIndex >= 0 && oldIndex < rams.Count)
             {
-                Procies[oldIndex] = newMission;
+                rams[oldIndex] = newMission;
             }
             else
             {
@@ -47,11 +47,11 @@ namespace Exchanger.Model.RAMWorld
 
         private void AddRAM(RAMWorldExchangerSO item)
         {
-            for (int i = 0; i < Procies.Count; i++)
+            for (int i = 0; i < rams.Count; i++)
             {
-                if (Procies[i].isEmpty)
+                if (rams[i].isEmpty)
                 {
-                    Procies[i] = new RAMs
+                    rams[i] = new RAMs
                     {
                         item = item
                     };
@@ -64,7 +64,7 @@ namespace Exchanger.Model.RAMWorld
             try
             {
                 // Remove the entire the pc
-                Procies.RemoveAt(itemIndex);
+                rams.RemoveAt(itemIndex);
                 InformAboutChange();
 
             }
@@ -81,7 +81,7 @@ namespace Exchanger.Model.RAMWorld
             List<RAMs> matchingRAMs = new List<RAMs>();
             List<RAMs> otherRAMs = new List<RAMs>();
 
-            foreach (var cpu in Procies)
+            foreach (var cpu in rams)
             {
                 if (cpu.item.Level <= playerLevel)
                 {
@@ -105,7 +105,7 @@ namespace Exchanger.Model.RAMWorld
             }
 
             // Combine the lists, putting matching RAMs at the beginning
-            Procies = matchingRAMs.Concat(otherRAMs).ToList();
+            rams = matchingRAMs.Concat(otherRAMs).ToList();
 
             InformAboutChange();
         }

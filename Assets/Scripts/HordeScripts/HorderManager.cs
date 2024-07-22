@@ -27,24 +27,39 @@ public class HorderManager : MonoBehaviour
     public TMP_Text CoinsCollected;
     public TMP_Text MaterialsCollected;
     public TMP_Text EnemyKilled;
+    public Button generalStopButton;
 
-    // Scene-specific references for CPU
+    // Scene-specific references for CPU cpu1
     public Canvas CPUWorldCanvas;
     public GameObject Wall;
     public GameObject CoinsAndMaterialsDropped;
     public Button cpuStartButton;
     public PolygonCollider2D CPU1spawnAreaCollider; // Add this line
 
-    // Scene-specific references for RAM
+    // Scene-specific references for RAM ram1
     public Canvas RAMWorldCanvas;
     public GameObject ramWall;
     public GameObject RamCoinsAndMaterialsDropped;
     public Button ramStartButton;
-    public PolygonCollider2D RAM1spawnAreaCollider; // Add this line
+    public PolygonCollider2D RAM1spawnAreaCollider;
+
+    // Scene-specific references for CPUF cpuf1
+    public Canvas CPUFWorldCanvas;
+    public GameObject cpufWall;
+    public GameObject CPUFCoinsAndMaterialsDropped;
+    public Button cpufStartButton;
+    public PolygonCollider2D CPUF1spawnAreaCollider;
+
+    // Scene-specific references for GPU gpu1
+    public Canvas GPUWorldCanvas;
+    public GameObject gpuWall;
+    public GameObject GPUCoinsAndMaterialsDropped;
+    public Button gpuStartButton;
+    public PolygonCollider2D GPU1spawnAreaCollider;
 
     // General stop button (e.g., in the Horde UI)
-    public Button generalStopButton;
 
+    private Dictionary<string, PolygonCollider2D> SpawnArea = new Dictionary<string, PolygonCollider2D>();
     private Dictionary<string, GameObject> MaterialsandCoinsDrop = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> walls = new Dictionary<string, GameObject>();
     private Dictionary<string, Canvas> worldCanvases = new Dictionary<string, Canvas>();
@@ -56,17 +71,31 @@ public class HorderManager : MonoBehaviour
 
         MaterialsandCoinsDrop["cpu1"] = CoinsAndMaterialsDropped;
         MaterialsandCoinsDrop["ram1"] = RamCoinsAndMaterialsDropped;
-
+        MaterialsandCoinsDrop["cpuf1"] = CPUFCoinsAndMaterialsDropped;
+        MaterialsandCoinsDrop["gpu1"] = GPUCoinsAndMaterialsDropped;
 
         walls["cpu1"] = Wall;
         walls["ram1"] = ramWall;
+        walls["cpuf1"] = cpufWall;
+        walls["gpu1"] = gpuWall;
 
         worldCanvases["cpu1"] = CPUWorldCanvas;
         worldCanvases["ram1"] = RAMWorldCanvas;
+        worldCanvases["cpuf1"] = CPUFWorldCanvas;
+        worldCanvases["gpu1"] = GPUWorldCanvas;
+
+        SpawnArea["cpu1"] = CPU1spawnAreaCollider;
+        SpawnArea["ram1"] = RAM1spawnAreaCollider;
+        SpawnArea["cpuf1"] = CPUF1spawnAreaCollider;
+        SpawnArea["gpu1"] = GPU1spawnAreaCollider;
 
         cpuStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "cpu1")));
 
         ramStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "ram1")));
+
+        cpufStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "cpuf1")));
+
+        gpuStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "gpu1")));
 
         generalStopButton.onClick.AddListener(StopCurrentHorde);
 
@@ -235,14 +264,23 @@ public class HorderManager : MonoBehaviour
     {
         PolygonCollider2D spawnAreaCollider = null;
 
-        if (config.HordeName == "cpu1")
+        if (SpawnArea.TryGetValue(config.HordeName, out var spawnarea))
         {
-            spawnAreaCollider = CPU1spawnAreaCollider;
+            spawnAreaCollider = spawnarea;
         }
-        else if (config.HordeName == "ram1")
-        {
-            spawnAreaCollider = RAM1spawnAreaCollider;
-        }
+
+        //if (config.HordeName == "cpu1")
+        //{
+        //    spawnAreaCollider = CPU1spawnAreaCollider;
+        //}
+        //else if (config.HordeName == "ram1")
+        //{
+        //    spawnAreaCollider = RAM1spawnAreaCollider;
+        //}
+        //else if (config.HordeName == "cpuf1")
+        //{
+        //    spawnAreaCollider = CPUF1spawnAreaCollider;
+        //}
 
         if (spawnAreaCollider == null || !spawnAreaCollider.enabled)
         {

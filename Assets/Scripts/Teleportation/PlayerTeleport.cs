@@ -71,6 +71,28 @@ public class PlayerTeleport : MonoBehaviour
         InvBTN.gameObject.SetActive(true);
         EquippedStats.gameObject.SetActive(true);
     }
+    public void ToCPUFWorld()
+    {
+        GameManager.instance.InHomeWorld = false;
+        Vector3 destination = new Vector3(607.93f, -53.63f, 0);
+        transform.position = destination;
+        WorldName.text = "CPU Fan World";
+        LTA.OpenTeleAnim();
+        GameManager.instance.LoadOtherWorldInventory();
+        InvBTN.gameObject.SetActive(true);
+        EquippedStats.gameObject.SetActive(true);
+    }
+    public void ToGPUWorld()
+    {
+        GameManager.instance.InHomeWorld = false;
+        Vector3 destination = new Vector3(817f, 7.92f, 0);
+        transform.position = destination;
+        WorldName.text = "GPU World";
+        LTA.OpenTeleAnim();
+        GameManager.instance.LoadOtherWorldInventory();
+        InvBTN.gameObject.SetActive(true);
+        EquippedStats.gameObject.SetActive(true);
+    }
     public void BackToTheHomeWorld()
     {
         DeskPanel.SetActive(true);
@@ -181,7 +203,6 @@ public class PlayerTeleport : MonoBehaviour
         }
 
         //otherworldhouses
-
         if (collision.CompareTag("CPUExchanger"))
         {
             homeTeleport = collision.gameObject;
@@ -215,6 +236,39 @@ public class PlayerTeleport : MonoBehaviour
                 Name.text = "Exit House";
             }
 
+
+        }
+
+        if (collision.CompareTag("CPUFExchanger"))
+        {
+            homeTeleport = collision.gameObject;
+            Enter.gameObject.SetActive(true);
+
+            if (collision.gameObject.name == "EnterDoor")
+            {
+                Name.text = "Enter Exchanger House";
+            }
+
+            else if (collision.gameObject.name == "ExitDoor")
+            {
+                Name.text = "Exit House";
+            }
+
+        }
+        if (collision.CompareTag("GPUExchanger"))
+        {
+            homeTeleport = collision.gameObject;
+            Enter.gameObject.SetActive(true);
+
+            if (collision.gameObject.name == "EnterDoor")
+            {
+                Name.text = "Enter Exchanger House";
+            }
+
+            else if (collision.gameObject.name == "ExitDoor")
+            {
+                Name.text = "Exit House";
+            }
 
         }
 
@@ -288,6 +342,33 @@ public class PlayerTeleport : MonoBehaviour
                 homeTeleport = null;
             }
             
+        }
+        if (collision.CompareTag("RAMExchanger"))
+        {
+            if (collision.gameObject == homeTeleport)
+            {
+
+                homeTeleport = null;
+            }
+
+        }
+        if (collision.CompareTag("CPUFExchanger"))
+        {
+            if (collision.gameObject == homeTeleport)
+            {
+
+                homeTeleport = null;
+            }
+
+        }
+        if (collision.CompareTag("GPUExchanger"))
+        {
+            if (collision.gameObject == homeTeleport)
+            {
+
+                homeTeleport = null;
+            }
+
         }
 
         ///////////////////////////////////

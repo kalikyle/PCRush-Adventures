@@ -204,6 +204,8 @@ public class DialogueManager : MonoBehaviour
 
                     }
 
+
+                    //FOR EXCHANGERS
                     else if (tagValue.Equals("exchangeyes"))
                     {
                         GameManager.instance.CPUExhangerPanel.SetActive(true);
@@ -213,6 +215,16 @@ public class DialogueManager : MonoBehaviour
                     {
                         GameManager.instance.RAMExhangerPanel.SetActive(true);
                         GameManager.instance.OpenRAMWorldExhanger();
+                    }
+                    else if (tagValue.Equals("cpufexchangeyes"))
+                    {
+                        GameManager.instance.CPUFExhangerPanel.SetActive(true);
+                        GameManager.instance.OpenCPUFWorldExhanger();
+                    }
+                    else if (tagValue.Equals("gpuexchangeyes"))
+                    {
+                        GameManager.instance.GPUExhangerPanel.SetActive(true);
+                        GameManager.instance.OpenGPUWorldExhanger();
                     }
 
 
