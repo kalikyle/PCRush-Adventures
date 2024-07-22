@@ -39,9 +39,7 @@ public class GameManager : MonoBehaviour
     public string UserCollection = "users";
     public static GameManager instance;
     public CharacterBuilder charBuilder;
-    public int ShopSize = 100;
-
-
+    public SpriteCollection SpriteCollections;
     public ShopController SC;
     public DecorController DC;
     public Shop.Model.ShopSO so;
@@ -57,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     public bool isEditing = false;
     public TMP_Text UserIDTxt;
+    public int ShopSize = 100;
 
     public Image Monitor;
     public Image Keyboard;
@@ -74,7 +73,7 @@ public class GameManager : MonoBehaviour
     public Button DoneButton;
 
 
-    public SpriteCollection SpriteCollections;
+    
 
     public GameObject UIExplore;
     public GameObject ComputerInv;
@@ -88,6 +87,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject CPUExhangerPanel;
     public GameObject RAMExhangerPanel;
+    public GameObject CPUFExhangerPanel;
+    public GameObject GPUExhangerPanel;
 
     //public GameObject DecorClickedUI;
 
@@ -281,6 +282,7 @@ public class GameManager : MonoBehaviour
         {
             PlayerTotalAttackDamage = PlayerAttackDamage + EquipmentAttackDamage + PlayerPCAttackDamage;
             BaseAttackDamage.text = PlayerAttackDamage.ToString()  + " (+ " + EquipmentAttackDamage + ")";
+
         }
         else
         {
@@ -291,6 +293,11 @@ public class GameManager : MonoBehaviour
         {
             PlayerTotalHealth = PlayerHealth + EquipmentHealth + PlayerPCHealth;
             BaseHealth.text = PlayerHealth.ToString() + " (+ " + EquipmentHealth + ")";
+            if (PlayerHealthScript.currentHealth == PlayerHealthScript.maxHealth)
+            {
+                PlayerHealthScript.currentHealth = (int)PlayerTotalHealth;
+            }
+            
         }
         else
         {
@@ -324,6 +331,12 @@ public class GameManager : MonoBehaviour
         {
             PlayerTotalArmor = PlayerArmor + EquipmentArmor + PlayerPCArmor;
             BaseArmor.text = PlayerArmor.ToString() + " (+ " + EquipmentArmor + ")";
+
+            if (PlayerArmorScript.currentArmor == PlayerArmorScript.maxArmor)
+            {
+                PlayerArmorScript.currentArmor = (int)PlayerTotalArmor;
+            }
+            
         }
         else
         {
@@ -440,6 +453,14 @@ public class GameManager : MonoBehaviour
     public void OpenRAMWorldExhanger()
     {
         Exchanger.RAMsOpenShop();
+    }
+    public void OpenCPUFWorldExhanger()
+    {
+        Exchanger.CPUFsOpenShop();
+    }
+    public void OpenGPUWorldExhanger()
+    {
+        Exchanger.GPUsOpenShop();
     }
     public void PlayerDeskName()
     {

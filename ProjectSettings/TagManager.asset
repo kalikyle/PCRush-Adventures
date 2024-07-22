@@ -12,6 +12,8 @@ TagManager:
   - Worlds
   - CPUExchanger
   - RAMExchanger
+  - CPUFExchanger
+  - GPUExchanger
   layers:
   - Default
   - TransparentFX

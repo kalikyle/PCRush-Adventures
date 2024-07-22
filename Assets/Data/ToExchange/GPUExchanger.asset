@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0317b7a837916c04198dfddc65179b45, type: 3}
+  m_Name: GPUExchanger
+  m_EditorClassIdentifier: 
+  gpus:
+  - item: {fileID: 11400000, guid: 329578f3886bec0498f08f84141220c9, type: 2}
+  - item: {fileID: 11400000, guid: cb6d24c0773b1ae439f4d3c5c9b8b16c, type: 2}
+  - item: {fileID: 11400000, guid: 9710b8cec5240324bba88002b0871a7b, type: 2}
+  - item: {fileID: 11400000, guid: c6b22c25522cf464085a39a5b738fa17, type: 2}
+  - item: {fileID: 11400000, guid: c5d4ecc9304fd474ca0575fbc378adca, type: 2}
+  - item: {fileID: 11400000, guid: 5273c5caf25d49646b14c4e0bbbb483f, type: 2}
+  - item: {fileID: 11400000, guid: 2fa4a35d290290e48a12c469750a655d, type: 2}
+  size: 3
