@@ -1,11 +1,15 @@
 using Exchanger.Model.CPUFWorld;
 using Exchanger.Model.CPUWorld;
 using Exchanger.Model.GPUWorld;
+using Exchanger.Model.PSUWorld;
 using Exchanger.Model.RAMWorld;
+using Exchanger.Model.StorageWorld;
 using Exchanger.UI.CPUFWorld;
 using Exchanger.UI.CPUWorld;
 using Exchanger.UI.GPUWorld;
+using Exchanger.UI.PSUWorld;
 using Exchanger.UI.RAMWorld;
+using Exchanger.UI.StorageWorld;
 using PC.UI;
 using Swords.Model;
 using Swords.UI;
@@ -72,6 +76,30 @@ namespace Exchanger
         private float GPUremainingTime = 0f;
         public Button GPURefreshNow;
 
+        //for Storage
+        [SerializeField]
+        private StorageWorldExchangerPage StoragesPage;
+        [SerializeField]
+        private StorageItemSO StoragesData;
+        private Dictionary<int, float> StorageremainingTimes = new Dictionary<int, float>();
+        private Dictionary<int, bool> storagedisplayed = new Dictionary<int, bool>();
+        private Queue<int> StoragesToReplace = new Queue<int>();
+        public float StorageTime = 120f;
+        private float StorageremainingTime = 0f;
+        public Button StorageRefreshNow;
+
+        //for PSU
+        [SerializeField]
+        private PSUWorldExchangerPage PSUsPage;
+        [SerializeField]
+        private PSUWorldItemSO PSUsData;
+        private Dictionary<int, float> PSUremainingTimes = new Dictionary<int, float>();
+        private Dictionary<int, bool> psudisplayed = new Dictionary<int, bool>();
+        private Queue<int> PSUsToReplace = new Queue<int>();
+        public float PSUTime = 120f;
+        private float PSUremainingTime = 0f;
+        public Button PSURefreshNow;
+
         public void Update()
         {
             currentlevel = GameManager.instance.PlayerLevel;
@@ -115,6 +143,24 @@ namespace Exchanger
 
             StartCoroutine(GPUUpdateTimers());
             GPURefreshNow.onClick.AddListener(RefreshGPUs);
+
+            // for Storage
+            StorageremainingTime = StorageTime;
+            StoragesData.ShuffleStorages();
+            StoragesPage.InitializedStorage(StoragesData.size);
+            InitializeStorages();
+
+            StartCoroutine(StorageUpdateTimers());
+            StorageRefreshNow.onClick.AddListener(RefreshStorages);
+
+            //for PSU
+            PSUremainingTime = PSUTime;
+            PSUsData.ShufflePSUs();
+            PSUsPage.InitializedPSU(PSUsData.size);
+            InitializePSUs();
+
+            StartCoroutine(PSUUpdateTimers());
+            PSURefreshNow.onClick.AddListener(RefreshPSUs);
 
         }
 
@@ -553,6 +599,227 @@ namespace Exchanger
         {
             GPUsPage.Show();
             GPUsPage.ResetSelection();
+        }
+
+
+        //for Storage
+
+        private void InitializeStorages()
+        {
+
+            var currentInventoryState = StoragesData.GetCurrentInventoryState();
+            foreach (var item in currentInventoryState)
+            {
+                GameObject materialsNeedObject = item.Value.item.MaterialsNeed;
+
+                // Try to get the SpriteRenderer component from the GameObject
+                if (materialsNeedObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
+                {
+                    // Access the sprite from the SpriteRenderer
+                    Sprite itemSprite = spriteRenderer.sprite;
+
+                    string perks = "";
+
+                    // Check each perk property and accumulate non-zero values
+                    if (item.Value.item.Parts.AttackDamage != 0)
+                    {
+                        perks += "Attack Damage +" + item.Value.item.Parts.AttackDamage + "\n";
+                    }
+                    if (item.Value.item.Parts.Health != 0)
+                    {
+                        perks += "Health +" + item.Value.item.Parts.Health + "\n";
+                    }
+                    if (item.Value.item.Parts.Mana != 0)
+                    {
+                        perks += "Mana +" + item.Value.item.Parts.Mana + "\n";
+                    }
+                    if (item.Value.item.Parts.HealthRegen != 0)
+                    {
+                        perks += "Health Regen  +" + item.Value.item.Parts.HealthRegen + "\n";
+                    }
+                    if (item.Value.item.Parts.WalkSpeed != 0)
+                    {
+                        perks += "Walk Speed +" + item.Value.item.Parts.WalkSpeed + "\n";
+                    }
+                    if (item.Value.item.Parts.Armor != 0)
+                    {
+                        perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
+                    }
+                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    {
+                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                    }
+                    if (item.Value.item.Parts.CriticalHit != 0)
+                    {
+                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                    }
+
+                    // Now update your UI element using the retrieved sprite
+                    StoragesPage.UpdateData(item.Key, item.Value.item.Parts.ItemImage, itemSprite, item.Value.item.Parts.Name, item.Value.item.Parts.rarity, item.Value.item.MaterialsAmountNeed, perks);
+                }
+                else
+                {
+                    Debug.LogError("SpriteRenderer component not found on the MaterialsNeed GameObject.");
+                }
+            }
+        }
+
+        private IEnumerator StorageUpdateTimers()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1f);
+
+                StorageremainingTime -= 1f;
+
+                if (StorageremainingTime <= 0f)
+                {
+                    RespawnStorages();
+                    StorageremainingTime = StorageTime; // Reset time to 3 minutes
+                }
+
+                StorageUpdateTimerDisplay();
+                StoragesData.InformAboutChange();
+            }
+        }
+
+        private void RespawnStorages()
+        {
+            StoragesData.ShuffleStorages();
+            InitializeStorages();
+            StoragesPage.ResetSelection();
+        }
+
+        private void RefreshStorages()
+        {
+            StoragesData.ShuffleStorages();
+            InitializeStorages();
+            StorageremainingTime = StorageTime;
+            StoragesPage.ResetSelection();
+        }
+
+        private void StorageUpdateTimerDisplay()
+        {
+            int minutes = Mathf.FloorToInt(StorageremainingTime / 60F);
+            int seconds = Mathf.FloorToInt(StorageremainingTime - minutes * 60);
+            string timeText = string.Format("{0:0}:{1:00}", minutes, seconds);
+            StoragesPage.UpdateTimer(timeText);
+        }
+
+        public void StoragesOpenShop()
+        {
+            StoragesPage.Show();
+            StoragesPage.ResetSelection();
+        }
+
+        //for PSU
+
+        private void InitializePSUs()
+        {
+
+            var currentInventoryState = PSUsData.GetCurrentInventoryState();
+            foreach (var item in currentInventoryState)
+            {
+                GameObject materialsNeedObject = item.Value.item.MaterialsNeed;
+
+                // Try to get the SpriteRenderer component from the GameObject
+                if (materialsNeedObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
+                {
+                    // Access the sprite from the SpriteRenderer
+                    Sprite itemSprite = spriteRenderer.sprite;
+
+                    string perks = "";
+
+                    // Check each perk property and accumulate non-zero values
+                    if (item.Value.item.Parts.AttackDamage != 0)
+                    {
+                        perks += "Attack Damage +" + item.Value.item.Parts.AttackDamage + "\n";
+                    }
+                    if (item.Value.item.Parts.Health != 0)
+                    {
+                        perks += "Health +" + item.Value.item.Parts.Health + "\n";
+                    }
+                    if (item.Value.item.Parts.Mana != 0)
+                    {
+                        perks += "Mana +" + item.Value.item.Parts.Mana + "\n";
+                    }
+                    if (item.Value.item.Parts.HealthRegen != 0)
+                    {
+                        perks += "Health Regen  +" + item.Value.item.Parts.HealthRegen + "\n";
+                    }
+                    if (item.Value.item.Parts.WalkSpeed != 0)
+                    {
+                        perks += "Walk Speed +" + item.Value.item.Parts.WalkSpeed + "\n";
+                    }
+                    if (item.Value.item.Parts.Armor != 0)
+                    {
+                        perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
+                    }
+                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    {
+                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                    }
+                    if (item.Value.item.Parts.CriticalHit != 0)
+                    {
+                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                    }
+
+                    // Now update your UI element using the retrieved sprite
+                    PSUsPage.UpdateData(item.Key, item.Value.item.Parts.ItemImage, itemSprite, item.Value.item.Parts.Name, item.Value.item.Parts.rarity, item.Value.item.MaterialsAmountNeed, perks);
+                }
+                else
+                {
+                    Debug.LogError("SpriteRenderer component not found on the MaterialsNeed GameObject.");
+                }
+            }
+        }
+
+        private IEnumerator PSUUpdateTimers()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1f);
+
+                PSUremainingTime -= 1f;
+
+                if (PSUremainingTime <= 0f)
+                {
+                    RespawnPSUs();
+                    PSUremainingTime = PSUTime; // Reset time to 3 minutes
+                }
+
+                PSUUpdateTimerDisplay();
+                PSUsData.InformAboutChange();
+            }
+        }
+
+        private void RespawnPSUs()
+        {
+            PSUsData.ShufflePSUs();
+            InitializePSUs();
+            PSUsPage.ResetSelection();
+        }
+
+        private void RefreshPSUs()
+        {
+            PSUsData.ShufflePSUs();
+            InitializePSUs();
+            PSUremainingTime = PSUTime;
+            PSUsPage.ResetSelection();
+        }
+
+        private void PSUUpdateTimerDisplay()
+        {
+            int minutes = Mathf.FloorToInt(PSUremainingTime / 60F);
+            int seconds = Mathf.FloorToInt(PSUremainingTime - minutes * 60);
+            string timeText = string.Format("{0:0}:{1:00}", minutes, seconds);
+            PSUsPage.UpdateTimer(timeText);
+        }
+
+        public void PSUsOpenShop()
+        {
+            PSUsPage.Show();
+            PSUsPage.ResetSelection();
         }
 
     }

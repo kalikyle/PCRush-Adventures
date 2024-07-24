@@ -226,6 +226,16 @@ public class DialogueManager : MonoBehaviour
                         GameManager.instance.GPUExhangerPanel.SetActive(true);
                         GameManager.instance.OpenGPUWorldExhanger();
                     }
+                    else if (tagValue.Equals("storageexchangeyes"))
+                    {
+                        GameManager.instance.StorageExhangerPanel.SetActive(true);
+                        GameManager.instance.OpenStorageWorldExhanger();
+                    }
+                    else if (tagValue.Equals("psuexchangeyes"))
+                    {
+                        GameManager.instance.PSUExhangerPanel.SetActive(true);
+                        GameManager.instance.OpenPSUWorldExhanger();
+                    }
 
 
                     break;

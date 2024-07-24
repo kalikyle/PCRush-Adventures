@@ -51,7 +51,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-
+            r2d = GetComponent<Rigidbody2D>();
         }
 
         private async void Start()
@@ -154,7 +154,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             }
         }
 
-        
+      
 
         private void HandlePlayerHealth()
         {
@@ -178,6 +178,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 {
                     isDead = true;
                     //enemyCollider.isTrigger = true;
+                    
+                    r2d.bodyType = RigidbodyType2D.Static;
                     _animator.SetBool("Dead", true);
                     triggerDied();
                 }
@@ -273,6 +275,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     _animator.SetBool("Idle", false);
                     _animator.SetBool("Walking", true);
                     _animator.SetBool("Running", false);
+
                 }
                 else
                 {
@@ -378,6 +381,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
             // Reset the player's state
             isDead = false;
+            r2d.bodyType = RigidbodyType2D.Dynamic;
             Health health = GetComponent<Health>();
             if (health != null)
             {
@@ -388,14 +392,16 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             PlayerArmor armor = GetComponent<PlayerArmor>();
             if (armor != null)
             {
+                armor.isEmpty = false;
                 armor.currentArmor = armor.maxArmor; // Restore armor
             }
 
-            // Reset animator parameters
+            //Reset animator parameters
             _animator.ResetTrigger("Dead");
-            _animator.SetBool("Idle", true);
+           
             _animator.SetBool("Walking", false);
             _animator.SetBool("Running", false);
+            HandleAttack();
             isDeadAnimate = false;
         }
 

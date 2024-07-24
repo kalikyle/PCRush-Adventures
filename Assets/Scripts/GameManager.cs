@@ -72,8 +72,11 @@ public class GameManager : MonoBehaviour
     public Button ResizeDecButton;
     public Button DoneButton;
 
+    //for MiniMap
+    public Button MiniMapButton;
+    public GameObject HomeWorldMap;
+    public GameObject CPUWorldMap;
 
-    
 
     public GameObject UIExplore;
     public GameObject ComputerInv;
@@ -89,6 +92,8 @@ public class GameManager : MonoBehaviour
     public GameObject RAMExhangerPanel;
     public GameObject CPUFExhangerPanel;
     public GameObject GPUExhangerPanel;
+    public GameObject StorageExhangerPanel;
+    public GameObject PSUExhangerPanel;
 
     //public GameObject DecorClickedUI;
 
@@ -461,6 +466,14 @@ public class GameManager : MonoBehaviour
     public void OpenGPUWorldExhanger()
     {
         Exchanger.GPUsOpenShop();
+    }
+    public void OpenStorageWorldExhanger()
+    {
+        Exchanger.StoragesOpenShop();
+    }
+    public void OpenPSUWorldExhanger()
+    {
+        Exchanger.PSUsOpenShop();
     }
     public void PlayerDeskName()
     {
