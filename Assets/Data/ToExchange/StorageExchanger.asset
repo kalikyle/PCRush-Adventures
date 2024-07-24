@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ccd0fec378b94f4da196283db8052fe, type: 3}
+  m_Name: StorageExchanger
+  m_EditorClassIdentifier: 
+  storages:
+  - item: {fileID: 11400000, guid: faee785bc34bdc8489407cc88736de43, type: 2}
+  - item: {fileID: 11400000, guid: 736e555f940573e489f9ea7d9bf4f1be, type: 2}
+  - item: {fileID: 11400000, guid: f2543da30a02b0b4a9103aa6bb79ba08, type: 2}
+  - item: {fileID: 11400000, guid: b6e1ba8d542923b4c862d6258f6e75eb, type: 2}
+  - item: {fileID: 11400000, guid: 331468fc8196ca3448a5c7a05cae1c18, type: 2}
+  - item: {fileID: 11400000, guid: bbb5d9022024f904cb2fd76e82367ad5, type: 2}
+  size: 3

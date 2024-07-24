@@ -14,6 +14,8 @@ TagManager:
   - RAMExchanger
   - CPUFExchanger
   - GPUExchanger
+  - StorageExchanger
+  - PSUExchanger
   layers:
   - Default
   - TransparentFX

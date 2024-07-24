@@ -27,6 +27,8 @@ public class HorderManager : MonoBehaviour
     public TMP_Text CoinsCollected;
     public TMP_Text MaterialsCollected;
     public TMP_Text EnemyKilled;
+
+    // General stop button (e.g., in the Horde UI)
     public Button generalStopButton;
 
     // Scene-specific references for CPU cpu1
@@ -57,13 +59,25 @@ public class HorderManager : MonoBehaviour
     public Button gpuStartButton;
     public PolygonCollider2D GPU1spawnAreaCollider;
 
-    // General stop button (e.g., in the Horde UI)
+    // Scene-specific references for Storage storage1
+    public Canvas StorageWorldCanvas;
+    public GameObject storageWall;
+    public GameObject StorageCoinsAndMaterialsDropped;
+    public Button storageStartButton;
+    public PolygonCollider2D Storage1spawnAreaCollider;
+
+    // Scene-specific references for PSU psu1
+    public Canvas PSUWorldCanvas;
+    public GameObject psuWall;
+    public GameObject PSUCoinsAndMaterialsDropped;
+    public Button PSUStartButton;
+    public PolygonCollider2D PSU1spawnAreaCollider;
+
 
     private Dictionary<string, PolygonCollider2D> SpawnArea = new Dictionary<string, PolygonCollider2D>();
     private Dictionary<string, GameObject> MaterialsandCoinsDrop = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> walls = new Dictionary<string, GameObject>();
     private Dictionary<string, Canvas> worldCanvases = new Dictionary<string, Canvas>();
-
     private Dictionary<string, int> EnemyExperienceMultiplier = new Dictionary<string, int>();
 
     private void Start()
@@ -73,29 +87,36 @@ public class HorderManager : MonoBehaviour
         MaterialsandCoinsDrop["ram1"] = RamCoinsAndMaterialsDropped;
         MaterialsandCoinsDrop["cpuf1"] = CPUFCoinsAndMaterialsDropped;
         MaterialsandCoinsDrop["gpu1"] = GPUCoinsAndMaterialsDropped;
+        MaterialsandCoinsDrop["storage1"] = StorageCoinsAndMaterialsDropped;
+        MaterialsandCoinsDrop["psu1"] = PSUCoinsAndMaterialsDropped;
 
         walls["cpu1"] = Wall;
         walls["ram1"] = ramWall;
         walls["cpuf1"] = cpufWall;
         walls["gpu1"] = gpuWall;
+        walls["storage1"] = storageWall;
+        walls["psu1"] = psuWall; 
 
         worldCanvases["cpu1"] = CPUWorldCanvas;
         worldCanvases["ram1"] = RAMWorldCanvas;
         worldCanvases["cpuf1"] = CPUFWorldCanvas;
         worldCanvases["gpu1"] = GPUWorldCanvas;
+        worldCanvases["storage1"] = StorageWorldCanvas;
+        worldCanvases["psu1"] = PSUWorldCanvas;
 
         SpawnArea["cpu1"] = CPU1spawnAreaCollider;
         SpawnArea["ram1"] = RAM1spawnAreaCollider;
         SpawnArea["cpuf1"] = CPUF1spawnAreaCollider;
         SpawnArea["gpu1"] = GPU1spawnAreaCollider;
+        SpawnArea["storage1"] = Storage1spawnAreaCollider;
+        SpawnArea["psu1"] = PSU1spawnAreaCollider;
 
         cpuStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "cpu1")));
-
         ramStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "ram1")));
-
         cpufStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "cpuf1")));
-
         gpuStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "gpu1")));
+        storageStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "storage1")));
+        PSUStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "psu1")));
 
         generalStopButton.onClick.AddListener(StopCurrentHorde);
 

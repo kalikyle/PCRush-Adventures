@@ -21,6 +21,10 @@ public class PlayerTeleport : MonoBehaviour
         public TMP_Text Name;
         public TMP_Text WorldName;
 
+
+
+        
+
         public LeanTweenAnimate LTA;
 
         public bool OpenDesk = false;
@@ -29,8 +33,20 @@ public class PlayerTeleport : MonoBehaviour
         public bool BackToHomeWorld = false;
 
 
+        private bool HomeWorld = true;
+        private bool CPUWorld = false;
+        private bool RAMWorld = false;
+        private bool CPUFWorld = false;
+        private bool GPUWorld = false;
+        private bool StorageWorld = false;
+        private bool PSUWorld = false;
+        private bool MBWorld = false;
+        private bool CaseWorld = false;
+
+
     public void Start()
     {
+        HomeWorld = true;
         Enter.onClick.AddListener(() =>
         {
             TheTeleporter();
@@ -44,14 +60,38 @@ public class PlayerTeleport : MonoBehaviour
             {
                TheTeleporter();
             }
-            
-    
+
+        if (HomeWorld == true)
+        {
+            GameManager.instance.HomeWorldMap.SetActive(true);
         }
+        else if (CPUWorld == true) {
+
+            GameManager.instance.CPUWorldMap.SetActive(true);
+        }
+        else if (RAMWorld == true) { }
+        else if (CPUFWorld == true) { }
+        else if (GPUWorld == true) { }
+        else if (StorageWorld == true) { }
+        else if (PSUWorld == true) { }
+        else if (MBWorld == true) { }
+        else if (CaseWorld == true) { }
+    }
 
 
     public void ToCPUWorld()
     {
-        GameManager.instance.InHomeWorld = false;
+        HomeWorld = false;
+        CPUWorld = true;
+        RAMWorld = false;
+        CPUFWorld = false;
+        GPUWorld = false;
+        StorageWorld = false;
+        PSUWorld = false;
+        MBWorld = false;
+        CaseWorld = false;
+
+         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(216.45f, -46.33f, 0);
         transform.position = destination;
         WorldName.text = "CPU World";
@@ -59,9 +99,20 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
         EquippedStats.gameObject.SetActive(true);
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
     public void ToRAMWorld()
     {
+        HomeWorld = false;
+        CPUWorld = false;
+        RAMWorld = true;
+        CPUFWorld = false;
+        GPUWorld = false;
+        StorageWorld = false;
+        PSUWorld = false;
+        MBWorld = false;
+        CaseWorld = false;
+
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(386.05f, -61.49f, 0);
         transform.position = destination;
@@ -70,9 +121,20 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
         EquippedStats.gameObject.SetActive(true);
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
     public void ToCPUFWorld()
     {
+        HomeWorld = false;
+        CPUWorld = false;
+        RAMWorld = false;
+        CPUFWorld = true;
+        GPUWorld = false;
+        StorageWorld = false;
+        PSUWorld = false;
+        MBWorld = false;
+        CaseWorld = false;
+
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(607.93f, -53.63f, 0);
         transform.position = destination;
@@ -81,9 +143,20 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
         EquippedStats.gameObject.SetActive(true);
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
     public void ToGPUWorld()
     {
+        HomeWorld = false;
+        CPUWorld = false;
+        RAMWorld = false;
+        CPUFWorld = false;
+        GPUWorld = true;
+        StorageWorld = false;
+        PSUWorld = false;
+        MBWorld = false;
+        CaseWorld = false;
+
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(817f, 7.92f, 0);
         transform.position = destination;
@@ -92,9 +165,65 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
         EquippedStats.gameObject.SetActive(true);
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
+    public void ToStorageWorld()
+    {
+        HomeWorld = false;
+        CPUWorld = false;
+        RAMWorld = false;
+        CPUFWorld = false;
+        GPUWorld = false;
+        StorageWorld = true;
+        PSUWorld = false;
+        MBWorld = false;
+        CaseWorld = false;
+
+        GameManager.instance.InHomeWorld = false;
+        Vector3 destination = new Vector3(-4.47f, -171.63f, 0);
+        transform.position = destination;
+        WorldName.text = "Storage World";
+        LTA.OpenTeleAnim();
+        GameManager.instance.LoadOtherWorldInventory();
+        InvBTN.gameObject.SetActive(true);
+        EquippedStats.gameObject.SetActive(true);
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+    }
+    public void ToPSUWorld()
+    {
+        HomeWorld = false;
+        CPUWorld = false;
+        RAMWorld = false;
+        CPUFWorld = false;
+        GPUWorld = false;
+        StorageWorld = false;
+        PSUWorld = true;
+        MBWorld = false;
+        CaseWorld = false;
+
+        GameManager.instance.InHomeWorld = false;
+        Vector3 destination = new Vector3(222.51f, -249.61f, 0);
+        transform.position = destination;
+        WorldName.text = "PSU World";
+        LTA.OpenTeleAnim();
+        GameManager.instance.LoadOtherWorldInventory();
+        InvBTN.gameObject.SetActive(true);
+        EquippedStats.gameObject.SetActive(true);
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+    }
+    //default player xny: 17.48, -26.46
     public void BackToTheHomeWorld()
     {
+        HomeWorld = true;
+        CPUWorld = false;
+        RAMWorld = false;
+        CPUFWorld = false;
+        GPUWorld = false;
+        StorageWorld = false;
+        PSUWorld = false;
+        MBWorld = false;
+        CaseWorld = false;
+
         DeskPanel.SetActive(true);
         Desktop.SetActive(true);
         GameMap.SetActive(true);
@@ -106,7 +235,13 @@ public class PlayerTeleport : MonoBehaviour
         EquippedStats.gameObject.SetActive(false);
         GameManager.instance.InHomeWorld = true;
         GameManager.instance.UnequipEquipment();
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
         LTA.OpenGameMap();
+    }
+
+    public void OutsideHome()
+    {
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
     
     public void TheTeleporter()
@@ -166,10 +301,12 @@ public class PlayerTeleport : MonoBehaviour
                 if (collision.gameObject.name == "HomeDoor")
                 {
                     Name.text = "Leave Home";
+                   
                 }
                 else if (collision.gameObject.name == "HomeDoorEnter")
                 {
                     Name.text = "Enter Home";
+               
                 }
 
 
@@ -211,6 +348,7 @@ public class PlayerTeleport : MonoBehaviour
             if (collision.gameObject.name == "EnterDoor")
             {
                 Name.text = "Enter Exchanger House";
+                
             }
 
             else if (collision.gameObject.name == "ExitDoor")
@@ -256,6 +394,38 @@ public class PlayerTeleport : MonoBehaviour
 
         }
         if (collision.CompareTag("GPUExchanger"))
+        {
+            homeTeleport = collision.gameObject;
+            Enter.gameObject.SetActive(true);
+
+            if (collision.gameObject.name == "EnterDoor")
+            {
+                Name.text = "Enter Exchanger House";
+            }
+
+            else if (collision.gameObject.name == "ExitDoor")
+            {
+                Name.text = "Exit House";
+            }
+
+        }
+        if (collision.CompareTag("StorageExchanger"))
+        {
+            homeTeleport = collision.gameObject;
+            Enter.gameObject.SetActive(true);
+
+            if (collision.gameObject.name == "EnterDoor")
+            {
+                Name.text = "Enter Exchanger House";
+            }
+
+            else if (collision.gameObject.name == "ExitDoor")
+            {
+                Name.text = "Exit House";
+            }
+
+        }
+        if (collision.CompareTag("PSUExchanger"))
         {
             homeTeleport = collision.gameObject;
             Enter.gameObject.SetActive(true);
@@ -362,6 +532,24 @@ public class PlayerTeleport : MonoBehaviour
 
         }
         if (collision.CompareTag("GPUExchanger"))
+        {
+            if (collision.gameObject == homeTeleport)
+            {
+
+                homeTeleport = null;
+            }
+
+        }
+        if (collision.CompareTag("StorageExchanger"))
+        {
+            if (collision.gameObject == homeTeleport)
+            {
+
+                homeTeleport = null;
+            }
+
+        }
+        if (collision.CompareTag("PSUExchanger"))
         {
             if (collision.gameObject == homeTeleport)
             {
