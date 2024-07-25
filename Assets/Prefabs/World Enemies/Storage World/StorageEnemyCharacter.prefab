@@ -15600,7 +15600,13 @@ MonoBehaviour:
   RunSpeed: 2
   AttackRange: 0.92
   Attack: 7
-  ExpMultiplier: 1
+  ExpMultiplier: 4
+  NeednumberOfCoinsToDrop: 5
+  NeedCoinValueToDrop: 65
+  NeednumberOfHeartsToDrop: 3
+  NeedHeartValueToDrop: 70
+  NeednumberOfMaterialToDrop: 2
+  NeedMaterialValueToDrop: 1
   Player: {fileID: 0}
   EnemyBody: {fileID: 3020889638043703352}
   DetectionRange: 10

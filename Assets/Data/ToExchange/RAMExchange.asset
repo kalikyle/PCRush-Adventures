@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da37089ae351edd469034e51c65c3b8d, type: 3}
   m_Name: RAMExchange
   m_EditorClassIdentifier: 
-  Procies:
+  rams:
+  - item: {fileID: 11400000, guid: 067b9032b707d524a880a4b10e1d8d56, type: 2}
   - item: {fileID: 11400000, guid: 67359f43b7f2f024989218aaf8748123, type: 2}
   - item: {fileID: 11400000, guid: 9eb4535445e6a36418149a0dbc92f881, type: 2}
   - item: {fileID: 11400000, guid: c5fc830e85181d44c87395df59b5bf34, type: 2}
-  - item: {fileID: 11400000, guid: 067b9032b707d524a880a4b10e1d8d56, type: 2}
   - item: {fileID: 11400000, guid: 089242c4cd42acd40affb2e4c030b589, type: 2}
   size: 3

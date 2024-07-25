@@ -236,6 +236,16 @@ public class DialogueManager : MonoBehaviour
                         GameManager.instance.PSUExhangerPanel.SetActive(true);
                         GameManager.instance.OpenPSUWorldExhanger();
                     }
+                    else if (tagValue.Equals("mbexchangeyes"))
+                    {
+                        GameManager.instance.MBExhangerPanel.SetActive(true);
+                        GameManager.instance.OpenMBWorldExhanger();
+                    }
+                    else if (tagValue.Equals("caseexchangeyes"))
+                    {
+                        GameManager.instance.CaseExhangerPanel.SetActive(true);
+                        GameManager.instance.OpenCaseWorldExhanger();
+                    }
 
 
                     break;

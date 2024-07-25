@@ -9,12 +9,19 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 {
     public class EnemyAI : MonoBehaviour
     {
+        
         public Character Character;
         public float WalkSpeed = 1f;
         public float RunSpeed = 2f;
         public float AttackRange = 1f;
         public int Attack = 1;
         public int ExpMultiplier = 1;
+        public int NeednumberOfCoinsToDrop = 5; // Number of coins to drop
+        public int NeedCoinValueToDrop = 1;
+        public int NeednumberOfHeartsToDrop = 1; // Number of coins to drop
+        public int NeedHeartValueToDrop = 1;
+        public int NeednumberOfMaterialToDrop = 1; // Number of coins to drop
+        public int NeedMaterialValueToDrop = 1;
 
         public Transform Player;
         private Transform MaterialsAndCoinsDropOff;

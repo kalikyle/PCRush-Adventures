@@ -94,6 +94,8 @@ public class GameManager : MonoBehaviour
     public GameObject GPUExhangerPanel;
     public GameObject StorageExhangerPanel;
     public GameObject PSUExhangerPanel;
+    public GameObject MBExhangerPanel;
+    public GameObject CaseExhangerPanel;
 
     //public GameObject DecorClickedUI;
 
@@ -474,6 +476,14 @@ public class GameManager : MonoBehaviour
     public void OpenPSUWorldExhanger()
     {
         Exchanger.PSUsOpenShop();
+    }
+    public void OpenMBWorldExhanger()
+    {
+        Exchanger.MBsOpenShop();
+    }
+    public void OpenCaseWorldExhanger()
+    {
+        Exchanger.CasesOpenShop();
     }
     public void PlayerDeskName()
     {

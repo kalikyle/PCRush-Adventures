@@ -15601,6 +15601,12 @@ MonoBehaviour:
   AttackRange: 0.92
   Attack: 1
   ExpMultiplier: 1
+  NeednumberOfCoinsToDrop: 5
+  NeedCoinValueToDrop: 25
+  NeednumberOfHeartsToDrop: 2
+  NeedHeartValueToDrop: 10
+  NeednumberOfMaterialToDrop: 2
+  NeedMaterialValueToDrop: 1
   Player: {fileID: 0}
   EnemyBody: {fileID: 3020889638043703352}
   DetectionRange: 10

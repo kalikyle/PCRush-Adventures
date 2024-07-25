@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcef56e0fadc3ae4292ff7e01ad4f523, type: 3}
+  m_Name: MBExchanger
+  m_EditorClassIdentifier: 
+  mbs:
+  - item: {fileID: 11400000, guid: baec01d7c51459243b51d7114e3af3db, type: 2}
+  - item: {fileID: 11400000, guid: 1f169ad9b0b7bb54986baf498858ffdd, type: 2}
+  - item: {fileID: 11400000, guid: e1e794df303e1874aa4562837f1f2f70, type: 2}
+  - item: {fileID: 11400000, guid: e0dd3d02192317e4887bbc4e6d29b164, type: 2}
+  size: 3

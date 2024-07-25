@@ -27,6 +27,8 @@ public class HorderManager : MonoBehaviour
     public TMP_Text CoinsCollected;
     public TMP_Text MaterialsCollected;
     public TMP_Text EnemyKilled;
+    public GameObject CoinsAndMaterialsDropped;
+    public Transform SpawnedEnemies;
 
     // General stop button (e.g., in the Horde UI)
     public Button generalStopButton;
@@ -34,48 +36,53 @@ public class HorderManager : MonoBehaviour
     // Scene-specific references for CPU cpu1
     public Canvas CPUWorldCanvas;
     public GameObject Wall;
-    public GameObject CoinsAndMaterialsDropped;
     public Button cpuStartButton;
     public PolygonCollider2D CPU1spawnAreaCollider; // Add this line
 
     // Scene-specific references for RAM ram1
     public Canvas RAMWorldCanvas;
     public GameObject ramWall;
-    public GameObject RamCoinsAndMaterialsDropped;
     public Button ramStartButton;
     public PolygonCollider2D RAM1spawnAreaCollider;
 
     // Scene-specific references for CPUF cpuf1
     public Canvas CPUFWorldCanvas;
     public GameObject cpufWall;
-    public GameObject CPUFCoinsAndMaterialsDropped;
     public Button cpufStartButton;
     public PolygonCollider2D CPUF1spawnAreaCollider;
 
     // Scene-specific references for GPU gpu1
     public Canvas GPUWorldCanvas;
     public GameObject gpuWall;
-    public GameObject GPUCoinsAndMaterialsDropped;
     public Button gpuStartButton;
     public PolygonCollider2D GPU1spawnAreaCollider;
 
     // Scene-specific references for Storage storage1
     public Canvas StorageWorldCanvas;
     public GameObject storageWall;
-    public GameObject StorageCoinsAndMaterialsDropped;
     public Button storageStartButton;
     public PolygonCollider2D Storage1spawnAreaCollider;
 
     // Scene-specific references for PSU psu1
     public Canvas PSUWorldCanvas;
     public GameObject psuWall;
-    public GameObject PSUCoinsAndMaterialsDropped;
     public Button PSUStartButton;
     public PolygonCollider2D PSU1spawnAreaCollider;
 
+    // Scene-specific references for MB mb1
+    public Canvas MBWorldCanvas;
+    public GameObject mbWall;
+    public Button MBStartButton;
+    public PolygonCollider2D MB1spawnAreaCollider;
+
+    // Scene-specific references for Case case1
+    public Canvas CaseWorldCanvas;
+    public GameObject caseWall;
+    public Button CaseStartButton;
+    public PolygonCollider2D Case1spawnAreaCollider;
+
 
     private Dictionary<string, PolygonCollider2D> SpawnArea = new Dictionary<string, PolygonCollider2D>();
-    private Dictionary<string, GameObject> MaterialsandCoinsDrop = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> walls = new Dictionary<string, GameObject>();
     private Dictionary<string, Canvas> worldCanvases = new Dictionary<string, Canvas>();
     private Dictionary<string, int> EnemyExperienceMultiplier = new Dictionary<string, int>();
@@ -83,19 +90,14 @@ public class HorderManager : MonoBehaviour
     private void Start()
     {
 
-        MaterialsandCoinsDrop["cpu1"] = CoinsAndMaterialsDropped;
-        MaterialsandCoinsDrop["ram1"] = RamCoinsAndMaterialsDropped;
-        MaterialsandCoinsDrop["cpuf1"] = CPUFCoinsAndMaterialsDropped;
-        MaterialsandCoinsDrop["gpu1"] = GPUCoinsAndMaterialsDropped;
-        MaterialsandCoinsDrop["storage1"] = StorageCoinsAndMaterialsDropped;
-        MaterialsandCoinsDrop["psu1"] = PSUCoinsAndMaterialsDropped;
-
         walls["cpu1"] = Wall;
         walls["ram1"] = ramWall;
         walls["cpuf1"] = cpufWall;
         walls["gpu1"] = gpuWall;
         walls["storage1"] = storageWall;
-        walls["psu1"] = psuWall; 
+        walls["psu1"] = psuWall;
+        walls["mb1"] = mbWall;
+        walls["case1"] = caseWall;
 
         worldCanvases["cpu1"] = CPUWorldCanvas;
         worldCanvases["ram1"] = RAMWorldCanvas;
@@ -103,6 +105,8 @@ public class HorderManager : MonoBehaviour
         worldCanvases["gpu1"] = GPUWorldCanvas;
         worldCanvases["storage1"] = StorageWorldCanvas;
         worldCanvases["psu1"] = PSUWorldCanvas;
+        worldCanvases["mb1"] = MBWorldCanvas;
+        worldCanvases["case1"] = CaseWorldCanvas;
 
         SpawnArea["cpu1"] = CPU1spawnAreaCollider;
         SpawnArea["ram1"] = RAM1spawnAreaCollider;
@@ -110,6 +114,8 @@ public class HorderManager : MonoBehaviour
         SpawnArea["gpu1"] = GPU1spawnAreaCollider;
         SpawnArea["storage1"] = Storage1spawnAreaCollider;
         SpawnArea["psu1"] = PSU1spawnAreaCollider;
+        SpawnArea["mb1"] = MB1spawnAreaCollider;
+        SpawnArea["case1"] = Case1spawnAreaCollider;
 
         cpuStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "cpu1")));
         ramStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "ram1")));
@@ -117,6 +123,8 @@ public class HorderManager : MonoBehaviour
         gpuStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "gpu1")));
         storageStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "storage1")));
         PSUStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "psu1")));
+        MBStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "mb1")));
+        CaseStartButton.onClick.AddListener(() => StartHorde(hordeConfigs.Find(config => config.HordeName == "case1")));
 
         generalStopButton.onClick.AddListener(StopCurrentHorde);
 
@@ -310,17 +318,17 @@ public class HorderManager : MonoBehaviour
         }
 
         Vector3 randomPosition = GetRandomPointInPolygon(spawnAreaCollider);
-        GameObject enemy = Instantiate(config.enemyPrefab, randomPosition, Quaternion.identity);
+        GameObject enemy = Instantiate(config.enemyPrefab, randomPosition, Quaternion.identity, SpawnedEnemies);
 
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
 
         if (enemyAI != null)
         {
-            enemyAI.numberOfHeartsToDrop = Random.Range(0, 2);
-            enemyAI.numberOfCoinsToDrop = Random.Range(0, 6);
-            enemyAI.HeartValueToDrop = Random.Range(1, 6);
-            enemyAI.CoinValueToDrop = Random.Range(1, 6);
-            enemyAI.numberOfMaterialToDrop = Random.Range(0, 2);
+            enemyAI.numberOfHeartsToDrop = Random.Range(0, enemyAI.NeednumberOfHeartsToDrop);
+            enemyAI.numberOfCoinsToDrop = Random.Range(0, enemyAI.NeednumberOfCoinsToDrop);
+            enemyAI.HeartValueToDrop = Random.Range(1, enemyAI.NeedHeartValueToDrop);
+            enemyAI.CoinValueToDrop = Random.Range(1, enemyAI.NeedCoinValueToDrop);
+            enemyAI.numberOfMaterialToDrop = Random.Range(0, enemyAI.NeednumberOfMaterialToDrop);
             enemyAI.MaterialValueToDrop = 1;
         }
 
@@ -373,18 +381,18 @@ public class HorderManager : MonoBehaviour
     private void DestroyAllEnemies(HordeConfig config)
     {
 
-        //foreach (Transform child in CoinsAndMaterialsDropped.transform)
-        //{
-        //    Destroy(child.gameObject);
-        //}
+        foreach (Transform child in CoinsAndMaterialsDropped.transform)
+        {
+            Destroy(child.gameObject);
+        }
 
-        if (MaterialsandCoinsDrop.TryGetValue(config.HordeName, out var coinsandmat))
-        {
-            foreach (Transform child in coinsandmat.transform)
-        {
-             Destroy(child.gameObject);
-        }
-        }
+        //if (MaterialsandCoinsDrop.TryGetValue(config.HordeName, out var coinsandmat))
+        //{
+        //    foreach (Transform child in coinsandmat.transform)
+        //{
+        //     Destroy(child.gameObject);
+        //}
+        //}
 
         foreach (GameObject enemy in spawnedEnemies)
         {

@@ -42,7 +42,7 @@ public class Minimap : MonoBehaviour
     {
         //distance world ignoring Y axis
         Vector3 distanceWorldVector = worldPoint_1.position - worldPoint_2.position;
-        distanceWorldVector.y = 0f;
+        distanceWorldVector.z = 0f;
         float distanceWorld = distanceWorldVector.magnitude;
 
 

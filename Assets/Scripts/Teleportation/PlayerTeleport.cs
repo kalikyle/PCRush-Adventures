@@ -114,7 +114,7 @@ public class PlayerTeleport : MonoBehaviour
         CaseWorld = false;
 
         GameManager.instance.InHomeWorld = false;
-        Vector3 destination = new Vector3(386.05f, -61.49f, 0);
+        Vector3 destination = new Vector3(391.47f, -53.27f, 0);
         transform.position = destination;
         WorldName.text = "RAM World";
         LTA.OpenTeleAnim();
@@ -158,7 +158,7 @@ public class PlayerTeleport : MonoBehaviour
         CaseWorld = false;
 
         GameManager.instance.InHomeWorld = false;
-        Vector3 destination = new Vector3(817f, 7.92f, 0);
+        Vector3 destination = new Vector3(818.99f, 7.89f, 0);
         transform.position = destination;
         WorldName.text = "GPU World";
         LTA.OpenTeleAnim();
@@ -211,6 +211,52 @@ public class PlayerTeleport : MonoBehaviour
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
+
+    public void ToMBWorld()
+    {
+        HomeWorld = false;
+        CPUWorld = false;
+        RAMWorld = false;
+        CPUFWorld = false;
+        GPUWorld = false;
+        StorageWorld = false;
+        PSUWorld = false;
+        MBWorld = true;
+        CaseWorld = false;
+
+        GameManager.instance.InHomeWorld = false;
+        Vector3 destination = new Vector3(591.51f, -214.54f, 0);
+        transform.position = destination;
+        WorldName.text = "Motherboard World";
+        LTA.OpenTeleAnim();
+        GameManager.instance.LoadOtherWorldInventory();
+        InvBTN.gameObject.SetActive(true);
+        EquippedStats.gameObject.SetActive(true);
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+    }
+    public void ToCaseWorld()
+    {
+        HomeWorld = false;
+        CPUWorld = false;
+        RAMWorld = false;
+        CPUFWorld = false;
+        GPUWorld = false;
+        StorageWorld = false;
+        PSUWorld = false;
+        MBWorld = false;
+        CaseWorld = true;
+
+        GameManager.instance.InHomeWorld = false;
+        Vector3 destination = new Vector3(901.29f, -241.55f, 0);
+        transform.position = destination;
+        WorldName.text = "Case World";
+        LTA.OpenTeleAnim();
+        GameManager.instance.LoadOtherWorldInventory();
+        InvBTN.gameObject.SetActive(true);
+        EquippedStats.gameObject.SetActive(true);
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+    }
+
     //default player xny: 17.48, -26.46
     public void BackToTheHomeWorld()
     {
@@ -441,6 +487,38 @@ public class PlayerTeleport : MonoBehaviour
             }
 
         }
+        if (collision.CompareTag("MBExchanger"))
+        {
+            homeTeleport = collision.gameObject;
+            Enter.gameObject.SetActive(true);
+
+            if (collision.gameObject.name == "EnterDoor")
+            {
+                Name.text = "Enter Exchanger House";
+            }
+
+            else if (collision.gameObject.name == "ExitDoor")
+            {
+                Name.text = "Exit House";
+            }
+
+        }
+        if (collision.CompareTag("CaseExchanger"))
+        {
+            homeTeleport = collision.gameObject;
+            Enter.gameObject.SetActive(true);
+
+            if (collision.gameObject.name == "EnterDoor")
+            {
+                Name.text = "Enter Exchanger House";
+            }
+
+            else if (collision.gameObject.name == "ExitDoor")
+            {
+                Name.text = "Exit House";
+            }
+
+        }
 
         ///////////////////////////////////
         if (collision.CompareTag("Desk"))
@@ -550,6 +628,24 @@ public class PlayerTeleport : MonoBehaviour
 
         }
         if (collision.CompareTag("PSUExchanger"))
+        {
+            if (collision.gameObject == homeTeleport)
+            {
+
+                homeTeleport = null;
+            }
+
+        }
+        if (collision.CompareTag("MBExchanger"))
+        {
+            if (collision.gameObject == homeTeleport)
+            {
+
+                homeTeleport = null;
+            }
+
+        }
+        if (collision.CompareTag("CaseExchanger"))
         {
             if (collision.gameObject == homeTeleport)
             {
