@@ -13,6 +13,21 @@ MonoBehaviour:
   m_Name: MBEnemy
   m_EditorClassIdentifier: 
   m_Labels:
+  - m_Name: Attack
+    m_Hash: 7088141
+    m_CategoryList:
+    - m_Name: 0
+      m_Hash: 886824737
+      m_Sprite: {fileID: 4176362632249098406, guid: 090540927d6ee314fb56eb83078a7f51, type: 3}
+    - m_Name: 1
+      m_Hash: 64810935
+      m_Sprite: {fileID: -3696019449777573715, guid: 090540927d6ee314fb56eb83078a7f51, type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 6099374761294450104, guid: 090540927d6ee314fb56eb83078a7f51, type: 3}
+    - m_Name: 3
+      m_Hash: 768773787
+      m_Sprite: {fileID: -1817706105750108133, guid: 090540927d6ee314fb56eb83078a7f51, type: 3}
   - m_Name: Block
     m_Hash: 47888422
     m_CategoryList:
@@ -160,20 +175,5 @@ MonoBehaviour:
     - m_Name: 3
       m_Hash: 768773787
       m_Sprite: {fileID: -3825235277515807119, guid: 090540927d6ee314fb56eb83078a7f51, type: 3}
-  - m_Name: Slash
-    m_Hash: 101673205
-    m_CategoryList:
-    - m_Name: 0
-      m_Hash: 886824737
-      m_Sprite: {fileID: 4176362632249098406, guid: 090540927d6ee314fb56eb83078a7f51, type: 3}
-    - m_Name: 1
-      m_Hash: 64810935
-      m_Sprite: {fileID: -3696019449777573715, guid: 090540927d6ee314fb56eb83078a7f51, type: 3}
-    - m_Name: 2
-      m_Hash: 450215437
-      m_Sprite: {fileID: 6099374761294450104, guid: 090540927d6ee314fb56eb83078a7f51, type: 3}
-    - m_Name: 3
-      m_Hash: 768773787
-      m_Sprite: {fileID: -1817706105750108133, guid: 090540927d6ee314fb56eb83078a7f51, type: 3}
   m_ModificationHash: 0
   m_Version: 1

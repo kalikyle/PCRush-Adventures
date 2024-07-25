@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
+  m_Name: MB 2
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackableSize>k__BackingField: 99
+  <Name>k__BackingField: MSI A20
+  <rarity>k__BackingField: Common
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 7d1458b1cf03e784da18cc01f22f5db7, type: 3}
+  <Category>k__BackingField: Motherboard
+  <AttackDamage>k__BackingField: 10
+  <Health>k__BackingField: 20
+  <Mana>k__BackingField: 10
+  <HealthRegen>k__BackingField: 0
+  <WalkSpeed>k__BackingField: 0
+  <Armor>k__BackingField: 0
+  <AttackSpeed>k__BackingField: 0
+  <CriticalHit>k__BackingField: 0

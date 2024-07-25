@@ -15574,8 +15574,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67c130d294b90048acdfbe0c533d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 100
-  maxHealth: 100
+  currentHealth: 120
+  maxHealth: 120
   OnHitWithReference:
     m_PersistentCalls:
       m_Calls: []
@@ -15601,6 +15601,12 @@ MonoBehaviour:
   AttackRange: 0.92
   Attack: 5
   ExpMultiplier: 4
+  NeednumberOfCoinsToDrop: 5
+  NeedCoinValueToDrop: 60
+  NeednumberOfHeartsToDrop: 2
+  NeedHeartValueToDrop: 30
+  NeednumberOfMaterialToDrop: 2
+  NeedMaterialValueToDrop: 1
   Player: {fileID: 0}
   EnemyBody: {fileID: 3020889638043703352}
   DetectionRange: 10

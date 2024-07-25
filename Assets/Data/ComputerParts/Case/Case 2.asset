@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
-  <Name>k__BackingField: Redi Case
+  <Name>k__BackingField: Redie Case
   <rarity>k__BackingField: Common
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: f558a75ff629dff4791320f572098f4e, type: 3}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: c011c930e4d60544f84f0da911cbd415, type: 3}
   <Category>k__BackingField: Case
   <AttackDamage>k__BackingField: 0
   <Health>k__BackingField: 50
