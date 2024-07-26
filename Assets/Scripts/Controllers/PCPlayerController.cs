@@ -36,9 +36,6 @@ namespace PC
         private PCInventSO PCData;
 
         [SerializeField]
-        private PCItem PCitem;
-
-        [SerializeField]
         public UnityEngine.UI.Button BuildButton;
 
         [SerializeField]
@@ -339,6 +336,7 @@ namespace PC
                         
                         // Deserialize the JSON data into the PCSO object
                         JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
                         loadedPCSO.PCImage = loadedPCSO.Case.ItemImage;
                         // Add the loaded PCSO to the PCData.ComputerItems list
                         PCData.AddPCSOList(loadedPCSO);
