@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Minimap : MonoBehaviour
 {
@@ -17,24 +18,27 @@ public class Minimap : MonoBehaviour
 
     private float minimapRatio;
 
+   
+
 
     /**/
 
 
     public void Start()
     {
-        
+       
     }
     private void Awake()
     {
         CalculateMapRatio();
+
     }
-
-
     private void Update()
     {
         playerMinimap.anchoredPosition = minimapPoint_1.anchoredPosition + new Vector2((playerWorld.position.x - worldPoint_1.position.x) * minimapRatio,
                                          (playerWorld.position.y - worldPoint_1.position.y) * minimapRatio);
+
+       
     }
 
 
@@ -54,5 +58,8 @@ public class Minimap : MonoBehaviour
 
         minimapRatio = distanceMinimap / distanceWorld;
     }
+
+    
+
 }
 

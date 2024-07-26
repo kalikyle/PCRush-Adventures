@@ -107,8 +107,7 @@ public class UserSetup : MonoBehaviour
     }
     void SignInWithGoogle()
     {
-        // Authenticate using Google Play
-        // (Implement your Google Play sign-in code here)
+        
     }
 
     void SignInWithFacebook()
