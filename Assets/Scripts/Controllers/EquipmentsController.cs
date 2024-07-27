@@ -14,6 +14,8 @@ using Helmets.UI;
 using Helmets.Model;
 using Shield.UI;
 using Shield.Model;
+using static OtherWorld.Model.OWInvSO;
+using System;
 
 public class EquipmentsController : MonoBehaviour
 {
@@ -22,30 +24,35 @@ public class EquipmentsController : MonoBehaviour
 
     [SerializeField]
     private SwordItemsSO swordsData;
+    public Dictionary<int, int> SwordtempToOriginalIndexMapping = new Dictionary<int, int>();
 
     [SerializeField]
     private ArmorsPage armorsPage;
-
+  
     [SerializeField]
     private ArmorItemsSO armorsData;
+    public Dictionary<int, int> ArmortempToOriginalIndexMapping = new Dictionary<int, int>();
 
     [SerializeField]
     private HelmetPage helmetPage;
 
     [SerializeField]
     private HelmetItemSO helmetData;
+    public Dictionary<int, int> HelmettempToOriginalIndexMapping = new Dictionary<int, int>();
 
     [SerializeField]
     private ShieldPage shieldPage;
 
     [SerializeField]
     private ShieldItemSO shieldData;
+    public Dictionary<int, int> ShieldtempToOriginalIndexMapping = new Dictionary<int, int>();
+
 
 
 
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -77,6 +84,82 @@ public class EquipmentsController : MonoBehaviour
     {
         shieldPage.InitializedShop(ShieldsGetUsedSlotsCount());
     }
+
+
+    //public void SwordsToggleALLButton()
+    //{
+
+    //    swordsPage.ResetSelection();
+    //    swordsPage.ClearItems();
+    //    swordsPage.InitializedShop(SwordsGetUsedSlotsCount() /* GameManager.Instance.shopSize*/);
+
+
+
+    //    SwordsShowAllCategory();
+
+    //}
+    //public void SwordsOpenShop()
+    //{
+
+
+    //    // Call the methods after the delay
+
+    //    SwordsPrepareUI();
+    //    SwordsToggleALLButton();
+    //    swordsPage.Show();
+    //    swordsPage.ResetSelection();
+    //}
+    //public void SwordsShowAllCategory()
+    //{
+
+    //    var spriteArray = GameManager.instance.SpriteCollections.Layers;
+
+
+    //    var nonEmptyItems = swordsData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
+
+    //    int displayedItemsCount = 0;
+    //    foreach (var item in nonEmptyItems)
+    //    {
+
+
+    //        if (displayedItemsCount >= SwordsGetUsedSlotsCount())
+    //            break;
+
+    //        int spriteIndex = item.Value.item.SpriteIndex;
+
+
+    //                if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+    //                {
+
+
+
+    //                    Texture2D texture = spriteArray[8].Textures[spriteIndex];
+    //                    Texture2D text2 = spriteArray[8].GetIcon(texture);
+    //                    // Create a sprite from the texture
+    //                    Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+
+
+    //                        string perks = "";
+    //                        // Check each perk property and accumulate non-zero values
+    //                        if (item.Value.item.AttackDamage != 0)
+    //                        {
+    //                            perks += "Attack Damage +" + item.Value.item.AttackDamage + "\n";
+    //                        }
+    //                        if (item.Value.item.AttackSpeed != 0)
+    //                        {
+    //                            perks += "Attack Speed +" + item.Value.item.AttackSpeed + "\n";
+    //                        }
+
+
+
+    //            swordsPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
+
+
+    //                    displayedItemsCount++;
+    //                }
+
+    //    }
+    //}
     public int SwordsGetUsedSlotsCount()//this will only used the slots with items
     {
         int usedSlots = 0;
@@ -89,119 +172,97 @@ public class EquipmentsController : MonoBehaviour
         }
         return usedSlots;
     }
-
-    public void SwordsToggleALLButton()
+  
+    public void SwordsToggleFiltered(int from, int to)
     {
-        //shopBuy.ToggleTF = false;
-        //shopBuy.ToggleBSE = false;
-        // Toggle the state
+
         swordsPage.ResetSelection();
         swordsPage.ClearItems();
         swordsPage.InitializedShop(SwordsGetUsedSlotsCount() /* GameManager.Instance.shopSize*/);
-
-        
-
-        SwordsShowAllCategory();
-
+        ShowItemsByIndexRange(from, to);
     }
 
-    public void SwordsOpenShop()
+    public void SwordsFilteredOpenShop(int from, int to)
     {
 
 
         // Call the methods after the delay
-
         SwordsPrepareUI();
-        SwordsToggleALLButton();
+        SwordsToggleFiltered(from, to);
         swordsPage.Show();
         swordsPage.ResetSelection();
     }
 
-    public void SwordsShowAllCategory()
+    private void ShowItemsByIndexRange(int from, int to)
     {
-        //shopBuy.ToggleTF = false;
-        //shopBuy.ToggleBSE = false;
-        //itemsShownInAllCategory.Clear();
-        var spriteArray = GameManager.instance.SpriteCollections.Layers;
 
-
-        var nonEmptyItems = swordsData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
-
-        int displayedItemsCount = 0;
-        foreach (var item in nonEmptyItems)
+        swordsPage.ResetSelection();
+        swordsPage.SwordBuy.filteredItems.Clear();
+        SwordtempToOriginalIndexMapping.Clear();
+        swordsPage.ClearItems(); // Clear the existing items in the UI
+        
+        // Validate the range
+        if (from < 0 || to >= swordsData.Sword.Count || from > to)
         {
-            ////ShopUpdate(item.Value.item.InUse, item.Value.item.Sold);
-            //if (displayedItemsCount >= /*GameManager.instance.ShopSize*/GetUsedSlotsCount())
-            //    break;
+            Debug.LogError("Invalid index range.");
+            return;
+        }
 
-            ////swordsPage.UpdateData(item.Key, item.Value.item.SpriteIndex, item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.Category, item.Value.item.InUse, item.Value.item.Sold);
-            ////itemsShownInAllCategory.Add(item.Value); // Add to items shown in "All" category
+        int originalIndex = 0;
+        int tempIndex = 0;
 
-            //displayedItemsCount++;
+        // Loop through the specified range of items
+        for (int i = from; i <= to; i++)
+        {
+            var item = swordsData.Sword[i];
+
+            if (!item.isEmpty)
+            {
+                // Add items to the filtered list and store the mapping
+                swordsPage.SwordBuy.filteredItems.Add(item); // Then add to filteredItems
+
+                SwordtempToOriginalIndexMapping[tempIndex] = originalIndex;
+
+                var spriteArray = GameManager.instance.SpriteCollections.Layers;
+
+                int spriteIndex = item.item.SpriteIndex;
 
 
-            if (displayedItemsCount >= SwordsGetUsedSlotsCount())
-                break;
-
-            int spriteIndex = item.Value.item.SpriteIndex;
-            
+                if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+                {
 
 
-            //foreach (var layers in spriteArray)
-            //{
-            //    if (spriteArray[5].Name == "Weapon")
-            //    {
+
+                    Texture2D texture = spriteArray[8].Textures[spriteIndex];
+                    Texture2D text2 = spriteArray[8].GetIcon(texture);
+                    // Create a sprite from the texture
+                    Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
 
 
-                    if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+                    string perks = "";
+                    // Check each perk property and accumulate non-zero values
+                    if (item.item.AttackDamage != 0)
                     {
-
-
-                        //int specificX = 0; // The x-coordinate of the top-left corner of the area
-                        //int specificY = 0;
-                        //float specificWidth = 64; // The width of the area
-                        //float specificHeight = 64;
-                        //Rect zoomedRect = new Rect(specificX, specificY, specificWidth, specificHeight);
-                        //Texture2D texture = spriteArray[spriteIndex].Textures[spriteIndex];
-
-                        //// Create a sprite from the texture
-                        //Sprite sprite = Sprite.Create(texture, zoomedRect, new Vector2(0.5f, 0.5f));
-
-
-                        Texture2D texture = spriteArray[8].Textures[spriteIndex];
-                        Texture2D text2 = spriteArray[8].GetIcon(texture);
-                        // Create a sprite from the texture
-                        Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
-
-
-                string perks = "";
-                // Check each perk property and accumulate non-zero values
-                if (item.Value.item.AttackDamage != 0)
-                {
-                    perks += "Attack Damage +" + item.Value.item.AttackDamage + "\n";
-                }
-                if (item.Value.item.AttackSpeed != 0)
-                {
-                    perks += "Attack Speed +" + item.Value.item.AttackSpeed + "\n";
-                }
-                
-
-
-                swordsPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
-                        // Now you can use the sprite as needed
-                        // For example, you can assign it to an image component
-                        // imageComponent.sprite = sprite;
-
-                        displayedItemsCount++;
+                        perks += "Attack Damage +" + item.item.AttackDamage + "\n";
                     }
-            //    }
-            //}
+                    if (item.item.AttackSpeed != 0)
+                    {
+                        perks += "Attack Speed +" + item.item.AttackSpeed + "\n";
+                    }
+
+                    // Create a new filtered item
+                    swordsPage.AddShopItem(sprite,item.item.Name, item.item.Price.ToString(), perks);
+                    originalIndex++;
+                    tempIndex++;
+                }
+
+               
+            }
         }
     }
 
-
-
-
+   
+    //for Armor
     public int ArmorsGetUsedSlotsCount()//this will only used the slots with items
     {
         int usedSlots = 0;
@@ -215,117 +276,174 @@ public class EquipmentsController : MonoBehaviour
         return usedSlots;
     }
 
-    public void ArmorsToggleALLButton()
+    public void ArmorsToggleFiltered(int from, int to)
     {
-        //shopBuy.ToggleTF = false;
-        //shopBuy.ToggleBSE = false;
-        // Toggle the state
+
         armorsPage.ResetSelection();
         armorsPage.ClearItems();
-       armorsPage.InitializedShop(ArmorsGetUsedSlotsCount() /* GameManager.Instance.shopSize*/);
-
-
-
-        ArmorsShowAllCategory();
-
+        armorsPage.InitializedShop(ArmorsGetUsedSlotsCount() /* GameManager.Instance.shopSize*/);
+        ArmorShowItemsByIndexRange(from, to);
     }
 
-    public void ArmorsOpenShop()
+    public void ArmorsFilteredOpenShop(int from, int to)
     {
 
 
         // Call the methods after the delay
-
         ArmorsPrepareUI();
-        ArmorsToggleALLButton();
+        ArmorsToggleFiltered(from, to);
         armorsPage.Show();
         armorsPage.ResetSelection();
     }
 
-    public void ArmorsShowAllCategory()
+    private void ArmorShowItemsByIndexRange(int from, int to)
     {
-        //shopBuy.ToggleTF = false;
-        //shopBuy.ToggleBSE = false;
-        //itemsShownInAllCategory.Clear();
-        var spriteArray = GameManager.instance.SpriteCollections.Layers;
 
+        armorsPage.ResetSelection();
+        armorsPage.ArmorBuy.filteredItems.Clear();
+        ArmortempToOriginalIndexMapping.Clear();
+        armorsPage.ClearItems(); // Clear the existing items in the UI
 
-        var nonEmptyItems = armorsData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
-
-        int displayedItemsCount = 0;
-        foreach (var item in nonEmptyItems)
+        // Validate the range
+        if (from < 0 || to >= armorsData.Armor.Count || from > to)
         {
-            ////ShopUpdate(item.Value.item.InUse, item.Value.item.Sold);
-            //if (displayedItemsCount >= /*GameManager.instance.ShopSize*/GetUsedSlotsCount())
-            //    break;
+            Debug.LogError("Invalid index range.");
+            return;
+        }
 
-            ////swordsPage.UpdateData(item.Key, item.Value.item.SpriteIndex, item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.Category, item.Value.item.InUse, item.Value.item.Sold);
-            ////itemsShownInAllCategory.Add(item.Value); // Add to items shown in "All" category
+        int originalIndex = 0;
+        int tempIndex = 0;
 
-            //displayedItemsCount++;
+        // Loop through the specified range of items
+        for (int i = from; i <= to; i++)
+        {
+            var item = armorsData.Armor[i];
 
-
-            if (displayedItemsCount >= ArmorsGetUsedSlotsCount())
-                break;
-
-            int spriteIndex = item.Value.item.SpriteIndex;
-
-
-
-            //foreach (var layers in spriteArray)
-            //{
-            //    if (spriteArray[5].Name == "Weapon")
-            //    {
-
-
-            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+            if (!item.isEmpty)
             {
+                // Add items to the filtered list and store the mapping
+                armorsPage.ArmorBuy.filteredItems.Add(item); // Then add to filteredItems
+
+                ArmortempToOriginalIndexMapping[tempIndex] = originalIndex;
+
+                var spriteArray = GameManager.instance.SpriteCollections.Layers;
+
+                int spriteIndex = item.item.SpriteIndex;
 
 
-                //int specificX = 0; // The x-coordinate of the top-left corner of the area
-                //int specificY = 0;
-                //float specificWidth = 64; // The width of the area
-                //float specificHeight = 64;
-                //Rect zoomedRect = new Rect(specificX, specificY, specificWidth, specificHeight);
-                //Texture2D texture = spriteArray[spriteIndex].Textures[spriteIndex];
-
-                //// Create a sprite from the texture
-                //Sprite sprite = Sprite.Create(texture, zoomedRect, new Vector2(0.5f, 0.5f));
-
-
-                Texture2D texture = spriteArray[3].Textures[spriteIndex];
-                Texture2D text2 = spriteArray[3].GetIcon(texture);
-                // Create a sprite from the texture
-                Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
-
-                string perks = "";
-                // Check each perk property and accumulate non-zero values
-                if (item.Value.item.Armor != 0)
+                if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
                 {
-                    perks += "Armor +" + item.Value.item.Armor + "\n";
+
+                    Texture2D texture = spriteArray[3].Textures[spriteIndex];
+                    Texture2D text2 = spriteArray[3].GetIcon(texture);
+                    // Create a sprite from the texture
+                    Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+
+
+                    string perks = "";
+                    // Check each perk property and accumulate non-zero values
+                    if (item.item.Mana != 0)
+                    {
+                        perks += "Mana +" + item.item.Mana + "\n";
+                    }
+                    if (item.item.Armor != 0)
+                    {
+                        perks += "Armor +" + item.item.Armor + "\n";
+                    }
+
+                    // Create a new filtered item
+                    armorsPage.AddShopItem(sprite, item.item.Name, item.item.Price.ToString(), perks);
+                    originalIndex++;
+                    tempIndex++;
                 }
-                if (item.Value.item.Mana != 0)
-                {
-                    perks += "Mana +" + item.Value.item.Mana + "\n";
-                }
 
 
-
-                armorsPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
-                // Now you can use the sprite as needed
-                // For example, you can assign it to an image component
-                // imageComponent.sprite = sprite;
-
-                displayedItemsCount++;
             }
-            //    }
-            //}
         }
     }
 
 
 
     //for Helmet
+    //public void HelmetsToggleALLButton()
+    //{
+    //    helmetPage.ResetSelection();
+    //    helmetPage.ClearItems();
+    //    helmetPage.InitializedShop(HelmetsGetUsedSlotsCount());
+    //    HelmetsShowAllCategory();
+
+    //}
+
+    //public void HelmetsOpenShop()
+    //{
+
+
+    //    // Call the methods after the delay
+
+    //    HelmetPrepareUI();
+    //    HelmetsToggleALLButton();
+    //    helmetPage.Show();
+    //    helmetPage.ResetSelection();
+    //}
+
+    //public void HelmetsShowAllCategory()
+    //{
+
+    //    var spriteArray = GameManager.instance.SpriteCollections.Layers;
+
+
+    //    var nonEmptyItems = helmetData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
+
+    //    int displayedItemsCount = 0;
+    //    foreach (var item in nonEmptyItems)
+    //    {
+
+
+
+    //        if (displayedItemsCount >= HelmetsGetUsedSlotsCount())
+    //            break;
+
+    //        int spriteIndex = item.Value.item.SpriteIndex;
+
+
+
+
+
+
+    //        if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+    //        {
+
+    //            Texture2D texture = spriteArray[7].Textures[spriteIndex];
+    //            Texture2D text2 = spriteArray[7].GetIcon(texture);
+    //            // Create a sprite from the texture
+    //            Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+
+    //            string perks = "";
+    //            // Check each perk property and accumulate non-zero values
+    //            if (item.Value.item.Health != 0)
+    //            {
+    //                perks += "Health +" + item.Value.item.Health + "\n";
+    //            }
+    //            if (item.Value.item.HealthRegen != 0)
+    //            {
+    //                perks += "Health Regen +" + item.Value.item.HealthRegen + "\n";
+    //            }
+
+    //            helmetPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
+
+    //            displayedItemsCount++;
+    //        }
+
+    //    }
+    //}
+
+
+
+
+
+
+
+    //for Shield
     public int HelmetsGetUsedSlotsCount()//this will only used the slots with items
     {
         int usedSlots = 0;
@@ -339,79 +457,161 @@ public class EquipmentsController : MonoBehaviour
         return usedSlots;
     }
 
-    public void HelmetsToggleALLButton()
+    public void HelmetsToggleFiltered(int from, int to)
     {
+
         helmetPage.ResetSelection();
         helmetPage.ClearItems();
-        helmetPage.InitializedShop(HelmetsGetUsedSlotsCount());
-        HelmetsShowAllCategory();
-
+        helmetPage.InitializedShop(HelmetsGetUsedSlotsCount() /* GameManager.Instance.shopSize*/);
+        HelmetShowItemsByIndexRange(from, to);
     }
 
-    public void HelmetsOpenShop()
+    public void HelmetsFilteredOpenShop(int from, int to)
     {
 
 
         // Call the methods after the delay
-
         HelmetPrepareUI();
-        HelmetsToggleALLButton();
+        HelmetsToggleFiltered(from, to);
         helmetPage.Show();
         helmetPage.ResetSelection();
     }
 
-    public void HelmetsShowAllCategory()
+    private void HelmetShowItemsByIndexRange(int from, int to)
     {
-        
-        var spriteArray = GameManager.instance.SpriteCollections.Layers;
 
+        helmetPage.ResetSelection();
+        helmetPage.HelmetBuy.filteredItems.Clear();
+        HelmettempToOriginalIndexMapping.Clear();
+        helmetPage.ClearItems(); // Clear the existing items in the UI
 
-        var nonEmptyItems = helmetData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
-
-        int displayedItemsCount = 0;
-        foreach (var item in nonEmptyItems)
+        // Validate the range
+        if (from < 0 || to >= helmetData.Helmet.Count || from > to)
         {
-           
+            Debug.LogError("Invalid index range.");
+            return;
+        }
 
+        int originalIndex = 0;
+        int tempIndex = 0;
 
-            if (displayedItemsCount >= HelmetsGetUsedSlotsCount())
-                break;
+        // Loop through the specified range of items
+        for (int i = from; i <= to; i++)
+        {
+            var item = helmetData.Helmet[i];
 
-            int spriteIndex = item.Value.item.SpriteIndex;
-
-
-
-           
-
-
-            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+            if (!item.isEmpty)
             {
+                // Add items to the filtered list and store the mapping
+                helmetPage.HelmetBuy.filteredItems.Add(item); // Then add to filteredItems
 
-                Texture2D texture = spriteArray[7].Textures[spriteIndex];
-                Texture2D text2 = spriteArray[7].GetIcon(texture);
-                // Create a sprite from the texture
-                Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+                HelmettempToOriginalIndexMapping[tempIndex] = originalIndex;
 
-                string perks = "";
-                // Check each perk property and accumulate non-zero values
-                if (item.Value.item.Health != 0)
+                var spriteArray = GameManager.instance.SpriteCollections.Layers;
+
+                int spriteIndex = item.item.SpriteIndex;
+
+
+                if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
                 {
-                    perks += "Health +" + item.Value.item.Health + "\n";
-                }
-                if (item.Value.item.HealthRegen != 0)
-                {
-                    perks += "Health Regen +" + item.Value.item.HealthRegen + "\n";
+
+                    Texture2D texture = spriteArray[7].Textures[spriteIndex];
+                    Texture2D text2 = spriteArray[7].GetIcon(texture);
+                    // Create a sprite from the texture
+                    Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+
+
+                    string perks = "";
+                    // Check each perk property and accumulate non-zero values
+                    if (item.item.Health != 0)
+                    {
+                        perks += "Health +" + item.item.Health + "\n";
+                    }
+                    if (item.item.HealthRegen != 0)
+                    {
+                        perks += "Helmet +" + item.item.HealthRegen + "\n";
+                    }
+
+                    // Create a new filtered item
+                    helmetPage.AddShopItem(sprite, item.item.Name, item.item.Price.ToString(), perks);
+                    originalIndex++;
+                    tempIndex++;
                 }
 
-                helmetPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
-                
-                displayedItemsCount++;
+
             }
-            
         }
     }
 
     //for Shield
+    //public void ShieldsToggleALLButton()
+    //{
+    //    shieldPage.ResetSelection();
+    //    shieldPage.ClearItems();
+    //    shieldPage.InitializedShop(ShieldsGetUsedSlotsCount());
+    //    ShieldsShowAllCategory();
+
+    //}
+
+    //public void ShieldsOpenShop()
+    //{
+
+
+    //    // Call the methods after the delay
+
+    //    ShieldPrepareUI();
+    //    ShieldsToggleALLButton();
+    //    shieldPage.Show();
+    //    shieldPage.ResetSelection();
+    //}
+
+    //public void ShieldsShowAllCategory()
+    //{
+
+    //    var spriteArray = GameManager.instance.SpriteCollections.Layers;
+
+
+    //    var nonEmptyItems = shieldData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
+
+    //    int displayedItemsCount = 0;
+    //    foreach (var item in nonEmptyItems)
+    //    {
+
+
+
+    //        if (displayedItemsCount >= ShieldsGetUsedSlotsCount())
+    //            break;
+
+    //        int spriteIndex = item.Value.item.SpriteIndex;
+
+
+    //        if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+    //        {
+
+    //            Texture2D texture = spriteArray[1].Textures[spriteIndex];
+    //            Texture2D text2 = spriteArray[1].GetIcon(texture);
+    //            // Create a sprite from the texture
+    //            Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+
+    //            string perks = "";
+    //            // Check each perk property and accumulate non-zero values
+    //            if (item.Value.item.CriticalHit != 0)
+
+    //            {
+    //                perks += "Critical Hit +" + item.Value.item.CriticalHit + "\n";
+    //            }
+    //            if (item.Value.item.CriticalChance != 0)
+    //            {
+    //                perks += "Critical Chance +" + item.Value.item.CriticalChance + "\n";
+    //            }
+
+    //            shieldPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
+
+    //            displayedItemsCount++;
+    //        }
+
+    //    }
+    //}
     public int ShieldsGetUsedSlotsCount()//this will only used the slots with items
     {
         int usedSlots = 0;
@@ -424,75 +624,92 @@ public class EquipmentsController : MonoBehaviour
         }
         return usedSlots;
     }
-
-    public void ShieldsToggleALLButton()
+    public void ShieldsToggleFiltered(int from, int to)
     {
+
         shieldPage.ResetSelection();
         shieldPage.ClearItems();
-        shieldPage.InitializedShop(ShieldsGetUsedSlotsCount());
-        ShieldsShowAllCategory();
-
+        shieldPage.InitializedShop(ShieldsGetUsedSlotsCount() /* GameManager.Instance.shopSize*/);
+        ShieldShowItemsByIndexRange(from, to);
     }
 
-    public void ShieldsOpenShop()
+    public void ShieldsFilteredOpenShop(int from, int to)
     {
 
 
         // Call the methods after the delay
-
         ShieldPrepareUI();
-        ShieldsToggleALLButton();
+        ShieldsToggleFiltered(from, to);
         shieldPage.Show();
         shieldPage.ResetSelection();
     }
 
-    public void ShieldsShowAllCategory()
+    private void ShieldShowItemsByIndexRange(int from, int to)
     {
 
-        var spriteArray = GameManager.instance.SpriteCollections.Layers;
+        shieldPage.ResetSelection();
+        shieldPage.ShieldBuy.filteredItems.Clear();
+        ShieldtempToOriginalIndexMapping.Clear();
+        shieldPage.ClearItems(); // Clear the existing items in the UI
 
-
-        var nonEmptyItems = shieldData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
-
-        int displayedItemsCount = 0;
-        foreach (var item in nonEmptyItems)
+        // Validate the range
+        if (from < 0 || to >= shieldData.Shield.Count || from > to)
         {
+            Debug.LogError("Invalid index range.");
+            return;
+        }
 
+        int originalIndex = 0;
+        int tempIndex = 0;
 
+        // Loop through the specified range of items
+        for (int i = from; i <= to; i++)
+        {
+            var item = shieldData.Shield[i];
 
-            if (displayedItemsCount >= ShieldsGetUsedSlotsCount())
-                break;
-
-            int spriteIndex = item.Value.item.SpriteIndex;
-
-
-            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+            if (!item.isEmpty)
             {
+                // Add items to the filtered list and store the mapping
+                shieldPage.ShieldBuy.filteredItems.Add(item); // Then add to filteredItems
 
-                Texture2D texture = spriteArray[1].Textures[spriteIndex];
-                Texture2D text2 = spriteArray[1].GetIcon(texture);
-                // Create a sprite from the texture
-                Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+                ShieldtempToOriginalIndexMapping[tempIndex] = originalIndex;
 
-                string perks = "";
-                // Check each perk property and accumulate non-zero values
-                if (item.Value.item.CriticalHit != 0)
+                var spriteArray = GameManager.instance.SpriteCollections.Layers;
 
+                int spriteIndex = item.item.SpriteIndex;
+
+
+                if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
                 {
-                    perks += "Critical Hit +" + item.Value.item.CriticalHit + "\n";
-                }
-                if (item.Value.item.CriticalChance != 0)
-                {
-                    perks += "Critical Chance +" + item.Value.item.CriticalChance + "\n";
+
+                    Texture2D texture = spriteArray[1].Textures[spriteIndex];
+                    Texture2D text2 = spriteArray[1].GetIcon(texture);
+                    // Create a sprite from the texture
+                    Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
+
+
+                    string perks = "";
+                    // Check each perk property and accumulate non-zero values
+                    if (item.item.CriticalHit != 0)
+                    {
+                        perks += "Critical Hit +" + item.item.CriticalHit + "\n";
+                    }
+                    if (item.item.CriticalChance != 0)
+                    {
+                        perks += "Critical Chance +" + item.item.CriticalChance + "\n";
+                    }
+
+                    // Create a new filtered item
+                    shieldPage.AddShopItem(sprite, item.item.Name, item.item.Price.ToString(), perks);
+                    originalIndex++;
+                    tempIndex++;
                 }
 
-                shieldPage.UpdateData(item.Key, sprite, item.Value.item.Name, item.Value.item.Price.ToString(), perks);
 
-                displayedItemsCount++;
             }
-
         }
     }
+
 
 
 }

@@ -28,6 +28,7 @@ namespace Swords.UI
         public SwordBuy swordBuy;
 
         public event Action<SwordsItem> OnItemClicked;
+        public event Action<int> OnItemClickeds;
 
         public void OnPointerEnter(PointerEventData eventData)
         {
@@ -38,6 +39,7 @@ namespace Swords.UI
             else
             {
                 OnItemClicked?.Invoke(this);
+                OnItemClickeds?.Invoke(temporaryIndex);
                 //OnItemClickeds?.Invoke(temporaryIndex);
                 swordBuy.SelectItem(this);
 

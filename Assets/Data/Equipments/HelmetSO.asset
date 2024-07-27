@@ -15,3 +15,5 @@ MonoBehaviour:
   Helmet:
   - item: {fileID: 11400000, guid: cae9ee9667a08764aa07407fe2e462e2, type: 2}
   - item: {fileID: 11400000, guid: e5f787f4c98e8754ba24dbd518258151, type: 2}
+  - item: {fileID: 11400000, guid: c72bfebd15e9d6543b9b053f209a9b3e, type: 2}
+  - item: {fileID: 11400000, guid: ccbca768c391db94ca6ca43057e74d75, type: 2}

@@ -28,6 +28,7 @@ namespace Helmets.UI
         public HelmetBuy helmetBuy;
 
         public event Action<HelmetItem> OnItemClicked;
+        public event Action<int> OnItemClickeds;
 
         public void OnPointerEnter(PointerEventData eventData)
         {
@@ -38,7 +39,7 @@ namespace Helmets.UI
             else
             {
                 OnItemClicked?.Invoke(this);
-                //OnItemClickeds?.Invoke(temporaryIndex);
+                OnItemClickeds?.Invoke(temporaryIndex);
                 helmetBuy.SelectItem(this);
 
                 //OnItemPurchaseClicked?.Invoke(this);

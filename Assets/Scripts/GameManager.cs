@@ -97,6 +97,8 @@ public class GameManager : MonoBehaviour
     public GameObject MBExhangerPanel;
     public GameObject CaseExhangerPanel;
 
+    public GameObject ArmorFixer;
+
     //public GameObject DecorClickedUI;
 
     public bool clicked = false;
@@ -273,7 +275,7 @@ public class GameManager : MonoBehaviour
         BaseArmor.text = PlayerArmor.ToString();
         BaseAttackSpeed.text = PlayerAttackSpeed.ToString();
         BaseCriticalHit.text = PlayerCriticalHit.ToString();
-        BaseCriticalChance.text = PlayerCriticalChance.ToString();
+        BaseCriticalChance.text = PlayerCriticalChance.ToString() + "%";
 
         PCAttackDamage.text = PlayerPCAttackDamage.ToString();
         PCHealth.text = PlayerPCHealth.ToString();
@@ -283,7 +285,7 @@ public class GameManager : MonoBehaviour
         PCArmor.text = PlayerPCArmor.ToString();
         PCAttackSpeed.text = PlayerPCAttackSpeed.ToString();
         PCCriticalHit.text = PlayerPCCriticalHit.ToString();
-        PCCriticalChance.text = PlayerPCCriticalChance.ToString();
+        PCCriticalChance.text = PlayerPCCriticalChance.ToString() +"%";
 
         if(EquipmentAttackDamage != 0)
         {
@@ -374,7 +376,7 @@ public class GameManager : MonoBehaviour
         if (EquipmentCriticalChance != 0)
         {
             PlayerTotalCriticalChance = PlayerCriticalChance + EquipmentCriticalChance + PlayerPCCriticalChance;
-            BaseCriticalChance.text = PlayerCriticalChance.ToString() + " (+ " + EquipmentCriticalChance + ")";
+            BaseCriticalChance.text = PlayerCriticalChance.ToString()+"%"+ " (+ " + EquipmentCriticalChance + "%)";
         }
         else
         {
@@ -390,7 +392,7 @@ public class GameManager : MonoBehaviour
         TotalArmor.text = PlayerTotalArmor.ToString();
         TotalAttackSpeed.text = PlayerTotalAttackSpeed.ToString();
         TotalCriticalHit.text = PlayerTotalCriticalHit.ToString();
-        TotalCriticalChance.text = PlayerTotalCriticalChance.ToString();
+        TotalCriticalChance.text = PlayerTotalCriticalChance.ToString() + "%";
 
     }
 
@@ -430,21 +432,25 @@ public class GameManager : MonoBehaviour
         StatsCurrentExp.text = PlayerEXP.ToString() + " / " + PlayerExpToLevelUp.ToString();
 
     }
-    public void OpenSwordShop()
+    public void OpenSwordShop(int from, int to)
     {
-        Equipments.SwordsOpenShop();
+        //Equipments.SwordsOpenShop();
+        Equipments.SwordsFilteredOpenShop(from, to);
     }
-    public void OpenArmorShop()
+    public void OpenArmorShop(int from, int to)
     {
-        Equipments.ArmorsOpenShop();
+        //Equipments.ArmorsOpenShop();
+        Equipments.ArmorsFilteredOpenShop(from, to);
     }
-    public void OpenHelmetShop()
+    public void OpenHelmetShop(int from, int to)
     {
-        Equipments.HelmetsOpenShop();
+        //Equipments.HelmetsOpenShop();
+        Equipments.HelmetsFilteredOpenShop(from, to);
     }
-    public void OpenShieldShop()
+    public void OpenShieldShop(int from, int to)
     {
-        Equipments.ShieldsOpenShop();
+        //Equipments.ShieldsOpenShop();
+        Equipments.ShieldsFilteredOpenShop(from, to);
     }
 
     public void AddPlayerExp(int EXP)

@@ -12,6 +12,7 @@ public class HelmetBuy : MonoBehaviour
     public OWInvSO data;
     public Button buyButton;
     private int value = 1;
+    public List<Helmets.Model.Helmets> filteredItems;
 
     public void Start()
     {
@@ -46,16 +47,6 @@ public class HelmetBuy : MonoBehaviour
         item.select();
         //selectedItems.Add(item);
         toBuy.Add(item);
-
-
-
-        int index = item.temporaryIndex;
-        Helmets.Model.Helmets sp = GetItemAt(index);
-        //ItemPrice = sp.item.Price;
-        //total = sp.item.Price;
-
-
-
 
 
 
@@ -154,46 +145,21 @@ public class HelmetBuy : MonoBehaviour
         List<Helmets.Model.Helmets> shopItems = so.Helmet;
         OtherWorldItem inventoryItem = new OtherWorldItem();
 
-        int tempIndexs;
-        int originalIndex;
         int tempIndex;
 
-
-        tempToOriginalIndexMapping.Clear();
-        tempIndexs = 0;
-        originalIndex = 0;
-        Debug.Log("Toggle: False");
-        //Debug.Log(shopItems.Count);
-        foreach (var item in shopItems)
-        {
-
-            tempToOriginalIndexMapping[tempIndexs] = originalIndex;
-            tempIndexs++;
-            originalIndex++;
-
-        }
-
         tempIndex = shopItem.temporaryIndex;
-        if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndexs))
+        Helmets.Model.Helmets shpItem = filteredItems[tempIndex];
+
+        if (!shpItem.isEmpty)
         {
-            // Use the original index to retrieve the ShopItem
-            Helmets.Model.Helmets shpItem = GetItemAt(originalIndexs);
 
-            if (!shpItem.isEmpty)
-            {
+            inventoryItem.item = ConvertHelmet(shpItem);
+            Helmet = shpItem;
 
-                inventoryItem.item = ConvertHelmet(shpItem);
-                Helmet = shpItem;
-
-            }
-            else
-            {
-                Debug.Log("ShopItem is empty");
-            }
         }
         else
         {
-            Debug.LogError("Mapping not found for temporary index: " + tempIndex);
+            Debug.Log("ShopItem is empty");
         }
 
 

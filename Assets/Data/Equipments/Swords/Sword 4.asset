@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c42194ad4dae91a49a9460b8b0138497, type: 3}
-  m_Name: Sword2 1
+  m_Name: Sword 4
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Butcher
-  <SpriteIndex>k__BackingField: 2
-  <Price>k__BackingField: 200
+  <Name>k__BackingField: Slamer
+  <SpriteIndex>k__BackingField: 3
+  <Price>k__BackingField: 250
   <AttackDamage>k__BackingField: 10
-  <AttackSpeed>k__BackingField: 0
+  <AttackSpeed>k__BackingField: 5

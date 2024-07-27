@@ -273,6 +273,7 @@ namespace PartsInventory
                         {
                             initialItems.Clear();
                             GameManager.instance.itemsToTransfer.Clear();
+                            
                             inventoryData.Initialize();
                             inventoryData.OnInventoryUpdated += UpdateInventoryUI;
 
@@ -311,12 +312,14 @@ namespace PartsInventory
         private void Start()
         {
             //LoadPCSO();
-            
+
             // LoadInitialItems();
             GameManager.instance.OnItemsToTransferUpdated += UpdateInventory;
             //PrepareInventoryData();
             //ToggleALLButton();
+            
             StartCoroutine(DelayedPartsLoad());
+            
             //inventoryData.Initialize();
             //PrepareUI();
             CheckAndUpdateDoneButton();

@@ -407,20 +407,11 @@ namespace OtherWorld
             //infoButton.gameObject.SetActive(true);
 
             Debug.Log("Toggle: true");
-
-            //PartsPanel.SetActive(true);
-            //ComputerPanel.SetActive(false);
-            //PartsButton.gameObject.SetActive(false);
-            //ComputerButton.gameObject.SetActive(false);
-            //usebuttonpanel.gameObject.SetActive(true);
             
             
             ShowCategory(category);
-            //infocategory = category;
-            //DisplayText.text = category;
             int i = 0;
-            //if (inventoryUI.isActiveAndEnabled == false)
-            //{
+           
                 inventoryUI.Show();
 
                 foreach (var item in InventoryfilteredItems)
@@ -428,12 +419,6 @@ namespace OtherWorld
                     inventoryUI.UpdateData(i, item.item.ItemImage, item.quantity, item.item.Name, item.item.inUse);
                     i++;
                 }
-            //}
-            //else
-            //{
-            //    //inventoryUI.Hide();
-
-            //}
         }
 
         public void OpenInvBTN()

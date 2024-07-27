@@ -1,3 +1,4 @@
+using Swords.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace Armor.UI
 
 
         public List<ArmorsItem> ListOfArmorsItems = new List<ArmorsItem>();
+
+        public ArmorBuy ArmorBuy;
         void Start()
         {
 
@@ -83,6 +86,36 @@ namespace Armor.UI
         public void Hide()
         {
             gameObject.SetActive(false);
+        }
+
+        public void AddShopItem(Sprite ItemImage, string ItemName, string price, string perks)
+        {
+
+            ArmorsItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+            uiItem.transform.SetParent(contentPanel);
+            uiItem.transform.localScale = new Vector3(1, 1, 1);
+            ListOfArmorsItems.Add(uiItem);//add shop items in the list
+            uiItem.SetData(ItemImage, ItemName, price, perks);
+
+            int itemIndex = ArmorBuy.filteredItems.Count - 1;//this is for the filtered items
+            Debug.Log(ArmorBuy.filteredItems.Count);
+            uiItem.SetTemporaryIndex(itemIndex);
+
+
+            uiItem.OnItemClickeds += (tempIndex) =>
+            {
+                Debug.Log("Item Clicked. tempIndex: " + tempIndex);
+                if (ArmorBuy != null)
+                {
+                    DeselectAllItems();
+                }
+                else
+                {
+                    Debug.Log("shopC is not assigned.");
+                }
+            };
+
+
         }
     }
 }

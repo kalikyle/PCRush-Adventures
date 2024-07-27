@@ -1,4 +1,5 @@
 INCLUDE Global.ink
+#range: 0,1
 
 // Dialogue Start
 Hi {player_Name}, I am the finest shield dealer in this town... #speaker: shield Dealer #portrait: 3

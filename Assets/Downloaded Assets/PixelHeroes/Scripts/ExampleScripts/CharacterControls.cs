@@ -144,13 +144,13 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
             return false;
         }
-        private void ShowFloatingText(int damage)
+        private void ShowFloatingText(string damage)
         {
             if (floatingTextPrefab != null && damageCanvas != null)
             {
                 GameObject floatingText = Instantiate(floatingTextPrefab, transform.position, Quaternion.identity, damageCanvas);
                 DamageText floatingTextComponent = floatingText.GetComponent<DamageText>();
-                floatingTextComponent.SetText(damage.ToString(), Color.yellow);
+                floatingTextComponent.SetText(damage, Color.yellow);
             }
         }
 
@@ -401,8 +401,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
            
             _animator.SetBool("Walking", false);
             _animator.SetBool("Running", false);
-            HandleAttack();
             isDeadAnimate = false;
+            HandleAttack();
         }
 
         public void ResetMovement()
@@ -471,16 +471,34 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 Health health;
                 if(health = collider.GetComponent<Health>())
                 {
-                    //attack
-                    health.GetHit((int)GameManager.instance.PlayerTotalAttackDamage, transform.gameObject);
 
-                    if (gameObject.layer != collider.gameObject.layer)
+                    // Calculate damage with critical chance
+                    bool isCritical = Random.Range(0, 100) < GameManager.instance.PlayerTotalCriticalChance;
+                    if (isCritical)
                     {
-                        ShowFloatingText((int)GameManager.instance.PlayerTotalAttackDamage);
-                        collider.GetComponent<Animator>().SetBool("Hit", true);
-                       
+                        health.GetHit((int)GameManager.instance.PlayerTotalCriticalHit, transform.gameObject);
+
+                        if (gameObject.layer != collider.gameObject.layer)
+                        {
+                            ShowFloatingText("Critical Hit "+ GameManager.instance.PlayerTotalCriticalHit);
+                            collider.GetComponent<Animator>().SetBool("Hit", true);
+
+                        }
+                    }
+                    else
+                    {
+                        //attack
+                        health.GetHit((int)GameManager.instance.PlayerTotalAttackDamage, transform.gameObject);
+
+                        if (gameObject.layer != collider.gameObject.layer)
+                        {
+                            ShowFloatingText(GameManager.instance.PlayerTotalAttackDamage.ToString());
+                            collider.GetComponent<Animator>().SetBool("Hit", true);
+
+                        }
                     }
 
+                   
 
                     Vector2 pushDirection = (collider.transform.position - transform.position).normalized;
 

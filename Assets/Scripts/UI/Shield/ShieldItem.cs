@@ -27,6 +27,7 @@ namespace Shield.UI
         public ShieldBuy shieldBuy;
 
         public event Action<ShieldItem> OnItemClicked;
+        public event Action<int> OnItemClickeds;
 
         public void OnPointerEnter(PointerEventData eventData)
         {
@@ -37,7 +38,7 @@ namespace Shield.UI
             else
             {
                 OnItemClicked?.Invoke(this);
-                //OnItemClickeds?.Invoke(temporaryIndex);
+                OnItemClickeds?.Invoke(temporaryIndex);
                 shieldBuy.SelectItem(this);
 
                 //OnItemPurchaseClicked?.Invoke(this);

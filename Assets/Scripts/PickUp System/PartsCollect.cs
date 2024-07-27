@@ -62,7 +62,7 @@ public class PartsCollect : MonoBehaviour
         }
     }
 
-        private PartsSO GetRandomPartsSO() // orig
+    private PartsSO GetRandomPartsSO() // orig
     {
         if ( GameManager.instance.partsList != null && GameManager.instance.partsList.Count > 0)
         {

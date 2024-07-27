@@ -12,6 +12,7 @@ public class ShieldBuy : MonoBehaviour
     public OWInvSO data;
     public Button buyButton;
     private int value = 1;
+    public List<Shield.Model.Shields> filteredItems;
 
     public void Start()
     {
@@ -154,46 +155,21 @@ public class ShieldBuy : MonoBehaviour
         List<Shield.Model.Shields> shopItems = so.Shield;
         OtherWorldItem inventoryItem = new OtherWorldItem();
 
-        int tempIndexs;
-        int originalIndex;
         int tempIndex;
 
-
-        tempToOriginalIndexMapping.Clear();
-        tempIndexs = 0;
-        originalIndex = 0;
-        Debug.Log("Toggle: False");
-        //Debug.Log(shopItems.Count);
-        foreach (var item in shopItems)
-        {
-
-            tempToOriginalIndexMapping[tempIndexs] = originalIndex;
-            tempIndexs++;
-            originalIndex++;
-
-        }
-
         tempIndex = shopItem.temporaryIndex;
-        if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndexs))
+        Shield.Model.Shields shpItem = filteredItems[tempIndex];
+
+        if (!shpItem.isEmpty)
         {
-            // Use the original index to retrieve the ShopItem
-            Shield.Model.Shields shpItem = GetItemAt(originalIndexs);
 
-            if (!shpItem.isEmpty)
-            {
+            inventoryItem.item = ConvertShield(shpItem);
+            Shield = shpItem;
 
-                inventoryItem.item = ConvertShield(shpItem);
-                Shield = shpItem;
-
-            }
-            else
-            {
-                Debug.Log("ShopItem is empty");
-            }
         }
         else
         {
-            Debug.LogError("Mapping not found for temporary index: " + tempIndex);
+            Debug.Log("ShopItem is empty");
         }
 
 

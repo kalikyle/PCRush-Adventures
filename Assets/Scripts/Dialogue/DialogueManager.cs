@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 using Shop.UI;
+using System.Threading.Tasks;
 
 
 public class DialogueManager : MonoBehaviour
@@ -42,6 +43,7 @@ public class DialogueManager : MonoBehaviour
     private const string SPEAKER_TAG = "speaker";
     private const string PORTRAIT_TAG = "portrait";
     private const string CHOICE_TAG = "choice";
+    private const string RANGE_TAG = "range";
 
     private DialogueVariables dialogueVariables;
 
@@ -139,9 +141,13 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    int from = 0;
+    int to = 2;
+
 
     private void HandleTags(List<string> currentTags)
     {
+      
         // loop through each tag and handle it accordingly
         foreach (string tag in currentTags)
         {
@@ -153,10 +159,23 @@ public class DialogueManager : MonoBehaviour
             }
             string tagKey = splitTag[0].Trim();
             string tagValue = splitTag[1].Trim();
-            
+
+            //if(tagKey == RANGE_TAG)
+            //{
+            //    
+            //}
+
             // handle the tag
             switch (tagKey)
             {
+                case RANGE_TAG:
+                    string[] values = tagValue.Split(',');
+
+                        from = int.Parse(values[0]);
+                        to = int.Parse(values[1]);
+
+                    break;
+
                 case SPEAKER_TAG:
                     displayNameText.text = tagValue;
                     
@@ -176,31 +195,31 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case CHOICE_TAG:
+
                     if (tagValue.Equals("swordyes"))
                     {
                        
-                       
                             GameManager.instance.SwordDealerPanel.SetActive(true);
-                            GameManager.instance.OpenSwordShop();
+                            GameManager.instance.OpenSwordShop(from, to);
+                        
                         
                     }else if (tagValue.Equals("Armoryes"))
                     {
                         GameManager.instance.ArmorDealerPanel.SetActive(true);
-                        GameManager.instance.OpenArmorShop();
-
-
+                        GameManager.instance.OpenArmorShop(from, to);
 
                     }
+
                     else if (tagValue.Equals("helmetyes"))
                     {
                         GameManager.instance.HelmetDealerPanel.SetActive(true);
-                        GameManager.instance.OpenHelmetShop();
+                        GameManager.instance.OpenHelmetShop(from, to);
 
                     }
                     else if (tagValue.Equals("shieldyes"))
                     {
                         GameManager.instance.ShieldDealerPanel.SetActive(true);
-                        GameManager.instance.OpenShieldShop();
+                        GameManager.instance.OpenShieldShop(from, to);
 
                     }
 
@@ -247,6 +266,11 @@ public class DialogueManager : MonoBehaviour
                         GameManager.instance.OpenCaseWorldExhanger();
                     }
 
+                    //others
+                    else if (tagValue.Equals("fixarmor"))
+                    {
+                        GameManager.instance.ArmorFixer.SetActive(true);
+                    }
 
                     break;
 

@@ -399,7 +399,12 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 rb.velocity = Vector2.zero;
             }
 
-            
+            Collider2D collider = GetComponent<Collider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+
 
             yield return new WaitForSeconds(0.9f);
             DropCoins(enemyCollider.transform.position);

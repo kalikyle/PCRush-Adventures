@@ -20,7 +20,9 @@ public class SwordBuy : MonoBehaviour
     public OWInvSO data;
     public Button buyButton;
     private int value = 1;
-    
+    public List<Swords.Model.Swords> filteredItems;
+    private Dictionary<int, int> tempToOriginalIndexMapping = new Dictionary<int, int>();
+
     public void Start()
     {
         buyButton.onClick.AddListener(HandleThePurchase);
@@ -54,18 +56,12 @@ public class SwordBuy : MonoBehaviour
         item.select();
         //selectedItems.Add(item);
         toBuy.Add(item);
-
-
-
-        int index = item.temporaryIndex;
-        Swords.Model.Swords sp = GetItemAt(index);
+            
+        //for unfiltered
+        //int index = item.temporaryIndex;
+        //Swords.Model.Swords sp = GetItemAt(index);
         //ItemPrice = sp.item.Price;
         //total = sp.item.Price;
-
-
-
-
-
 
         // Assuming Price is a field in ShopItem
         Debug.Log("Item added to Buy.");
@@ -86,26 +82,11 @@ public class SwordBuy : MonoBehaviour
             Swords.UI.SwordsItem swordItem = toBuy[0];
             if (swordItem != null)
             {
-                //you can place the condition for currency here
-
                 
-
                 SwordBuys(swordItem);
-                
-
-
-
-                //ConvertShopItemToInventoryItem(shopItem);
                 Debug.Log("The item has been purchase");
-
-                //Debug.Log("The item is " + ConvertShopItemToInventoryItem(shopItem).item.Name);
-                //Debug.Log("Quantity: " + ConvertShopItemToInventoryItem(shopItem).quantity);
                 swordItem.DeSelect();
-                //value = 1;
-                //displayText.text = value.ToString();
-                //priceText.text = "$" + ConvertShopItemToInventoryItem(shopItem).item.Price.ToString();
-
-
+               
             }
             else
             {
@@ -119,50 +100,13 @@ public class SwordBuy : MonoBehaviour
         toBuy.Clear();
 
     }
-    private Dictionary<int, int> tempToOriginalIndexMapping = new Dictionary<int, int>();
-    //public void HandlePurchase(Armors.UI.SwordsItem shopItem)//need fix
-    //{
-    //    List<Armors.Model.Armors> shopItems = so.Sword;
-    //    int tempIndexs;
-    //    int originalIndex;
-    //    int tempIndex;
-
-    //    tempToOriginalIndexMapping.Clear();
-    //    tempIndexs = 0;
-    //    originalIndex = 0;
-    //    Debug.Log("Toggle: False");
-    //    //Debug.Log(shopItems.Count);
-    //    foreach (var item in shopItems)
-    //    {
-
-    //        tempToOriginalIndexMapping[tempIndexs] = originalIndex;
-    //        tempIndexs++;
-    //        originalIndex++;
-
-    //    }
-
-    //    tempIndex = shopItem.temporaryIndex;
-    //    if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndexs))
-    //    {
-
-    //        Armors.Model.Armors shpItem = GetItemAt(originalIndexs);
-
-    //        SwordBuys(shopItem);
-
-
-
-
-
-    //    }
-
-
-
-    //}
-
+    
+   
     public void SwordBuys(Swords.UI.SwordsItem swordItem)
     {
         if (swordItem != null)
         {
+
             Debug.Log("Buyedd");
             OtherWorldItem inventoryItem = ConvertShopItemToDecorationItem(swordItem);
 
@@ -204,56 +148,64 @@ public class SwordBuy : MonoBehaviour
        
         List<Swords.Model.Swords> shopItems = so.Sword;
         OtherWorldItem inventoryItem = new OtherWorldItem();
-        
-        int tempIndexs;
-        int originalIndex;
+       
         int tempIndex;
 
-        
-            tempToOriginalIndexMapping.Clear();
-            tempIndexs = 0;
-            originalIndex = 0;
-            Debug.Log("Toggle: False");
-            //Debug.Log(shopItems.Count);
-            foreach (var item in shopItems)
-            {
+        tempIndex = shopItem.temporaryIndex;
+        Swords.Model.Swords shpItem = filteredItems[tempIndex];
 
-                tempToOriginalIndexMapping[tempIndexs] = originalIndex;
-                tempIndexs++;
-                originalIndex++;
+        if (!shpItem.isEmpty)
+        {
 
-            }
+            inventoryItem.item = ConvertSword(shpItem);
+            Sword = shpItem;
 
-            tempIndex = shopItem.temporaryIndex;
-            if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndexs))
-            {
-            // Use the original index to retrieve the ShopItem
-            Swords.Model.Swords shpItem = GetItemAt(originalIndexs);
-
-                if (!shpItem.isEmpty)
-                {
-
-                inventoryItem.item = ConvertSword(shpItem);
-                Sword = shpItem;
-
-            }
-                else
-                {
-                    Debug.Log("ShopItem is empty");
-                }
-            }
-            else
-            {
-                Debug.LogError("Mapping not found for temporary index: " + tempIndex);
-            }
-
-
-
-        inventoryItem.quantity = 1;
+        }
+        else
+        {
+            Debug.Log("ShopItem is empty");
+        }
+    
+    inventoryItem.quantity = 1;
 
         return inventoryItem;
 
     }
+
+    //the original for Unfiltered
+    //tempToOriginalIndexMapping.Clear();
+    //tempIndexs = 0;
+    //originalIndex = 0;
+    //Debug.Log("Toggle: False");
+    ////Debug.Log(shopItems.Count);
+    //foreach (var item in shopItems)
+    //{
+
+    //    tempToOriginalIndexMapping[tempIndexs] = originalIndex;
+    //    tempIndexs++;
+    //    originalIndex++;
+
+    //}
+
+    //tempIndex = shopItem.temporaryIndex;
+    //if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndexs))
+    //{
+    //// Use the original index to retrieve the ShopItem
+    //Swords.Model.Swords shpItem = GetItemAt(originalIndexs); 
+
+
+    //    if (!shpItem.isEmpty)
+    //    {
+
+    //    inventoryItem.item = ConvertSword(shpItem);
+    //    Sword = shpItem;
+
+    //}
+    //    else
+    //    {
+    //        Debug.Log("ShopItem is empty");
+    //    }
+    //}
 
     public OtherWorldItemSO ConvertSword(Swords.Model.Swords shpItem)
     {
