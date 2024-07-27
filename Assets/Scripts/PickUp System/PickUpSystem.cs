@@ -66,7 +66,7 @@ public class PickUpSystem : MonoBehaviour
         {
            
             hearts.DestroyItem();
-            Debug.LogError(hearts.HeartValue);
+            //Debug.LogError(hearts.HeartValue);
             Health health;
             CharacterControls charcon;
 

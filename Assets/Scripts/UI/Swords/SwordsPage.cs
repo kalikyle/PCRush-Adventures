@@ -1,3 +1,4 @@
+using OtherWorld.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,9 +11,8 @@ namespace Swords.UI
         private SwordsItem itemPrefab;
         [SerializeField]
         private RectTransform contentPanel;
-
-
         public List<SwordsItem> ListOfSwordsItems = new List<SwordsItem>();
+        public SwordBuy SwordBuy;
         void Start()
         {
 
@@ -63,7 +63,6 @@ namespace Swords.UI
             if (ListOfSwordsItems.Count > itemIndex)
             {
                 ListOfSwordsItems[itemIndex].SetData(SwordImage, SwordName, "$" + Price, attack);//this will add to the shop
-
             }
 
         }
@@ -83,6 +82,36 @@ namespace Swords.UI
         public void Hide()
         {
             gameObject.SetActive(false);
+        }
+
+        public void AddShopItem(Sprite ItemImage, string ItemName, string price, string perks)
+        {
+
+            SwordsItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+            uiItem.transform.SetParent(contentPanel);
+            uiItem.transform.localScale = new Vector3(1, 1, 1);
+            ListOfSwordsItems.Add(uiItem);//add shop items in the list
+            uiItem.SetData(ItemImage, ItemName, price, perks);
+
+            int itemIndex = SwordBuy.filteredItems.Count - 1;//this is for the filtered items
+            Debug.Log(SwordBuy.filteredItems.Count);
+            uiItem.SetTemporaryIndex(itemIndex);
+
+
+            uiItem.OnItemClickeds += (tempIndex) =>
+            {
+                Debug.Log("Item Clicked. tempIndex: " + tempIndex);
+                if (SwordBuy != null)
+                {
+                    DeselectAllItems();
+                }
+                else
+                {
+                    Debug.Log("shopC is not assigned.");
+                }
+            };
+            
+
         }
     }
 }

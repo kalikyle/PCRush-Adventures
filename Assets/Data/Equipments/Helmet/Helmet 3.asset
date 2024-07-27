@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c42194ad4dae91a49a9460b8b0138497, type: 3}
-  m_Name: Sword1
+  m_Script: {fileID: 11500000, guid: 594bc91721be15b458a7f337cdefe8fd, type: 3}
+  m_Name: Helmet 3
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Knife
-  <SpriteIndex>k__BackingField: 0
-  <Price>k__BackingField: 100
-  <AttackDamage>k__BackingField: 5
-  <AttackSpeed>k__BackingField: 0
+  <Name>k__BackingField: Helmet 3
+  <SpriteIndex>k__BackingField: 2
+  <Price>k__BackingField: 800
+  <Health>k__BackingField: 35
+  <HealthRegen>k__BackingField: 10

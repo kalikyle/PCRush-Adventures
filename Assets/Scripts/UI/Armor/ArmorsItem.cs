@@ -27,6 +27,7 @@ namespace Armor.UI
         public ArmorBuy armorBuy;
 
         public event Action<ArmorsItem> OnItemClicked;
+        public event Action<int> OnItemClickeds;
 
         public void OnPointerEnter(PointerEventData eventData)
         {
@@ -37,7 +38,7 @@ namespace Armor.UI
             else
             {
                 OnItemClicked?.Invoke(this);
-                //OnItemClickeds?.Invoke(temporaryIndex);
+                OnItemClickeds?.Invoke(temporaryIndex);
                 armorBuy.SelectItem(this);
 
                 //OnItemPurchaseClicked?.Invoke(this);

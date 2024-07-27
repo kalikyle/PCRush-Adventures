@@ -13,6 +13,7 @@ public class ArmorBuy : MonoBehaviour
     public OWInvSO data;
     public Button buyButton;
     private int value = 1;
+    public List<Armor.Model.Armors> filteredItems;
 
     public void Start()
     {
@@ -47,15 +48,6 @@ public class ArmorBuy : MonoBehaviour
         item.select();
         //selectedItems.Add(item);
         toBuy.Add(item);
-
-
-
-        int index = item.temporaryIndex;
-        Armor.Model.Armors sp = GetItemAt(index);
-
-
-
-
 
 
         // Assuming Price is a field in ShopItem
@@ -191,48 +183,22 @@ public class ArmorBuy : MonoBehaviour
         List<Armor.Model.Armors> shopItems = so.Armor;
         OtherWorldItem inventoryItem = new OtherWorldItem();
 
-        int tempIndexs;
-        int originalIndex;
         int tempIndex;
 
-
-        tempToOriginalIndexMapping.Clear();
-        tempIndexs = 0;
-        originalIndex = 0;
-        Debug.Log("Toggle: False");
-        //Debug.Log(shopItems.Count);
-        foreach (var item in shopItems)
-        {
-
-            tempToOriginalIndexMapping[tempIndexs] = originalIndex;
-            tempIndexs++;
-            originalIndex++;
-
-        }
-
         tempIndex = shopItem.temporaryIndex;
-        if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndexs))
+        Armor.Model.Armors shpItem = filteredItems[tempIndex];
+
+        if (!shpItem.isEmpty)
         {
-            // Use the original index to retrieve the ShopItem
-            Armor.Model.Armors shpItem = GetItemAt(originalIndexs);
 
-            if (!shpItem.isEmpty)
-            {
+            inventoryItem.item = ConvertSword(shpItem);
+            Armor = shpItem;
 
-                inventoryItem.item = ConvertSword(shpItem);
-                Armor = shpItem;
-
-            }
-            else
-            {
-                Debug.Log("ShopItem is empty");
-            }
         }
         else
         {
-            Debug.LogError("Mapping not found for temporary index: " + tempIndex);
+            Debug.Log("ShopItem is empty");
         }
-
 
 
         inventoryItem.quantity = 1;

@@ -1,4 +1,5 @@
 using Helmets.UI;
+using Swords.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Helmets.UI
 
 
         public List<HelmetItem> ListOfHelmetItems = new List<HelmetItem>();
+        public HelmetBuy HelmetBuy;
         void Start()
         {
 
@@ -83,6 +85,36 @@ namespace Helmets.UI
         public void Hide()
         {
             gameObject.SetActive(false);
+        }
+
+        public void AddShopItem(Sprite ItemImage, string ItemName, string price, string perks)
+        {
+
+            HelmetItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+            uiItem.transform.SetParent(contentPanel);
+            uiItem.transform.localScale = new Vector3(1, 1, 1);
+            ListOfHelmetItems.Add(uiItem);//add shop items in the list
+            uiItem.SetData(ItemImage, ItemName, price, perks);
+
+            int itemIndex = HelmetBuy.filteredItems.Count - 1;//this is for the filtered items
+            Debug.Log(HelmetBuy.filteredItems.Count);
+            uiItem.SetTemporaryIndex(itemIndex);
+
+
+            uiItem.OnItemClickeds += (tempIndex) =>
+            {
+                Debug.Log("Item Clicked. tempIndex: " + tempIndex);
+                if (HelmetBuy != null)
+                {
+                    DeselectAllItems();
+                }
+                else
+                {
+                    Debug.Log("shopC is not assigned.");
+                }
+            };
+
+
         }
     }
 }

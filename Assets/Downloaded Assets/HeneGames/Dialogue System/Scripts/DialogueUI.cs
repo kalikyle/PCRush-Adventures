@@ -178,29 +178,29 @@ namespace HeneGames.DialogueSystem
             return currentDialogueManager.CurrentSentenceLenght();
         }
 
-        public void OpenPanels()
-        {
+        //public void OpenPanels()
+        //{
            
-                if (nameText.text == "Sword Dealer")
-                {
-                    GameManager.instance.SwordDealerPanel.SetActive(true);
-                    GameManager.instance.OpenSwordShop();
+        //        if (nameText.text == "Sword Dealer")
+        //        {
+        //            GameManager.instance.SwordDealerPanel.SetActive(true);
+        //            GameManager.instance.OpenSwordShop();
                 
-                Debug.Log(nameText.text);
+        //        Debug.Log(nameText.text);
 
-            }
-                else if (nameText.text == "The Exchanger")
-                {
-                Debug.Log(nameText.text);
-            }
-            else
-            {
-                Debug.Log("none");
-            }
+        //    }
+        //        else if (nameText.text == "The Exchanger")
+        //        {
+        //        Debug.Log(nameText.text);
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("none");
+        //    }
 
-            currentDialogueManager.StopDialogue();
+        //    currentDialogueManager.StopDialogue();
 
-        }
+        //}
 
         public void StopDialogue()
         {
