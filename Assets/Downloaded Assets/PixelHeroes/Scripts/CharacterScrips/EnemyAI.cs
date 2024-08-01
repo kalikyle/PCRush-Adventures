@@ -98,7 +98,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             {
                 GameObject floatingText = Instantiate(floatingTextPrefab, transform.position, Quaternion.identity, damageCanvas);
                 DamageText floatingTextComponent = floatingText.GetComponent<DamageText>();
-                floatingTextComponent.SetText(damage.ToString(), Color.red);
+                floatingTextComponent.SetText("-" + damage.ToString(), Color.red);
             }
         }
         private void Update()

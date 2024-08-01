@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
     public Button MiniMapButton;
     public GameObject HomeWorldMap;
     public GameObject CPUWorldMap;
+    public GameObject RAMWorldMap;
 
     public Button MinimapButton;
     public bool HomeWorld = true;

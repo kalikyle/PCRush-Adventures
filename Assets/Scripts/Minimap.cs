@@ -61,6 +61,8 @@ public class Minimap : MonoBehaviour
 
         if (maskTexture == null || maskTexture.width == 0 || maskTexture.height == 0)
         {
+            //Texture2D cloudyTexture = Resources.Load<Texture2D>("CloudyPhoto");
+
             int width = (int)minimapImage.rectTransform.rect.width;
             int height = (int)minimapImage.rectTransform.rect.height;
             maskTexture = new Texture2D(width, height, TextureFormat.RGBA32, false);
@@ -71,6 +73,9 @@ public class Minimap : MonoBehaviour
             {
                 initialPixels[i] = new Color(0, 0, 0, 1); // Fully opaque black
             }
+
+            //TextureScale.Bilinear(cloudyTexture, width, height);
+            //maskTexture.SetPixels(cloudyTexture.GetPixels());
             maskTexture.SetPixels(initialPixels);
             maskTexture.Apply();
         }
@@ -132,9 +137,9 @@ public class Minimap : MonoBehaviour
             Mathf.Clamp((int)normalizedPlayerPos.y, 0, maskTexture.height - 1)
         );
 
-        Debug.Log($"Player Position: {playerPos}");
-        Debug.Log($"Normalized Position: {normalizedPlayerPos}");
-        Debug.Log($"Mask Position: {maskPos}");
+        //Debug.Log($"Player Position: {playerPos}");
+        //Debug.Log($"Normalized Position: {normalizedPlayerPos}");
+        //Debug.Log($"Mask Position: {maskPos}");
 
         int intRevealRadius = Mathf.CeilToInt(revealRadius);
 
@@ -165,7 +170,10 @@ public class Minimap : MonoBehaviour
 
            GameManager.instance.LTA.CPUMinimapOpen();
         }
-        else if (GameManager.instance.RAMWorld == true) { }
+        else if (GameManager.instance.RAMWorld == true) {
+
+            GameManager.instance.LTA.RAMMinimapOpen();
+        }
         else if (GameManager.instance.CPUFWorld == true) { }
         else if (GameManager.instance.GPUWorld == true) { }
         else if (GameManager.instance.StorageWorld == true) { }
@@ -185,7 +193,7 @@ public class Minimap : MonoBehaviour
         string base64String = Convert.ToBase64String(textureBytes);
         PlayerPrefs.SetString(textureKey, base64String);
         PlayerPrefs.Save();
-        Debug.Log("Texture saved successfully.");
+        //Debug.Log("Texture saved successfully.");
     }
 
     void LoadTexture()
