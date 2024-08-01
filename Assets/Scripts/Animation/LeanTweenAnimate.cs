@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class LeanTweenAnimate : MonoBehaviour
 {
-    public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl,  coinscollectedtxt,materialscollecttxt,expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap, Diedpanel,youdiedText, diedtextsub,skull;
+    public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl,  coinscollectedtxt,materialscollecttxt,expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap, Diedpanel,youdiedText, diedtextsub,skull
+        ,MinimapHomeWorld, MinimapCPUWorld;
     public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
     //bool close = false;
@@ -299,5 +300,23 @@ public class LeanTweenAnimate : MonoBehaviour
 
         LeanTween.moveLocal(showkills.gameObject, new Vector3(252.9f, -257f, 0f), .7f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
 
+    }
+
+    public void CPUMinimapOpen()
+    {
+        LeanTween.scale(MinimapCPUWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .5f).setEase(LeanTweenType.easeInCubic);
+    }
+    public void CPUMinimapClose()
+    {
+        LeanTween.scale(MinimapCPUWorld.gameObject, new Vector3(0f, 0f, 0f), .5f).setEase(LeanTweenType.easeInCubic);
+    }
+
+    public void HomeWorldMinimapOpen()
+    {
+        LeanTween.scale(MinimapHomeWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .5f).setEase(LeanTweenType.easeInCubic);
+    }
+    public void HomeWorldMinimapClose()
+    {
+        LeanTween.scale(MinimapHomeWorld.gameObject, new Vector3(0f, 0f, 0f), .5f).setEase(LeanTweenType.easeInCubic);
     }
 }

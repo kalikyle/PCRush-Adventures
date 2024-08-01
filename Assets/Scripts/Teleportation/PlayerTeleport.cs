@@ -21,10 +21,6 @@ public class PlayerTeleport : MonoBehaviour
         public TMP_Text Name;
         public TMP_Text WorldName;
 
-
-
-        
-
         public LeanTweenAnimate LTA;
 
         public bool OpenDesk = false;
@@ -33,24 +29,34 @@ public class PlayerTeleport : MonoBehaviour
         public bool BackToHomeWorld = false;
 
 
-        private bool HomeWorld = true;
-        private bool CPUWorld = false;
-        private bool RAMWorld = false;
-        private bool CPUFWorld = false;
-        private bool GPUWorld = false;
-        private bool StorageWorld = false;
-        private bool PSUWorld = false;
-        private bool MBWorld = false;
-        private bool CaseWorld = false;
 
+    public void Awake()
+    {
+       
+
+    }
 
     public void Start()
     {
-        HomeWorld = true;
+        GameManager.instance.HomeWorld = true;
         Enter.onClick.AddListener(() =>
         {
             TheTeleporter();
         });
+
+        if (GameManager.instance.HomeWorld == true)
+        {
+        }
+        else if (GameManager.instance.CPUWorld == true)
+        {
+        }
+        else if (GameManager.instance.RAMWorld == true) { }
+        else if (GameManager.instance.CPUFWorld == true) { }
+        else if (GameManager.instance.GPUWorld == true) { }
+        else if (GameManager.instance.StorageWorld == true) { }
+        else if (GameManager.instance.PSUWorld == true) { }
+        else if (GameManager.instance.MBWorld == true) { }
+        else if (GameManager.instance.CaseWorld == true) { }
     }
 
     void Update()
@@ -61,37 +67,26 @@ public class PlayerTeleport : MonoBehaviour
                TheTeleporter();
             }
 
-        if (HomeWorld == true)
-        {
-            GameManager.instance.HomeWorldMap.SetActive(true);
-        }
-        else if (CPUWorld == true) {
-
-            GameManager.instance.CPUWorldMap.SetActive(true);
-        }
-        else if (RAMWorld == true) { }
-        else if (CPUFWorld == true) { }
-        else if (GPUWorld == true) { }
-        else if (StorageWorld == true) { }
-        else if (PSUWorld == true) { }
-        else if (MBWorld == true) { }
-        else if (CaseWorld == true) { }
+        
     }
 
 
     public void ToCPUWorld()
     {
-        HomeWorld = false;
-        CPUWorld = true;
-        RAMWorld = false;
-        CPUFWorld = false;
-        GPUWorld = false;
-        StorageWorld = false;
-        PSUWorld = false;
-        MBWorld = false;
-        CaseWorld = false;
+        GameManager.instance.HomeWorld = false;
+        GameManager.instance.CPUWorld = true;
+        GameManager.instance.RAMWorld = false;
+        GameManager.instance.CPUFWorld = false;
+        GameManager.instance.GPUWorld = false;
+        GameManager.instance.StorageWorld = false;
+        GameManager.instance.PSUWorld = false;
+        GameManager.instance.MBWorld = false;
+        GameManager.instance.CaseWorld = false;
 
-         GameManager.instance.InHomeWorld = false;
+        GameManager.instance.CPUWorldMap.SetActive(true);
+        GameManager.instance.HomeWorldMap.SetActive(false);
+
+        GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(216.45f, -46.33f, 0);
         transform.position = destination;
         WorldName.text = "CPU World";
@@ -103,15 +98,15 @@ public class PlayerTeleport : MonoBehaviour
     }
     public void ToRAMWorld()
     {
-        HomeWorld = false;
-        CPUWorld = false;
-        RAMWorld = true;
-        CPUFWorld = false;
-        GPUWorld = false;
-        StorageWorld = false;
-        PSUWorld = false;
-        MBWorld = false;
-        CaseWorld = false;
+        GameManager.instance.HomeWorld = false;
+        GameManager.instance.CPUWorld = false;
+        GameManager.instance.RAMWorld = true;
+        GameManager.instance.CPUFWorld = false;
+        GameManager.instance.GPUWorld = false;
+        GameManager.instance.StorageWorld = false;
+        GameManager.instance.PSUWorld = false;
+        GameManager.instance.MBWorld = false;
+        GameManager.instance.CaseWorld = false;
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(391.47f, -53.27f, 0);
@@ -125,15 +120,15 @@ public class PlayerTeleport : MonoBehaviour
     }
     public void ToCPUFWorld()
     {
-        HomeWorld = false;
-        CPUWorld = false;
-        RAMWorld = false;
-        CPUFWorld = true;
-        GPUWorld = false;
-        StorageWorld = false;
-        PSUWorld = false;
-        MBWorld = false;
-        CaseWorld = false;
+        GameManager.instance.HomeWorld = false;
+        GameManager.instance.CPUWorld = false;
+        GameManager.instance.RAMWorld = false;
+        GameManager.instance.CPUFWorld = true;
+        GameManager.instance.GPUWorld = false;
+        GameManager.instance.StorageWorld = false;
+        GameManager.instance.PSUWorld = false;
+        GameManager.instance.MBWorld = false;
+        GameManager.instance.CaseWorld = false;
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(607.93f, -53.63f, 0);
@@ -147,15 +142,15 @@ public class PlayerTeleport : MonoBehaviour
     }
     public void ToGPUWorld()
     {
-        HomeWorld = false;
-        CPUWorld = false;
-        RAMWorld = false;
-        CPUFWorld = false;
-        GPUWorld = true;
-        StorageWorld = false;
-        PSUWorld = false;
-        MBWorld = false;
-        CaseWorld = false;
+        GameManager.instance.HomeWorld = false;
+        GameManager.instance.CPUWorld = false;
+        GameManager.instance.RAMWorld = false;
+        GameManager.instance.CPUFWorld = false;
+        GameManager.instance.GPUWorld = true;
+        GameManager.instance.StorageWorld = false;
+        GameManager.instance.PSUWorld = false;
+        GameManager.instance.MBWorld = false;
+        GameManager.instance.CaseWorld = false;
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(818.99f, 7.89f, 0);
@@ -169,15 +164,15 @@ public class PlayerTeleport : MonoBehaviour
     }
     public void ToStorageWorld()
     {
-        HomeWorld = false;
-        CPUWorld = false;
-        RAMWorld = false;
-        CPUFWorld = false;
-        GPUWorld = false;
-        StorageWorld = true;
-        PSUWorld = false;
-        MBWorld = false;
-        CaseWorld = false;
+        GameManager.instance.HomeWorld = false;
+        GameManager.instance.CPUWorld = false;
+        GameManager.instance.RAMWorld = false;
+        GameManager.instance.CPUFWorld = false;
+        GameManager.instance.GPUWorld = false;
+        GameManager.instance.StorageWorld = true;
+        GameManager.instance.PSUWorld = false;
+        GameManager.instance.MBWorld = false;
+        GameManager.instance.CaseWorld = false;
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(-4.47f, -171.63f, 0);
@@ -191,15 +186,15 @@ public class PlayerTeleport : MonoBehaviour
     }
     public void ToPSUWorld()
     {
-        HomeWorld = false;
-        CPUWorld = false;
-        RAMWorld = false;
-        CPUFWorld = false;
-        GPUWorld = false;
-        StorageWorld = false;
-        PSUWorld = true;
-        MBWorld = false;
-        CaseWorld = false;
+        GameManager.instance.HomeWorld = false;
+        GameManager.instance.CPUWorld = false;
+        GameManager.instance.RAMWorld = false;
+        GameManager.instance.CPUFWorld = false;
+        GameManager.instance.GPUWorld = false;
+        GameManager.instance.StorageWorld = false;
+        GameManager.instance.PSUWorld = true;
+        GameManager.instance.MBWorld = false;
+        GameManager.instance.CaseWorld = false;
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(222.51f, -249.61f, 0);
@@ -214,15 +209,15 @@ public class PlayerTeleport : MonoBehaviour
 
     public void ToMBWorld()
     {
-        HomeWorld = false;
-        CPUWorld = false;
-        RAMWorld = false;
-        CPUFWorld = false;
-        GPUWorld = false;
-        StorageWorld = false;
-        PSUWorld = false;
-        MBWorld = true;
-        CaseWorld = false;
+        GameManager.instance.HomeWorld = false;
+        GameManager.instance.CPUWorld = false;
+        GameManager.instance.RAMWorld = false;
+        GameManager.instance.CPUFWorld = false;
+        GameManager.instance.GPUWorld = false;
+        GameManager.instance.StorageWorld = false;
+        GameManager.instance.PSUWorld = false;
+        GameManager.instance.MBWorld = true;
+        GameManager.instance.CaseWorld = false;
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(591.51f, -214.54f, 0);
@@ -236,15 +231,15 @@ public class PlayerTeleport : MonoBehaviour
     }
     public void ToCaseWorld()
     {
-        HomeWorld = false;
-        CPUWorld = false;
-        RAMWorld = false;
-        CPUFWorld = false;
-        GPUWorld = false;
-        StorageWorld = false;
-        PSUWorld = false;
-        MBWorld = false;
-        CaseWorld = true;
+        GameManager.instance.HomeWorld = false;
+        GameManager.instance.CPUWorld = false;
+        GameManager.instance.RAMWorld = false;
+        GameManager.instance.CPUFWorld = false;
+        GameManager.instance.GPUWorld = false;
+        GameManager.instance.StorageWorld = false;
+        GameManager.instance.PSUWorld = false;
+        GameManager.instance.MBWorld = false;
+        GameManager.instance.CaseWorld = true;
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(901.29f, -241.55f, 0);
@@ -260,15 +255,18 @@ public class PlayerTeleport : MonoBehaviour
     //default player xny: 17.48, -26.46
     public void BackToTheHomeWorld()
     {
-        HomeWorld = true;
-        CPUWorld = false;
-        RAMWorld = false;
-        CPUFWorld = false;
-        GPUWorld = false;
-        StorageWorld = false;
-        PSUWorld = false;
-        MBWorld = false;
-        CaseWorld = false;
+        GameManager.instance.HomeWorld = true;
+        GameManager.instance.CPUWorld = false;
+        GameManager.instance.RAMWorld = false;
+        GameManager.instance.CPUFWorld = false;
+        GameManager.instance.GPUWorld = false;
+        GameManager.instance.StorageWorld = false;
+        GameManager.instance.PSUWorld = false;
+        GameManager.instance.MBWorld = false;
+        GameManager.instance.CaseWorld = false;
+
+        GameManager.instance.HomeWorldMap.SetActive(true);
+        GameManager.instance.CPUWorldMap.SetActive(false);
 
         DeskPanel.SetActive(true);
         Desktop.SetActive(true);
@@ -525,7 +523,7 @@ public class PlayerTeleport : MonoBehaviour
             {
             Enter.gameObject.SetActive(true);
             OpenDesk = true;
-                Name.text = "Enter Your Desk";
+                Name.text = "Enter To Your Setup";
            
         }
             if (collision.CompareTag("Editor"))
@@ -538,7 +536,7 @@ public class PlayerTeleport : MonoBehaviour
             {
             Enter.gameObject.SetActive(true);
             OpenBuild = true;
-               Name.text = "Enter Building Room";
+               Name.text = "Open Building Desk";
             }
 
 

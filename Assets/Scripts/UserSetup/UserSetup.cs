@@ -17,6 +17,7 @@ public class UserSetup : MonoBehaviour
     public Button anonymousSignInButton;
 
     public Button PlayButton;
+    public Button PlayOnLan;
 
     public GameObject CharEditor;
     public GameObject Login;
@@ -37,6 +38,7 @@ public class UserSetup : MonoBehaviour
         facebookSignInButton.onClick.AddListener(SignInWithFacebook);
         anonymousSignInButton.onClick.AddListener(SignInAnonymously);
         PlayButton.onClick.AddListener(PlayClick);
+        PlayOnLan.onClick.AddListener(OnPlayLanClick);
 
         if (!string.IsNullOrEmpty(GameManager.instance.UserID))
         {
@@ -85,18 +87,39 @@ public class UserSetup : MonoBehaviour
             //CharEditor.gameObject.SetActive(true);
             
             Login.gameObject.SetActive(true);
+           
         }
         else
         {
 
             //CharEditor.gameObject.SetActive(false);
+            
             Login.gameObject.SetActive(false);
             UnloadThisScene();
+           
             GameManager.instance.AtTheStart();
             GameManager.instance.scene.manualLoading();
             
 
         }
+    }
+    public void OnPlayLanClick()
+    {
+        
+        if (string.IsNullOrEmpty(GameManager.instance.UserID))
+        {
+            SceneManager.UnloadSceneAsync(1);
+            GameManager.instance.scene.manualLoading();
+            GameManager.instance.PlayOnLanCanvas.SetActive(true);
+        }
+        else
+        {
+            Login.gameObject.SetActive(false);
+            UnloadThisScene();
+            GameManager.instance.AtTheStart();
+            GameManager.instance.PlayOnLanCanvas.SetActive(true);
+        }
+
     }
     public void UnloadThisScene()
     {
