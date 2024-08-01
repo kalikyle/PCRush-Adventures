@@ -83,8 +83,9 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.MBWorld = false;
         GameManager.instance.CaseWorld = false;
 
-        GameManager.instance.CPUWorldMap.SetActive(true);
         GameManager.instance.HomeWorldMap.SetActive(false);
+        GameManager.instance.CPUWorldMap.SetActive(true);
+        GameManager.instance.RAMWorldMap.SetActive(false);
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(216.45f, -46.33f, 0);
@@ -107,6 +108,11 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.PSUWorld = false;
         GameManager.instance.MBWorld = false;
         GameManager.instance.CaseWorld = false;
+
+        GameManager.instance.HomeWorldMap.SetActive(false);
+        GameManager.instance.CPUWorldMap.SetActive(false);
+        GameManager.instance.RAMWorldMap.SetActive(true);
+
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(391.47f, -53.27f, 0);
@@ -267,6 +273,7 @@ public class PlayerTeleport : MonoBehaviour
 
         GameManager.instance.HomeWorldMap.SetActive(true);
         GameManager.instance.CPUWorldMap.SetActive(false);
+        GameManager.instance.RAMWorldMap.SetActive(false);
 
         DeskPanel.SetActive(true);
         Desktop.SetActive(true);
@@ -335,7 +342,7 @@ public class PlayerTeleport : MonoBehaviour
         {
             
             //for home
-            Debug.Log("Press E to Enter");
+            
             if (collision.CompareTag("Home"))
             {
                 Enter.gameObject.SetActive(true);
