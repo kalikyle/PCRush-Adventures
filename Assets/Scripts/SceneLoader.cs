@@ -39,11 +39,6 @@ public class SceneLoader : MonoBehaviour
             LoadingCanvas.SetActive(false);
             loadingslider.value = 0;
         }
-
-
-
-
-
     }
 
     public void manualLoading()

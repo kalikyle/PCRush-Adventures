@@ -72,15 +72,34 @@ public class GameManager : MonoBehaviour
     public Button ResizeDecButton;
     public Button DoneButton;
 
+   
+
+
+    //for Lan
+    public GameObject PlayOnLanCanvas;
+
+
     //for MiniMap
     public Button MiniMapButton;
     public GameObject HomeWorldMap;
     public GameObject CPUWorldMap;
 
+    public Button MinimapButton;
+    public bool HomeWorld = true;
+    public bool CPUWorld = false;
+    public bool RAMWorld = false;
+    public bool CPUFWorld = false;
+    public bool GPUWorld = false;
+    public bool StorageWorld = false;
+    public bool PSUWorld = false;
+    public bool MBWorld = false;
+    public bool CaseWorld = false;
 
+    //for UI
     public GameObject UIExplore;
     public GameObject ComputerInv;
     public GameObject InGamePanel;
+    
 
     public GameObject SwordDealerPanel;
     public GameObject ArmorDealerPanel;
@@ -96,6 +115,7 @@ public class GameManager : MonoBehaviour
     public GameObject PSUExhangerPanel;
     public GameObject MBExhangerPanel;
     public GameObject CaseExhangerPanel;
+
 
     public GameObject ArmorFixer;
 
@@ -2165,7 +2185,14 @@ public class GameManager : MonoBehaviour
             }
 
         }
-       }
+    }
+
+    //for playOnLan scripts
+    public void LanCancelButton()
+    {
+        scene.LoadScene();
+    }
+
   }
 [System.Serializable]
 public class DecorationItemList

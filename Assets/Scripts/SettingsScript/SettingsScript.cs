@@ -61,7 +61,10 @@ public class SettingsScript : MonoBehaviour
         DialogBox.gameObject.SetActive(true);
         DialogText.text = "Are You Sure you want to Quit?";
     }
-
+    public void BacktoMainMenu()
+    {
+        GameManager.instance.scene.LoadScene();
+    }
     // Update is called once per frame
     void Update()
     {
