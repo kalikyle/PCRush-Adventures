@@ -6,7 +6,7 @@ using UnityEngine;
 public class LeanTweenAnimate : MonoBehaviour
 {
     public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl,  coinscollectedtxt,materialscollecttxt,expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap, Diedpanel,youdiedText, diedtextsub,skull
-        ,MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld;
+        ,MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld, MinimapCPUFWorld, MinimapGPUWorld, MinimapSTORAGEWorld, MinimapPSUWorld, MinimapMBWorld, MinimapCASEWorld;
     public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
     //bool close = false;
@@ -303,27 +303,93 @@ public class LeanTweenAnimate : MonoBehaviour
     }
     public void HomeWorldMinimapOpen()
     {
-        LeanTween.scale(MinimapHomeWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .5f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapHomeWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = true;
     }
     public void HomeWorldMinimapClose()
     {
-        LeanTween.scale(MinimapHomeWorld.gameObject, new Vector3(0f, 0f, 0f), .5f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapHomeWorld.gameObject, new Vector3(0f, 0f, 0f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = false;
     }
     public void CPUMinimapOpen()
     {
-        LeanTween.scale(MinimapCPUWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .5f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapCPUWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = true;
     }
     public void CPUMinimapClose()
     {
-        LeanTween.scale(MinimapCPUWorld.gameObject, new Vector3(0f, 0f, 0f), .5f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapCPUWorld.gameObject, new Vector3(0f, 0f, 0f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = false;
     }
     public void RAMMinimapOpen()
     {
-        LeanTween.scale(MinimapRAMWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .5f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapRAMWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = true;
     }
     public void RAMMinimapClose()
     {
-        LeanTween.scale(MinimapRAMWorld.gameObject, new Vector3(0f, 0f, 0f), .5f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapRAMWorld.gameObject, new Vector3(0f, 0f, 0f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = false;
+    }
+    public void CPUFMinimapOpen()
+    {
+        LeanTween.scale(MinimapCPUFWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = true;
+    }
+    public void CPUFMinimapClose()
+    {
+        LeanTween.scale(MinimapCPUFWorld.gameObject, new Vector3(0f, 0f, 0f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = false;
+    }
+    public void GPUMinimapOpen()
+    {
+        LeanTween.scale(MinimapGPUWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = true;
+    }
+    public void GPUMinimapClose()
+    {
+        LeanTween.scale(MinimapGPUWorld.gameObject, new Vector3(0f, 0f, 0f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = false;
+    }
+    public void STORAGEMinimapOpen()
+    {
+        LeanTween.scale(MinimapSTORAGEWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = true;
+    }
+    public void STORAGEMinimapClose()
+    {
+        LeanTween.scale(MinimapSTORAGEWorld.gameObject, new Vector3(0f, 0f, 0f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = false;
+    }
+    public void PSUMinimapOpen()
+    {
+        LeanTween.scale(MinimapPSUWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = true;
+    }
+    public void PSUMinimapClose()
+    {
+        LeanTween.scale(MinimapPSUWorld.gameObject, new Vector3(0f, 0f, 0f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = false;
+    }
+    public void MBMinimapOpen()
+    {
+        LeanTween.scale(MinimapMBWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = true;
+    }
+    public void MBMinimapClose()
+    {
+        LeanTween.scale(MinimapMBWorld.gameObject, new Vector3(0f, 0f, 0f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = false;
+    }
+    public void CASEMinimapOpen()
+    {
+        LeanTween.scale(MinimapCASEWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = true;
+    }
+    public void CASEMinimapClose()
+    {
+        LeanTween.scale(MinimapCASEWorld.gameObject, new Vector3(0f, 0f, 0f), .2f).setEase(LeanTweenType.easeInCubic);
+        GameManager.instance.MinimapOpened = false;
     }
 
 }
