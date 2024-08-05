@@ -84,6 +84,12 @@ public class GameManager : MonoBehaviour
     public GameObject HomeWorldMap;
     public GameObject CPUWorldMap;
     public GameObject RAMWorldMap;
+    public GameObject CPUFWorldMap;
+    public GameObject GPUWorldMap;
+    public GameObject STORAGEWorldMap;
+    public GameObject PSUWorldMap;
+    public GameObject MBWorldMap;
+    public GameObject CASEWorldMap;
 
     public Button MinimapButton;
     public bool HomeWorld = true;
@@ -95,6 +101,7 @@ public class GameManager : MonoBehaviour
     public bool PSUWorld = false;
     public bool MBWorld = false;
     public bool CaseWorld = false;
+    public bool MinimapOpened = false;
 
     //for UI
     public GameObject UIExplore;

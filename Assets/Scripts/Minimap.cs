@@ -174,12 +174,25 @@ public class Minimap : MonoBehaviour
 
             GameManager.instance.LTA.RAMMinimapOpen();
         }
-        else if (GameManager.instance.CPUFWorld == true) { }
-        else if (GameManager.instance.GPUWorld == true) { }
-        else if (GameManager.instance.StorageWorld == true) { }
-        else if (GameManager.instance.PSUWorld == true) { }
-        else if (GameManager.instance.MBWorld == true) { }
-        else if (GameManager.instance.CaseWorld == true) { }
+        else if (GameManager.instance.CPUFWorld == true) {
+
+            GameManager.instance.LTA.CPUFMinimapOpen();
+        }
+        else if (GameManager.instance.GPUWorld == true) {
+            GameManager.instance.LTA.GPUMinimapOpen();
+        }
+        else if (GameManager.instance.StorageWorld == true) {
+            GameManager.instance.LTA.STORAGEMinimapOpen();
+        }
+        else if (GameManager.instance.PSUWorld == true) {
+            GameManager.instance.LTA.PSUMinimapOpen();
+        }
+        else if (GameManager.instance.MBWorld == true) {
+            GameManager.instance.LTA.MBMinimapOpen();
+        }
+        else if (GameManager.instance.CaseWorld == true) {
+            GameManager.instance.LTA.CASEMinimapOpen();
+        }
     }
     void SaveTexture()
     {

@@ -86,6 +86,12 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.HomeWorldMap.SetActive(false);
         GameManager.instance.CPUWorldMap.SetActive(true);
         GameManager.instance.RAMWorldMap.SetActive(false);
+        GameManager.instance.CPUFWorldMap.SetActive(false);
+        GameManager.instance.GPUWorldMap.SetActive(false);
+        GameManager.instance.STORAGEWorldMap.SetActive(false);
+        GameManager.instance.PSUWorldMap.SetActive(false);
+        GameManager.instance.MBWorldMap.SetActive(false);
+        GameManager.instance.CASEWorldMap.SetActive(false);
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(216.45f, -46.33f, 0);
@@ -112,6 +118,12 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.HomeWorldMap.SetActive(false);
         GameManager.instance.CPUWorldMap.SetActive(false);
         GameManager.instance.RAMWorldMap.SetActive(true);
+        GameManager.instance.CPUFWorldMap.SetActive(false);
+        GameManager.instance.GPUWorldMap.SetActive(false);
+        GameManager.instance.STORAGEWorldMap.SetActive(false);
+        GameManager.instance.PSUWorldMap.SetActive(false);
+        GameManager.instance.MBWorldMap.SetActive(false);
+        GameManager.instance.CASEWorldMap.SetActive(false);
 
 
         GameManager.instance.InHomeWorld = false;
@@ -136,6 +148,16 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.MBWorld = false;
         GameManager.instance.CaseWorld = false;
 
+        GameManager.instance.HomeWorldMap.SetActive(false);
+        GameManager.instance.CPUWorldMap.SetActive(false);
+        GameManager.instance.RAMWorldMap.SetActive(false);
+        GameManager.instance.CPUFWorldMap.SetActive(true);
+        GameManager.instance.GPUWorldMap.SetActive(false);
+        GameManager.instance.STORAGEWorldMap.SetActive(false);
+        GameManager.instance.PSUWorldMap.SetActive(false);
+        GameManager.instance.MBWorldMap.SetActive(false);
+        GameManager.instance.CASEWorldMap.SetActive(false);
+
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(607.93f, -53.63f, 0);
         transform.position = destination;
@@ -157,6 +179,17 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.PSUWorld = false;
         GameManager.instance.MBWorld = false;
         GameManager.instance.CaseWorld = false;
+
+
+        GameManager.instance.HomeWorldMap.SetActive(false);
+        GameManager.instance.CPUWorldMap.SetActive(false);
+        GameManager.instance.RAMWorldMap.SetActive(false);
+        GameManager.instance.CPUFWorldMap.SetActive(false);
+        GameManager.instance.GPUWorldMap.SetActive(true);
+        GameManager.instance.STORAGEWorldMap.SetActive(false);
+        GameManager.instance.PSUWorldMap.SetActive(false);
+        GameManager.instance.MBWorldMap.SetActive(false);
+        GameManager.instance.CASEWorldMap.SetActive(false);
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(818.99f, 7.89f, 0);
@@ -180,6 +213,16 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.MBWorld = false;
         GameManager.instance.CaseWorld = false;
 
+        GameManager.instance.HomeWorldMap.SetActive(false);
+        GameManager.instance.CPUWorldMap.SetActive(false);
+        GameManager.instance.RAMWorldMap.SetActive(false);
+        GameManager.instance.CPUFWorldMap.SetActive(false);
+        GameManager.instance.GPUWorldMap.SetActive(false);
+        GameManager.instance.STORAGEWorldMap.SetActive(true);
+        GameManager.instance.PSUWorldMap.SetActive(false);
+        GameManager.instance.MBWorldMap.SetActive(false);
+        GameManager.instance.CASEWorldMap.SetActive(false);
+
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(-4.47f, -171.63f, 0);
         transform.position = destination;
@@ -201,6 +244,16 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.PSUWorld = true;
         GameManager.instance.MBWorld = false;
         GameManager.instance.CaseWorld = false;
+
+        GameManager.instance.HomeWorldMap.SetActive(false);
+        GameManager.instance.CPUWorldMap.SetActive(false);
+        GameManager.instance.RAMWorldMap.SetActive(false);
+        GameManager.instance.CPUFWorldMap.SetActive(false);
+        GameManager.instance.GPUWorldMap.SetActive(false);
+        GameManager.instance.STORAGEWorldMap.SetActive(false);
+        GameManager.instance.PSUWorldMap.SetActive(true);
+        GameManager.instance.MBWorldMap.SetActive(false);
+        GameManager.instance.CASEWorldMap.SetActive(false);
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(222.51f, -249.61f, 0);
@@ -225,6 +278,16 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.MBWorld = true;
         GameManager.instance.CaseWorld = false;
 
+        GameManager.instance.HomeWorldMap.SetActive(false);
+        GameManager.instance.CPUWorldMap.SetActive(false);
+        GameManager.instance.RAMWorldMap.SetActive(false);
+        GameManager.instance.CPUFWorldMap.SetActive(false);
+        GameManager.instance.GPUWorldMap.SetActive(false);
+        GameManager.instance.STORAGEWorldMap.SetActive(false);
+        GameManager.instance.PSUWorldMap.SetActive(false);
+        GameManager.instance.MBWorldMap.SetActive(true);
+        GameManager.instance.CASEWorldMap.SetActive(false);
+
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(591.51f, -214.54f, 0);
         transform.position = destination;
@@ -246,6 +309,16 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.PSUWorld = false;
         GameManager.instance.MBWorld = false;
         GameManager.instance.CaseWorld = true;
+
+        GameManager.instance.HomeWorldMap.SetActive(false);
+        GameManager.instance.CPUWorldMap.SetActive(false);
+        GameManager.instance.RAMWorldMap.SetActive(false);
+        GameManager.instance.CPUFWorldMap.SetActive(false);
+        GameManager.instance.GPUWorldMap.SetActive(false);
+        GameManager.instance.STORAGEWorldMap.SetActive(false);
+        GameManager.instance.PSUWorldMap.SetActive(false);
+        GameManager.instance.MBWorldMap.SetActive(false);
+        GameManager.instance.CASEWorldMap.SetActive(true);
 
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(901.29f, -241.55f, 0);
@@ -274,6 +347,12 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.HomeWorldMap.SetActive(true);
         GameManager.instance.CPUWorldMap.SetActive(false);
         GameManager.instance.RAMWorldMap.SetActive(false);
+        GameManager.instance.CPUFWorldMap.SetActive(false);
+        GameManager.instance.GPUWorldMap.SetActive(false);
+        GameManager.instance.STORAGEWorldMap.SetActive(false);
+        GameManager.instance.PSUWorldMap.SetActive(false);
+        GameManager.instance.MBWorldMap.SetActive(false);
+        GameManager.instance.CASEWorldMap.SetActive(true);
 
         DeskPanel.SetActive(true);
         Desktop.SetActive(true);
@@ -288,11 +367,6 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.UnequipEquipment();
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
         LTA.OpenGameMap();
-    }
-
-    public void OutsideHome()
-    {
-        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
     
     public void TheTeleporter()

@@ -74,27 +74,34 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
         private void Update()
         {
-            if (isDead == false)
+            if (GameManager.instance.MinimapOpened == false)
             {
-                if (!NoInternet.isActiveAndEnabled)
+                if (isDead == false)
                 {
-                    if (!DialogueManager.GetInstance().dialogueIsPlaying)
+                    if (!NoInternet.isActiveAndEnabled)
                     {
-                        if (!playerTeleport.DeskPanel.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
+                        if (!DialogueManager.GetInstance().dialogueIsPlaying)
                         {
-                            HandleMovement();
-                            HandleAttack();
+                            if (!playerTeleport.DeskPanel.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
+                            {
+                                HandleMovement();
+                                HandleAttack();
+                            }
+                            else
+                            {
+                                StopMovement();
+                            }
                         }
                         else
                         {
-                            StopMovement();
+                            ResetMovement();
                         }
                     }
-                    else
-                    {
-                        ResetMovement();
-                    }
                 }
+            }
+            else
+            {
+                StopMovement();
             }
 
             HandlePlayerHealth();
