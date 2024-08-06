@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using System;
 using Shop.UI;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 
 public class DialogueManager : MonoBehaviour
@@ -44,6 +45,7 @@ public class DialogueManager : MonoBehaviour
     private const string PORTRAIT_TAG = "portrait";
     private const string CHOICE_TAG = "choice";
     private const string RANGE_TAG = "range";
+    private const string SCENE_TAG = "CutScene";
 
     private DialogueVariables dialogueVariables;
 
@@ -83,7 +85,7 @@ public class DialogueManager : MonoBehaviour
 
         }
 
-        talktoBTN.gameObject.SetActive(false);
+        //talktoBTN.gameObject.SetActive(false);
     
 
 }
@@ -273,11 +275,30 @@ public class DialogueManager : MonoBehaviour
                     }
 
                     break;
+                case SCENE_TAG:
+                    CutScene(tagValue); // Handle the scene change
+
+                    break;
 
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
                     break;
             }
+        }
+    }
+    private void CutScene(string sceneName)
+    {
+        Debug.Log("Changing to scene: " + sceneName);
+        //SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+
+        if(sceneName == "CutScene 1")
+        {
+            GameManager.instance.CutScene1.SetActive(true);
+        }
+
+        if(sceneName == "CutScene 2")
+        {
+            GameManager.instance.CutScene2.SetActive(true);
         }
     }
     public void ExitDialogueMode()

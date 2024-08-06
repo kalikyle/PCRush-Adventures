@@ -17,7 +17,7 @@ public class PlayerTeleport : MonoBehaviour
 
         public GameObject InvBTN;
         public GameObject EquippedStats;
-        public Button Enter;
+       
         public TMP_Text Name;
         public TMP_Text WorldName;
 
@@ -39,7 +39,7 @@ public class PlayerTeleport : MonoBehaviour
     public void Start()
     {
         GameManager.instance.HomeWorld = true;
-        Enter.onClick.AddListener(() =>
+        GameManager.instance.Enter.onClick.AddListener(() =>
         {
             TheTeleporter();
         });
@@ -372,7 +372,7 @@ public class PlayerTeleport : MonoBehaviour
     public void TheTeleporter()
     {
 
-        Enter.gameObject.SetActive(false);
+        GameManager.instance.Enter.gameObject.SetActive(false);
         if (homeTeleport != null)
         {
             transform.position = homeTeleport.GetComponent<Teleporter>().HomeDestination().position;
@@ -419,7 +419,7 @@ public class PlayerTeleport : MonoBehaviour
             
             if (collision.CompareTag("Home"))
             {
-                Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
                 homeTeleport = collision.gameObject;
                 
 
@@ -439,7 +439,7 @@ public class PlayerTeleport : MonoBehaviour
 
             if (collision.CompareTag("Room"))
             {
-                    Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
                     homeTeleport = collision.gameObject;
                 
 
@@ -459,7 +459,7 @@ public class PlayerTeleport : MonoBehaviour
         {
             homeTeleport = collision.gameObject;
             BackToHomeWorld = true;
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
 
             Name.text = "Back To Home";
         }
@@ -468,7 +468,7 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("CPUExchanger"))
         {
             homeTeleport = collision.gameObject;
-            Enter.gameObject.SetActive(true);
+             GameManager.instance.Enter.gameObject.SetActive(true);
 
             if (collision.gameObject.name == "EnterDoor")
             {
@@ -487,7 +487,7 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("RAMExchanger"))
         {
             homeTeleport = collision.gameObject;
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
 
             if (collision.gameObject.name == "EnterDoor")
             {
@@ -505,7 +505,7 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("CPUFExchanger"))
         {
             homeTeleport = collision.gameObject;
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
 
             if (collision.gameObject.name == "EnterDoor")
             {
@@ -521,7 +521,7 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("GPUExchanger"))
         {
             homeTeleport = collision.gameObject;
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
 
             if (collision.gameObject.name == "EnterDoor")
             {
@@ -537,7 +537,7 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("StorageExchanger"))
         {
             homeTeleport = collision.gameObject;
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
 
             if (collision.gameObject.name == "EnterDoor")
             {
@@ -553,7 +553,7 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("PSUExchanger"))
         {
             homeTeleport = collision.gameObject;
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
 
             if (collision.gameObject.name == "EnterDoor")
             {
@@ -569,7 +569,7 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("MBExchanger"))
         {
             homeTeleport = collision.gameObject;
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
 
             if (collision.gameObject.name == "EnterDoor")
             {
@@ -585,7 +585,7 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("CaseExchanger"))
         {
             homeTeleport = collision.gameObject;
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
 
             if (collision.gameObject.name == "EnterDoor")
             {
@@ -602,20 +602,21 @@ public class PlayerTeleport : MonoBehaviour
         ///////////////////////////////////
         if (collision.CompareTag("Desk"))
             {
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
             OpenDesk = true;
-                Name.text = "Enter To Your Setup";
+            Name.text = "Enter To Your Setup";
            
         }
             if (collision.CompareTag("Editor"))
             {
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
             GameManager.instance.OpenEditor = true;
                 Name.text = "Open Player Editor";
             }
             if (collision.CompareTag("Build"))
             {
-            Enter.gameObject.SetActive(true);
+            GameManager.instance.Enter.gameObject.SetActive(true);
+            GameManager.instance.OpenBuild = true;
             OpenBuild = true;
                Name.text = "Open Building Desk";
             }
@@ -625,9 +626,9 @@ public class PlayerTeleport : MonoBehaviour
     }
         private void OnTriggerExit2D(Collider2D collision)
         {
-        if(Enter != null)
+        if(GameManager.instance.Enter != null)
         {
-            Enter.gameObject.SetActive(false);
+            GameManager.instance.Enter.gameObject.SetActive(false);
         }
         
         //for home

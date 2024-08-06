@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     public Health PlayerHealthScript;
     public PlayerArmor PlayerArmorScript;
 
+    [Header("For Shop and Decorations")]
     public bool isEditing = false;
     public TMP_Text UserIDTxt;
     public int ShopSize = 100;
@@ -72,14 +73,16 @@ public class GameManager : MonoBehaviour
     public Button ResizeDecButton;
     public Button DoneButton;
 
-   
+    public Button Enter;
 
 
     //for Lan
+    [Header("LAN")]
     public GameObject PlayOnLanCanvas;
 
 
     //for MiniMap
+    [Header("MINIMAP")]
     public Button MiniMapButton;
     public GameObject HomeWorldMap;
     public GameObject CPUWorldMap;
@@ -103,7 +106,14 @@ public class GameManager : MonoBehaviour
     public bool CaseWorld = false;
     public bool MinimapOpened = false;
 
+    //for CutScenes
+    [Header("CUT SCENES")]
+    public GameObject CutScene1;
+    public GameObject CutScene2;
+    public GameObject SquareBars;
+
     //for UI
+    [Header("UI")]
     public GameObject UIExplore;
     public GameObject ComputerInv;
     public GameObject InGamePanel;
@@ -147,6 +157,7 @@ public class GameManager : MonoBehaviour
     public int tempindex;
 
     //player info
+    [Header("PLAYER INFO")]
     public string PlayerName;
     public int PlayerMoney = 0;
     public int PlayerGems = 0;
@@ -202,9 +213,10 @@ public class GameManager : MonoBehaviour
     public int TempEnemyKilled = 0;
 
     public Dictionary<string, Shop.Model.ShopItem> equippedItemsByCategory = new Dictionary<string, Shop.Model.ShopItem>();
-    
+
 
     //in Explore UI
+    [Header("EXPLORE UI")]
     public TMP_Text PlayerDesk;
     public TMP_Text Playerui;
     public Image PlayerImage;
@@ -275,16 +287,25 @@ public class GameManager : MonoBehaviour
 
     public Slider StatsArmorSlider;
     public TMP_Text StatsarmorText;
+    public Button TalkBTN;
 
     //for Quest
+    [Header("QUESTS")]
     public int packagescollected = 0;
     public QuestEvent questEvents;
+    public bool OnQuest = false;
+    public bool OpenBuild = false;
+    public GameObject HouseDoor;
+    public bool CutScene2Open = false;
+    
 
     //for shop ui
+    [Header("SHOP UI")]
     public TMP_Text ShopGold;
     public TMP_Text ShopGem;
 
     //FOR NOTIFS
+    [Header("NOTIF UI")]
     [SerializeField] private GameObject notifpopup;
     [SerializeField] private GameObject Equipnotifpopup;
     [SerializeField] private GameObject Itemsnotifpopup;

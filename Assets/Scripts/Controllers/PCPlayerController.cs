@@ -1,3 +1,4 @@
+using Exchanger.Model.CaseWorld;
 using Firebase.Firestore;
 using Inventory;
 using Inventory.Model;
@@ -235,6 +236,12 @@ namespace PC
         {
             PCMenu.Hide();
             StartCoroutine(DelayedComputerLoad());
+
+             GameObject image = GameObject.Find("PCItemImage");
+            if (image != null)
+            {
+                PCImage = image.GetComponent<Image>();
+            }
         }
         IEnumerator DelayedComputerLoad()
         {
@@ -337,7 +344,8 @@ namespace PC
                         // Deserialize the JSON data into the PCSO object
                         JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
 
-                        loadedPCSO.PCImage = loadedPCSO.Case.ItemImage;
+                       
+                        //loadedPCSO.PCImage = loadedPCSO.Case.ItemImage;
                         // Add the loaded PCSO to the PCData.ComputerItems list
                         PCData.AddPCSOList(loadedPCSO);
                         PCpage.AddAnotherPC();
@@ -946,9 +954,9 @@ namespace PC
 
             GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.AttackSpeed, PCitem.CriticalHit, PCitem.CriticalChance);
             GameManager.instance.StatsUsedPCPanel.SetActive(true);
-            GameManager.instance.StatsPCImageUsed.sprite = PCitem.PCImage;
+            GameManager.instance.StatsPCImageUsed.sprite = PCitem.Case.ItemImage;
             GameManager.instance.StatsPCName.text = PCitem.PCName;
-            //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
+            
 
             CaseName.text = PCitem.Case.Name;
             MBName.text = PCitem.Motherboard.Name;
@@ -959,13 +967,9 @@ namespace PC
             STRGName.text = PCitem.STORAGE.Name;
             PSUName.text = PCitem.PSU.Name;
 
-            
-
-            //Status.text = PCitem.TestStatus;
-
 
             CaseImage.sprite = PCitem.Case.ItemImage;
-
+           
 
             MBImage.sprite = PCitem.Motherboard.ItemImage;
 
@@ -988,7 +992,7 @@ namespace PC
             PSUImage.sprite = PCitem.PSU.ItemImage;
 
             PCImagePlaceholder.gameObject.SetActive(true);
-            PCImagePlaceholder.sprite = PCitem.PCImage;
+            PCImagePlaceholder.sprite = PCitem.Case.ItemImage;
         }
 
         public PlayerTeleport PT;
@@ -1013,7 +1017,7 @@ namespace PC
                
                 GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.AttackSpeed, PCitem.CriticalHit, PCitem.CriticalChance);
                 GameManager.instance.StatsUsedPCPanel.SetActive(true);
-                GameManager.instance.StatsPCImageUsed.sprite = PCitem.PCImage;
+                GameManager.instance.StatsPCImageUsed.sprite = PCitem.Case.ItemImage;
                 GameManager.instance.StatsPCName.text = PCitem.PCName;
                 
                 //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
@@ -1054,7 +1058,7 @@ namespace PC
                 PSUImage.sprite = PCitem.PSU.ItemImage;
 
                 PCImagePlaceholder.gameObject.SetActive(true);
-                PCImagePlaceholder.sprite = PCitem.PCImage;
+                PCImagePlaceholder.sprite = PCitem.Case.ItemImage;
 
                 PCitem.inUse = true;
 
@@ -1393,7 +1397,7 @@ namespace PC
 
             pcso.name = PCitem.PCName;
             pcso.PCName = PCitem.PCName;
-            pcso.PCImage = PCitem.PCImage;
+            pcso.PCImage = PCitem.Case.ItemImage;
             //pcso.PCPrice = PCitem.PCPrice;
             pcso.Case = PCitem.Case;
             pcso.Motherboard = PCitem.Motherboard;
@@ -1438,7 +1442,7 @@ namespace PC
             PCpage.InitializedPCs(GetUsedSlotsCount());
             foreach (var item in PCData.GetCurrentInventoryState())
             {
-                PCpage.UpdateData(item.Key, item.Value.PC.PCImage, item.Value.PC.PCName, item.Value.PC.inUse);
+                PCpage.UpdateData(item.Key, item.Value.PC.Case.ItemImage, item.Value.PC.PCName, item.Value.PC.inUse);
                 //Debug.LogError("Added");
             }
            
@@ -1581,7 +1585,7 @@ namespace PC
             PCSO PCitems = PCs.PC;
 
 
-            PCpage.UpdateDescription(PCindex, PCitems.PCImage, PCitems.Case.ItemImage, PCitems.Motherboard.ItemImage, PCitems.CPU.ItemImage, PCitems.CPUFan.ItemImage, PCitems.RAM.ItemImage, PCitems.GPU.ItemImage, PCitems.STORAGE.ItemImage, PCitems.PSU.ItemImage,
+            PCpage.UpdateDescription(PCindex, PCitems.Case.ItemImage, PCitems.Case.ItemImage, PCitems.Motherboard.ItemImage, PCitems.CPU.ItemImage, PCitems.CPUFan.ItemImage, PCitems.RAM.ItemImage, PCitems.GPU.ItemImage, PCitems.STORAGE.ItemImage, PCitems.PSU.ItemImage,
             PCitems.PCName, PCitems.Case.Name, PCitems.Motherboard.Name, PCitems.CPU.Name, PCitems.CPUFan.Name, PCitems.RAM.Name, PCitems.GPU.Name, PCitems.STORAGE.Name, PCitems.PSU.Name, PCitems.inUse, ItemPerks(PCitems));
             PCIndexOutside = PCindex;
 
@@ -1708,7 +1712,7 @@ namespace PC
                 //Anim.HideAllAnimation();
                 foreach (var item in PCData.GetCurrentInventoryState())
                 {
-                    PCpage.UpdateData(item.Key, item.Value.PC.PCImage, item.Value.PC.PCName, item.Value.PC.inUse);
+                    PCpage.UpdateData(item.Key, item.Value.PC.Case.ItemImage, item.Value.PC.PCName, item.Value.PC.inUse);
                     //Debug.LogError("Added");
                 }
 
