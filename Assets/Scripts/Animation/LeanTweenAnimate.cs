@@ -6,7 +6,7 @@ using UnityEngine;
 public class LeanTweenAnimate : MonoBehaviour
 {
     public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl,  coinscollectedtxt,materialscollecttxt,expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap, Diedpanel,youdiedText, diedtextsub,skull
-        ,MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld, MinimapCPUFWorld, MinimapGPUWorld, MinimapSTORAGEWorld, MinimapPSUWorld, MinimapMBWorld, MinimapCASEWorld;
+        ,MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld, MinimapCPUFWorld, MinimapGPUWorld, MinimapSTORAGEWorld, MinimapPSUWorld, MinimapMBWorld, MinimapCASEWorld, TalkBTN;
     public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
     //bool close = false;
@@ -390,6 +390,15 @@ public class LeanTweenAnimate : MonoBehaviour
     {
         LeanTween.scale(MinimapCASEWorld.gameObject, new Vector3(0f, 0f, 0f), .2f).setEase(LeanTweenType.easeInCubic);
         GameManager.instance.MinimapOpened = false;
+    }
+
+    public void OpenTalkBTN()
+    {
+        LeanTween.scale(TalkBTN.gameObject, new Vector3(0.7525f, 0.7525f, 0.7525f), .1f).setEase(LeanTweenType.easeOutElastic);
+    }
+    public void CloseTalkBTN()
+    {
+        LeanTween.scale(TalkBTN.gameObject, new Vector3(0f, 0f, 0f), .1f).setEase(LeanTweenType.easeOutElastic);
     }
 
 }

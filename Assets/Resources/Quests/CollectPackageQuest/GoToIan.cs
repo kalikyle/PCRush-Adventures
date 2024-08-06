@@ -8,18 +8,21 @@ public class GoToIan : QuestStep
     [Header("Target GameObject Name")]
     [SerializeField] private string targetGameObjectName;
 
-    [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJSON;
-
     public string StepInfo = "Go Outside your house, and find your friend Ian. His house have Orange roof located at the southeast of the Map";
 
 
     private GameObject targetGameObject;
     private bool hasReachedTarget = false;
 
-    public async void Start()
+    public void Start()
     {
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
+        GameManager.instance.HouseDoor.SetActive(true);
+
+
+
+
+
         // Find the target GameObject by name in the scene
         if (!string.IsNullOrEmpty(targetGameObjectName))
         {
@@ -28,13 +31,6 @@ public class GoToIan : QuestStep
             {
                 Debug.LogError("Target GameObject '" + targetGameObjectName + "' not found in the scene.");
                 FinishQuestStep();
-            }
-            else
-            {
-                await Task.Delay(1500);
-                Debug.Log("Navigate to " + targetGameObject.name + ".");
-                DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-                DialogueManager.GetInstance().TriggerSection("second");
             }
         }
         else
@@ -52,6 +48,7 @@ public class GoToIan : QuestStep
             hasReachedTarget = true;
             Debug.Log("Reached " + targetGameObject.name + ".");
             FinishQuestStep();
+            ChangeState("finish", "finish");
         }
     }
 

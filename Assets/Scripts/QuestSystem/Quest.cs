@@ -178,6 +178,7 @@ public class Quest
             GameObject questStepPrefab = info.questStepsPrefab[currentQuestStepIndex];
             CollectPackageStep collectPackageStep = questStepPrefab.GetComponent<CollectPackageStep>();
             GoToIan goToIan = questStepPrefab.GetComponent<GoToIan>();
+            TalkToIan TalkToIan = questStepPrefab.GetComponent<TalkToIan>();
 
 
             if (collectPackageStep != null)
@@ -189,7 +190,12 @@ public class Quest
             {
                 cstatus = goToIan.StepInfo;
             }
-            
+
+            if (TalkToIan != null)
+            {
+                cstatus = TalkToIan.StepInfo;
+            }
+
         }
 
         return cstatus;

@@ -112,10 +112,6 @@ public class QuestLogUI : MonoBehaviour
 
         questInfo.text = quest.currentQuestStepInfo();
         
-
-
-
-
         levelRequirementsText.text = "Level " + quest.info.levelRequirement;
         questRequirementsText.text = "";
 
