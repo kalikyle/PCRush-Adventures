@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
+  m_Name: Ram 28
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackableSize>k__BackingField: 99
+  <Name>k__BackingField: XPPG DDR5
+  <rarity>k__BackingField: Rare
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 035ff2a9a6e4c1448a3176c999733d9b, type: 3}
+  <Category>k__BackingField: RAM
+  <AttackDamage>k__BackingField: 53
+  <Health>k__BackingField: 60
+  <Mana>k__BackingField: 49
+  <HealthRegen>k__BackingField: 29
+  <WalkSpeed>k__BackingField: 0
+  <Armor>k__BackingField: 39
+  <AttackSpeed>k__BackingField: 0
+  <CriticalHit>k__BackingField: 0

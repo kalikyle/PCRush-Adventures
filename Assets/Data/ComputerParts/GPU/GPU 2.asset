@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
-  <Name>k__BackingField: AND R9 271
+  <Name>k__BackingField: AMB R9
   <rarity>k__BackingField: Common
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: f1b3a4fc685e1ac43801df3557e2dd71, type: 3}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 9ca5ea3365ed23d438ee05c6c0f6ebdc, type: 3}
   <Category>k__BackingField: Video Card
-  <AttackDamage>k__BackingField: 5
-  <Health>k__BackingField: 10
-  <Mana>k__BackingField: 5
-  <HealthRegen>k__BackingField: 0
+  <AttackDamage>k__BackingField: 18
+  <Health>k__BackingField: 16
+  <Mana>k__BackingField: 13
+  <HealthRegen>k__BackingField: 9
   <WalkSpeed>k__BackingField: 0
-  <Armor>k__BackingField: 0
+  <Armor>k__BackingField: 13
   <AttackSpeed>k__BackingField: 0
   <CriticalHit>k__BackingField: 0
