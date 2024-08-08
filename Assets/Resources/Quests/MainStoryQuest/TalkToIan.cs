@@ -11,10 +11,6 @@ public class TalkToIan : QuestStep
     private GameObject Player;
     public Vector3 targetPosition;
     public string StepInfo = "Click The Talk Button";
-
-   
-    [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJSON;
     private void Awake()
     {
        
@@ -64,7 +60,7 @@ public class TalkToIan : QuestStep
 
     public void OnTalkButtonClick()
     {
-        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+        DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("third");
 
     }
@@ -74,11 +70,12 @@ public class TalkToIan : QuestStep
         if (GameManager.instance.CutScene2Open)
         {
             FinishQuestStep();
-
+            
             Debug.Log("Talk button clicked. Finishing quest step.");
             ChangeState("finish", "finish");
             GameManager.instance.CutScene2Open = false;
             GameManager.instance.OnQuest = false;
+            GameManager.instance.LTA.CloseTalkBTN();
         }
     }
     //public void OnApplicationQuit()

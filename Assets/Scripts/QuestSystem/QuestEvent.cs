@@ -31,6 +31,8 @@ public class QuestEvent : MonoBehaviour
         {
             onFinishQuest(id);
         }
+
+       
     }
 
     public event Action<Quest> onQuestStateChange;

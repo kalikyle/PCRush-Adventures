@@ -49,7 +49,15 @@ public class QuestLogButton : MonoBehaviour, ISelectHandler
 
             case QuestState.FINISHED:
                 buttonText.color = Color.green;
+
+                //settings for finished quest
+                GameManager.instance.PlayerDeskRoom.SetActive(true);
+                GameManager.instance.BuildingDesk.SetActive(true);
+                GameManager.instance.HouseDoor.SetActive(true);
+                GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
+
                 break;
+
             default:
                 buttonText.color = Color.black;
                 Debug.Log("Quest statenot Reqcognize");

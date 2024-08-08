@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class OpenBuildingDesk : QuestStep
+public class GoToYouDesk : QuestStep
 {
+    // Start is called before the first frame update
     private GameObject Ian;
     public Vector3 targetPosition;
-    public string StepInfo = "Go to the Desk and Click the Build Button";
-    // Start is called before the first frame update
     void Start()
     {
         if (Ian == null)
@@ -36,26 +35,18 @@ public class OpenBuildingDesk : QuestStep
         {
             Debug.LogError("Child GameObject with name  BoxCollideTrigger  not found.");
         }
-
+        GameManager.instance.PlayerDeskRoom.SetActive(true);
+        GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
-        GameManager.instance.Enter.onClick.AddListener(OnClickEnterButton);
     }
-    public void OnClickEnterButton()
-    {
-       if(GameManager.instance.OpenBuild == true)
-        {
-            FinishQuestStep();
-            ChangeState("finish", "finish");
-            GameManager.instance.OpenBuild = false;
-        }
-       
-    }
+
     // Update is called once per frame
     void Update()
     {
-
+        
     }
+
     protected override void SetQuestStepState(string state)
     {
 

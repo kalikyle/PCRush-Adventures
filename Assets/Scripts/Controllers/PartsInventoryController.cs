@@ -345,6 +345,8 @@ namespace PartsInventory
             GPUButton.interactable = false;
             STRG1Button.interactable = false;
             PSUButton.interactable = false;
+
+            
             //backButton.onClick.AddListener(LoadMyHomeScene);
             //shopButton.onClick.AddListener(LoadMyShopScene);
 
@@ -1050,6 +1052,68 @@ namespace PartsInventory
         //}
 
         public double totalUsedItemsPrice = 0.0;
+
+        public void OpenStoryDialogues(string Category)
+        {
+            if(GameManager.instance.OnBuildingQuest == true)
+            {
+                if(Category == "Case")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthDoneCase");
+                }
+                if (Category == "Motherboard")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthDoneMB");
+                }
+                if (Category == "CPU")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthDoneCPU");
+                }
+                if (Category == "RAM")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthDoneRAM");
+                }
+                if (Category == "CPU Fan")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthDoneCPUFan");
+                }
+                if (Category == "Video Card")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthDoneGPU");
+                }
+                if (Category == "Storage")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthDoneStorage");
+                }
+                if (Category == "PSU")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthDonePSU");
+                }
+
+                if(Category == "OnDoneClick")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthDoneInstall");
+                }
+                if (Category == "OnDoneRename")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthRenamed");
+                    GameManager.instance.DoneRename = true;
+                }
+                
+            }
+        }
+        
+
         public void HandleItemRightActionRequest(int tempIndex)//for filtered
         {
 
@@ -1078,6 +1142,7 @@ namespace PartsInventory
 
                     inventoryData.RemoveItem(index, 1);
                     BackItem(inventoryItem, category);
+                    
                    // UpdatePerksDictionary(inventoryItem, true);
                     //  totalUsedItemsPrice += inventoryItem.item.Price;
                     //DisplayPrices(totalUsedItemsPrice);
@@ -1217,6 +1282,7 @@ namespace PartsInventory
         public void UseItems(InventoryItem inventoryItem, string category)
         {
             UpdatePerksDictionary(inventoryItem, true);
+            OpenStoryDialogues(category);
             switch (category)
             {
                 case "Case":
@@ -1395,7 +1461,14 @@ namespace PartsInventory
             {
                 PSUButton.interactable = true;
             }
-
+            if (GameManager.instance.DoneRename == true && GameManager.instance.OnBuildingQuest ==true)
+            {
+                GameManager.instance.BackButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                GameManager.instance.BackButton.gameObject.SetActive(false);
+            }
             //if ((PlayerPrefs.GetInt("TutorialDone") == 1))
             //{
             //    if (!RenamePC.isActiveAndEnabled /*|| !ApplyThermal.isActiveAndEnabled || !DialogBox.isActiveAndEnabled*/)
@@ -1653,6 +1726,7 @@ namespace PartsInventory
 
             PCNameTxt.text = pcname;
             OnSuccessPCname.text = pcname;
+            OpenStoryDialogues("OnDoneRename");
 
         }
 
@@ -1738,7 +1812,7 @@ namespace PartsInventory
         {
 
             PCSO PC = ConvertLastUsedItemsToPCSOList();
-
+            OpenStoryDialogues("OnDoneClick");
             if (!GameManager.instance.BeenModified) // not modified pc 
             {
 

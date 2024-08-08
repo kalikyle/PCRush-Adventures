@@ -19,7 +19,8 @@ public class GoToIan : QuestStep
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
         GameManager.instance.HouseDoor.SetActive(true);
 
-
+        DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+        DialogueManager.GetInstance().TriggerSection("second");
 
 
 

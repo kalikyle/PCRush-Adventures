@@ -65,6 +65,8 @@ public class QuestPoint : MonoBehaviour
         else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
         {
             GameManager.instance.questEvents.FinishQuest(questId);
+
+           
         }
 
 
