@@ -295,9 +295,19 @@ public class GameManager : MonoBehaviour
     public QuestEvent questEvents;
     public bool OnQuest = false;
     public bool OpenBuild = false;
+
     public GameObject HouseDoor;
+    public GameObject BuildingDesk;
+    public GameObject PlayerDeskRoom;
+
     public bool CutScene2Open = false;
-    
+    public bool OnBuildingQuest = false;
+    public bool DoneRename = false;
+    public Button BackButton;
+
+    [Header("Ink JSON")]
+    [SerializeField] public TextAsset MainStory;
+
 
     //for shop ui
     [Header("SHOP UI")]

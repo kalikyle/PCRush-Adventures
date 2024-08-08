@@ -12,8 +12,7 @@ public class CollectPackageStep : QuestStep
 
     public string StepInfo = "Exit Your Room and Collect those Unknown Packages at the front of your home door.";
 
-    [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJSON;
+    
 
     public async void Start()
     {
@@ -21,7 +20,7 @@ public class CollectPackageStep : QuestStep
         if (packagecollected == 0)
         {
             await Task.Delay(1500);
-            DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
             DialogueManager.GetInstance().TriggerSection("first");
         }
 

@@ -17,8 +17,12 @@ public class PlayerTeleport : MonoBehaviour
 
         public GameObject InvBTN;
         public GameObject EquippedStats;
-       
-        public TMP_Text Name;
+
+    public GameObject PlayerDesk;
+    public GameObject BuildingDesk;
+    public GameObject Customize;
+
+    public TMP_Text Name;
         public TMP_Text WorldName;
 
         public LeanTweenAnimate LTA;
@@ -603,6 +607,7 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("Desk"))
             {
             GameManager.instance.Enter.gameObject.SetActive(true);
+            PlayerDesk.SetActive(true);
             OpenDesk = true;
             Name.text = "Enter To Your Setup";
            
@@ -611,12 +616,14 @@ public class PlayerTeleport : MonoBehaviour
             {
             GameManager.instance.Enter.gameObject.SetActive(true);
             GameManager.instance.OpenEditor = true;
+            Customize.SetActive(true);
                 Name.text = "Open Player Editor";
             }
             if (collision.CompareTag("Build"))
             {
             GameManager.instance.Enter.gameObject.SetActive(true);
             GameManager.instance.OpenBuild = true;
+            BuildingDesk.SetActive(true);
             OpenBuild = true;
                Name.text = "Open Building Desk";
             }
@@ -738,19 +745,24 @@ public class PlayerTeleport : MonoBehaviour
         ///////////////////////////////////
         if (collision.CompareTag("Desk"))
             {
-                OpenDesk = false;
+            PlayerDesk.SetActive(false);
+            OpenDesk = false;
+
 
             
 
         }
             if (collision.CompareTag("Editor"))
             {
-               GameManager.instance.OpenEditor = false;
+            Customize.SetActive(false);
+            GameManager.instance.OpenEditor = false;
                EditorOpen = false;
         }
         if (collision.CompareTag("Build"))
         {
+            BuildingDesk.SetActive(false);
             OpenBuild = false;
+
         }
 
 

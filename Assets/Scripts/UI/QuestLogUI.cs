@@ -71,6 +71,8 @@ public class QuestLogUI : MonoBehaviour
         }
 
         questLogButton.SetState(quest.state);
+      
+
     }
 
     public void ShowUI()
