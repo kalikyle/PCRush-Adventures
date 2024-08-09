@@ -27,7 +27,6 @@ public class QuestLogUI : MonoBehaviour
     [SerializeField] private TMP_Text QuestName;
     [SerializeField] private TMP_Text questStatus;
     [SerializeField] private TMP_Text questInfo;
-    [SerializeField] private GameObject QuestPanel;
 
 
     private Button firstselectedButton;
@@ -71,6 +70,11 @@ public class QuestLogUI : MonoBehaviour
         }
 
         questLogButton.SetState(quest.state);
+
+        //if (quest.state == QuestState.FINISHED)
+        //{
+        //    GameManager.instance.QuestUI.gameObject.SetActive(false);
+        //}
       
 
     }
@@ -132,10 +136,10 @@ public class QuestLogUI : MonoBehaviour
 
         if(quest.state == QuestState.IN_PROGRESS)
         {
-            QuestPanel.gameObject.SetActive(true);
+            GameManager.instance.QuestUI.gameObject.SetActive(true);
         }else if (quest.state == QuestState.FINISHED || quest.state == QuestState.CAN_START)
         {
-            QuestPanel.gameObject.SetActive(false);
+            GameManager.instance.QuestUI.gameObject.SetActive(false);
         }
         
     }

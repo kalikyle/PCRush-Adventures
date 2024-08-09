@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GoToYouDesk : QuestStep
+public class GoToMom : QuestStep
 {
     // Start is called before the first frame update
     private GameObject Ian;
@@ -37,8 +37,9 @@ public class GoToYouDesk : QuestStep
             Debug.LogError("Child GameObject with name  BoxCollideTrigger  not found.");
         }
 
+        GameManager.instance.GoDownStairsQuest = true;
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
-        DialogueManager.GetInstance().TriggerSection("Seventh");
+        DialogueManager.GetInstance().TriggerSection("Nine");
 
         GameManager.instance.PlayerDeskRoom.SetActive(true);
         GameManager.instance.BuildingDesk.SetActive(true);
@@ -49,15 +50,7 @@ public class GoToYouDesk : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.OnGoToDeskQuest == true && GameManager.instance.ComputerPlaced == true)
-        {
-            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
-            DialogueManager.GetInstance().TriggerSection("EightSecond");
-            FinishQuestStep();
-            ChangeState("Finish", "Finish");
-            GameManager.instance.ComputerPlaced = false;
-            GameManager.instance.OnGoToDeskQuest = false;
-        }
+        
     }
 
     protected override void SetQuestStepState(string state)

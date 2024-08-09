@@ -1001,6 +1001,11 @@ namespace PC
         {
             if (PT.DeskPanel.activeSelf) {
                 PCMenu.Hide();
+
+                if(GameManager.instance.OnGoToDeskQuest == true)
+                {
+                    GameManager.instance.ComputerPlaced = true;
+                }
                 //TestingComputerPanel.SetActive(true);
                 //EmptyComputerPanel.SetActive(false);
 

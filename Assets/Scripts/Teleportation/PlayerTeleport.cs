@@ -46,6 +46,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.Enter.onClick.AddListener(() =>
         {
             TheTeleporter();
+
         });
 
         if (GameManager.instance.HomeWorld == true)
@@ -375,7 +376,7 @@ public class PlayerTeleport : MonoBehaviour
     
     public void TheTeleporter()
     {
-
+        
         GameManager.instance.Enter.gameObject.SetActive(false);
         if (homeTeleport != null)
         {
@@ -390,11 +391,19 @@ public class PlayerTeleport : MonoBehaviour
         }
         else if (OpenDesk == true && homeTeleport == null)
         {
+
+            if (GameManager.instance.OnGoToDeskQuest)
+            {
+                GameManager.instance.CutScene3.SetActive(true);
+            }
+
             DeskPanel.gameObject.SetActive(true);
             GameManager.instance.PlayerDeskName();
             UIPanel.gameObject.SetActive(true);
             GameManager.instance.UIExplore.SetActive(false);
             OpenDesk = false;
+
+            
         }
         else if (GameManager.instance.OpenEditor == true && homeTeleport == null && EditorOpen == false)
         {
@@ -610,7 +619,9 @@ public class PlayerTeleport : MonoBehaviour
             PlayerDesk.SetActive(true);
             OpenDesk = true;
             Name.text = "Enter To Your Setup";
-           
+
+            
+
         }
             if (collision.CompareTag("Editor"))
             {
@@ -748,6 +759,7 @@ public class PlayerTeleport : MonoBehaviour
             PlayerDesk.SetActive(false);
             OpenDesk = false;
 
+            
 
             
 
