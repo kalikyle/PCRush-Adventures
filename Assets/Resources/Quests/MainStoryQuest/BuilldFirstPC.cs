@@ -64,4 +64,12 @@ public class BuilldFirstPC : QuestStep
     {
         // You can implement this if you need to load or set state for this step
     }
+
+    public void OnApplicationQuit()
+    {
+        if (GameManager.instance.OnBuildingQuest == true && GameManager.instance.DoneRename == true)
+        {
+            OnClickBackButton();
+        }
+    }
 }

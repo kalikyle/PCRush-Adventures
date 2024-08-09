@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
     [Header("CUT SCENES")]
     public GameObject CutScene1;
     public GameObject CutScene2;
+    public GameObject CutScene3;
     public GameObject SquareBars;
 
     //for UI
@@ -117,6 +118,7 @@ public class GameManager : MonoBehaviour
     public GameObject UIExplore;
     public GameObject ComputerInv;
     public GameObject InGamePanel;
+    public GameObject QuestUI;
     
 
     public GameObject SwordDealerPanel;
@@ -303,6 +305,9 @@ public class GameManager : MonoBehaviour
     public bool CutScene2Open = false;
     public bool OnBuildingQuest = false;
     public bool DoneRename = false;
+    public bool ComputerPlaced = false;
+    public bool OnGoToDeskQuest = false;
+    public bool GoDownStairsQuest = false;
     public Button BackButton;
 
     [Header("Ink JSON")]
@@ -1594,6 +1599,7 @@ public class GameManager : MonoBehaviour
         {
 
             UIExplore.SetActive(true);
+            //QuestUI.SetActive(true);
 
             string[] categories = new string[] { "Monitor", "Mouse","MousePad", "Keyboard", "Desk", "Background" };
             DisableFirstall();

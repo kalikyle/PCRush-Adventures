@@ -128,9 +128,23 @@ Ok, Lets go back to your room #speaker: Ian #portrait: 2
 -> DONE
 
 === Seventh ===
-Now, Go to the room, need to setup your PC #speaker: Ian #portrait: 2
+Now, Go to the room, all we need to do is to setup your PC #speaker: Ian #portrait: 2
 -> DONE
 
 === Eight ===
-Put Your PC in the Desk #speaker: Ian #portrait: 2
+Its all Set, All you need to do is place your PC in the desk #speaker: Ian #portrait: 2
+(Open the <color=green>Computers Button</color>, click the computer and, click the <color=green>use button</color>) #speaker: PCRush #portrait: 5
+-> DONE
+
+=== EightSecond ===
+Nice! its all set, all we need to do is Turn On this Computer #speaker: Ian #portrait: 2
+-> DONE
+
+=== Nine ===
+{player_Name} and Ian! #speaker: Mommy #portrait: 1
+Come downstairs, I have something for ya'll #speaker: Mommy #portrait: 1
+We need to go downstairs first Ian #speaker: {player_Name} #portrait: 0
+Mommy has something for us #speaker: {player_Name} #portrait: 0
+Sure {player_Name} #speaker: Mommy #portrait: 1
+going downstairs Mom #speaker: {player_Name} #portrait: 0
 -> DONE

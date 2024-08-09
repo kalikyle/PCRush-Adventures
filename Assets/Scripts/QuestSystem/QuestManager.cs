@@ -101,7 +101,14 @@ public class QuestManager : MonoBehaviour
             }
             else if (quest.state == QuestState.FINISHED)
             {
+                GameManager.instance.PlayerDeskRoom.SetActive(true);
+                GameManager.instance.BuildingDesk.SetActive(true);
+                GameManager.instance.HouseDoor.SetActive(true);
                 GameManager.instance.packagescollected = 8;
+
+
+                GameManager.instance.QuestUI.gameObject.SetActive(false);
+                // need to have this in the rest of the quest step
             }
 
             GameManager.instance.questEvents.QuestStateChange(quest);
