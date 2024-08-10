@@ -36,7 +36,8 @@ public class BuilldFirstPC : QuestStep
             Debug.LogError("Child GameObject with name  BoxCollideTrigger  not found.");
         }
         GameManager.instance.OnBuildingQuest = true;
-
+        GameManager.instance.BackButton.gameObject.SetActive(false);
+        GameManager.instance.HasInitialize = true;
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step

@@ -82,7 +82,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     {
                         if (!DialogueManager.GetInstance().dialogueIsPlaying)
                         {
-                            if (!playerTeleport.DeskPanel.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
+                            if (!GameManager.instance.PlayerDeskUI.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
                             {
                                 HandleMovement();
                                 HandleAttack();

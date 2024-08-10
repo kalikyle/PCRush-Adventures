@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0da373bdfdf3d6649aa23da6f20f9717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPosition: {x: 86.87, y: -11.2, z: 0}
+  targetPosition: {x: 86.96, y: -11.34, z: 0}

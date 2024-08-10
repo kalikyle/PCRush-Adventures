@@ -1101,12 +1101,19 @@ namespace PartsInventory
                 if(Category == "OnDoneClick")
                 {
                     DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("sixthDoneClick");
+                }
+
+                if (Category == "OnDoneInstall")
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
                     DialogueManager.GetInstance().TriggerSection("sixthDoneInstall");
                 }
                 if (Category == "OnDoneRename")
                 {
                     DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
                     DialogueManager.GetInstance().TriggerSection("sixthRenamed");
+                    GameManager.instance.BackButton.gameObject.SetActive(true);
                     GameManager.instance.DoneRename = true;
                 }
                 
@@ -1461,13 +1468,15 @@ namespace PartsInventory
             {
                 PSUButton.interactable = true;
             }
-            if (GameManager.instance.DoneRename == true && GameManager.instance.OnBuildingQuest ==true)
+            if (GameManager.instance.OnBuildingQuest == true)
             {
-                GameManager.instance.BackButton.gameObject.SetActive(true);
+                GameManager.instance.PerksButon.gameObject.SetActive(false);
+                GameManager.instance.CanCelButtonBuild.gameObject.SetActive(false);
             }
             else
             {
-                GameManager.instance.BackButton.gameObject.SetActive(false);
+                GameManager.instance.PerksButon.gameObject.SetActive(true);
+                GameManager.instance.CanCelButtonBuild.gameObject.SetActive(true);
             }
             //if ((PlayerPrefs.GetInt("TutorialDone") == 1))
             //{

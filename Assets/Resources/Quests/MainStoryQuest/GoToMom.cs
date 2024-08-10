@@ -10,7 +10,7 @@ public class GoToMom : QuestStep
     public Vector3 targetPosition;
     void Start()
     {
-        GameManager.instance.OnGoToDeskQuest = true;
+        GameManager.instance.GoDownStairsQuest = true;
         if (Ian == null)
         {
             // Try to find the GameObject by name if it's not assigned in the inspector
@@ -40,8 +40,13 @@ public class GoToMom : QuestStep
         GameManager.instance.GoDownStairsQuest = true;
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("Nine");
+        
+        GameManager.instance.PlayerDeskUI.SetActive(false);
+        GameManager.instance.UIPanel.SetActive(false);
+        GameManager.instance.UIExplore.SetActive(true);
 
-        GameManager.instance.PlayerDeskRoom.SetActive(true);
+        GameManager.instance.HasInitialize = true;
+        GameManager.instance.PlayerDeskRoom.SetActive(false);
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
@@ -50,7 +55,14 @@ public class GoToMom : QuestStep
     // Update is called once per frame
     void Update()
     {
-        
+        if(GameManager.instance.GoDownStairsQuest == true && GameManager.instance.DoneDownStairsQuets == true)
+        {
+            FinishQuestStep();
+            ChangeState("Finish", "Finish");
+
+            GameManager.instance.GoDownStairsQuest = false;
+            GameManager.instance.DoneDownStairsQuets = false;
+        }
     }
 
     protected override void SetQuestStepState(string state)

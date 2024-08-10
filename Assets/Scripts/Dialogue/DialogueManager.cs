@@ -300,6 +300,16 @@ public class DialogueManager : MonoBehaviour
         {
             GameManager.instance.CutScene2.SetActive(true);
         }
+
+        if (sceneName == "CutScene 5")
+        {
+            GameManager.instance.CutScene5.SetActive(true);
+        }
+
+        if (sceneName == "CutScene 6")
+        {
+            GameManager.instance.CutScene6.SetActive(true);
+        }
     }
     public void ExitDialogueMode()
     {

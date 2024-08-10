@@ -8,6 +8,7 @@ using Firebase.Extensions;
 using Firebase.Firestore;
 using OtherWorld;
 using OtherWorld.Model;
+using PartsInventory;
 using PartsInventory.Model;
 using PC.Model;
 //using Firebase.Analytics;
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
     public HorderManager Hordemanager;
     public Health PlayerHealthScript;
     public PlayerArmor PlayerArmorScript;
+    public PartsInventoryController PartsController;
 
     [Header("For Shop and Decorations")]
     public bool isEditing = false;
@@ -111,6 +113,9 @@ public class GameManager : MonoBehaviour
     public GameObject CutScene1;
     public GameObject CutScene2;
     public GameObject CutScene3;
+    public GameObject CutScene4;
+    public GameObject CutScene5;
+    public GameObject CutScene6;
     public GameObject SquareBars;
 
     //for UI
@@ -119,6 +124,8 @@ public class GameManager : MonoBehaviour
     public GameObject ComputerInv;
     public GameObject InGamePanel;
     public GameObject QuestUI;
+    public GameObject PlayerDeskUI;
+    public GameObject UIPanel;
     
 
     public GameObject SwordDealerPanel;
@@ -295,12 +302,14 @@ public class GameManager : MonoBehaviour
     [Header("QUESTS")]
     public int packagescollected = 0;
     public QuestEvent questEvents;
+    public bool HasInitialize = false;
     public bool OnQuest = false;
     public bool OpenBuild = false;
 
     public GameObject HouseDoor;
     public GameObject BuildingDesk;
     public GameObject PlayerDeskRoom;
+    public GameObject pumpkinSoup;
 
     public bool CutScene2Open = false;
     public bool OnBuildingQuest = false;
@@ -308,7 +317,16 @@ public class GameManager : MonoBehaviour
     public bool ComputerPlaced = false;
     public bool OnGoToDeskQuest = false;
     public bool GoDownStairsQuest = false;
+    public bool DoneDownStairsQuets = false;
+    public bool OnGoToDeskQuestAgain = false;
+    public bool OntheDesk = false;
+    public bool OnTurnOnQuest = false;
+    public bool PCTurnOn = false;
+    public bool OnExploreDesktopQuest = false;
+
     public Button BackButton;
+    public Button PerksButon;
+    public Button CanCelButtonBuild;
 
     [Header("Ink JSON")]
     [SerializeField] public TextAsset MainStory;
@@ -2229,6 +2247,50 @@ public class GameManager : MonoBehaviour
                 text.text = "This Decoration has been sent to Decoration Inventory";
             }
 
+        }
+
+    }
+
+    //for Quest Scripts
+
+    public void OpenDesktopMyPC()
+    {
+        if(GameManager.instance.OnExploreDesktopQuest == true)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("TwelveMYPC");
+        }
+    }
+    public void OpenDesktopShop()
+    {
+        if (GameManager.instance.OnExploreDesktopQuest == true)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("TwelveShop");
+        }
+    }
+    public void OpenDesktopSettings()
+    {
+        if (GameManager.instance.OnExploreDesktopQuest == true)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("TwelveSettings");
+        }
+    }
+    public void OpenDesktopStats()
+    {
+        if (GameManager.instance.OnExploreDesktopQuest == true)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("TwelveStats");
+        }
+    }
+    public void OpenDesktopHardware()
+    {
+        if (GameManager.instance.OnExploreDesktopQuest == true)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("TwelveHardwares");
         }
     }
 

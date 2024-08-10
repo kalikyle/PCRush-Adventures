@@ -301,6 +301,7 @@ namespace PC
         
         public void OpenDesktop()
         {
+
             Desktop.SetActive(true);
             UIPanel.SetActive(false);
         }
@@ -995,11 +996,11 @@ namespace PC
             PCImagePlaceholder.sprite = PCitem.Case.ItemImage;
         }
 
-        public PlayerTeleport PT;
+        
 
         public async void UseComputer(int index)
         {
-            if (PT.DeskPanel.activeSelf) {
+            if (GameManager.instance.PlayerDeskUI.activeSelf) {
                 PCMenu.Hide();
 
                 if(GameManager.instance.OnGoToDeskQuest == true)

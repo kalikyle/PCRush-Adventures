@@ -42,6 +42,7 @@ public class OpenBuildingDesk : QuestStep
 
         GameManager.instance.Enter.onClick.AddListener(OnClickEnterButton);
 
+        GameManager.instance.HasInitialize = true;
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step

@@ -40,6 +40,7 @@ public class GoToYouDesk : QuestStep
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("Seventh");
 
+        GameManager.instance.HasInitialize = true;
         GameManager.instance.PlayerDeskRoom.SetActive(true);
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);

@@ -55,6 +55,13 @@ public class ImageSpriteAnimation : MonoBehaviour
                 Func_StopUIAnim();
                 PCC.OpenDesktop();
 
+                if (GameManager.instance.OnTurnOnQuest)
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                    DialogueManager.GetInstance().TriggerSection("ElevenThird");
+
+                    GameManager.instance.PCTurnOn = true;
+                }
             }
 
         }
@@ -74,8 +81,16 @@ public class ImageSpriteAnimation : MonoBehaviour
 
     public void TurnOn() {
         TurnOnPC = true;
+
+        
+
         Func_PlayUIAnim();
-       
+
+        if (GameManager.instance.OnTurnOnQuest)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("ElevenSecond");
+        }
 
     }
     public void TurnOff()
