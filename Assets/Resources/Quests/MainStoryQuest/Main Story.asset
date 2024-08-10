@@ -24,5 +24,8 @@ MonoBehaviour:
   - {fileID: 5089655096613789068, guid: e9d5f2d105fb00546a78712c25fc2cd1, type: 3}
   - {fileID: 3957092331167798894, guid: 5ecf8f1c6eac7a1489953032309d4874, type: 3}
   - {fileID: 4925188110523645106, guid: da99eccbcff5b424c9f6222426d27a7a, type: 3}
+  - {fileID: 373412880653706569, guid: ea3fa726d8342ed47b1b9163d394c9e4, type: 3}
+  - {fileID: 6859164325642457630, guid: 08582f324f3c08a4f9ea3a7eaa670b7e, type: 3}
+  - {fileID: 4505778073331002148, guid: 2e7d2c592d3d705418468e3f01a0a073, type: 3}
   goldReward: 10000
   experiencereward: 300

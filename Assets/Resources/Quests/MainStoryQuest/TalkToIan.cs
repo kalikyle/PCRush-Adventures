@@ -19,25 +19,30 @@ public class TalkToIan : QuestStep
     // Reference to the "Talk" button
     void Start()
     {
-        if (Player == null)
+        if (GameManager.instance.HasInitialize == false)
         {
-            // Try to find the GameObject by name if it's not assigned in the inspector
-            Player = GameObject.Find("PCRushCharacter");
-
             if (Player == null)
             {
-                Debug.LogError("PCRushCharacter GameObject not found. Make sure it's assigned or exists in the scene.");
-                return;
+                // Try to find the GameObject by name if it's not assigned in the inspector
+                Player = GameObject.Find("PCRushCharacter");
+
+                if (Player == null)
+                {
+                    Debug.LogError("PCRushCharacter GameObject not found. Make sure it's assigned or exists in the scene.");
+                    return;
+                }
             }
+
+            Player.transform.position = targetPosition;
         }
 
-        Player.transform.position = targetPosition;
-
+        GameManager.instance.HasInitialize = true;
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
 
         GameManager.instance.OnQuest = true;
         GameManager.instance.TalkBTN.onClick.AddListener(OnTalkButtonClick);
+
 
         //await Task.Delay(1000);
         //GameObject button = GameObject.Find("TalkBTN");

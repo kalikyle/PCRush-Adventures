@@ -25,6 +25,8 @@ public class CollectPackageStep : QuestStep
         }
 
         packageCollected();
+
+        GameManager.instance.HasInitialize = true;
     }
     public void Update()
     {

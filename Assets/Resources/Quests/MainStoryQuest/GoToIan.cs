@@ -16,6 +16,7 @@ public class GoToIan : QuestStep
 
     public void Start()
     {
+        GameManager.instance.HasInitialize = true;
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
         GameManager.instance.HouseDoor.SetActive(true);
 

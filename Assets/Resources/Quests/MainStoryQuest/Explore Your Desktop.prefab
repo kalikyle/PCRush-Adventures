@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3084112080565932388
+--- !u!1 &4505778073331002148
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8484809014985051827}
-  - component: {fileID: -8747524077184921631}
+  - component: {fileID: 4445969877900583939}
+  - component: {fileID: -650893342970662565}
   m_Layer: 0
-  m_Name: Open Your Building Desk
+  m_Name: Explore Your Desktop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8484809014985051827
+--- !u!4 &4445969877900583939
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3084112080565932388}
+  m_GameObject: {fileID: 4505778073331002148}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,17 +32,15 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8747524077184921631
+--- !u!114 &-650893342970662565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3084112080565932388}
+  m_GameObject: {fileID: 4505778073331002148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64ba3c44cdb0ed54d970b19c58f62ea4, type: 3}
+  m_Script: {fileID: 11500000, guid: ac0ec67a3e735a345bf2dbc7a90eeb2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPosition: {x: 86.96, y: -11.34, z: 0}
-  StepInfo: Go to the Desk and Click the Build Button

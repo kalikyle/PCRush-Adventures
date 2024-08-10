@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public class PlayerTeleport : MonoBehaviour
     {
         private GameObject homeTeleport;
-        public GameObject DeskPanel;
-        public GameObject UIPanel;
         public GameObject inExplorePanel;
         public GameObject BuildRoom;
         public GameObject Desktop;
@@ -359,7 +357,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.MBWorldMap.SetActive(false);
         GameManager.instance.CASEWorldMap.SetActive(true);
 
-        DeskPanel.SetActive(true);
+        GameManager.instance.PlayerDeskUI.SetActive(true);
         Desktop.SetActive(true);
         GameMap.SetActive(true);
         inExplorePanel.SetActive(false);
@@ -388,6 +386,13 @@ public class PlayerTeleport : MonoBehaviour
             }
            
             LTA.OpenTeleAnim();
+
+
+            if(GameManager.instance.GoDownStairsQuest == true)
+            {
+                GameManager.instance.CutScene4.SetActive(true);
+                GameManager.instance.UIExplore.SetActive(false);
+            }
         }
         else if (OpenDesk == true && homeTeleport == null)
         {
@@ -397,9 +402,15 @@ public class PlayerTeleport : MonoBehaviour
                 GameManager.instance.CutScene3.SetActive(true);
             }
 
-            DeskPanel.gameObject.SetActive(true);
+            if (GameManager.instance.OnGoToDeskQuestAgain) {
+
+                GameManager.instance.OntheDesk = true;
+            }
+
+
+            GameManager.instance.PlayerDeskUI.gameObject.SetActive(true);
             GameManager.instance.PlayerDeskName();
-            UIPanel.gameObject.SetActive(true);
+            GameManager.instance.UIPanel.SetActive(true);
             GameManager.instance.UIExplore.SetActive(false);
             OpenDesk = false;
 

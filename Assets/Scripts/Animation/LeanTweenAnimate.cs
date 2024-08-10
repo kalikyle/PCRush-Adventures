@@ -145,6 +145,8 @@ public class LeanTweenAnimate : MonoBehaviour
         LeanTween.scale(chck3, new Vector3(1f, 1f, 1f), 2f).setOnComplete(chck4Open);
         LeanTween.scale(chck4, new Vector3(1f, 1f, 1f), 3f).setOnComplete(chck5Open);
         LeanTween.scale(chck5, new Vector3(1f, 1f, 1f), 3.5f).setOnComplete(renameOpen);
+
+        GameManager.instance.PartsController.OpenStoryDialogues("OnDoneInstall");
     }
 
     public void Circling()

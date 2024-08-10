@@ -37,8 +37,7 @@ Ok sure, are ya'll already have dinner? #speaker: Mommy #portrait: 1
 later Mom #speaker: {player_Name} #portrait: 0
 later {player_Name}'s Mom #speaker: Ian #portrait: 2
 Ok #speaker: Mommy #portrait: 1
-Come with me, we should go upstairs to build this PC #speaker: {player_Name} #portrait: 0
-#CutScene:CutScene 2
+Come with me, we should go upstairs to build this PC #speaker: {player_Name} #portrait: 0 #CutScene:CutScene 2
 -> DONE
 
 === fifth ===
@@ -111,7 +110,12 @@ so we need to the CPU FAN to it #speaker: Ian #portrait: 2
 
 === sixthDonePSU ===
 Excellent! {player_Name} now install the Operating System of your Computer #speaker: Ian #portrait: 2
-(Click the Done Button to install the OS, and then click the Install Button and wait for it) #speaker: PCRush #portrait: 0
+(Click the Done Button to Turn On and install the OS, and then click the Install Button and wait for it) #speaker: PCRush #portrait: 0
+-> DONE
+
+=== sixthDoneClick ===
+Wow! {player_Name}, Now your PC Boots Up we just need to install the OS #speaker: Ian #portrait: 2
+(Click the Install Button to install the OS, and then click the Install Button and wait for it) #speaker: PCRush #portrait: 0
 -> DONE
 
 === sixthDoneInstall ===
@@ -147,4 +151,78 @@ We need to go downstairs first Ian #speaker: {player_Name} #portrait: 0
 Mommy has something for us #speaker: {player_Name} #portrait: 0
 Sure {player_Name} #speaker: Mommy #portrait: 1
 going downstairs Mom #speaker: {player_Name} #portrait: 0
+-> DONE
+
+
+=== NineSecond ===
+I cook some pumpkin soup here #speaker: Mommy #portrait: 1
+Come and eat #speaker: Mommy #portrait: 1
+Thank You {player_Name}'s Mom #speaker: Ian #portrait: 2
+Thank You Mom #speaker: {player_Name} #portrait: 0
+#CutScene:CutScene 5
+-> DONE
+
+=== NiceThird ===
+That's super Delicious {player_Name}'s Mom #speaker: Ian #portrait: 2
+But I should go for now #speaker: Ian #portrait: 2
+My Mom needed me in the house #speaker: Ian #portrait: 2
+It's all setup {player_Name} you just go there and turn it on #speaker: Ian #portrait: 2
+Thank you very Much Ian #speaker: {player_Name} #portrait: 0
+My pleasure {player_Name} #speaker: Ian #portrait: 2
+Thanks for the soup again {player_Name}'s Mom #speaker: Ian #portrait: 2
+Ok Take care Ian #speaker: Mommy #portrait: 1
+Good Bye Ian #speaker: {player_Name} #portrait: 0
+Just meet me in my house if you have any questions #speaker: Ian #portrait: 2
+Bye... #speaker: Ian #portrait: 2 #CutScene:CutScene 6
+-> DONE
+
+=== Ten ===
+That's Delicious Mom, Thank You Very Much #speaker: {player_Name} #portrait: 0
+But I need to go upstairs the computer is ready to go #speaker: {player_Name} #portrait: 0
+Wow, that's nice #speaker: Mommy #portrait: 1
+You should Go My dear, and enjoy your new computer #speaker: Mommy #portrait: 1
+-> DONE
+
+=== Eleven ===
+Wow, This is my first time to have a computer #speaker: {player_Name} #portrait: 0
+I just dreaming of an Computer earlier, and now I have one #speaker: {player_Name} #portrait: 0
+I wonder where the parts are came from, but nevermind at least I have one #speaker: {player_Name} #portrait: 0
+now, all I need to do is turn on this computer #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== ElevenSecond ===
+Wow, The Computer is Booting Up, this is exciting #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== ElevenThird ===
+Great, So this is the desktop I should Explore what are these Icons first #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwelveInitial ===
+I should Explore The Desktop First #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwelveMYPC ===
+Wow, so this is the Information of My Computer #speaker: {player_Name} #portrait: 0
+It Listed all the parts that my Computer Have #speaker: {player_Name} #portrait: 0
+Nice #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwelveShop ===
+So, This is the Website where can I buy new monitors, keyboard, mouse, desk, and decorations for my Setup #speaker: {player_Name} #portrait: 0
+That's super cool #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwelveSettings ===
+ok, Just the settings of the game #speaker: {player_Name} #portrait: 0 
+-> DONE
+
+=== TwelveStats ===
+I wonder, what the stats all about, but something about me #speaker: {player_Name} #portrait: 0 
+-> DONE
+
+=== TwelveHardwares ===
+what is this mysterious Icon? #speaker: {player_Name} #portrait: 0 
+is this is a game? #speaker: {player_Name} #portrait: 0 
+I wonder what inside of this game, I should click the play button  #speaker: {player_Name} #portrait: 0 
 -> DONE
