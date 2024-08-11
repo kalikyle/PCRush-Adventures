@@ -19,13 +19,22 @@ public class ExploreDesktop : QuestStep
         GameManager.instance.PlayerDeskRoom.SetActive(true);
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
-        GameManager.instance.packagescollected = 8;
+        GameManager.instance.packagescollected = 8; 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(GameManager.instance.OnExploreDesktopQuest == true && GameManager.instance.OnExploreDeskDone == true)
+        {
+            FinishQuestStep();
+            ChangeState("Finish", "Finish");
+
+            GameManager.instance.OnExploreDesktopQuest = false;
+            GameManager.instance.OnExploreDeskDone = false;
+
+            
+        }
     }
     protected override void SetQuestStepState(string state)
     {

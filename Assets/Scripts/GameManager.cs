@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
     public GameObject CutScene4;
     public GameObject CutScene5;
     public GameObject CutScene6;
+    public GameObject CutScene7;
     public GameObject SquareBars;
 
     //for UI
@@ -323,6 +324,7 @@ public class GameManager : MonoBehaviour
     public bool OnTurnOnQuest = false;
     public bool PCTurnOn = false;
     public bool OnExploreDesktopQuest = false;
+    public bool OnExploreDeskDone = false;
 
     public Button BackButton;
     public Button PerksButon;
@@ -2255,7 +2257,7 @@ public class GameManager : MonoBehaviour
 
     public void OpenDesktopMyPC()
     {
-        if(GameManager.instance.OnExploreDesktopQuest == true)
+        if(OnExploreDesktopQuest == true)
         {
             DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
             DialogueManager.GetInstance().TriggerSection("TwelveMYPC");
@@ -2263,7 +2265,7 @@ public class GameManager : MonoBehaviour
     }
     public void OpenDesktopShop()
     {
-        if (GameManager.instance.OnExploreDesktopQuest == true)
+        if (OnExploreDesktopQuest == true)
         {
             DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
             DialogueManager.GetInstance().TriggerSection("TwelveShop");
@@ -2271,7 +2273,7 @@ public class GameManager : MonoBehaviour
     }
     public void OpenDesktopSettings()
     {
-        if (GameManager.instance.OnExploreDesktopQuest == true)
+        if (OnExploreDesktopQuest == true)
         {
             DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
             DialogueManager.GetInstance().TriggerSection("TwelveSettings");
@@ -2279,7 +2281,7 @@ public class GameManager : MonoBehaviour
     }
     public void OpenDesktopStats()
     {
-        if (GameManager.instance.OnExploreDesktopQuest == true)
+        if (OnExploreDesktopQuest == true)
         {
             DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
             DialogueManager.GetInstance().TriggerSection("TwelveStats");
@@ -2287,10 +2289,19 @@ public class GameManager : MonoBehaviour
     }
     public void OpenDesktopHardware()
     {
-        if (GameManager.instance.OnExploreDesktopQuest == true)
+        if (OnExploreDesktopQuest == true)
         {
             DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
             DialogueManager.GetInstance().TriggerSection("TwelveHardwares");
+        }
+    }
+
+    public void OpenDesktopPlay()
+    {
+        if (OnExploreDesktopQuest == true)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("TwelvePlayToMap");
         }
     }
 
