@@ -100,11 +100,21 @@ public class PlayerTeleport : MonoBehaviour
         Vector3 destination = new Vector3(216.45f, -46.33f, 0);
         transform.position = destination;
         WorldName.text = "CPU World";
-        LTA.OpenTeleAnim();
+       
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+
+        if (GameManager.instance.OnExploreDesktopQuest == true)
+        {
+            GameManager.instance.LTA.Onteleport();
+            GameManager.instance.OnExploreDeskDone = true;
+        }
+        else
+        {
+            LTA.OpenTeleAnim();
+        }
     }
     public void ToRAMWorld()
     {
@@ -170,6 +180,8 @@ public class PlayerTeleport : MonoBehaviour
         InvBTN.gameObject.SetActive(true);
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+
+        
     }
     public void ToGPUWorld()
     {

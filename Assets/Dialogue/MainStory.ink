@@ -226,3 +226,16 @@ what is this mysterious Icon? #speaker: {player_Name} #portrait: 0
 is this is a game? #speaker: {player_Name} #portrait: 0 
 I wonder what inside of this game, I should click the play button  #speaker: {player_Name} #portrait: 0 
 -> DONE
+
+=== TwelvePlayToMap ===
+Oh, there's a map... #speaker: {player_Name} #portrait: 0 
+And the land was named after computer parts #speaker: {player_Name} #portrait: 0 
+Strange... #speaker: {player_Name} #portrait: 0 
+CPU World is already unlocked I should check it. #speaker: {player_Name} #portrait: 0 
+-> DONE
+
+=== TwelveTeleporting ===
+Oh my God, What's happening! #speaker: {player_Name} #portrait: 0 
+am I being teleported??? #speaker: {player_Name} #portrait: 0 
+HELP!!!! #speaker: {player_Name} #portrait: 0 
+-> DONE

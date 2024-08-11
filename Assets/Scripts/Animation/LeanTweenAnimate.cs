@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LeanTweenAnimate : MonoBehaviour
 {
-    public GameObject  RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle,Install, Installing, chck1, chck2, chck3, chck4,chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl,  coinscollectedtxt,materialscollecttxt,expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap, Diedpanel,youdiedText, diedtextsub,skull
-        ,MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld, MinimapCPUFWorld, MinimapGPUWorld, MinimapSTORAGEWorld, MinimapPSUWorld, MinimapMBWorld, MinimapCASEWorld, TalkBTN;
+    public GameObject RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle, Install, Installing, chck1, chck2, chck3, chck4, chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl, coinscollectedtxt, materialscollecttxt, expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap, Diedpanel, youdiedText, diedtextsub, skull
+        , MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld, MinimapCPUFWorld, MinimapGPUWorld, MinimapSTORAGEWorld, MinimapPSUWorld, MinimapMBWorld, MinimapCASEWorld, TalkBTN, blackBack, Twirl, characterImage;
     public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
     //bool close = false;
@@ -401,6 +402,35 @@ public class LeanTweenAnimate : MonoBehaviour
     public void CloseTalkBTN()
     {
         LeanTween.scale(TalkBTN.gameObject, new Vector3(0f, 0f, 0f), .1f).setEase(LeanTweenType.easeOutElastic);
+    }
+
+    public void Onteleport()
+    {
+        characterImage.GetComponent<Image>().sprite = GameManager.instance.PlayerImage.sprite; 
+
+        GameManager.instance.CutScene7.SetActive(true);
+        LeanTween.alpha(blackBack.GetComponent<RectTransform>(), 1f, .2f);
+        LeanTween.scale(characterImage, new Vector3(1f, 1f, 1f), 2f).setDelay(1f).setEase(LeanTweenType.easeOutCubic);
+        LeanTween.alpha(characterImage.GetComponent<RectTransform>(), 1f, .8f).setDelay(1f);
+        LeanTween.scale(Twirl, new Vector3(1f, 1f, 1f), .1f).setEase(LeanTweenType.easeOutElastic).setOnComplete(OnTeleportClose);
+        LeanTween.rotateAround(Twirl, Vector3.forward, -360, 5f).setLoopClamp();
+        LeanTween.rotateAround(characterImage, Vector3.forward, -360, 5f).setLoopClamp();
+
+        DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+        DialogueManager.GetInstance().TriggerSection("TwelveTeleporting");
+    }
+
+    public void OnTeleportClose()
+    {
+        LeanTween.scale(Twirl, new Vector3(0f, 0f, 0f), .1f).setDelay(8f).setEase(LeanTweenType.easeOutElastic);
+        LeanTween.scale(characterImage, new Vector3(0f, 0f, 0f),2f).setDelay(7f).setEase(LeanTweenType.easeOutCubic);
+        LeanTween.alpha(blackBack.GetComponent<RectTransform>(), 0f, .8f).setDelay(8f).setOnComplete(HideCutScene7);
+
+    }
+
+    public void HideCutScene7()
+    {
+        GameManager.instance.CutScene7.SetActive(false);
     }
 
 }
