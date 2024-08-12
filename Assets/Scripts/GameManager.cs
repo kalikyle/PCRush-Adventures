@@ -327,6 +327,7 @@ public class GameManager : MonoBehaviour
     public bool OnExploreDeskDone = false;
 
     public Button BackButton;
+    public Button OnDeskBackButton;
     public Button PerksButon;
     public Button CanCelButtonBuild;
 

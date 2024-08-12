@@ -61,7 +61,13 @@ public class OpenBuildingDesk : QuestStep
     // Update is called once per frame
     void Update()
     {
-
+        if(GameManager.instance.OpenBuild == true)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                OnClickEnterButton();
+            }
+        }
     }
     protected override void SetQuestStepState(string state)
     {

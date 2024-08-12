@@ -20,7 +20,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] public GameObject dialoguePanel;
     [SerializeField] private GameObject continueIcon;
     [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private TextMeshProUGUI displayNameText;
+    [SerializeField] public TextMeshProUGUI displayNameText;
+    public TMP_Text NPCName;
     [SerializeField] private Image portraitImage;
 
     public Button talktoBTN;
@@ -181,6 +182,8 @@ public class DialogueManager : MonoBehaviour
                 case SPEAKER_TAG:
                     displayNameText.text = tagValue;
                     
+
+
                     break;
                 case PORTRAIT_TAG:
                     int index = Convert.ToInt32(tagValue);

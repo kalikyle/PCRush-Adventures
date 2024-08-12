@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPosition: {x: 72.01, y: -13.6, z: 0}
+  targetPositionIan: {x: 19.43, y: -6.91, z: 0}
