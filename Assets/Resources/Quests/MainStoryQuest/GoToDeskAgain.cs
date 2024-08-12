@@ -7,6 +7,8 @@ public class GoToDeskAgain : QuestStep
     // Start is called before the first frame update
     private GameObject Player;
     public Vector3 targetPosition;
+    private GameObject Ian;
+    public Vector3 targetPositionIan;
     void Start()
     {
         GameManager.instance.OnGoToDeskQuestAgain = true;
@@ -25,6 +27,33 @@ public class GoToDeskAgain : QuestStep
             }
 
             Player.transform.position = targetPosition;
+        }
+
+
+        if (Ian == null)
+        {
+            // Try to find the GameObject by name if it's not assigned in the inspector
+            Ian = GameObject.Find("Ian");
+
+            if (Ian == null)
+            {
+                Debug.LogError("Ian GameObject not found. Make sure it's assigned or exists in the scene.");
+                return;
+            }
+        }
+
+        Ian.transform.position = targetPositionIan;
+
+        Transform childTransform = Ian.transform.Find("BoxCollideTrigger");
+
+        if (childTransform != null)
+        {
+            // Disable the child GameObject
+            childTransform.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Child GameObject with name  BoxCollideTrigger  not found.");
         }
 
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class TalkToIan : QuestStep
 {
     // Start is called before the first frame update
+    private GameObject Ian;
     private GameObject Player;
     public Vector3 targetPosition;
     public string StepInfo = "Click The Talk Button";
@@ -19,6 +20,18 @@ public class TalkToIan : QuestStep
     // Reference to the "Talk" button
     void Start()
     {
+        if (Ian == null)
+        {
+            // Try to find the GameObject by name if it's not assigned in the inspector
+            Ian = GameObject.Find("Ian");
+
+            if (Ian == null)
+            {
+                Debug.LogError("Ian GameObject not found. Make sure it's assigned or exists in the scene.");
+                return;
+            }
+        }
+
         if (GameManager.instance.HasInitialize == false)
         {
             if (Player == null)
@@ -68,6 +81,9 @@ public class TalkToIan : QuestStep
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("third");
 
+
+        
+
     }
 
     public void Update()
@@ -81,6 +97,19 @@ public class TalkToIan : QuestStep
             GameManager.instance.CutScene2Open = false;
             GameManager.instance.OnQuest = false;
             GameManager.instance.LTA.CloseTalkBTN();
+
+            Transform childTransform = Ian.transform.Find("BoxCollideTrigger");
+
+            if (childTransform != null)
+            {
+                // Disable the child GameObject
+                childTransform.gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError("Child GameObject with name  BoxCollideTrigger  not found.");
+            }
+
         }
     }
     //public void OnApplicationQuit()

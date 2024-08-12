@@ -41,7 +41,7 @@ public class DialogueTrigger : MonoBehaviour
             visualCue.SetActive(true);
             //DialogueManager.GetInstance().talktoBTN.gameObject.SetActive(true);
             GameManager.instance.LTA.OpenTalkBTN();
-
+            DialogueManager.GetInstance().NPCName.text = transform.parent.parent.name;
 
             if (Input.GetKeyDown(KeyCode.I))
             {

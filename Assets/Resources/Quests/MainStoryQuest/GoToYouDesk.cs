@@ -11,6 +11,7 @@ public class GoToYouDesk : QuestStep
     void Start()
     {
         GameManager.instance.OnGoToDeskQuest = true;
+        GameManager.instance.OnDeskBackButton.gameObject.SetActive(false);
         if (Ian == null)
         {
             // Try to find the GameObject by name if it's not assigned in the inspector
@@ -58,6 +59,7 @@ public class GoToYouDesk : QuestStep
             ChangeState("Finish", "Finish");
             GameManager.instance.ComputerPlaced = false;
             GameManager.instance.OnGoToDeskQuest = false;
+            GameManager.instance.OnDeskBackButton.gameObject.SetActive(true);
         }
     }
 
