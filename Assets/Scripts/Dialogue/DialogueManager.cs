@@ -110,17 +110,19 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
-        currentStory = new Story(inkJSON.text);
-        dialogueIsPlaying = true;
-        dialoguePanel.SetActive(true);
+        
+            currentStory = new Story(inkJSON.text);
+            dialogueIsPlaying = true;
+            dialoguePanel.SetActive(true);
 
-        dialogueVariables.StartListening(currentStory);
-        SetPlayerNameVariable(GameManager.instance.PlayerName);
+            dialogueVariables.StartListening(currentStory);
+            SetPlayerNameVariable(GameManager.instance.PlayerName);
 
-        // Handle external function calls from the Ink script
-        //currentStory.BindExternalFunction("open_shop_panel", () => OpenShopPanel());
+            // Handle external function calls from the Ink script
+            //currentStory.BindExternalFunction("open_shop_panel", () => OpenShopPanel());
 
-        ContinueStory();
+            ContinueStory();
+        
 
     }
     private void SetPlayerNameVariable(string playerName)

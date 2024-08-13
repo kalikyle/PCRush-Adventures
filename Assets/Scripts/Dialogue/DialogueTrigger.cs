@@ -27,10 +27,9 @@ public class DialogueTrigger : MonoBehaviour
 
     public void OnEnable()
     {
-        if (GameManager.instance.OnQuest == false)
-        {
+       
             DialogueManager.GetInstance().talktoBTN.onClick.AddListener(EnterDialogue);
-        }
+        
        
     }
 
@@ -40,8 +39,10 @@ public class DialogueTrigger : MonoBehaviour
         {
             visualCue.SetActive(true);
             //DialogueManager.GetInstance().talktoBTN.gameObject.SetActive(true);
+            GameManager.instance.CurrentNPC = transform.parent.parent.name;
             GameManager.instance.LTA.OpenTalkBTN();
             DialogueManager.GetInstance().NPCName.text = transform.parent.parent.name;
+            
 
             if (Input.GetKeyDown(KeyCode.I))
             {
@@ -68,9 +69,10 @@ public class DialogueTrigger : MonoBehaviour
 
     public void EnterDialogue()
     {
-       
+        if (GameManager.instance.OnQuest == false)
+        {
             DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-        
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collider)

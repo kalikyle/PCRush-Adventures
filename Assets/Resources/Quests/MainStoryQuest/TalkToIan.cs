@@ -53,8 +53,8 @@ public class TalkToIan : QuestStep
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
 
-        GameManager.instance.OnQuest = true;
-        GameManager.instance.TalkBTN.onClick.AddListener(OnTalkButtonClick);
+        DialogueManager.GetInstance().talktoBTN.onClick.AddListener(OnTalkButtonClick);
+
 
 
         //await Task.Delay(1000);
@@ -78,22 +78,32 @@ public class TalkToIan : QuestStep
 
     public void OnTalkButtonClick()
     {
-        DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
-        DialogueManager.GetInstance().TriggerSection("third");
-
-
-        
-
+        if (GameManager.instance.OnQuest == true)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("third");
+        }
     }
 
     public void Update()
     {
+        if (GameManager.instance.CurrentNPC == "Ian")
+        {
+            GameManager.instance.OnQuest = true;
+        }
+        else
+        {
+            GameManager.instance.OnQuest = false;
+        }
+
+
+
         if (GameManager.instance.CutScene2Open)
         {
             FinishQuestStep();
             
             Debug.Log("Talk button clicked. Finishing quest step.");
-            ChangeState("finish", "finish");
+            ChangeState("Finish", "Finish");
             GameManager.instance.CutScene2Open = false;
             GameManager.instance.OnQuest = false;
             GameManager.instance.LTA.CloseTalkBTN();

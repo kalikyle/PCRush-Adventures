@@ -425,12 +425,14 @@ public class LeanTweenAnimate : MonoBehaviour
         LeanTween.scale(Twirl, new Vector3(0f, 0f, 0f), .1f).setDelay(8f).setEase(LeanTweenType.easeOutElastic);
         LeanTween.scale(characterImage, new Vector3(0f, 0f, 0f),2f).setDelay(7f).setEase(LeanTweenType.easeOutCubic);
         LeanTween.alpha(blackBack.GetComponent<RectTransform>(), 0f, .8f).setDelay(8f).setOnComplete(HideCutScene7);
+        
 
     }
 
     public void HideCutScene7()
     {
         GameManager.instance.CutScene7.SetActive(false);
+        GameManager.instance.OnCutScene7Open = true;
     }
 
 }

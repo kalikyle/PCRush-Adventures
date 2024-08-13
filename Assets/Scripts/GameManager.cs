@@ -22,6 +22,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
+using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
     public Health PlayerHealthScript;
     public PlayerArmor PlayerArmorScript;
     public PartsInventoryController PartsController;
+    public PlayerTeleport playerTeleport;
 
     [Header("For Shop and Decorations")]
     public bool isEditing = false;
@@ -301,6 +303,7 @@ public class GameManager : MonoBehaviour
 
     //for Quest
     [Header("QUESTS")]
+    public string CurrentNPC;
     public int packagescollected = 0;
     public QuestEvent questEvents;
     public bool HasInitialize = false;
@@ -325,11 +328,17 @@ public class GameManager : MonoBehaviour
     public bool PCTurnOn = false;
     public bool OnExploreDesktopQuest = false;
     public bool OnExploreDeskDone = false;
+    public bool OnCutScene7Open = false;
 
     public Button BackButton;
     public Button OnDeskBackButton;
     public Button PerksButon;
     public Button CanCelButtonBuild;
+
+
+    public GameObject CPUSpawn;
+   
+
 
     [Header("Ink JSON")]
     [SerializeField] public TextAsset MainStory;
