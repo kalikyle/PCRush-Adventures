@@ -25,13 +25,14 @@ public class ExploreDesktop : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.OnExploreDesktopQuest == true && GameManager.instance.OnExploreDeskDone == true)
+        if(GameManager.instance.OnExploreDesktopQuest == true && GameManager.instance.OnExploreDeskDone == true && GameManager.instance.OnCutScene7Open == true)
         {
             FinishQuestStep();
             ChangeState("Finish", "Finish");
 
             GameManager.instance.OnExploreDesktopQuest = false;
             GameManager.instance.OnExploreDeskDone = false;
+            GameManager.instance.OnCutScene7Open = false;
 
             
         }

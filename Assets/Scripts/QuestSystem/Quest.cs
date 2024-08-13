@@ -196,6 +196,11 @@ public class Quest
                 cstatus = TalkToIan.StepInfo;
             }
 
+            if(cstatus == "")
+            {
+                cstatus = "No Info on this Objective";
+            }
+
         }
 
         return cstatus;

@@ -5,15 +5,12 @@ What a Dream... #speaker: {player_Name} #portrait: 0
 {player_Name}!!! you have package in here!! go downstairs #speaker: Mommy #portrait: 1
 Ok Mom, I'm going Downs stairs #speaker: {player_Name} #portrait: 0
 I should collect those packages #speaker: {player_Name} #portrait: 0
-
 -> DONE
 
 === second ===
 Wow, these are computer parts #speaker: {player_Name} #portrait: 0
 but the only problem is I don't know how to assemble these #speaker: {player_Name} #portrait: 0
 ow, I know a person that can help me... #speaker: {player_Name} #portrait: 0
-
-
 -> DONE
 
 === third ===
@@ -238,4 +235,51 @@ CPU World is already unlocked I should check it. #speaker: {player_Name} #portra
 Oh my God, What's happening! #speaker: {player_Name} #portrait: 0 
 am I being teleported??? #speaker: {player_Name} #portrait: 0 
 HELP!!!! #speaker: {player_Name} #portrait: 0 
+-> DONE
+
+
+=== Thirteen ===
+Oh my God where am I??? #speaker: {player_Name} #portrait: 0
+There's a person here, I should talk to him... #speaker: {player_Name} #portrait: 0 
+-> DONE
+
+
+=== ThirteenTwo ===
+Hi Adventurer, What's your Name?  #speaker: Lost Adventurer #portrait: 10
+I'm {player_Name} what's yours? #speaker: {player_Name} #portrait: 0
+Im the Lost Adventurer #speaker: Lost Adventurer #portrait: 10
+That's your Name? #speaker: {player_Name} #portrait: 0
+Yes #speaker: Lost Adventurer #portrait: 10
+Ok... #speaker: {player_Name} #portrait: 0
+What is this place? #speaker: {player_Name} #portrait: 0
+I have a question first ... #speaker: Lost Adventurer #portrait: 10
+Are you dreaming about computer??? #speaker: Lost Adventurer #portrait: 10
+Yes? Why? And also I receive some mysterious computer parts earlier #speaker: {player_Name} #portrait: 0
+I even didn't ordered these stuff online #speaker: {player_Name} #portrait: 0
+And You build it? #speaker: Lost Adventurer #portrait: 10
+Yes Of Course, I really want to have a computer that's why I assembled it .... #speaker: {player_Name} #portrait: 0
+After I build it, I open a mysterious game called The Hardwares and I been sucked up in the monitor #speaker: {player_Name} #portrait: 0
+That's why I'm here #speaker: {player_Name} #portrait: 0
+So you're supposedly the next victim #speaker: Lost Adventurer #portrait: 10
+What's you're talking about? #speaker: {player_Name} #portrait: 0
+I'm also stuck here and I want to go home, I've been teleported here after building that mysterious parts also... #speaker: Lost Adventurer #portrait: 10
+I'm also wishing to have a good computer that I can use, and some mysterious packages also came to my home...  #speaker: Lost Adventurer #portrait: 10
+I build it, try it, open that icon and sucked up in the monitor... #speaker: Lost Adventurer #portrait: 10
+I don't know what to do here... #speaker: Lost Adventurer #portrait: 10
+Can you help me? #speaker: Lost Adventurer #portrait: 10
+How can I help you if I didn't also know what to do here? #speaker: {player_Name} #portrait: 0
+I explore the village and they say there is an old man here who knows about these village, they called it... #speaker: Lost Adventurer #portrait: 10
+The Exchanger #speaker: Lost Adventurer #portrait: 10
+The Exchanger? #speaker: {player_Name} #portrait: 0
+Yes, The Exchanger #speaker: Lost Adventurer #portrait: 10
+Find that mysterious man, and talk again to me if you find him, I know he have an answer to our questions #speaker: Lost Adventurer #portrait: 10
+Why you didn't find him? #speaker: {player_Name} #portrait: 0
+I'm afriad, I don't have any courage to find him, sorry  #speaker: Lost Adventurer #portrait: 10
+Ok... #speaker: {player_Name} #portrait: 0
+I will find him... #speaker: {player_Name} #portrait: 0
+-> DONE
+
+
+=== FourteenIntro ===
+I should Find this Exchanger...
 -> DONE
