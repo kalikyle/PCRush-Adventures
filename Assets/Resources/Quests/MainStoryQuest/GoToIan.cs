@@ -32,13 +32,13 @@ public class GoToIan : QuestStep
             if (targetGameObject == null)
             {
                 Debug.LogError("Target GameObject '" + targetGameObjectName + "' not found in the scene.");
-                FinishQuestStep();
+                
             }
         }
         else
         {
             Debug.LogError("Target GameObject name is not specified in NavigateToGameObjectStep.");
-            FinishQuestStep();
+            
         }
     }
 

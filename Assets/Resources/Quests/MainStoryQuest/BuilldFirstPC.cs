@@ -72,5 +72,17 @@ public class BuilldFirstPC : QuestStep
         {
             OnClickBackButton();
         }
+
+
+        else if (GameManager.instance.OnBuildingQuest == true)
+        {
+
+            if(GameManager.instance.pcsoDocumentIds.Count > 0)
+            {
+                GameManager.instance.PPC.ModifyComputer(0);
+                GameManager.instance.PIC.YesDisAssemblePC();
+            }
+
+        }
     }
 }

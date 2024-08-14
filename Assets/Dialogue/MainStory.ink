@@ -281,5 +281,114 @@ I will find him... #speaker: {player_Name} #portrait: 0
 
 
 === FourteenIntro ===
-I should Find this Exchanger...
+I should Find this Exchanger... #speaker: {player_Name} #portrait: 0
 -> DONE
+
+=== Fourteen ===
+Hi, {player_Name}... #speaker: CPUExchanger #portrait: 4
+How Do you Know my Name? #speaker: {player_Name} #portrait: 0
+that question is just like "why you are here?" #speaker: CPUExchanger #portrait: 4
+You know {player_Name}, our life have many different mysterious ways to achieve something #speaker: CPUExchanger #portrait: 4
+And this is the one of that ways for you to achieve that something #speaker: CPUExchanger #portrait: 4
+What you are talking about??? #speaker: {player_Name} #portrait: 0
+You are dreaming about a wonderful computer right? #speaker: CPUExchanger #portrait: 4
+Yes? I want a computer, because it can help me for my studies #speaker: {player_Name} #portrait: 0
+That's it #speaker: CPUExchanger #portrait: 4
+what?? #speaker: {player_Name} #portrait: 0
+You are here because we, want you to achieve that #speaker: CPUExchanger #portrait: 4
+you see, this is a cpu world, cpu is the brain of the computer, without the cpu you can't run the computer #speaker: CPUExchanger #portrait: 4
+So you are the one who sent those parts in my house??? #speaker: {player_Name} #portrait: 0
+Yes, But I'm not the only one #speaker: CPUExchanger #portrait: 4
+Did you see the map of the game your in? #speaker: CPUExchanger #portrait: 4
+It have all the region for the needed parts of a computer #speaker: CPUExchanger #portrait: 4
+Those regions have the abundancy of the materials to make that computer part #speaker: CPUExchanger #portrait: 4
+For, example this region is CPU Region because we have plenty of silicons in here, #speaker: CPUExchanger #portrait: 4
+silicons are the main ingredient to create a CPU #speaker: CPUExchanger #portrait: 4
+But, theres another thing why we sent you here {player_Name} #speaker: CPUExchanger #portrait: 4
+back then, we don't sent people in here #speaker: CPUExchanger #portrait: 4
+The Exchangers of different regions only want to fullfill the dreams of all the people like you #speaker: CPUExchanger #portrait: 4
+we Just give them thier dream parts to make them happy and to help them achieve thier dreams #speaker: CPUExchanger #portrait: 4
+We just like Santa Claus, but in the world of Computer for the people who wish to have a computer #speaker: CPUExchanger #portrait: 4
+But Our region has been bothered by some bad creatures, or people, or a bunch of bad enemies, who only wants our materials #speaker: CPUExchanger #portrait: 4
+they steal the materials we used to create a computer part and those materials are vasnishing as they steal and steal it{player_Name} #speaker: CPUExchanger #portrait: 4
+??? #speaker: {player_Name} #portrait: 0
+I want you to fight them {player_Name} #speaker: CPUExchanger #portrait: 4
+What??? #speaker: {player_Name} #portrait: 0
+NO! I don't want and I can't, sorry #speaker: {player_Name} #portrait: 0
+I just want to go back home #speaker: {player_Name} #portrait: 0
+Ok... #speaker: CPUExchanger #portrait: 4
+What if, I told you, as you fight those bad creatures and got thier stole materials you can exchange it to me to have another computer part... #speaker: CPUExchanger #portrait: 4
+So you can upgrade your computer?? #speaker: CPUExchanger #portrait: 4
+Hmmm... #speaker: {player_Name} #portrait: 0
+Also, this is the only way to get you back home #speaker: CPUExchanger #portrait: 4
+Also, you will have the privilege to go back in here anytime you want so you can exchange materials for a part as you fight those bad creatures #speaker: CPUExchanger #portrait: 4
+Just help us to retain what was ours {player_Name} #speaker: CPUExchanger #portrait: 4
+Ok, hayss, I will do it #speaker: {player_Name} #portrait: 0
+Where should I start? #speaker: {player_Name} #portrait: 0
+The bad creatures are spawning in the wide area of our village where the materials are abundant #speaker: CPUExchanger #portrait: 4
+Find that Area and kill those bad creatures #speaker: CPUExchanger #portrait: 4
+Go back to me if you have any materials #speaker: CPUExchanger #portrait: 4
+After that I will open the gate where you are being teleported and in there you can go back home...  #speaker: CPUExchanger #portrait: 4
+And the parts that you are exchanged will be delivered in to your home immediately as you exchange those to me #speaker: CPUExchanger #portrait: 4
+Now go, and find that Area and fight those bad creature whose stealing our natural resources #speaker: CPUExchanger #portrait: 4
+Ok, see you later...  #speaker: {player_Name} #portrait: 0
+If I survived... #speaker: {player_Name} #portrait: 0
+-> DONE
+
+
+=== Fifteen ===
+I should go back first to this Lost Adventurer to tell him what I've known about this madness #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== FifteenTwo ===
+Hey, Lost Adventurer #speaker: {player_Name} #portrait: 0
+Did You find the Exchanger {player_Name}?? #speaker: Lost Adventurer #portrait: 10
+Yes ... #speaker: {player_Name} #portrait: 0
+You told me that you are also dreaming about a computer right? #speaker: {player_Name} #portrait: 0
+Yes, why? #speaker: Lost Adventurer #portrait: 10
+I know why you're here #speaker: {player_Name} #portrait: 0
+why? #speaker: Lost Adventurer #portrait: 10
+They sent you those computer parts to sent you here .... #speaker: {player_Name} #portrait: 0
+You are supposed to fight the creatures who bothered this village resources #speaker: {player_Name} #portrait: 0
+The Exchanger can't find you, that's why they sent another one, and that's me #speaker: {player_Name} #portrait: 0
+Oh I see, sorry {player_Name} #speaker: Lost Adventurer #portrait: 10 
+So how can we go out here {player_Name}? #speaker: Lost Adventurer #portrait: 10 
+I should fight those bad creatures to collect their stole materials #speaker: {player_Name} #portrait: 0
+Ok, do you have any equipment?? #speaker: Lost Adventurer #portrait: 10 
+Uhh, I don't have any #speaker: {player_Name} #portrait: 0
+I have some gold here, and I will give it to you #speaker: Lost Adventurer #portrait: 10
+I heard there is some sword dealer in this village #speaker: Lost Adventurer #portrait: 10
+Go find him and get ready to fight those creatures #speaker: Lost Adventurer #portrait: 10
+Ok, I will make us out of here #speaker: {player_Name} #portrait: 0
+Goodluck {player_Name} #speaker: Lost Adventurer #portrait: 10
+-> DONE
+
+=== SixteenIntro ===
+I should find this sword dealer in this village #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== Sixteen ===
+Are you the Sword Dealer? #speaker: {player_Name} #portrait: 0
+Yes! I have plenty of Finest Swords in this Village #speaker: Sword Dealer #portrait: 9
+Do you want one? #speaker: Sword Dealer #portrait: 9
+Yes, Can I see #speaker: {player_Name} #portrait: 0
+here... #speaker: Sword Dealer #portrait: 9 #choice: swordyes
+-> DONE
+
+=== SixteenTwo ===
+Thank you...  #speaker: Sword Dealer #portrait: 9
+By the way, can I ask why you buy a sword? #speaker: Sword Dealer #portrait: 9
+The Exchanger told me that there is some creatures bothering your village #speaker: {player_Name} #portrait: 0
+Ahh yes, this creatures are bad and they are merciless, they just want our silicons #speaker: Sword Dealer #portrait: 9
+And this creatures are not only exist in our region, it is in other regions too, in Ram Region, CPU fan region, and all of the regions #speaker: Sword Dealer #portrait: 9
+I don't know why they'd do these, maybe they want also a computer hahahaha #speaker: Sword Dealer #portrait: 9
+Well, Good luck for those creatures Adventurer #speaker: Sword Dealer #portrait: 9
+Ok, See you later #speaker: {player_Name} #portrait: 0 
+-> DONE
+
+=== SeventeenIntro === 
+I should find this area and start a fight in bad creatures #speaker: {player_Name} #portrait: 0
+-> DONE
+
+
+

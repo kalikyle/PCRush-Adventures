@@ -398,9 +398,16 @@ public class DialogueManager : MonoBehaviour
     public void TriggerSection(string section)
     {
         // Start the Ink story from the beginning
-        currentStory.ChoosePathString(section);
-        ContinueStory();
 
+        if(section == "Thank" && GameManager.instance.OnBuySwordQuest == true)
+        {
+            GameManager.instance.OnBuyDone = true;
+        }
+        else
+        {
+            currentStory.ChoosePathString(section);
+            ContinueStory();
+        }
         // Continue the story until reaching the desired knot
 
     }

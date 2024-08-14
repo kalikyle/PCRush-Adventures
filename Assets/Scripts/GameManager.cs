@@ -10,6 +10,7 @@ using OtherWorld;
 using OtherWorld.Model;
 using PartsInventory;
 using PartsInventory.Model;
+using PC;
 using PC.Model;
 //using Firebase.Analytics;
 using Shop;
@@ -56,6 +57,8 @@ public class GameManager : MonoBehaviour
     public PlayerArmor PlayerArmorScript;
     public PartsInventoryController PartsController;
     public PlayerTeleport playerTeleport;
+    public PCPlayerController PPC;
+    public PartsInventoryController PIC;
 
     [Header("For Shop and Decorations")]
     public bool isEditing = false;
@@ -314,6 +317,7 @@ public class GameManager : MonoBehaviour
     public GameObject BuildingDesk;
     public GameObject PlayerDeskRoom;
     public GameObject pumpkinSoup;
+    public GameObject ArenaWall;
 
     public bool CutScene2Open = false;
     public bool OnBuildingQuest = false;
@@ -329,6 +333,9 @@ public class GameManager : MonoBehaviour
     public bool OnExploreDesktopQuest = false;
     public bool OnExploreDeskDone = false;
     public bool OnCutScene7Open = false;
+    public bool OnBuySwordQuest = false;
+    public bool OnBuyDone = false;
+
 
     public Button BackButton;
     public Button OnDeskBackButton;
