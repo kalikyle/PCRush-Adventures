@@ -1772,40 +1772,8 @@ namespace PartsInventory
 
                 DisYesButton.onClick.AddListener(() =>
                 {
-                    // Create a copy of the keys to iterate over
-                    var keys = new List<string>(lastUsedItems.Keys);
 
-                    if (keys.Count > 0)
-                    {
-                        foreach (var key in keys)
-                        {
-                            // Get the value corresponding to the key
-                            var value = lastUsedItems[key];
-
-                            // Remove the item
-                            BackItem(value, key);
-                            inventoryData.RemoveItem(value.item.name, 1);
-                        }
-                    }
-
-                    ModifyingPC.gameObject.SetActive(false);
-                    pcName.gameObject.SetActive(false);
-                    Inuse.gameObject.SetActive(false);
-                    PCC.DeletePC(GameManager.instance.pcsothatisModified);
-                    GameManager.instance.pcsoDocumentIds.Remove(GameManager.instance.pcsothatisModified);
-                    //OnDoneButtonClick();
-                    BackAllCurrentlyItem();
-
-                    GameManager.instance.BeenModified = false;
-
-                    lastUsedItems.Clear();
-                    CloseDialog();
-                    DisassmebleButton.gameObject.SetActive(false);
-                    inventoryData.PartsSaveItems();
-                    PCpage.ClearItems();
-                    PerksDictionary.Clear();
-                    Perks.text = "";
-
+                    YesDisAssemblePC();
 
                 });
 
@@ -1816,6 +1784,43 @@ namespace PartsInventory
                 });
             }
             
+        }
+
+        public void YesDisAssemblePC()
+        {
+            // Create a copy of the keys to iterate over
+            var keys = new List<string>(lastUsedItems.Keys);
+
+            if (keys.Count > 0)
+            {
+                foreach (var key in keys)
+                {
+                    // Get the value corresponding to the key
+                    var value = lastUsedItems[key];
+
+                    // Remove the item
+                    BackItem(value, key);
+                    inventoryData.RemoveItem(value.item.name, 1);
+                }
+            }
+
+            ModifyingPC.gameObject.SetActive(false);
+            pcName.gameObject.SetActive(false);
+            Inuse.gameObject.SetActive(false);
+            PCC.DeletePC(GameManager.instance.pcsothatisModified);
+            GameManager.instance.pcsoDocumentIds.Remove(GameManager.instance.pcsothatisModified);
+            //OnDoneButtonClick();
+            BackAllCurrentlyItem();
+
+            GameManager.instance.BeenModified = false;
+
+            lastUsedItems.Clear();
+            CloseDialog();
+            DisassmebleButton.gameObject.SetActive(false);
+            inventoryData.PartsSaveItems();
+            PCpage.ClearItems();
+            PerksDictionary.Clear();
+            Perks.text = "";
         }
         public async void OnDoneButtonClick()
         {

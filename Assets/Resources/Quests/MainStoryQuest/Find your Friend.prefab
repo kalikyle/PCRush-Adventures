@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1047446479951755805}
   - component: {fileID: -5682428635650859389}
   m_Layer: 0
-  m_Name: Go To Your Friend
+  m_Name: Find your Friend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

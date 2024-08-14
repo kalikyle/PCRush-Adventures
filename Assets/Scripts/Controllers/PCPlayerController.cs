@@ -1551,7 +1551,7 @@ namespace PC
 
         
 
-        private void ModifyComputer(int PCIndex)
+        public void ModifyComputer(int PCIndex)
         {
 
             if (InventCon.lastUsedItems.Count > 0)

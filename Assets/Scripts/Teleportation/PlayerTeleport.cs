@@ -99,7 +99,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(216.45f, -46.33f, 0);
         transform.position = destination;
-        WorldName.text = "CPU World";
+        WorldName.text = "CPU Region";
        
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
@@ -142,7 +142,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(391.47f, -53.27f, 0);
         transform.position = destination;
-        WorldName.text = "RAM World";
+        WorldName.text = "RAM Region";
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
@@ -174,7 +174,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(607.93f, -53.63f, 0);
         transform.position = destination;
-        WorldName.text = "CPU Fan World";
+        WorldName.text = "CPU Fan Region";
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
@@ -209,7 +209,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(818.99f, 7.89f, 0);
         transform.position = destination;
-        WorldName.text = "GPU World";
+        WorldName.text = "GPU Region";
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
@@ -241,7 +241,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(-4.47f, -171.63f, 0);
         transform.position = destination;
-        WorldName.text = "Storage World";
+        WorldName.text = "Storage Region";
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
@@ -273,7 +273,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(222.51f, -249.61f, 0);
         transform.position = destination;
-        WorldName.text = "PSU World";
+        WorldName.text = "PSU Region";
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
@@ -306,7 +306,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(591.51f, -214.54f, 0);
         transform.position = destination;
-        WorldName.text = "Motherboard World";
+        WorldName.text = "Motherboard Region";
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
@@ -338,7 +338,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.InHomeWorld = false;
         Vector3 destination = new Vector3(901.29f, -241.55f, 0);
         transform.position = destination;
-        WorldName.text = "Case World";
+        WorldName.text = "Case Region";
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);

@@ -3,6 +3,7 @@ using Assets.PixelHeroes.Scripts.CollectionScripts;
 using Assets.PixelHeroes.Scripts.EditorScripts;
 using Firebase.Firestore;
 using Inventory.Model;
+using Mono.Cecil.Cil;
 using OtherWorld.Model;
 using OtherWorld.UI;
 using PartsInventory.Model;
@@ -42,6 +43,7 @@ namespace OtherWorld
         public Image ShieldImage;
 
         public Button EquipBTN;
+        public Button SellBTN;
         public TMP_Dropdown DropDcategory;
 
 
@@ -66,6 +68,7 @@ namespace OtherWorld
             inventoryUI.OnItemActionRequested += HandleItemActionRequest;
             OnDescriptionRequested += HandleDescriptionRequests;
             EquipBTN.onClick.AddListener(HandleUseButton);
+            SellBTN.onClick.AddListener(HandleSellButton);
 
             SwordXBTN.onClick.AddListener(() => BackOWEquipment("Sword"));
             ArmorXBTN.onClick.AddListener(() => BackOWEquipment("Armor"));
@@ -123,24 +126,48 @@ namespace OtherWorld
             {
                 Debug.Log(ToogleFiltered);
                 HandleItemRightActionRequest(tempIndex);
+                StartCoroutine(OpenOtherWorldInventoryCategory());
 
             }
             else
             {
                 Debug.Log(ToogleFiltered);
                 HandleItemActionRequest(tempIndex);
+                StartCoroutine(OpenOtherWorldInventory());
 
             }
 
 
-            if(ToogleFiltered == false) {
-                StartCoroutine(OpenOtherWorldInventory());
+            //if(ToogleFiltered == false) {
+               
+            //}
+            //else
+            //{
+               
+            //}
+           
+        }
+
+        private void HandleSellButton()
+        {
+            int tempIndex = GameManager.instance.OWstempindex;
+            Debug.Log("Using item with temporary index: " + tempIndex);
+
+            if (ToogleFiltered)
+            {
+                Debug.Log(ToogleFiltered);
+                //HandleItemRightActionRequest(tempIndex);
+                HandleFilteredDelete(tempIndex);
+
+                
+            
             }
             else
             {
-                StartCoroutine(OpenOtherWorldInventoryCategory());
+                Debug.Log(ToogleFiltered);
+                HandleAllDelete(tempIndex);
+                
             }
-           
         }
 
         public IEnumerator OpenOtherWorldInventory()
@@ -1099,6 +1126,148 @@ namespace OtherWorld
                 Debug.LogError("Cant Use this Item");
             }
 
+        }
+
+        public async void HandleFilteredDelete(int itemIndex)
+        {
+            if (tempToOriginalIndexMapping.TryGetValue(itemIndex, out int originalIndex))
+            {
+
+                OtherWorldItem inventoryItem = InventoryfilteredItems[originalIndex];
+                OtherWorldItemSO inventItem = inventoryItem.item;
+                string category = inventoryItem.item.Category;
+
+                if (category == "Sword")
+                {
+                   
+                    await DeleteInventoryItem(GameManager.instance.clickedInventoryItemID, category);
+                }
+                else if (category == "Armor")
+                {
+                    
+                    await DeleteInventoryItem(GameManager.instance.clickedInventoryItemID, category);
+
+                }
+                else if (category == "Helmet")
+                {
+                   
+                    await DeleteInventoryItem(GameManager.instance.clickedInventoryItemID, category);
+                }
+                else if (category == "Shield")
+                {
+                    
+                    await DeleteInventoryItem(GameManager.instance.clickedInventoryItemID, category);
+                }
+                else if (category == "Materials")
+                {
+                   
+                    Debug.LogError("Cant Delete this Item");
+                }
+
+            }
+           
+        }
+
+        public async void HandleAllDelete(int itemIndex)//for all
+        {
+
+            OtherWorldItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            OtherWorldItemSO inventItem = inventoryItem.item;
+            string category = inventoryItem.item.Category;
+
+            if (category == "Sword")
+            {
+                
+                await DeleteInventoryItem(GameManager.instance.clickedInventoryItemID, category);
+            }
+            else if (category == "Armor")
+            {
+               
+                await DeleteInventoryItem(GameManager.instance.clickedInventoryItemID, category);
+
+            }
+            else if (category == "Helmet")
+            {
+               
+                await DeleteInventoryItem(GameManager.instance.clickedInventoryItemID, category);
+            }
+            else if (category == "Shield")
+            {
+                
+                await DeleteInventoryItem(GameManager.instance.clickedInventoryItemID, category);
+            }
+            else if (category == "Materials")
+            {
+
+                Debug.LogError("Cant Delete this Item");
+            }
+           
+        }
+
+        public async Task DeleteInventoryItem(string documentId, string category)
+        {
+            try
+            {
+                // Check if the item is currently in use
+                if (GameManager.instance.SwordinUse == documentId ||
+                    GameManager.instance.ArmorinUse == documentId ||
+                    GameManager.instance.HelmetinUse == documentId ||
+                    GameManager.instance.ShieldinUse == documentId)
+                {
+                    // Revert the equipment back to its default state
+                    BackOWEquipment(category);
+                }
+                else
+                {
+                   
+                    if (ToogleFiltered) {
+                        StartCoroutine(OpenOtherWorldInventoryCategory());
+                    }
+                    else
+                    {
+                        StartCoroutine(OpenOtherWorldInventory());
+                    }
+                   
+                }
+
+                // Get a reference to the Firestore document to be deleted
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance
+                    .Collection(GameManager.instance.UserCollection)
+                    .Document(GameManager.instance.UserID)
+                    .Collection("OtherWorldInventory")
+                    .Document(documentId);
+
+                // Delete the Firestore document
+                await docRef.DeleteAsync();
+
+                Debug.Log("Inventory item deleted successfully.");
+
+                // Clear the corresponding inUse field in GameManager
+                if (GameManager.instance.SwordinUse == documentId)
+                {
+                    GameManager.instance.SwordinUse = "";
+                    GameManager.instance.SwordDocumentIds.Remove(documentId); // Remove from Sword list
+                }
+                else if (GameManager.instance.ArmorinUse == documentId)
+                {
+                    GameManager.instance.ArmorinUse = "";
+                    GameManager.instance.ArmorDocumentIds.Remove(documentId); // Remove from Armor list
+                }
+                else if (GameManager.instance.HelmetinUse == documentId)
+                {
+                    GameManager.instance.HelmetinUse = "";
+                    GameManager.instance.HelmetDocumentIds.Remove(documentId); // Remove from Helmet list
+                }
+                else if (GameManager.instance.ShieldinUse == documentId)
+                {
+                    GameManager.instance.ShieldinUse = "";
+                    GameManager.instance.ShieldDocumentIds.Remove(documentId); // Remove from Shield list
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error deleting inventory item: " + ex.Message);
+            }
         }
 
         private void SetIndex(LayerEditor layer, int index)
