@@ -45,6 +45,7 @@ namespace OtherWorld
         public Button EquipBTN;
         public Button SellBTN;
         public TMP_Dropdown DropDcategory;
+        public GameObject Notif;
 
 
         public Button SwordXBTN;
@@ -371,7 +372,7 @@ namespace OtherWorld
             //inventoryData.inventoryItems.Clear();
             //initialItems.Clear();
             //initialItems.Add(updatedItems);
-           
+            
             inventoryData.OnInventoryUpdated += UpdateInventoryUI;
             inventoryData.AddItem(updatedItems);
             inventoryData.OWSaveItems(updatedItems.item, updatedItems.quantity);
@@ -390,6 +391,7 @@ namespace OtherWorld
         private void UpdateInventoryUI(Dictionary<int, OtherWorldItem> inventoryState)
         {
             //inventoryUI.ResetAllItems();
+            Notif.SetActive(true);
             foreach (var item in inventoryState)
             {
                 inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity, item.Value.item.Name, item.Value.item.inUse);
@@ -416,6 +418,7 @@ namespace OtherWorld
             //PartsButton.gameObject.SetActive(true);
             //ComputerButton.gameObject.SetActive(true);
             ToogleFiltered = false;
+            Notif.SetActive(false);
             Debug.Log("Toggle: false");
             inventoryUI.ResetSelection();
             inventoryUI.ClearItems();
@@ -434,8 +437,8 @@ namespace OtherWorld
             //infoButton.gameObject.SetActive(true);
 
             Debug.Log("Toggle: true");
-            
-            
+            Notif.SetActive(false);
+
             ShowCategory(category);
             int i = 0;
            

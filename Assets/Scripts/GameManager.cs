@@ -335,6 +335,9 @@ public class GameManager : MonoBehaviour
     public bool OnCutScene7Open = false;
     public bool OnBuySwordQuest = false;
     public bool OnBuyDone = false;
+    public bool OnStartFightQuest = false;
+    public bool OnTheArea = false;
+    public bool HordeFinished = false;
 
 
     public Button BackButton;

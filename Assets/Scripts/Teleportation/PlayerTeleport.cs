@@ -663,6 +663,19 @@ public class PlayerTeleport : MonoBehaviour
             }
 
 
+        /////////forHordeArea
+
+        if (collision.CompareTag("CPUHordeArea1"))
+        {
+            bool onarea = false;
+            if(GameManager.instance.OnStartFightQuest == true && onarea == false)
+            {
+                onarea = true;
+                DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+                DialogueManager.GetInstance().TriggerSection("Seventeen");
+                GameManager.instance.OnTheArea = true;
+            }
+        }
 
     }
         private void OnTriggerExit2D(Collider2D collision)

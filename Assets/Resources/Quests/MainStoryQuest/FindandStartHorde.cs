@@ -8,6 +8,8 @@ public class FindandStartHorde : QuestStep
     private GameObject CPUExchanger;
     void Start()
     {
+        GameManager.instance.OnStartFightQuest = true;
+
         if (CPUExchanger == null)
         {
             // Try to find the GameObject by name if it's not assigned in the inspector
@@ -32,6 +34,14 @@ public class FindandStartHorde : QuestStep
             Debug.LogError("Child GameObject with name  BoxCollideTrigger  not found.");
         }
 
+        if (GameManager.instance.HasInitialize == false)
+        {
+            GameManager.instance.playerTeleport.ToCPUWorld();
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("SeventeenIntro");
+
+        }
+
 
         GameManager.instance.ArenaWall.gameObject.SetActive(false);
         GameManager.instance.CPUSpawn.SetActive(false);
@@ -45,7 +55,19 @@ public class FindandStartHorde : QuestStep
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.OnStartFightQuest == true && GameManager.instance.OnTheArea == true && GameManager.instance.HordeFinished == true) { 
         
+        
+            FinishQuestStep();
+            ChangeState("Finish", "Finish");
+
+            GameManager.instance.OnStartFightQuest = false;
+            GameManager.instance.OnTheArea = false;
+            GameManager.instance.HordeFinished = false;
+
+            Transform childTransform = CPUExchanger.transform.Find("BoxCollideTrigger");
+
+        }
     }
 
     protected override void SetQuestStepState(string state)

@@ -142,6 +142,9 @@ namespace PartsInventory
         [SerializeField]
         public GameObject Inuse;
 
+        [SerializeField]
+        public GameObject Notif;
+
         //[SerializeField]
         //public TMP_Text NameText;
 
@@ -512,6 +515,7 @@ namespace PartsInventory
             //initialItems.Clear();
             //initialItems.Add(updatedItems);
             //inventoryData.Initialize();
+           
             inventoryData.OnInventoryUpdated += UpdateInventoryUI;
             inventoryData.AddItem(updatedItems);
             inventoryData.PartsSaveItems();
@@ -553,6 +557,7 @@ namespace PartsInventory
         private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState)
         {
             //inventoryUI.ResetAllItems();
+            Notif.SetActive(true);
             foreach (var item in inventoryState)
             {
                 inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity);

@@ -18,6 +18,7 @@ TagManager:
   - PSUExchanger
   - MBExchanger
   - CaseExchanger
+  - CPUHordeArea1
   layers:
   - Default
   - TransparentFX
