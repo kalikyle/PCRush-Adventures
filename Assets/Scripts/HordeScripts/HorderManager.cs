@@ -245,6 +245,12 @@ public class HorderManager : MonoBehaviour
         await Task.Delay(1500);
         GameManager.instance.TempEnemyKilled = 0;
         EnemyExperienceMultiplier.Clear();
+
+
+        if(GameManager.instance.OnStartFightQuest == true && GameManager.instance.OnTheArea == true)
+        {
+            GameManager.instance.HordeFinished = true;
+        }
     }
 
     private IEnumerator SpawnEnemies(HordeConfig config)

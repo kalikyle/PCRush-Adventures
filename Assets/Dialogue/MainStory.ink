@@ -390,5 +390,16 @@ Ok, See you later #speaker: {player_Name} #portrait: 0
 I should find this area and start a fight in bad creatures #speaker: {player_Name} #portrait: 0
 -> DONE
 
+=== Seventeen ===
+So, this is the area that they are talking about... #speaker: {player_Name} #portrait: 0
+I should start fighting those creatures to get us home  #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== Eighteen ===
+Woo, That was intense but they are weak, I thought they are strong... #speaker: {player_Name} #portrait: 0
+I also got there money and materials... #speaker: {player_Name} #portrait: 0
+I should head back to the Exchanger now #speaker: {player_Name} #portrait: 0
+-> DONE
+
 
 

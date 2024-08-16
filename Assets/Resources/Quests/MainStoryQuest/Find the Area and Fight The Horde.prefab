@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8109603107695918469}
   - component: {fileID: -2041926093323807381}
   m_Layer: 0
-  m_Name: Find the Area and Start The Horde
+  m_Name: Find the Area and Fight The Horde
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
