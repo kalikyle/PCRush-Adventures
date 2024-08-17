@@ -14,7 +14,7 @@ public class HeadBackToExchanger : QuestStep
     private bool hasReachedTarget = false;
     void Start()
     {
-
+        GameManager.instance.OnHeadBackQuest = true;
         if (GameManager.instance.HasInitialize == false)
         {
             GameManager.instance.playerTeleport.ToCPUWorld();
@@ -50,9 +50,9 @@ public class HeadBackToExchanger : QuestStep
 
 
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
-        DialogueManager.GetInstance().TriggerSection("Eighteen");
+        DialogueManager.GetInstance().TriggerSection("EighteenIntro");
 
-
+        GameManager.instance.CPUExchangeXButton.gameObject.SetActive(false);
         GameManager.instance.HasInitialize = true;
         GameManager.instance.ArenaWall.gameObject.SetActive(false);
         GameManager.instance.CPUSpawn.SetActive(false);
@@ -60,6 +60,10 @@ public class HeadBackToExchanger : QuestStep
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;
+        GameManager.instance.CpuTwirl.SetActive(false);
+        GameManager.instance.CPUExchangeXButton.onClick.AddListener(OnXClick);
+        GameManager.instance.OnQuest = true;
+
     }
 
     private bool IsPlayerNearTarget()
@@ -82,28 +86,32 @@ public class HeadBackToExchanger : QuestStep
         {
             hasReachedTarget = true;
             Debug.Log("Reached " + targetGameObject.name + ".");
-           // StartCoroutine(HandleDialogueAndQuestCompletion());
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("Eighteen");
         }
     }
 
-    //private IEnumerator HandleDialogueAndQuestCompletion()
-    //{
-    //    // Start the dialogue section "ThirteenTwo"
-    //    //DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
-    //    //DialogueManager.GetInstance().TriggerSection("Fourteen");
+    public void OnXClick()
+    {
+        if (GameManager.instance.OnHeadBackQuest == true)
+        {
 
-    //    // Wait until the dialogue is no longer playing
-    //    yield return new WaitUntil(() => !DialogueManager.GetInstance().dialogueIsPlaying);
 
-    //    // Finish the quest step
-    //   // FinishQuestStep();
-
-    //    // Change the state and update the quest status
-    //    ChangeState("Finish", "Finish");
+            FinishQuestStep();
+            ChangeState("Finish", "Finish");
 
 
 
-    //}
+
+            GameManager.instance.OnHeadBackQuest = false;
+            GameManager.instance.CPUExchangeXButton.gameObject.SetActive(true);
+            GameManager.instance.OnQuest = false;
+
+            
+        }
+    }
+
+ 
     protected override void SetQuestStepState(string state)
     {
 

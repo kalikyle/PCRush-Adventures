@@ -50,6 +50,7 @@ public class FindandStartHorde : QuestStep
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;
+        GameManager.instance.CpuTwirl.SetActive(false);
     }
 
     // Update is called once per frame

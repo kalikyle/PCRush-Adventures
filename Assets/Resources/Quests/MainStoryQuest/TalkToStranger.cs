@@ -23,6 +23,7 @@ public class TalkToStranger : QuestStep
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;
+        GameManager.instance.CpuTwirl.SetActive(false);
 
         DialogueManager.GetInstance().talktoBTN.onClick.AddListener(TalkToStrangers);
     }

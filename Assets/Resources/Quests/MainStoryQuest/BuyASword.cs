@@ -113,6 +113,7 @@ public class BuyASword : QuestStep
         GameManager.instance.packagescollected = 8;
         GameManager.instance.OnBuySwordQuest = true;
         GameManager.instance.PlayerMoney = 100;
+        GameManager.instance.CpuTwirl.SetActive(false);
         GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
 
         if (!string.IsNullOrEmpty(targetGameObjectName))
@@ -187,6 +188,31 @@ public class BuyASword : QuestStep
         ChangeState("Finish", "Finish");
         GameManager.instance.OnQuest = false;
         GameManager.instance.ArenaWall.gameObject.SetActive(false);
+
+        Transform childTransformFixer = ArmorFixer.transform.Find("BoxCollideTrigger");
+
+        if (childTransformFixer != null)
+        {
+            // Disable the child GameObject
+            childTransformFixer.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Child GameObject with name  BoxCollideTrigger  not found.");
+        }
+        ///////////////////////////////////////////////////
+
+        Transform childTransformDealer = ArmorDealer.transform.Find("BoxCollideTrigger");
+
+        if (childTransformDealer != null)
+        {
+            // Disable the child GameObject
+            childTransformDealer.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Child GameObject with name  BoxCollideTrigger  not found.");
+        }
     }
     protected override void SetQuestStepState(string state)
     {
