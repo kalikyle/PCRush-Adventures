@@ -395,11 +395,56 @@ So, this is the area that they are talking about... #speaker: {player_Name} #por
 I should start fighting those creatures to get us home  #speaker: {player_Name} #portrait: 0
 -> DONE
 
-=== Eighteen ===
+=== EighteenIntro ===
 Woo, That was intense but they are weak, I thought they are strong... #speaker: {player_Name} #portrait: 0
 I also got there money and materials... #speaker: {player_Name} #portrait: 0
 I should head back to the Exchanger now #speaker: {player_Name} #portrait: 0
 -> DONE
+
+=== Eighteen ===
+I'm back #speaker: {player_Name} #portrait: 0
+and I have the materials you want #speaker: {player_Name} #portrait: 0
+I also got thier money #speaker: {player_Name} #portrait: 0
+Thank you {player_Name}, you are the savior of our region #speaker: CPUExchanger #portrait: 4
+You can Exchange your materials for me, so you can upgrade your computer parts #speaker: CPUExchanger #portrait: 4
+also, I will unlock the teleporter so you can get back home #speaker: CPUExchanger #portrait: 4
+don't forget to go in here anytime you want #speaker: CPUExchanger #portrait: 4
+I also hope that you can do that also in other region to retain thier materials in exchange of a computer parts #speaker: CPUExchanger #portrait: 4
+Here are the materials I have, this will be renewed every 2 minutes #speaker: CPUExchanger #portrait: 4
+You can Freely choose... #speaker: CPUExchanger #portrait: 4 #choice: exchangeyes
+-> DONE
+
+=== Nineteen ===
+Thank you again {player_Name} #speaker: CPUExchanger #portrait: 4
+Your cpu will be delivered immediately into your home #speaker: CPUExchanger #portrait: 4
+Now come with me into to the spawn, I will get you home #speaker: CPUExchanger #portrait: 4 #CutScene:CutScene 8
+-> DONE
+
+=== NineteenTwo ===
+Hey, I know you #speaker: CPUExchanger #portrait: 4
+Are you the lost Adventurer? #speaker: CPUExchanger #portrait: 4
+Is that really your name?? #speaker: {player_Name} #portrait: 0
+Umm, yes, I am the lost adventurer #speaker: Lost Adventurer #portrait: 10
+I waiting for you to come on me, but you didn't come #speaker: CPUExchanger #portrait: 4
+Umm, sorry #speaker: Lost Adventurer #portrait: 10
+Nevermind, I will get you two home #speaker: CPUExchanger #portrait: 4
+Thank you #speaker: Lost Adventurer #portrait: 10
+Yes, I'm really tired #speaker: {player_Name} #portrait: 0
+thank you again {player_Name} #speaker: Lost Adventurer #portrait: 10 
+#CutScene:CutScene 9
+-> DONE
+
+=== NineteenThree ===
+Finally... #speaker: {player_Name} #portrait: 0
+I can go home now ... #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== Twenty ===
+I'm really tired now #speaker: {player_Name} #portrait: 0
+I should Get Some Sleep ... #speaker: {player_Name} #portrait: 0
+-> DONE
+
+
 
 
 

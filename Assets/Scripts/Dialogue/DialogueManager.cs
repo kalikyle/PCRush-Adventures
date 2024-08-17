@@ -9,6 +9,7 @@ using System;
 using Shop.UI;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using UnityEditor.Tilemaps;
 
 
 public class DialogueManager : MonoBehaviour
@@ -315,6 +316,17 @@ public class DialogueManager : MonoBehaviour
         {
             GameManager.instance.CutScene6.SetActive(true);
         }
+
+        if(sceneName == "CutScene 8")
+        {
+            GameManager.instance.LTA.OpenTeleAnim();
+            GameManager.instance.CutScene8.SetActive(true);
+        }
+
+        if(sceneName == "CutScene 9")
+        {
+            GameManager.instance.CutScene9.SetActive(true);
+        }
     }
     public void ExitDialogueMode()
     {
@@ -399,9 +411,15 @@ public class DialogueManager : MonoBehaviour
     {
         // Start the Ink story from the beginning
 
-        if(section == "Thank" && GameManager.instance.OnBuySwordQuest == true)
+
+
+        if (section == "Thank" && GameManager.instance.OnBuySwordQuest == true)
         {
             GameManager.instance.OnBuyDone = true;
+        }
+        else if (GameManager.instance.OnQuest == true && GameManager.instance.OnHeadBackQuest == true && section == "Thank")
+        {
+            return;
         }
         else
         {

@@ -29,6 +29,7 @@ public class PlayerTeleport : MonoBehaviour
         public bool OpenBuild = false;
         public bool EditorOpen = false;
         public bool BackToHomeWorld = false;
+        public bool onarea = false;
 
 
 
@@ -346,7 +347,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
 
-    //default player xny: 17.48, -26.46
+    //default player xny: 91.72, -10.62
     public void BackToTheHomeWorld()
     {
         GameManager.instance.HomeWorld = true;
@@ -369,18 +370,42 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.MBWorldMap.SetActive(false);
         GameManager.instance.CASEWorldMap.SetActive(true);
 
-        GameManager.instance.PlayerDeskUI.SetActive(true);
-        Desktop.SetActive(true);
-        GameMap.SetActive(true);
-        inExplorePanel.SetActive(false);
-        WorldName.text = "Home World";
-        BackToHomeWorld = false;
-        GameManager.instance.LoadCharacter();
-        InvBTN.gameObject.SetActive(false);
-        EquippedStats.gameObject.SetActive(false);
-        GameManager.instance.InHomeWorld = true;
-        GameManager.instance.UnequipEquipment();
-        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+       
+
+        if(GameManager.instance.GoBackHomeQuest == true)
+        {
+            GameManager.instance.PlayerDeskUI.SetActive(false);
+            Desktop.SetActive(false);
+            GameMap.SetActive(false);
+            inExplorePanel.SetActive(true);
+            WorldName.text = "Home World";
+            BackToHomeWorld = false;
+            InvBTN.gameObject.SetActive(false);
+            EquippedStats.gameObject.SetActive(false);
+
+            GameManager.instance.InHomeWorld = true;
+            GameManager.instance.LoadCharacter();
+            GameManager.instance.UnequipEquipment();
+            GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            GameManager.instance.PlayerDeskUI.SetActive(true);
+            Desktop.SetActive(true);
+            GameMap.SetActive(true);
+            inExplorePanel.SetActive(false);
+            WorldName.text = "Home World";
+            BackToHomeWorld = false;
+            InvBTN.gameObject.SetActive(false);
+            EquippedStats.gameObject.SetActive(false);
+
+            GameManager.instance.InHomeWorld = true;
+            GameManager.instance.LoadCharacter();
+            GameManager.instance.UnequipEquipment();
+            GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+        }
+
+
         LTA.OpenGameMap();
     }
     
@@ -664,10 +689,10 @@ public class PlayerTeleport : MonoBehaviour
 
 
         /////////forHordeArea
-
+      
         if (collision.CompareTag("CPUHordeArea1"))
         {
-            bool onarea = false;
+           
             if(GameManager.instance.OnStartFightQuest == true && onarea == false)
             {
                 onarea = true;
@@ -813,7 +838,8 @@ public class PlayerTeleport : MonoBehaviour
 
         }
 
-
+        //////
+        
 
     }
     }

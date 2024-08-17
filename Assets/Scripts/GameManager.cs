@@ -122,6 +122,8 @@ public class GameManager : MonoBehaviour
     public GameObject CutScene5;
     public GameObject CutScene6;
     public GameObject CutScene7;
+    public GameObject CutScene8;
+    public GameObject CutScene9;
     public GameObject SquareBars;
 
     //for UI
@@ -318,6 +320,8 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerDeskRoom;
     public GameObject pumpkinSoup;
     public GameObject ArenaWall;
+    public GameObject CpuTwirl;
+    public GameObject ExitRoom;
 
     public bool CutScene2Open = false;
     public bool OnBuildingQuest = false;
@@ -338,12 +342,17 @@ public class GameManager : MonoBehaviour
     public bool OnStartFightQuest = false;
     public bool OnTheArea = false;
     public bool HordeFinished = false;
-
+    public bool OnHeadBackQuest = false;
+    public bool GoBackHomeQuest = false;
+    public bool OnCutScene9Finish = false;
+    public bool OnSleepQuest = false;
 
     public Button BackButton;
     public Button OnDeskBackButton;
     public Button PerksButon;
     public Button CanCelButtonBuild;
+    public Button CPUExchangeXButton;
+
 
 
     public GameObject CPUSpawn;

@@ -30,7 +30,7 @@ public class FindandMeetExchanger : QuestStep
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;
-
+        GameManager.instance.CpuTwirl.SetActive(false);
 
         // Find the target GameObject by name in the scene
         if (!string.IsNullOrEmpty(targetGameObjectName))

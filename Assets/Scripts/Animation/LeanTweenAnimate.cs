@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LeanTweenAnimate : MonoBehaviour
 {
     public GameObject RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle, Install, Installing, chck1, chck2, chck3, chck4, chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl, coinscollectedtxt, materialscollecttxt, expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap, Diedpanel, youdiedText, diedtextsub, skull
-        , MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld, MinimapCPUFWorld, MinimapGPUWorld, MinimapSTORAGEWorld, MinimapPSUWorld, MinimapMBWorld, MinimapCASEWorld, TalkBTN, blackBack, Twirl, characterImage;
+        , MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld, MinimapCPUFWorld, MinimapGPUWorld, MinimapSTORAGEWorld, MinimapPSUWorld, MinimapMBWorld, MinimapCASEWorld, TalkBTN, blackBack, Twirl, characterImage, cputwirl, ramtwirl, cpufantwirl, gputwirl, storagetwirl, psutwirl, mbtwirl, casetwirl;
     public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
     //bool close = false;
@@ -16,6 +16,14 @@ public class LeanTweenAnimate : MonoBehaviour
     void Start()
     {
         //LeanTween.scale(playBTN, new Vector3(1f, 1f, 1f), 2f).setDelay(.5f).setEase(LeanTweenType.easeOutElastic);
+        cpuTwirl();
+        ramTwirl();
+        cpufanTwirl();
+        gpuTwirl();
+        storageTwirl();
+        psuTwirl();
+        mbTwirl();
+        caseTwirl();
     }
     public void RenamePanelOpen()
     {
@@ -410,7 +418,7 @@ public class LeanTweenAnimate : MonoBehaviour
 
         GameManager.instance.CutScene7.SetActive(true);
         LeanTween.alpha(blackBack.GetComponent<RectTransform>(), 1f, .2f);
-        LeanTween.scale(characterImage, new Vector3(1f, 1f, 1f), 2f).setDelay(1f).setEase(LeanTweenType.easeOutCubic);
+        LeanTween.scale(characterImage, new Vector3(1f, 1f, 1f), 2f).setDelay(.2f).setEase(LeanTweenType.easeOutCubic);
         LeanTween.alpha(characterImage.GetComponent<RectTransform>(), 1f, .8f).setDelay(1f);
         LeanTween.scale(Twirl, new Vector3(1f, 1f, 1f), .1f).setEase(LeanTweenType.easeOutElastic).setOnComplete(OnTeleportClose);
         LeanTween.rotateAround(Twirl, Vector3.forward, -360, 5f).setLoopClamp();
@@ -433,6 +441,41 @@ public class LeanTweenAnimate : MonoBehaviour
     {
         GameManager.instance.CutScene7.SetActive(false);
         GameManager.instance.OnCutScene7Open = true;
+    }
+
+    public void cpuTwirl()
+    {
+        LeanTween.rotateAround(cputwirl, Vector3.forward, -360, 5f).setLoopClamp();
+    }
+
+    public void ramTwirl()
+    {
+        LeanTween.rotateAround(ramtwirl, Vector3.forward, -360, 5f).setLoopClamp();
+    }
+
+    public void cpufanTwirl()
+    {
+        LeanTween.rotateAround(cpufantwirl, Vector3.forward, -360, 5f).setLoopClamp();
+    }
+    public void gpuTwirl()
+    {
+        LeanTween.rotateAround(gputwirl, Vector3.forward, -360, 5f).setLoopClamp();
+    }
+    public void storageTwirl()
+    {
+        LeanTween.rotateAround(storagetwirl, Vector3.forward, -360, 5f).setLoopClamp();
+    }
+    public void psuTwirl()
+    {
+        LeanTween.rotateAround(psutwirl, Vector3.forward, -360, 5f).setLoopClamp();
+    }
+    public void mbTwirl()
+    {
+        LeanTween.rotateAround(mbtwirl, Vector3.forward, -360, 5f).setLoopClamp();
+    }
+    public void caseTwirl()
+    {
+        LeanTween.rotateAround(casetwirl, Vector3.forward, -360, 5f).setLoopClamp();
     }
 
 }
