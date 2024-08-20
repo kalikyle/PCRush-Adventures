@@ -417,7 +417,7 @@ public class DialogueManager : MonoBehaviour
         {
             GameManager.instance.OnBuyDone = true;
         }
-        else if (GameManager.instance.OnQuest == true && GameManager.instance.OnHeadBackQuest == true && section == "Thank")
+        else if (GameManager.instance.OnHeadBackQuest == true && section == "ThankCPU")
         {
             return;
         }

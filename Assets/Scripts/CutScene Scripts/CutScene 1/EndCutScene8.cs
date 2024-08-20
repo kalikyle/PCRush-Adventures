@@ -10,9 +10,8 @@ public class EndCutScene8 : MonoBehaviour
         StartCoroutine(HandleDialogueAndQuestCompletion());
 
         GameManager.instance.CutScene8.SetActive(false);
-        GameManager.instance.CpuTwirl.gameObject.SetActive(true);
-
-
+        GameManager.instance.LTA.OpenCPUTwirl();
+        
     }
     private IEnumerator HandleDialogueAndQuestCompletion()
     {

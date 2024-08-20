@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour
     public GameObject CutScene7;
     public GameObject CutScene8;
     public GameObject CutScene9;
+    public GameObject CutScene10;
     public GameObject SquareBars;
 
     //for UI
@@ -322,6 +323,7 @@ public class GameManager : MonoBehaviour
     public GameObject ArenaWall;
     public GameObject CpuTwirl;
     public GameObject ExitRoom;
+    public GameObject TheLostAdventurer;
 
     public bool CutScene2Open = false;
     public bool OnBuildingQuest = false;
@@ -346,6 +348,11 @@ public class GameManager : MonoBehaviour
     public bool GoBackHomeQuest = false;
     public bool OnCutScene9Finish = false;
     public bool OnSleepQuest = false;
+    public bool OnSleepFinish = false;
+    public bool OnCollectCPUQuest = false;
+    public bool CPUCollected = false;
+    public bool OnModifyQuest = false;
+    public bool DoneModify = false;
 
     public Button BackButton;
     public Button OnDeskBackButton;
@@ -2331,6 +2338,41 @@ public class GameManager : MonoBehaviour
         {
             DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
             DialogueManager.GetInstance().TriggerSection("TwelvePlayToMap");
+        }
+    }
+
+    public void OnModifyQuests(string inputs)
+    {
+        if(OnModifyQuest == true)
+        {
+            if(inputs == "Entered")
+            {
+                DialogueManager.GetInstance().EnterDialogueMode(MainStory);
+                DialogueManager.GetInstance().TriggerSection("TwentyThree");
+            }
+
+            if(inputs == "Hardwares")
+            {
+                DialogueManager.GetInstance().EnterDialogueMode(MainStory);
+                DialogueManager.GetInstance().TriggerSection("TwentyFourDoneHardwares");
+            }
+
+            if(inputs == "Computers" && !UIExplore.activeSelf)
+            {
+                DialogueManager.GetInstance().EnterDialogueMode(MainStory);
+                DialogueManager.GetInstance().TriggerSection("TwentyFourDoneComputers");
+            }
+
+            if(inputs == "Modify")
+            {
+                DialogueManager.GetInstance().EnterDialogueMode(MainStory);
+                DialogueManager.GetInstance().TriggerSection("TwentyFourDoneModify");
+            }
+
+            if(inputs == "Done")
+            {
+                DoneModify = true;
+            }
         }
     }
 

@@ -19,7 +19,8 @@ public class ExploreDesktop : QuestStep
         GameManager.instance.PlayerDeskRoom.SetActive(true);
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
-        GameManager.instance.packagescollected = 8; 
+        GameManager.instance.packagescollected = 8;
+        GameManager.instance.TheLostAdventurer.SetActive(true);
     }
 
     // Update is called once per frame

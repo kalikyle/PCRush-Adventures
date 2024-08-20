@@ -33,6 +33,11 @@ public class PickUpSystem : MonoBehaviour
                 GameManager.instance.packagescollected += 1;
                 GameManager.instance.CollectObject(parts.gameObject);
                 parts.DestroyItem();
+
+                if(GameManager.instance.OnCollectCPUQuest == true)
+                {
+                    GameManager.instance.CPUCollected = true;
+                }
                 
             }
             else
