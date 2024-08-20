@@ -60,6 +60,9 @@ public class BuilldFirstPC : QuestStep
         ChangeState("Finish", "Finish");
         GameManager.instance.OnBuildingQuest = false;
         GameManager.instance.DoneRename = false;
+
+        AchievementManager.instance.BuildfirstPCs = true;
+        AchievementManager.instance.CheckAchievements();
     }
     protected override void SetQuestStepState(string state)
     {
