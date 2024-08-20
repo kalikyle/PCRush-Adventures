@@ -114,7 +114,9 @@ public class BuyASword : QuestStep
         GameManager.instance.OnBuySwordQuest = true;
         GameManager.instance.PlayerMoney = 100;
         GameManager.instance.CpuTwirl.SetActive(false);
+        GameManager.instance.ArenaWall.gameObject.SetActive(true);
         GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+        GameManager.instance.TheLostAdventurer.SetActive(true);
 
         if (!string.IsNullOrEmpty(targetGameObjectName))
         {

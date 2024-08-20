@@ -43,10 +43,13 @@ public class GetSomeSleep : QuestStep
             Debug.LogError("Child GameObject with name  BoxCollideTrigger  not found.");
         }
 
+        DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+        DialogueManager.GetInstance().TriggerSection("Twenty");
+        GameManager.instance.TheLostAdventurer.SetActive(false);
+
 
         GameManager.instance.OnSleepQuest = true;
         GameManager.instance.HasInitialize = true;
-        GameManager.instance.ArenaWall.gameObject.SetActive(false);
         GameManager.instance.CPUSpawn.SetActive(true);
         GameManager.instance.ExitRoom.SetActive(false);
         GameManager.instance.PlayerDeskRoom.SetActive(false);
@@ -58,7 +61,14 @@ public class GetSomeSleep : QuestStep
     // Update is called once per frame
     void Update()
     {
-        
+        if(GameManager.instance.OnSleepQuest == true && GameManager.instance.OnSleepFinish == true)
+        {
+            FinishQuestStep();
+            ChangeState("Finish", "Finish");
+
+            GameManager.instance.OnSleepQuest = false;
+            GameManager.instance.OnSleepFinish = false;
+        }
     }
 
     protected override void SetQuestStepState(string state)

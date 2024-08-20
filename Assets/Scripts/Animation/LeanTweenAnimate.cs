@@ -442,7 +442,17 @@ public class LeanTweenAnimate : MonoBehaviour
         GameManager.instance.CutScene7.SetActive(false);
         GameManager.instance.OnCutScene7Open = true;
     }
-
+    
+    public void OpenCPUTwirl()
+    {
+        
+        LeanTween.scale(cputwirl, new Vector3(0.4044699f, 0.4044699f, 0.4044699f), 1.5f).setDelay(1f).setEase(LeanTweenType.easeOutCubic);
+    }
+    public void CloseCPUTwirl()
+    {
+        LeanTween.scale(cputwirl, new Vector3(0f, 0f, 0f), 1.5f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+        
+    }
     public void cpuTwirl()
     {
         LeanTween.rotateAround(cputwirl, Vector3.forward, -360, 5f).setLoopClamp();

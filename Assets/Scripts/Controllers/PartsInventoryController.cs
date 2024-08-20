@@ -1935,6 +1935,9 @@ namespace PartsInventory
                 CancelButton.interactable = false;
                 GameManager.instance.BeenModified = false;
 
+                GameManager.instance.OnModifyQuests("Done");
+
+
 
 
             }
@@ -1946,6 +1949,7 @@ namespace PartsInventory
             pcname = "PC1";
             PerksDictionary.Clear();
             Perks.text = "";
+            
         }
 
         //}

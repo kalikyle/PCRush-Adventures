@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Parts>k__BackingField: {fileID: 11400000, guid: 4e2ac51f11b19ea4da361ae2e170ee53, type: 2}
   <MaterialsNeed>k__BackingField: {fileID: 3316352308487018853, guid: 22f38b1f96a842747a96caa479945ab4, type: 3}
-  <MaterialsAmountNeed>k__BackingField: 150
-  <Level>k__BackingField: 2
+  <MaterialsAmountNeed>k__BackingField: 30
+  <Level>k__BackingField: 1

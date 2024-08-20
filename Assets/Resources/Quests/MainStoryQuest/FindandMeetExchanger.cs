@@ -31,6 +31,8 @@ public class FindandMeetExchanger : QuestStep
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;
         GameManager.instance.CpuTwirl.SetActive(false);
+        GameManager.instance.TheLostAdventurer.SetActive(true);
+        GameManager.instance.ArenaWall.gameObject.SetActive(true);
 
         // Find the target GameObject by name in the scene
         if (!string.IsNullOrEmpty(targetGameObjectName))

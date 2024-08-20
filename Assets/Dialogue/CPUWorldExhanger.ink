@@ -9,6 +9,6 @@ Do you want to Exhange your Materials for some CPUs?? #speaker: CPUExchanger #po
     Ok, See you soon.. #speaker: CPUExchanger #portrait: 4
     -> DONE
 
-=== Thank ===
+=== ThankCPU ===
 Thank you come back again! #speaker: CPUExchanger #portrait: 4
 -> DONE

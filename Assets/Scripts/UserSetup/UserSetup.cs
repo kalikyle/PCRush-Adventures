@@ -12,15 +12,14 @@ using UnityEngine.UI;
 
 public class UserSetup : MonoBehaviour
 {
-    public Button googleSignInButton;
-    public Button facebookSignInButton;
-    public Button anonymousSignInButton;
+    //public Button googleSignInButton;
+    //public Button facebookSignInButton;
+    //public Button anonymousSignInButton;
 
     public Button PlayButton;
     public Button PlayOnLan;
 
     public GameObject CharEditor;
-    public GameObject Login;
     public GameObject PlayPanel;
     public GameObject LogInCanvas;
     public GameObject IntroCanvas;
@@ -34,9 +33,7 @@ public class UserSetup : MonoBehaviour
         
 
         // Assign click listeners to the sign-in buttons
-        googleSignInButton.onClick.AddListener(SignInWithGoogle);
-        facebookSignInButton.onClick.AddListener(SignInWithFacebook);
-        anonymousSignInButton.onClick.AddListener(SignInAnonymously);
+        //anonymousSignInButton.onClick.AddListener(SignInAnonymously);
         PlayButton.onClick.AddListener(PlayClick);
         PlayOnLan.onClick.AddListener(OnPlayLanClick);
 
@@ -50,7 +47,6 @@ public class UserSetup : MonoBehaviour
             else
             {
                 LogInCanvas.gameObject.SetActive(true);
-                Login.gameObject.SetActive(false);
                 PlayPanel.gameObject.SetActive(true);
                 CharEditor.gameObject.SetActive(false);
             }
@@ -60,41 +56,25 @@ public class UserSetup : MonoBehaviour
         {
             
             LogInCanvas.gameObject.SetActive(true);
-            Login.gameObject.SetActive(false);
             PlayPanel.gameObject.SetActive(true);
             CharEditor.gameObject.SetActive(false);
         }
       
     }
-    private void Awake()
-    {
-        
-        //this is for character edit during play
-       
-       
-        
-    }
-   
-    public void OpenCharacterEditor()
-    {
-        
-    }
     public void PlayClick()
     {
-        PlayPanel.gameObject.SetActive(false);
         if (string.IsNullOrEmpty(GameManager.instance.UserID))
         {
             //CharEditor.gameObject.SetActive(true);
-            
-            Login.gameObject.SetActive(true);
-           
+
+            //Login.gameObject.SetActive(true);
+            SignInAnonymously();
         }
         else
         {
 
             //CharEditor.gameObject.SetActive(false);
             
-            Login.gameObject.SetActive(false);
             UnloadThisScene();
            
             GameManager.instance.AtTheStart();
@@ -114,7 +94,6 @@ public class UserSetup : MonoBehaviour
         }
         else
         {
-            Login.gameObject.SetActive(false);
             UnloadThisScene();
             GameManager.instance.AtTheStart();
             GameManager.instance.PlayOnLanCanvas.SetActive(true);
@@ -128,16 +107,16 @@ public class UserSetup : MonoBehaviour
         GameManager.instance.StartQuest();
         //SceneManager.LoadSceneAsync(0);
     }
-    void SignInWithGoogle()
-    {
+    //void SignInWithGoogle()
+    //{
         
-    }
+    //}
 
-    void SignInWithFacebook()
-    {
-        // Authenticate using Facebook
-        // (Implement your Facebook sign-in code here)
-    }
+    //void SignInWithFacebook()
+    //{
+    //    // Authenticate using Facebook
+    //    // (Implement your Facebook sign-in code here)
+    //}
 
     void SignInAnonymously()
     {
@@ -192,7 +171,6 @@ public class UserSetup : MonoBehaviour
                 {
                    Debug.Log("User data collection created.");
                    
-                    Login.gameObject.SetActive(false);
                     PlayPanel.gameObject.SetActive(false);
                     LogInCanvas.gameObject.SetActive(false);
                     CharEditor.gameObject.SetActive(true);

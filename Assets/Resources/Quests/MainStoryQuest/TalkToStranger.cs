@@ -23,7 +23,9 @@ public class TalkToStranger : QuestStep
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;
-        GameManager.instance.CpuTwirl.SetActive(false);
+        GameManager.instance.LTA.CloseCPUTwirl();
+        GameManager.instance.TheLostAdventurer.SetActive(true);
+        GameManager.instance.ArenaWall.gameObject.SetActive(true);
 
         DialogueManager.GetInstance().talktoBTN.onClick.AddListener(TalkToStrangers);
     }

@@ -50,6 +50,8 @@ public class GoBackToLostAdventurer : QuestStep
         GameManager.instance.packagescollected = 8;
         GameManager.instance.PlayerMoney = 0;
         GameManager.instance.CpuTwirl.SetActive(false);
+        GameManager.instance.TheLostAdventurer.SetActive(true);
+        GameManager.instance.ArenaWall.gameObject.SetActive(true);
         GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
         DialogueManager.GetInstance().talktoBTN.onClick.AddListener(TalkToLostAdventurer);
 

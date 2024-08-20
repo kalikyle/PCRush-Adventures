@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -30,6 +31,7 @@ public class PlayerTeleport : MonoBehaviour
         public bool EditorOpen = false;
         public bool BackToHomeWorld = false;
         public bool onarea = false;
+        public bool onbed = false;
 
 
 
@@ -376,17 +378,19 @@ public class PlayerTeleport : MonoBehaviour
         {
             GameManager.instance.PlayerDeskUI.SetActive(false);
             Desktop.SetActive(false);
-            GameMap.SetActive(false);
+            GameMap.SetActive(true);
             inExplorePanel.SetActive(true);
             WorldName.text = "Home World";
             BackToHomeWorld = false;
             InvBTN.gameObject.SetActive(false);
             EquippedStats.gameObject.SetActive(false);
-
+            GameManager.instance.LTA.HideGameMenu();
+            GameManager.instance.LTA.HideGameMap();
             GameManager.instance.InHomeWorld = true;
             GameManager.instance.LoadCharacter();
             GameManager.instance.UnequipEquipment();
             GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+            
         }
         else
         {
@@ -403,10 +407,11 @@ public class PlayerTeleport : MonoBehaviour
             GameManager.instance.LoadCharacter();
             GameManager.instance.UnequipEquipment();
             GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+            LTA.OpenGameMap();
         }
 
 
-        LTA.OpenGameMap();
+       
     }
     
     public void TheTeleporter()
@@ -467,6 +472,7 @@ public class PlayerTeleport : MonoBehaviour
             BuildRoom.gameObject.SetActive(true);
             OpenBuild = false;
             GameManager.instance.UIExplore.SetActive(false);
+            GameManager.instance.OnModifyQuests("Entered");
 
         }
         
@@ -699,6 +705,15 @@ public class PlayerTeleport : MonoBehaviour
                 DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
                 DialogueManager.GetInstance().TriggerSection("Seventeen");
                 GameManager.instance.OnTheArea = true;
+            }
+        }
+       
+        if (collision.CompareTag("Bed"))
+        {
+            if(GameManager.instance.OnSleepQuest == true && onbed == false)
+            {
+                onbed = true;
+                GameManager.instance.CutScene10.SetActive(true);
             }
         }
 

@@ -54,7 +54,6 @@ public class HeadBackToExchanger : QuestStep
 
         GameManager.instance.CPUExchangeXButton.gameObject.SetActive(false);
         GameManager.instance.HasInitialize = true;
-        GameManager.instance.ArenaWall.gameObject.SetActive(false);
         GameManager.instance.CPUSpawn.SetActive(false);
         GameManager.instance.PlayerDeskRoom.SetActive(true);
         GameManager.instance.BuildingDesk.SetActive(true);
@@ -62,7 +61,8 @@ public class HeadBackToExchanger : QuestStep
         GameManager.instance.packagescollected = 8;
         GameManager.instance.CpuTwirl.SetActive(false);
         GameManager.instance.CPUExchangeXButton.onClick.AddListener(OnXClick);
-        GameManager.instance.OnQuest = true;
+        GameManager.instance.TheLostAdventurer.SetActive(true);
+
 
     }
 
@@ -105,7 +105,7 @@ public class HeadBackToExchanger : QuestStep
 
             GameManager.instance.OnHeadBackQuest = false;
             GameManager.instance.CPUExchangeXButton.gameObject.SetActive(true);
-            GameManager.instance.OnQuest = false;
+           
 
             
         }

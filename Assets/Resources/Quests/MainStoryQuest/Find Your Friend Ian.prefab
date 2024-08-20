@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &373412880653706569
+--- !u!1 &7012112686024687939
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 776284435110068112}
-  - component: {fileID: 7711492404408322078}
+  - component: {fileID: 1047446479951755805}
+  - component: {fileID: -5682428635650859389}
   m_Layer: 0
-  m_Name: Go To Your Desk Again
+  m_Name: Find Your Friend Ian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &776284435110068112
+--- !u!4 &1047446479951755805
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373412880653706569}
+  m_GameObject: {fileID: 7012112686024687939}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,17 +32,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7711492404408322078
+--- !u!114 &-5682428635650859389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373412880653706569}
+  m_GameObject: {fileID: 7012112686024687939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5eff660f2e836b43bfc303bdc8868ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e97597aaa156664484056125fae18ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPosition: {x: 72.01, y: -13.6, z: 0}
-  targetPositionIan: {x: 19.43, y: -6.91, z: 0}
+  targetGameObjectName: Ian
+  inkJSON: {fileID: 4900000, guid: b2fe0c312402b14498650eb85cfbad58, type: 3}

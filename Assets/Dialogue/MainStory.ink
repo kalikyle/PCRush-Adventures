@@ -1,4 +1,4 @@
-﻿INCLUDE Global.ink
+﻿ INCLUDE Global.ink
 
 === first ===
 What a Dream... #speaker: {player_Name} #portrait: 0
@@ -10,7 +10,8 @@ I should collect those packages #speaker: {player_Name} #portrait: 0
 === second ===
 Wow, these are computer parts #speaker: {player_Name} #portrait: 0
 but the only problem is I don't know how to assemble these #speaker: {player_Name} #portrait: 0
-ow, I know a person that can help me... #speaker: {player_Name} #portrait: 0
+ow, Ian can help me about these things... #speaker: {player_Name} #portrait: 0
+he is knowleadgable about computers  #speaker: {player_Name} #portrait: 0
 -> DONE
 
 === third ===
@@ -18,7 +19,7 @@ Hi Ian!, there are some mysterious packages that came to our home #speaker: {pla
 What was that? #speaker: Ian #portrait: 2
 Some Computer Parts #speaker: {player_Name} #portrait: 0
 Wow, Where is that came from? #speaker: Ian #portrait: 2
-Well I don't know, but can you help me create a computer from these parts? #speaker: {player_Name} #portrait: 0
+Well I don't know, but can you help me build a computer from these parts? #speaker: {player_Name} #portrait: 0
 Of course, where we can build? #speaker: Ian #portrait: 2
 I have a desk in my room at my house, we can use it as our building desk #speaker: {player_Name} #portrait: 0
 come with me #speaker: {player_Name} #portrait: 0
@@ -34,7 +35,8 @@ Ok sure, are ya'll already have dinner? #speaker: Mommy #portrait: 1
 later Mom #speaker: {player_Name} #portrait: 0
 later {player_Name}'s Mom #speaker: Ian #portrait: 2
 Ok #speaker: Mommy #portrait: 1
-Come with me, we should go upstairs to build this PC #speaker: {player_Name} #portrait: 0 #CutScene:CutScene 2
+Come with me, we should go upstairs to build this PC #speaker: {player_Name} #portrait: 0
+#CutScene:CutScene 2 
 -> DONE
 
 === fifth ===
@@ -107,12 +109,12 @@ so we need to the CPU FAN to it #speaker: Ian #portrait: 2
 
 === sixthDonePSU ===
 Excellent! {player_Name} now install the Operating System of your Computer #speaker: Ian #portrait: 2
-(Click the Done Button to Turn On and install the OS, and then click the Install Button and wait for it) #speaker: PCRush #portrait: 0
+(Click the Done Button to Turn On and install the OS, and then click the Install Button and wait for it) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneClick ===
 Wow! {player_Name}, Now your PC Boots Up we just need to install the OS #speaker: Ian #portrait: 2
-(Click the Install Button to install the OS, and then click the Install Button and wait for it) #speaker: PCRush #portrait: 0
+(Click the Install Button to install the OS and wait for it) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneInstall ===
@@ -146,7 +148,7 @@ Nice! its all set, all we need to do is Turn On this Computer #speaker: Ian #por
 Come downstairs, I have something for ya'll #speaker: Mommy #portrait: 1
 We need to go downstairs first Ian #speaker: {player_Name} #portrait: 0
 Mommy has something for us #speaker: {player_Name} #portrait: 0
-Sure {player_Name} #speaker: Mommy #portrait: 1
+Sure {player_Name} #speaker: Ian #portrait: 2
 going downstairs Mom #speaker: {player_Name} #portrait: 0
 -> DONE
 
@@ -228,7 +230,7 @@ I wonder what inside of this game, I should click the play button  #speaker: {pl
 Oh, there's a map... #speaker: {player_Name} #portrait: 0 
 And the land was named after computer parts #speaker: {player_Name} #portrait: 0 
 Strange... #speaker: {player_Name} #portrait: 0 
-CPU World is already unlocked I should check it. #speaker: {player_Name} #portrait: 0 
+CPU Region is already unlocked I should check it. #speaker: {player_Name} #portrait: 0 
 -> DONE
 
 === TwelveTeleporting ===
@@ -240,6 +242,9 @@ HELP!!!! #speaker: {player_Name} #portrait: 0
 
 === Thirteen ===
 Oh my God where am I??? #speaker: {player_Name} #portrait: 0
+Wait!!! #speaker: {player_Name} #portrait: 0
+Oh no!, The teleporter has disappeared... #speaker: {player_Name} #portrait: 0
+What should I do... #speaker: {player_Name} #portrait: 0
 There's a person here, I should talk to him... #speaker: {player_Name} #portrait: 0 
 -> DONE
 
@@ -417,7 +422,8 @@ You can Freely choose... #speaker: CPUExchanger #portrait: 4 #choice: exchangeye
 === Nineteen ===
 Thank you again {player_Name} #speaker: CPUExchanger #portrait: 4
 Your cpu will be delivered immediately into your home #speaker: CPUExchanger #portrait: 4
-Now come with me into to the spawn, I will get you home #speaker: CPUExchanger #portrait: 4 #CutScene:CutScene 8
+Now come with me into to the spawn, I will get you home #speaker: CPUExchanger #portrait: 4
+#CutScene:CutScene 8 
 -> DONE
 
 === NineteenTwo ===
@@ -425,7 +431,7 @@ Hey, I know you #speaker: CPUExchanger #portrait: 4
 Are you the lost Adventurer? #speaker: CPUExchanger #portrait: 4
 Is that really your name?? #speaker: {player_Name} #portrait: 0
 Umm, yes, I am the lost adventurer #speaker: Lost Adventurer #portrait: 10
-I waiting for you to come on me, but you didn't come #speaker: CPUExchanger #portrait: 4
+I'm waiting for you to come to me, but you didn't come #speaker: CPUExchanger #portrait: 4
 Umm, sorry #speaker: Lost Adventurer #portrait: 10
 Nevermind, I will get you two home #speaker: CPUExchanger #portrait: 4
 Thank you #speaker: Lost Adventurer #portrait: 10
@@ -435,16 +441,80 @@ thank you again {player_Name} #speaker: Lost Adventurer #portrait: 10
 -> DONE
 
 === NineteenThree ===
-Finally... #speaker: {player_Name} #portrait: 0
-I can go home now ... #speaker: {player_Name} #portrait: 0
+Finally, I can go home now ... #speaker: {player_Name} #portrait: 0
 -> DONE
 
 === Twenty ===
-I'm really tired now #speaker: {player_Name} #portrait: 0
-I should Get Some Sleep ... #speaker: {player_Name} #portrait: 0
+I'm really tired right now #speaker: {player_Name} #portrait: 0
+I should go to bed... #speaker: {player_Name} #portrait: 0
 -> DONE
 
+=== TwentyOne ===
+That sleep was good... #speaker: {player_Name} #portrait: 0
+{player_Name}! You have another package here... #speaker: Mommy #portrait: 1
+That's the CPU I Exchange from the CPU Exchanger yesterday #speaker: {player_Name} #portrait: 0
+Go downstairs {player_Name}! #speaker: Mommy #portrait: 1
+I'm coming Mom #speaker: {player_Name} #portrait: 0
+-> DONE
 
+=== TwentyTwo ===
+Sheesh... This is the cpu I exchanged from the cpu exchanger #speaker: {player_Name} #portrait: 0
+Where are those packages came from {player_Name}? #speaker: Mommy #portrait: 1
+Just doing some business mom #speaker: {player_Name} #portrait: 0
+Ok.. That's great #speaker: Mommy #portrait: 1
+I should go to my building desk and modify my computer #speaker: {player_Name} #portrait: 0
+I got this... #speaker: {player_Name} #portrait: 0
+-> DONE
 
+=== TwentyThree ===
+I should place my computer here first #speaker: {player_Name} #portrait: 0
+Open the Hardwares by clicking the <color=blue>Hardwares button</color> #speaker: PCRush #portrait: 5
+-> DONE
 
+=== TwentyFourDoneHardwares ===
+And Click the <color=green>Computers Button</color> #speaker: PCRush #portrait: 5
+-> DONE
 
+=== TwentyFourDoneComputers ===
+Now Select the computer that you want to modify then click the <color=orange>Modify button</color>#speaker: PCRush #portrait: 5
+-> DONE
+
+=== TwentyFourDoneModify ===
+Nice, Now I should replace my old cpu by the cpu I got from exchanger #speaker: {player_Name} #portrait: 0
+After that click the <color=green>Done Button</color> to successfully modify your computer #speaker: PCRush #portrait: 5
+-> DONE
+
+=== TwentyFive ===
+Now, You successfully Modified your Computer #speaker: PCRush #portrait: 5
+Your Computer Parts have a perks for you to become stronger in the Hardwares World #speaker: PCRush #portrait: 5
+You can see that in the information of your computer #speaker: PCRush #portrait: 5
+You can also see the perks that you use while building your computer just click the <color=yellow>perks button</color> in the upper right corner #speaker: PCRush #portrait: 5
+That's nice I should probably go back to the Hardwares world and continue my adventures... #speaker: {player_Name} #portrait: 0
+but before that, I should meet the cpu exchanger again to get more info about the other regions #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentySixIntro ===
+I should meet again the cpu exchanger in the cpu region to get more info about the other regions #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentySix ===
+You've back {player_Name} #speaker: CPUExchanger #portrait: 4
+Why? #speaker: CPUExchanger #portrait: 4
+I want to know more about the other regions #speaker: {player_Name} #portrait: 0
+ahh ok, to unlock those regions, you need to become stronger too #speaker: CPUExchanger #portrait: 4
+and as you fight the bad creatures and collect thier materials, you can also exchange that materials to the exchangers of the regions #speaker: CPUExchanger #portrait: 4
+and they will give you the computer part that you want #speaker: CPUExchanger #portrait: 4
+So, I need to become stronger and stronger to unlock those regions why?  #speaker: {player_Name} #portrait: 0
+I fought the bad creatures here but they are weak do I need to be stronger? #speaker: {player_Name} #portrait: 0
+Yes, as you progress on unlocking those regions enemies are getting stronger and faster too #speaker: CPUExchanger #portrait: 4
+the most stronger enemies are in the case region, they are elites and you need to fought them for us to fully functional again #speaker: CPUExchanger #portrait: 4
+Ok, I see #speaker: {player_Name} #portrait: 0
+You need to buy powerful swords, armor, shield and helmet specially the computer parts that we exchange for you #speaker: CPUExchanger #portrait: 4
+those computer parts are not just computer parts they make you also more stronger because of the perks it have #speaker: CPUExchanger #portrait: 4
+so, goodluck to you {player_Name} and don't hesitate to come with me if you want to exchange some materials for a cpu, sometimes I will have some legendary cpu at the table #speaker: CPUExchanger #portrait: 4
+Ok, thanks exchanger #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentySeven ===
+I should unlock all the regions #speaker: {player_Name} #portrait: 0
+-> DONE

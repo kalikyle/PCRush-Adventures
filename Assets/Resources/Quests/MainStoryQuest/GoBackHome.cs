@@ -33,12 +33,14 @@ public class GoBackHome : QuestStep
         }
 
         GameManager.instance.HasInitialize = true;
-        GameManager.instance.ArenaWall.gameObject.SetActive(false);
         GameManager.instance.CPUSpawn.SetActive(false);
         GameManager.instance.PlayerDeskRoom.SetActive(false);
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;
+        GameManager.instance.TheLostAdventurer.SetActive(true);
+        GameManager.instance.CpuTwirl.gameObject.SetActive(true);
+        GameManager.instance.LTA.CloseCPUTwirl();
     }
 
     // Update is called once per frame
