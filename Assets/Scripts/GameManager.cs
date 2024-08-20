@@ -363,8 +363,8 @@ public class GameManager : MonoBehaviour
 
 
     public GameObject CPUSpawn;
-   
 
+    
 
     [Header("Ink JSON")]
     [SerializeField] public TextAsset MainStory;
@@ -380,7 +380,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject notifpopup;
     [SerializeField] private GameObject Equipnotifpopup;
     [SerializeField] private GameObject Itemsnotifpopup;
-    [SerializeField] private Transform notifpPopUpParent;
+    [SerializeField] public Transform notifpPopUpParent;
 
     public Dictionary<string, string> DefaultCharacter = new Dictionary<string, string>();
 
