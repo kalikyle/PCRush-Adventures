@@ -30,4 +30,12 @@ public class LevelUpSystem : MonoBehaviour
     {
         LevelUp();
     }
+
+    public void CheckLevel()
+    {
+        if(GameManager.instance.PlayerLevel == 3)
+        {
+
+        }
+    }
 }
