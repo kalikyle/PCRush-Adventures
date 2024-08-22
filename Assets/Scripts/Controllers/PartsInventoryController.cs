@@ -229,6 +229,16 @@ namespace PartsInventory
 
 
 
+        public GameObject computersButton;
+        public GameObject usesButton;
+        public GameObject SellButton;
+        public GameObject TopHardwaresButton;
+        public GameObject ComputerInventoryPanel;
+        public GameObject ComputerInvent;
+        public GameObject PartsInvent;
+
+
+
         public TMP_Text Perks;
         public Dictionary<string, int> PerksDictionary = new Dictionary<string, int>();
 
@@ -425,6 +435,8 @@ namespace PartsInventory
         //    About.gameObject.SetActive(false);
         //}
 
+       
+
         public void HandleCancel()
         {
             DialogBox.gameObject.SetActive(true);
@@ -598,7 +610,7 @@ namespace PartsInventory
             //XButton.gameObject.SetActive(false);
 
             useButton.onClick.AddListener(HandleUseButton);
-            //sellButton.onClick.AddListener(HandleSellButton);
+            sellButton.onClick.AddListener(HandleSellButton);
 
             MBXButton.onClick.AddListener(() => HandleBackItem("Motherboard"));
             CPUXButton.onClick.AddListener(() => HandleBackItem("CPU"));
@@ -659,93 +671,131 @@ namespace PartsInventory
         }
 
         public bool ToogleFiltered = true;
+        public bool OnSell = false;
         public Dictionary<string, InventoryItem> lastUsedItems = new Dictionary<string, InventoryItem>();
 
+        public void OpenSell()
+        {
+            computersButton.SetActive(false);
+            usesButton.SetActive(false);
+            SellButton.SetActive(true);
+            TopHardwaresButton.SetActive(false);
+            ComputerInventoryPanel.SetActive(true);
+            ComputerInvent.SetActive(false);
+            PartsInvent.SetActive(true);
+            ToggleALLButton();
+            OnSell = true;
+            
+           
+        }
 
+        public void OnXPartsBuyDialogue()
+        {
+            if (DialogueManager.GetInstance().dialogueIsPlaying && OnSell == true) {
+
+                DialogueManager.GetInstance().TriggerSection("Thank");
+                OnSell = false;
+            
+            }
+
+            
+        }
         private void HandleSellButton()
         {
 
             int tempIndex = GameManager.instance.Partstempindex;
 
-            if (ToogleFiltered)
-            {
+            //if (ToogleFiltered)
+            //{
 
-                if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndex))
-                {
+            //    if (tempToOriginalIndexMapping.TryGetValue(tempIndex, out int originalIndex))
+            //    {
 
-                    // Assuming InventoryfilteredItems contains filtered items from inventoryData
-                    InventoryItem inventoryItem = InventoryfilteredItems[originalIndex];
-                    Debug.Log("Index: " + originalIndex);
-                    // Find the index of the item in the main inventory data
-                    int indexInMainInventory = inventoryData.inventoryItems.IndexOf(inventoryItem);
+            //        // Assuming InventoryfilteredItems contains filtered items from inventoryData
+            //        InventoryItem inventoryItem = InventoryfilteredItems[originalIndex];
+            //        Debug.Log("Index: " + originalIndex);
+            //        // Find the index of the item in the main inventory data
+            //        int indexInMainInventory = inventoryData.inventoryItems.IndexOf(inventoryItem);
 
-                    Debug.Log("Index: " + indexInMainInventory);
-                    if (indexInMainInventory != -1)
-                    {
-                        if (inventoryItem.item != null)
-                        {
-                            //GameManager.instance.PCMoney += inventoryItem.item.Price;
-                        }
+            //        Debug.Log("Index: " + indexInMainInventory);
+            //        if (indexInMainInventory != -1)
+            //        {
+            //            if (inventoryItem.item != null)
+            //            {
+            //                //GameManager.instance.PCMoney += inventoryItem.item.Price;
+            //            }
 
-                        if (inventoryItem.quantity > 1)
-                        {
+            //            if (inventoryItem.quantity > 1)
+            //            {
 
-                            // If the quantity is more than 1, decrease it by 1 in the main inventory
-                            inventoryData.RemoveItem(indexInMainInventory, 1);
-                            //inventoryUI.ResetSelection();
-                            inventoryUI.Hide();
+            //                // If the quantity is more than 1, decrease it by 1 in the main inventory
+            //                inventoryData.RemoveItem(indexInMainInventory, 1);
+            //                //inventoryUI.ResetSelection();
+            //                inventoryUI.Hide();
 
-                            OpenFiltered(inventoryItem.item.Category);
-                            inventoryUI.ResetSelection();
-                            inventoryUI.SelectItemAtIndex(tempIndex);
-                            HandleDescriptionRequests(tempIndex);
-                            GameManager.instance.Partstempindex = tempIndex;
+            //                OpenFiltered(inventoryItem.item.Category);
+            //                inventoryUI.ResetSelection();
+            //                inventoryUI.SelectItemAtIndex(tempIndex);
+            //                HandleDescriptionRequests(tempIndex);
+            //                GameManager.instance.Partstempindex = tempIndex;
 
-                            //HandleItemSelection(tempIndex);
-
-
+            //                //HandleItemSelection(tempIndex);
 
 
-                        }
-                        else if (inventoryItem.quantity == 1)
-                        {
-                            // If the quantity is 1, remove the item from the main inventory
-                            inventoryData.RemoveItem(indexInMainInventory, 1);
-
-                            // Perform additional actions specific to the filtered inventory display, if needed
-                            // For example, resetting selection or hiding the filtered inventory UI
-                            inventoryUI.ResetSelection();
-                            inventoryUI.Hide();
-                            OpenFiltered(inventoryItem.item.Category);
-
-                        }
 
 
-                    }
-                    else
-                    {
-                        Debug.LogError("Item not found in the main inventory.");
-                        // Handle the scenario where the item is not found in the main inventory
-                    }
-                }
-               // GameManager.instance.UpdatePCMoneyText();
-               // GameManager.instance.SavePCMoney();//need fix
+            //            }
+            //            else if (inventoryItem.quantity == 1)
+            //            {
+            //                // If the quantity is 1, remove the item from the main inventory
+            //                inventoryData.RemoveItem(indexInMainInventory, 1);
+
+            //                // Perform additional actions specific to the filtered inventory display, if needed
+            //                // For example, resetting selection or hiding the filtered inventory UI
+            //                inventoryUI.ResetSelection();
+            //                inventoryUI.Hide();
+            //                OpenFiltered(inventoryItem.item.Category);
+
+            //            }
 
 
-            }
-            else
-            {
+            //        }
+            //        else
+            //        {
+            //            Debug.LogError("Item not found in the main inventory.");
+            //            // Handle the scenario where the item is not found in the main inventory
+            //        }
+            //    }
+            //   // GameManager.instance.UpdatePCMoneyText();
+            //   // GameManager.instance.SavePCMoney();//need fix
+
+
+            //}
+            //else
+            //{
+
+
+
+
+
 
                 InventoryItem inventoryItem = inventoryData.GetItemAt(tempIndex);
 
+
+
                 if (inventoryItem.item != null)
                 {
-                    //GameManager.Instance.PCMoney += inventoryItem.item.Price;
+                   
                 }
 
                 if (inventoryItem.quantity > 1)
                 {
                     // If the quantity is more than 1, decrease it by 1
+
+                    
+
+
+
                     inventoryData.RemoveItem(tempIndex, 1);
                 }
                 else if (inventoryItem.quantity == 1)
@@ -756,14 +806,14 @@ namespace PartsInventory
                     inventoryUI.ResetSelection();
                     inventoryUI.Hide();
                     ToggleALLButton();// Remove the last item
-                    // Additional logic or handling specific to quantity 1, if needed
-                    // For instance, you might want to display a message or perform other actions
-                    // You could also set the item's quantity back to its default or handle it differently
+                    
                 }
-                //GameManager.Instance.UpdatePCMoneyText();
-                //GameManager.Instance.SavePCMoney();
 
-            }
+
+
+            inventoryData.PartsSaveItems();
+
+
 
 
         }

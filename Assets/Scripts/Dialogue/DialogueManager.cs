@@ -279,6 +279,10 @@ public class DialogueManager : MonoBehaviour
                     {
                         GameManager.instance.ArmorFixer.SetActive(true);
                     }
+                    else if (tagValue.Equals("sellyes"))
+                    {
+                        GameManager.instance.PartsOpenSell();
+                    }
 
                     break;
                 case SCENE_TAG:

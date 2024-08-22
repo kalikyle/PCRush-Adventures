@@ -552,6 +552,10 @@ public class GameManager : MonoBehaviour
         StatsCurrentExp.text = PlayerEXP.ToString() + " / " + PlayerExpToLevelUp.ToString();
 
     }
+    public void PartsOpenSell()
+    {
+        PIC.OpenSell();
+    }
     public void OpenSwordShop(int from, int to)
     {
         //Equipments.SwordsOpenShop();
