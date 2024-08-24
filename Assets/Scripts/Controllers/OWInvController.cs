@@ -218,7 +218,6 @@ namespace OtherWorld
             GameManager.instance.ArmorDocumentIds.Clear();
             GameManager.instance.HelmetDocumentIds.Clear();
             GameManager.instance.ShieldDocumentIds.Clear();
-
             GameManager.instance.MaterialsDocumentIds.Clear();
             GameManager.instance.AllDocumentIds.Clear();
 
@@ -1341,6 +1340,10 @@ namespace OtherWorld
                         // Update the PCSO that was previously in use to set inUse = false
                         await UpdateInventoryInUse(GameManager.instance.ShieldinUse, false);
                     }
+                }else if (UpdatedItem.Category == "Materials")
+                {
+
+                    return;
                 }
 
 
@@ -1376,6 +1379,9 @@ namespace OtherWorld
                 else if (UpdatedItem.Category == "Shield")
                 {
                     GameManager.instance.ShieldinUse = documentId;
+                }else if (UpdatedItem.Category == "Materials")
+                {
+                    return;
                 }
 
                 Debug.Log("PCSO document updated successfully.");

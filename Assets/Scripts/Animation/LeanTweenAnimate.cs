@@ -10,6 +10,7 @@ public class LeanTweenAnimate : MonoBehaviour
         , MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld, MinimapCPUFWorld, MinimapGPUWorld, MinimapSTORAGEWorld, MinimapPSUWorld, MinimapMBWorld, MinimapCASEWorld, TalkBTN, blackBack, Twirl, characterImage, cputwirl, ramtwirl, cpufantwirl, gputwirl, storagetwirl, psutwirl, mbtwirl, casetwirl;
     public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
+    public UIImageAnimation imageAnim;
     //bool close = false;
 
 
@@ -121,11 +122,13 @@ public class LeanTweenAnimate : MonoBehaviour
     public void OpenGameMap()
     {
         LeanTween.scale(GameMap, new Vector3(1f, 1f, 1f), .2f).setEaseInOutSine();
+        imageAnim.Func_PlayUIAnim();
 
     }
     public void HideGameMap()
     {
         LeanTween.scale(GameMap, new Vector3(0f, 0f, 0f), .08f).setEaseInOutSine();
+        imageAnim.Func_StopUIAnim();
 
     }
     public void CloseTeleAnim()

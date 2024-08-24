@@ -518,3 +518,35 @@ Ok, thanks exchanger #speaker: {player_Name} #portrait: 0
 === TwentySeven ===
 I should unlock all the regions #speaker: {player_Name} #portrait: 0
 -> DONE
+
+=== TwentySevenRam ===
+Now, I will work to Unlock the RAM Region #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentySevenCPUF ===
+Now, the CPU Fan Region #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentySevenGPU ===
+Next is the GPU Region #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentySevenStorage ===
+Now the Storage Region #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentySevenPSU ===
+Next is the PSU Region #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentySevenMB ===
+Second to the last Region, The Motherboard Region #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentySevenCase ===
+Now The last Region, The Case Region #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentySevenUnlocked === 
+Nice, I unlocked all the regions I should go now to the Case Region and meet the Exchanger #speaker: {player_Name} #portrait: 0
+-> DONE

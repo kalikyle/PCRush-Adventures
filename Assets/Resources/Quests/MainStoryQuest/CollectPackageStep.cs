@@ -72,8 +72,5 @@ public class CollectPackageStep : QuestStep
         GameManager.instance.packagescollected = System.Int32.Parse(state);
         packagecollected = GameManager.instance.packagescollected;
         UpdateState();
-
-
-        
     }
 }

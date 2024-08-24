@@ -404,12 +404,14 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             }
 
             //Reset animator parameters
-            _animator.ResetTrigger("Dead");
+            //_animator.ResetTrigger("Dead");
            
-            _animator.SetBool("Walking", false);
-            _animator.SetBool("Running", false);
+            //_animator.SetBool("Walking", false);
+            //_animator.SetBool("Running", false);
             isDeadAnimate = false;
-            HandleAttack();
+
+            await Task.Delay(2000);
+            _animator.SetTrigger("Jab");
         }
 
         public void ResetMovement()

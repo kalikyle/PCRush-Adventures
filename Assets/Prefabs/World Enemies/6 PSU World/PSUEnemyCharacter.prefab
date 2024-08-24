@@ -15600,9 +15600,9 @@ MonoBehaviour:
   RunSpeed: 2
   AttackRange: 0.92
   Attack: 8
-  ExpMultiplier: 1
+  ExpMultiplier: 64
   NeednumberOfCoinsToDrop: 5
-  NeedCoinValueToDrop: 70
+  NeedCoinValueToDrop: 35
   NeednumberOfHeartsToDrop: 3
   NeedHeartValueToDrop: 70
   NeednumberOfMaterialToDrop: 2

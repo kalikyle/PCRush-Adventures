@@ -5240,7 +5240,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 4723107735738678597, guid: 7e7afac830b2e394f87c9491df232243, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: 8e43b4ed05e63c3419aa20cfb5d8cc49, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5264,7 +5264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 11400000, guid: 3dc96758ea9b1da478c504d3dcd91b2b, type: 2}
+  m_SpriteLibraryAsset: {fileID: 11400000, guid: dd4c22a371c42994d9d807aabd4fd5bc, type: 2}
 --- !u!114 &2213336542017714686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15437,7 +15437,7 @@ GameObject:
   - component: {fileID: 6994895466643448412}
   - component: {fileID: 2264655418689502925}
   m_Layer: 8
-  m_Name: CPUFWorldEnemy
+  m_Name: EnemyCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15574,8 +15574,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67c130d294b90048acdfbe0c533d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 120
-  maxHealth: 120
+  currentHealth: 5
+  maxHealth: 5
   OnHitWithReference:
     m_PersistentCalls:
       m_Calls: []
@@ -15596,15 +15596,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 7380468193006197019}
-  WalkSpeed: 1.5
+  WalkSpeed: 1.3
   RunSpeed: 2
   AttackRange: 0.92
-  Attack: 5
-  ExpMultiplier: 4
+  Attack: 2
+  ExpMultiplier: 1
   NeednumberOfCoinsToDrop: 5
-  NeedCoinValueToDrop: 60
+  NeedCoinValueToDrop: 10
   NeednumberOfHeartsToDrop: 2
-  NeedHeartValueToDrop: 30
+  NeedHeartValueToDrop: 10
   NeednumberOfMaterialToDrop: 2
   NeedMaterialValueToDrop: 1
   Player: {fileID: 0}
@@ -15617,8 +15617,8 @@ MonoBehaviour:
   heartPrefab: {fileID: 3017227482341972875, guid: 98e6bf55a0f5f3240bf3141966ea2e87, type: 3}
   numberOfHeartsToDrop: 1
   HeartValueToDrop: 5
-  MaterialPrefab: {fileID: 3316352308487018853, guid: 1529358c3e942e746b77327961f5da99, type: 3}
-  MaterialName: Heat Sink
+  MaterialPrefab: {fileID: 3316352308487018853, guid: 22f38b1f96a842747a96caa479945ab4, type: 3}
+  MaterialName: Silicon Wafer
   numberOfMaterialToDrop: 1
   MaterialValueToDrop: 1
   dropRadius: 1
@@ -15631,7 +15631,7 @@ MonoBehaviour:
   hitPoints: {fileID: 6967909581131199628}
   floatingTextPrefab: {fileID: 4652368944077129396, guid: fa5cc75cff4e5934b840c9c3566bf7e4, type: 3}
   damageCanvas: {fileID: 7601561232433407804}
-  EnemyImage: {fileID: 4723107735738678597, guid: 7e7afac830b2e394f87c9491df232243, type: 3}
+  EnemyImage: {fileID: 4723107735738678597, guid: 8e43b4ed05e63c3419aa20cfb5d8cc49, type: 3}
 --- !u!1 &8459416156559206296
 GameObject:
   m_ObjectHideFlags: 0

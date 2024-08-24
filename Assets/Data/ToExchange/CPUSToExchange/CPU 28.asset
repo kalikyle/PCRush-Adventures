@@ -15,4 +15,4 @@ MonoBehaviour:
   <Parts>k__BackingField: {fileID: 11400000, guid: 9305a30dfdf8e9a4a9e64177da9b8e83, type: 2}
   <MaterialsNeed>k__BackingField: {fileID: 3316352308487018853, guid: 22f38b1f96a842747a96caa479945ab4, type: 3}
   <MaterialsAmountNeed>k__BackingField: 120
-  <Level>k__BackingField: 1
+  <Level>k__BackingField: 4

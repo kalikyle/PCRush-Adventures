@@ -20,7 +20,7 @@ public class HorderManager : MonoBehaviour
     public LeanTweenAnimate LTA;
     public GameObject OnHordeUI;
     public GameObject ExploreUI;
-    public GameObject QuestUI;
+    //public GameObject QuestUI;
     public GameObject TopPanelUI;
     public GameObject ButtonsPanelUI;
     public TMP_Text timerText;
@@ -164,7 +164,7 @@ public class HorderManager : MonoBehaviour
         }
         OnHordeUI.SetActive(true);
         ExploreUI.SetActive(true);
-        QuestUI.SetActive(false);
+        //QuestUI.SetActive(false);
         TopPanelUI.SetActive(false);
         ButtonsPanelUI.SetActive(false);
 
@@ -186,7 +186,7 @@ public class HorderManager : MonoBehaviour
         }
         OnHordeUI.SetActive(false);
         ExploreUI.SetActive(true);
-        QuestUI.SetActive(true);
+        //QuestUI.SetActive(true);
         TopPanelUI.SetActive(true);
         ButtonsPanelUI.SetActive(true);
 
@@ -222,7 +222,7 @@ public class HorderManager : MonoBehaviour
         }
         OnHordeUI.SetActive(false);
         ExploreUI.SetActive(true);
-        QuestUI.SetActive(true);
+        //QuestUI.SetActive(true);
         TopPanelUI.SetActive(true);
         ButtonsPanelUI.SetActive(true);
 

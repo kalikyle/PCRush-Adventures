@@ -50,19 +50,19 @@ public class PlayerTeleport : MonoBehaviour
 
         });
 
-        if (GameManager.instance.HomeWorld == true)
-        {
-        }
-        else if (GameManager.instance.CPUWorld == true)
-        {
-        }
-        else if (GameManager.instance.RAMWorld == true) { }
-        else if (GameManager.instance.CPUFWorld == true) { }
-        else if (GameManager.instance.GPUWorld == true) { }
-        else if (GameManager.instance.StorageWorld == true) { }
-        else if (GameManager.instance.PSUWorld == true) { }
-        else if (GameManager.instance.MBWorld == true) { }
-        else if (GameManager.instance.CaseWorld == true) { }
+        //if (GameManager.instance.HomeWorld == true)
+        //{
+        //}
+        //else if (GameManager.instance.CPUWorld == true)
+        //{
+        //}
+        //else if (GameManager.instance.RAMWorld == true) { }
+        //else if (GameManager.instance.CPUFWorld == true) { }
+        //else if (GameManager.instance.GPUWorld == true) { }
+        //else if (GameManager.instance.StorageWorld == true) { }
+        //else if (GameManager.instance.PSUWorld == true) { }
+        //else if (GameManager.instance.MBWorld == true) { }
+        //else if (GameManager.instance.CaseWorld == true) { }
     }
 
     void Update()
