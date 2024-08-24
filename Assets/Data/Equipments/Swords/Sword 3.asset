@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Butcher
   <SpriteIndex>k__BackingField: 2
-  <Price>k__BackingField: 200
-  <AttackDamage>k__BackingField: 10
+  <Price>k__BackingField: 1000
+  <AttackDamage>k__BackingField: 50
   <AttackSpeed>k__BackingField: 0

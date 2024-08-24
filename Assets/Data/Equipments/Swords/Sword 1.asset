@@ -15,5 +15,5 @@ MonoBehaviour:
   <Name>k__BackingField: Knife
   <SpriteIndex>k__BackingField: 0
   <Price>k__BackingField: 100
-  <AttackDamage>k__BackingField: 5
+  <AttackDamage>k__BackingField: 10
   <AttackSpeed>k__BackingField: 0

@@ -39,6 +39,7 @@ public class ArmorRefill : MonoBehaviour
 
         // Update the GameManager with the new armor value
         GameManager.instance.PlayerArmorScript.currentArmor = currentArmortoAdd;
+        GameManager.instance.PlayerArmorScript.isEmpty = false;
         
     }
 }

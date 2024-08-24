@@ -311,6 +311,7 @@ public class GameManager : MonoBehaviour
     [Header("QUESTS")]
     public string CurrentNPC;
     public int packagescollected = 0;
+    public int regionsunlocked = 1;
     public QuestEvent questEvents;
     public bool HasInitialize = false;
     public bool OnQuest = false;
@@ -353,6 +354,7 @@ public class GameManager : MonoBehaviour
     public bool CPUCollected = false;
     public bool OnModifyQuest = false;
     public bool DoneModify = false;
+    public bool OnRegionQuest = false;
 
     public Button BackButton;
     public Button OnDeskBackButton;

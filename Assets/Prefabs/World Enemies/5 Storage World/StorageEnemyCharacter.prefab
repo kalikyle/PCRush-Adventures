@@ -5240,12 +5240,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -7008412969330441016, guid: a81d861e5c4fa254099102fcc03e98bc, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: f4bc7fdb6cd60b840b5df45a8127dc10, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.4, y: 0.32}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -5264,7 +5264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 11400000, guid: 23628bbd1ba51c24dba7cff2007e1ca1, type: 2}
+  m_SpriteLibraryAsset: {fileID: 11400000, guid: ccd1f3bf90608f14c8a2c6d8eff6a902, type: 2}
 --- !u!114 &2213336542017714686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5277,10 +5277,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 9.932601e-39
+  m_CategoryHash: 0.009161512
   m_labelHash: 0.00000040954276
   m_SpriteKey: 0
-  m_SpriteHash: 439940371
+  m_SpriteHash: 288431053
 --- !u!1 &4853703059292475327
 GameObject:
   m_ObjectHideFlags: 0
@@ -15437,7 +15437,7 @@ GameObject:
   - component: {fileID: 6994895466643448412}
   - component: {fileID: 2264655418689502925}
   m_Layer: 8
-  m_Name: RAMEnemyCharacter
+  m_Name: StorageEnemyCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15574,8 +15574,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67c130d294b90048acdfbe0c533d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 50
-  maxHealth: 50
+  currentHealth: 250
+  maxHealth: 250
   OnHitWithReference:
     m_PersistentCalls:
       m_Calls: []
@@ -15596,15 +15596,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 7380468193006197019}
-  WalkSpeed: 1.5
+  WalkSpeed: 1.8
   RunSpeed: 2
   AttackRange: 0.92
-  Attack: 5
-  ExpMultiplier: 1
+  Attack: 7
+  ExpMultiplier: 32
   NeednumberOfCoinsToDrop: 5
-  NeedCoinValueToDrop: 40
-  NeednumberOfHeartsToDrop: 2
-  NeedHeartValueToDrop: 20
+  NeedCoinValueToDrop: 30
+  NeednumberOfHeartsToDrop: 3
+  NeedHeartValueToDrop: 70
   NeednumberOfMaterialToDrop: 2
   NeedMaterialValueToDrop: 1
   Player: {fileID: 0}
@@ -15617,8 +15617,8 @@ MonoBehaviour:
   heartPrefab: {fileID: 3017227482341972875, guid: 98e6bf55a0f5f3240bf3141966ea2e87, type: 3}
   numberOfHeartsToDrop: 1
   HeartValueToDrop: 5
-  MaterialPrefab: {fileID: 3316352308487018853, guid: a4f3cb7053b40cb449ac6ea55dd4cddf, type: 3}
-  MaterialName: Memory Chip
+  MaterialPrefab: {fileID: 3316352308487018853, guid: 76bdd9d56d295814f91a0220b5a5562a, type: 3}
+  MaterialName: Disk Platter
   numberOfMaterialToDrop: 1
   MaterialValueToDrop: 1
   dropRadius: 1
@@ -15631,7 +15631,7 @@ MonoBehaviour:
   hitPoints: {fileID: 6967909581131199628}
   floatingTextPrefab: {fileID: 4652368944077129396, guid: fa5cc75cff4e5934b840c9c3566bf7e4, type: 3}
   damageCanvas: {fileID: 7601561232433407804}
-  EnemyImage: {fileID: 4723107735738678597, guid: a81d861e5c4fa254099102fcc03e98bc, type: 3}
+  EnemyImage: {fileID: 4723107735738678597, guid: f4bc7fdb6cd60b840b5df45a8127dc10, type: 3}
 --- !u!1 &8459416156559206296
 GameObject:
   m_ObjectHideFlags: 0
