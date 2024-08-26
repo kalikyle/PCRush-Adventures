@@ -210,6 +210,8 @@ public class RAMWorldExchangerBuy : MonoBehaviour
                     displayText.text = value.ToString();
                     priceText.text = sp.item.MaterialsAmountNeed.ToString();
 
+                    int newQuantity = await GetMaterialQuantity(MaterialName);
+                    GameManager.instance.RAMMaterialText.text = newQuantity.ToString();
                 }
                 else
                 {

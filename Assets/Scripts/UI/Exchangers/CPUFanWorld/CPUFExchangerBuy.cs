@@ -211,6 +211,9 @@ public class CPUFExchangerBuy : MonoBehaviour
                     displayText.text = value.ToString();
                     priceText.text = sp.item.MaterialsAmountNeed.ToString();
 
+                    int newQuantity = await GetMaterialQuantity(MaterialName);
+                    GameManager.instance.CPUFMaterialText.text = newQuantity.ToString();
+
                 }
                 else
                 {

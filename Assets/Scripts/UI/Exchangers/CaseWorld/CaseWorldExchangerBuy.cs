@@ -210,6 +210,9 @@ public class CaseWorldExchangerBuy : MonoBehaviour
                     displayText.text = value.ToString();
                     priceText.text = sp.item.MaterialsAmountNeed.ToString();
 
+                    int newQuantity = await GetMaterialQuantity(MaterialName);
+                    GameManager.instance.CaseMaterialText.text = newQuantity.ToString();
+
                 }
                 else
                 {

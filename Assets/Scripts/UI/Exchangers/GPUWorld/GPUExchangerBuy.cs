@@ -210,6 +210,9 @@ public class GPUExchangerBuy : MonoBehaviour
                     displayText.text = value.ToString();
                     priceText.text = sp.item.MaterialsAmountNeed.ToString();
 
+                    int newQuantity = await GetMaterialQuantity(MaterialName);
+                    GameManager.instance.GPUMaterialText.text = newQuantity.ToString();
+
                 }
                 else
                 {

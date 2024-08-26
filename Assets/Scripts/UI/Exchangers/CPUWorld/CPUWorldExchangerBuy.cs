@@ -214,8 +214,10 @@ public class CPUWorldExchangerBuy : MonoBehaviour
                     value = 1;
                     displayText.text = value.ToString();
                     priceText.text = sp.item.MaterialsAmountNeed.ToString();
+                    int newQuantity = await GetMaterialQuantity(MaterialName);
+                    GameManager.instance.CPUMaterialText.text = newQuantity.ToString();
 
-                    if(GameManager.instance.OnHeadBackQuest == true)
+                    if (GameManager.instance.OnHeadBackQuest == true)
                     {
                         GameManager.instance.CPUExchangeXButton.gameObject.SetActive(true);
                     }

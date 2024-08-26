@@ -210,6 +210,9 @@ public class MBWorldExchangerBuy : MonoBehaviour
                     displayText.text = value.ToString();
                     priceText.text = sp.item.MaterialsAmountNeed.ToString();
 
+                    int newQuantity = await GetMaterialQuantity(MaterialName);
+                    GameManager.instance.MBMaterialText.text = newQuantity.ToString();
+
                 }
                 else
                 {

@@ -210,6 +210,9 @@ public class PSUWorldExchangerBuy : MonoBehaviour
                     displayText.text = value.ToString();
                     priceText.text = sp.item.MaterialsAmountNeed.ToString();
 
+                    int newQuantity = await GetMaterialQuantity(MaterialName);
+                    GameManager.instance.PSUMaterialText.text = newQuantity.ToString();
+
                 }
                 else
                 {

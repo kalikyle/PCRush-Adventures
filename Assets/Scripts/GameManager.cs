@@ -144,13 +144,21 @@ public class GameManager : MonoBehaviour
 
 
     public GameObject CPUExhangerPanel;
+    public TMP_Text CPUMaterialText;
     public GameObject RAMExhangerPanel;
+    public TMP_Text RAMMaterialText;
     public GameObject CPUFExhangerPanel;
+    public TMP_Text CPUFMaterialText;
     public GameObject GPUExhangerPanel;
+    public TMP_Text GPUMaterialText;
     public GameObject StorageExhangerPanel;
+    public TMP_Text StorageMaterialText;
     public GameObject PSUExhangerPanel;
+    public TMP_Text PSUMaterialText;
     public GameObject MBExhangerPanel;
+    public TMP_Text MBMaterialText;
     public GameObject CaseExhangerPanel;
+    public TMP_Text CaseMaterialText;
 
 
     public GameObject ArmorFixer;
@@ -962,6 +970,13 @@ public class GameManager : MonoBehaviour
     public void LoadOtherWorldInventory()
     {
         StartCoroutine(OWC.OtherWorldInventory());
+
+       
+    }
+
+    public void StopLoadWorldInventory()
+    {
+        StopCoroutine(OWC.OtherWorldInventory());
     }
 
     public string clickedInventoryItemID;
