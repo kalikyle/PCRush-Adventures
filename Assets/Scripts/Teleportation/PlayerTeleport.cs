@@ -352,6 +352,7 @@ public class PlayerTeleport : MonoBehaviour
     //default player xny: 91.72, -10.62
     public void BackToTheHomeWorld()
     {
+
         GameManager.instance.HomeWorld = true;
         GameManager.instance.CPUWorld = false;
         GameManager.instance.RAMWorld = false;
@@ -370,11 +371,13 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.STORAGEWorldMap.SetActive(false);
         GameManager.instance.PSUWorldMap.SetActive(false);
         GameManager.instance.MBWorldMap.SetActive(false);
-        GameManager.instance.CASEWorldMap.SetActive(true);
+        GameManager.instance.CASEWorldMap.SetActive(false);
 
-       
 
-        if(GameManager.instance.GoBackHomeQuest == true)
+        GameManager.instance.StopLoadWorldInventory();
+
+
+        if (GameManager.instance.GoBackHomeQuest == true)
         {
             GameManager.instance.PlayerDeskUI.SetActive(false);
             Desktop.SetActive(false);
@@ -390,30 +393,31 @@ public class PlayerTeleport : MonoBehaviour
             GameManager.instance.LoadCharacter();
             GameManager.instance.UnequipEquipment();
             GameManager.instance.MiniMapButton.gameObject.SetActive(true);
-            
+
         }
         else
         {
             GameManager.instance.PlayerDeskUI.SetActive(true);
-            Desktop.SetActive(true);
-            GameMap.SetActive(true);
-            inExplorePanel.SetActive(false);
-            WorldName.text = "Home World";
-            BackToHomeWorld = false;
-            InvBTN.gameObject.SetActive(false);
-            EquippedStats.gameObject.SetActive(false);
+        Desktop.SetActive(true);
+        GameMap.SetActive(true);
+        inExplorePanel.SetActive(false);
+        WorldName.text = "Home World";
+        BackToHomeWorld = false;
+        InvBTN.gameObject.SetActive(false);
+        EquippedStats.gameObject.SetActive(false);
 
-            GameManager.instance.InHomeWorld = true;
-            GameManager.instance.LoadCharacter();
-            GameManager.instance.UnequipEquipment();
-            GameManager.instance.MiniMapButton.gameObject.SetActive(true);
-            LTA.OpenGameMap();
+        GameManager.instance.InHomeWorld = true;
+        GameManager.instance.LoadCharacter();
+        GameManager.instance.UnequipEquipment();
+        GameManager.instance.MiniMapButton.gameObject.SetActive(true);
+
+        LTA.OpenGameMap();
         }
 
 
-       
+
     }
-    
+
     public void TheTeleporter()
     {
         

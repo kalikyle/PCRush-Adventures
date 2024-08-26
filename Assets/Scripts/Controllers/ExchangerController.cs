@@ -14,14 +14,18 @@ using Exchanger.UI.MBWorld;
 using Exchanger.UI.PSUWorld;
 using Exchanger.UI.RAMWorld;
 using Exchanger.UI.StorageWorld;
+using Firebase.Firestore;
+using OtherWorld.Model;
 using PC.UI;
 using Swords.Model;
 using Swords.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using static OtherWorld.Model.OWInvSO;
 
 namespace Exchanger
 {
@@ -314,11 +318,16 @@ namespace Exchanger
             CPUsPage.UpdateTimer(timeText);
         }
 
-        public void CPUsOpenShop()
+        public async void CPUsOpenShop()
         {
             CPUsPage.Show();
+            int quantity = await GetMaterialQuantity("Silicon Wafer");
+            GameManager.instance.CPUMaterialText.text = quantity.ToString();
             CPUsPage.ResetSelection();
+
         }
+
+       
 
         //for Ram
         private void InitializeRAMs()
@@ -423,9 +432,11 @@ namespace Exchanger
             RAMsPage.UpdateTimer(timeText);
         }
 
-        public void RAMsOpenShop()
+        public async void RAMsOpenShop()
         {
             RAMsPage.Show();
+            int quantity = await GetMaterialQuantity("Memory Chip");
+            GameManager.instance.RAMMaterialText.text = quantity.ToString();
             RAMsPage.ResetSelection();
         }
 
@@ -532,9 +543,11 @@ namespace Exchanger
             CPUFsPage.UpdateTimer(timeText);
         }
 
-        public void CPUFsOpenShop()
+        public async void CPUFsOpenShop()
         {
             CPUFsPage.Show();
+            int quantity = await GetMaterialQuantity("Heat Sink");
+            GameManager.instance.CPUFMaterialText.text = quantity.ToString();
             CPUFsPage.ResetSelection();
         }
 
@@ -642,9 +655,11 @@ namespace Exchanger
             GPUsPage.UpdateTimer(timeText);
         }
 
-        public void GPUsOpenShop()
+        public async void GPUsOpenShop()
         {
             GPUsPage.Show();
+            int quantity = await GetMaterialQuantity("Video Memory");
+            GameManager.instance.GPUMaterialText.text = quantity.ToString();
             GPUsPage.ResetSelection();
         }
 
@@ -753,9 +768,11 @@ namespace Exchanger
             StoragesPage.UpdateTimer(timeText);
         }
 
-        public void StoragesOpenShop()
+        public async void StoragesOpenShop()
         {
             StoragesPage.Show();
+            int quantity = await GetMaterialQuantity("Disk Platter");
+            GameManager.instance.StorageMaterialText.text = quantity.ToString();
             StoragesPage.ResetSelection();
         }
 
@@ -863,9 +880,11 @@ namespace Exchanger
             PSUsPage.UpdateTimer(timeText);
         }
 
-        public void PSUsOpenShop()
+        public async void PSUsOpenShop()
         {
             PSUsPage.Show();
+            int quantity = await GetMaterialQuantity("PSU Transformer");
+            GameManager.instance.PSUMaterialText.text = quantity.ToString();
             PSUsPage.ResetSelection();
         }
 
@@ -973,9 +992,11 @@ namespace Exchanger
             MBsPage.UpdateTimer(timeText);
         }
 
-        public void MBsOpenShop()
+        public async void MBsOpenShop()
         {
             MBsPage.Show();
+            int quantity = await GetMaterialQuantity("Circuit Board");
+            GameManager.instance.MBMaterialText.text = quantity.ToString();
             MBsPage.ResetSelection();
         }
 
@@ -1082,10 +1103,40 @@ namespace Exchanger
             CasesPage.UpdateTimer(timeText);
         }
 
-        public void CasesOpenShop()
+        public async void CasesOpenShop()
         {
             CasesPage.Show();
+            int quantity = await GetMaterialQuantity("Steel Pane");
+            GameManager.instance.CaseMaterialText.text = quantity.ToString();
             CasesPage.ResetSelection();
+        }
+
+        private async Task<int> GetMaterialQuantity(string materialName)
+        {
+            CollectionReference collectionRef = FirebaseFirestore.DefaultInstance
+                .Collection(GameManager.instance.UserCollection)
+                .Document(GameManager.instance.UserID)
+                .Collection("OtherWorldInventory");
+
+            QuerySnapshot querySnapshot = await collectionRef.GetSnapshotAsync();
+
+            foreach (var docSnapshot in querySnapshot.Documents)
+            {
+                string existingItemJson = docSnapshot.GetValue<string>("Items");
+                OtherWorldItemSO loadedItem = ScriptableObject.CreateInstance<OtherWorldItemSO>();
+                JsonUtility.FromJsonOverwrite(existingItemJson, loadedItem);
+                OtherWorldItem existingItem = new OtherWorldItem
+                {
+                    item = loadedItem
+                };
+
+                if (existingItem.item.Category == "Materials" && existingItem.item.Name == materialName)
+                {
+                    return docSnapshot.GetValue<int>("Quantity");
+                }
+            }
+
+            return 0; // If material is not found, return 0
         }
 
     }

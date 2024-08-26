@@ -210,6 +210,9 @@ public class StorageWorldExchangerBuy : MonoBehaviour
                     displayText.text = value.ToString();
                     priceText.text = sp.item.MaterialsAmountNeed.ToString();
 
+                    int newQuantity = await GetMaterialQuantity(MaterialName);
+                    GameManager.instance.StorageMaterialText.text = newQuantity.ToString();
+
                 }
                 else
                 {
