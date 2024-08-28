@@ -188,7 +188,7 @@ public class ShieldBuy : MonoBehaviour
         int spriteIndex;
 
         inventoryItems.Name = shpItem.item.Name;
-        inventoryItems.CriticalHit = shpItem.item.CriticalHit;
+        inventoryItems.ManaRegen = shpItem.item.ManaRegen;
         inventoryItems.CriticalChance = shpItem.item.CriticalChance;
         spriteIndex = shpItem.item.SpriteIndex;
 

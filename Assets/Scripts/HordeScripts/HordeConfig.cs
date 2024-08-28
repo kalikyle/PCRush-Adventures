@@ -6,6 +6,8 @@ using UnityEngine;
 public class HordeConfig : ScriptableObject
 {
     public string HordeName;
+    public string WorldName;
+    public int HordeNumber;
     public float spawnInterval = 2f;
     public float countdownTime = 60f;
     public GameObject enemyPrefab;

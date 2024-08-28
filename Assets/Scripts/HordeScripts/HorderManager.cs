@@ -23,11 +23,16 @@ public class HorderManager : MonoBehaviour
     public GameObject ExploreUI;
     //public GameObject QuestUI;
     public GameObject TopPanelUI;
+    public GameObject BottomPanelUI;
     public GameObject ButtonsPanelUI;
     public TMP_Text timerText;
     public TMP_Text CoinsCollected;
     public TMP_Text MaterialsCollected;
     public TMP_Text EnemyKilled;
+
+    public TMP_Text WorldName;
+    public TMP_Text HordeNumber;
+    
     public GameObject CoinsAndMaterialsDropped;
     public Transform SpawnedEnemies;
 
@@ -167,6 +172,7 @@ public class HorderManager : MonoBehaviour
         ExploreUI.SetActive(true);
         //QuestUI.SetActive(false);
         TopPanelUI.SetActive(false);
+        BottomPanelUI.SetActive(false);
         ButtonsPanelUI.SetActive(false);
 
         if (walls.TryGetValue(config.HordeName, out var wall))
@@ -189,6 +195,7 @@ public class HorderManager : MonoBehaviour
         ExploreUI.SetActive(true);
         //QuestUI.SetActive(true);
         TopPanelUI.SetActive(true);
+        BottomPanelUI.SetActive(true);
         ButtonsPanelUI.SetActive(true);
 
         if (walls.TryGetValue(config.HordeName, out var wall))
@@ -225,6 +232,7 @@ public class HorderManager : MonoBehaviour
         ExploreUI.SetActive(true);
         //QuestUI.SetActive(true);
         TopPanelUI.SetActive(true);
+        BottomPanelUI.SetActive(true);
         ButtonsPanelUI.SetActive(true);
 
         if (walls.TryGetValue(config.HordeName, out var wall))
@@ -465,6 +473,9 @@ public class HorderManager : MonoBehaviour
 
             }
         }
+
+        WorldName.text = config.WorldName;
+        HordeNumber.text = "Horde " + config.HordeNumber;
     }
     private Sprite currentenemyImage;
     private void getExperience()
@@ -514,6 +525,14 @@ public class HorderManager : MonoBehaviour
     private OtherWorldItem ConvertMaterialsToInventoryItem()
     {
         LTA.materialscollect.text = PickUpSystem.materials.ToString();
+
+        Image materialImage = LTA.materialscollect.transform.GetChild(0).GetComponent<Image>();
+        if (materialImage != null)
+        {
+            materialImage.sprite = PickUpSystem.materialImage;
+        }
+
+
         OtherWorldItem inventoryItem = new OtherWorldItem();
 
         inventoryItem.quantity = PickUpSystem.materials;

@@ -544,9 +544,9 @@ namespace OtherWorld
             {
                 perks += "Armor +" + item.Armor + "\n";
             }
-            if (item.AttackSpeed != 0)
+            if (item.ManaRegen != 0)
             {
-                perks += "Attack Speed +" + item.AttackSpeed + "\n";
+                perks += "Mana Regen+" + item.ManaRegen + "\n";
             }
             if (item.Health != 0)
             {
@@ -555,10 +555,6 @@ namespace OtherWorld
             if (item.HealthRegen != 0)
             {
                 perks += "Health Regen +" + item.HealthRegen + "\n";
-            }
-            if (item.CriticalHit != 0)
-            {
-                perks += "Critical Hit +" + item.CriticalHit + "\n";
             }
 
             if (item.CriticalChance != 0)
@@ -657,7 +653,6 @@ namespace OtherWorld
                 GameManager.instance.StatsSwordImage.gameObject.SetActive(false);
                 GameManager.instance.StatsSwordImage.sprite = null;
                 GameManager.instance.EquipmentAttackDamage = 0;
-                GameManager.instance.EquipmentAttackSpeed = 0;
                 if (!string.IsNullOrEmpty(GameManager.instance.SwordinUse))
                 {
                     // Update the PCSO that was previously in use to set inUse = false
@@ -771,7 +766,7 @@ namespace OtherWorld
                 ShieldImage.sprite = null;
                 GameManager.instance.StatsShieldImage.gameObject.SetActive(false);
                 GameManager.instance.StatsShieldImage.sprite = null;
-                GameManager.instance.EquipmentCriticalHit = 0;
+                GameManager.instance.EquipmentManaRegen = 0;
                 GameManager.instance.EquipmentCriticalChance = 0;
                 if (!string.IsNullOrEmpty(GameManager.instance.ShieldinUse))
                 {
@@ -914,12 +909,7 @@ namespace OtherWorld
                
             }
 
-            if (inventoryItem.item.AttackSpeed != 0)
-            {
-
-                GameManager.instance.EquipmentAttackSpeed = (int)inventoryItem.item.AttackSpeed;
-
-            }
+            
 
 
             foreach (var layer in Layers)
@@ -938,8 +928,6 @@ namespace OtherWorld
                 }
 
             }
-
-
             
         }
        
@@ -992,10 +980,10 @@ namespace OtherWorld
             GameManager.instance.StatsShieldImage.gameObject.SetActive(true);
             GameManager.instance.StatsShieldImage.sprite = inventoryItem.item.ItemImage;
 
-            if (inventoryItem.item.CriticalHit != 0)
+            if (inventoryItem.item.ManaRegen != 0)
             {
 
-                GameManager.instance.EquipmentCriticalHit = (int)inventoryItem.item.CriticalHit;
+                GameManager.instance.EquipmentManaRegen = (int)inventoryItem.item.ManaRegen;
 
             }
 

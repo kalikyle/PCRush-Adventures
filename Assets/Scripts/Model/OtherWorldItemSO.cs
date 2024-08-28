@@ -38,9 +38,6 @@ namespace OtherWorld.Model
         public double AttackDamage { get; set; }
 
         [field: SerializeField]
-        public double AttackSpeed { get; set; }
-
-        [field: SerializeField]
         public double Armor { get; set; }
 
         [field: SerializeField]
@@ -53,7 +50,7 @@ namespace OtherWorld.Model
         public double HealthRegen { get; set; }
 
         [field: SerializeField]
-        public double CriticalHit { get; set; }
+        public double ManaRegen { get; set; }
 
         [field: SerializeField]
         public double CriticalChance { get; set; }

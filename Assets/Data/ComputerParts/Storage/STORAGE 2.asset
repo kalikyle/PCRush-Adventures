@@ -19,10 +19,9 @@ MonoBehaviour:
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 5a87582c78dd5f34398508131c091da8, type: 3}
   <Category>k__BackingField: Storage
   <AttackDamage>k__BackingField: 10
-  <Health>k__BackingField: 10
+  <Health>k__BackingField: 15
   <Mana>k__BackingField: 0
   <HealthRegen>k__BackingField: 0
+  <ManaRegen>k__BackingField: 0
   <WalkSpeed>k__BackingField: 0
   <Armor>k__BackingField: 0
-  <AttackSpeed>k__BackingField: 0
-  <CriticalHit>k__BackingField: 0

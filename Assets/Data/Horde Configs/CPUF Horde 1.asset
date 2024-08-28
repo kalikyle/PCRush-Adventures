@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: CPUF Horde 1
   m_EditorClassIdentifier: 
   HordeName: cpuf1
+  WorldName: CPU Fan Region
+  HordeNumber: 1
   spawnInterval: 2
   countdownTime: 0
   enemyPrefab: {fileID: 8364672388926755618, guid: 61d3d20bdde08e545aa17697f525df73, type: 3}

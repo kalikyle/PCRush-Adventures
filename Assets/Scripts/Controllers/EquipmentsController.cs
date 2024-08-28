@@ -245,10 +245,7 @@ public class EquipmentsController : MonoBehaviour
                     {
                         perks += "Attack Damage +" + item.item.AttackDamage + "\n";
                     }
-                    if (item.item.AttackSpeed != 0)
-                    {
-                        perks += "Attack Speed +" + item.item.AttackSpeed + "\n";
-                    }
+                   
 
                     // Create a new filtered item
                     swordsPage.AddShopItem(sprite,item.item.Name, item.item.Price.ToString(), perks);
@@ -690,9 +687,9 @@ public class EquipmentsController : MonoBehaviour
 
                     string perks = "";
                     // Check each perk property and accumulate non-zero values
-                    if (item.item.CriticalHit != 0)
+                    if (item.item.ManaRegen != 0)
                     {
-                        perks += "Critical Hit +" + item.item.CriticalHit + "\n";
+                        perks += "Critical Hit +" + item.item.ManaRegen + "\n";
                     }
                     if (item.item.CriticalChance != 0)
                     {

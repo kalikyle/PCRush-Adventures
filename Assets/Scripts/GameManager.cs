@@ -135,6 +135,8 @@ public class GameManager : MonoBehaviour
     public GameObject QuestUI;
     public GameObject PlayerDeskUI;
     public GameObject UIPanel;
+    public GameObject ModifyBTN;
+    public GameObject BuildingRoom;
     
 
     public GameObject SwordDealerPanel;
@@ -198,8 +200,7 @@ public class GameManager : MonoBehaviour
     public int PlayerHealthRegen = 1;
     public int PlayerWalkSpeed = 1;
     public int PlayerArmor = 50;
-    public int PlayerAttackSpeed = 1;
-    public int PlayerCriticalHit = 1;
+    public int PlayerManaRegen = 1;
     public double PlayerCriticalChance = 1;
 
     //player PC stats
@@ -209,8 +210,7 @@ public class GameManager : MonoBehaviour
     public double PlayerPCHealthRegen = 0;
     public double PlayerPCWalkSpeed = 0;
     public double PlayerPCArmor = 0;
-    public double PlayerPCAttackSpeed = 0;
-    public double PlayerPCCriticalHit = 0;
+    public double PlayerPCManaRegen = 0;
     public double PlayerPCCriticalChance = 0;
 
     //player Total Stats
@@ -220,18 +220,16 @@ public class GameManager : MonoBehaviour
     public double PlayerTotalHealthRegen = 0;
     public double PlayerTotalWalkSpeed = 0;
     public double PlayerTotalArmor = 0;
-    public double PlayerTotalAttackSpeed = 0;
-    public double PlayerTotalCriticalHit = 0;
+    public double PlayerTotalManaRegen = 0;
     public double PlayerTotalCriticalChance = 0;
 
 
     public int EquipmentAttackDamage = 0;
-    public int EquipmentAttackSpeed = 0;
     public int EquipmentMana = 0;
     public int EquipmentArmor = 0;
     public int EquipmentHealth = 0;
-    public int EquipmentHealthRegen= 0;
-    public int EquipmentCriticalHit = 0;
+    public int EquipmentHealthRegen = 0;
+    public int EquipmentManaRegen = 0;
     public int EquipmentCriticalChance = 0;
 
 
@@ -265,8 +263,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text BaseHealthRegen;
     public TMP_Text BaseWalkSpeed;
     public TMP_Text BaseArmor;
-    public TMP_Text BaseAttackSpeed;
-    public TMP_Text BaseCriticalHit;
+    public TMP_Text BaseManaRegen;
     public TMP_Text BaseCriticalChance;
 
     public TMP_Text PCAttackDamage;
@@ -275,8 +272,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text PCHealthRegen;
     public TMP_Text PCWalkSpeed;
     public TMP_Text PCArmor;
-    public TMP_Text PCAttackSpeed;
-    public TMP_Text PCCriticalHit;
+    public TMP_Text PCManaRegen;
     public TMP_Text PCCriticalChance;
 
     public TMP_Text TotalAttackDamage;
@@ -285,9 +281,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text TotalHealthRegen;
     public TMP_Text TotalWalkSpeed;
     public TMP_Text TotalArmor;
-    public TMP_Text TotalAttackSpeed;
-    public TMP_Text TotalCriticalHit;
+    public TMP_Text TotalManaRegen;
     public TMP_Text TotalCriticalChance;
+    public TMP_Text TotalCriticalHit;
 
     public TMP_Text StatsPlayerName;
     public Image PlayerStatsImage;
@@ -403,8 +399,7 @@ public class GameManager : MonoBehaviour
         BaseHealthRegen.text = PlayerHealthRegen.ToString();
         BaseWalkSpeed.text = PlayerWalkSpeed.ToString();
         BaseArmor.text = PlayerArmor.ToString();
-        BaseAttackSpeed.text = PlayerAttackSpeed.ToString();
-        BaseCriticalHit.text = PlayerCriticalHit.ToString();
+        BaseManaRegen.text = PlayerManaRegen.ToString();
         BaseCriticalChance.text = PlayerCriticalChance.ToString() + "%";
 
         PCAttackDamage.text = PlayerPCAttackDamage.ToString();
@@ -413,8 +408,7 @@ public class GameManager : MonoBehaviour
         PCHealthRegen.text= PlayerPCHealthRegen.ToString();
         PCWalkSpeed.text = "0."+PlayerPCWalkSpeed.ToString();
         PCArmor.text = PlayerPCArmor.ToString();
-        PCAttackSpeed.text = PlayerPCAttackSpeed.ToString();
-        PCCriticalHit.text = PlayerPCCriticalHit.ToString();
+        PCManaRegen.text = PlayerPCManaRegen.ToString();
         PCCriticalChance.text = PlayerPCCriticalChance.ToString() +"%";
 
         if(EquipmentAttackDamage != 0)
@@ -483,24 +477,14 @@ public class GameManager : MonoBehaviour
         }
         
 
-        if(EquipmentAttackSpeed != 0)
+        if(EquipmentManaRegen != 0)
         {
-            PlayerTotalAttackSpeed = PlayerAttackSpeed  + EquipmentAttackSpeed + PlayerPCAttackSpeed;
-            BaseAttackSpeed.text = PlayerAttackSpeed.ToString() + " (+ " + EquipmentAttackSpeed + ")";
+            PlayerTotalManaRegen = PlayerManaRegen  + EquipmentManaRegen + PlayerPCManaRegen;
+            BaseManaRegen.text = PlayerManaRegen.ToString() + " (+ " + EquipmentManaRegen + ")";
         }
         else
         {
-            PlayerTotalAttackSpeed = PlayerAttackSpeed + PlayerPCAttackSpeed;
-        }
-
-        if (EquipmentCriticalHit != 0)
-        {
-            PlayerTotalCriticalHit = PlayerCriticalHit + EquipmentCriticalHit + PlayerPCCriticalHit;
-            BaseCriticalHit.text = PlayerCriticalHit.ToString() + " (+ " + EquipmentCriticalHit + ")";
-        }
-        else
-        {
-            PlayerTotalCriticalHit = PlayerCriticalHit + PlayerPCCriticalHit;
+            PlayerTotalManaRegen = PlayerManaRegen + PlayerPCManaRegen;
         }
 
         if (EquipmentCriticalChance != 0)
@@ -520,21 +504,20 @@ public class GameManager : MonoBehaviour
         TotalHealthRegen.text = PlayerTotalHealthRegen.ToString();
         TotalWalkSpeed.text = PlayerTotalWalkSpeed.ToString();
         TotalArmor.text = PlayerTotalArmor.ToString();
-        TotalAttackSpeed.text = PlayerTotalAttackSpeed.ToString();
-        TotalCriticalHit.text = PlayerTotalCriticalHit.ToString();
+        TotalManaRegen.text = PlayerTotalManaRegen.ToString();
         TotalCriticalChance.text = PlayerTotalCriticalChance.ToString() + "%";
+        TotalCriticalHit.text = (PlayerTotalAttackDamage * 2).ToString();
 
     }
 
     public void UnequipEquipment()
     {
         EquipmentAttackDamage = 0;
-        EquipmentAttackSpeed = 0;
         EquipmentMana = 0;
         EquipmentArmor = 0;
         EquipmentHealth = 0;
         EquipmentHealthRegen = 0;
-        EquipmentCriticalHit = 0;
+        EquipmentManaRegen = 0;
         EquipmentCriticalChance = 0;
     }
 
@@ -667,8 +650,7 @@ public class GameManager : MonoBehaviour
             { "playerHealthRegen", PlayerHealthRegen },
             { "playerWalkSpeed", PlayerWalkSpeed },
             { "playerArmor", PlayerArmor },
-            { "playerAttackSpeed", PlayerAttackSpeed },
-            { "playerCriticalHit", PlayerCriticalHit },
+            { "playerManaRegen", PlayerManaRegen },
             { "playerCriticalChance", PlayerCriticalChance },
         };
 
@@ -723,8 +705,7 @@ public class GameManager : MonoBehaviour
                 PlayerHealthRegen = snapshot.GetValue<int>("playerHealthRegen");
                 PlayerWalkSpeed = snapshot.GetValue<int>("playerWalkSpeed");
                 PlayerArmor = snapshot.GetValue<int>("playerArmor");
-                PlayerAttackSpeed = snapshot.GetValue<int>("playerAttackSpeed");
-                PlayerCriticalHit = snapshot.GetValue<int>("playerCriticalHit");
+                PlayerManaRegen = snapshot.GetValue<int>("playerManaRegen");
                 PlayerCriticalChance = snapshot.GetValue<double>("playerCriticalChance");
 
                 
@@ -746,7 +727,7 @@ public class GameManager : MonoBehaviour
         SaveCharInfo(UserID, PlayerName);
     }
 
-    public void GetPCStats(double AttackDamage, double Health, double Mana, double HealthRegen, double WalkSpeed, double Armor, double AttackSpeed, double CriticalHit, double CriticalChance)
+    public void GetPCStats(double AttackDamage, double Health, double Mana, double HealthRegen, double WalkSpeed, double Armor, double ManaRegen, double CriticalChance)
     {
         PlayerPCAttackDamage = AttackDamage;
         PlayerPCHealth = Health;
@@ -754,8 +735,7 @@ public class GameManager : MonoBehaviour
         PlayerPCHealthRegen = HealthRegen;
         PlayerPCWalkSpeed = WalkSpeed;
         PlayerPCArmor = Armor;
-        PlayerPCAttackSpeed = AttackSpeed;
-        PlayerPCCriticalHit = CriticalHit;
+        PlayerPCManaRegen = ManaRegen;
         PlayerPCCriticalChance = CriticalChance;
     }
 

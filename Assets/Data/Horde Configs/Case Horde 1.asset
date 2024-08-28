@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Case Horde 1
   m_EditorClassIdentifier: 
   HordeName: case1
+  WorldName: Case Region
+  HordeNumber: 1
   spawnInterval: 2
   countdownTime: 0
   enemyPrefab: {fileID: 8364672388926755618, guid: 630ac73143a7dca48bde85f0b12a5279, type: 3}

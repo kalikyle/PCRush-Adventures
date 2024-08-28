@@ -953,7 +953,7 @@ namespace PC
             PCName.text = PCitem.PCName;
             Perks.text = ItemPerks(PCitem);
 
-            GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.AttackSpeed, PCitem.CriticalHit, PCitem.CriticalChance);
+            GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.ManaRegen, PCitem.CriticalChance);
             GameManager.instance.StatsUsedPCPanel.SetActive(true);
             GameManager.instance.StatsPCImageUsed.sprite = PCitem.Case.ItemImage;
             GameManager.instance.StatsPCName.text = PCitem.PCName;
@@ -1021,7 +1021,7 @@ namespace PC
                 Perks.text = ItemPerks(PCitem);
 
                
-                GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.AttackSpeed, PCitem.CriticalHit, PCitem.CriticalChance);
+                GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.ManaRegen, PCitem.CriticalChance);
                 GameManager.instance.StatsUsedPCPanel.SetActive(true);
                 GameManager.instance.StatsPCImageUsed.sprite = PCitem.Case.ItemImage;
                 GameManager.instance.StatsPCName.text = PCitem.PCName;
@@ -1629,13 +1629,13 @@ namespace PC
             {
                 perks += "Armor +" + item.Armor + "\n";
             }
-            if (item.AttackSpeed != 0)
+            if (item.ManaRegen != 0)
             {
-                perks += "Attack Speed +" + item.AttackSpeed + "\n";
+                perks += "Mana Regen +" + item.ManaRegen + "\n";
             }
-            if (item.CriticalHit != 0)
+            if (item.CriticalChance != 0)
             {
-                perks += "Critical Hit +" + item.CriticalHit + "\n";
+                perks += "Critical Chance +" + item.CriticalChance + "\n";
             }
 
             return perks;

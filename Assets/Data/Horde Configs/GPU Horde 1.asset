@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: GPU Horde 1
   m_EditorClassIdentifier: 
   HordeName: gpu1
+  WorldName: GPU Region
+  HordeNumber: 1
   spawnInterval: 2
   countdownTime: 0
   enemyPrefab: {fileID: 8364672388926755618, guid: 678acad3997ea2d4a93c724761be56d6, type: 3}
