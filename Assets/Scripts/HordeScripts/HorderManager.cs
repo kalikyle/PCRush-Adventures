@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UI;
 using static OtherWorld.Model.OWInvSO;
@@ -460,20 +461,31 @@ public class HorderManager : MonoBehaviour
             {
                 EnemyAI enemyAI = config.enemyPrefab.GetComponent<EnemyAI>();
                 materialImage.sprite = enemyAI.EnemyImage;
+                currentenemyImage = enemyAI.EnemyImage;
+
             }
         }
     }
-
+    private Sprite currentenemyImage;
     private void getExperience()
     {
         int totalExperience = 0;
+        int enemyexperience = 0;
         foreach (var pair in EnemyExperienceMultiplier)
         {
             totalExperience += pair.Value * GameManager.instance.TempEnemyKilled;
+            enemyexperience = pair.Value;
         }
 
         LTA.expcollected.text = totalExperience.ToString();
-        LTA.showkills.text = GameManager.instance.TempEnemyKilled.ToString();
+        LTA.showkills.text = enemyexperience + " X " +GameManager.instance.TempEnemyKilled.ToString();
+        Image materialImage = LTA.showkills.transform.GetChild(0).GetComponent<Image>();
+        if (materialImage != null)
+        {
+            materialImage.sprite = currentenemyImage;
+        }
+
+
         GameManager.instance.AddPlayerExp(totalExperience);
     }
 

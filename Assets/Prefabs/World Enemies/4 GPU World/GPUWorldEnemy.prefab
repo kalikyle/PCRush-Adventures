@@ -5240,7 +5240,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 4723107735738678597, guid: 747542b17e261004ea0c92c16895d4d3, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: bab5e17cd0c237d4782df71d0cbb9185, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5264,7 +5264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 11400000, guid: 819a0f785e170544897caf4871816903, type: 2}
+  m_SpriteLibraryAsset: {fileID: 11400000, guid: a1aa7ad2bb17e6f4cb16e26cc4f35d20, type: 2}
 --- !u!114 &2213336542017714686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10279,7 +10279,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.009, y: 0.051}
+  m_AnchoredPosition: {x: 0.009, y: 0.069}
   m_SizeDelta: {x: 194.5211, y: 74.3278}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4934961681795842893
@@ -15631,7 +15631,7 @@ MonoBehaviour:
   hitPoints: {fileID: 6967909581131199628}
   floatingTextPrefab: {fileID: 4652368944077129396, guid: fa5cc75cff4e5934b840c9c3566bf7e4, type: 3}
   damageCanvas: {fileID: 7601561232433407804}
-  EnemyImage: {fileID: 4723107735738678597, guid: 747542b17e261004ea0c92c16895d4d3, type: 3}
+  EnemyImage: {fileID: 4723107735738678597, guid: bab5e17cd0c237d4782df71d0cbb9185, type: 3}
 --- !u!1 &8459416156559206296
 GameObject:
   m_ObjectHideFlags: 0

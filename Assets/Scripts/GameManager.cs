@@ -411,7 +411,7 @@ public class GameManager : MonoBehaviour
         PCHealth.text = PlayerPCHealth.ToString();
         PCMana.text = PlayerPCMana.ToString();
         PCHealthRegen.text= PlayerPCHealthRegen.ToString();
-        PCWalkSpeed.text = PlayerPCWalkSpeed.ToString();
+        PCWalkSpeed.text = "0."+PlayerPCWalkSpeed.ToString();
         PCArmor.text = PlayerPCArmor.ToString();
         PCAttackSpeed.text = PlayerPCAttackSpeed.ToString();
         PCCriticalHit.text = PlayerPCCriticalHit.ToString();
@@ -464,7 +464,7 @@ public class GameManager : MonoBehaviour
         }
 
         
-        PlayerTotalWalkSpeed = PlayerWalkSpeed + PlayerPCWalkSpeed;
+        PlayerTotalWalkSpeed = PlayerWalkSpeed + PlayerPCWalkSpeed * 0.1;
 
         if(EquipmentArmor != 0)
         {
