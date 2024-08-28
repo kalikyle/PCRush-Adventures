@@ -59,6 +59,9 @@ namespace PartsInventory
         public Button XButton;
 
         [SerializeField]
+        public Button BackButton;
+
+        [SerializeField]
         public Button MBXButton;
         [SerializeField]
         public Button CPUXButton;
@@ -98,6 +101,11 @@ namespace PartsInventory
         public Button DisYesButton;
         [SerializeField]
         public Button DisNoButton;
+
+        [SerializeField]
+        public Button BackYesButton;
+        [SerializeField]
+        public Button BackNoButton;
 
         //[SerializeField]
         //public Button backButton;
@@ -445,6 +453,8 @@ namespace PartsInventory
             DisYesButton.gameObject.SetActive(false);
             DisNoButton.gameObject.SetActive(false);
             DialogButton.gameObject.SetActive(false);
+            BackYesButton.gameObject.SetActive(false);
+            BackNoButton.gameObject.SetActive(false);
 
             if (GameManager.instance.BeenModified)
             {
@@ -619,8 +629,50 @@ namespace PartsInventory
             GPUXButton.onClick.AddListener(() => HandleBackItem("Video Card"));
             STRG1XButton.onClick.AddListener(() => HandleBackItem("Storage"));
             PSUXButton.onClick.AddListener(() => HandleBackItem("PSU"));
+            BackButton.onClick.AddListener(() => HandleBackWhileModify());
 
             //DialogButton.onClick.AddListener(CloseDialog);
+        }
+
+        public void HandleBackWhileModify()
+        {
+            if (GameManager.instance.BeenModified)
+            {
+                DialogBox.gameObject.SetActive(true);
+                DialogText.text = "You are currently Modifying a PC, Do you want to Go Back? \n This will cancel your currently modifying pc";
+                CanYesButton.gameObject.SetActive(false);
+                CanNoButton.gameObject.SetActive(false);
+                DisYesButton.gameObject.SetActive(false);
+                DisNoButton.gameObject.SetActive(false);
+                BackYesButton.gameObject.SetActive(true);
+                BackNoButton.gameObject.SetActive(true);
+
+
+                BackYesButton.onClick.AddListener(() =>
+                {
+                    YesCancelIt();
+                    GameManager.instance.UIExplore.SetActive(true);
+                    GameManager.instance.BuildingRoom.SetActive(false);
+                    GameManager.instance.ComputerInv.SetActive(false);
+                    GameManager.instance.ModifyBTN.SetActive(false);
+                    
+
+                });
+
+                BackNoButton.onClick.AddListener(() =>
+                {
+                    CloseDialog();
+                });
+            }
+            else
+            {
+                GameManager.instance.UIExplore.SetActive(true);
+                GameManager.instance.BuildingRoom.SetActive(false);
+                GameManager.instance.ComputerInv.SetActive(false);
+                GameManager.instance.ModifyBTN.SetActive(false);
+                
+            }
+            
         }
         public void OnInventExit()
         {
@@ -837,7 +889,7 @@ namespace PartsInventory
                 HandleItemActionRequest(tempIndex);
 
             }
-            inventoryData.PartsSaveItems();
+            
             //inventoryData.SaveItems();
 
 
@@ -859,6 +911,8 @@ namespace PartsInventory
                 CanNoButton.gameObject.SetActive(false);
                 DisYesButton.gameObject.SetActive(false);
                 DisNoButton.gameObject.SetActive(false);
+                BackYesButton.gameObject.SetActive(false);
+                BackNoButton.gameObject.SetActive(false);
                 DialogButton.gameObject.SetActive(true);
                 try
                 {
@@ -883,6 +937,8 @@ namespace PartsInventory
                 CanNoButton.gameObject.SetActive(false);
                 DisYesButton.gameObject.SetActive(false);
                 DisNoButton.gameObject.SetActive(false);
+                BackYesButton.gameObject.SetActive(false);
+                BackNoButton.gameObject.SetActive(false);
                 DialogButton.gameObject.SetActive(true);
                 try
                 {
@@ -1030,6 +1086,8 @@ namespace PartsInventory
                 CanNoButton.gameObject.SetActive(false);
                 DisYesButton.gameObject.SetActive(false);
                 DisNoButton.gameObject.SetActive(false);
+                BackYesButton.gameObject.SetActive(false);
+                BackNoButton.gameObject.SetActive(false);
                 DialogButton.gameObject.SetActive(true);
             }
             else
@@ -1080,6 +1138,8 @@ namespace PartsInventory
                         CanNoButton.gameObject.SetActive(false);
                         DisYesButton.gameObject.SetActive(false);
                         DisNoButton.gameObject.SetActive(false);
+                        BackYesButton.gameObject.SetActive(false);
+                        BackNoButton.gameObject.SetActive(false);
                         DialogButton.gameObject.SetActive(true);
                         try
                         {
@@ -1097,6 +1157,7 @@ namespace PartsInventory
 
                
             }
+            inventoryData.PartsSaveItems();
 
 
 
@@ -1193,6 +1254,8 @@ namespace PartsInventory
                     CanNoButton.gameObject.SetActive(false);
                     DisYesButton.gameObject.SetActive(false);
                     DisNoButton.gameObject.SetActive(false);
+                    BackYesButton.gameObject.SetActive(false);
+                    BackNoButton.gameObject.SetActive(false);
                     DialogButton.gameObject.SetActive(true);
                 }
                 else
@@ -1243,6 +1306,8 @@ namespace PartsInventory
                             CanNoButton.gameObject.SetActive(false);
                             DisYesButton.gameObject.SetActive(false);
                             DisNoButton.gameObject.SetActive(false);
+                            BackYesButton.gameObject.SetActive(false);
+                            BackNoButton.gameObject.SetActive(false);
                             DialogButton.gameObject.SetActive(true);
                             try
                             {
@@ -1262,6 +1327,7 @@ namespace PartsInventory
                 }
 
             }
+            inventoryData.PartsSaveItems();
         }
 
         public void UpdatePerksDictionary(InventoryItem item, bool add)
@@ -1292,8 +1358,9 @@ namespace PartsInventory
             AddOrRemovePerk("Health Regen", item.item.HealthRegen);
             AddOrRemovePerk("Walk Speed", item.item.WalkSpeed);
             AddOrRemovePerk("Armor", item.item.Armor);
-            AddOrRemovePerk("Attack Speed", item.item.AttackSpeed);
-            AddOrRemovePerk("Critical Hit", item.item.CriticalHit);
+            AddOrRemovePerk("Mana Regen", item.item.ManaRegen);
+            AddOrRemovePerk("Critical Chance", item.item.CriticalChance);
+
 
             // Update the Perks text
             Perks.text = string.Join("\n", PerksDictionary.Select(kv => $"{kv.Key} +{kv.Value}"));
@@ -1490,13 +1557,13 @@ namespace PartsInventory
             {
                 perks += "Armor +" + item.Armor + "\n";
             }
-            if (item.AttackSpeed != 0)
+            if (item.ManaRegen != 0)
             {
-                perks += "Attack Speed +" + item.AttackSpeed + "\n";
+                perks += "Mana Regen +" + item.ManaRegen + "\n";
             }
-            if (item.CriticalHit != 0)
+            if (item.CriticalChance != 0)
             {
-                perks += "Critical Hit +" + item.CriticalHit + "\n";
+                perks += "CriticalChance +" + item.CriticalChance + "\n";
             }
 
             return perks;
@@ -1710,8 +1777,8 @@ namespace PartsInventory
             pcso.HealthRegen = PerksDictionary.ContainsKey("Health Regen") ? PerksDictionary["Health Regen"] : 0;
             pcso.WalkSpeed = PerksDictionary.ContainsKey("Walk Speed") ? PerksDictionary["Walk Speed"] : 0;
             pcso.Armor = PerksDictionary.ContainsKey("Armor") ? PerksDictionary["Armor"] : 0;
-            pcso.AttackSpeed = PerksDictionary.ContainsKey("Attack Speed") ? PerksDictionary["Attack Speed"] : 0;
-            pcso.CriticalHit = PerksDictionary.ContainsKey("Critical Hit") ? PerksDictionary["Critical Hit"] : 0;
+            pcso.ManaRegen = PerksDictionary.ContainsKey("Mana Regen") ? PerksDictionary["Mana Regen"] : 0;
+            pcso.CriticalChance = PerksDictionary.ContainsKey("Critical Chance") ? PerksDictionary["Critical Chance"] : 0;
 
             return pcso;
         }
@@ -1805,6 +1872,8 @@ namespace PartsInventory
                 CanNoButton.gameObject.SetActive(false);
                 DisYesButton.gameObject.SetActive(false);
                 DisNoButton.gameObject.SetActive(false);
+                BackYesButton.gameObject.SetActive(false);
+                BackNoButton.gameObject.SetActive(false);
                 DialogButton.gameObject.SetActive(true);
 
 
@@ -1817,6 +1886,8 @@ namespace PartsInventory
                 CanNoButton.gameObject.SetActive(false);
                 DisYesButton.gameObject.SetActive(true);
                 DisNoButton.gameObject.SetActive(true);
+                BackYesButton.gameObject.SetActive(false);
+                BackNoButton.gameObject.SetActive(false);
                 DialogButton.gameObject.SetActive(false);
 
 
@@ -1876,6 +1947,7 @@ namespace PartsInventory
             PCpage.ClearItems();
             PerksDictionary.Clear();
             Perks.text = "";
+            recentlyBackedItems.Clear();
         }
         public async void OnDoneButtonClick()
         {
@@ -1892,9 +1964,8 @@ namespace PartsInventory
 
 
                 LTA.Plusexp.gameObject.SetActive(true);
-                LTA.Plusexp.text = "+50 EXP " +
-                    "\n for New Computer";
-                GameManager.instance.AddPlayerExp(50);
+                LTA.Plusexp.text =  "New Computer";
+                //GameManager.instance.AddPlayerExp(50);
 
                 //OnSuccessPCname.text = pcname;
                 OnSuccessPCImage.sprite = PC.PCImage;
@@ -1937,8 +2008,10 @@ namespace PartsInventory
                 LTA.InstallOS();
                 
                 RenameTxt.text = "PC1";
-                
-                
+
+                inventoryData.PartsSaveItems();
+
+
             }
             else // modified pc 
             {
@@ -1986,6 +2059,7 @@ namespace PartsInventory
                 GameManager.instance.BeenModified = false;
 
                 GameManager.instance.OnModifyQuests("Done");
+                inventoryData.PartsSaveItems();
 
 
 
@@ -2037,7 +2111,7 @@ namespace PartsInventory
             
             try
             {
-                if (lastUsedItems.Count > 0) {
+                if (usedItems.Count > 0) {
 
                     YesCancelIt();
                 }

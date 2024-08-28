@@ -257,13 +257,13 @@ namespace Exchanger
                     {
                         perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
                     }
-                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    if (item.Value.item.Parts.ManaRegen != 0)
                     {
-                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                        perks += "Mana Regen +" + item.Value.item.Parts.ManaRegen + "\n";
                     }
-                    if (item.Value.item.Parts.CriticalHit != 0)
+                    if (item.Value.item.Parts.CriticalChance != 0)
                     {
-                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                        perks += "Critical Chance+" + item.Value.item.Parts.CriticalChance + "\n";
                     }
 
                     // Now update your UI element using the retrieved sprite
@@ -371,14 +371,15 @@ namespace Exchanger
                     {
                         perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
                     }
-                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    if (item.Value.item.Parts.ManaRegen != 0)
                     {
-                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                        perks += "Mana Regen +" + item.Value.item.Parts.ManaRegen + "\n";
                     }
-                    if (item.Value.item.Parts.CriticalHit != 0)
+                    if (item.Value.item.Parts.CriticalChance != 0)
                     {
-                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                        perks += "Critical Chance+" + item.Value.item.Parts.CriticalChance + "\n";
                     }
+
 
                     // Now update your UI element using the retrieved sprite
                     RAMsPage.UpdateData(item.Key, item.Value.item.Parts.ItemImage, itemSprite, item.Value.item.Parts.Name, item.Value.item.Parts.rarity, item.Value.item.MaterialsAmountNeed, perks);
@@ -482,13 +483,13 @@ namespace Exchanger
                     {
                         perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
                     }
-                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    if (item.Value.item.Parts.ManaRegen != 0)
                     {
-                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                        perks += "Mana Regen +" + item.Value.item.Parts.ManaRegen + "\n";
                     }
-                    if (item.Value.item.Parts.CriticalHit != 0)
+                    if (item.Value.item.Parts.CriticalChance != 0)
                     {
-                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                        perks += "Critical Chance+" + item.Value.item.Parts.CriticalChance + "\n";
                     }
 
                     // Now update your UI element using the retrieved sprite
@@ -594,13 +595,13 @@ namespace Exchanger
                     {
                         perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
                     }
-                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    if (item.Value.item.Parts.ManaRegen != 0)
                     {
-                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                        perks += "Mana Regen +" + item.Value.item.Parts.ManaRegen + "\n";
                     }
-                    if (item.Value.item.Parts.CriticalHit != 0)
+                    if (item.Value.item.Parts.CriticalChance != 0)
                     {
-                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                        perks += "Critical Chance+" + item.Value.item.Parts.CriticalChance + "\n";
                     }
 
                     // Now update your UI element using the retrieved sprite
@@ -707,13 +708,13 @@ namespace Exchanger
                     {
                         perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
                     }
-                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    if (item.Value.item.Parts.ManaRegen != 0)
                     {
-                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                        perks += "Mana Regen +" + item.Value.item.Parts.ManaRegen + "\n";
                     }
-                    if (item.Value.item.Parts.CriticalHit != 0)
+                    if (item.Value.item.Parts.CriticalChance != 0)
                     {
-                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                        perks += "Critical Chance+" + item.Value.item.Parts.CriticalChance + "\n";
                     }
 
                     // Now update your UI element using the retrieved sprite
@@ -819,13 +820,13 @@ namespace Exchanger
                     {
                         perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
                     }
-                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    if (item.Value.item.Parts.ManaRegen != 0)
                     {
-                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                        perks += "Mana Regen +" + item.Value.item.Parts.ManaRegen + "\n";
                     }
-                    if (item.Value.item.Parts.CriticalHit != 0)
+                    if (item.Value.item.Parts.CriticalChance != 0)
                     {
-                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                        perks += "Critical Chance+" + item.Value.item.Parts.CriticalChance + "\n";
                     }
 
                     // Now update your UI element using the retrieved sprite
@@ -931,13 +932,13 @@ namespace Exchanger
                     {
                         perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
                     }
-                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    if (item.Value.item.Parts.ManaRegen != 0)
                     {
-                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                        perks += "Mana Regen +" + item.Value.item.Parts.ManaRegen + "\n";
                     }
-                    if (item.Value.item.Parts.CriticalHit != 0)
+                    if (item.Value.item.Parts.CriticalChance != 0)
                     {
-                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                        perks += "Critical Chance+" + item.Value.item.Parts.CriticalChance + "\n";
                     }
 
                     // Now update your UI element using the retrieved sprite
@@ -1042,13 +1043,13 @@ namespace Exchanger
                     {
                         perks += "Armor +" + item.Value.item.Parts.Armor + "\n";
                     }
-                    if (item.Value.item.Parts.AttackSpeed != 0)
+                    if (item.Value.item.Parts.ManaRegen != 0)
                     {
-                        perks += "Attack Speed +" + item.Value.item.Parts.AttackSpeed + "\n";
+                        perks += "Mana Regen +" + item.Value.item.Parts.ManaRegen + "\n";
                     }
-                    if (item.Value.item.Parts.CriticalHit != 0)
+                    if (item.Value.item.Parts.CriticalChance != 0)
                     {
-                        perks += "Critical Hit +" + item.Value.item.Parts.CriticalHit + "\n";
+                        perks += "Critical Chance+" + item.Value.item.Parts.CriticalChance + "\n";
                     }
 
                     // Now update your UI element using the retrieved sprite

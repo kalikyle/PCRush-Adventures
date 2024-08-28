@@ -22,7 +22,7 @@ MonoBehaviour:
   <Health>k__BackingField: 60
   <Mana>k__BackingField: 45
   <HealthRegen>k__BackingField: 45
+  <ManaRegen>k__BackingField: 0
   <WalkSpeed>k__BackingField: 1
   <Armor>k__BackingField: 30
-  <AttackSpeed>k__BackingField: 5
-  <CriticalHit>k__BackingField: 35
+  <CriticalChance>k__BackingField: 40

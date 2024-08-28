@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RAM Horde 1
   m_EditorClassIdentifier: 
   HordeName: ram1
+  WorldName: RAM Region
+  HordeNumber: 1
   spawnInterval: 2
   countdownTime: 0
-  areaSize: {x: 10, y: 10}
   enemyPrefab: {fileID: 8364672388926755618, guid: 09dc259eb24acc44993e8645e1a82d0f, type: 3}

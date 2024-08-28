@@ -22,7 +22,7 @@ namespace Shield.Model
 
         //perks
         [field: SerializeField]
-        public double CriticalHit { get; set; }
+        public double ManaRegen { get; set; }
         [field: SerializeField]
         public double CriticalChance { get; set; }
     }

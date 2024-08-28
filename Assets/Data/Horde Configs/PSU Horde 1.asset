@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: PSU Horde 1
   m_EditorClassIdentifier: 
   HordeName: psu1
+  WorldName: PSU Region
+  HordeNumber: 1
   spawnInterval: 2
   countdownTime: 0
   enemyPrefab: {fileID: 8364672388926755618, guid: 3eedfb709a4202744b701a169a7346aa, type: 3}

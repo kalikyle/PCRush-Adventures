@@ -26,8 +26,7 @@ namespace Swords.Model
         //perks
         [field: SerializeField]
         public double AttackDamage { get; set; }
-        [field: SerializeField]
-        public double AttackSpeed { get; set; }
+
 
     }
 }

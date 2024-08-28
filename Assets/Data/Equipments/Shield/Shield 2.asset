@@ -15,5 +15,5 @@ MonoBehaviour:
   <Name>k__BackingField: Shield 2
   <SpriteIndex>k__BackingField: 1
   <Price>k__BackingField: 600
-  <CriticalHit>k__BackingField: 50
+  <ManaRegen>k__BackingField: 3
   <CriticalChance>k__BackingField: 0

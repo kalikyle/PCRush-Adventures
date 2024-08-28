@@ -17,7 +17,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         public float WalkSpeed = 1f;
         public int runSpeed = 2;
         public float pushForce = 5f;
-        private float manaRegenRate = 5f; // Amount of mana to regenerate per second
+        //private float manaRegenRate = 5f; // Amount of mana to regenerate per second
         private float manaDecrementRate = 10f; // Amount of mana to decrement per second while running
         private bool isRunning;
         private float currentMana;
@@ -40,8 +40,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
         public GameObject floatingTextPrefab; // Reference to the floating text prefab
         public Transform damageCanvas; // Reference to the Damage Canvas object public GameObject floatingTextPrefab; // Reference to the floating text prefab
-        
 
+        private bool canAttack = true;
         private bool canMove = true;
         private bool canRun = true;
         private bool moving = false;
@@ -127,10 +127,13 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             if (currentMana <= 0)
             {
                 canRun = false;
+                canAttack = false;
+                currentMana = 0;
             }
             else
             {
                 canRun = true;
+                canAttack = true;
             }
         }
 
@@ -236,16 +239,19 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             // Handle attack input
             if (UnityEngine.Input.GetMouseButtonDown(0))
             {
-                // Choose a random attack animation
-                string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
-                // Set the selected animation trigger
-                _animator.SetTrigger(randomAttackAnimation);
+                if (canAttack)
+                {
+                    // Choose a random attack animation
+                    string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
+                    // Set the selected animation trigger
+                    _animator.SetTrigger(randomAttackAnimation);
 
-                // Detect colliders for attack hit detection
-                DetectColliders();
-
-                // Reset the cooldown timer
-                //attackCooldownTimer = 1.0f / AttackSpeed;
+                    // Detect colliders for attack hit detection
+                    DetectColliders();
+                    currentMana = currentMana - 2f;
+                    // Reset the cooldown timer
+                    //attackCooldownTimer = 1.0f / AttackSpeed;
+                }
             }
         }
 
@@ -323,7 +329,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             {
                 if (!isRunning && currentMana < (float)GameManager.instance.PlayerTotalMana)
                 {
-                    currentMana = Mathf.Min(currentMana + manaRegenRate, (float)GameManager.instance.PlayerTotalMana);
+                    currentMana = (int)Mathf.Min((float)(currentMana + GameManager.instance.PlayerTotalManaRegen), (float)GameManager.instance.PlayerTotalMana);
                 }
                 yield return new WaitForSeconds(1f);
             }

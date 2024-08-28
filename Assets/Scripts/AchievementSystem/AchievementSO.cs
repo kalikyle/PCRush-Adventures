@@ -9,6 +9,8 @@ public class AchievementSO : ScriptableObject
     public string description;
     public Sprite icon;
     public bool isUnlocked;
+    public int ExpReward;
+    public int MoneyReward;
 
     public virtual bool CheckCompletion()
     {

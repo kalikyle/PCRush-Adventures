@@ -48,16 +48,18 @@ namespace PartsInventory.Model
         public double HealthRegen { get; set; }
 
         [field: SerializeField]
+        public double ManaRegen { get; set; }
+
+        [field: SerializeField]
         public double WalkSpeed { get; set; }
 
         [field: SerializeField]
         public double Armor { get; set; }
 
         [field: SerializeField]
-        public double AttackSpeed { get; set; }
+        public double CriticalChance { get; set; }
 
-        [field: SerializeField]
-        public double CriticalHit { get; set; }
+
 
 
     }

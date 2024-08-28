@@ -67,16 +67,13 @@ public class PCSO : ScriptableObject
     public double HealthRegen { get; set; }
 
     [field: SerializeField]
+    public double ManaRegen { get; set; }
+
+    [field: SerializeField]
     public double WalkSpeed { get; set; }
 
     [field: SerializeField]
     public double Armor { get; set; }
-
-    [field: SerializeField]
-    public double AttackSpeed { get; set; }
-
-    [field: SerializeField]
-    public double CriticalHit { get; set; }
 
     [field: SerializeField]
     public double CriticalChance { get; set; }

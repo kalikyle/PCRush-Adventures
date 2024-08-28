@@ -58,6 +58,13 @@ public class AchievementManager : MonoBehaviour
             // Display UI, notify the player, etc.
             ShowPopUpAchievement(achievement);
             DisplayAchievements(); // Refresh UI to reflect changes
+
+
+
+            GameManager.instance.AddPlayerExp(achievement.ExpReward);
+            GameManager.instance.PlayerMoney += achievement.MoneyReward;
+            GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+
         }
     }
 
