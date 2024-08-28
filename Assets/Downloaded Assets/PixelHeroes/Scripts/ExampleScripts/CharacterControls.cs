@@ -22,8 +22,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private bool isRunning;
         private float currentMana;
         public bool isDead = false;
-        private float attackCooldownTimer = 0.0f;
-        private float AttackSpeed = 1.0f; // Set this to the desired attack speed
+        //private float attackCooldownTimer = 0.0f;
+        //private float AttackSpeed = 1.0f; // Set this to the desired attack speed
 
         public PlayerTeleport playerTeleport;
         
@@ -107,11 +107,11 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             HandlePlayerHealth();
             HandlePlayerMana();
             HandlePlayerArmor();
-            attackCooldownTimer -= Time.deltaTime; // Decrement the cooldown timer
+            //attackCooldownTimer -= Time.deltaTime; // Decrement the cooldown timer
 
             //playerstats2
             WalkSpeed = (float)GameManager.instance.PlayerTotalWalkSpeed;
-            AttackSpeed = (float)GameManager.instance.PlayerTotalAttackSpeed;
+            //AttackSpeed = (float)GameManager.instance.PlayerTotalAttackSpeed;
         }
 
         private void HandlePlayerMana()
@@ -234,7 +234,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private void HandleAttack()
         {
             // Handle attack input
-            if (UnityEngine.Input.GetMouseButtonDown(0) && attackCooldownTimer <= 0)
+            if (UnityEngine.Input.GetMouseButtonDown(0))
             {
                 // Choose a random attack animation
                 string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
@@ -245,7 +245,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 DetectColliders();
 
                 // Reset the cooldown timer
-                attackCooldownTimer = 1.0f / AttackSpeed;
+                //attackCooldownTimer = 1.0f / AttackSpeed;
             }
         }
 
@@ -485,11 +485,11 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     bool isCritical = Random.Range(0, 100) < GameManager.instance.PlayerTotalCriticalChance;
                     if (isCritical)
                     {
-                        health.GetHit((int)GameManager.instance.PlayerTotalCriticalHit, transform.gameObject);
+                        health.GetHit((int)GameManager.instance.PlayerTotalAttackDamage * 2, transform.gameObject);
 
                         if (gameObject.layer != collider.gameObject.layer)
                         {
-                            ShowFloatingText("Critical Hit "+ GameManager.instance.PlayerTotalCriticalHit);
+                            ShowFloatingText("Critical Hit "+ (int)GameManager.instance.PlayerTotalAttackDamage * 2);
                             collider.GetComponent<Animator>().SetBool("Hit", true);
 
                         }
