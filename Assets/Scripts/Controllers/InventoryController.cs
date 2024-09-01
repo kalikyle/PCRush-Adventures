@@ -1354,7 +1354,7 @@ namespace Inventory
         public void DonePC(PCSO2 PC)
         {
             
-            PCData.AddPCSO2List(PC);
+            //PCData.AddPCSO2List(PC);
             //_2exp.gameObject.SetActive(true);
             //Success.Play();
             SuccesfullyCreated.gameObject.SetActive(true);

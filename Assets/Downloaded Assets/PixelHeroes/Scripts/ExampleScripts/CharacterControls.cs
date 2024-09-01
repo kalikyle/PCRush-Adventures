@@ -154,13 +154,17 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
             return false;
         }
-        private void ShowFloatingText(string damage)
+        private void ShowFloatingText(string damage, Color color)
         {
             if (floatingTextPrefab != null && damageCanvas != null)
             {
                 GameObject floatingText = Instantiate(floatingTextPrefab, transform.position, Quaternion.identity, damageCanvas);
                 DamageText floatingTextComponent = floatingText.GetComponent<DamageText>();
-                floatingTextComponent.SetText(damage, Color.yellow);
+               
+                    floatingTextComponent.SetText(damage, color);
+
+                
+                
             }
         }
 
@@ -477,7 +481,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             Vector3 position = CircleOrigin == null ? Vector3.zero : CircleOrigin.position;
             Gizmos.DrawWireSphere(position, radius);
         }
-
+        
         public void DetectColliders()
         {
             foreach (Collider2D collider in Physics2D.OverlapCircleAll(CircleOrigin.position,radius))
@@ -495,8 +499,9 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
                         if (gameObject.layer != collider.gameObject.layer)
                         {
-                            ShowFloatingText("Critical Hit "+ (int)GameManager.instance.PlayerTotalAttackDamage * 2);
+                            ShowFloatingText("Critical Hit "+ (int)GameManager.instance.PlayerTotalAttackDamage * 2, Color.magenta);
                             collider.GetComponent<Animator>().SetBool("Hit", true);
+                            
 
                         }
                     }
@@ -507,8 +512,9 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
                         if (gameObject.layer != collider.gameObject.layer)
                         {
-                            ShowFloatingText(GameManager.instance.PlayerTotalAttackDamage.ToString());
+                            ShowFloatingText(GameManager.instance.PlayerTotalAttackDamage.ToString(), Color.yellow);
                             collider.GetComponent<Animator>().SetBool("Hit", true);
+                            
 
                         }
                     }

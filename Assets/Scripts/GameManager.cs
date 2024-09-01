@@ -624,7 +624,7 @@ public class GameManager : MonoBehaviour
         // Check if the UserID and playerName are not null or empty
         if (string.IsNullOrEmpty(userID) || string.IsNullOrEmpty(playerName))
         {
-            UnityEngine.Debug.LogError("UserID or playerName is null or empty.");
+            UnityEngine.Debug.Log("UserID or playerName is null or empty.");
             return;
         }
 

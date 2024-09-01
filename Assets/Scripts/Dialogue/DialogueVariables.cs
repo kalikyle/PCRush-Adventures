@@ -139,7 +139,7 @@ public class DialogueVariables
             }
             catch (Exception e)
             {
-                Debug.LogError("Failed to save variables to Firestore: " + e.Message);
+                Debug.Log("Failed to save variables to Firestore: " + e.Message);
             }
         }
 

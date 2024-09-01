@@ -29,6 +29,11 @@ public class NewGameManager : MonoBehaviour
     public GameBroadcaster broadcaster;
     public UnityTransport transport;
 
+
+    public GameObject EasyInstruc;
+    public GameObject NormalInstruc;
+    public GameObject HardInstruc;
+
     private Coroutine connectionTimeoutCoroutine;
     void Start()
     {
@@ -38,7 +43,29 @@ public class NewGameManager : MonoBehaviour
         NetworkManager.Singleton.OnServerStarted += OnServerStarted;
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
     }
+    public void HandleInstruc(int val)
+    {
 
+        switch (val)
+        {
+            case 0://all
+                EasyInstruc.SetActive(true);
+                NormalInstruc.SetActive(false);
+                HardInstruc.SetActive(false);
+                break;
+            case 1:
+                EasyInstruc.SetActive(false);
+                NormalInstruc.SetActive(true);
+                HardInstruc.SetActive(false);
+                break;
+            case 2:
+                EasyInstruc.SetActive(false);
+                NormalInstruc.SetActive(false);
+                HardInstruc.SetActive(true);
+                break;
+
+        }
+    }
     void CreateGame()
     {
         string gameName = gameNameInput.text;
@@ -87,6 +114,7 @@ public class NewGameManager : MonoBehaviour
     {
         // Code for setting up the game in Easy mode
         Debug.Log("Easy mode selected.");
+       
         TheGame.instance.SetGameMode(true, false, false);
         TheGame.instance.currentMission = Missions.Empty;
         // Add your easy mode setup code here
@@ -96,6 +124,7 @@ public class NewGameManager : MonoBehaviour
     {
         // Code for setting up the game in Normal mode
         Debug.Log("Normal mode selected.");
+       
         TheGame.instance.SetGameMode(false, true, false);
         TheGame.instance.currentMission = Missions.Empty;
         // Add your normal mode setup code here
@@ -105,6 +134,7 @@ public class NewGameManager : MonoBehaviour
     {
         // Code for setting up the game in Hard mode
         Debug.Log("Hard mode selected.");
+        
         TheGame.instance.SetGameMode(false, false, true);
         TheGame.instance.currentMission = ClientController.instance.AddRandomMissionToGame();
         // Add your hard mode setup code here
