@@ -25,7 +25,7 @@ public class ResoControl : MonoBehaviour
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            Debug.Log("Resolution: " + resolutions[i]);
+            //Debug.Log("Resolution: " + resolutions[i]);
             if (resolutions[i].refreshRate == currentRefreshrate)
             {
                 filteredResolutions.Add(resolutions[i]);

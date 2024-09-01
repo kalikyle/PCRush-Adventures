@@ -222,33 +222,37 @@ public class QuestManager : MonoBehaviour
 
     public async void SaveQuest(Quest quest)
     {
+
         try
         {
-        QuestData questData = quest.GetQuestData();
-        // Convert the list of items to JSON
-        string serializeData = JsonUtility.ToJson(questData);
+            if (GameManager.instance.UserID != "")
+            {
+                QuestData questData = quest.GetQuestData();
+                // Convert the list of items to JSON
+                string serializeData = JsonUtility.ToJson(questData);
 
-        DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+                DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
 
-        CollectionReference SubDocRef = docRef.Collection("Quests");
+                CollectionReference SubDocRef = docRef.Collection("Quests");
 
-        DocumentReference DecordocRef = SubDocRef.Document(quest.info.id);
-        // Create a dictionary to store the data
-        Dictionary<string, object> dataDict = new Dictionary<string, object>
+                DocumentReference DecordocRef = SubDocRef.Document(quest.info.id);
+                // Create a dictionary to store the data
+                Dictionary<string, object> dataDict = new Dictionary<string, object>
     {
         { "questData", serializeData }
     };
 
-        // Set the data of the document
-        await DecordocRef.SetAsync(dataDict);
+                // Set the data of the document
+                await DecordocRef.SetAsync(dataDict);
 
-        Debug.Log(serializeData + "has been saved");
+                Debug.Log(serializeData + "has been saved");
 
+            }
         }
         catch (Exception ex)
-       {
-           Debug.LogError("failed to save data;" + ex);
-       }
+        {
+            Debug.LogError("failed to save data;" + ex);
+        }
     }
 
     //private Quest LoadQuest(QuestInfoSO questInfo)

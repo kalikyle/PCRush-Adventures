@@ -305,6 +305,7 @@ public class TheGame : NetworkBehaviour
         resultPanel.SetActive(false);
         image1.SetActive(false);
         image2.SetActive(false);
+        MainCamera.gameObject.SetActive(false);
         SceneManager.LoadScene("PCRush", LoadSceneMode.Additive);
 
        
