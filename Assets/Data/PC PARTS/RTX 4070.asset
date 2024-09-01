@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34310c5c65c77ec48886b93784f46c84, type: 3}
+  m_Name: RTX 4070
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackableSize>k__BackingField: 99
+  <Name>k__BackingField: RTX 4070
+  <Description>k__BackingField: High - End Graphics Card
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: f64c65d9c7fd19a45873ca5cafd64dea, type: 3}
+  <Category>k__BackingField: Video Card
+  <Price>k__BackingField: 8000
+  <CaseStrength>k__BackingField: 0
+  <MotherboardStrength>k__BackingField: 0
+  <CPUSocket>k__BackingField: 
+  <RAMSlot>k__BackingField: 
+  <BaseSpeed>k__BackingField: 0
+  <CPUSupportedSocket>k__BackingField: 
+  <Memory>k__BackingField: 0
+  <RAMSupportedSlot>k__BackingField: 
+  <CoolingPower>k__BackingField: 0
+  <ClockSpeed>k__BackingField: 1900
+  <Storage>k__BackingField: 0
+  <WattagePower>k__BackingField: 0

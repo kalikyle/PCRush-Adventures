@@ -29,6 +29,8 @@ namespace PartsInventory.Model
         [field: SerializeField]
         public string Category { get; set; }
 
+        [field: SerializeField]
+        public double Price { get; set; }
 
 
 
@@ -58,6 +60,50 @@ namespace PartsInventory.Model
 
         [field: SerializeField]
         public double CriticalChance { get; set; }
+
+
+        //for stats
+
+        [field: SerializeField]
+        public double CaseStrength { get; set; }
+
+        // FOR MOTHERBOARD
+        [field: SerializeField]
+        public double MotherboardStrength { get; set; }
+        [field: SerializeField]
+        public string CPUSocket { get; set; }
+        [field: SerializeField]
+        public string RAMSlot { get; set; }
+
+        //for CPU
+        [field: SerializeField]
+        public double BaseSpeed { get; set; }
+
+        [field: SerializeField]
+        public string CPUSupportedSocket { get; set; }
+
+        //for RAM
+        [field: SerializeField]
+        public double Memory { get; set; }
+
+        [field: SerializeField]
+        public string RAMSupportedSlot { get; set; }
+
+        //for CPU Fan
+        [field: SerializeField]
+        public double CoolingPower { get; set; }
+
+        //for GPU 
+        [field: SerializeField]
+        public double ClockSpeed { get; set; }
+
+        //for Storage
+        [field: SerializeField]
+        public double Storage { get; set; }
+
+        // for PSU
+        [field: SerializeField]
+        public double WattagePower { get; set; }
 
 
 

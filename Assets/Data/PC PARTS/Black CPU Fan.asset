@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34310c5c65c77ec48886b93784f46c84, type: 3}
+  m_Name: Black CPU Fan
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackableSize>k__BackingField: 99
+  <Name>k__BackingField: Black CPU Fan
+  <Description>k__BackingField: For Black Builds
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: f6da57aa116dbe041b2fb74e32ae813a, type: 3}
+  <Category>k__BackingField: CPU Fan
+  <Price>k__BackingField: 500
+  <CaseStrength>k__BackingField: 0
+  <MotherboardStrength>k__BackingField: 0
+  <CPUSocket>k__BackingField: 
+  <RAMSlot>k__BackingField: 
+  <BaseSpeed>k__BackingField: 0
+  <CPUSupportedSocket>k__BackingField: 
+  <Memory>k__BackingField: 0
+  <RAMSupportedSlot>k__BackingField: 
+  <CoolingPower>k__BackingField: 30
+  <ClockSpeed>k__BackingField: 0
+  <Storage>k__BackingField: 0
+  <WattagePower>k__BackingField: 0
