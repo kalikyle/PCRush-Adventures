@@ -9,7 +9,6 @@ using System;
 using Shop.UI;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
-using UnityEditor.Tilemaps;
 
 
 public class DialogueManager : MonoBehaviour

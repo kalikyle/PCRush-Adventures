@@ -11,7 +11,31 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PCRush CharacterEditor.unity
     guid: bfbc1f2b25b6d464fb97430d80d59b36
-  - enabled: 0
-    path: Assets/Scenes/CutScene 1.unity
-    guid: 8a84f392778173c4185bc64a5561fbdf
+  - enabled: 1
+    path: Assets/Scenes/PCRush.unity
+    guid: cbe80fa380803524b9e0ea85dd9d00b1
+  - enabled: 1
+    path: Assets/Scenes/MiniGameScene/CaseMiniGame.unity
+    guid: b117b5cff9280cf448d811d16ddc01a4
+  - enabled: 1
+    path: Assets/Scenes/MiniGameScene/CPUFanMiniGame.unity
+    guid: 019275364f8b9724d95e6e8aa045b78d
+  - enabled: 1
+    path: Assets/Scenes/MiniGameScene/CPUMiniGame.unity
+    guid: c084bccb7ec8e194cb205647d1f5d6e3
+  - enabled: 1
+    path: Assets/Scenes/MiniGameScene/GPUMiniGame.unity
+    guid: e4db081dfb988c14fbd8c95d2971cb6f
+  - enabled: 1
+    path: Assets/Scenes/MiniGameScene/MotherboardMiniGame.unity
+    guid: e88106d20796d2f40be1dda2edd5ffa4
+  - enabled: 1
+    path: Assets/Scenes/MiniGameScene/PSUMiniGame.unity
+    guid: 789a5858b3ef6bd498c374c16d10d8af
+  - enabled: 1
+    path: Assets/Scenes/MiniGameScene/RAMMiniGame.unity
+    guid: 996c66393032e544a93266cede67fcc0
+  - enabled: 1
+    path: Assets/Scenes/MiniGameScene/StorageMiniGame.unity
+    guid: 7d661064401a7114bbf4f75c83208d3e
   m_configObjects: {}

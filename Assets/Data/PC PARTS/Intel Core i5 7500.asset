@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34310c5c65c77ec48886b93784f46c84, type: 3}
+  m_Name: Intel Core i5 7500
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackableSize>k__BackingField: 99
+  <Name>k__BackingField: Intel Core i5-7500
+  <Description>k__BackingField: High-End Processor, Good for Gaming and Streaming,
+    can do multitasking
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: edca18f9ff366414fae8638a5be61506, type: 3}
+  <Category>k__BackingField: CPU
+  <Price>k__BackingField: 1800
+  <CaseStrength>k__BackingField: 0
+  <MotherboardStrength>k__BackingField: 0
+  <CPUSocket>k__BackingField: 
+  <RAMSlot>k__BackingField: 
+  <BaseSpeed>k__BackingField: 1.8
+  <CPUSupportedSocket>k__BackingField: LGA 1150
+  <Memory>k__BackingField: 0
+  <RAMSupportedSlot>k__BackingField: 
+  <CoolingPower>k__BackingField: 0
+  <ClockSpeed>k__BackingField: 0
+  <Storage>k__BackingField: 0
+  <WattagePower>k__BackingField: 0

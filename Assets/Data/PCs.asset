@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82756bc5dfe2ce54590c8d7e4cf640d8, type: 3}
   m_Name: PCs
   m_EditorClassIdentifier: 
-  ComputerItems: []
+  ComputerItems:
+  - PC: {fileID: 0}
+  - PC: {fileID: 0}
+  - PC: {fileID: 0}
+  - PC: {fileID: 0}
   <Size>k__BackingField: 999
