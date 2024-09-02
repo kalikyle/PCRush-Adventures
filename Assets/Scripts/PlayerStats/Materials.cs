@@ -15,6 +15,10 @@ public class Materials : MonoBehaviour
 
     public int MaterialValue;
 
+    [SerializeField]
+    private float magnetSpeed = 5f; // Speed at which the coin moves towards the player
+    private Transform player;
+
 
 
     [SerializeField]
@@ -30,7 +34,16 @@ public class Materials : MonoBehaviour
         {
             rb.gravityScale = 0;
         }
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
+    void Update()
+    {
+        if (player != null)
+        {
+            // Move the coin towards the player
+            transform.position = Vector3.MoveTowards(transform.position, player.position, magnetSpeed * Time.deltaTime);
+        }
     }
 
     internal void DestroyItem()
