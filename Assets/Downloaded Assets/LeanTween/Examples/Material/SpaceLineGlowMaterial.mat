@@ -33,7 +33,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _InvFade: 1
+    - _InvFade: 1.18
     m_Colors:
     - _Color: {r: 0, g: 0.95804214, b: 1, a: 1}
     - _TintColor: {r: 0.41106036, g: 0.75850374, b: 0.9029851, a: 1}

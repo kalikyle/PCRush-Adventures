@@ -23,15 +23,19 @@ public class UserSetup : MonoBehaviour
     public GameObject PlayPanel;
     public GameObject LogInCanvas;
     public GameObject IntroCanvas;
-
+    public GameObject BackGround;
     public TMP_InputField playerName;
 
 
 
     void Start()
     {
-        
-
+       
+        if (GameManager.instance.HasOpened)
+        {
+            BackGround.SetActive(true);
+        }
+        GameManager.instance.HasOpened = true;
         // Assign click listeners to the sign-in buttons
         //anonymousSignInButton.onClick.AddListener(SignInAnonymously);
         PlayButton.onClick.AddListener(PlayClick);
@@ -63,6 +67,7 @@ public class UserSetup : MonoBehaviour
     }
     public void PlayClick()
     {
+       
         if (string.IsNullOrEmpty(GameManager.instance.UserID))
         {
             //CharEditor.gameObject.SetActive(true);

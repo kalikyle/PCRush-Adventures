@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 776284435110068112}
   - component: {fileID: 7711492404408322078}
   m_Layer: 0
-  m_Name: Go To Your Setup Again
+  m_Name: Go To Your Desktop Again
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

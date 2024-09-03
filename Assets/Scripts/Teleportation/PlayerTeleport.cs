@@ -442,7 +442,8 @@ public class PlayerTeleport : MonoBehaviour
                 GameManager.instance.UIExplore.SetActive(false);
             }
         }
-        else if (OpenDesk == true && homeTeleport == null)
+        
+        if (OpenDesk == true && homeTeleport == null)
         {
 
             if (GameManager.instance.OnGoToDeskQuest)
@@ -454,6 +455,8 @@ public class PlayerTeleport : MonoBehaviour
 
                 GameManager.instance.OntheDesk = true;
             }
+            
+            
 
 
             GameManager.instance.PlayerDeskUI.gameObject.SetActive(true);
@@ -464,7 +467,8 @@ public class PlayerTeleport : MonoBehaviour
 
             
         }
-        else if (GameManager.instance.OpenEditor == true && homeTeleport == null && EditorOpen == false)
+        
+        if (GameManager.instance.OpenEditor == true && homeTeleport == null && EditorOpen == false)
         {
 
             GameManager.instance.scene.LoadScene();
@@ -473,7 +477,8 @@ public class PlayerTeleport : MonoBehaviour
             GameManager.instance.UIExplore.SetActive(false);
             //GameManager.instance.OpenEditor = false;
         }
-        else if (OpenBuild == true && homeTeleport == null)
+        
+        if (OpenBuild == true && homeTeleport == null)
         {
             BuildRoom.gameObject.SetActive(true);
             OpenBuild = false;
@@ -844,10 +849,6 @@ public class PlayerTeleport : MonoBehaviour
             PlayerDesk.SetActive(false);
             OpenDesk = false;
 
-            
-
-            
-
         }
             if (collision.CompareTag("Editor"))
             {
@@ -857,6 +858,7 @@ public class PlayerTeleport : MonoBehaviour
         }
         if (collision.CompareTag("Build"))
         {
+            GameManager.instance.OpenBuild = false;
             BuildingDesk.SetActive(false);
             OpenBuild = false;
 

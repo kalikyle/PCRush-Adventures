@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Decoration.Model.DecorSO;
 
 public class QuestLogUI : MonoBehaviour
 {
@@ -29,13 +31,21 @@ public class QuestLogUI : MonoBehaviour
     [SerializeField] private TMP_Text questInfo;
 
 
+    [SerializeField] private GameObject questStepPrefab; // Assign the QuestStepPrefab in the Inspector
+    [SerializeField] private Transform scrollViewContent;
+
+    [SerializeField] private GameObject questUIPopup; // Assign the QuestStepPrefab in the Inspector
+    [SerializeField] private Transform questUIParent;
+    private GameObject currentQuestStepUI = null;
+
+
     private Button firstselectedButton;
 
     public void Start()
     {
         GameManager.instance.questEvents.onQuestStateChange += QuestStateChange;
-        GameManager.instance.questEvents.onQuestStateChange += UpdateQuest;
-        GameManager.instance.questEvents.onQuestStateChange += UpdateUI;
+        GameManager.instance.questEvents.onQuestStateChange += SetQuestLogInfo;
+        GameManager.instance.questEvents.onQuestStateChange += UpdateQuestStepUI;
 
         
 
@@ -50,16 +60,17 @@ public class QuestLogUI : MonoBehaviour
        GameManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
     }
 
-    public void UpdateQuest(Quest quest)
-    {
-        SetQuestLogInfo(quest);
-    }
+    //public void UpdateQuest(Quest quest)
+    //{
+    //   SetQuestLogInfo(quest);
+    //}
 
     private void QuestStateChange(Quest quest)
     {
         QuestLogButton questLogButton = scrollinglist.CreateButtonIfNotExists(quest, () => { 
              SetQuestLogInfo(quest);
-        
+            
+
         });
 
         if (firstselectedButton == null)
@@ -111,12 +122,39 @@ public class QuestLogUI : MonoBehaviour
       
         questStatusText.text = quest.GetFullStatusText();
 
+        List<string> list = new List<string>();
+        list = quest.Steps;
+
+        foreach (Transform child in scrollViewContent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Instantiate a new prefab for each step in the list
+        foreach (string step in list)
+        {
+            GameObject stepObj = Instantiate(questStepPrefab, scrollViewContent);
+            TMP_Text stepText = stepObj.GetComponentInChildren<TMP_Text>();
+
+            if (stepText != null)
+            {
+                stepText.text = step;
+            }
+            else
+            {
+                Debug.LogError("TMP_Text component not found in the prefab's children.");
+            }
+        }
 
 
-        QuestName.text = quest.currentQuestStep();
-        questStatus.text = quest.currentStatus();
 
-        questInfo.text = quest.currentQuestStepInfo();
+
+        //QuestName.text = quest.currentQuestStep();
+        //questStatus.text = quest.currentStatus();
+        //questInfo.text = quest.currentQuestStepInfo();
+
+
+
         
         levelRequirementsText.text = "Level " + quest.info.levelRequirement;
         questRequirementsText.text = "";
@@ -126,22 +164,120 @@ public class QuestLogUI : MonoBehaviour
         }
 
 
-        goldRewardsText.text = quest.info.goldReward + " Gold";
+        goldRewardsText.text = quest.info.goldReward.ToString();
         experienceRewardsText.text = quest.info.experiencereward + " XP";
     }
 
 
-    public void UpdateUI(Quest quest)
-    {
+    //public void UpdateUI(Quest quest)
+    //{
 
-        if(quest.state == QuestState.IN_PROGRESS)
+    //    if(quest.state == QuestState.IN_PROGRESS)
+    //    {
+    //        GameManager.instance.QuestUI.gameObject.SetActive(true);
+    //    }else if (quest.state == QuestState.FINISHED || quest.state == QuestState.CAN_START)
+    //    {
+    //        GameManager.instance.QuestUI.gameObject.SetActive(false);
+    //    }
+
+    //}
+
+
+    //private void UpdateQuestStepUI(Quest quest)
+    //{
+    //    // Check if there's an active quest step
+    //    if (quest.state == QuestState.IN_PROGRESS && quest.Currentstepexist())
+    //    {
+    //        // If the UI is already active, update its content
+    //        if (currentQuestStepUI != null)
+    //        {
+    //            Debug.LogError("triggeres");
+    //            UpdateQuestStepUIContent(quest);
+    //        }
+    //        else
+    //        {
+    //            // Instantiate the UI prefab and update its content
+    //            currentQuestStepUI = Instantiate(questUIPopup, questUIParent);
+
+    //            LeanTween.moveLocal(currentQuestStepUI, new Vector3(-347f, 106f, 0f), 3f)
+    //            .setEase(LeanTweenType.easeOutExpo);
+
+    //             UpdateQuestStepUIContent(quest);
+    //        }
+    //    }
+    //    else if (quest.state == QuestState.FINISHED || !quest.Currentstepexist())
+    //    {
+    //        // If the quest is finished or there is no active step, hide or destroy the UI
+    //        if (currentQuestStepUI != null)
+    //        {
+    //            LeanTween.moveLocal(currentQuestStepUI, new Vector3(-500f, 106f, 0f), 1f)
+    //           .setDelay(1f)
+    //           .setEase(LeanTweenType.easeOutExpo)
+    //           .setOnComplete(() => Destroy(currentQuestStepUI));
+    //            currentQuestStepUI = null;
+    //        }
+    //    }
+    //}
+    private int lastQuestStepIndex = -1;
+    private void UpdateQuestStepUI(Quest quest)
+    {
+        // Check if there's an active quest step
+        if (quest.state == QuestState.IN_PROGRESS)
         {
-            GameManager.instance.QuestUI.gameObject.SetActive(true);
-        }else if (quest.state == QuestState.FINISHED || quest.state == QuestState.CAN_START)
-        {
-            GameManager.instance.QuestUI.gameObject.SetActive(false);
+            if (quest.currentQuestStepIndex != lastQuestStepIndex)
+            {
+                // If the step index has changed, destroy the existing UI
+                if (currentQuestStepUI != null)
+                {
+                    LeanTween.moveLocal(currentQuestStepUI, new Vector3(-500f, 106f, 0f), 1f)
+                    .setEase(LeanTweenType.easeOutExpo);
+                    Destroy(currentQuestStepUI);
+                    currentQuestStepUI = null;
+                }
+                
+                // Instantiate the UI prefab and update its content
+                currentQuestStepUI = Instantiate(questUIPopup, questUIParent);
+
+                LeanTween.moveLocal(currentQuestStepUI, new Vector3(-347f, 106f, 0f), 2f)
+                    .setEase(LeanTweenType.easeOutExpo);
+
+                UpdateQuestStepUIContent(quest);
+            }
+            else if (currentQuestStepUI != null)
+            {
+                // If the step index has not changed, just update the content
+                UpdateQuestStepUIContent(quest);
+            }
+
+            // Store the current step index
+            lastQuestStepIndex = quest.currentQuestStepIndex;
         }
-        
+        else if (quest.state == QuestState.FINISHED || quest.currentQuestStepIndex == -1)
+        {
+            // If the quest is finished or there's no valid step, hide or destroy the UI
+            if (currentQuestStepUI != null)
+            {
+                LeanTween.moveLocal(currentQuestStepUI, new Vector3(-500f, 106f, 0f), 1f)
+                    .setEase(LeanTweenType.easeOutExpo)
+                    .setOnComplete(() => Destroy(currentQuestStepUI));
+
+                currentQuestStepUI = null;
+                lastQuestStepIndex = -1; // Reset the index to indicate no active step
+            }
+        }
     }
+
+
+    private void UpdateQuestStepUIContent(Quest quest)
+    {
+        // Update the text fields in the UI prefab
+        TMP_Text objectiveText = currentQuestStepUI.transform.Find("Name").GetComponent<TMP_Text>();
+        TMP_Text progressText = currentQuestStepUI.transform.Find("status").GetComponent<TMP_Text>();
+
+        objectiveText.text = quest.currentQuestStep(); // Update the quest step name
+        progressText.text = quest.currentStatus();     // Update the progress (e.g., 8/8)
+    }
+
+
 
 }
