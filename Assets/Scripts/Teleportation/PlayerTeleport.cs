@@ -33,6 +33,8 @@ public class PlayerTeleport : MonoBehaviour
         public bool onarea = false;
         public bool onbed = false;
 
+    //public GameObject playerMinimapHomeworld;
+
 
 
     public void Awake()
@@ -420,7 +422,7 @@ public class PlayerTeleport : MonoBehaviour
 
     public void TheTeleporter()
     {
-        
+        //playerMinimapHomeworld.SetActive(false);
         GameManager.instance.Enter.gameObject.SetActive(false);
         if (homeTeleport != null)
         {
@@ -497,6 +499,7 @@ public class PlayerTeleport : MonoBehaviour
                 if (collision.gameObject.name == "HomeDoor")
                 {
                     Name.text = "Leave Home";
+               
                    
                 }
                 else if (collision.gameObject.name == "HomeDoorEnter")
@@ -724,7 +727,9 @@ public class PlayerTeleport : MonoBehaviour
     }
         private void OnTriggerExit2D(Collider2D collision)
         {
-        if(GameManager.instance.Enter != null)
+
+        //playerMinimapHomeworld.SetActive(true);
+        if (GameManager.instance.Enter != null)
         {
             GameManager.instance.Enter.gameObject.SetActive(false);
         }
