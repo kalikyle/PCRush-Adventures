@@ -50,7 +50,7 @@ public class OpenBuildingDesk : QuestStep
     }
     public void OnClickEnterButton()
     {
-       if(GameManager.instance.OpenBuild == true)
+       if(GameManager.instance.OpenBuild == true )
         {
             FinishQuestStep();
             ChangeState("finish", "finish");

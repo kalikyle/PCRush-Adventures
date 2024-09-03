@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
     public PlayerTeleport playerTeleport;
     public PCPlayerController PPC;
     public PartsInventoryController PIC;
+    public bool HasOpened = false;
 
     [Header("For Shop and Decorations")]
     public bool isEditing = false;
@@ -1252,7 +1253,7 @@ public class GameManager : MonoBehaviour
                 // Deserialize the item data
                 string jsonData = docSnapshot.GetValue<string>("itemData");
                 string jsonName = docSnapshot.GetValue<string>("itemName");
-                Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
+                //Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
 
                 // Shop.Model.ShopItem item = new Shop.Model.ShopItem();
                 // Deserialize the item part
@@ -1263,7 +1264,7 @@ public class GameManager : MonoBehaviour
                 
                 item.item.InUse = true;
                        
-                Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
+                //Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                                                                  //Debug.Log("Category: " + item.item.Category);
                 UpdateSprite(item);
 
@@ -1336,7 +1337,7 @@ public class GameManager : MonoBehaviour
                 {
                     // Deserialize the item data
                     string jsonData = docSnapshot.GetValue<string>("itemData");
-                    Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
+                    //Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
 
                     // Deserialize the item data into a ShopItem object
                     /*Shop.Model.ShopItem*/ item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
@@ -1344,7 +1345,7 @@ public class GameManager : MonoBehaviour
                     // Update item properties (e.g., set Sold flag)
                     item.item.Sold = true;
 
-                    Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
+                    //Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
                 }
                 
                 await LoadInUseItemsFromFirestore(category);
@@ -1425,7 +1426,7 @@ public class GameManager : MonoBehaviour
                 {
                     // Delete the previous item with the same category and name
                     await documentSnapshot.Reference.DeleteAsync();
-                    Debug.Log("Previous item deleted: " + documentSnapshot.Id);
+                    //Debug.Log("Previous item deleted: " + documentSnapshot.Id);
                 }
 
                 // Create a new document for the item
@@ -1441,7 +1442,7 @@ public class GameManager : MonoBehaviour
                 { "itemName", item.item.Name } // Include item name for future deletion checks
             });
 
-                Debug.Log("Item saved to Firestore: " + item.item.Name);
+                //Debug.Log("Item saved to Firestore: " + item.item.Name);
             }
             else
             {
@@ -1487,7 +1488,7 @@ public class GameManager : MonoBehaviour
                 { "itemName", item.item.Name }
             });
 
-            Debug.Log("Item used and save to Firestore: " + item.item.Name);
+            //Debug.Log("Item used and save to Firestore: " + item.item.Name);
         }
         else
         {
@@ -1512,7 +1513,7 @@ public class GameManager : MonoBehaviour
             {
                 // Delete the previous item in use
                 await docSnap.Reference.DeleteAsync();
-                Debug.Log("Previous item in use deleted: " + docSnap.Id);
+                //Debug.Log("Previous item in use deleted: " + docSnap.Id);
             }
         }
         catch (System.Exception ex)

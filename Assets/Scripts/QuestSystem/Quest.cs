@@ -13,7 +13,7 @@ public class Quest
     private QuestStepState[] questStepStates;
 
 
-    
+    public List<string> Steps = new List<string>();
 
     public Quest(QuestInfoSO questinfo)
     {
@@ -105,33 +105,41 @@ public class Quest
 
         if(state == QuestState.REQUIREMENT_NOT_MET)
         {
+            Steps.Clear();
             fullStatus = "Requirements are not yet met to start this quest.";
+            Steps.Add(fullStatus);
         }
         else if (state == QuestState.CAN_START)
         {
+            Steps.Clear();
             fullStatus = "This quest Can be Started!";
+            Steps.Add(fullStatus);
         }
         else
         {
+            Steps.Clear();
             for (int i = 0; i < currentQuestStepIndex; i++)
             {
                 
                 fullStatus += "<s>" + info.questStepsPrefab[i].name + ": " + questStepStates[i].status + "</s>\n";
-                
+                Steps.Add($"<color=green>{info.questStepsPrefab[i].name}: {questStepStates[i].status}</color>");
             }
 
             if (Currentstepexist())
             {
                 fullStatus += info.questStepsPrefab[currentQuestStepIndex].name + ": " + questStepStates[currentQuestStepIndex].status;
+                Steps.Add(info.questStepsPrefab[currentQuestStepIndex].name + " " + questStepStates[currentQuestStepIndex].status);
             }
 
             if(state == QuestState.CAN_FINISH)
             {
                 fullStatus += "The quest is ready to Finish!";
+                Steps.Add("The quest is ready to Finish!");
             }
             else if (state == QuestState.FINISHED)
             {
                 fullStatus += "This Quest has been Finished!";
+                Steps.Add("This Quest has been Finished!");
             }
         }
         return fullStatus;
