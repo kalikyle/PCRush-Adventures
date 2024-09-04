@@ -422,10 +422,6 @@ public class DecorationManager : MonoBehaviour
 
             Debug.Log("PlacedDecorations collection cleared in Firestore!");
         }
-        else
-        {
-            Debug.LogWarning("User ID not found!");
-        }
 
      
     }

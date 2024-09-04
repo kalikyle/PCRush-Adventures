@@ -76,6 +76,19 @@ public class GameManager2 : MonoBehaviour
     public GameObject TryAgainPanel;
 
 
+    public GameObject image1Ready;
+    public GameObject image2Ready;
+
+    public GameObject ReadyPanel;
+    public GameObject ReadyUI;
+    public GameObject CountdownUI;
+    public GameObject ReadyBTN;
+    public GameObject three;
+    public GameObject two;
+    public GameObject one;
+    public GameObject Build;
+
+
 
     [SerializeField] private GameObject shoppopupPrefab;// Reference to the parent transform where the popups will be placed
     [SerializeField] private Transform shopPopUpParent;
@@ -135,14 +148,26 @@ public class GameManager2 : MonoBehaviour
     }
     private void Start()
     {
+        TheGame.instance.image1Ready = image1Ready;
+        TheGame.instance.image2Ready = image2Ready;
 
-        CheckMission();
+       
+
+    CheckMission();
 
     }
 
     private void Awake()
     {
-       
+        TheGame.instance.ReadyPanel = ReadyPanel;
+        TheGame.instance.ReadyUI = ReadyUI;
+        TheGame.instance.CountdownUI = CountdownUI;
+        TheGame.instance.ReadyBTN = ReadyBTN;
+        TheGame.instance.three = three;
+        TheGame.instance.two = two;
+        TheGame.instance.one = one;
+        TheGame.instance.Build = Build;
+
         if (Instance == null)
         {
             
@@ -159,6 +184,14 @@ public class GameManager2 : MonoBehaviour
 
 
         }
+
+
+       
+    }
+
+    public void ReadyClicked()
+    {
+        TheGame.instance.OnReadyButtonClick();
     }
 
     private void OnSceneUnloaded(Scene scene)

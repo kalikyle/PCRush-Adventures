@@ -26,11 +26,12 @@ public class UserSetup : MonoBehaviour
     public GameObject BackGround;
     public TMP_InputField playerName;
 
-
-
     void Start()
     {
        
+        LeanTween.scale(PlayButton.gameObject, new Vector3(1f, 1f, 1f), 2f).setDelay(.5f).setEase(LeanTweenType.easeOutElastic);
+        LeanTween.scale(PlayOnLan.gameObject, new Vector3(1f, 1f, 1f), 2f).setDelay(.5f).setEase(LeanTweenType.easeOutElastic);
+
         if (GameManager.instance.HasOpened)
         {
             BackGround.SetActive(true);
