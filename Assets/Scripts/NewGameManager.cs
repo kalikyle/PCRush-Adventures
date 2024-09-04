@@ -254,8 +254,10 @@ public class NewGameManager : MonoBehaviour
     public void OpenGame()
     {
         //GamePanel.SetActive(true);
+        GameManager.instance.scene.manualLoading();
         TheGame.instance.MainCamera.gameObject.SetActive(false);
         SceneManager.LoadScene("PCRush", LoadSceneMode.Additive);
+        TheGame.instance.OpenReadyPanel();
     }
 
    
@@ -297,6 +299,8 @@ public class NewGameManager : MonoBehaviour
             gameManager.winnerClientId.Value = 0;
             gameManager.hostRematchRequested.Value = false;
             gameManager.clientRematchRequested.Value = false;
+            gameManager.hostReadyRequested.Value = false;
+            gameManager.clientReadyRequested.Value = false;
             gameManager.IsHardMode.Value = false;
             gameManager.IsNormalMode.Value = false;
             gameManager.IsEasyMode.Value = false;

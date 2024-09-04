@@ -245,7 +245,7 @@ public class QuestManager : MonoBehaviour
                 // Set the data of the document
                 await DecordocRef.SetAsync(dataDict);
 
-                Debug.Log(serializeData + "has been saved");
+                //Debug.Log(serializeData + "has been saved");
 
             }
         }

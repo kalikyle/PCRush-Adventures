@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class TheGame : NetworkBehaviour
 
     public GameObject resultPanel;
     public TMP_Text resultText;
+    public TMP_Text resultFeedback;
     public Image pcImage;
     public Camera MainCamera;
     public static TheGame instance;
@@ -23,6 +25,17 @@ public class TheGame : NetworkBehaviour
     public GameObject image1;
     public GameObject image2;
 
+    public GameObject image1Ready;
+    public GameObject image2Ready;
+
+    public GameObject ReadyPanel;
+    public GameObject ReadyUI;
+    public GameObject CountdownUI;
+    public GameObject ReadyBTN;
+    public GameObject three;
+    public GameObject two;
+    public GameObject one;
+    public GameObject Build;
     //public bool Easy = false;
     //public bool Normal = false;
     //public bool Hard = false;
@@ -37,6 +50,8 @@ public class TheGame : NetworkBehaviour
     public NetworkVariable<ulong> winnerClientId = new NetworkVariable<ulong>(0);
     public NetworkVariable<bool> hostRematchRequested = new NetworkVariable<bool>(false);
     public NetworkVariable<bool> clientRematchRequested = new NetworkVariable<bool>(false);
+    public NetworkVariable<bool> hostReadyRequested = new NetworkVariable<bool>(false);
+    public NetworkVariable<bool> clientReadyRequested = new NetworkVariable<bool>(false);
     private Coroutine rematchCoroutine;
 
 
@@ -83,6 +98,11 @@ public class TheGame : NetworkBehaviour
         hostRematchRequested.OnValueChanged += OnHostRematchRequestedChanged;
         clientRematchRequested.OnValueChanged += OnClientRematchRequestedChanged;
 
+        hostReadyRequested.OnValueChanged += OnHostReadyRequestedChanged;
+        clientReadyRequested.OnValueChanged += OnClientReadyRequestedChanged;
+        NetworkManager.Singleton.OnClientDisconnectCallback += OnPlayerDisconnecteds;
+        
+
         RematchBTN.onClick.AddListener(OnRematchButtonClick);
     }
 
@@ -92,11 +112,11 @@ public class TheGame : NetworkBehaviour
         {
             if (NetworkManager.Singleton.LocalClientId == winnerClientId.Value)
             {
-                ShowResult("You Win");
+                ShowResult("You Win", "Your Opponent Just Surrendered");
             }
             else
             {
-                ShowResult("You Lose");
+                ShowResult("You Lose", "Why?");
             }
         }
     }
@@ -107,11 +127,11 @@ public class TheGame : NetworkBehaviour
         {
             if (NetworkManager.Singleton.LocalClientId == newValue)
             {
-                ShowResult("You Win");
+                ShowResult("You Win", "Congratulations, You finish building the PC first!");
             }
             else
             {
-                ShowResult("You Lose");
+                ShowResult("You Lose", "Your Opponent Just finished the PC first");
             }
         }
     }
@@ -120,7 +140,7 @@ public class TheGame : NetworkBehaviour
         if (newValue)
         {
             image1.SetActive(true);
-           
+
         }
         ShowRematchUIClientRpc();
         CheckRematchStatus();
@@ -131,10 +151,33 @@ public class TheGame : NetworkBehaviour
         if (newValue)
         {
             image2.SetActive(true);
-           
+
         }
         ShowRematchUIClientRpc();
         CheckRematchStatus();
+    }
+
+
+    private void OnHostReadyRequestedChanged(bool oldValue, bool newValue)
+    {
+        if (newValue)
+        {
+            image1Ready.SetActive(true);
+
+        }
+        ShowReadyUIClientRpc();
+        CheckReadyStatus();
+    }
+
+    private void OnClientReadyRequestedChanged(bool oldValue, bool newValue)
+    {
+        if (newValue)
+        {
+            image2Ready.SetActive(true);
+
+        }
+        ShowReadyUIClientRpc();
+        CheckReadyStatus();
     }
 
     [ClientRpc]
@@ -156,13 +199,35 @@ public class TheGame : NetworkBehaviour
         }
     }
 
+    [ClientRpc]
+    private void ShowReadyUIClientRpc(ClientRpcParams clientRpcParams = default)
+    {
+        if (hostRematchRequested.Value)
+        {
+            image1Ready.SetActive(true);
+        }
+
+        if (clientRematchRequested.Value)
+        {
+            image2Ready.SetActive(true);
+        }
+    }
+    public override void OnDestroy()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.OnClientDisconnectCallback -= OnPlayerDisconnecteds;
+        }
+    }
+
+
     public void OnFinishButtonClick()
     {
         if (gameEnded.Value)
         {
             Debug.LogError("chupapi");
             return;
-            
+
         }
 
 
@@ -195,11 +260,68 @@ public class TheGame : NetworkBehaviour
     {
         // Call the method to declare the winner based on who surrendered
         DeclareWinner(surrenderingClientId);
-    } 
- 
+    }
+
+    // private void OnPlayerDisconnecteds(ulong disconnectedClientId)
+    //{
+    //    //Debug.Log($"Player {disconnectedClientId} disconnected.");
+
+    //    // Check if the game has already ended
+    //    if (gameEnded.Value)
+    //    {
+    //        Debug.LogError("Game has already ended.");
+    //        return;
+    //    }
+    //    if (NetworkManager.Singleton.IsServer && disconnectedClientId == NetworkManager.Singleton.LocalClientId)
+    //    {
+    //        //Debug.LogError("Host Disconnected");
+    //        ShowResult("You Win", "Just Disconnected");
+    //    }
+    //    else
+    //    {
+    //        // Notify the server that this client is surrendering due to disconnection
+    //        SurrenderServerRpc(disconnectedClientId);
+    //        //Debug.LogError("Client Disconnected");
+    //    }
+
+
+    //}
+
+    private void OnPlayerDisconnecteds(ulong disconnectedClientId)
+    {
+        // Check if the game has already ended
+        if (gameEnded.Value)
+        {
+            Debug.LogError("Game has already ended.");
+            return;
+        }
+        // Check if the disconnected client is the local client
+        if (disconnectedClientId != NetworkManager.Singleton.LocalClientId)
+        {
+            
+            ShowResult("You Win", "Opponent Disconnected");
+            RematchBTN.gameObject.SetActive(false);
+            Debug.LogError("Host Disconnecteds");
+        }
+
+        // Local player has disconnected
+        //if (NetworkManager.Singleton.IsServer)
+        //{
+        //    // Host disconnected
+        //    Debug.LogError("Client Disconnected");
+        //    SurrenderServerRpc(disconnectedClientId);
+        //}
+        //else
+        //{
+        //    // Client disconnected
+        //    Debug.Log("Client Disconnected");
+        //}
+
+    }
+
 
     [ServerRpc(RequireOwnership = false)]
-    void RequestGameEndServerRpc(ulong clientId, ServerRpcParams rpcParams = default) 
+    void RequestGameEndServerRpc(ulong clientId, ServerRpcParams rpcParams = default)
     {
         // Ensure only the first client to click wins
         if (!gameEnded.Value)
@@ -213,23 +335,86 @@ public class TheGame : NetworkBehaviour
     {
         gameEnded.Value = true;
         winnerClientId.Value = clientId;
-        //IsHardMode.Value = false;
-        //IsNormalMode.Value = false;
-        //IsEasyMode.Value = false;
-        //Easy = false;
-        //Normal = false;
-        //Hard = false;
+
     }
 
-    void ShowResult(string result)
+    void ShowResult(string result, string resultfeed)
     {
         MainCamera.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync("PCRush");
         resultPanel.SetActive(true);
         resultText.text = result;
-        
-        
+        resultFeedback.text = resultfeed;
+        image1.SetActive(false);
+        image2.SetActive(false);
+
     }
+
+
+    public async void OpenReadyPanel()
+    {
+        await Task.Delay(1000);
+        LeanTween.scale(ReadyPanel, new Vector3(1f, 1f, 1f), .5f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(ReadyBTN.gameObject, new Vector3(1f, 1f, 1f), 2f).setDelay(1.5f).setEase(LeanTweenType.easeOutElastic);
+        ReadyUI.SetActive(true);
+        CountdownUI.SetActive(false);
+    }
+
+    public void StartCountDown()
+    {
+        // Start the countdown sequence
+        ReadyUI.SetActive(false);
+        CountdownUI.SetActive(true);
+        ScaleDown(three, () =>
+        {
+            ScaleDown(two, () =>
+            {
+                ScaleDown(one, showBuild);
+            });
+        });
+    }
+
+    private void ScaleDown(GameObject obj, System.Action onComplete)
+    {
+        // Start by scaling the object from 0 to 1
+        obj.transform.localScale = Vector3.zero; // Ensure the object starts at scale 0
+
+        LeanTween.scale(obj, Vector3.one, 0.5f).setEase(LeanTweenType.easeInCubic).setOnComplete(() =>
+        {
+            // Once it's scaled to 1, scale it back down to 0
+            LeanTween.scale(obj, Vector3.zero, 0.5f).setEase(LeanTweenType.easeInCubic).setOnComplete(() =>
+            {
+                // Wait for a moment, then invoke the next action if needed
+                LeanTween.delayedCall(0.5f, () =>
+                {
+                    if (onComplete != null)
+                    {
+                        onComplete();
+                    }
+                });
+            });
+        });
+    }
+
+    public void showBuild()
+    {
+        LeanTween.scale(Build, Vector3.one, 0.5f).setEase(LeanTweenType.easeInCubic).setOnComplete(CloseReadyPanel);
+    }
+    public async void CloseReadyPanel()
+    {
+        LeanTween.scale(ReadyPanel, new Vector3(0f, 0f, 0f), .5f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(ReadyBTN.gameObject, new Vector3(0f, 0f, 0f), .5f).setDelay(1f).setEase(LeanTweenType.easeOutElastic);
+        LeanTween.scale(Build, new Vector3(0f, 0f, 0f), .5f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
+        await Task.Delay(2000);
+        ReadyUI.SetActive(true);
+        CountdownUI.SetActive(false);
+    }
+
+
+
+
+
+    //for Rematch
 
     public void OnRematchButtonClick()
     {
@@ -296,8 +481,10 @@ public class TheGame : NetworkBehaviour
         }
         if (IsHardMode.Value == true)
         {
-            TheGame.instance.currentMission = ClientController.instance.AddRandomMissionToGame();
+            currentMission = ClientController.instance.AddRandomMissionToGame();
         }
+
+      
 
         rematchTimerSlider.maxValue = 10f;
         rematchTimerSlider.value = 10f;
@@ -306,9 +493,11 @@ public class TheGame : NetworkBehaviour
         image1.SetActive(false);
         image2.SetActive(false);
         MainCamera.gameObject.SetActive(false);
+        GameManager.instance.scene.manualLoading();
         SceneManager.LoadScene("PCRush", LoadSceneMode.Additive);
+        OpenReadyPanel();
 
-       
+
 
 
         if (IsHost)
@@ -318,6 +507,8 @@ public class TheGame : NetworkBehaviour
             winnerClientId.Value = 0;
             hostRematchRequested.Value = false;
             clientRematchRequested.Value = false;
+            hostReadyRequested.Value = false;
+            clientReadyRequested.Value = false;
             //IsHardMode.Value = false;
             //IsNormalMode.Value = false;
             //IsEasyMode.Value = false;
@@ -331,6 +522,83 @@ public class TheGame : NetworkBehaviour
 
     }
 
+    //for Ready
+
+    public void OnReadyButtonClick()
+    {
+        if (IsHost)
+        {
+            hostReadyRequested.Value = true;
+        }
+        else
+        {
+            RequestClientReadyServerRpc();
+        }
+
+        CheckReadyStatus();
+    }
+
+
+    private void CheckReadyStatus()
+    {
+        if (hostReadyRequested.Value && clientReadyRequested.Value)
+        {
+            StartReadyNowClientRpc();
+        }
+    }
+    [ClientRpc]
+    private void StartReadyNowClientRpc(ClientRpcParams clientRpcParams = default)
+    {
+        StartReady();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void RequestClientReadyServerRpc(ServerRpcParams rpcParams = default)
+    {
+        clientReadyRequested.Value = true;
+
+        CheckReadyStatus();
+    }
+
+
+    void StartReady()
+    {
+
+
+
+        //startCountdown logic here
+        StartCountDown();
+        image1Ready.SetActive(false);
+        image2Ready.SetActive(false);
+
+
+        if (IsHost)
+        {
+
+            gameEnded.Value = false;
+            winnerClientId.Value = 0;
+            hostRematchRequested.Value = false;
+            clientRematchRequested.Value = false;
+            hostReadyRequested.Value = false;
+            clientReadyRequested.Value = false;
+
+            //IsHardMode.Value = false;
+            //IsNormalMode.Value = false;
+            //IsEasyMode.Value = false;
+            //Easy = false;
+            //Normal = false;
+            //Hard = false;
+
+        }
+
+
+
+    }
+
+
+
+
+    //for closing
     public void OnCloseButton()
     {
         if (IsClient)
@@ -399,6 +667,8 @@ public class TheGame : NetworkBehaviour
         winnerClientId.Value = 0;
         hostRematchRequested.Value = false;
         clientRematchRequested.Value = false;
+        hostReadyRequested.Value = false;
+        clientReadyRequested.Value = false;
 
         IsHardMode.Value = false;
         IsNormalMode.Value = false;
@@ -429,6 +699,8 @@ public class TheGame : NetworkBehaviour
         winnerClientId.Value = 0;
         hostRematchRequested.Value = false;
         clientRematchRequested.Value = false;
+        hostReadyRequested.Value = false;
+        clientReadyRequested.Value = false;
 
         IsHardMode.Value = false;
         IsNormalMode.Value = false;
