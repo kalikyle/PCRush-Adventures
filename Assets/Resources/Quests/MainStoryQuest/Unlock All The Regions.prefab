@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774c4bd216254b84dbd641c92273c8f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RegionsUnlocked: 1
+  targetGameObjectName: The CPU Exchanger
