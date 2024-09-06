@@ -37,7 +37,7 @@ public class ClientController : MonoBehaviour
 
     public Missions AddRandomMissionToGame()
     {
-        int randomIndex = UnityEngine.Random.Range(0, OrderData.size);
+        int randomIndex = UnityEngine.Random.Range(0, OrderData.missionOrders.Count-1);
         Missions randomMission = OrderData.GetItemAt(randomIndex);
         //feedbackText.text = "Random mission added for hard mode.";
         return randomMission;

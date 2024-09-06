@@ -35,6 +35,7 @@ public class NewGameManager : MonoBehaviour
     public GameObject HardInstruc;
 
     private Coroutine connectionTimeoutCoroutine;
+    string hostIpAddress = "";
     void Start()
     {
         createGameButton.onClick.AddListener(CreateGame);
@@ -79,7 +80,7 @@ public class NewGameManager : MonoBehaviour
 
         NetworkManager.Singleton.StartHost();
         ResetGameState();
-        string hostIpAddress = GetLocalIPAddress();
+        hostIpAddress = GetLocalIPAddress();
         feedbackText.text = $"Creating game '{gameName}' in {gameMode} mode... Host IP: {hostIpAddress}";
         CancelButton.gameObject.SetActive(true);
         
@@ -142,8 +143,8 @@ public class NewGameManager : MonoBehaviour
 
     public void JoinGame()
     {
-        string hostIpAddress = hostIpInput.text;
-        broadcaster.BroadcastGameCancellation(hostIpAddress);
+        hostIpAddress = hostIpInput.text;
+       
 
         if (string.IsNullOrEmpty(hostIpAddress))
         {
@@ -160,6 +161,7 @@ public class NewGameManager : MonoBehaviour
 
         NetworkManager.Singleton.StartClient();
         feedbackText.text = $"Joining game at '{hostIpAddress}'...";
+        
 
         if (connectionTimeoutCoroutine != null)
         {
@@ -212,8 +214,7 @@ public class NewGameManager : MonoBehaviour
               // TheGame.instance.Easy = true;
             }
 
-
-
+            broadcaster.BroadcastGameCancellation(hostIpAddress);
             feedbackText.text = "Joined game successfully!";
             lobbyCreateButton.interactable = true;
             lobbyJoinButton.interactable = true;
@@ -224,6 +225,7 @@ public class NewGameManager : MonoBehaviour
 
     void OnServerStarted()
     {
+        
         feedbackText.text = "Game created successfully!";
     }
 

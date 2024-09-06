@@ -9,6 +9,12 @@ public class UnlockTheRegions : QuestStep
     public int RegionsUnlocked = 1;
     private int RegionsToBeUnlocked = 8;
     private int previousRegionsToBeUnlocked = 1;
+
+
+    [Header("Target GameObject Name")]
+    [SerializeField] private string targetGameObjectName;
+    private GameObject targetGameObject;
+
     async void Start()
     {
         GameManager.instance.OnRegionQuest = true;
@@ -31,7 +37,34 @@ public class UnlockTheRegions : QuestStep
         RegionsUnlocked = GameManager.instance.regionsunlocked;
         checkDialog(RegionsUnlocked);
 
-       
+
+        if (!string.IsNullOrEmpty(targetGameObjectName))
+        {
+            targetGameObject = GameObject.Find(targetGameObjectName);
+            if (targetGameObject == null)
+            {
+                Debug.LogError("Target GameObject '" + targetGameObjectName + "' not found in the scene.");
+
+            }
+        }
+        else
+        {
+            Debug.LogError("Target GameObject name is not specified in NavigateToGameObjectStep.");
+
+        }
+
+        Transform childTransform = targetGameObject.transform.Find("BoxCollideTrigger");
+
+        if (childTransform != null)
+        {
+            // Disable the child GameObject
+            childTransform.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Child GameObject with name  BoxCollideTrigger  not found.");
+        }
+
     }
 
 

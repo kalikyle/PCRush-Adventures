@@ -1262,94 +1262,184 @@ namespace Inventory
         
 
         public TMP_Text Modified;
+        public GameObject ParentCheckPanel,checkpanel, didnotpanel, congratspanel, Checkcircle, Checking, didnotmet1, didnotmet2, backbutton, congrats, congrats1;
 
 
         public void OnDoneButtonClick()
         {
-
-           
-
-                // Call the AddPCSO2List method when the button is clicked
-                //PCSO2 pcso = ConvertLastUsedItemsToPCSO2List();
-
-                PCSO2 PC = ConvertLastUsedItemsToPCSO2List();
-                this.PC = PC;
+            // Convert the last used items to PCSO2 and assign it to this.PC
+            PCSO2 PC = ConvertLastUsedItemsToPCSO2List();
+            this.PC = PC;
 
             if (TheGame.instance.IsHardMode.Value == true)
             {
-                // Get the current mission's requirements
-                Missions currentMission = TheGame.instance.currentMission;
-                bool isMissionMet = true;
+                 
+                // Set the checkpanel active
+                LeanTween.scale(ParentCheckPanel, new Vector2(2.25f, 2.25f), 0.5f).setEase(LeanTweenType.easeOutCubic);
+                checkpanel.SetActive(true);
 
-                // Check if the PC meets the mission requirements
-                if (PC.Case.CaseStrength < currentMission.orders.CaseStrength)
+                // Rotate the Checkcircle and fade in the Checking text
+                LeanTween.rotateAround(Checkcircle, Vector3.forward, -360f, 3f).setLoopClamp();
+                LeanTween.scale(Checking, new Vector2(1f, 1f), 1f);
+
+                // After 3 seconds, check the mission requirements
+                LeanTween.delayedCall(3f, () =>
                 {
-                    isMissionMet = false;
-                }
+                    
+                    // Get the current mission's requirements
+                    Missions currentMission = TheGame.instance.currentMission;
+                    bool isMissionMet = true;
 
-                if (PC.Motherboard.MotherboardStrength < currentMission.orders.MotherboardStrength)
-                {
-                    isMissionMet = false;
-                }
+                    // Check if the PC meets the mission requirements
+                    if (PC.Case.CaseStrength < currentMission.orders.CaseStrength) { isMissionMet = false; }
+                    if (PC.Motherboard.MotherboardStrength < currentMission.orders.MotherboardStrength) { isMissionMet = false; }
+                    if (PC.CPU.BaseSpeed < currentMission.orders.CPUBaseSpeed) { isMissionMet = false; }
+                    if (PC.RAM.Memory < currentMission.orders.RAMMemory) { isMissionMet = false; }
+                    if (PC.CPUFan.CoolingPower < currentMission.orders.CPUFanCoolingPower) { isMissionMet = false; }
+                    if (PC.GPU.ClockSpeed < currentMission.orders.GPUClockSpeed) { isMissionMet = false; }
+                    if (PC.STORAGE.Storage < currentMission.orders.Storage) { isMissionMet = false; }
+                    if (PC.PSU.WattagePower < currentMission.orders.PSUWattagePower) { isMissionMet = false; }
 
-                if (PC.CPU.BaseSpeed < currentMission.orders.CPUBaseSpeed)
-                {
-                    isMissionMet = false;
-                }
+                    if (!isMissionMet)
+                    {
+                        // Set the didnotpanel active and perform animations
+                        checkpanel.SetActive(false);
+                        didnotpanel.SetActive(true);
+                        LeanTween.scale(didnotmet1, Vector3.one, 1f).setEase(LeanTweenType.easeOutElastic);
+                        LeanTween.scale(didnotmet2, new Vector2(1f, 1f), 1f);
+                        LeanTween.scale(backbutton, Vector3.one, 1f).setDelay(1f).setEase(LeanTweenType.easeOutElastic);
+                    }
+                    else
+                    {
+                        // Set the checkpanel to inactive and perform congrats animations
+                        checkpanel.SetActive(false);
+                        congratspanel.SetActive(true);
+                        LeanTween.scale(congrats, Vector3.one, 0.5f).setEase(LeanTweenType.easeOutElastic);
+                        LeanTween.scale(congrats1, Vector3.one, 0.5f);
 
-                if (PC.RAM.Memory < currentMission.orders.RAMMemory)
-                {
-                    isMissionMet = false;
-                }
+                        // Call DonePC after the congrats animation
+                        LeanTween.delayedCall(1.5f, () =>
+                        {
+                            DonePC(PC);
+                            ResetUIElements();
+                        });
+                    }
 
-                if (PC.CPUFan.CoolingPower < currentMission.orders.CPUFanCoolingPower)
-                {
-                    isMissionMet = false;
-                }
-
-                if (PC.GPU.ClockSpeed < currentMission.orders.GPUClockSpeed)
-                {
-                    isMissionMet = false;
-                }
-
-                if (PC.STORAGE.Storage < currentMission.orders.Storage)
-                {
-                    isMissionMet = false;
-                }
-
-                if (PC.PSU.WattagePower < currentMission.orders.PSUWattagePower)
-                {
-                    isMissionMet = false;
-                }
-
-                // If all requirements are met, execute DonePC(PC)
-                if (isMissionMet)
-                {
-                    DonePC(PC);
-                }
-                else
-                {
-                    // Handle the case where requirements are not met
-                    GameManager2.Instance.TryAgainPanel.SetActive(true);
-
-                    Debug.Log("PC does not meet the mission requirements.");
-                }
-
-
+                });
 
             }
-            else
-            {
+            else {
 
                 //for normal and easy mode
                 DonePC(PC);
 
             }
-           
-            
-
-            
         }
+
+        public void ResetUIElements()
+        {
+            // Reset panels
+            checkpanel.SetActive(false);
+            didnotpanel.SetActive(false);
+            congratspanel.SetActive(false);
+
+            LeanTween.scale(ParentCheckPanel, new Vector2(0f, 2.25f), 0.5f).setEase(LeanTweenType.easeOutCubic);
+            // Reset scaling and alpha of elements
+            Checkcircle.transform.rotation = Quaternion.identity; // Reset rotation
+            LeanTween.cancel(Checkcircle); // Stop any ongoing rotation
+            LeanTween.scale(Checking, Vector2.zero, 0f); // Reset Checking text alpha
+
+            didnotmet1.transform.localScale = Vector3.zero; // Reset scale
+            didnotmet2.transform.localScale = Vector3.zero; ; // Reset alpha
+            backbutton.transform.localScale = Vector3.zero; // Reset scale
+
+            congrats.transform.localScale = Vector3.zero; // Reset scale
+            congrats1.transform.localScale = Vector3.zero; // Reset alpha
+
+        }
+
+        //public void OnDoneButtonClick()
+        //{
+
+        //        // Call the AddPCSO2List method when the button is clicked
+        //        //PCSO2 pcso = ConvertLastUsedItemsToPCSO2List();
+
+        //        PCSO2 PC = ConvertLastUsedItemsToPCSO2List();
+        //        this.PC = PC;
+
+        //    if (TheGame.instance.IsHardMode.Value == true)
+        //    {
+        //        // Get the current mission's requirements
+        //        Missions currentMission = TheGame.instance.currentMission;
+        //        bool isMissionMet = true;
+
+        //        // Check if the PC meets the mission requirements
+        //        if (PC.Case.CaseStrength < currentMission.orders.CaseStrength)
+        //        {
+        //            isMissionMet = false;
+        //        }
+
+        //        if (PC.Motherboard.MotherboardStrength < currentMission.orders.MotherboardStrength)
+        //        {
+        //            isMissionMet = false;
+        //        }
+
+        //        if (PC.CPU.BaseSpeed < currentMission.orders.CPUBaseSpeed)
+        //        {
+        //            isMissionMet = false;
+        //        }
+
+        //        if (PC.RAM.Memory < currentMission.orders.RAMMemory)
+        //        {
+        //            isMissionMet = false;
+        //        }
+
+        //        if (PC.CPUFan.CoolingPower < currentMission.orders.CPUFanCoolingPower)
+        //        {
+        //            isMissionMet = false;
+        //        }
+
+        //        if (PC.GPU.ClockSpeed < currentMission.orders.GPUClockSpeed)
+        //        {
+        //            isMissionMet = false;
+        //        }
+
+        //        if (PC.STORAGE.Storage < currentMission.orders.Storage)
+        //        {
+        //            isMissionMet = false;
+        //        }
+
+        //        if (PC.PSU.WattagePower < currentMission.orders.PSUWattagePower)
+        //        {
+        //            isMissionMet = false;
+        //        }
+
+        //        // If all requirements are met, execute DonePC(PC)
+        //        if (isMissionMet)
+        //        {
+        //            DonePC(PC);
+        //        }
+        //        else
+        //        {
+        //            // Handle the case where requirements are not met
+        //            GameManager2.Instance.TryAgainPanel.SetActive(true);
+
+        //            Debug.Log("PC does not meet the mission requirements.");
+        //        }
+
+
+
+        //    }
+        //    else
+        //    {
+
+        //        //for normal and easy mode
+        //        DonePC(PC);
+
+        //    }
+
+
+        //}
 
         public void DonePC(PCSO2 PC)
         {
