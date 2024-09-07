@@ -71,6 +71,10 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             StartCoroutine(HealthRegenCoroutine(health));
             //StartCoroutine(ArmorRegenCoroutine(armor));
         }
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
 
         private void Update()
         {
@@ -192,9 +196,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 {
                     isDead = true;
                     //enemyCollider.isTrigger = true;
-                    
-                    r2d.bodyType = RigidbodyType2D.Static;
                     _animator.SetBool("Dead", true);
+                    r2d.bodyType = RigidbodyType2D.Static;
                     triggerDied();
                 }
             }
@@ -204,8 +207,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         {
            if(isDeadAnimate == false)
             {
-                GameManager.instance.LTA.YouDied();
                 isDeadAnimate = true;
+                GameManager.instance.LTA.YouDied();
                 HandleDeath();
             }
         }
@@ -413,15 +416,18 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 armor.currentArmor = armor.maxArmor; // Restore armor
             }
 
-            //Reset animator parameters
-            //_animator.ResetTrigger("Dead");
-           
-            //_animator.SetBool("Walking", false);
+          
             //_animator.SetBool("Running", false);
-            isDeadAnimate = false;
+           
+            _animator.SetBool("Dead", false);
+
 
             await Task.Delay(2000);
-            _animator.SetTrigger("Jab");
+            //Reset animator parameters
+           
+            _animator.SetBool("Idle", true);
+            isDeadAnimate = false;
+            //_animator.SetTrigger("Jab");
         }
 
         public void ResetMovement()

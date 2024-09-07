@@ -29,6 +29,8 @@ public class NewGameManager : MonoBehaviour
     public GameBroadcaster broadcaster;
     public UnityTransport transport;
 
+    public GameObject JoinPanel;
+
 
     public GameObject EasyInstruc;
     public GameObject NormalInstruc;
@@ -213,9 +215,10 @@ public class NewGameManager : MonoBehaviour
             
               // TheGame.instance.Easy = true;
             }
-
+            
             broadcaster.BroadcastGameCancellation(hostIpAddress);
             feedbackText.text = "Joined game successfully!";
+            JoinPanel.SetActive(false);
             lobbyCreateButton.interactable = true;
             lobbyJoinButton.interactable = true;
             CancelButton.gameObject.SetActive(false);

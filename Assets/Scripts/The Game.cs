@@ -36,6 +36,8 @@ public class TheGame : NetworkBehaviour
     public GameObject two;
     public GameObject one;
     public GameObject Build;
+
+    
     //public bool Easy = false;
     //public bool Normal = false;
     //public bool Hard = false;
@@ -337,9 +339,10 @@ public class TheGame : NetworkBehaviour
         winnerClientId.Value = clientId;
 
     }
-
+    public GameObject resText, resText2, ResPCImage, closebtn, rembtn, circling1, imagerem1, imagerem2; 
     void ShowResult(string result, string resultfeed)
     {
+        
         MainCamera.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync("PCRush");
         resultPanel.SetActive(true);
@@ -348,6 +351,64 @@ public class TheGame : NetworkBehaviour
         image1.SetActive(false);
         image2.SetActive(false);
 
+        //leantween animate
+
+        // Start rotating circling1 to the right
+        LeanTween.rotateAround(circling1, Vector3.forward, -360f, 5f).setLoopClamp();
+
+        // Scale resText to 1 (cubic ease)
+        LeanTween.delayedCall(1f, () =>
+        {
+            LeanTween.scale(resText, new Vector2(3.6f, 3.6f), 2f).setEase(LeanTweenType.easeInOutCubic).setOnComplete(() =>
+            {
+                // Scale resText2 to 1 (cubic ease)
+                LeanTween.scale(resText2, new Vector2(3.6f, 3.6f), 0.5f).setEase(LeanTweenType.easeInOutCubic).setOnComplete(() =>
+                {
+                    // Alpha the ResPCImage to 1
+                    LeanTween.alpha(ResPCImage.GetComponent<RectTransform>(), 1f, 0.5f).setOnComplete(() =>
+                    {
+                        // Wait for 1 second
+                        LeanTween.delayedCall(1f, () =>
+                        {
+                            // Scale closebtn to 1 (elastic ease)
+                            LeanTween.scale(closebtn, new Vector2(1.2f,1.2f), 0.5f).setEase(LeanTweenType.easeOutElastic);
+
+                            // Scale rembtn to 1 (elastic ease)
+                            LeanTween.scale(rembtn, new Vector2(1.2f, 1.2f), 0.5f).setEase(LeanTweenType.easeOutElastic).setOnComplete(() =>
+                            {
+                                // Alpha imagerem1 to 1
+                                LeanTween.alpha(imagerem1.GetComponent<RectTransform>(), 1f, 0.5f);
+
+                                // Alpha imagerem2 to 1
+                                LeanTween.alpha(imagerem2.GetComponent<RectTransform>(), 1f, 0.5f);
+                            });
+                        });
+                    });
+                });
+            });
+        });
+
+    }
+
+    public void ResetUIElements()
+    {
+        // Reset the scale of the text elements
+        resText.transform.localScale = Vector3.zero;
+        resText2.transform.localScale = Vector3.zero;
+
+        // Reset the alpha of the images
+        LeanTween.alpha(ResPCImage.GetComponent<RectTransform>(), 0f, 0.5f);
+        LeanTween.alpha(imagerem1.GetComponent<RectTransform>(), 0f, 0.5f);
+        LeanTween.alpha(imagerem2.GetComponent<RectTransform>(), 0f, 0.5f);
+
+        // Reset the scale of the buttons
+        closebtn.transform.localScale = Vector3.zero;
+        rembtn.transform.localScale = Vector3.zero;
+
+        // Stop any rotations
+        LeanTween.cancel(circling1);
+        circling1.transform.rotation = Quaternion.identity;
+       
     }
 
 
@@ -484,8 +545,8 @@ public class TheGame : NetworkBehaviour
             currentMission = ClientController.instance.AddRandomMissionToGame();
         }
 
-      
 
+        ResetUIElements();
         rematchTimerSlider.maxValue = 10f;
         rematchTimerSlider.value = 10f;
         // Restart the game (reload the scene)
@@ -601,6 +662,7 @@ public class TheGame : NetworkBehaviour
     //for closing
     public void OnCloseButton()
     {
+        ResetUIElements();
         if (IsClient)
         {
             NotifyClientDisconnectServerRpc(NetworkManager.Singleton.LocalClientId);
@@ -612,26 +674,26 @@ public class TheGame : NetworkBehaviour
             NotifyHostDisconnectServerRpc();
         }
     }
-    private void OnApplicationQuit()
-    {
-        // Debug.LogError("quitssss");
-        //
-        try
-        {
+    //private void OnApplicationQuit()
+    //{
+    //    // Debug.LogError("quitssss");
+    //    //
+    //    try
+    //    {
 
-            if (InGame.Value == true)
-            {
-                OnSurrenderButtonClick();
-            }
-            else
-            {
-                OnCloseButton();
-            }
-        }
-        catch { }
+    //        if (InGame.Value == true)
+    //        {
+    //            OnSurrenderButtonClick();
+    //        }
+    //        else
+    //        {
+    //            OnCloseButton();
+    //        }
+    //    }
+    //    catch { }
 
 
-    }
+    //}
 
     public void Update()
     {
