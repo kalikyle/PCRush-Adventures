@@ -21,7 +21,7 @@ public class ResoControl : MonoBehaviour
         resoDropdown.ClearOptions();
         currentRefreshrate = Screen.currentResolution.refreshRate;
 
-        Debug.Log("RefreshRate: " + currentRefreshrate);
+        //Debug.Log("RefreshRate: " + currentRefreshrate);
 
         for (int i = 0; i < resolutions.Length; i++)
         {

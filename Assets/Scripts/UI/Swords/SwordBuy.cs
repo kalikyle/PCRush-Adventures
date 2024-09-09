@@ -19,7 +19,7 @@ public class SwordBuy : MonoBehaviour
     public Swords.Model.SwordItemsSO so;
     public OWInvSO data;
     public Button buyButton;
-    private int value = 1;
+    //private int value = 1;
     public List<Swords.Model.Swords> filteredItems;
     private Dictionary<int, int> tempToOriginalIndexMapping = new Dictionary<int, int>();
 

@@ -338,7 +338,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
 
         public void UnloadThisScene()
         {
-
+            //FOR CHAR EDIT
             if(GameManager.instance.OpenEditor == true)
             {
                 SceneManager.UnloadSceneAsync(1);

@@ -8,6 +8,7 @@ using static Decoration.Model.DecorSO;
 
 public class QuestLogUI : MonoBehaviour
 {
+    public static QuestLogUI instance;
     [Header("Components")]
     [SerializeField] private GameObject contentParent;
 
@@ -43,21 +44,31 @@ public class QuestLogUI : MonoBehaviour
 
     public void Start()
     {
-        GameManager.instance.questEvents.onQuestStateChange += QuestStateChange;
-        GameManager.instance.questEvents.onQuestStateChange += SetQuestLogInfo;
-        GameManager.instance.questEvents.onQuestStateChange += UpdateQuestStepUI;
 
-        
+
+        OnStart();
 
     }
+    public void Awake()
+    {
+        instance = this;
+    }
+
 
     public void Update()
     {
         
     }
-    private void OnDisable()
+    public void OnDisable()
     {
        GameManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
+    }
+
+    public void OnStart()
+    {
+        GameManager.instance.questEvents.onQuestStateChange += QuestStateChange;
+        GameManager.instance.questEvents.onQuestStateChange += SetQuestLogInfo;
+        GameManager.instance.questEvents.onQuestStateChange += UpdateQuestStepUI;
     }
 
     //public void UpdateQuest(Quest quest)

@@ -8,7 +8,7 @@ using static Decoration.Model.DecorSO;
 
 public class QuestManager : MonoBehaviour
 {
-
+    public static QuestManager Instance;
     [Header("Config")]
     [SerializeField] private bool LoadQuestState = true;
     private Dictionary<string, Quest> questMap;
@@ -18,7 +18,7 @@ public class QuestManager : MonoBehaviour
     {
         
        
-
+        Instance = this;
         //Quest quest = GetQuestId("PackageQuest");
         //Debug.Log(quest.info.displayName);
         //Debug.Log(quest.info.levelRequirement);
@@ -28,16 +28,16 @@ public class QuestManager : MonoBehaviour
   
     private void OnEnable()
     {
-       
+        GameManager.instance.questEvents.onStartQuest += StartQuest;
+        GameManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
+        GameManager.instance.questEvents.onFinishQuest += FinishQuest;
+        GameManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
     }
 
-    public void GetPlayerLevel()
-    {
-        //PlayerLevel = GameManager.instance.PlayerLevel;
-    }
+    
     public void Update()
     {
-        GetPlayerLevel();
+       // GetPlayerLevel();
 
         try
         {
@@ -85,6 +85,7 @@ public class QuestManager : MonoBehaviour
 
     private async void Start()
     {
+        await Task.Delay(1000);
         questMap = await CreateQuestMap();
 
         GameManager.instance.questEvents.onStartQuest += StartQuest;
@@ -162,20 +163,22 @@ public class QuestManager : MonoBehaviour
 
     private async Task<Dictionary<string, Quest>> CreateQuestMap()
     {
-        QuestInfoSO[] allquest = Resources.LoadAll<QuestInfoSO>("Quests");
+       
+            QuestInfoSO[] allquest = Resources.LoadAll<QuestInfoSO>("Quests");
 
-        Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
+            Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
 
-        foreach(QuestInfoSO questInfo in allquest)
-        {
-            if (idToQuestMap.ContainsKey(questInfo.id))
+            foreach (QuestInfoSO questInfo in allquest)
             {
-                Debug.LogWarning("Duplicated ID!");
+                if (idToQuestMap.ContainsKey(questInfo.id))
+                {
+                    Debug.LogWarning("Duplicated ID!");
+                }
+                Quest quest = await LoadQuest(questInfo);
+                idToQuestMap.Add(questInfo.id, quest);
             }
-            Quest quest = await LoadQuest(questInfo);
-            idToQuestMap.Add(questInfo.id, quest);
-        }
-        return idToQuestMap;
+            return idToQuestMap;
+        
     }
 
     private Quest GetQuestId(string id)
@@ -286,9 +289,12 @@ public class QuestManager : MonoBehaviour
         Quest quest = null;
         try
         {
+           
+            await Task.Delay(2000);
             if (GameManager.instance.UserID == "")
             {
-                Debug.LogWarning("new User " + questInfo.id);
+                
+                //Debug.LogWarning("new User " + questInfo.id);
                 // Create a new quest if the document does not exist
                 quest = new Quest(questInfo);
             }
@@ -329,5 +335,62 @@ public class QuestManager : MonoBehaviour
         return quest;
     }
 
-    
+    public void ResetQuests()
+    {
+        // Unsubscribe from all events
+        OnDisable();
+
+        // Clear the quest map
+        questMap.Clear();
+
+       
+    }
+
+    public async Task LoadQuestsForNewUser()
+    {
+        // Ensure the UserID is correctly reset or set for new user scenarios
+        if (string.IsNullOrEmpty(GameManager.instance.UserID))
+        {
+            Debug.LogWarning("UserID is empty, cannot load quests.");
+            return;
+        }
+
+        // Reset the quest manager for the new user
+        OnDisable();
+        // Load quests for the new user
+        questMap = await CreateQuestMap();
+       
+        OnEnable();
+        // Re-subscribe to the events
+
+
+        // Reinitialize quests
+        await Task.Delay(500);
+        foreach (Quest quest in questMap.Values)
+        {
+            if (quest.state == QuestState.IN_PROGRESS)
+            {
+                quest.InstantiateCurrentQuestStep(this.transform);
+            }
+            else if (quest.state == QuestState.FINISHED)
+            {
+                GameManager.instance.PlayerDeskRoom.SetActive(true);
+                GameManager.instance.BuildingDesk.SetActive(true);
+                GameManager.instance.HouseDoor.SetActive(true);
+                GameManager.instance.packagescollected = 8;
+
+                GameManager.instance.QuestUI.gameObject.SetActive(false);
+            }
+
+            GameManager.instance.questEvents.QuestStateChange(quest);
+        }
+    }
+    //public async void OnUserChanged()
+    //{
+    //    // Assume the user has already been changed in GameManager
+    //    questMap.Clear();
+    //    await LoadQuestsForNewUser();
+
+    //}
+
 }

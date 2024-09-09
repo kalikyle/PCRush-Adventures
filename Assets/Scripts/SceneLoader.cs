@@ -77,9 +77,6 @@ public class SceneLoader : MonoBehaviour
         loadingslider.value = 0;
         GameManager.instance.LTA.OpenTeleAnim();
     }
-    
-
-    
 
     // Update is called once per frame
     void Update()

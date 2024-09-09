@@ -11,7 +11,7 @@ public class HelmetBuy : MonoBehaviour
     public Helmets.Model.HelmetItemSO so;
     public OWInvSO data;
     public Button buyButton;
-    private int value = 1;
+    //private int value = 1;
     public List<Helmets.Model.Helmets> filteredItems;
 
     public void Start()
