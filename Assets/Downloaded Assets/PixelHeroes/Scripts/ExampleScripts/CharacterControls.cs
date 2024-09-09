@@ -44,7 +44,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private bool canAttack = true;
         private bool canMove = true;
         private bool canRun = true;
-        private bool moving = false;
+        //private bool moving = false;
 
         private string[] attackAnimations = { "Slash", "Attack", "Jab"};
 
@@ -441,7 +441,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 _animator.SetBool(attackAnimation, false);
             }
             _input = Vector2.zero;
-            moving = false;
+           
         }
         
         private void Move(Vector2 movement)
@@ -455,7 +455,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             _animator.SetBool("Idle", false);
             _animator.SetBool("Walking", true);
             _animator.SetBool("Running", false); ;
-            moving = true;
+            
 
         }
 
@@ -543,7 +543,10 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             }
         }
 
+
     }
 
+
+   
    
 }

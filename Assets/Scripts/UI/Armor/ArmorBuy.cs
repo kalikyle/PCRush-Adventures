@@ -12,7 +12,7 @@ public class ArmorBuy : MonoBehaviour
     public Armor.Model.ArmorItemsSO so;
     public OWInvSO data;
     public Button buyButton;
-    private int value = 1;
+    //private int value = 1;
     public List<Armor.Model.Armors> filteredItems;
 
     public void Start()

@@ -52,7 +52,6 @@ public class TalkToIan : QuestStep
         GameManager.instance.HasInitialize = true;
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
-
         DialogueManager.GetInstance().talktoBTN.onClick.AddListener(OnTalkButtonClick);
 
 

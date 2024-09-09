@@ -408,7 +408,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
                 {
                     if (task.IsCompleted)
                     {
-                        Debug.Log("Character data saved to Firestore.");
+                        //Debug.Log("Character data saved to Firestore.");
                     }
                     else if (task.IsFaulted)
                     {
@@ -467,7 +467,7 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
                                     Rebuild();
                                     CombineHeadAndHairSprites();
 
-                                    Debug.Log("Character data loaded from Firestore.");
+                                    //Debug.Log("Character data loaded from Firestore.");
                                 }
                                 else
                                 {

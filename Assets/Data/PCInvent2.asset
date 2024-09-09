@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PCInvent2
   m_EditorClassIdentifier: 
   ComputerItems: []
-  <Size>k__BackingField: 10
+  <Size>k__BackingField: 100

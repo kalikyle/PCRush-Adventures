@@ -390,6 +390,121 @@ public class GameManager : MonoBehaviour
 
     public Dictionary<string, string> DefaultCharacter = new Dictionary<string, string>();
 
+    public void ResetPlayer()
+    {
+        UserID = string.Empty;
+        PlayerName = string.Empty;
+        CurrentNPC = string.Empty;
+
+        PlayerName = "";
+    PlayerMoney = 0;
+    PlayerGems = 0;
+   PlayerLevel = 1;
+   PlayerExpToLevelUp = 20;
+   PlayerEXP = 0;
+
+    //player base stats
+    PlayerAttackDamage = 1;
+    PlayerHealth = 100;
+    PlayerMana = 100;
+    PlayerHealthRegen = 1;
+    PlayerWalkSpeed = 1;
+   PlayerArmor = 50;
+   PlayerManaRegen = 1;
+    PlayerCriticalChance = 1;
+
+    //player PC stats
+     PlayerPCAttackDamage = 0;
+  PlayerPCHealth = 0;
+  PlayerPCMana = 0;
+   PlayerPCHealthRegen = 0;
+   PlayerPCWalkSpeed = 0;
+   PlayerPCArmor = 0;
+  PlayerPCManaRegen = 0;
+    PlayerPCCriticalChance = 0;
+
+    //player Total Stats
+   PlayerTotalAttackDamage = 1;
+   PlayerTotalHealth = 100;
+   PlayerTotalMana = 100;
+    PlayerTotalHealthRegen = 1;
+PlayerTotalWalkSpeed = 1;
+    PlayerTotalArmor = 50;
+    PlayerTotalManaRegen = 1;
+    PlayerTotalCriticalChance = 1;
+
+
+   EquipmentAttackDamage = 0;
+   EquipmentMana = 0;
+  EquipmentArmor = 0;
+   EquipmentHealth = 0;
+   EquipmentHealthRegen = 0;
+    EquipmentManaRegen = 0;
+    EquipmentCriticalChance = 0;
+
+       UIExplore.SetActive(false);
+
+    // Reset booleans
+        HasOpened = true;
+        isEditing = false;
+        clicked = false;
+        OpenEditor = false;
+        BeenModified = false;
+
+        InHomeWorld = true;
+        CutScene2Open = false;
+        OnBuildingQuest = false;
+        DoneRename = false;
+        ComputerPlaced = false;
+        OnGoToDeskQuest = false;
+        GoDownStairsQuest = false;
+        DoneDownStairsQuets = false;
+        OnGoToDeskQuestAgain = false;
+        OntheDesk = false;
+        OnTurnOnQuest = false;
+        PCTurnOn = false;
+        OnExploreDesktopQuest = false;
+        OnExploreDeskDone = false;
+        OnCutScene7Open = false;
+        OnBuySwordQuest = false;
+        OnBuyDone = false;
+        OnStartFightQuest = false;
+        OnTheArea = false;
+        HordeFinished = false;
+        OnHeadBackQuest = false;
+        GoBackHomeQuest = false;
+        OnCutScene9Finish = false;
+        OnSleepQuest = false;
+        OnSleepFinish = false;
+        OnCollectCPUQuest = false;
+        CPUCollected = false;
+        OnModifyQuest = false;
+        DoneModify = false;
+        OnRegionQuest = false;
+
+
+        MinimapOpened = false;
+        HomeWorld = true;
+        CPUWorld = false;
+        RAMWorld = false;
+        CPUFWorld = false;
+        GPUWorld = false;
+        StorageWorld = false;
+        PSUWorld = false;
+        MBWorld = false;
+        CaseWorld = false;
+
+        // Clear lists
+        itemsToTransfer.Clear();
+        OWitemsToTransfer.Clear();
+        removedItemsDuringEditing.Clear();
+        DecorToTransfer.Clear();
+
+        // Clear dictionaries
+        equippedItemsByCategory.Clear();
+        DefaultCharacter.Clear();
+    }
+
 
     public void ThePlayerStats()
     {
@@ -660,7 +775,7 @@ public class GameManager : MonoBehaviour
         {
             // Save the playerName data to Firestore
             await userDocRef.SetAsync(playerNameData, SetOptions.MergeAll);
-            UnityEngine.Debug.Log("PlayerName saved successfully.");
+            //UnityEngine.Debug.Log("PlayerName saved successfully.");
         }
         catch (System.Exception ex)
         {
@@ -710,10 +825,10 @@ public class GameManager : MonoBehaviour
 
                 
             }
-            else
-            {
-                Debug.LogWarning("Document does not exist for UserID: " + userID);
-            }
+            //else
+            //{
+            //    //Debug.LogWarning("Document does not exist for UserID: " + userID);
+            //}
             ThePlayerStats();
 
         }
@@ -798,12 +913,12 @@ public class GameManager : MonoBehaviour
         
         
     }
-    public void SetUserID(string userID)
-    {
-        UserID = userID;
-        PlayerPrefs.SetString("UserID", UserID);
-        PlayerPrefs.Save();
-    }
+    //public void SetUserID(string userID)
+    //{
+    //    UserID = userID;
+    //    PlayerPrefs.SetString("UserID", UserID);
+    //    PlayerPrefs.Save();
+    //}
     public void AddItemToTransfer(DecorationItem item)
     {
        DecorToTransfer.Add(item);
@@ -1429,11 +1544,24 @@ public class GameManager : MonoBehaviour
                     //Debug.Log("Previous item deleted: " + documentSnapshot.Id);
                 }
 
+                // Serialize the item data on the main thread
+                string jsonData = null;
+                MainThreadDispatcher.Enqueue(() =>
+                {
+                    jsonData = JsonUtility.ToJson(item);
+                });
+
+                // Wait until the JSON data is ready
+                while (jsonData == null)
+                {
+                    await Task.Yield();
+                }
+
                 // Create a new document for the item
                 DocumentReference itemDocRef = itemSubcollectionRef.Document();
 
                 // Serialize the item data
-                string jsonData = JsonUtility.ToJson(item);
+                //string jsonData = JsonUtility.ToJson(item);
 
                 // Save the item data to Firestore
                 await itemDocRef.SetAsync(new Dictionary<string, object>
@@ -1475,11 +1603,24 @@ public class GameManager : MonoBehaviour
 
             await DeletePreviousInUseItem(item.item.Category, equippedItemsRef);
 
-            // Create a new document for the item
-            DocumentReference itemDocRef = itemSubcollectionRef.Document();
+                // Serialize the item data on the main thread
+                string jsonData = null;
+                MainThreadDispatcher.Enqueue(() =>
+                {
+                    jsonData = JsonUtility.ToJson(item);
+                });
+
+                // Wait until the JSON data is ready
+                while (jsonData == null)
+                {
+                    await Task.Yield();
+                }
+
+                // Create a new document for the item
+                DocumentReference itemDocRef = itemSubcollectionRef.Document();
 
             // Serialize the item data
-            string jsonData = JsonUtility.ToJson(item);
+           // string jsonData = JsonUtility.ToJson(item);
 
             // Save the item data to Firestore
             await itemDocRef.SetAsync(new Dictionary<string, object>
@@ -1523,14 +1664,15 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        //UserID = PlayerPrefs.GetString("UserID", "");
+        //ClearPlayerPrefsIfUserIDNotFound(UserID);
+
+        scene.LoadScene();
+        //SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        EnableDefault();
 
 
-       
-        UserID = PlayerPrefs.GetString("UserID", "");
-        ClearPlayerPrefsIfUserIDNotFound(UserID);
-
-       
-        Debug.Log(UserID);
+        //Debug.Log(UserID);
 
         if (partsToCollect != null)
         {
@@ -1710,8 +1852,10 @@ public class GameManager : MonoBehaviour
                     if (!snapshot.Exists)
                     {
                         // User document not found, clear player prefs
+                        FirebaseController.Instance.deleteLogin();
                         PlayerPrefs.DeleteAll();
                         UserID = "";
+                        
                         Debug.Log("PlayerPrefs cleared because userID was not found in Firestore.");
 
                         scene.LoadScene();
@@ -1735,6 +1879,9 @@ public class GameManager : MonoBehaviour
 
        
     }
+
+    
+
     public void DisableFirstall()
     {
         if (UserID != null && UserID != "" && !UserID.IsUnityNull())
@@ -1931,6 +2078,65 @@ public class GameManager : MonoBehaviour
     //        Debug.LogWarning("PartsManager or partsList is not assigned or empty.");
     //    }
     //}
+    //public async void SaveGameObjectsToFirestore(List<GameObject> gameObjects)
+    //{
+    //    try
+    //    {
+    //        // Get a reference to the Firestore document
+    //        DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection).Document(UserID);
+
+    //        // Create a reference to the subcollection for parts
+    //        CollectionReference partsCollectionRef = docRef.Collection("ToCollectPackages");
+
+    //        // Clear existing data in Firestore
+    //        await DeleteExistingParts(partsCollectionRef);
+
+    //        // Iterate over the gameObjects and save their data to Firestore
+    //        foreach (GameObject obj in gameObjects)
+    //        {
+    //            // Create a new GameObjectData instance
+    //            GameObjectData data = new GameObjectData
+    //            {
+    //                name = obj.name,
+    //                position = obj.transform.position,
+    //                parts = obj.gameObject.GetComponent<PartsCollect>().parts,
+    //                Quantity = obj.gameObject.GetComponent<PartsCollect>().Quantity,
+    //                scale = new Vector3(0.71716f, 0.71716f, 0.71716f)
+
+    //            };
+
+    //            string jsonData = null;
+    //            MainThreadDispatcher.Enqueue(() =>
+    //            {
+    //                jsonData = JsonUtility.ToJson(item);
+    //            });
+
+    //            // Wait until the JSON data is ready
+    //            while (jsonData == null)
+    //            {
+    //                await Task.Yield();
+    //            }
+    //            // Serialize the GameObjectData
+    //            //string jsonData = JsonUtility.ToJson(data);
+
+    //            // Create a new document for the GameObject
+    //            DocumentReference partDocRef = partsCollectionRef.Document();
+
+    //            // Save the serialized data to Firestore
+    //            await partDocRef.SetAsync(new Dictionary<string, object>
+    //            {
+    //                { "data", jsonData }
+    //            });
+
+    //            Debug.Log("GameObject saved to Firestore: " + obj.name);
+    //        }
+    //    }
+    //    catch (System.Exception ex)
+    //    {
+    //        Debug.LogError("Error saving GameObject to Firestore: " + ex.Message);
+    //    }
+    //}
+
     public async void SaveGameObjectsToFirestore(List<GameObject> gameObjects)
     {
         try
@@ -1947,28 +2153,40 @@ public class GameManager : MonoBehaviour
             // Iterate over the gameObjects and save their data to Firestore
             foreach (GameObject obj in gameObjects)
             {
-                // Create a new GameObjectData instance
-                GameObjectData data = new GameObjectData
+                // Create a local variable to store the JSON data
+                string jsonData = null;
+
+                // Use the dispatcher to ensure operations are on the main thread
+                MainThreadDispatcher.Enqueue(() =>
                 {
-                    name = obj.name,
-                    position = obj.transform.position,
-                    parts = obj.gameObject.GetComponent<PartsCollect>().parts,
-                    Quantity = obj.gameObject.GetComponent<PartsCollect>().Quantity,
-                    scale = new Vector3(0.71716f, 0.71716f, 0.71716f)
+                    // Create a new GameObjectData instance
+                    GameObjectData data = new GameObjectData
+                    {
+                        name = obj.name,
+                        position = obj.transform.position,
+                        parts = obj.GetComponent<PartsCollect>().parts,
+                        Quantity = obj.GetComponent<PartsCollect>().Quantity,
+                        scale = new Vector3(0.71716f, 0.71716f, 0.71716f)
+                    };
 
-                };
+                    // Serialize the GameObjectData
+                    jsonData = JsonUtility.ToJson(data);
+                });
 
-                // Serialize the GameObjectData
-                string jsonData = JsonUtility.ToJson(data);
+                // Wait until the JSON data is ready
+                while (jsonData == null)
+                {
+                    await Task.Yield();
+                }
 
                 // Create a new document for the GameObject
                 DocumentReference partDocRef = partsCollectionRef.Document();
 
                 // Save the serialized data to Firestore
                 await partDocRef.SetAsync(new Dictionary<string, object>
-                {
-                    { "data", jsonData }
-                });
+            {
+                { "data", jsonData }
+            });
 
                 Debug.Log("GameObject saved to Firestore: " + obj.name);
             }

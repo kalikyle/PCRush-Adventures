@@ -11,7 +11,7 @@ public class ShieldBuy : MonoBehaviour
     public Shield.Model.ShieldItemSO so;
     public OWInvSO data;
     public Button buyButton;
-    private int value = 1;
+    //private int value = 1;
     public List<Shield.Model.Shields> filteredItems;
 
     public void Start()
