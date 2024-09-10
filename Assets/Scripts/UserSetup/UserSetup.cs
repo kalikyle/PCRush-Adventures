@@ -155,17 +155,20 @@ public class UserSetup : MonoBehaviour
             if (!FirebaseController.Instance.isSigned)
             {
                 FirebaseController.Instance.isSigned = true;
-                
+
                 //profileUserName_Text.text = "" + user.DisplayName;
                 //profileUserEmail_Text.text = "" + user.Email;
 
                 //opengame -- HERE
                 //OpenProfilePanel();
                 //SIGNED
+                QuestManager.Instance.ForExistingUsers();
+                await Task.Delay(1500);
                 UnloadThisScene();
                 GameManager.instance.scene.manualLoading();
-                await Task.Delay(1000);
+                await Task.Delay(1500);
                 GameManager.instance.AtTheStart();
+                
                 //GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
             }
         }

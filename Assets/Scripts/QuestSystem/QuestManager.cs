@@ -26,7 +26,7 @@ public class QuestManager : MonoBehaviour
         //Debug.Log(quest.Currentstepexist());
     }
   
-    private void OnEnable()
+    private void OnEnables()
     {
         GameManager.instance.questEvents.onStartQuest += StartQuest;
         GameManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
@@ -73,7 +73,7 @@ public class QuestManager : MonoBehaviour
         return meetrequirment;
     }
 
-    private void OnDisable()
+    private void OnDisables()
     {
         GameManager.instance.questEvents.onStartQuest -= StartQuest;
         GameManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
@@ -81,39 +81,48 @@ public class QuestManager : MonoBehaviour
         GameManager.instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
     }
 
-    
 
-    private async void Start()
+
+    private void Start()
     {
-        await Task.Delay(1000);
-        questMap = await CreateQuestMap();
-
-        GameManager.instance.questEvents.onStartQuest += StartQuest;
-        GameManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
-        GameManager.instance.questEvents.onFinishQuest += FinishQuest;
-        GameManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
-
-        foreach (Quest quest in questMap.Values)
-        {
-
-            if (quest.state == QuestState.IN_PROGRESS)
-            {
-                quest.InstantiateCurrentQuestStep(this.transform);
-            }
-            else if (quest.state == QuestState.FINISHED)
-            {
-                GameManager.instance.PlayerDeskRoom.SetActive(true);
-                GameManager.instance.BuildingDesk.SetActive(true);
-                GameManager.instance.HouseDoor.SetActive(true);
-                GameManager.instance.packagescollected = 8;
+        OnEnables();
 
 
-                GameManager.instance.QuestUI.gameObject.SetActive(false);
-                // need to have this in the rest of the quest step
-            }
+        //await Task.Delay(1000);
+        //if (GameManager.instance.UserID == "")
+        //{
+        //    ForNewUsers();
+        //}
 
-            GameManager.instance.questEvents.QuestStateChange(quest);
-        }
+        //await Task.Delay(1000);
+        //questMap = await CreateQuestMap();
+
+        //GameManager.instance.questEvents.onStartQuest += StartQuest;
+        //GameManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
+        //GameManager.instance.questEvents.onFinishQuest += FinishQuest;
+        //GameManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
+
+        //foreach (Quest quest in questMap.Values)
+        //{
+
+        //    if (quest.state == QuestState.IN_PROGRESS)
+        //    {
+        //        quest.InstantiateCurrentQuestStep(this.transform);
+        //    }
+        //    else if (quest.state == QuestState.FINISHED)
+        //    {
+        //        GameManager.instance.PlayerDeskRoom.SetActive(true);
+        //        GameManager.instance.BuildingDesk.SetActive(true);
+        //        GameManager.instance.HouseDoor.SetActive(true);
+        //        GameManager.instance.packagescollected = 8;
+
+
+        //        GameManager.instance.QuestUI.gameObject.SetActive(false);
+        //        // need to have this in the rest of the quest step
+        //    }
+
+        //    GameManager.instance.questEvents.QuestStateChange(quest);
+        //}
     }
 
     private void ChangeQuestState(string id, QuestState state)
@@ -201,7 +210,12 @@ public class QuestManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        foreach(Quest quest in questMap.Values)
+        SaveQuests();
+    }
+
+    public void SaveQuests()
+    {
+        foreach (Quest quest in questMap.Values)
         {
             SaveQuest(quest);
 
@@ -335,37 +349,101 @@ public class QuestManager : MonoBehaviour
         return quest;
     }
 
-    public void ResetQuests()
-    {
-        // Unsubscribe from all events
-        OnDisable();
+    //public void ResetQuests()
+    //{
+    //    // Unsubscribe from all even
+    //    OnDisables();
+        
+    //    // Clear the quest map
+    //    questMap.Clear();
 
-        // Clear the quest map
-        questMap.Clear();
+    //    Debug.LogError("questmapCleared");
+
 
        
-    }
+    //}
 
-    public async Task LoadQuestsForNewUser()
+    //public async Task LoadQuestsForNewUser()
+    //{
+    //    // Ensure the UserID is correctly reset or set for new user scenarios
+    //    if (string.IsNullOrEmpty(GameManager.instance.UserID))
+    //    {
+    //        Debug.LogError("UserID is empty, cannot load quests.");
+    //        return;
+    //    }
+
+        
+    //    OnEnables();
+
+    //    Debug.LogError("questmapCreated");
+    //    // Load quests for the new user
+    //    questMap = await CreateQuestMap();
+        
+    //    // Re-subscribe to the events
+
+
+    //    // Reinitialize quests
+    //    await Task.Delay(500);
+    //    foreach (Quest quest in questMap.Values)
+    //    {
+    //        if (quest.state == QuestState.IN_PROGRESS)
+    //        {
+    //            quest.InstantiateCurrentQuestStep(this.transform);
+    //        }
+    //        else if (quest.state == QuestState.FINISHED)
+    //        {
+    //            GameManager.instance.PlayerDeskRoom.SetActive(true);
+    //            GameManager.instance.BuildingDesk.SetActive(true);
+    //            GameManager.instance.HouseDoor.SetActive(true);
+    //            GameManager.instance.packagescollected = 8;
+
+    //            GameManager.instance.QuestUI.gameObject.SetActive(false);
+    //        }
+
+    //        GameManager.instance.questEvents.QuestStateChange(quest);
+    //    }
+    //}
+
+    public async void ForExistingUsers()
     {
         // Ensure the UserID is correctly reset or set for new user scenarios
         if (string.IsNullOrEmpty(GameManager.instance.UserID))
         {
-            Debug.LogWarning("UserID is empty, cannot load quests.");
+            Debug.LogError("UserID is empty, cannot load quests.");
             return;
         }
-
-        // Reset the quest manager for the new user
-        OnDisable();
+       
         // Load quests for the new user
         questMap = await CreateQuestMap();
-       
-        OnEnable();
         // Re-subscribe to the events
+        foreach (Quest quest in questMap.Values)
+        {
+            if (quest.state == QuestState.IN_PROGRESS)
+            {
+                quest.InstantiateCurrentQuestStep(this.transform);
+            }
+            else if (quest.state == QuestState.FINISHED)
+            {
+                GameManager.instance.PlayerDeskRoom.SetActive(true);
+                GameManager.instance.BuildingDesk.SetActive(true);
+                GameManager.instance.HouseDoor.SetActive(true);
+                GameManager.instance.packagescollected = 8;
 
+                GameManager.instance.QuestUI.gameObject.SetActive(false);
+            }
 
-        // Reinitialize quests
-        await Task.Delay(500);
+            GameManager.instance.questEvents.QuestStateChange(quest);
+        }
+    }
+
+    public async void ForNewUsers()
+    {
+        // Ensure the UserID is correctly reset or set for new user scenario
+        //Debug.LogError("questmapCreated");
+        // Load quests for the new user
+        questMap = await CreateQuestMap();
+
+        // Re-subscribe to the events
         foreach (Quest quest in questMap.Values)
         {
             if (quest.state == QuestState.IN_PROGRESS)

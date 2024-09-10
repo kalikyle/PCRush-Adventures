@@ -59,9 +59,11 @@ public class QuestLogUI : MonoBehaviour
     {
         
     }
-    public void OnDisable()
+    public void OnDisables()
     {
-       GameManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
+        GameManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
+        GameManager.instance.questEvents.onQuestStateChange -= SetQuestLogInfo;
+        GameManager.instance.questEvents.onQuestStateChange -= UpdateQuestStepUI;
     }
 
     public void OnStart()
@@ -76,12 +78,11 @@ public class QuestLogUI : MonoBehaviour
     //   SetQuestLogInfo(quest);
     //}
 
-    private void QuestStateChange(Quest quest)
+    public void QuestStateChange(Quest quest)
     {
-        QuestLogButton questLogButton = scrollinglist.CreateButtonIfNotExists(quest, () => { 
-             SetQuestLogInfo(quest);
-            
-
+        QuestLogButton questLogButton = scrollinglist.CreateButtonIfNotExists(quest, () => {
+            SetQuestLogInfo(quest);
+            //UpdateQuestStepUI(quest);
         });
 
         if (firstselectedButton == null)
@@ -124,17 +125,19 @@ public class QuestLogUI : MonoBehaviour
 
 
 
-    private void SetQuestLogInfo(Quest quest)
+    public void SetQuestLogInfo(Quest quest)
     {
-        
-        questDisplayNameText.text = quest.info.displayName;
-        
-
-      
-        questStatusText.text = quest.GetFullStatusText();
-
         List<string> list = new List<string>();
         list = quest.Steps;
+        if (quest == null)
+        {
+            Debug.LogError("quest is null");
+        }
+
+        questDisplayNameText.text = quest.info.displayName;
+
+
+        questStatusText.text = quest.GetFullStatusText();
 
         foreach (Transform child in scrollViewContent)
         {
@@ -144,6 +147,7 @@ public class QuestLogUI : MonoBehaviour
         // Instantiate a new prefab for each step in the list
         foreach (string step in list)
         {
+            //Debug.LogError(step);
             GameObject stepObj = Instantiate(questStepPrefab, scrollViewContent);
             TMP_Text stepText = stepObj.GetComponentInChildren<TMP_Text>();
 
