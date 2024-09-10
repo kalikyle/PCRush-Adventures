@@ -219,26 +219,32 @@ public class FirebaseController : MonoBehaviour
             Firebase.Auth.FirebaseUser newUser = task.Result.User;
             //Debug.LogFormat("Firebase user created successfully: {0} ({1})",
             //newUser.DisplayName, newUser.UserId);
-            CreateUserDataCollection(user.UserId);
             GameManager.instance.UserID = user.UserId;
-            //GameManager.instance.SetUserID(user.UserId);
-            QuestManager.Instance.ForNewUsers();
-            GameManager.instance.SaveSoldItems();
-            GameManager.instance.SaveCharInfo(user.UserId, "Player1");
-            //await Task.Delay(1000);
-            GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
-            //UserSetup.instance.OpenCharEditor();
-            await Task.Delay(1000);
-            GameManager.instance.PartsController.LoadPartsItems();
-
+            CreateUserDataCollection(user.UserId);
+            OpenNewGame();
             UpdateUserProfile();
         });
 
     }
 
+    public async void OpenNewGame()
+    {
+        //GameManager.instance.SetUserID(user.UserId);
+        GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+        QuestManager.Instance.ForNewUsers();
+        await Task.Delay(1000);
+        GameManager.instance.SaveSoldItems();
+        await Task.Delay(1000);
+        GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
+        await Task.Delay(1000);
+        GameManager.instance.PartsController.LoadPartsItems();
+        //await Task.Delay(1000);
+        //GameManager.instance.StartQuest();
+    }
+
     public void SignInUser(string email, string password)
     {
-        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(async task =>
+        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(task =>
         {
             if (task.IsCanceled)
             {
@@ -266,22 +272,24 @@ public class FirebaseController : MonoBehaviour
 
             //openTheGame --- HERE
             GameManager.instance.UserID = user.UserId;
-
+            OpenGame();
             
-            QuestManager.Instance.ForExistingUsers();
-            await Task.Delay(1000);
-            UnloadThisSceneForExist();
-            GameManager.instance.scene.manualLoading();
-            await Task.Delay(1000);
-            GameManager.instance.AtTheStart();
-            await Task.Delay(1000);
-            GameManager.instance.PartsController.LoadPartsItems();
-
 
         });
-
     }
 
+    public async void OpenGame()
+    {
+        QuestManager.Instance.ForExistingUsers();
+        await Task.Delay(1000);
+        UnloadThisSceneForExist();
+        GameManager.instance.scene.manualLoading();
+        await Task.Delay(1000);
+        GameManager.instance.AtTheStart();
+        await Task.Delay(1000);
+        GameManager.instance.PartsController.LoadPartsItems();
+
+    }
 
 
     void InitializeFirebase()
@@ -340,17 +348,6 @@ public class FirebaseController : MonoBehaviour
                     Debug.LogError("UpdateUserProfileAsync encountered an error: " + task.Exception);
                     return;
                 }
-
-                //CreateUserDataCollection(user.UserId);
-                //GameManager.instance.UserID = user.UserId;
-                ////GameManager.instance.SetUserID(user.UserId);
-                //GameManager.instance.SaveSoldItems();
-                //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
-                ////await Task.Delay(1000);
-                //GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
-                ////UserSetup.instance.OpenCharEditor();
-                //await Task.Delay(1000);
-                //GameManager.instance.PartsController.LoadPartsItems();
                
 
                 Debug.Log("User profile updated successfully.");
@@ -447,7 +444,7 @@ public class FirebaseController : MonoBehaviour
     {
 
         //Authenticate anonymously
-        FirebaseAuth.DefaultInstance.SignInAnonymouslyAsync().ContinueWithOnMainThread(task =>
+        FirebaseAuth.DefaultInstance.SignInAnonymouslyAsync().ContinueWithOnMainThread(async task =>
         {
             if (task.IsCanceled || task.IsFaulted)
             {
@@ -458,20 +455,21 @@ public class FirebaseController : MonoBehaviour
             FirebaseUser user = task.Result.User;
 
             // Automatically create a Firestore collection for the user
-
-            CreateUserDataCollection(user.UserId);
             Debug.Log("Anonymous sign-in successful! UID: " + user.UserId);
             GameManager.instance.UserID = user.UserId;
-            GameManager.instance.SaveSoldItems();
+            CreateUserDataCollection(user.UserId);
             GameManager.instance.SaveCharInfo(user.UserId, "Player1");
-            GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
             QuestManager.Instance.ForNewUsers();
+            await Task.Delay(1000);
+            GameManager.instance.SaveSoldItems();  
+            await Task.Delay(1000);
+            GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
             //UserSetup.instance.OpenCharEditor();
+            await Task.Delay(1000);
             GameManager.instance.PartsController.LoadPartsItems();
-
             //await Task.Delay(1000);
-
-
+            //GameManager.instance.StartQuest();
+            //await Task.Delay(1000);
         });
     }
 
