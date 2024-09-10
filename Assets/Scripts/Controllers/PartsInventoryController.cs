@@ -313,6 +313,12 @@ namespace PartsInventory
                     else
                     {
                         Debug.Log("No initial parts items found in Firestore for player.");
+                        initialItems.Clear();
+                        GameManager.instance.itemsToTransfer.Clear();
+
+                        inventoryData.Initialize();
+                        inventoryData.OnInventoryUpdated += UpdateInventoryUI;
+                        
                     }
                 }
                 catch (System.Exception ex)

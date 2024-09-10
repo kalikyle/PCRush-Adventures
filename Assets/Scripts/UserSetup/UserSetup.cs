@@ -179,7 +179,7 @@ public class UserSetup : MonoBehaviour
 
 
     }
-    public void OnPlayLanClick()
+    public async void OnPlayLanClick()
     {
         
         if (string.IsNullOrEmpty(GameManager.instance.UserID))
@@ -190,7 +190,10 @@ public class UserSetup : MonoBehaviour
         }
         else
         {
+            QuestManager.Instance.ForExistingUsers();
+            await Task.Delay(1500);
             UnloadThisScene();
+            await Task.Delay(1500);
             GameManager.instance.AtTheStart();
             GameManager.instance.PlayOnLanCanvas.SetActive(true);
         }
