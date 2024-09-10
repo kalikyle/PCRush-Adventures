@@ -2188,7 +2188,7 @@ PlayerTotalWalkSpeed = 1;
                 { "data", jsonData }
             });
 
-                Debug.Log("GameObject saved to Firestore: " + obj.name);
+               // Debug.Log("GameObject saved to Firestore: " + obj.name);
             }
         }
         catch (System.Exception ex)

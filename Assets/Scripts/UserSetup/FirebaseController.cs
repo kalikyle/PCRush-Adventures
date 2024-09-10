@@ -172,13 +172,10 @@ public class FirebaseController : MonoBehaviour
         auth.StateChanged -= AuthStateChange;
         auth = null;
         GameManager.instance.UserID = "";
-        //GameManager.instance.scene.ReloadScene();
         GameManager.instance.ResetPlayer();
-        //QuestManager.Instance.ResetQuests();
-        //QuestLogUI.instance.OnDisable()
         await Task.Delay(500);
         OpenLoginPanel();
-        showNotificationMessage("Goodbye", "Exiting Application... \n Wait to restart the game");
+        showNotificationMessage("Goodbye", "Logging out...\nPlease Wait to while the Game is Restarting");
         //profileUserEmail_Text.text = "";
 
         await Task.Delay(2000);
@@ -188,6 +185,26 @@ public class FirebaseController : MonoBehaviour
         Application.Quit();
 #endif
         System.Diagnostics.Process.Start(Application.dataPath.Replace("_Data", ".exe"));
+    }
+
+    public async void LogOutExit()
+    {
+        QuestManager.Instance.SaveQuests();
+        auth.SignOut();
+        isSignIn = false;
+        auth.StateChanged -= AuthStateChange;
+        auth = null;
+        GameManager.instance.UserID = "";
+        GameManager.instance.ResetPlayer();
+        await Task.Delay(500);
+        OpenLoginPanel();
+        showNotificationMessage("Goodbye", "Logging Out and Exiting the Game");
+        await Task.Delay(2000);
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
 
@@ -221,7 +238,9 @@ public class FirebaseController : MonoBehaviour
             //newUser.DisplayName, newUser.UserId);
             GameManager.instance.UserID = user.UserId;
             CreateUserDataCollection(user.UserId);
+            GameManager.instance.SaveCharInfo(user.UserId, "Player1");
             OpenNewGame();
+            await Task.Delay(1000);
             UpdateUserProfile();
         });
 
@@ -229,8 +248,6 @@ public class FirebaseController : MonoBehaviour
 
     public async void OpenNewGame()
     {
-        //GameManager.instance.SetUserID(user.UserId);
-        GameManager.instance.SaveCharInfo(user.UserId, "Player1");
         QuestManager.Instance.ForNewUsers();
         await Task.Delay(1000);
         GameManager.instance.SaveSoldItems();
@@ -273,10 +290,68 @@ public class FirebaseController : MonoBehaviour
             //openTheGame --- HERE
             GameManager.instance.UserID = user.UserId;
             OpenGame();
-            
+
 
         });
     }
+
+    //public void SignInUser(string email, string password)
+    //{
+    //    // Step 1: Authenticate with Firebase
+    //    auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(authTask =>
+    //    {
+    //        if (authTask.IsCanceled)
+    //        {
+    //            Debug.LogError("SignInWithEmailAndPasswordAsync was canceled.");
+    //            return;
+    //        }
+    //        if (authTask.IsFaulted)
+    //        {
+    //            foreach (Exception exception in authTask.Exception.Flatten().InnerExceptions)
+    //            {
+    //                Firebase.FirebaseException firebaseEx = exception as Firebase.FirebaseException;
+    //                if (firebaseEx != null)
+    //                {
+    //                    var errorCode = (AuthError)firebaseEx.ErrorCode;
+    //                    showNotificationMessage("Error", GetErrorMessage(errorCode));
+    //                }
+    //            }
+    //            return;
+    //        }
+
+    //        Firebase.Auth.FirebaseUser newUser = authTask.Result.User;
+    //        string userId = newUser.UserId;
+
+    //        // Step 2: Check if the user is already logged in on another device
+    //        var userDoc = FirebaseFirestore.DefaultInstance.Collection("users").Document(userId);
+    //        userDoc.GetSnapshotAsync().ContinueWithOnMainThread(snapshotTask =>
+    //        {
+    //            if (snapshotTask.IsCanceled || snapshotTask.IsFaulted)
+    //            {
+    //                Debug.LogError("Error checking user login status.");
+    //                showNotificationMessage("Error", "Unable to verify login status. Please try again.");
+    //                return;
+    //            }
+
+    //            var snapshot = snapshotTask.Result;
+    //            if (snapshot.Exists && snapshot.ContainsField("loggedIn"))
+    //            {
+    //                bool isLoggedIn = snapshot.GetValue<bool>("loggedIn");
+    //                if (isLoggedIn)
+    //                {
+    //                    Debug.Log("User is already logged in on another device.");
+    //                    showNotificationMessage("Error", "User is already logged in on another device.");
+    //                    return;
+    //                }
+    //            }
+
+    //                // Step 4: Proceed with opening the game
+    //                GameManager.instance.UserID = userId;
+    //                OpenGame();
+    //        });
+    //    });
+    //}
+
 
     public async void OpenGame()
     {
@@ -464,7 +539,6 @@ public class FirebaseController : MonoBehaviour
             GameManager.instance.SaveSoldItems();  
             await Task.Delay(1000);
             GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
-            //UserSetup.instance.OpenCharEditor();
             await Task.Delay(1000);
             GameManager.instance.PartsController.LoadPartsItems();
             //await Task.Delay(1000);
