@@ -79,6 +79,7 @@ public class UserSetup : MonoBehaviour
         {
             BackGround.SetActive(true);
         }
+
         GameManager.instance.HasOpened = true;
         // Assign click listeners to the sign-in buttons
         //anonymousSignInButton.onClick.AddListener(SignInAnonymously);
@@ -148,35 +149,37 @@ public class UserSetup : MonoBehaviour
 
         //}
 
-       
-
         if (FirebaseController.Instance.isSignIn)
         {
             if (!FirebaseController.Instance.isSigned)
             {
                 FirebaseController.Instance.isSigned = true;
 
-                //profileUserName_Text.text = "" + user.DisplayName;
-                //profileUserEmail_Text.text = "" + user.Email;
-
-                //opengame -- HERE
-                //OpenProfilePanel();
                 //SIGNED
+               // Debug.LogError("SCENE UNLOADEDSSSSS");
                 QuestManager.Instance.ForExistingUsers();
-                await Task.Delay(1500);
-                UnloadThisScene();
+                    await Task.Delay(1500);
+                    UnloadThisScene();
+                    GameManager.instance.scene.manualLoading();
+                    await Task.Delay(1500);
+                    GameManager.instance.AtTheStart();
+                    await Task.Delay(1500);
+                    GameManager.instance.PartsController.LoadPartsItems();
+                   
+            }
+            else
+            {
+                //during signin main menu
+                //Debug.LogError("SCENE UNLOADED");
+                SceneManager.UnloadSceneAsync(1);
                 GameManager.instance.scene.manualLoading();
-                await Task.Delay(1500);
-                GameManager.instance.AtTheStart();
-                
-                //GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
             }
         }
         else
         {
             FirebaseController.Instance.OpenLoginPanel();
         }
-
+        
 
     }
     public async void OnPlayLanClick()
@@ -190,12 +193,40 @@ public class UserSetup : MonoBehaviour
         }
         else
         {
-            QuestManager.Instance.ForExistingUsers();
-            await Task.Delay(1500);
-            UnloadThisScene();
-            await Task.Delay(1500);
-            GameManager.instance.AtTheStart();
-            GameManager.instance.PlayOnLanCanvas.SetActive(true);
+            //QuestManager.Instance.ForExistingUsers();
+            //await Task.Delay(1500);
+            //UnloadThisScene();
+            //await Task.Delay(1500);
+            //GameManager.instance.AtTheStart();
+            //await Task.Delay(1500);
+            //GameManager.instance.PartsController.LoadPartsItems();
+            //GameManager.instance.PlayOnLanCanvas.SetActive(true);
+            if (!FirebaseController.Instance.isSigned)
+            {
+                FirebaseController.Instance.isSigned = true;
+
+                //SIGNED
+                
+                QuestManager.Instance.ForExistingUsers();
+                await Task.Delay(1000);
+                UnloadThisScene();
+                GameManager.instance.scene.manualLoading();
+                GameManager.instance.PlayOnLanCanvas.SetActive(true);
+                await Task.Delay(1000);
+                GameManager.instance.AtTheStart();
+                await Task.Delay(1000);
+                GameManager.instance.PartsController.LoadPartsItems();
+                
+            }
+            else
+            {
+                //during signin main menu
+                UnloadThisScene();
+                GameManager.instance.PlayOnLanCanvas.SetActive(true);
+                //GameManager.instance.scene.manualLoading();
+            }
+
+
         }
 
     }

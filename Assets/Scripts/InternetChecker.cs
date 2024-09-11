@@ -1,47 +1,96 @@
+using Firebase;
+using Firebase.Extensions;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class InternetChecker : MonoBehaviour
 {
-    public Canvas targetGameObject; // The GameObject to set active
-
+    public GameObject targetGameObject; // The GameObject to set active
+    private bool isCheckingConnection = false;
     private void Start()
     {
-        if (targetGameObject == null)
-        {
-            Debug.LogError("Target GameObject is not assigned.");
-            return;
-        }
-
-        StartCoroutine(CheckInternetPeriodically());
+        isCheckingConnection = true;
     }
 
-  
-    private IEnumerator CheckInternetPeriodically()
+    [System.Obsolete]
+    private IEnumerator CheckInternetConnection()
     {
-        while (true)
+        // Check for internet connectivity using UnityWebRequest
+        using (UnityWebRequest www = UnityWebRequest.Get("https://www.google.com"))
         {
-            CheckInternet();
-            yield return new WaitForSeconds(3f);
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log("No internet connection.");
+                HandleConnectionLost();
+            }
+            else
+            {
+                Debug.Log("Internet connection available.");
+                //HandleConnectionAvailable();
+            }
         }
     }
 
-    private void CheckInternet()
+    [System.Obsolete]
+    private void HandleConnectionLost()
     {
-        NetworkReachability reachability = Application.internetReachability;
-        Debug.Log("Internet Reachability: " + reachability);
+        Time.timeScale = 0f;
+        targetGameObject.SetActive(true);
+        Debug.Log("Internet connection lost. Pausing game.");
 
-        if (reachability == NetworkReachability.NotReachable)
+        StartCoroutine(WaitForConnectionOrExit());
+    }
+
+    //private void HandleConnectionAvailable()
+    //{
+    //    Time.timeScale = 1f;
+    //    targetGameObject.SetActive(false);
+    //    Debug.Log("Internet connection available. Resuming game.");
+    //}
+
+    [System.Obsolete]
+    private IEnumerator WaitForConnectionOrExit()
+    {
+        float timer = 0f;
+
+        while (timer < 10f)
         {
-            targetGameObject.gameObject.SetActive(true);
-            Debug.Log("No internet connection.");
+            using (UnityWebRequest www = UnityWebRequest.Get("https://www.google.com"))
+            {
+                yield return www.SendWebRequest();
+
+                if (!(www.isNetworkError || www.isHttpError))
+                {
+                    Time.timeScale = 1f;
+                    targetGameObject.SetActive(false);
+                    Debug.Log("Internet connection restored. Resuming game.");
+                    yield break;
+                }
+            }
+
+            timer += Time.unscaledDeltaTime;
+            yield return null;
         }
-        else
+
+        Debug.Log("Connection not restored. Exiting game.");
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    [System.Obsolete]
+    private void Update()
+    {
+        if (isCheckingConnection && Time.timeScale > 0)
         {
-            targetGameObject.gameObject.SetActive(false);
-            Debug.Log("Internet connection available.");
+            StartCoroutine(CheckInternetConnection());
         }
     }
 }

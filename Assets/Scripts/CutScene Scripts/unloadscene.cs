@@ -11,8 +11,9 @@ public class unloadscene : MonoBehaviour
     public CharacterEditor charedit;
     public CharacterBuilder character;
     public UserSetup userSetup;
-    async void Start()
+    void Start()
     {
+        GameManager.instance.StartQuest();
         SceneManager.UnloadSceneAsync(1);
         GameManager.instance.LoadCharacter();
         GameManager.instance.SaveCharInfo(GameManager.instance.UserID, charedit.playerName.text);
@@ -21,8 +22,7 @@ public class unloadscene : MonoBehaviour
         userSetup.IntroCanvas.SetActive(false);
         
         GameManager.instance.scene.manualLoading();
-        await Task.Delay(500);
-        GameManager.instance.StartQuest();
+       
         //await Task.Delay(1000);
         //QuestManager.Instance.ForExistingUsers();
         //GameManager.instance.StartQuest();

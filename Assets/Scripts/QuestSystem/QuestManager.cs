@@ -215,11 +215,20 @@ public class QuestManager : MonoBehaviour
 
     public void SaveQuests()
     {
-        foreach (Quest quest in questMap.Values)
+        try
         {
-            SaveQuest(quest);
 
+            foreach (Quest quest in questMap.Values)
+            {
+                if (quest != null)
+                {
+                    SaveQuest(quest);
+
+                }
+
+            }
         }
+        catch { }
     }
 
     // to be saved in firebase

@@ -21,6 +21,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
@@ -192,6 +193,9 @@ public class GameManager : MonoBehaviour
     public int PlayerLevel = 1;
     public int PlayerExpToLevelUp = 20;
     public int PlayerEXP = 0;
+    public int PlayerEasyModeWins = 0;
+    public int PlayerNormalModeWins = 0;
+    public int PlayerHardModeWins = 0;
 
     //player base stats
     public int PlayerAttackDamage = 1;
@@ -767,6 +771,9 @@ PlayerTotalWalkSpeed = 1;
             { "playerArmor", PlayerArmor },
             { "playerManaRegen", PlayerManaRegen },
             { "playerCriticalChance", PlayerCriticalChance },
+            { "playerEasyModeWin", PlayerEasyModeWins },
+            { "playerNormalModeWin", PlayerNormalModeWins },
+            { "playerHardModeWin", PlayerHardModeWins },
         };
 
 
@@ -822,8 +829,11 @@ PlayerTotalWalkSpeed = 1;
                 PlayerArmor = snapshot.GetValue<int>("playerArmor");
                 PlayerManaRegen = snapshot.GetValue<int>("playerManaRegen");
                 PlayerCriticalChance = snapshot.GetValue<double>("playerCriticalChance");
+                PlayerEasyModeWins = snapshot.GetValue<int>("playerEasyModeWin");
+                PlayerNormalModeWins = snapshot.GetValue<int>("playerNormalModeWin");
+                PlayerHardModeWins = snapshot.GetValue<int>("playerHardModeWin");
 
-                
+
             }
             //else
             //{
@@ -1435,6 +1445,44 @@ PlayerTotalWalkSpeed = 1;
     //    }
     //}
     public Shop.Model.ShopItem item;
+    //public async Task LoadInSoldItemsFromFirestore(string[] categories)
+    //{
+    //    try
+    //    {
+    //        foreach (string category in categories)
+    //        {
+    //            CollectionReference equippedItemsRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection)
+    //                .Document(UserID).Collection("EquippedItems").Document("SoldItems").Collection(category);
+
+    //            // Get all documents in the "InUseItems" subcollection for the specified category
+    //            QuerySnapshot inUseItemsSnapshot = await equippedItemsRef.GetSnapshotAsync();
+
+    //            // Iterate through the documents and handle each item
+    //            foreach (DocumentSnapshot docSnapshot in inUseItemsSnapshot.Documents)
+    //            {
+    //                // Deserialize the item data
+    //                string jsonData = docSnapshot.GetValue<string>("itemData");
+    //                //Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
+
+    //                // Deserialize the item data into a ShopItem object
+    //                /*Shop.Model.ShopItem*/ item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
+
+    //                // Update item properties (e.g., set Sold flag)
+    //                item.item.Sold = true;
+
+    //                //Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
+    //            }
+
+    //            await LoadInUseItemsFromFirestore(category);
+    //        }
+
+    //    }
+    //    catch (System.Exception ex)
+    //    {
+    //        Debug.LogError("Error loading sold items from Firestore: " + ex.Message);
+    //    }
+    //}
+
     public async Task LoadInSoldItemsFromFirestore(string[] categories)
     {
         try
@@ -1450,22 +1498,26 @@ PlayerTotalWalkSpeed = 1;
                 // Iterate through the documents and handle each item
                 foreach (DocumentSnapshot docSnapshot in inUseItemsSnapshot.Documents)
                 {
-                    // Deserialize the item data
+                    // Capture the item data on a background thread
                     string jsonData = docSnapshot.GetValue<string>("itemData");
-                    //Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
 
-                    // Deserialize the item data into a ShopItem object
-                    /*Shop.Model.ShopItem*/ item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
+                    // Switch to the main thread for Unity-specific operations
+                    await Task.Factory.StartNew(() =>
+                    {
+                        // Deserialize the item data into a ShopItem object on the main thread
+                        Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
 
-                    // Update item properties (e.g., set Sold flag)
-                    item.item.Sold = true;
+                        // Update item properties (e.g., set Sold flag)
+                        item.item.Sold = true;
 
-                    //Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
+                        // Any other Unity-related operations go here
+
+                    }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
                 }
-                
+
+                // Load in-use items from Firestore
                 await LoadInUseItemsFromFirestore(category);
             }
-
         }
         catch (System.Exception ex)
         {

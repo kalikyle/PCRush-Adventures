@@ -80,7 +80,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         {
             if (GameManager.instance.MinimapOpened == false)
             {
-                if (isDead == false)
+                if (isDead == false || GameManager.instance.LTA.HordeDone == false)
                 {
                     if (!NoInternet.isActiveAndEnabled)
                     {
