@@ -10,6 +10,7 @@ public class LeanTweenAnimate : MonoBehaviour
         , MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld, MinimapCPUFWorld, MinimapGPUWorld, MinimapSTORAGEWorld, MinimapPSUWorld, MinimapMBWorld, MinimapCASEWorld, TalkBTN, blackBack, Twirl, characterImage, cputwirl, ramtwirl, cpufantwirl, gputwirl, storagetwirl, psutwirl, mbtwirl, casetwirl;
     public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
+    public bool HordeDone = false;
     public UIImageAnimation imageAnim;
     //bool close = false;
 
@@ -246,6 +247,7 @@ public class LeanTweenAnimate : MonoBehaviour
     // animation for finish horde
     public void HordeFinish()
     {
+        HordeDone = true;
         Circling2();
         LeanTween.scale(hordefinishpanl, new Vector3(1f, 1f, 1f), .8f).setEase(LeanTweenType.easeOutElastic);
 
@@ -293,6 +295,7 @@ public class LeanTweenAnimate : MonoBehaviour
 
     public void HideFinishHorde()
     {
+        HordeDone = false;
         LeanTween.scale(btnnice, new Vector3(0f, 0f, 0f), 2f).setDelay(.5f).setEase(LeanTweenType.easeOutElastic);
 
         LeanTween.scale(hordefinishpanl, new Vector3(0f, 0f, 0f), 0f).setEase(LeanTweenType.easeOutBounce);

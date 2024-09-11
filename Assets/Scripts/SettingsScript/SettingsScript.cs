@@ -63,7 +63,6 @@ public class SettingsScript : MonoBehaviour
     }
     public void BacktoMainMenu()
     {
-        FirebaseController.Instance.isSigned = false;
         GameManager.instance.scene.LoadScene();
     }
     // Update is called once per frame

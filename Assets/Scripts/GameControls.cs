@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameControls : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class GameControls : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            bool isMySceneActive = IsSceneActive("PCRush CharacterEditor");
 
-            OpenSettings();
+            if (!isMySceneActive) {
+
+                OpenSettings();
+            }
+           
         }
     }
     
@@ -29,5 +35,14 @@ public class GameControls : MonoBehaviour
             Settings.gameObject.SetActive(false);
 
         }
+    }
+
+    public bool IsSceneActive(string sceneName)
+    {
+        // Get the currently active scene
+        Scene activeScene = SceneManager.GetActiveScene();
+
+        // Check if the active scene's name matches the provided scene name
+        return activeScene.name == sceneName;
     }
 }

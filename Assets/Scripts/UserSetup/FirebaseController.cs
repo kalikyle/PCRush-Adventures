@@ -237,17 +237,19 @@ public class FirebaseController : MonoBehaviour
             //Debug.LogFormat("Firebase user created successfully: {0} ({1})",
             //newUser.DisplayName, newUser.UserId);
             GameManager.instance.UserID = user.UserId;
+            isSigned = true;
             CreateUserDataCollection(user.UserId);
             GameManager.instance.SaveCharInfo(user.UserId, "Player1");
-            OpenNewGame();
+            await OpenNewGame();
             await Task.Delay(1000);
             UpdateUserProfile();
         });
 
     }
 
-    public async void OpenNewGame()
+    public async Task OpenNewGame()
     {
+        
         QuestManager.Instance.ForNewUsers();
         await Task.Delay(1000);
         GameManager.instance.SaveSoldItems();
@@ -261,7 +263,7 @@ public class FirebaseController : MonoBehaviour
 
     public void SignInUser(string email, string password)
     {
-        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(task =>
+        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(async task =>
         {
             if (task.IsCanceled)
             {
@@ -289,7 +291,8 @@ public class FirebaseController : MonoBehaviour
 
             //openTheGame --- HERE
             GameManager.instance.UserID = user.UserId;
-            OpenGame();
+            isSigned = true;
+            await OpenGame();
 
 
         });
@@ -353,8 +356,9 @@ public class FirebaseController : MonoBehaviour
     //}
 
 
-    public async void OpenGame()
+    public async Task OpenGame()
     {
+
         QuestManager.Instance.ForExistingUsers();
         await Task.Delay(1000);
         UnloadThisSceneForExist();
@@ -532,6 +536,7 @@ public class FirebaseController : MonoBehaviour
             // Automatically create a Firestore collection for the user
             Debug.Log("Anonymous sign-in successful! UID: " + user.UserId);
             GameManager.instance.UserID = user.UserId;
+            isSigned = true;
             CreateUserDataCollection(user.UserId);
             GameManager.instance.SaveCharInfo(user.UserId, "Player1");
             QuestManager.Instance.ForNewUsers();
