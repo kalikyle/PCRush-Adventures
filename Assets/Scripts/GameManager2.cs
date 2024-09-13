@@ -93,7 +93,47 @@ public class GameManager2 : MonoBehaviour
     [SerializeField] private GameObject shoppopupPrefab;// Reference to the parent transform where the popups will be placed
     [SerializeField] private Transform shopPopUpParent;
 
-    
+
+    public TMP_Text timerText; // Reference to the TMP_Text component
+    private float timer; // Timer variable
+
+    private bool isTimerRunning; // To check if the timer is running
+
+    public void StartTimer()
+    {
+        isTimerRunning = true;
+        timer = 0f; // Reset the timer
+    }
+
+    public void TheTimer()
+    {
+        if (isTimerRunning)
+        {
+            timer += Time.deltaTime; // Increase timer by the time passed since the last frame
+
+            // Convert the timer to minutes, seconds, and milliseconds
+            int minutes = Mathf.FloorToInt(timer / 60f);
+            int seconds = Mathf.FloorToInt(timer % 60);
+            int milliseconds = Mathf.FloorToInt((timer * 1000f) % 1000);
+
+            // Update the TMP_Text component with the formatted time
+            timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:00}";
+
+            TheGame.instance.Time = timer;
+        }
+    }
+
+    public void StopTimer()
+    {
+        isTimerRunning = false;
+        timer = 0f; // Reset the timer
+    }
+
+    public void Update()
+    {
+        TheTimer();
+    }
+
 
     public void ShowPopUp(InventoryItem inventoryItem, double total)
     {

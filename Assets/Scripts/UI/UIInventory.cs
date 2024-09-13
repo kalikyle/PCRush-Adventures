@@ -60,10 +60,10 @@ namespace Inventory.UI
             }
         }*/
 
-        public void UpdateDescription(int itemIndex, Sprite itemImage, string name, string description, string category)
+        public void UpdateDescription(int itemIndex, Sprite itemImage, string name, string Compat, string speed, string category)
         {
             itemDesc.Show();
-            itemDesc.SetDescription(itemImage, name, description, category);
+            itemDesc.SetDescription(itemImage, name, Compat, speed, category);
             DeselectAllItems();
             ListofItems[itemIndex].select();
             

@@ -196,6 +196,9 @@ public class GameManager : MonoBehaviour
     public int PlayerEasyModeWins = 0;
     public int PlayerNormalModeWins = 0;
     public int PlayerHardModeWins = 0;
+    public float PlayerBestTimeEasyMode = 0f;
+    public float PlayerBestTimeNormalMode = 0f;
+    public float PlayerBestTimeHardMode = 0f;
 
     //player base stats
     public int PlayerAttackDamage = 1;
@@ -771,9 +774,14 @@ PlayerTotalWalkSpeed = 1;
             { "playerArmor", PlayerArmor },
             { "playerManaRegen", PlayerManaRegen },
             { "playerCriticalChance", PlayerCriticalChance },
+
+            //for lan
             { "playerEasyModeWin", PlayerEasyModeWins },
             { "playerNormalModeWin", PlayerNormalModeWins },
             { "playerHardModeWin", PlayerHardModeWins },
+            { "playerBestTimeEasy", PlayerBestTimeEasyMode },
+            { "playerBestTimeNormal", PlayerBestTimeNormalMode },
+            { "playerBestTimeHard", PlayerBestTimeHardMode },
         };
 
 
@@ -829,10 +837,14 @@ PlayerTotalWalkSpeed = 1;
                 PlayerArmor = snapshot.GetValue<int>("playerArmor");
                 PlayerManaRegen = snapshot.GetValue<int>("playerManaRegen");
                 PlayerCriticalChance = snapshot.GetValue<double>("playerCriticalChance");
+
+                //load player lan
                 PlayerEasyModeWins = snapshot.GetValue<int>("playerEasyModeWin");
                 PlayerNormalModeWins = snapshot.GetValue<int>("playerNormalModeWin");
                 PlayerHardModeWins = snapshot.GetValue<int>("playerHardModeWin");
-
+                PlayerBestTimeEasyMode = snapshot.GetValue<float>("playerBestTimeEasy");
+                PlayerBestTimeNormalMode = snapshot.GetValue<float>("playerBestTimeNormal");
+                PlayerBestTimeHardMode = snapshot.GetValue<float>("playerBestTimeHard");
 
             }
             //else

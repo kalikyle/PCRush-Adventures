@@ -13,7 +13,9 @@ namespace Inventory.UI
         [SerializeField]
         private TMP_Text Title;
         [SerializeField]
-        private TMP_Text Description;
+        private TMP_Text Compatibility; 
+        [SerializeField]
+        private TMP_Text Speed;
         [SerializeField]
         private TMP_Text Category;
 
@@ -26,17 +28,19 @@ namespace Inventory.UI
 
             itemImage.gameObject.SetActive(false);
             Title.text = "";
-            Description.text = "";
+            Compatibility.text = "";
+            Speed.text = "";
             Category.text = "";
 
         }
 
-        public void SetDescription(Sprite sprite, string itemName, string itemDescription, string category)
+        public void SetDescription(Sprite sprite, string itemName, string itemCompatibility,string itemSpeed, string category)
         {
             itemImage.gameObject.SetActive(true);
             itemImage.sprite = sprite;
             Title.text = itemName;
-            Description.text = itemDescription;
+            Compatibility.text = itemCompatibility;
+            Speed.text = itemSpeed;
             Category.text = category;
 
         }
