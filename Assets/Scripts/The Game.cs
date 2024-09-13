@@ -37,6 +37,20 @@ public class TheGame : NetworkBehaviour
     public GameObject one;
     public GameObject Build;
 
+
+
+    public TMP_Text timeResult;
+    public float Time = 0f;
+
+    //playerinfo in LAN
+    public float BestTimeEasyMode;
+    public float BestTimeNormalMode;
+    public float BestTimeHardMode;
+    public float WinsEasyMode;
+    public float WinsNormalMode;
+    public float WinsHardMode;
+
+    public bool Surrendering = false;
     
     //public bool Easy = false;
     //public bool Normal = false;
@@ -351,6 +365,21 @@ public class TheGame : NetworkBehaviour
         image1.SetActive(false);
         image2.SetActive(false);
 
+
+        int minutes = Mathf.FloorToInt(Time / 60f);
+        int seconds = Mathf.FloorToInt(Time % 60);
+        int milliseconds = Mathf.FloorToInt((Time * 1000f) % 1000);
+
+        if (result == "You Win")
+        {
+            timeResult.text = $"You Finished in: {minutes:00}:{seconds:00}:{milliseconds:00}";
+        }
+        else
+        {
+            timeResult.text = $"Your Opponent Finished in:  {minutes:00}:{seconds:00}:{milliseconds:00}";
+        }
+
+
         //leantween animate
 
         // Start rotating circling1 to the right
@@ -460,6 +489,7 @@ public class TheGame : NetworkBehaviour
     public void showBuild()
     {
         LeanTween.scale(Build, Vector3.one, 0.5f).setEase(LeanTweenType.easeInCubic).setOnComplete(CloseReadyPanel);
+        
     }
     public async void CloseReadyPanel()
     {
@@ -469,6 +499,7 @@ public class TheGame : NetworkBehaviour
         await Task.Delay(2000);
         ReadyUI.SetActive(true);
         CountdownUI.SetActive(false);
+        GameManager2.Instance.StartTimer();
     }
 
 
@@ -771,7 +802,7 @@ public class TheGame : NetworkBehaviour
         //Normal = false;
         //Hard = false;
         InGame.Value = false;
-
+        ResetUIElements();
         NetworkManager.Singleton.Shutdown();
         
        
@@ -781,6 +812,8 @@ public class TheGame : NetworkBehaviour
     {
         // Logic to determine and declare the winner
         // For simplicity, assume the other client is the winner
+
+        Surrendering = false;
         ulong winnerClientId = NetworkManager.Singleton.ConnectedClientsIds.FirstOrDefault(id => id != loserClientId);
 
         TheGame.instance.winnerClientId.Value = winnerClientId;

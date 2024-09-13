@@ -379,7 +379,7 @@ namespace Shop
             
             }
             ItemSO item = shopItems.item;
-            shoP.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, item.Price, item.Description);
+            shoP.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, Speed(shopItems), Compat(shopItems));
         }
 
         //this handler is for filtered items
@@ -391,7 +391,7 @@ namespace Shop
                 if (!shopItem.isEmpty)
                 {
                     ItemSO item = shopItem.item;
-                    shoP.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, item.Price, item.Description);
+                    shoP.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, Speed(shopItem), Compat(shopItem));
                 }
             }
         }

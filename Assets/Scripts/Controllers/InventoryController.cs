@@ -1075,8 +1075,107 @@ namespace Inventory
 
             }
             ItemSO item = inventoryItem.item;
-            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name, item.Description, item.Category);
+            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name, Compat(inventoryItem), Speed(inventoryItem), item.Category);
         }
+
+
+
+        public string Speed(InventoryItem item)
+        {
+            string speed = "";
+
+            if (item.item.Category == "Case")
+            {
+                speed = "Case Strength: " + item.item.CaseStrength.ToString();
+            }
+
+            if (item.item.Category == "Motherboard")
+            {
+                speed = "Motherboard Strength: " + item.item.MotherboardStrength.ToString();
+            }
+
+            if (item.item.Category == "CPU")
+            {
+                speed = "CPU Base Speed: " + item.item.BaseSpeed.ToString() + "Ghz";
+
+            }
+
+            if (item.item.Category == "RAM")
+            {
+                speed = "Memory: " + item.item.Memory.ToString() + "GB";
+            }
+
+            if (item.item.Category == "CPU Fan")
+            {
+                speed = "Cooling Power: " + item.item.CoolingPower.ToString();
+            }
+
+            if (item.item.Category == "Video Card")
+            {
+                speed = "GPU Clock Speed: " + item.item.ClockSpeed.ToString() + "Mhz";
+            }
+
+            if (item.item.Category == "Storage")
+            {
+                speed = "Storage: " + item.item.Storage.ToString() + "GB";
+            }
+
+            if (item.item.Category == "PSU")
+            {
+                speed = "Power: " + item.item.WattagePower.ToString() + "W";
+            }
+
+            return speed;
+        }
+
+        public string Compat(InventoryItem item)
+        {
+            string compat = "";
+
+            if (item.item.Category == "Case")
+            {
+                return compat;
+            }
+
+            if (item.item.Category == "Motherboard")
+            {
+                compat = item.item.CPUSocket.ToString() + "\n" + item.item.RAMSlot.ToString();
+            }
+
+            if (item.item.Category == "CPU")
+            {
+                compat = item.item.CPUSupportedSocket.ToString();
+
+            }
+
+            if (item.item.Category == "RAM")
+            {
+                compat = item.item.RAMSupportedSlot.ToString();
+            }
+
+            if (item.item.Category == "CPU Fan")
+            {
+                return compat;
+            }
+
+            if (item.item.Category == "Video Card")
+            {
+                return compat;
+            }
+
+            if (item.item.Category == "Storage")
+            {
+                return compat;
+            }
+
+            if (item.item.Category == "PSU")
+            {
+                return compat;
+            }
+
+            return compat;
+        }
+
         public void HandleDescriptionRequests(int obj)
         {
             if (obj >= 0 && obj < InventoryfilteredItems.Count)
@@ -1085,7 +1184,7 @@ namespace Inventory
                 if (!shopItem.isEmpty)
                 {
                     ItemSO item = shopItem.item;
-                    inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, item.Description, item.Category);//update description
+                    inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, Compat(shopItem), Speed(shopItem), item.Category);//update description 
                 }
             }
         }

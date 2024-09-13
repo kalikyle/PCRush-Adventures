@@ -16,33 +16,35 @@ namespace Shop.UI
         [SerializeField]
         private TMP_Text Title;
         [SerializeField]
-        private TMP_Text Description;
+        private TMP_Text Compatibility; 
         [SerializeField]
-        private TMP_Text Price;
+        private TMP_Text Speed;
         [SerializeField]
         private TMP_Text category;
 
         public void Awake()
         {
             ResetDescription();
+            //ss
         }
         public void ResetDescription()
         {
 
             itemImage.gameObject.SetActive(false);
             Title.text = "";
-            Price.text = "";
-            Description.text = "";
+            Speed.text = "";
+            Compatibility.text = "";
+            Speed.text = "";
             category.text = "";
 
         }
-        public void SetDescription(Sprite sprite, string itemName, string itemDescription, string itemCategory, string itemPrice)
+        public void SetDescription(Sprite sprite, string itemName, string itemCategory, string itemSpeed, string itemCompat)
         {
             itemImage.gameObject.SetActive(true);
             itemImage.sprite = sprite;
             Title.text = itemName;
-            Description.text = itemDescription;
-            Price.text = "$" + itemPrice;
+            Speed.text = itemSpeed;
+            Compatibility.text = itemCompat;
             category.text = itemCategory;
 
         }

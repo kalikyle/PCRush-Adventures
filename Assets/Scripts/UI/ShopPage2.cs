@@ -69,10 +69,10 @@ namespace Shop.UI
             DeselectAllItems();
         }
 
-        internal void UpdateDescription(int obj, Sprite itemImage, string name, string category, double price, string description)
+        internal void UpdateDescription(int obj, Sprite itemImage, string name, string category, string speed, string compat)
         {
             shopDesc.Show();
-            shopDesc.SetDescription(itemImage, name, description, category, price.ToString());
+            shopDesc.SetDescription(itemImage, name, category, speed, compat);
             DeselectAllItems();
             ListOfShopItem2s[obj].select();
 
@@ -131,7 +131,7 @@ namespace Shop.UI
            
             ShopItem2 uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
             uiItem.transform.SetParent(contentPanel);
-            uiItem.transform.localScale = new Vector3(100, 100, 100);
+            uiItem.transform.localScale = new Vector2(85, 90);
             ListOfShopItem2s.Add(uiItem);//add shop items in the list
             uiItem.SetData(itemImage, itemName, "$" + price, category, speed, compat);
             int itemIndex = NumericUpDown.filteredItems.Count - 1;//this is for the filtered items
