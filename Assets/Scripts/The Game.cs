@@ -129,6 +129,7 @@ public class TheGame : NetworkBehaviour
             if (NetworkManager.Singleton.LocalClientId == winnerClientId.Value)
             {
                 ShowResult("You Win", "Your Opponent Just Surrendered");
+                //checkWin();
             }
             else
             {
@@ -144,6 +145,7 @@ public class TheGame : NetworkBehaviour
             if (NetworkManager.Singleton.LocalClientId == newValue)
             {
                 ShowResult("You Win", "Congratulations, You finish building the PC first!");
+                //checkWin();
             }
             else
             {
@@ -364,20 +366,30 @@ public class TheGame : NetworkBehaviour
         resultFeedback.text = resultfeed;
         image1.SetActive(false);
         image2.SetActive(false);
+        checkWin();
 
+        //int minutes = Mathf.FloorToInt(Time / 60f);
+        //int seconds = Mathf.FloorToInt(Time % 60);
+        //int milliseconds = Mathf.FloorToInt((Time * 1000f) % 1000);
 
-        int minutes = Mathf.FloorToInt(Time / 60f);
-        int seconds = Mathf.FloorToInt(Time % 60);
-        int milliseconds = Mathf.FloorToInt((Time * 1000f) % 1000);
+        //if (Surrendering == false)
+        //{
 
-        if (result == "You Win")
-        {
-            timeResult.text = $"You Finished in: {minutes:00}:{seconds:00}:{milliseconds:00}";
-        }
-        else
-        {
-            timeResult.text = $"Your Opponent Finished in:  {minutes:00}:{seconds:00}:{milliseconds:00}";
-        }
+        //    if (NetworkManager.Singleton.LocalClientId == winnerClientId.Value)
+        //    {
+        //        timeResult.text = $"You Finished in: {minutes:00}:{seconds:00}:{milliseconds:00}";
+        //        AddWins();
+        //        CheckAndSaveBestTime(Time);
+        //    }
+        //    else
+        //    {
+        //        timeResult.text = $"Your Opponent Finished in:  {minutes:00}:{seconds:00}:{milliseconds:00}";
+        //    }
+        //}
+        //else
+        //{
+        //    timeResult.text = "Surrendered, your time wont save";
+        //}
 
 
         //leantween animate
@@ -601,6 +613,7 @@ public class TheGame : NetworkBehaviour
             clientRematchRequested.Value = false;
             hostReadyRequested.Value = false;
             clientReadyRequested.Value = false;
+            Surrendering = false;
             //IsHardMode.Value = false;
             //IsNormalMode.Value = false;
             //IsEasyMode.Value = false;
@@ -673,7 +686,7 @@ public class TheGame : NetworkBehaviour
             clientRematchRequested.Value = false;
             hostReadyRequested.Value = false;
             clientReadyRequested.Value = false;
-
+            Surrendering = false;
             //IsHardMode.Value = false;
             //IsNormalMode.Value = false;
             //IsEasyMode.Value = false;
@@ -770,7 +783,7 @@ public class TheGame : NetworkBehaviour
         //Normal = false;
         //Hard = false;
         InGame.Value = false;
-
+        Surrendering = false;
 
 
        
@@ -813,7 +826,7 @@ public class TheGame : NetworkBehaviour
         // Logic to determine and declare the winner
         // For simplicity, assume the other client is the winner
 
-        Surrendering = false;
+        Surrendering = true;
         ulong winnerClientId = NetworkManager.Singleton.ConnectedClientsIds.FirstOrDefault(id => id != loserClientId);
 
         TheGame.instance.winnerClientId.Value = winnerClientId;
@@ -823,6 +836,105 @@ public class TheGame : NetworkBehaviour
 
         // End the game
         EndGame(winnerClientId);
+    }
+
+
+
+    void AddWins()
+    {
+       
+            if (GameManager.instance.UserID != "")
+            {
+                if (IsHardMode.Value == true)
+                {
+                    GameManager.instance.PlayerHardModeWins += 1;
+                    GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                }
+                else if (IsNormalMode.Value == true)
+                {
+                    GameManager.instance.PlayerNormalModeWins += 1;
+                    GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                }
+                else if (IsEasyMode.Value == true)
+                {
+                    GameManager.instance.PlayerEasyModeWins += 1;
+                    GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                }
+            }
+        
+    }
+
+        void CheckAndSaveBestTime(float currentTime)
+    {
+       
+            if (GameManager.instance.UserID != "")
+            {
+                bool isNewHighScore = false;
+
+                if (IsHardMode.Value)
+                {
+                    if (currentTime < GameManager.instance.PlayerBestTimeHardMode)
+                    {
+                        GameManager.instance.PlayerBestTimeHardMode = currentTime;
+                        isNewHighScore = true;
+                    }
+                }
+                else if (IsNormalMode.Value)
+                {
+                    if (currentTime < GameManager.instance.PlayerBestTimeNormalMode)
+                    {
+                        GameManager.instance.PlayerBestTimeNormalMode = currentTime;
+                        isNewHighScore = true;
+                    }
+                }
+                else if (IsEasyMode.Value)
+                {
+                    if (currentTime < GameManager.instance.PlayerBestTimeEasyMode)
+                    {
+                        GameManager.instance.PlayerBestTimeEasyMode = currentTime;
+                        isNewHighScore = true;
+                    }
+                }
+
+                // Save the new time if it's a high score
+                if (isNewHighScore)
+                {
+                    GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                    // Set the "New High Score" GameObject active
+                    //newHighScoreGameObject.SetActive(true);
+                }
+            }
+        
+    }
+
+   public void checkWin()
+    {
+
+        int minutes = Mathf.FloorToInt(Time / 60f);
+        int seconds = Mathf.FloorToInt(Time % 60);
+        int milliseconds = Mathf.FloorToInt((Time * 1000f) % 1000);
+
+        if (Surrendering == false)
+        {
+
+            if (resultText.text == "You Win")
+            {
+                timeResult.text = $"You Finished in: {minutes:00}:{seconds:00}:{milliseconds:00}";
+                AddWins();
+                CheckAndSaveBestTime(Time);
+            }
+            else
+            {
+                timeResult.text = $"Your Opponent Finished in:  {minutes:00}:{seconds:00}:{milliseconds:00}";
+                return;
+                
+            }
+        }
+        else
+        {
+            timeResult.text = "Surrendered, your time wont save";
+            return;
+        }
     }
 
 }

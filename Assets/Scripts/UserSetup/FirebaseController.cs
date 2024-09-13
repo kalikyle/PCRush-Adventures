@@ -236,9 +236,10 @@ public class FirebaseController : MonoBehaviour
             Firebase.Auth.FirebaseUser newUser = task.Result.User;
             //Debug.LogFormat("Firebase user created successfully: {0} ({1})",
             //newUser.DisplayName, newUser.UserId);
-            GameManager.instance.UserID = user.UserId;
             isSigned = true;
             CreateUserDataCollection(user.UserId);
+            GameManager.instance.UserID = user.UserId;
+            await Task.Delay(1000);
             GameManager.instance.SaveCharInfo(user.UserId, "Player1");
             await OpenNewGame();
             await Task.Delay(1000);
@@ -535,9 +536,10 @@ public class FirebaseController : MonoBehaviour
 
             // Automatically create a Firestore collection for the user
             Debug.Log("Anonymous sign-in successful! UID: " + user.UserId);
-            GameManager.instance.UserID = user.UserId;
             isSigned = true;
             CreateUserDataCollection(user.UserId);
+            GameManager.instance.UserID = user.UserId;
+            await Task.Delay(1000);
             GameManager.instance.SaveCharInfo(user.UserId, "Player1");
             QuestManager.Instance.ForNewUsers();
             await Task.Delay(1000);
