@@ -36,6 +36,8 @@ public class NewGameManager : MonoBehaviour
     public GameObject NormalInstruc;
     public GameObject HardInstruc;
 
+    public TMP_Text winandtime;
+
     private Coroutine connectionTimeoutCoroutine;
     string hostIpAddress = "";
     void Start()
@@ -55,20 +57,76 @@ public class NewGameManager : MonoBehaviour
                 EasyInstruc.SetActive(true);
                 NormalInstruc.SetActive(false);
                 HardInstruc.SetActive(false);
+                HandleWins(val);
                 break;
             case 1:
                 EasyInstruc.SetActive(false);
                 NormalInstruc.SetActive(true);
                 HardInstruc.SetActive(false);
+                HandleWins(val);
                 break;
             case 2:
                 EasyInstruc.SetActive(false);
                 NormalInstruc.SetActive(false);
                 HardInstruc.SetActive(true);
+                HandleWins(val);
                 break;
 
         }
     }
+
+    public void HandleWins(int val)
+    {
+        if(GameManager.instance.UserID != "")
+        {
+
+            winandtime.gameObject.SetActive(true);
+            if (val == 0)
+            {
+                if (GameManager.instance.PlayerEasyModeWins > 0)
+                {
+
+                    winandtime.text = "Your Wins in this Mode: " + GameManager.instance.PlayerEasyModeWins + "        Your Best Time: " + GameManager.instance.PlayerEasyModeWins;
+                }
+                else
+                {
+                    winandtime.gameObject.SetActive(false);
+                }
+            }
+            else if (val == 1)
+            {
+                if (GameManager.instance.PlayerNormalModeWins > 0)
+                {
+                    winandtime.text = "Your Wins in this Mode: " + GameManager.instance.PlayerNormalModeWins + "        Your Best Time: " + GameManager.instance.PlayerNormalModeWins;
+                }
+                else
+                {
+                    winandtime.gameObject.SetActive(false);
+                }
+            }
+            else if (val == 2) {
+
+                if (GameManager.instance.PlayerHardModeWins > 0)
+                {
+                    winandtime.text = "Your Wins in this Mode: " + GameManager.instance.PlayerNormalModeWins + "        Your Best Time: " + GameManager.instance.PlayerNormalModeWins;
+                }
+                else
+                {
+                    winandtime.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                winandtime.gameObject.SetActive(false);
+            }
+            
+        }
+        else
+        {
+            winandtime.gameObject.SetActive(false);
+        }
+    }
+
     void CreateGame()
     {
         string gameName = gameNameInput.text;

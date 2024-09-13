@@ -766,6 +766,7 @@ PlayerTotalWalkSpeed = 1;
             {"playerEXP", PlayerEXP},
             {"playerEXPNeedtoLevelUp", PlayerExpToLevelUp },
             //player stats
+
             {"playerAttack", PlayerAttackDamage },
             { "playerHealth", PlayerHealth },
             { "playerMana", PlayerMana },
@@ -782,7 +783,7 @@ PlayerTotalWalkSpeed = 1;
             { "playerBestTimeEasy", PlayerBestTimeEasyMode },
             { "playerBestTimeNormal", PlayerBestTimeNormalMode },
             { "playerBestTimeHard", PlayerBestTimeHardMode },
-        };
+        };  
 
 
 
@@ -1990,7 +1991,7 @@ PlayerTotalWalkSpeed = 1;
         PlayerLevelUpdate();
         
 
-        if (UserID != "")
+        if (UserID != "" && FirebaseController.Instance.isSigned == true)
         {
             RetrievePlayerInfo(UserID);
             InGamePanel.gameObject.SetActive(true);
