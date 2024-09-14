@@ -57,11 +57,11 @@ public class FirebaseController : MonoBehaviour
                 // Create and hold a reference to your FirebaseApp.
                 // where app is a Firebase.Firebaselpp property of your application class. 
                 //LogOut();
-               
+                
                 InitializeFirebase();
                 CheckUserExistsAndSignOutIfNot();
-               
-               
+
+
 
                 //set a Flag here to indicate whether firebase is ready to use by your app.
             }
@@ -236,11 +236,12 @@ public class FirebaseController : MonoBehaviour
             Firebase.Auth.FirebaseUser newUser = task.Result.User;
             //Debug.LogFormat("Firebase user created successfully: {0} ({1})",
             //newUser.DisplayName, newUser.UserId);
-            isSigned = true;
             CreateUserDataCollection(user.UserId);
             GameManager.instance.UserID = user.UserId;
             await Task.Delay(1000);
             GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+            await Task.Delay(1000);
+            isSigned = true;
             await OpenNewGame();
             await Task.Delay(1000);
             UpdateUserProfile();
@@ -388,19 +389,22 @@ public class FirebaseController : MonoBehaviour
             {
                 Debug.Log("Signed out" + user.UserId);
                 GameManager.instance.UserID = "";
+               
             }
             user = auth.CurrentUser;
-          
             //Debug.LogError(auth.CurrentUser.UserId);
             if (signedIn)
             {
                 Debug.Log("Signed in " + user.UserId);
                 isSignIn = true;
                 GameManager.instance.UserID = user.UserId;
+               
+
             }
         }
     }
 
+   
     //public void OnDestroy()
     //{
     //    auth.StateChanged -= AuthStateChange;
@@ -536,11 +540,13 @@ public class FirebaseController : MonoBehaviour
 
             // Automatically create a Firestore collection for the user
             Debug.Log("Anonymous sign-in successful! UID: " + user.UserId);
-            isSigned = true;
+            
             CreateUserDataCollection(user.UserId);
             GameManager.instance.UserID = user.UserId;
             await Task.Delay(1000);
             GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+            await Task.Delay(1000);
+            isSigned = true;
             QuestManager.Instance.ForNewUsers();
             await Task.Delay(1000);
             GameManager.instance.SaveSoldItems();  

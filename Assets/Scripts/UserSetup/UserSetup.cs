@@ -39,7 +39,8 @@ public class UserSetup : MonoBehaviour
 
     public Toggle rememberMe;
 
-    public Button loginButton, createaccbtn, forgotbutton, signinbtn , guestbtn, closenotifbtn, forgotpassbtn;
+    public Button loginButton, createaccbtn, forgotbutton, signinbtn , guestbtn, closenotifbtn, forgotpassbtn, logoutButton;
+
 
     private void Awake()
     {
@@ -94,10 +95,7 @@ public class UserSetup : MonoBehaviour
         guestbtn.onClick.AddListener(FirebaseController.Instance.SignInAnonymously);
         closenotifbtn.onClick.AddListener(FirebaseController.Instance.CloseNotif_Panel);
         forgotpassbtn.onClick.AddListener(FirebaseController.Instance.forgetPass);
-
-
-
-
+        logoutButton.onClick.AddListener(FirebaseController.Instance.LogOut);
         //if (!string.IsNullOrEmpty(GameManager.instance.UserID))
         //{
 
