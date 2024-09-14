@@ -17,7 +17,10 @@ public class TheGame : NetworkBehaviour
     public GameObject resultPanel;
     public TMP_Text resultText;
     public TMP_Text resultFeedback;
+
     public Image pcImage;
+    public Sprite defaultpcImage;
+
     public Camera MainCamera;
     public static TheGame instance;
     public Button RematchBTN;
@@ -316,7 +319,7 @@ public class TheGame : NetworkBehaviour
         // Check if the disconnected client is the local client
         if (disconnectedClientId != NetworkManager.Singleton.LocalClientId)
         {
-            
+            Surrendering = true;
             ShowResult("You Win", "Opponent Disconnected");
             RematchBTN.gameObject.SetActive(false);
             Debug.LogError("Host Disconnecteds");
@@ -592,6 +595,7 @@ public class TheGame : NetworkBehaviour
         ResetUIElements();
         rematchTimerSlider.maxValue = 10f;
         rematchTimerSlider.value = 10f;
+        pcImage.sprite = defaultpcImage;
         // Restart the game (reload the scene)
         resultPanel.SetActive(false);
         image1.SetActive(false);
@@ -784,9 +788,9 @@ public class TheGame : NetworkBehaviour
         //Hard = false;
         InGame.Value = false;
         Surrendering = false;
+        pcImage.sprite = defaultpcImage;
 
 
-       
 
         // Notify all clients to close result panels and reset game state
         CloseResultPanelsClientRpc();
@@ -842,8 +846,12 @@ public class TheGame : NetworkBehaviour
 
     void AddWins()
     {
-       
-            if (GameManager.instance.UserID != "")
+
+        if (GameManager.instance.UserID != "")
+        {
+           // Debug.LogError($"Checking wins: winnerClientId={winnerClientId.Value}, localClientId={NetworkManager.Singleton.LocalClientId}");
+
+            if (winnerClientId.Value == NetworkManager.Singleton.LocalClientId)
             {
                 if (IsHardMode.Value == true)
                 {
@@ -861,19 +869,24 @@ public class TheGame : NetworkBehaviour
                     GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
                 }
             }
+        }
         
     }
 
         void CheckAndSaveBestTime(float currentTime)
     {
-       
-            if (GameManager.instance.UserID != "")
-            {
-                bool isNewHighScore = false;
 
+        if (GameManager.instance.UserID != "")
+        {
+            //Debug.LogError($"Checking wins: winnerClientId={winnerClientId.Value}, localClientId={NetworkManager.Singleton.LocalClientId}");
+
+            if (winnerClientId.Value == NetworkManager.Singleton.LocalClient.ClientId)
+            {
+                //Debug.LogError("Executed");
+                bool isNewHighScore = false;
                 if (IsHardMode.Value)
                 {
-                    if (currentTime < GameManager.instance.PlayerBestTimeHardMode)
+                    if (GameManager.instance.PlayerBestTimeHardMode == 0 || currentTime < GameManager.instance.PlayerBestTimeHardMode)
                     {
                         GameManager.instance.PlayerBestTimeHardMode = currentTime;
                         isNewHighScore = true;
@@ -881,7 +894,7 @@ public class TheGame : NetworkBehaviour
                 }
                 else if (IsNormalMode.Value)
                 {
-                    if (currentTime < GameManager.instance.PlayerBestTimeNormalMode)
+                    if (GameManager.instance.PlayerBestTimeNormalMode == 0 || currentTime < GameManager.instance.PlayerBestTimeNormalMode)
                     {
                         GameManager.instance.PlayerBestTimeNormalMode = currentTime;
                         isNewHighScore = true;
@@ -889,7 +902,7 @@ public class TheGame : NetworkBehaviour
                 }
                 else if (IsEasyMode.Value)
                 {
-                    if (currentTime < GameManager.instance.PlayerBestTimeEasyMode)
+                    if (GameManager.instance.PlayerBestTimeEasyMode == 0 || currentTime < GameManager.instance.PlayerBestTimeEasyMode)
                     {
                         GameManager.instance.PlayerBestTimeEasyMode = currentTime;
                         isNewHighScore = true;
@@ -904,10 +917,11 @@ public class TheGame : NetworkBehaviour
                     //newHighScoreGameObject.SetActive(true);
                 }
             }
+        }
         
     }
 
-   public void checkWin()
+   public async void checkWin()
     {
 
         int minutes = Mathf.FloorToInt(Time / 60f);
@@ -920,6 +934,7 @@ public class TheGame : NetworkBehaviour
             if (resultText.text == "You Win")
             {
                 timeResult.text = $"You Finished in: {minutes:00}:{seconds:00}:{milliseconds:00}";
+                await Task.Delay(500);
                 AddWins();
                 CheckAndSaveBestTime(Time);
             }

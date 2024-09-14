@@ -96,8 +96,8 @@ namespace Inventory
         public Button TestPCButton;
 
 
-        [SerializeField]
-        public Button infoButton;
+        //[SerializeField]
+        //public Button infoButton;
 
         [SerializeField]
         public Button surrenderButton;
@@ -1213,7 +1213,7 @@ namespace Inventory
       
         private void ToggleALLButton()
         {
-            infoButton.gameObject.SetActive(false);
+           // infoButton.gameObject.SetActive(false);
             ToogleFiltered = false;
             Debug.Log("Toggle: false");
             inventoryUI.ResetSelection();
@@ -1226,7 +1226,7 @@ namespace Inventory
         public string infocategory = null;
         public void OpenFiltered(string category)
         {
-            infoButton.gameObject.SetActive(true);
+            //infoButton.gameObject.SetActive(true);
             Debug.Log("Toggle: true");
             ShowCategory(category);
             infocategory = category;

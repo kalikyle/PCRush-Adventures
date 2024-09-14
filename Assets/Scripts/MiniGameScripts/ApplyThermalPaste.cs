@@ -219,11 +219,11 @@ public class ApplyThermalPaste : MonoBehaviour //, IPointerClickHandler
                 }
             }
         }
-        Debug.Log("Painted Pixels: " + paintedPixels);
+        //Debug.Log("Painted Pixels: " + paintedPixels);
 
         float paintedPercentage = (float)paintedPixels / (maskTexture.width * maskTexture.height) * 100f;
 
-        Debug.Log("Percentage: " + paintedPercentage.ToString("F1") + "%");
+       // Debug.Log("Percentage: " + paintedPercentage.ToString("F1") + "%");
         paintedPercentageText.text = paintedPercentage.ToString("F2") + "%";
 
 

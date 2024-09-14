@@ -855,9 +855,10 @@ PlayerTotalWalkSpeed = 1;
             ThePlayerStats();
 
         }
-        catch (System.Exception ex)
+        catch(Exception ex)
         {
             Debug.LogError("Error retrieving playerName: " + ex.Message);
+            //return;
         }
     }
     public void OnApplicationQuit()
@@ -1991,15 +1992,44 @@ PlayerTotalWalkSpeed = 1;
         PlayerLevelUpdate();
         
 
-        if (UserID != "" && FirebaseController.Instance.isSigned == true)
+        if(UserID != "")
         {
-            RetrievePlayerInfo(UserID);
-            InGamePanel.gameObject.SetActive(true);
+            OpenLogouMenu(true);
         }
         else
         {
-            InGamePanel.gameObject.SetActive(false);
+            OpenLogouMenu(false);
         }
+
+
+        if (UserID != "" && FirebaseController.Instance.isSigned == true)
+        {
+            RetrievePlayerInfo(UserID);
+            //InGamePanel.gameObject.SetActive(true);
+
+        }
+        else
+        {
+            //InGamePanel.gameObject.SetActive(false);
+        }
+
+
+
+    }
+    public async void OpenLogouMenu(bool tralse)
+    {
+
+
+        //Debug.LogError("OPEEENED");
+        //Debug.LogError(tralse);
+        await Task.Delay(1000);
+        InGamePanel.SetActive(tralse);
+
+        if (UserSetup.instance != null)
+        {
+            UserSetup.instance.logoutButton.gameObject.SetActive(tralse);
+        }
+       
 
 
 
