@@ -233,13 +233,12 @@ public class FirebaseController : MonoBehaviour
             }
 
             // Firebase user has been created.
-            Firebase.Auth.FirebaseUser newUser = task.Result.User;
-            //Debug.LogFormat("Firebase user created successfully: {0} ({1})",
-            //newUser.DisplayName, newUser.UserId);
+            FirebaseUser newUser = task.Result.User;
+            await Task.Delay(1000);
             CreateUserDataCollection(user.UserId);
             GameManager.instance.UserID = user.UserId;
-            await Task.Delay(1000);
-            GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+            //await Task.Delay(1000);
+            //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
             await Task.Delay(1000);
             isSigned = true;
             await OpenNewGame();
@@ -369,6 +368,8 @@ public class FirebaseController : MonoBehaviour
         GameManager.instance.AtTheStart();
         await Task.Delay(1000);
         GameManager.instance.PartsController.LoadPartsItems();
+        await Task.Delay(1000);
+        AchievementManager.instance.LoadAchievementsFromFirebase();
 
     }
 
@@ -540,11 +541,11 @@ public class FirebaseController : MonoBehaviour
 
             // Automatically create a Firestore collection for the user
             Debug.Log("Anonymous sign-in successful! UID: " + user.UserId);
-            
+            await Task.Delay(1000);
             CreateUserDataCollection(user.UserId);
             GameManager.instance.UserID = user.UserId;
-            await Task.Delay(1000);
-            GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+            //await Task.Delay(1000);
+            //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
             await Task.Delay(1000);
             isSigned = true;
             QuestManager.Instance.ForNewUsers();
@@ -570,9 +571,34 @@ public class FirebaseController : MonoBehaviour
 
         // Set initial data for the user (optional)
         // For example, you might set default values for user settings
-        var userData = new
+        Dictionary<string, object> userData = new Dictionary<string, object>
         {
-            // Add initial user data here
+            //player info
+            { "playerName", "Player1" },
+            { "playerMoney", GameManager.instance.PlayerMoney },
+            //{ "playerGems", PlayerGems },
+            { "playerLevel", GameManager.instance.PlayerLevel },
+            {"playerEXP", GameManager.instance.PlayerEXP},
+            {"playerEXPNeedtoLevelUp", GameManager.instance.PlayerExpToLevelUp },
+            {"playerTotalMoneyEarned", GameManager.instance.PlayerTotalMoney },
+            //player stats
+
+            {"playerAttack", GameManager.instance.PlayerAttackDamage },
+            { "playerHealth", GameManager.instance.PlayerHealth },
+            { "playerMana", GameManager.instance.PlayerMana },
+            { "playerHealthRegen", GameManager.instance.PlayerHealthRegen },
+            { "playerWalkSpeed", GameManager.instance.PlayerWalkSpeed },
+            { "playerArmor", GameManager.instance.PlayerArmor },
+            { "playerManaRegen", GameManager.instance.PlayerManaRegen },
+            { "playerCriticalChance", GameManager.instance.PlayerCriticalChance },
+
+            //for lan
+            { "playerEasyModeWin", GameManager.instance.PlayerEasyModeWins },
+            { "playerNormalModeWin",GameManager.instance.PlayerNormalModeWins },
+            { "playerHardModeWin", GameManager.instance.PlayerHardModeWins },
+            { "playerBestTimeEasy", GameManager.instance.PlayerBestTimeEasyMode },
+            { "playerBestTimeNormal", GameManager.instance.PlayerBestTimeNormalMode },
+            { "playerBestTimeHard", GameManager.instance.PlayerBestTimeHardMode },
         };
 
         // Set the data in the document

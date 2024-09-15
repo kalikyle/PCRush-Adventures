@@ -12,7 +12,7 @@ public class MoneyAndGems : MonoBehaviour
     public void Start()
     {
         Money.onClick.AddListener(AddMoney);
-        Gems.onClick.AddListener(AddGems);
+        //Gems.onClick.AddListener(AddGems);
     }
 
     public void AddMoney()
@@ -20,10 +20,10 @@ public class MoneyAndGems : MonoBehaviour
         GameManager.instance.PlayerMoney += 1000;
         GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
     }
-    public void AddGems()
-    {
-        GameManager.instance.PlayerGems += 1000;
-        GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
-    }
+    //public void AddGems()
+    //{
+    //    GameManager.instance.PlayerGems += 1000;
+    //    GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+    //}
 
 }

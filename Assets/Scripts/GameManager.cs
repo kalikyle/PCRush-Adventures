@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
     [Header("PLAYER INFO")]
     public string PlayerName;
     public int PlayerMoney = 0;
-    public int PlayerGems = 0;
+    //public int PlayerGems = 0;
     public int PlayerLevel = 1;
     public int PlayerExpToLevelUp = 20;
     public int PlayerEXP = 0;
@@ -199,6 +199,8 @@ public class GameManager : MonoBehaviour
     public float PlayerBestTimeEasyMode = 0f;
     public float PlayerBestTimeNormalMode = 0f;
     public float PlayerBestTimeHardMode = 0f;
+
+    public int PlayerTotalMoney = 0;
 
     //player base stats
     public int PlayerAttackDamage = 1;
@@ -405,7 +407,7 @@ public class GameManager : MonoBehaviour
 
         PlayerName = "";
     PlayerMoney = 0;
-    PlayerGems = 0;
+    //PlayerGems = 0;
    PlayerLevel = 1;
    PlayerExpToLevelUp = 20;
    PlayerEXP = 0;
@@ -513,8 +515,12 @@ PlayerTotalWalkSpeed = 1;
     }
 
 
+    public int lastPlayerMoney = 0;
+
     public void ThePlayerStats()
     {
+        
+        
         BaseAttackDamage.text = PlayerAttackDamage.ToString();
         BaseHealth.text = PlayerHealth.ToString();
         BaseMana.text = PlayerMana.ToString();
@@ -630,6 +636,31 @@ PlayerTotalWalkSpeed = 1;
         TotalCriticalChance.text = PlayerTotalCriticalChance.ToString() + "%";
         TotalCriticalHit.text = (PlayerTotalAttackDamage * 2).ToString();
 
+        
+    }
+
+    public async void checkMoney()
+    {
+       
+            if (PlayerMoney > lastPlayerMoney)
+            {
+
+                // Calculate the difference (newly earned money)
+                int moneyEarned = PlayerMoney - lastPlayerMoney;
+
+                // Add to the total money earned
+                PlayerTotalMoney += moneyEarned;
+                SaveCharInfo(UserID, PlayerName);
+                AchievementManager.instance.CheckAchievements();
+                AchievementManager.instance.DisplayAchievements();
+
+
+        }
+
+            await Task.Delay(500);
+            lastPlayerMoney = PlayerMoney;
+        
+
     }
 
     public void UnequipEquipment()
@@ -649,9 +680,9 @@ PlayerTotalWalkSpeed = 1;
     public void CurrencyText()
     {
         PlayerMoneyText.text = PlayerMoney.ToString();
-        PlayerGemsText.text = PlayerGems.ToString();
+        //PlayerGemsText.text = PlayerGems.ToString();
         ShopGold.text = PlayerMoney.ToString();
-        ShopGem.text = PlayerGems.ToString();
+        //ShopGem.text = PlayerGems.ToString();
     }
 
     public void PlayerLevelUpdate()
@@ -761,10 +792,11 @@ PlayerTotalWalkSpeed = 1;
             //player info
             { "playerName", playerName },
             { "playerMoney", PlayerMoney },
-            { "playerGems", PlayerGems },
+            //{ "playerGems", PlayerGems },
             { "playerLevel", PlayerLevel },
             {"playerEXP", PlayerEXP},
             {"playerEXPNeedtoLevelUp", PlayerExpToLevelUp },
+            {"playerTotalMoneyEarned", PlayerTotalMoney },
             //player stats
 
             {"playerAttack", PlayerAttackDamage },
@@ -799,6 +831,8 @@ PlayerTotalWalkSpeed = 1;
         }
     }
 
+    
+
     public async void RetrievePlayerInfo(string userID)
     {
 
@@ -824,10 +858,12 @@ PlayerTotalWalkSpeed = 1;
                 // load player info
                 PlayerName = snapshot.GetValue<string>("playerName");
                 PlayerMoney = snapshot.GetValue<int>("playerMoney");
-                PlayerGems = snapshot.GetValue<int>("playerGems");
+                //PlayerGems = snapshot.GetValue<int>("playerGems");
                 PlayerLevel = snapshot.GetValue<int>("playerLevel");
                 PlayerEXP = Math.Abs(snapshot.GetValue<int>("playerEXP"));
                 PlayerExpToLevelUp = snapshot.GetValue<int>("playerEXPNeedtoLevelUp");
+                PlayerTotalMoney = snapshot.GetValue<int>("playerTotalMoneyEarned");
+                
 
                 // load player stats
                 PlayerAttackDamage = snapshot.GetValue<int>("playerAttack");
@@ -852,7 +888,20 @@ PlayerTotalWalkSpeed = 1;
             //{
             //    //Debug.LogWarning("Document does not exist for UserID: " + userID);
             //}
+
+            if(lastPlayerMoney == 0)
+            {
+                lastPlayerMoney = PlayerMoney;
+                checkMoney();
+            }
+            else
+            {
+                checkMoney();
+            }
+
+            
             ThePlayerStats();
+            
 
         }
         catch(Exception ex)
@@ -1732,11 +1781,11 @@ PlayerTotalWalkSpeed = 1;
     {
         //UserID = PlayerPrefs.GetString("UserID", "");
         //ClearPlayerPrefsIfUserIDNotFound(UserID);
-
+        
         scene.LoadScene();
         //SceneManager.LoadScene(1, LoadSceneMode.Additive);
         EnableDefault();
-
+        
 
         //Debug.Log(UserID);
 
@@ -1764,7 +1813,6 @@ PlayerTotalWalkSpeed = 1;
         //DropAllPartsInRandomPositions();
 
         //StartCoroutine(FirstDropAndPosition());
-
         ThePlayerStats();
 
 
@@ -1981,9 +2029,10 @@ PlayerTotalWalkSpeed = 1;
         }
        
     }
-    
+
     // Update is called once per frame
-    void Update()
+    bool done = false;
+    async void Update()
     {
         UserIDTxt.text = UserID;
         Playerui.text = PlayerName;
@@ -2001,10 +2050,20 @@ PlayerTotalWalkSpeed = 1;
             OpenLogouMenu(false);
         }
 
+        
 
         if (UserID != "" && FirebaseController.Instance.isSigned == true)
         {
             RetrievePlayerInfo(UserID);
+
+
+            if (done == false)
+            {
+                await Task.Delay(1000);
+                AchievementManager.instance.CheckAchievements();
+                AchievementManager.instance.DisplayAchievements();
+                done = true;
+            }
             //InGamePanel.gameObject.SetActive(true);
 
         }

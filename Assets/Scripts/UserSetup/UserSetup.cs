@@ -163,7 +163,9 @@ public class UserSetup : MonoBehaviour
                     GameManager.instance.AtTheStart();
                     await Task.Delay(1500);
                     GameManager.instance.PartsController.LoadPartsItems();
-                   
+                    await Task.Delay(1000);
+                    AchievementManager.instance.LoadAchievementsFromFirebase();
+
             }
             else
             {

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c977ab8d54b5c34d87c12f155f24eb3, type: 3}
+  m_Name: LevelUp 3
+  m_EditorClassIdentifier: 
+  achievementName: Reach Level 11
+  description: Reach Level 11 to Unlock The Storage Region
+  icon: {fileID: 21300000, guid: 01b03590c5bc0d84bb16e17eed2e5e56, type: 3}
+  isUnlocked: 0
+  ExpReward: 800
+  MoneyReward: 4000
+  achievementGoal: 11
+  currentValue: 1
+  levelRequired: 11
