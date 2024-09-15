@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "BuildFirstPC")]
+[CreateAssetMenu(fileName = "BuildFirstPC", menuName = "Achievements/BuildFirstPC")]
 public class BuildFirstPC : AchievementSO
 {
     // Start is called before the first frame update

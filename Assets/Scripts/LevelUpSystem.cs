@@ -39,7 +39,7 @@ public class LevelUpSystem : MonoBehaviour
 
             GameManager.instance.PlayerLevel += 1;
             GameManager.instance.PlayerExpToLevelUp *= 2;
-
+            AchievementManager.instance.CheckAchievements();
 
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
             

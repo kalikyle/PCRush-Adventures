@@ -16,6 +16,9 @@ public class AchievementDisplay : MonoBehaviour
     public GameObject lockImage;
     private AchievementSO achievement;
 
+    public TMP_Text ProgressText; // Text to show current progress (e.g., 500 / 1000)
+    public Slider progressSlider; // Slider to show progress
+
     public void Setup(AchievementSO achievement)
     {
         this.achievement = achievement;
@@ -44,10 +47,28 @@ public class AchievementDisplay : MonoBehaviour
             CoinReward.text = "Coin: " + achievement.MoneyReward;
         }
 
-        
-       
+        UpdateProgress();
 
         lockImage.SetActive(!achievement.isUnlocked);
 
+    }
+
+    public void UpdateProgress()
+    {
+        if (achievement.achievementGoal > 0) // Check if this achievement tracks progress with integers
+        {
+            progressSlider.gameObject.SetActive(true);
+            progressSlider.maxValue = achievement.achievementGoal;
+            progressSlider.value = achievement.currentValue;
+
+            // Update the progress text (e.g., "500 / 1000")
+            ProgressText.text = achievement.currentValue + " / " + achievement.achievementGoal;
+        }
+        else
+        {
+            // If the achievement is boolean-based, hide the slider and progress text
+            progressSlider.gameObject.SetActive(false);
+            ProgressText.gameObject.SetActive(false);
+        }
     }
 }

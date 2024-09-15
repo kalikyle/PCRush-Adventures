@@ -15,11 +15,10 @@ public class UnlockTheRegions : QuestStep
     [SerializeField] private string targetGameObjectName;
     private GameObject targetGameObject;
 
-    async void Start()
+    void Start()
     {
         GameManager.instance.OnRegionQuest = true;
 
-        await Task.Delay(1500);
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("TwentySeven");
 

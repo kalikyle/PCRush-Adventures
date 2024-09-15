@@ -1,7 +1,11 @@
+using Firebase.Extensions;
+using Firebase.Firestore;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using static OtherWorld.Model.OWInvSO;
@@ -35,18 +39,26 @@ public class AchievementManager : MonoBehaviour
 
     void Start()
     {
-        DisplayAchievements();
+        //await Task.Delay(1000);
+        //CheckAchievements();
+        //DisplayAchievements();
     }
 
     public void CheckAchievements()
     {
+        
         foreach (var achievement in achievements)
         {
             if (!achievement.isUnlocked && achievement.CheckCompletion())
             {
                 UnlockAchievement(achievement);
             }
+
         }
+
+        //await Task.Delay(500);
+        //DisplayAchievements();
+       
     }
 
     public void UnlockAchievement(AchievementSO achievement)
@@ -57,18 +69,96 @@ public class AchievementManager : MonoBehaviour
             Debug.Log($"Achievement Unlocked: {achievement.achievementName}");
             // Display UI, notify the player, etc.
             ShowPopUpAchievement(achievement);
-            DisplayAchievements(); // Refresh UI to reflect changes
-
-
-
+            DisplayAchievements();
+            // Refresh UI to reflect changes
+            SaveAchievementToFirebase(achievement);
             GameManager.instance.AddPlayerExp(achievement.ExpReward);
             GameManager.instance.PlayerMoney += achievement.MoneyReward;
+            GameManager.instance.lastPlayerMoney = GameManager.instance.PlayerMoney;
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
-
         }
     }
 
-    void DisplayAchievements()
+
+    private void SaveAchievementToFirebase(AchievementSO achievement)
+    {
+        string UserCollection = "users"; // Your Firestore collection for users
+        string UserID = GameManager.instance.UserID; // User ID from your game manager
+
+        // Get a reference to the user's document
+        DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection).Document(UserID);
+
+        // Update Firestore with the unlocked achievement
+        Dictionary<string, object> achievementData = new Dictionary<string, object>
+        {
+            { "AchievementName", achievement.achievementName },
+            { "IsUnlocked", achievement.isUnlocked },
+            { "CurrentValue", achievement.currentValue },
+            { "UnlockDate", FieldValue.ServerTimestamp } // optional: track when it was unlocked
+        };
+
+        // Add the unlocked achievement to a subcollection called "UnlockedAchievements"
+        docRef.Collection("UnlockedAchievements").Document(achievement.achievementName).SetAsync(achievementData).ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted)
+            {
+                Debug.Log($"Achievement {achievement.achievementName} saved to Firebase.");
+            }
+            else
+            {
+                Debug.LogError("Error saving achievement: " + task.Exception);
+            }
+        });
+    }
+
+
+
+
+
+
+    public void LoadAchievementsFromFirebase()
+    {
+        //Debug.LogError("EXECUTEDDDDD");
+        string UserCollection = "users";
+        string UserID = GameManager.instance.UserID;
+
+        // Get a reference to the user's unlocked achievements
+        DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection).Document(UserID);
+        CollectionReference unlockedAchievementsRef = docRef.Collection("UnlockedAchievements");
+
+        unlockedAchievementsRef.GetSnapshotAsync().ContinueWithOnMainThread(async task =>
+        {
+            if (task.IsCompleted)
+            {
+                QuerySnapshot snapshot = task.Result;
+
+                foreach (DocumentSnapshot document in snapshot.Documents)
+                {
+                    string achievementName = document.GetValue<string>("AchievementName");
+                    bool isUnlocked = document.GetValue<bool>("IsUnlocked");
+                    int currentvalue = document.GetValue<int>("CurrentValue");
+                    // Update the local achievement list based on the data loaded from Firebase
+                    AchievementSO achievement = achievements.Find(a => a.achievementName == achievementName);
+                    if (achievement != null && isUnlocked)
+                    {
+                        achievement.isUnlocked = true;
+                        achievement.currentValue = currentvalue;
+                    }
+                }
+
+                // After loading achievements, update the UI
+                //await Task.Delay(1000);
+                DisplayAchievements();
+            }
+            else
+            {
+                Debug.LogError("Error loading achievements: " + task.Exception);
+            }
+        });
+    }
+
+
+    public void DisplayAchievements()
     {
         foreach (Transform child in contentPanel)
         {
@@ -132,4 +222,12 @@ public class AchievementManager : MonoBehaviour
 
             }
         }
+    private void OnApplicationQuit()
+    {
+        foreach (var achievement in achievements)
+        {
+            achievement.isUnlocked = false;
+            achievement.currentValue = 0;
+        }
+    }
 }
