@@ -424,6 +424,10 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
+        else if (GameManager.instance.ExchangeToCaseQuest == true && section == "ThankCase")
+        {
+            return;
+        }
         else
         {
             currentStory.ChoosePathString(section);

@@ -96,18 +96,12 @@ public class HeadBackToExchanger : QuestStep
         if (GameManager.instance.OnHeadBackQuest == true)
         {
 
-
             FinishQuestStep();
             ChangeState("Finish", "Finish");
-
-
-
 
             GameManager.instance.OnHeadBackQuest = false;
             GameManager.instance.CPUExchangeXButton.gameObject.SetActive(true);
            
-
-            
         }
     }
 

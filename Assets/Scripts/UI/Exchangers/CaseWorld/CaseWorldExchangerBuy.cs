@@ -213,6 +213,11 @@ public class CaseWorldExchangerBuy : MonoBehaviour
                     int newQuantity = await GetMaterialQuantity(MaterialName);
                     GameManager.instance.CaseMaterialText.text = newQuantity.ToString();
 
+                    if (GameManager.instance.ExchangeToCaseQuest == true)
+                    {
+                        GameManager.instance.CaseExchangeXButton.gameObject.SetActive(true);
+                    }
+
                 }
                 else
                 {

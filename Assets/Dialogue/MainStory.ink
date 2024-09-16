@@ -550,3 +550,89 @@ Now The last Region, The Case Region #speaker: {player_Name} #portrait: 0
 === TwentySevenUnlocked === 
 Nice, I unlocked all the regions I should go now to the Case Region and meet the Exchanger #speaker: {player_Name} #portrait: 0
 -> DONE
+
+=== TwentyEight ===
+Nice, I unlocked all the Hardware Regions #speaker: {player_Name} #portrait: 0
+I should meet the Case Exchanger Now #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== TwentyEightTwo ===
+You're here {player_Name} #speaker: Case Exchanger #portrait: 17
+Thank you very much for coming! #speaker: Case Exchanger #portrait: 17
+I've been waiting for you to come for a long time {player_Name} #speaker: Case Exchanger #portrait: 17
+Yes, The Journey is Tough but I handle it easily #speaker: {player_Name} #portrait: 0
+But this time is different {player_Name} #speaker: Case Exchanger #portrait: 17
+The Enemies are much stronger than previous enemies in other regions #speaker: Case Exchanger #portrait: 17
+The they steal our resources and pested our village #speaker: Case Exchanger #portrait: 17
+are you strong enough to fight them {player_Name}? #speaker: Case Exchanger #portrait: 17
+Well, Of course I am strong enough and I want to fight them #speaker: {player_Name} #portrait: 0
+I also want to upgrade my Case now so, don't worry I handle them #speaker: {player_Name} #portrait: 0
+Ok thank you very much {player_Name} #speaker: Case Exchanger #portrait: 17
+Come back to me and Exhange the Materials that you collected Ok? #speaker: Case Exchanger #portrait: 17
+Yes sir! #speaker: {player_Name} #portrait: 0
+Goodluck... #speaker: Case Exchanger #portrait: 17
+-> DONE
+
+=== TwentyNineIntro ===
+I should Go to the Case Enemy Area and Fight the Horde #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== ThirtyIntro ===
+I should go back to the Case Exchanger and Exchange the Material that I collected for Case #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== Thirty ===
+Ok, That's unexpected, but at least I finished it... #speaker: {player_Name} #portrait: 0
+I should go back to the Case Exchanger and Exchange the Material that I collected for Case #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== ThirtyTwo ===
+I'm Back #speaker: {player_Name} #portrait: 0
+Did you defeat the Horde? #speaker: Case Exchanger #portrait: 17
+Yes, I also got thier money and materials #speaker: {player_Name} #portrait: 0
+Wow, I can't believe {player_Name}, you are truly a legend #speaker: Case Exchanger #portrait: 17
+Thank you very much {player_Name} #speaker: Case Exchanger #portrait: 17
+Here, Exchange those materials to a case #speaker: Case Exchanger #portrait: 17 #choice: caseexchangeyes
+-> DONE
+
+=== ThirtyThree ===
+Thank you again {player_Name} #speaker: Case Exchanger #portrait: 17
+The case will be delivered to your house #speaker: Case Exchanger #portrait: 17
+You can collect it and upgrade your computer aesthetics #speaker: Case Exchanger #portrait: 17
+But, your journey didn't finish here {player_Name} #speaker: Case Exchanger #portrait: 17
+each region have 2nd villages and have a stronger enemies than before #speaker: Case Exchanger #portrait: 17
+you can continue your journey and defeat those bastards #speaker: Case Exchanger #portrait: 17
+but for the mean time, Thank you very much again {player_Name} #speaker: Case Exchanger #portrait: 17
+you are our guardian angel here in the Hardwares world #speaker: Case Exchanger #portrait: 17
+The cpu exchanger did not make a mistake in choosing you as the protector of our world #speaker: Case Exchanger #portrait: 17
+See you again {player_Name} #speaker: Case Exchanger #portrait: 17
+Ok, Thanks to you also #speaker: {player_Name} #portrait: 0
+I should head back home and collect those case #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== ThirtyFour ===
+I should collect the case downstairs and modify my pc #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== ThirtyFive ===
+Now, all I need to do is place this case to my current PC #speaker: {player_Name} #portrait: 0
+I should go to my building desk #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== ThirtySixIntroTwo ===
+Nice, I successfully modified my PC, Now I should go to my desktop to see #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== ThirtySixIntro ===
+I should go to my deskop #speaker: {player_Name} #portrait: 0
+-> DONE
+
+=== ThirtySix ===
+Nice!, From dream to reality #speaker: {player_Name} #portrait: 0
+After all of that journey and adventure I finally build my dreamed PC for my own hardwork #speaker: {player_Name} #portrait: 0
+I finally made it, thanks to the exchanger and the enemies even though they not good to me #speaker: {player_Name} #portrait: 0
+I still owe them because I successfully build my own pc and not by just donation by the exchangers hehehe #speaker: {player_Name} #portrait: 0
+Now, I can repeat all the process to gain more parts and build more computer #speaker: {player_Name} #portrait: 0
+The Case Exchanger also said that, the journey is not yet done there is more village that pested by the enemies #speaker: {player_Name} #portrait: 0
+But for now, I just enjoy the success and feel my beloved PC #speaker: {player_Name} #portrait: 0
+-> DONE

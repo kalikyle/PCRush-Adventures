@@ -368,12 +368,22 @@ public class GameManager : MonoBehaviour
     public bool OnModifyQuest = false;
     public bool DoneModify = false;
     public bool OnRegionQuest = false;
+    public bool OnStartCaseFightQuest = false;
+    public bool CaseHordeFinished = false;
+    public bool ExchangeToCaseQuest = false;
+    public bool OnCollectCaseQuest = false;
+    public bool CaseCollected = false;
+    public bool OnModifyCaseQuest = false;
+    public bool DoneModifyCase = false;
+    public bool OpenYourDesktopFinish = false;
+    public bool DesktopOpenedFinish = false;
 
     public Button BackButton;
     public Button OnDeskBackButton;
     public Button PerksButon;
     public Button CanCelButtonBuild;
     public Button CPUExchangeXButton;
+    public Button CaseExchangeXButton;
 
 
 
@@ -639,10 +649,19 @@ PlayerTotalWalkSpeed = 1;
         
     }
 
+    private bool isFirstCheck = true;
+
     public async void checkMoney()
     {
        
-            if (PlayerMoney > lastPlayerMoney)
+        if (isFirstCheck)
+        {
+            lastPlayerMoney = PlayerMoney; // Initialize lastPlayerMoney with the loaded PlayerMoney value
+            isFirstCheck = false; // Mark that the first check has passed
+            return;
+        }
+
+        if (PlayerMoney > lastPlayerMoney)
             {
 
                 // Calculate the difference (newly earned money)
@@ -653,12 +672,10 @@ PlayerTotalWalkSpeed = 1;
                 SaveCharInfo(UserID, PlayerName);
                 AchievementManager.instance.CheckAchievements();
                 AchievementManager.instance.DisplayAchievements();
+            }
 
-
-        }
-
-            await Task.Delay(500);
-            lastPlayerMoney = PlayerMoney;
+        await Task.Delay(500);
+        lastPlayerMoney = PlayerMoney;
         
 
     }
@@ -889,17 +906,12 @@ PlayerTotalWalkSpeed = 1;
             //    //Debug.LogWarning("Document does not exist for UserID: " + userID);
             //}
 
-            if(lastPlayerMoney == 0)
-            {
-                lastPlayerMoney = PlayerMoney;
-                checkMoney();
-            }
-            else
-            {
-                checkMoney();
-            }
+            //if(lastPlayerMoney == 0)
+            //{
+            //    lastPlayerMoney = PlayerMoney;
+            //}
 
-            
+            checkMoney();
             ThePlayerStats();
             
 
@@ -1439,17 +1451,18 @@ PlayerTotalWalkSpeed = 1;
             foreach (DocumentSnapshot docSnapshot in inUseItemsSnapshot.Documents)
             {
                 // Deserialize the item data
-                string jsonData = docSnapshot.GetValue<string>("itemData");
+                //string jsonData = docSnapshot.GetValue<string>("itemData");
                 string jsonName = docSnapshot.GetValue<string>("itemName");
                 //Debug.Log("JSON Data: " + jsonData); // Debugging statement to inspect JSON data
 
                 // Shop.Model.ShopItem item = new Shop.Model.ShopItem();
+                Shop.Model.ShopItem item = SC.shopData.ShopItems.Find(a => a.item.Name == jsonName);
                 // Deserialize the item part
-                /*Shop.Model.ShopItem*/ item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
+                /*Shop.Model.ShopItem*/ //item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
 
                 // Create a new ShopItem instance and assign the deserialized item data
-              
-                
+
+
                 item.item.InUse = true;
                        
                 //Debug.Log("Loaded ShopItem: " + item.item.Name); // Debugging statement to confirm deserialization
@@ -1562,20 +1575,30 @@ PlayerTotalWalkSpeed = 1;
                 foreach (DocumentSnapshot docSnapshot in inUseItemsSnapshot.Documents)
                 {
                     // Capture the item data on a background thread
-                    string jsonData = docSnapshot.GetValue<string>("itemData");
+                    //string jsonData = docSnapshot.GetValue<string>("itemData");
 
-                    // Switch to the main thread for Unity-specific operations
-                    await Task.Factory.StartNew(() =>
-                    {
-                        // Deserialize the item data into a ShopItem object on the main thread
-                        Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
+                    //// Switch to the main thread for Unity-specific operations
+                    //await Task.Factory.StartNew(() =>
+                    //{
+                    //    // Deserialize the item data into a ShopItem object on the main thread
+                    //    Shop.Model.ShopItem item = JsonUtility.FromJson<Shop.Model.ShopItem>(jsonData);
 
-                        // Update item properties (e.g., set Sold flag)
-                        item.item.Sold = true;
+                    //    // Update item properties (e.g., set Sold flag)
+                    //    item.item.Sold = true;
 
-                        // Any other Unity-related operations go here
+                    //    // Any other Unity-related operations go here
 
-                    }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
+                    //}, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
+
+
+                    string itemName = docSnapshot.GetValue<string>("itemName");
+                    // Update the local achievement list based on the data loaded from Firebase
+                    Shop.Model.ShopItem item = SC.shopData.ShopItems.Find(a => a.item.Name == itemName);
+                    
+                    item.item.Sold = true;
+
+
+
                 }
 
                 // Load in-use items from Firestore
@@ -1785,7 +1808,6 @@ PlayerTotalWalkSpeed = 1;
         scene.LoadScene();
         //SceneManager.LoadScene(1, LoadSceneMode.Additive);
         EnableDefault();
-        
 
         //Debug.Log(UserID);
 
@@ -1914,7 +1936,8 @@ PlayerTotalWalkSpeed = 1;
             UIExplore.SetActive(true);
             //QuestUI.SetActive(true);
 
-            string[] categories = new string[] { "Monitor", "Mouse","MousePad", "Keyboard", "Desk", "Background" };
+            //string[] categories = new string[] { "Monitor", "Mouse","MousePad", "Keyboard", "Desk", "Background" };
+            string[] categories = new string[] { "Background", "Desk" , "Keyboard", "Monitor", "Mouse", "MousePad" };
             DisableFirstall();
             //LoadCharacter();
             charBuilder.LoadSavedData();

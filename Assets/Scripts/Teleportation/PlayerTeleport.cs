@@ -455,10 +455,12 @@ public class PlayerTeleport : MonoBehaviour
 
                 GameManager.instance.OntheDesk = true;
             }
-            
-            
 
-
+            if (GameManager.instance.OpenYourDesktopFinish)
+            {
+                GameManager.instance.DesktopOpenedFinish = true;
+            }
+            
             GameManager.instance.PlayerDeskUI.gameObject.SetActive(true);
             GameManager.instance.PlayerDeskName();
             GameManager.instance.UIPanel.SetActive(true);

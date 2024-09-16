@@ -38,7 +38,12 @@ public class PickUpSystem : MonoBehaviour
                 {
                     GameManager.instance.CPUCollected = true;
                 }
-                
+
+                if (GameManager.instance.OnCollectCaseQuest == true && parts.parts.Category == "Case")
+                {
+                    GameManager.instance.CaseCollected = true;
+                }
+
             }
             else
             {

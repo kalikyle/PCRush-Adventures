@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeetTheCaseExchanger : QuestStep
+public class FightTheCaseHorde : QuestStep
 {
     // Start is called before the first frame update
 
@@ -17,9 +17,14 @@ public class MeetTheCaseExchanger : QuestStep
 
     void Start()
     {
+        GameManager.instance.OnStartCaseFightQuest = true;
 
-        DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
-        DialogueManager.GetInstance().TriggerSection("TwentyEight");
+        if (GameManager.instance.HasInitialize == false)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
+            DialogueManager.GetInstance().TriggerSection("TwentyNineIntro");
+
+        }
 
         GameManager.instance.HasInitialize = true;
         GameManager.instance.CPUSpawn.SetActive(true);
@@ -28,8 +33,6 @@ public class MeetTheCaseExchanger : QuestStep
         GameManager.instance.BuildingDesk.SetActive(true);
         GameManager.instance.HouseDoor.SetActive(true);
         GameManager.instance.packagescollected = 8;
-
-
 
         if (!string.IsNullOrEmpty(targetGameObjectName))
         {
@@ -60,49 +63,20 @@ public class MeetTheCaseExchanger : QuestStep
 
     }
 
-    private bool IsPlayerNearTarget()
-    {
-        // Example logic: Check distance between player (assuming player is tagged as "Player")
-        // and the target GameObject
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null && targetGameObject != null)
-        {
-            float distance = Vector3.Distance(player.transform.position, targetGameObject.transform.position);
-            return distance < 1.3f; // Adjust the distance threshold as needed
-        }
-        return false;
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if (!hasReachedTarget && IsPlayerNearTarget())
+        if (GameManager.instance.OnStartCaseFightQuest == true  && GameManager.instance.CaseHordeFinished == true)
         {
-            hasReachedTarget = true;
-            Debug.Log("Reached " + targetGameObject.name + ".");
-            StartCoroutine(HandleDialogueAndQuestCompletion());
+
+            FinishQuestStep();
+            ChangeState("Finish", "Finish");
+
+            GameManager.instance.OnStartCaseFightQuest = false;
+            GameManager.instance.CaseHordeFinished = false;
+
         }
     }
-
-    private IEnumerator HandleDialogueAndQuestCompletion()
-    {
-        // Start the dialogue section "ThirteenTwo"
-        DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
-        DialogueManager.GetInstance().TriggerSection("TwentyEightTwo");
-
-        // Wait until the dialogue is no longer playing
-        yield return new WaitUntil(() => !DialogueManager.GetInstance().dialogueIsPlaying);
-
-        // Finish the quest step
-        FinishQuestStep();
-
-        // Change the state and update the quest status
-        ChangeState("Finish", "Finish");
-
-
-
-    }
-
     protected override void SetQuestStepState(string state)
     {
 

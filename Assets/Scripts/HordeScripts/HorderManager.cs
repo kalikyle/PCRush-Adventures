@@ -260,6 +260,11 @@ public class HorderManager : MonoBehaviour
         {
             GameManager.instance.HordeFinished = true;
         }
+
+        if (GameManager.instance.OnStartCaseFightQuest == true)
+        {
+            GameManager.instance.CaseHordeFinished = true;
+        }
     }
 
     private IEnumerator SpawnEnemies(HordeConfig config)
