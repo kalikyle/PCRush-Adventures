@@ -9,6 +9,6 @@ Do you want to Exhange your Materials for some Cases?? #speaker: Case Exchanger 
     Ok, See you soon.. #speaker: Case Exchanger #portrait: 17
     -> DONE
 
-=== Thank ===
+=== ThankCase ===
 Thank you come back again! #speaker: Case Exchanger #portrait: 17
 -> DONE

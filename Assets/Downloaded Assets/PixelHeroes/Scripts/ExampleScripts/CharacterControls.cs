@@ -80,27 +80,34 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         {
             if (GameManager.instance.MinimapOpened == false)
             {
-                if (isDead == false || GameManager.instance.LTA.HordeDone == false)
-                {
-                    if (!NoInternet.isActiveAndEnabled)
+                if(GameManager.instance.LTA.HordeDone == false) { 
+
+                    if (isDead == false)
                     {
-                        if (!DialogueManager.GetInstance().dialogueIsPlaying)
+                        if (!NoInternet.isActiveAndEnabled)
                         {
-                            if (!GameManager.instance.PlayerDeskUI.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
+                            if (!DialogueManager.GetInstance().dialogueIsPlaying)
                             {
-                                HandleMovement();
-                                HandleAttack();
+                                if (!GameManager.instance.PlayerDeskUI.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
+                                {
+                                    HandleMovement();
+                                    HandleAttack();
+                                }
+                                else
+                                {
+                                    StopMovement();
+                                }
                             }
                             else
                             {
-                                StopMovement();
+                                ResetMovement();
                             }
                         }
-                        else
-                        {
-                            ResetMovement();
-                        }
                     }
+                }
+                else
+                {
+                    StopMovement();
                 }
             }
             else

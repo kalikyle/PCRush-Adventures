@@ -40,5 +40,10 @@ MonoBehaviour:
   - {fileID: 4389248195765691405, guid: 69891158d73189244a1b4eba6dcf6831, type: 3}
   - {fileID: 6724825674843356467, guid: 205e0fc243691f14bb8f245a91e5eda9, type: 3}
   - {fileID: 5573055812330846853, guid: 6d49a5ff5d427e54e86a5d8f83d127b2, type: 3}
-  goldReward: 500000
-  experiencereward: 100000
+  - {fileID: 3339271506936591850, guid: 8da8eeaa679656f4c83e5fa4fdc83ff7, type: 3}
+  - {fileID: 7443625603530464682, guid: 4d9829383945ea3459d035ff0ac3ba41, type: 3}
+  - {fileID: 345739172659658764, guid: 841fed8edde2fdb4ea6291ffb3935a36, type: 3}
+  - {fileID: 5114671673558749050, guid: a85c21d2c2d3cad4a82551e330127b18, type: 3}
+  - {fileID: 6055016271288204242, guid: 2eb17c1d9eeebea4baf8d123a3d5b36e, type: 3}
+  goldReward: 100000
+  experiencereward: 20000

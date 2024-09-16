@@ -2065,6 +2065,13 @@ namespace PartsInventory
                 GameManager.instance.BeenModified = false;
 
                 GameManager.instance.OnModifyQuests("Done");
+
+                if(GameManager.instance.OnModifyCaseQuest == true)
+                {
+                    GameManager.instance.DoneModifyCase = true;
+                }
+
+
                 inventoryData.PartsSaveItems();
 
 

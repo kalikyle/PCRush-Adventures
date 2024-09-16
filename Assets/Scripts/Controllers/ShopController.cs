@@ -18,7 +18,7 @@ namespace Shop
        private ShopPage shop;
 
         [SerializeField]
-        private ShopSO shopData;
+        public ShopSO shopData;
 
         [SerializeField]
         public ShopBuy shopBuy;

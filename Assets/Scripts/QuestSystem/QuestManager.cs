@@ -433,12 +433,13 @@ public class QuestManager : MonoBehaviour
             }
             else if (quest.state == QuestState.FINISHED)
             {
+                //defaults if any quest are finished
+                GameManager.instance.CPUSpawn.SetActive(true);
+                GameManager.instance.ExitRoom.SetActive(true);
                 GameManager.instance.PlayerDeskRoom.SetActive(true);
                 GameManager.instance.BuildingDesk.SetActive(true);
                 GameManager.instance.HouseDoor.SetActive(true);
                 GameManager.instance.packagescollected = 8;
-
-                GameManager.instance.QuestUI.gameObject.SetActive(false);
             }
 
             GameManager.instance.questEvents.QuestStateChange(quest);
