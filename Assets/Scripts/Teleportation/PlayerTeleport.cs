@@ -354,7 +354,7 @@ public class PlayerTeleport : MonoBehaviour
     //default player xny: 91.72, -10.62
     public void BackToTheHomeWorld()
     {
-
+        //SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
         GameManager.instance.HomeWorld = true;
         GameManager.instance.CPUWorld = false;
         GameManager.instance.RAMWorld = false;

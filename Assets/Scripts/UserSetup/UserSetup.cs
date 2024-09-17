@@ -50,7 +50,7 @@ public class UserSetup : MonoBehaviour
 
     void Start()
     {
-       
+        SoundManager.instance.PlayMainMenuBackground();
         FirebaseController.Instance.MainPanel = MainPanel;
         FirebaseController.Instance.MainPanel = MainPanel;
         FirebaseController.Instance.loginPanel = loginPanel;
@@ -146,7 +146,9 @@ public class UserSetup : MonoBehaviour
 
 
         //}
-
+        SoundManager.instance.PlayButtonClick();
+        SoundManager.instance.backgroundMusicSource.Stop();
+        //SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
         if (FirebaseController.Instance.isSignIn)
         {
             if (!FirebaseController.Instance.isSigned)
@@ -184,7 +186,7 @@ public class UserSetup : MonoBehaviour
     }
     public async void OnPlayLanClick()
     {
-        
+        SoundManager.instance.PlayButtonClick();
         if (string.IsNullOrEmpty(GameManager.instance.UserID))
         {
             SceneManager.UnloadSceneAsync(1);
