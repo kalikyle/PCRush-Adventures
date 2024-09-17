@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GoldDigger4
   m_EditorClassIdentifier: 
   achievementName: Gold Digger 4
-  description: Reach a total of 100000 Money
+  description: Earn a total of 100000 Money
   icon: {fileID: 21300000, guid: d2c0dc76eca05bb4eb4f3fc4a37f258d, type: 3}
   isUnlocked: 0
   ExpReward: 10000
   MoneyReward: 20000
   achievementGoal: 100000
-  currentValue: 0
+  currentValue: 1247
   moneyRequired: 100000

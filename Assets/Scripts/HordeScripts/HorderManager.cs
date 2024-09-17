@@ -525,6 +525,9 @@ public class HorderManager : MonoBehaviour
     {
         LTA.coinscollected.text = PickUpSystem.coins.ToString();
         GameManager.instance.PlayerMoney += PickUpSystem.coins;
+        GameManager.instance.PlayerTotalMoney += PickUpSystem.coins;
+        GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+        
     }
 
     private OtherWorldItem ConvertMaterialsToInventoryItem()
