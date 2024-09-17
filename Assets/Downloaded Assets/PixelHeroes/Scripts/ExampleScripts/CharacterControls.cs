@@ -1,8 +1,10 @@
 ﻿using Assets.PixelHeroes.Scripts.CharacterScrips;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Windows;
@@ -12,7 +14,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 {
     public class CharacterControls : MonoBehaviour
     {
-
+        public Joystick movementJoystick;
         public Character Character;
         public float WalkSpeed = 1f;
         public int runSpeed = 2;
@@ -91,7 +93,13 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                                 if (!GameManager.instance.PlayerDeskUI.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
                                 {
                                     HandleMovement();
-                                    HandleAttack();
+
+                                   
+                                        // Handle attack logic if cursor is over your panel
+                                        HandleAttack();
+                                    
+
+                                    //HandleAttack();
                                 }
                                 else
                                 {
@@ -253,8 +261,12 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             // Handle attack input
             if (UnityEngine.Input.GetMouseButtonDown(0))
             {
+
                 if (canAttack)
                 {
+                    
+                    //SoundManager.instance.PlayAttackSound();
+                    
                     // Choose a random attack animation
                     string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
                     // Set the selected animation trigger
@@ -268,75 +280,224 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 }
             }
         }
+        //public void HandleJoyStickMovement()
+        //{
+        //    if (movementJoystick.Direction.y != 0) {
 
+        //        r2d.velocity = new Vector2(movementJoystick.Direction.x * WalkSpeed, movementJoystick.Direction.y * WalkSpeed);
+
+        //    }
+        //    else
+        //    {
+        //        r2d.velocity = Vector2.zero;
+        //    }
+        //}
+        //public void HandleMovement()
+        //{
+        //    // Check if movement is allowed
+        //    if (canMove)
+        //    {
+
+        //        // Handle movement input
+        //        _input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
+        //        _input.y = UnityEngine.Input.GetAxisRaw("Vertical");
+
+        //        // Set animation parameters based on input
+        //        if (_input != Vector2.zero)
+        //        {
+        //            // Play walking sound only if it's not already playing
+        //            if (!SoundManager.instance.soundEffectSource.isPlaying)
+        //            {
+        //                SoundManager.instance.PlayWalkingSound();
+        //            }
+
+        //            _input.Normalize();
+
+        //            // Turn the character based on input direction
+        //            if (_input.x < 0) // If moving left
+        //            {
+        //                Turn(-1); // Turn left (face left)
+        //            }
+        //            else if (_input.x > 0) // If moving right
+        //            {
+        //                Turn(1); // Turn right (face right)
+        //            }
+        //            // Calculate velocity vector based on input and speed
+        //            Vector2 velocity = _input * WalkSpeed;
+        //            // Apply velocity to Rigidbody2D
+        //            r2d.velocity = velocity;
+        //            Move(_input);
+
+        //            // Set movement animations
+        //            _animator.SetBool("Idle", false);
+        //            _animator.SetBool("Walking", true);
+        //            _animator.SetBool("Running", false);
+
+
+        //        }
+        //        else
+        //        {
+        //            //if (SoundManager.instance.soundEffectSource.isPlaying)
+        //            //{
+        //            //    SoundManager.instance.soundEffectSource.Stop();
+        //            //}
+
+        //            r2d.velocity = Vector2.zero;
+        //            _animator.SetBool("Idle", true);
+        //            _animator.SetBool("Walking", false);
+        //            _animator.SetBool("Running", false);
+        //        }
+
+        //        if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && _input != Vector2.zero)
+        //        {
+
+        //            if (canRun == true)
+        //            {
+        //                // Set running animation
+
+        //                _animator.SetBool("Running", true);
+        //                _animator.SetBool("Walking", false);
+
+        //                // Calculate velocity vector based on input and running speed
+        //                Vector2 velocity = _input * (WalkSpeed + runSpeed);
+        //                // Apply velocity to Rigidbody2D
+        //                r2d.velocity = velocity;
+
+        //                isRunning = true;
+        //                currentMana = currentMana - manaDecrementRate * Time.deltaTime;
+        //                runSoundTimer -= Time.deltaTime;
+        //                if (runSoundTimer <= 0f)
+        //                {
+        //                    SoundManager.instance.PlayRunSound(); // Play run sound
+        //                    runSoundTimer = runSoundInterval; // Reset timer
+        //                }
+        //            }
+
+        //        }
+        //        else
+        //        {
+
+        //            isRunning = false;
+        //        }
+
+        //    }
+        //}
         public void HandleMovement()
         {
             // Check if movement is allowed
             if (canMove)
             {
-                // Handle movement input
-                _input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
-                _input.y = UnityEngine.Input.GetAxisRaw("Vertical");
+                Vector2 input = Vector2.zero;
 
-                // Set animation parameters based on input
-                if (_input != Vector2.zero)
+                // Check joystick input
+                if (movementJoystick.Direction != Vector2.zero)
                 {
-                    _input.Normalize();
-
-                    // Turn the character based on input direction
-                    if (_input.x < 0) // If moving left
-                    {
-                        Turn(-1); // Turn left (face left)
-                    }
-                    else if (_input.x > 0) // If moving right
-                    {
-                        Turn(1); // Turn right (face right)
-                    }
-                    // Calculate velocity vector based on input and speed
-                    Vector2 velocity = _input * WalkSpeed;
-                    // Apply velocity to Rigidbody2D
-                    r2d.velocity = velocity;
-                    Move(_input);
-
-                    // Set movement animations
-                    _animator.SetBool("Idle", false);
-                    _animator.SetBool("Walking", true);
-                    _animator.SetBool("Running", false);
-
+                    input = movementJoystick.Direction;
                 }
                 else
                 {
-                    r2d.velocity = Vector2.zero;
-                    _animator.SetBool("Idle", true);
-                    _animator.SetBool("Walking", false);
-                    _animator.SetBool("Running", false);
+                    // Check keyboard input
+                    input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
+                    input.y = UnityEngine.Input.GetAxisRaw("Vertical");
                 }
 
-                if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && _input != Vector2.zero)
+                if (input != Vector2.zero)
                 {
-                    if(canRun == true)
+                    // Normalize input
+                    input.Normalize();
+
+                    // Turn the character based on input direction
+                    if (input.x < 0) // If moving left
+                    {
+                        Turn(-1); // Turn left (face left)
+                    }
+                    else if (input.x > 0) // If moving right
+                    {
+                        Turn(1); // Turn right (face right)
+                    }
+
+                    // Calculate velocity vector based on input and speed
+                    Vector2 velocity = input * WalkSpeed;
+
+                    // Check if running
+                    if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && canRun)
                     {
                         // Set running animation
                         _animator.SetBool("Running", true);
                         _animator.SetBool("Walking", false);
 
-                        // Calculate velocity vector based on input and running speed
-                        Vector2 velocity = _input * (WalkSpeed + runSpeed);
-                        // Apply velocity to Rigidbody2D
-                        r2d.velocity = velocity;
+                        // Apply running speed
+                        velocity = input * (WalkSpeed + runSpeed);
+
+                        // Decrement mana and play running sound
+                        currentMana -= manaDecrementRate * Time.deltaTime;
+                        runSoundTimer -= Time.deltaTime;
+                        if (runSoundTimer <= 0f)
+                        {
+                            SoundManager.instance.PlayRunSound(); // Play run sound
+                            runSoundTimer = runSoundInterval; // Reset timer
+                        }
 
                         isRunning = true;
-                        currentMana = currentMana - manaDecrementRate * Time.deltaTime;
                     }
-                   
+                    else
+                    {
+                        // Set walking animation
+                        _animator.SetBool("Running", false);
+                        _animator.SetBool("Walking", true);
+                        isRunning = false;
+                    }
+
+                    // Apply velocity to Rigidbody2D
+                    r2d.velocity = velocity;
+                    Move(input);
+
+                    // Set movement animations
+                    _animator.SetBool("Idle", false);
+                    _animator.SetBool("Walking", true);
+                    _animator.SetBool("Running", false);
                 }
                 else
                 {
-                    isRunning = false;
-                }
+                    // Stop movement
+                    r2d.velocity = Vector2.zero;
 
+                    // Set idle animation
+                    _animator.SetBool("Idle", true);
+                    _animator.SetBool("Walking", false);
+                    _animator.SetBool("Running", false);
+
+                    // Stop walking sound if needed
+                    if (SoundManager.instance.soundEffectSource.isPlaying)
+                    {
+                        SoundManager.instance.soundEffectSource.Stop();
+                    }
+                }
             }
         }
+        //bool IsCursorOverGameObject(string gameObjectName)
+        //{
+        //    PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+        //    {
+        //        position = UnityEngine.Input.mousePosition
+        //    };
+
+        //    List<RaycastResult> raycastResults = new List<RaycastResult>();
+        //    EventSystem.current.RaycastAll(pointerEventData, raycastResults);
+
+        //    foreach (RaycastResult result in raycastResults)
+        //    {
+        //        if (result.gameObject.name == gameObjectName)
+        //        {
+        //            return true; // Cursor is over the GameObject or UI Panel
+        //        }
+        //    }
+
+        //    return false; // Cursor is not over the specific GameObject
+        //}
+
+        private float runSoundTimer = 0f; // Timer to space out running sounds
+        public float runSoundInterval = 0.3f; // Interval between running sounds
         private IEnumerator ManaRegenCoroutine()
         {
             while (true)

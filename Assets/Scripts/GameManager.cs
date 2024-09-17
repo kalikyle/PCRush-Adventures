@@ -2056,7 +2056,7 @@ PlayerTotalWalkSpeed = 1;
 
     // Update is called once per frame
     //bool done = false;
-   void Update()
+    void Update()
     {
         UserIDTxt.text = UserID;
         Playerui.text = PlayerName;
