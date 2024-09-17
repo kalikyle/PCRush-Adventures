@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GoldDigger3
   m_EditorClassIdentifier: 
   achievementName: Gold Digger 3
-  description: Reach a total of 30000 Money
+  description: Earn a total of 30000 Money
   icon: {fileID: 21300000, guid: d2c0dc76eca05bb4eb4f3fc4a37f258d, type: 3}
   isUnlocked: 0
   ExpReward: 3000
   MoneyReward: 1000
   achievementGoal: 30000
-  currentValue: 0
+  currentValue: 1247
   moneyRequired: 30000

@@ -525,7 +525,7 @@ PlayerTotalWalkSpeed = 1;
     }
 
 
-    public int lastPlayerMoney = 0;
+    //public int lastPlayerMoney = 0;
 
     public void ThePlayerStats()
     {
@@ -649,34 +649,34 @@ PlayerTotalWalkSpeed = 1;
         
     }
 
-    private bool isFirstCheck = true;
+   // private bool isFirstCheck = true;
 
-    public async void checkMoney()
+    public void checkMoney()
     {
-       
-        if (isFirstCheck)
-        {
-            lastPlayerMoney = PlayerMoney; // Initialize lastPlayerMoney with the loaded PlayerMoney value
-            isFirstCheck = false; // Mark that the first check has passed
-            return;
-        }
 
-        if (PlayerMoney > lastPlayerMoney)
-            {
+        //if (isFirstCheck)
+        //{
+        //    lastPlayerMoney = PlayerMoney; // Initialize lastPlayerMoney with the loaded PlayerMoney value
+        //    isFirstCheck = false; // Mark that the first check has passed
+        //    return;
+        //}
 
-                // Calculate the difference (newly earned money)
-                int moneyEarned = PlayerMoney - lastPlayerMoney;
+        //if (PlayerMoney > lastPlayerMoney)
+        //    {
 
-                // Add to the total money earned
-                PlayerTotalMoney += moneyEarned;
-                SaveCharInfo(UserID, PlayerName);
-                AchievementManager.instance.CheckAchievements();
-                AchievementManager.instance.DisplayAchievements();
-            }
+        //        // Calculate the difference (newly earned money)
+        //        int moneyEarned = PlayerMoney - lastPlayerMoney;
 
-        await Task.Delay(500);
-        lastPlayerMoney = PlayerMoney;
-        
+        //        // Add to the total money earned
+        //        PlayerTotalMoney += moneyEarned;
+        //        SaveCharInfo(UserID, PlayerName);
+        //        AchievementManager.instance.CheckAchievements();
+        //        AchievementManager.instance.DisplayAchievements();
+        //    }
+
+        //await Task.Delay(500);
+        //lastPlayerMoney = PlayerMoney;
+        AchievementManager.instance.CheckAchievements();
 
     }
 
@@ -911,9 +911,10 @@ PlayerTotalWalkSpeed = 1;
             //    lastPlayerMoney = PlayerMoney;
             //}
 
-            checkMoney();
-            ThePlayerStats();
             
+            ThePlayerStats();
+            checkMoney();
+
 
         }
         catch(Exception ex)
@@ -2054,8 +2055,8 @@ PlayerTotalWalkSpeed = 1;
     }
 
     // Update is called once per frame
-    bool done = false;
-    async void Update()
+    //bool done = false;
+   void Update()
     {
         UserIDTxt.text = UserID;
         Playerui.text = PlayerName;
@@ -2080,13 +2081,13 @@ PlayerTotalWalkSpeed = 1;
             RetrievePlayerInfo(UserID);
 
 
-            if (done == false)
-            {
-                await Task.Delay(1000);
-                AchievementManager.instance.CheckAchievements();
-                AchievementManager.instance.DisplayAchievements();
-                done = true;
-            }
+            //if (done == false)
+            //{
+            //    await Task.Delay(1000);
+            //    AchievementManager.instance.CheckAchievements();
+            //    //AchievementManager.instance.DisplayAchievements();
+            //    done = true;
+            //}
             //InGamePanel.gameObject.SetActive(true);
 
         }

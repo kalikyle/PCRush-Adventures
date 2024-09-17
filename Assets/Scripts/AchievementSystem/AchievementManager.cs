@@ -74,7 +74,7 @@ public class AchievementManager : MonoBehaviour
             SaveAchievementToFirebase(achievement);
             GameManager.instance.AddPlayerExp(achievement.ExpReward);
             GameManager.instance.PlayerMoney += achievement.MoneyReward;
-            GameManager.instance.lastPlayerMoney = GameManager.instance.PlayerMoney;
+            GameManager.instance.PlayerTotalMoney += achievement.MoneyReward;
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
         }
     }

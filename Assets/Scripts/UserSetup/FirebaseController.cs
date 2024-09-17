@@ -240,10 +240,10 @@ public class FirebaseController : MonoBehaviour
             //await Task.Delay(1000);
             //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
             await Task.Delay(1000);
-            isSigned = true;
             await OpenNewGame();
-            await Task.Delay(1000);
-            UpdateUserProfile();
+            isSigned = true;
+            //await Task.Delay(1000);
+            ////UpdateUserProfile();
         });
 
     }
@@ -256,8 +256,8 @@ public class FirebaseController : MonoBehaviour
         GameManager.instance.SaveSoldItems();
         await Task.Delay(1000);
         GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
-        await Task.Delay(1000);
-        GameManager.instance.PartsController.LoadPartsItems();
+        //await Task.Delay(1000);
+        //GameManager.instance.PartsController.LoadPartsItems();
         //await Task.Delay(1000);
         //GameManager.instance.StartQuest();
     }
@@ -547,14 +547,14 @@ public class FirebaseController : MonoBehaviour
             //await Task.Delay(1000);
             //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
             await Task.Delay(1000);
-            isSigned = true;
             QuestManager.Instance.ForNewUsers();
             await Task.Delay(1000);
             GameManager.instance.SaveSoldItems();  
             await Task.Delay(1000);
             GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
-            await Task.Delay(1000);
-            GameManager.instance.PartsController.LoadPartsItems();
+            isSigned = true;
+            //await Task.Delay(1000);
+            //GameManager.instance.PartsController.LoadPartsItems();
             //await Task.Delay(1000);
             //GameManager.instance.StartQuest();
             //await Task.Delay(1000);
