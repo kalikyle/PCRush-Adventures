@@ -36,7 +36,7 @@ public class MatchLogic : MonoBehaviour
     void Start()
     {
         instance = this;
-     
+
         //// Example: Adding items to the dictionary
         //Item cpuItem = new Item { itemName = "CPU", itemImage = GameManager2.Instance.PSUImagesNeeds["CPU"].item.ItemImage };
         //Item MBItem = new Item { itemName = "Motherboard", itemImage = GameManager2.Instance.PSUImagesNeeds["Motherboard"].item.ItemImage };
@@ -50,21 +50,40 @@ public class MatchLogic : MonoBehaviour
         //itemDictionary.Add(strgItem.itemName, strgItem);
 
 
-       // ShuffleDictionary(itemDictionary);
+        // ShuffleDictionary(itemDictionary);
 
-        Image1.sprite = GameManager2.Instance.UsedImagesNeeds["Motherboard"].item.ItemImage;
-        Image2.sprite = GameManager2.Instance.UsedImagesNeeds["CPU"].item.ItemImage;
-        Image3.sprite = GameManager2.Instance.UsedImagesNeeds["Storage"].item.ItemImage;
-        Image4.sprite = GameManager2.Instance.UsedImagesNeeds["Video Card"].item.ItemImage;
+        if (GameManager2.Instance != null)
+        {
 
-        psuImage5.sprite = GameManager2.Instance.UsedImagesNeeds["PSU"].item.ItemImage;
 
-        text1.text = GameManager2.Instance.UsedImagesNeeds["Motherboard"].item.Name;
-        text2.text = GameManager2.Instance.UsedImagesNeeds["CPU"].item.Name;
-        text3.text = GameManager2.Instance.UsedImagesNeeds["Storage"].item.Name;
-        text4.text = GameManager2.Instance.UsedImagesNeeds["Video Card"].item.Name;
+            Image1.sprite = GameManager2.Instance.UsedImagesNeeds["Motherboard"].item.ItemImage;
+            Image2.sprite = GameManager2.Instance.UsedImagesNeeds["CPU"].item.ItemImage;
+            Image3.sprite = GameManager2.Instance.UsedImagesNeeds["Storage"].item.ItemImage;
+            Image4.sprite = GameManager2.Instance.UsedImagesNeeds["Video Card"].item.ItemImage;
 
-        psutext5.text = GameManager2.Instance.UsedImagesNeeds["PSU"].item.Name;
+            psuImage5.sprite = GameManager2.Instance.UsedImagesNeeds["PSU"].item.ItemImage;
+
+            text1.text = GameManager2.Instance.UsedImagesNeeds["Motherboard"].item.Name;
+            text2.text = GameManager2.Instance.UsedImagesNeeds["CPU"].item.Name;
+            text3.text = GameManager2.Instance.UsedImagesNeeds["Storage"].item.Name;
+            text4.text = GameManager2.Instance.UsedImagesNeeds["Video Card"].item.Name;
+
+            psutext5.text = GameManager2.Instance.UsedImagesNeeds["PSU"].item.Name;
+
+        }else if (GameManager.instance != null)
+        {
+            Image1.sprite = GameManager.instance.UsedImagesNeeds["Motherboard"].item.ItemImage;
+            Image2.sprite = GameManager.instance.UsedImagesNeeds["CPU"].item.ItemImage;
+            Image3.sprite = GameManager.instance.UsedImagesNeeds["Storage"].item.ItemImage;
+            Image4.sprite = GameManager.instance.UsedImagesNeeds["Video Card"].item.ItemImage;
+
+            psuImage5.sprite = GameManager.instance.UsedImagesNeeds["PSU"].item.ItemImage;
+
+            text1.text = GameManager.instance.UsedImagesNeeds["Motherboard"].item.Name;
+            text2.text = GameManager.instance.UsedImagesNeeds["CPU"].item.Name;
+            text3.text = GameManager.instance.UsedImagesNeeds["Storage"].item.Name;
+            text4.text = GameManager.instance.UsedImagesNeeds["Video Card"].item.Name;
+        }
 
         CancelBTN.onClick.AddListener(() => CancelButton());
     }
@@ -75,24 +94,47 @@ public class MatchLogic : MonoBehaviour
         {
             //PowerSupplyGame.SetActive(false);
 
-            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+            if (GameManager2.Instance != null)
+            {
+
+                GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+                GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+            }
+
+            else if (GameManager.instance != null)
+            {
+
+                GameManager.instance.MainCamera.gameObject.SetActive(true);
+
+            }
             SceneManager.UnloadSceneAsync("PSUMiniGame");
             instance.points = 0;
-            GameManager2.Instance.WiresSceneEnabled = false;
+            //GameManager2.Instance.WiresSceneEnabled = false;
         }
     }
     public void Awake()
     {
-        GameManager2.Instance.WiresSceneEnabled = true;
+        //GameManager2.Instance.WiresSceneEnabled = true;
     }
 
     public void CancelButton() {
 
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+            GameManager2.Instance.BackSingleItem("PSU");
+        }
+
+        else if (GameManager.instance != null)
+        {
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+            GameManager.instance.BackSingleItem("PSU");
+        }
         SceneManager.UnloadSceneAsync("PSUMiniGame");
-        GameManager2.Instance.BackSingleItem("PSU");
     }
 
     public static void AddPoint()

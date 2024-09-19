@@ -46,10 +46,15 @@ public class GPUGameLogic : MonoBehaviour
     {
         
 
-        if (GameManager2.Instance.UsedImagesNeeds["Video Card"].item.ItemImage != null)
+        if (GameManager2.Instance != null)
         {
             gpuImage.sprite = GameManager2.Instance.UsedImagesNeeds["Video Card"].item.ItemImage;
             gpuImage2.sprite = GameManager2.Instance.UsedImagesNeeds["Video Card"].item.ItemImage;
+
+        }else if(GameManager.instance != null)
+        {
+            gpuImage.sprite = GameManager.instance.UsedImagesNeeds["Video Card"].item.ItemImage;
+            gpuImage2.sprite = GameManager.instance.UsedImagesNeeds["Video Card"].item.ItemImage;
         }
 
         //if (panel != null)
@@ -79,8 +84,20 @@ public class GPUGameLogic : MonoBehaviour
     void EndGame()
     {
         //ShowEndNotice("GPU connected.");
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+        }
+
+        else if (GameManager.instance != null)
+        {
+
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+
+        }
         SceneManager.UnloadSceneAsync("GPUMiniGame");
         
     }
@@ -88,11 +105,22 @@ public class GPUGameLogic : MonoBehaviour
     public void CancelButton()
     {
         //ShowEndNotice("GPU connected.");
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
-        SceneManager.UnloadSceneAsync("GPUMiniGame");
-        GameManager2.Instance.BackSingleItem("Video Card");
+        if (GameManager2.Instance != null)
+        {
 
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+            GameManager2.Instance.BackSingleItem("Video Card");
+        }
+
+        else if (GameManager.instance != null)
+        {
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+            GameManager.instance.BackSingleItem("Video Card");
+        }
+
+        SceneManager.UnloadSceneAsync("GPUMiniGame");
     }
 
     //void ShowEndNotice(string text)

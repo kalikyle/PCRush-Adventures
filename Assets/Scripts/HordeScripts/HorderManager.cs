@@ -25,6 +25,7 @@ public class HorderManager : MonoBehaviour
     public GameObject TopPanelUI;
     public GameObject BottomPanelUI;
     public GameObject ButtonsPanelUI;
+    public GameObject AttackPanelUI;
     public TMP_Text timerText;
     public TMP_Text CoinsCollected;
     public TMP_Text MaterialsCollected;
@@ -170,6 +171,7 @@ public class HorderManager : MonoBehaviour
         }
         OnHordeUI.SetActive(true);
         ExploreUI.SetActive(true);
+        AttackPanelUI.SetActive(true);
         //QuestUI.SetActive(false);
         TopPanelUI.SetActive(false);
         BottomPanelUI.SetActive(false);
@@ -193,6 +195,7 @@ public class HorderManager : MonoBehaviour
         }
         OnHordeUI.SetActive(false);
         ExploreUI.SetActive(true);
+        AttackPanelUI.SetActive(false);
         //QuestUI.SetActive(true);
         TopPanelUI.SetActive(true);
         BottomPanelUI.SetActive(true);
@@ -230,6 +233,7 @@ public class HorderManager : MonoBehaviour
         }
         OnHordeUI.SetActive(false);
         ExploreUI.SetActive(true);
+        AttackPanelUI.SetActive(false);
         //QuestUI.SetActive(true);
         TopPanelUI.SetActive(true);
         BottomPanelUI.SetActive(true);

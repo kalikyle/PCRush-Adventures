@@ -62,12 +62,16 @@ public class RamGameLogic : MonoBehaviour
     {
         ShuffleRamSticks();
 
-        if (GameManager2.Instance.UsedImagesNeeds["RAM"].item.ItemImage != null)
+        if (GameManager2.Instance != null)
         {
             ramImage.sprite = GameManager2.Instance.UsedImagesNeeds["RAM"].item.ItemImage;
             ramImage2.sprite = GameManager2.Instance.UsedImagesNeeds["RAM"].item.ItemImage;
         }
-
+        else if (GameManager.instance != null)
+        {
+            ramImage.sprite = GameManager.instance.UsedImagesNeeds["RAM"].item.ItemImage;
+            ramImage2.sprite = GameManager.instance.UsedImagesNeeds["RAM"].item.ItemImage;
+        }
         //if (panel != null)
         //{
         //    panel.SetActive(false);
@@ -108,8 +112,20 @@ public class RamGameLogic : MonoBehaviour
     void EndGame()
     {
         // ShowEndNotice("All RAM sticks connected.");
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+        }
+
+        else if (GameManager.instance != null)
+        {
+
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+
+        }
         SceneManager.UnloadSceneAsync("RAMMiniGame");
         
     }
@@ -117,10 +133,22 @@ public class RamGameLogic : MonoBehaviour
     public void CancelButton()
     {
         //ShowEndNotice("GPU connected.");
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+            GameManager2.Instance.BackSingleItem("RAM");
+        }
+
+        else if (GameManager.instance != null)
+        {
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+            GameManager.instance.BackSingleItem("RAM");
+        }
+
         SceneManager.UnloadSceneAsync("RAMMiniGame");
-        GameManager2.Instance.BackSingleItem("RAM");
 
     }
 

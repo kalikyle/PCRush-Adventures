@@ -427,7 +427,7 @@ public class PlayerTeleport : MonoBehaviour
         if (homeTeleport != null)
         {
             transform.position = homeTeleport.GetComponent<Teleporter>().HomeDestination().position;
-
+            SoundManager.instance.PlayTeleportSound();
             if(BackToHomeWorld == true)
             {
                 BackToTheHomeWorld();

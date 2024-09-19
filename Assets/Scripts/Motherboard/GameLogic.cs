@@ -108,18 +108,42 @@ public class GameLogic : MonoBehaviour
     public void EndGame()
     {
         //ShowEndNotice("Front Panel Headers Connected.");
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+        }
+
+        else if (GameManager.instance != null)
+        {
+
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+
+        }
         SceneManager.UnloadSceneAsync("MotherboardMiniGame");
 
     }
 
     public void cancelButton()
     {
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+            GameManager2.Instance.BackSingleItem("Motherboard");
+        }
+
+        else if (GameManager.instance != null)
+        {
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+            GameManager.instance.BackSingleItem("Motherboard");
+        }
+
         SceneManager.UnloadSceneAsync("MotherboardMiniGame");
-        GameManager2.Instance.BackSingleItem("Motherboard");
     }
 
     //void ShowEndNotice(string text)

@@ -42,7 +42,16 @@ public class ApplyThermalPaste : MonoBehaviour //, IPointerClickHandler
     void OnEnable()
     {
         InitializeMask();
-        SetCPUImage(GameManager2.Instance.UsedImagesNeeds["CPU"].item.ItemImage);
+
+        if (GameManager2.Instance != null)
+        {
+            SetCPUImage(GameManager2.Instance.UsedImagesNeeds["CPU"].item.ItemImage);
+
+        }else if (GameManager.instance != null)
+        {
+            SetCPUImage(GameManager.instance.UsedImagesNeeds["CPU"].item.ItemImage);
+        }
+        
     }
     public void SetCPUImage(Sprite cpuImage)
     {
@@ -232,8 +241,20 @@ public class ApplyThermalPaste : MonoBehaviour //, IPointerClickHandler
         {
             //doneBTN.gameObject.SetActive(true);
             Reset();
-            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+            if (GameManager2.Instance != null)
+            {
+
+                GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+                GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+            }
+
+            else if (GameManager.instance != null)
+            {
+
+                GameManager.instance.MainCamera.gameObject.SetActive(true);
+
+            }
             SceneManager.UnloadSceneAsync("CPUMiniGame");
            
         }
@@ -249,10 +270,23 @@ public class ApplyThermalPaste : MonoBehaviour //, IPointerClickHandler
     public void CancelButton()
     {
         Reset();
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+            GameManager2.Instance.BackSingleItem("CPU");
+        }
+
+        else if (GameManager.instance != null)
+        {
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+            GameManager.instance.BackSingleItem("CPU");
+        }
+
+
         SceneManager.UnloadSceneAsync("CPUMiniGame");
-        GameManager2.Instance.BackSingleItem("CPU");
     }
 
 }

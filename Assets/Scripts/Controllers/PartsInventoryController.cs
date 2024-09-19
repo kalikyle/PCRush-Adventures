@@ -984,6 +984,7 @@ namespace PartsInventory
                 case "Case":
                     CaseImage.gameObject.SetActive(false);
                     CaseImage.sprite = null;
+                    GameManager.instance.UsedImagesNeeds.Remove(category);
                     break;
                 case "Motherboard":
                     MBImage.gameObject.SetActive(false);
@@ -1008,40 +1009,42 @@ namespace PartsInventory
                     }
                     catch (Exception) { }
                     //GameManager.instance.PSUImagesNeeds.Remove(category);
+                    GameManager.instance.UsedImagesNeeds.Remove(category);
                     break;
                 case "CPU":
                     CPUImage.gameObject.SetActive(false);
                     CPUImage.sprite = null;
-
+                    GameManager.instance.UsedImagesNeeds.Remove(category);
                     //GameManager.instance.PSUImagesNeeds.Remove(category);
                     break;
                 case "CPU Fan":
                     CPUFImage.gameObject.SetActive(false);
                     CPUFImage.sprite = null;
-
+                    GameManager.instance.UsedImagesNeeds.Remove(category);
 
                     break;
                 case "RAM":
                     RAMImage.gameObject.SetActive(false);
                     RAMImage.sprite = null;
-
+                    GameManager.instance.UsedImagesNeeds.Remove(category);
 
                     break;
                 case "Video Card":
                     GPUImage.gameObject.SetActive(false);
                     GPUImage.sprite = null;
-
+                    GameManager.instance.UsedImagesNeeds.Remove(category);
                     //GameManager.Instance.PSUImagesNeeds.Remove(category);
                     break;
                 case "Storage":
                     STRG1Image.gameObject.SetActive(false);
                     STRG1Image.sprite = null;
-
+                    GameManager.instance.UsedImagesNeeds.Remove(category);
                     //GameManager.Instance.PSUImagesNeeds.Remove(category);
                     break;
                 case "PSU":
                     PSUImage.gameObject.SetActive(false);
                     PSUImage.sprite = null;
+                    GameManager.instance.UsedImagesNeeds.Remove(category);
                     // GameManager.Instance.PSUImagesNeeds.Remove(category);
                     break;
 
@@ -1127,41 +1130,41 @@ namespace PartsInventory
                 {
                     usedItems.Add(inventoryItem);
                 }
+                OpenMiniGames(category, inventoryItem);
+                //if (category == "CPU")
+                //{
+                //   // ApplyThermal.gameObject.SetActive(true);
+                //   // AT.SetCPUImage(inventoryItem.item.ItemImage);
+                //}
 
-                if (category == "CPU")
-                {
-                   // ApplyThermal.gameObject.SetActive(true);
-                   // AT.SetCPUImage(inventoryItem.item.ItemImage);
-                }
+                //if (category == "PSU")
+                //{
+                //    if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
+                //    {
+                //        DialogBox.gameObject.SetActive(true);
+                //        DialogText.text = "Can't Use this " + category + " without the needed Parts";
+                //        CanYesButton.gameObject.SetActive(false);
+                //        CanNoButton.gameObject.SetActive(false);
+                //        DisYesButton.gameObject.SetActive(false);
+                //        DisNoButton.gameObject.SetActive(false);
+                //        BackYesButton.gameObject.SetActive(false);
+                //        BackNoButton.gameObject.SetActive(false);
+                //        DialogButton.gameObject.SetActive(true);
+                //        try
+                //        {
+                //            HandleBackItem(category);
 
-                if (category == "PSU")
-                {
-                    if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
-                    {
-                        DialogBox.gameObject.SetActive(true);
-                        DialogText.text = "Can't Use this " + category + " without the needed Parts";
-                        CanYesButton.gameObject.SetActive(false);
-                        CanNoButton.gameObject.SetActive(false);
-                        DisYesButton.gameObject.SetActive(false);
-                        DisNoButton.gameObject.SetActive(false);
-                        BackYesButton.gameObject.SetActive(false);
-                        BackNoButton.gameObject.SetActive(false);
-                        DialogButton.gameObject.SetActive(true);
-                        try
-                        {
-                            HandleBackItem(category);
+                //        }
+                //        catch (Exception) { }
+                //    }
+                //    else
+                //    {
+                //       // SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
+                //    }
 
-                        }
-                        catch (Exception) { }
-                    }
-                    else
-                    {
-                       // SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
-                    }
+                //}
 
-                }
 
-               
             }
             inventoryData.PartsSaveItems();
 
@@ -1295,47 +1298,158 @@ namespace PartsInventory
                     {
                         usedItems.Add(inventoryItem);
                     }
+                    OpenMiniGames(category,inventoryItem);
+                    //if (category == "CPU")
+                    //{
+                    //   // ApplyThermal.gameObject.SetActive(true);
+                    //   // AT.SetCPUImage(inventoryItem.item.ItemImage);
+                    //}
 
-                    if (category == "CPU")
-                    {
-                       // ApplyThermal.gameObject.SetActive(true);
-                       // AT.SetCPUImage(inventoryItem.item.ItemImage);
-                    }
+                    //if (category == "PSU")
+                    //{
+                    //    if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
+                    //    {
+                    //        DialogBox.gameObject.SetActive(true);
+                    //        DialogText.text = "Can't Use this " + category + " without the needed Parts";
+                    //        CanYesButton.gameObject.SetActive(false);
+                    //        CanNoButton.gameObject.SetActive(false);
+                    //        DisYesButton.gameObject.SetActive(false);
+                    //        DisNoButton.gameObject.SetActive(false);
+                    //        BackYesButton.gameObject.SetActive(false);
+                    //        BackNoButton.gameObject.SetActive(false);
+                    //        DialogButton.gameObject.SetActive(true);
+                    //        try
+                    //        {
+                    //            HandleBackItem(category);
 
-                    if (category == "PSU")
-                    {
-                        if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
-                        {
-                            DialogBox.gameObject.SetActive(true);
-                            DialogText.text = "Can't Use this " + category + " without the needed Parts";
-                            CanYesButton.gameObject.SetActive(false);
-                            CanNoButton.gameObject.SetActive(false);
-                            DisYesButton.gameObject.SetActive(false);
-                            DisNoButton.gameObject.SetActive(false);
-                            BackYesButton.gameObject.SetActive(false);
-                            BackNoButton.gameObject.SetActive(false);
-                            DialogButton.gameObject.SetActive(true);
-                            try
-                            {
-                                HandleBackItem(category);
-
-                            }
-                            catch (Exception) { }
-                        }
-                        else
-                        {
-                            //SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
-                        }
+                    //        }
+                    //        catch (Exception) { }
+                    //    }
+                    //    else
+                    //    {
+                    //        //SceneManager.LoadScene("PSUWiring", LoadSceneMode.Additive);
+                    //    }
 
 
-                    }
-                    
+                    //}
+
                 }
 
             }
             inventoryData.PartsSaveItems();
         }
+        public void OpenMiniGames(string category, InventoryItem inventoryItem)
+        {
 
+            if (category == "Case")
+            {
+
+                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+                
+                SceneManager.LoadScene("CaseMiniGame", LoadSceneMode.Additive);
+                GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+            }
+
+
+            if (category == "Motherboard")
+            {
+                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+               
+                SceneManager.LoadScene("MotherboardMiniGame", LoadSceneMode.Additive);
+                GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+            }
+
+            if (category == "CPU")
+            {
+                //ApplyThermal.gameObject.SetActive(true);
+                //AT.SetCPUImage(inventoryItem.item.ItemImage);
+                // GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+                
+                SceneManager.LoadScene("CPUMiniGame", LoadSceneMode.Additive);
+                GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+            }
+
+            if (category == "RAM")
+            {
+                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+               
+                SceneManager.LoadScene("RAMMiniGame", LoadSceneMode.Additive);
+                GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+            }
+
+
+            if (category == "CPU Fan")
+            {
+                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+               
+                SceneManager.LoadScene("CPUFanMiniGame", LoadSceneMode.Additive);
+                GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+            }
+
+            if (category == "Video Card")
+            {
+
+                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+               
+                SceneManager.LoadScene("GPUMiniGame", LoadSceneMode.Additive);
+                GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+            }
+
+            if (category == "Storage")
+            {
+
+                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+               
+                SceneManager.LoadScene("StorageMiniGame", LoadSceneMode.Additive);
+                GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+            }
+
+            if (category == "PSU")
+            {
+                if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
+                {
+                    DialogBox.gameObject.SetActive(true);
+                    DialogText.text = "Can't Use this " + category + " without the needed Parts";
+                    CanYesButton.gameObject.SetActive(false);
+                    CanNoButton.gameObject.SetActive(false);
+                    DisYesButton.gameObject.SetActive(false);
+                    DisNoButton.gameObject.SetActive(false);
+                    BackYesButton.gameObject.SetActive(false);
+                    BackNoButton.gameObject.SetActive(false);
+
+                    try
+                    {
+                        HandleBackItem(category);
+
+                    }
+                    catch (Exception) { }
+                }
+                else
+                {
+                    //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+                    
+                    SceneManager.LoadScene("PSUMiniGame", LoadSceneMode.Additive);
+                    GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+                }
+
+
+            }
+        }
         public void UpdatePerksDictionary(InventoryItem item, bool add)
         {
             // Helper function to add or remove perk
@@ -1425,8 +1539,8 @@ namespace PartsInventory
                     CaseImage.sprite = inventoryItem.item.ItemImage;
                     MBButton.interactable = true;
                     CancelButton.interactable = true;
-
-                    if(GameManager.instance.BeenModified == false)
+                    GameManager.instance.UsedImagesNeeds[category] = inventoryItem;
+                    if (GameManager.instance.BeenModified == false)
                     {
                         newpc.gameObject.SetActive(true);
                     }
@@ -1434,7 +1548,7 @@ namespace PartsInventory
                     {
                         newpc.gameObject.SetActive(false);
                     }
-
+                    
                     break;
                 case "Motherboard":
                     MBImage.gameObject.SetActive(true);
@@ -1444,11 +1558,13 @@ namespace PartsInventory
                     RAMButton.interactable = true;
                     GPUButton.interactable = true;
                     STRG1Button.interactable = true;
+                    GameManager.instance.UsedImagesNeeds[category] = inventoryItem;
                     //GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
                     break;
                 case "CPU":
                     CPUImage.gameObject.SetActive(true);
                     CPUImage.sprite = inventoryItem.item.ItemImage;
+                    GameManager.instance.UsedImagesNeeds[category] = inventoryItem;
                     //GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
                     //ApplyThermal.gameObject.SetActive(true);
                     //AT.SetCPUImage(inventoryItem.item.ItemImage);
@@ -1456,26 +1572,31 @@ namespace PartsInventory
                 case "CPU Fan":
                     CPUFImage.gameObject.SetActive(true);
                     CPUFImage.sprite = inventoryItem.item.ItemImage;
+                    GameManager.instance.UsedImagesNeeds[category] = inventoryItem;
                     break;
                 case "RAM":
                     RAMImage.gameObject.SetActive(true);
                     RAMImage.sprite = inventoryItem.item.ItemImage;
+                    GameManager.instance.UsedImagesNeeds[category] = inventoryItem;
                     break;
                 case "Video Card":
                     GPUImage.gameObject.SetActive(true);
                     GPUImage.sprite = inventoryItem.item.ItemImage;
+                    GameManager.instance.UsedImagesNeeds[category] = inventoryItem;
                     //GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
                     break;
                 case "Storage":
                     STRG1Image.gameObject.SetActive(true);
                     STRG1Image.sprite = inventoryItem.item.ItemImage;
-                   // GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
+                    GameManager.instance.UsedImagesNeeds[category] = inventoryItem;
+                    // GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
                     break;
 
                 case "PSU":
                     PSUImage.gameObject.SetActive(true);
                     PSUImage.sprite = inventoryItem.item.ItemImage;
-                  //  GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
+                    GameManager.instance.UsedImagesNeeds[category] = inventoryItem;
+                    //  GameManager.Instance.PSUImagesNeeds[category] = inventoryItem;
                     break;
 
             }
@@ -2078,6 +2199,7 @@ namespace PartsInventory
 
 
             }
+            GameManager.instance.UsedImagesNeeds.Clear();
             ModifyingPC.gameObject.SetActive(false);
             pcName.gameObject.SetActive(false);
             Inuse.gameObject.SetActive(false);

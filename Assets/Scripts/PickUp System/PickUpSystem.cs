@@ -57,6 +57,7 @@ public class PickUpSystem : MonoBehaviour
 
             }
             GameManager.instance.ShowPopUp(parts, false);
+            SoundManager.instance.PlayCollectSound();
             partsData.PartsSaveItems();
 
         }

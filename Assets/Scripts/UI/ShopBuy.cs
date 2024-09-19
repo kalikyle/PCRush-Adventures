@@ -1,3 +1,4 @@
+using Inventory.Model;
 using Shop.Model;
 using Shop.UI;
 using System;
@@ -342,7 +343,7 @@ public class ShopBuy : MonoBehaviour
     }
     public void HandlePurchase(Shop.UI.ShopItem shopItem)//need fix
     {
-        ChangeItemImages(shopItem);
+        
         
         List<Shop.Model.ShopItem> shopItems = so.ShopItems;
         int tempIndexs;
@@ -362,7 +363,7 @@ public class ShopBuy : MonoBehaviour
             }
             else
             {
-                BuyItemAndCheck(shpItem);
+                BuyItemAndCheck(shpItem, shopItem);
             }
 
 
@@ -379,7 +380,7 @@ public class ShopBuy : MonoBehaviour
             }
             else
             {
-                BuyItemAndCheck(shpItem);
+                BuyItemAndCheck(shpItem, shopItem);
             }
         }
         else if (ToggleTF == false && ToggleBSE == false)// for all
@@ -410,7 +411,7 @@ public class ShopBuy : MonoBehaviour
                 }
                 else
                 {
-                    BuyItemAndCheck(shpItem);
+                    BuyItemAndCheck(shpItem,shopItem);
                 }
             }
             else
@@ -422,11 +423,11 @@ public class ShopBuy : MonoBehaviour
 
     }
 
-    private void BuyItemAndCheck(Shop.Model.ShopItem shpItem)
+    private void BuyItemAndCheck(Shop.Model.ShopItem shpItem, Shop.UI.ShopItem shopItem)
     {
         if (GameManager.instance.PlayerMoney >= shpItem.item.Price)
         {
-
+            ChangeItemImages(shopItem);
             ItemsBuy(shpItem);
             GameManager.instance.PlayerMoney -= shpItem.item.Price;
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
@@ -434,7 +435,8 @@ public class ShopBuy : MonoBehaviour
         }
         else
         {
-            Debug.LogError("You dont have enough money");
+            //Debug.LogError("You dont have enough money");
+            GameManager.instance.ShowFloatingText("You don't have enough coins");
         }
     }
 
@@ -485,7 +487,8 @@ public class ShopBuy : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("You dont have enough money");
+                    //Debug.LogError("You dont have enough money");
+                    GameManager.instance.ShowFloatingText("You don't have enough coins");
                 }
             }
 

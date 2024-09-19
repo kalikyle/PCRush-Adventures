@@ -217,7 +217,8 @@ public class CPUFExchangerBuy : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("You dont have enough of this Item!");
+                    //Debug.LogError("You dont have enough of this Item!");
+                    GameManager.instance.ShowFloatingText("You don't have enough Materials");
                 }
 
 
