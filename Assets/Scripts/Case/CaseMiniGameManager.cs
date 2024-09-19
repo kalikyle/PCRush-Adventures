@@ -70,19 +70,43 @@ public class CaseMiniGameManager2 : MonoBehaviour
     }
 
     public void EndGame()
-    { 
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+    {
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+            
+        }
+
+       else if (GameManager.instance != null) {
+
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+           
+        }
+
         SceneManager.UnloadSceneAsync("CaseMiniGame");
-       
         //ShowEndNotice("Removing Screws Complete.");
     }
     public void cancelButton()
     {
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+            GameManager2.Instance.BackSingleItem("Case");
+        }
+
+        else if(GameManager.instance != null)
+        {
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+            GameManager.instance.BackSingleItem("Case");
+        }
+
         SceneManager.UnloadSceneAsync("CaseMiniGame");
-        GameManager2.Instance.BackSingleItem("Case");
     }
 
 

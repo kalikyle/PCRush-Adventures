@@ -147,7 +147,7 @@ public class UserSetup : MonoBehaviour
 
         //}
         SoundManager.instance.PlayButtonClick();
-        SoundManager.instance.backgroundMusicSource.Stop();
+        
         //SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
         if (FirebaseController.Instance.isSignIn)
         {
@@ -167,6 +167,7 @@ public class UserSetup : MonoBehaviour
                     GameManager.instance.PartsController.LoadPartsItems();
                     await Task.Delay(1000);
                     AchievementManager.instance.LoadAchievementsFromFirebase();
+                    
 
             }
             else
@@ -175,6 +176,7 @@ public class UserSetup : MonoBehaviour
                 //Debug.LogError("SCENE UNLOADED");
                 SceneManager.UnloadSceneAsync(1);
                 GameManager.instance.scene.manualLoading();
+                SoundManager.instance.backgroundMusicSource.Stop();
             }
         }
         else
@@ -237,6 +239,7 @@ public class UserSetup : MonoBehaviour
         SceneManager.UnloadSceneAsync(1);
         GameManager.instance.LoadCharacter();
         GameManager.instance.StartQuest();
+        SoundManager.instance.backgroundMusicSource.Stop();
         //SceneManager.LoadSceneAsync(0);
     }
 

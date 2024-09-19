@@ -100,8 +100,20 @@ public class SATAGameLogic : MonoBehaviour
     void EndGame()
     {
         //ShowEndNotice("All SATA wires connected.");
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+        }
+
+        else if (GameManager.instance != null)
+        {
+
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+
+        }
         SceneManager.UnloadSceneAsync("StorageMiniGame");
        
     }
@@ -109,10 +121,22 @@ public class SATAGameLogic : MonoBehaviour
    public void CancelButton()
     {
         //ShowEndNotice("GPU connected.");
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+            GameManager2.Instance.BackSingleItem("Storage");
+        }
+
+        else if (GameManager.instance != null)
+        {
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+            GameManager.instance.BackSingleItem("Storage");
+        }
+
         SceneManager.UnloadSceneAsync("StorageMiniGame");
-        GameManager2.Instance.BackSingleItem("Storage");
 
     }
 

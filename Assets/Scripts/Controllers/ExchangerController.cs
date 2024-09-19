@@ -23,6 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static OtherWorld.Model.OWInvSO;
@@ -45,6 +46,8 @@ namespace Exchanger
         public float Time = 120f;
         private float remainingTime = 0f; // 3 minutes in seconds
         public Button RefreshNow;
+        public int CPURefreshPrice = 300;
+        public TMP_Text CPUTextRefreshPrice;
 
 
         //for RAM
@@ -58,7 +61,8 @@ namespace Exchanger
         public float RAMTime = 120f;
         private float RAMremainingTime = 0f;
         public Button RAMRefreshNow;
-
+        public int RAMRefreshPrice = 600;
+        public TMP_Text RAMTextRefreshPrice;
 
         //for CPU Fan
         [SerializeField]
@@ -71,6 +75,8 @@ namespace Exchanger
         public float CPUFTime = 120f;
         private float CPUFremainingTime = 0f;
         public Button CPUFRefreshNow;
+        public int CPUFRefreshPrice = 900;
+        public TMP_Text CPUFTextRefreshPrice;
 
         //for GPU
         [SerializeField]
@@ -83,6 +89,8 @@ namespace Exchanger
         public float GPUTime = 120f;
         private float GPUremainingTime = 0f;
         public Button GPURefreshNow;
+        public int GPURefreshPrice = 1200;
+        public TMP_Text GPUTextRefreshPrice;
 
         //for Storage
         [SerializeField]
@@ -95,6 +103,8 @@ namespace Exchanger
         public float StorageTime = 120f;
         private float StorageremainingTime = 0f;
         public Button StorageRefreshNow;
+        public int StorageRefreshPrice = 1500;
+        public TMP_Text StorageTextRefreshPrice;
 
         //for PSU
         [SerializeField]
@@ -107,6 +117,8 @@ namespace Exchanger
         public float PSUTime = 120f;
         private float PSUremainingTime = 0f;
         public Button PSURefreshNow;
+        public int PSURefreshPrice = 1800;
+        public TMP_Text PSUTextRefreshPrice;
 
         //for Motherboard
         [SerializeField]
@@ -119,6 +131,8 @@ namespace Exchanger
         public float MBTime = 120f;
         private float MBremainingTime = 0f;
         public Button MBRefreshNow;
+        public int MBRefreshPrice = 2100;
+        public TMP_Text MBTextRefreshPrice;
 
 
         //for Case
@@ -132,6 +146,8 @@ namespace Exchanger
         public float CaseTime = 120f;
         private float CaseremainingTime = 0f;
         public Button CaseRefreshNow;
+        public int CaseRefreshPrice = 2400;
+        public TMP_Text CaseTextRefreshPrice;
 
         public void Update()
         {
@@ -140,7 +156,17 @@ namespace Exchanger
         void Start()
         {
             currentlevel = GameManager.instance.PlayerLevel;
-           
+           //initialize RefreshPrice
+           CPUTextRefreshPrice.text = CPURefreshPrice.ToString();
+           RAMTextRefreshPrice.text = RAMRefreshPrice.ToString();
+           CPUFTextRefreshPrice.text = CPUFRefreshPrice.ToString();
+           GPUTextRefreshPrice.text = GPURefreshPrice.ToString();
+           StorageTextRefreshPrice.text = StorageRefreshPrice.ToString();
+           PSUTextRefreshPrice.text = PSURefreshPrice.ToString();
+           MBTextRefreshPrice.text = MBRefreshPrice.ToString();
+           CaseTextRefreshPrice.text = CaseRefreshPrice.ToString();
+
+
             //for CPU
             remainingTime = Time;
             CPUsData.ShuffleCPUs();
@@ -304,10 +330,21 @@ namespace Exchanger
 
         private void RefreshCPUs()
         {
-            CPUsData.ShuffleCPUs();
-            InitializeCPUs();
-            remainingTime = Time;
-            CPUsPage.ResetSelection();
+            if (GameManager.instance.PlayerMoney >= CPURefreshPrice)
+            {
+
+                CPUsData.ShuffleCPUs();
+                InitializeCPUs();
+                remainingTime = Time;
+                CPUsPage.ResetSelection();
+                GameManager.instance.PlayerMoney -= CPURefreshPrice;
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            }
+            else
+            {
+                //Debug.LogError("You dont have enough money");
+                GameManager.instance.ShowFloatingText("You don't have enough coins");
+            }
         }
 
         private void UpdateTimerDisplay()
@@ -419,10 +456,21 @@ namespace Exchanger
 
         private void RefreshRAMs()
         {
-            RAMsData.ShuffleRAMs();
-            InitializeRAMs();
-            RAMremainingTime = RAMTime;
-            RAMsPage.ResetSelection();
+            if (GameManager.instance.PlayerMoney >= RAMRefreshPrice)
+            {
+
+                RAMsData.ShuffleRAMs();
+                InitializeRAMs();
+                RAMremainingTime = RAMTime;
+                RAMsPage.ResetSelection();
+                GameManager.instance.PlayerMoney -= RAMRefreshPrice;
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            }
+            else
+            {
+                //Debug.LogError("You dont have enough money");
+                GameManager.instance.ShowFloatingText("You don't have enough coins");
+            }
         }
 
         private void RAMUpdateTimerDisplay()
@@ -530,10 +578,21 @@ namespace Exchanger
 
         private void RefreshCPUFs()
         {
-            CPUFsData.ShuffleCPUFs();
-            InitializeCPUFs();
-            CPUFremainingTime = CPUFTime;
-            CPUFsPage.ResetSelection();
+            if (GameManager.instance.PlayerMoney >= CPUFRefreshPrice)
+            {
+
+                CPUFsData.ShuffleCPUFs();
+                InitializeCPUFs();
+                CPUFremainingTime = CPUFTime;
+                CPUFsPage.ResetSelection();
+                GameManager.instance.PlayerMoney -= CPUFRefreshPrice;
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            }
+            else
+            {
+                //Debug.LogError("You dont have enough money");
+                GameManager.instance.ShowFloatingText("You don't have enough coins");
+            }
         }
 
         private void CPUFUpdateTimerDisplay()
@@ -642,10 +701,22 @@ namespace Exchanger
 
         private void RefreshGPUs()
         {
-            GPUsData.ShuffleGPUs();
-            InitializeGPUs();
-            GPUremainingTime = GPUTime;
-            GPUsPage.ResetSelection();
+
+            if (GameManager.instance.PlayerMoney >= GPURefreshPrice)
+            {
+                GPUsData.ShuffleGPUs();
+                InitializeGPUs();
+                GPUremainingTime = GPUTime;
+                GPUsPage.ResetSelection();
+                GameManager.instance.PlayerMoney -= GPURefreshPrice;
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            }
+            else
+            {
+                //Debug.LogError("You dont have enough money");
+                GameManager.instance.ShowFloatingText("You don't have enough coins");
+            }
+
         }
 
         private void GPUUpdateTimerDisplay()
@@ -755,10 +826,22 @@ namespace Exchanger
 
         private void RefreshStorages()
         {
-            StoragesData.ShuffleStorages();
-            InitializeStorages();
-            StorageremainingTime = StorageTime;
-            StoragesPage.ResetSelection();
+
+            if (GameManager.instance.PlayerMoney >= StorageRefreshPrice)
+            {
+
+                StoragesData.ShuffleStorages();
+                InitializeStorages();
+                StorageremainingTime = StorageTime;
+                StoragesPage.ResetSelection();
+                GameManager.instance.PlayerMoney -= StorageRefreshPrice;
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            }
+            else
+            {
+                //Debug.LogError("You dont have enough money");
+                GameManager.instance.ShowFloatingText("You don't have enough coins");
+            }
         }
 
         private void StorageUpdateTimerDisplay()
@@ -867,10 +950,24 @@ namespace Exchanger
 
         private void RefreshPSUs()
         {
-            PSUsData.ShufflePSUs();
-            InitializePSUs();
-            PSUremainingTime = PSUTime;
-            PSUsPage.ResetSelection();
+
+            if (GameManager.instance.PlayerMoney >= PSURefreshPrice)
+            {
+
+                PSUsData.ShufflePSUs();
+                InitializePSUs();
+                PSUremainingTime = PSUTime;
+                PSUsPage.ResetSelection();
+                GameManager.instance.PlayerMoney -= PSURefreshPrice;
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            }
+            else
+            {
+                //Debug.LogError("You dont have enough money");
+                GameManager.instance.ShowFloatingText("You don't have enough coins");
+            }
+
+            
         }
 
         private void PSUUpdateTimerDisplay()
@@ -979,10 +1076,23 @@ namespace Exchanger
 
         private void RefreshMBs()
         {
-            MBsData.ShuffleMBs();
-            InitializeMBs();
-            MBremainingTime = MBTime;
-            MBsPage.ResetSelection();
+
+            if (GameManager.instance.PlayerMoney >= MBRefreshPrice)
+            {
+                MBsData.ShuffleMBs();
+                InitializeMBs();
+                MBremainingTime = MBTime;
+                MBsPage.ResetSelection();
+                GameManager.instance.PlayerMoney -= MBRefreshPrice;
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            }
+            else
+            {
+                //Debug.LogError("You dont have enough money");
+                GameManager.instance.ShowFloatingText("You don't have enough coins");
+            }
+
+           
         }
 
         private void MBUpdateTimerDisplay()
@@ -1090,10 +1200,22 @@ namespace Exchanger
 
         private void RefreshCases()
         {
-            CasesData.ShuffleCases();
-            InitializeCases();
-            CaseremainingTime = CaseTime;
-            CasesPage.ResetSelection();
+
+            if (GameManager.instance.PlayerMoney >= CaseRefreshPrice)
+            {
+                CasesData.ShuffleCases();
+                InitializeCases();
+                CaseremainingTime = CaseTime;
+                CasesPage.ResetSelection();
+                GameManager.instance.PlayerMoney -= CaseRefreshPrice;
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            }
+            else
+            {
+                //Debug.LogError("You dont have enough money");
+                GameManager.instance.ShowFloatingText("You don't have enough coins");
+            }
+
         }
 
         private void CaseUpdateTimerDisplay()

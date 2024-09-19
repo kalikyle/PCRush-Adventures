@@ -125,7 +125,8 @@ public class HelmetBuy : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("You dont have enough money");
+                    //Debug.LogError("You dont have enough money");
+                    GameManager.instance.ShowFloatingText("You don't have enough coins");
                 }
 
 

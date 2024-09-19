@@ -261,22 +261,24 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             // Handle attack input
             if (UnityEngine.Input.GetMouseButtonDown(0))
             {
-
+                
                 if (canAttack)
                 {
-                    
-                    //SoundManager.instance.PlayAttackSound();
-                    
-                    // Choose a random attack animation
-                    string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
-                    // Set the selected animation trigger
-                    _animator.SetTrigger(randomAttackAnimation);
+                    if (IsCursorOverGameObject("AttackArea"))
+                    {
+                        SoundManager.instance.PlayAttackSound();
 
-                    // Detect colliders for attack hit detection
-                    DetectColliders();
-                    currentMana = currentMana - 2f;
-                    // Reset the cooldown timer
-                    //attackCooldownTimer = 1.0f / AttackSpeed;
+                        // Choose a random attack animation
+                        string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
+                        // Set the selected animation trigger
+                        _animator.SetTrigger(randomAttackAnimation);
+
+                        // Detect colliders for attack hit detection
+                        DetectColliders();
+                        currentMana = currentMana - 2f;
+                        // Reset the cooldown timer
+                        //attackCooldownTimer = 1.0f / AttackSpeed;
+                    }
                 }
             }
         }
@@ -403,6 +405,10 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
                 if (input != Vector2.zero)
                 {
+                    if (!SoundManager.instance.walkingSoundSource.isPlaying)
+                    {
+                        SoundManager.instance.PlayWalkingSound();
+                    }
                     // Normalize input
                     input.Normalize();
 
@@ -418,35 +424,6 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
                     // Calculate velocity vector based on input and speed
                     Vector2 velocity = input * WalkSpeed;
-
-                    // Check if running
-                    if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && canRun)
-                    {
-                        // Set running animation
-                        _animator.SetBool("Running", true);
-                        _animator.SetBool("Walking", false);
-
-                        // Apply running speed
-                        velocity = input * (WalkSpeed + runSpeed);
-
-                        // Decrement mana and play running sound
-                        currentMana -= manaDecrementRate * Time.deltaTime;
-                        runSoundTimer -= Time.deltaTime;
-                        if (runSoundTimer <= 0f)
-                        {
-                            SoundManager.instance.PlayRunSound(); // Play run sound
-                            runSoundTimer = runSoundInterval; // Reset timer
-                        }
-
-                        isRunning = true;
-                    }
-                    else
-                    {
-                        // Set walking animation
-                        _animator.SetBool("Running", false);
-                        _animator.SetBool("Walking", true);
-                        isRunning = false;
-                    }
 
                     // Apply velocity to Rigidbody2D
                     r2d.velocity = velocity;
@@ -468,33 +445,66 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     _animator.SetBool("Running", false);
 
                     // Stop walking sound if needed
-                    if (SoundManager.instance.soundEffectSource.isPlaying)
+                    if (SoundManager.instance.walkingSoundSource.isPlaying)
                     {
                         SoundManager.instance.soundEffectSource.Stop();
                     }
                 }
+
+                // Check if running
+                if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && input != Vector2.zero)
+                {
+
+                    if (canRun == true)
+                    {
+                        // Set running animation
+
+                        _animator.SetBool("Running", true);
+                        _animator.SetBool("Walking", false);
+
+                        // Calculate velocity vector based on input and running speed
+                        Vector2 velocity = input * (WalkSpeed + runSpeed);
+                        // Apply velocity to Rigidbody2D
+                        r2d.velocity = velocity;
+
+                        isRunning = true;
+                        currentMana = currentMana - manaDecrementRate * Time.deltaTime;
+                        runSoundTimer -= Time.deltaTime;
+                        if (runSoundTimer <= 0f)
+                        {
+                            SoundManager.instance.PlayRunSound(); // Play run sound
+                            runSoundTimer = runSoundInterval; // Reset timer
+                        }
+                    }
+
+                }
+                else
+                {
+
+                    isRunning = false;
+                }
             }
         }
-        //bool IsCursorOverGameObject(string gameObjectName)
-        //{
-        //    PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
-        //    {
-        //        position = UnityEngine.Input.mousePosition
-        //    };
+        bool IsCursorOverGameObject(string gameObjectName)
+        {
+            PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+            {
+                position = UnityEngine.Input.mousePosition
+            };
 
-        //    List<RaycastResult> raycastResults = new List<RaycastResult>();
-        //    EventSystem.current.RaycastAll(pointerEventData, raycastResults);
+            List<RaycastResult> raycastResults = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerEventData, raycastResults);
 
-        //    foreach (RaycastResult result in raycastResults)
-        //    {
-        //        if (result.gameObject.name == gameObjectName)
-        //        {
-        //            return true; // Cursor is over the GameObject or UI Panel
-        //        }
-        //    }
+            foreach (RaycastResult result in raycastResults)
+            {
+                if (result.gameObject.name == gameObjectName)
+                {
+                    return true; // Cursor is over the GameObject or UI Panel
+                }
+            }
 
-        //    return false; // Cursor is not over the specific GameObject
-        //}
+            return false; // Cursor is not over the specific GameObject
+        }
 
         private float runSoundTimer = 0f; // Timer to space out running sounds
         public float runSoundInterval = 0.3f; // Interval between running sounds

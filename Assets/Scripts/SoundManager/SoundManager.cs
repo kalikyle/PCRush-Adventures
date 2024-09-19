@@ -17,10 +17,16 @@ public class SoundManager : MonoBehaviour
     // Sound Effects
     [Header("Effects")]
     public AudioSource soundEffectSource;
-    public AudioClip walkingSound;
     public AudioClip RunSound;
     public AudioClip buttonSound;
     public AudioClip attackSound;
+    public AudioClip collectSound;
+    public AudioClip InExploreButtonSound;
+    public AudioClip Teleport;
+
+    [Header("WalkingSound")]
+    public AudioSource walkingSoundSource;
+    public AudioClip walkingSound;
 
     private float backgroundVolume = 1f;
     private float effectsVolume = 1f;
@@ -74,6 +80,7 @@ public class SoundManager : MonoBehaviour
     {
         effectsVolume = volume;
         soundEffectSource.volume = effectsVolume;
+        walkingSoundSource.volume = effectsVolume;
         SaveSoundSettings();
     }
 
@@ -92,6 +99,20 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlayWalkSoundEffect(AudioClip sound)
+    {
+        if (sound != null)
+        {
+            walkingSoundSource.clip = sound;
+            walkingSoundSource.volume = effectsVolume;
+            walkingSoundSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("Sound effect clip is null.");
+        }
+    }
+
     // Play a button click sound
     public void PlayButtonClick()
     {
@@ -101,7 +122,7 @@ public class SoundManager : MonoBehaviour
     // Play walking sound
     public void PlayWalkingSound()
     {
-        PlaySoundEffect(walkingSound);
+        PlayWalkSoundEffect(walkingSound);
     }
     public void PlayRunSound()
     {
@@ -114,6 +135,20 @@ public class SoundManager : MonoBehaviour
     public void PlayAttackSound()
     {
         PlaySoundEffect(attackSound);
+    }
+    public void PlayTeleportSound()
+    {
+        PlaySoundEffect(Teleport);
+    }
+    public void PlayCollectSound()
+    {
+        PlaySoundEffect(collectSound);
+    }
+
+    public void InExploreSound()
+    {
+        soundEffectSource.Play();
+        PlaySoundEffect(InExploreButtonSound);
     }
 
     // Change the background music for different worlds

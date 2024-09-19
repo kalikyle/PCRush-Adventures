@@ -53,15 +53,26 @@ public class CPUFanGameLogic : MonoBehaviour
     {
         startPosition = cpuFan.transform.position;
 
-        if (GameManager2.Instance.UsedImagesNeeds["CPU Fan"].item.ItemImage != null)
+        if (GameManager2.Instance != null)
         {
             cpufanImage.sprite = GameManager2.Instance.UsedImagesNeeds["CPU Fan"].item.ItemImage;
             cpufanImage2.sprite = GameManager2.Instance.UsedImagesNeeds["CPU Fan"].item.ItemImage;
         }
+
+        else if(GameManager.instance != null)
+        {
+            cpufanImage.sprite = GameManager.instance.UsedImagesNeeds["CPU Fan"].item.ItemImage;
+            cpufanImage2.sprite = GameManager.instance.UsedImagesNeeds["CPU Fan"].item.ItemImage;
+        }
         
-        if (GameManager2.Instance.UsedImagesNeeds["CPU"].item.ItemImage != null)
+        if (GameManager2.Instance != null)
         {
             cpuImage.sprite = GameManager2.Instance.UsedImagesNeeds["CPU"].item.ItemImage;
+        } 
+        
+        else if (GameManager.instance != null)
+        {
+            cpuImage.sprite = GameManager.instance.UsedImagesNeeds["CPU"].item.ItemImage;
         }
         //if (panel != null)
         //{
@@ -90,18 +101,44 @@ public class CPUFanGameLogic : MonoBehaviour
 
     void EndGame()
     {
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+        }
+
+        else if (GameManager.instance != null)
+        {
+
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+
+        }
         SceneManager.UnloadSceneAsync("CPUFanMiniGame");
         
     }
 
     public void CancelButton()
     {
-        GameManager2.Instance.MainCamera.gameObject.SetActive(true);
-        GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+        if (GameManager2.Instance != null)
+        {
+
+            GameManager2.Instance.MainCamera.gameObject.SetActive(true);
+            GameManager2.Instance.BuildScene.gameObject.SetActive(true);
+
+            GameManager2.Instance.BackSingleItem("CPU Fan");
+        }
+
+        else if (GameManager.instance != null)
+        {
+            GameManager.instance.MainCamera.gameObject.SetActive(true);
+            GameManager.instance.BackSingleItem("CPU Fan");
+        }
+
         SceneManager.UnloadSceneAsync("CPUFanMiniGame");
-        GameManager2.Instance.BackSingleItem("CPU Fan");
+       
     }
 
     //void ShowEndNotice(string text)

@@ -60,6 +60,10 @@ public class GameManager : MonoBehaviour
     public PCPlayerController PPC;
     public PartsInventoryController PIC;
     public bool HasOpened = false;
+    public Dictionary<string, InventoryItem> UsedImagesNeeds = new Dictionary<string, InventoryItem>();
+    [SerializeField]
+    public Camera MainCamera;
+
 
     [Header("For Shop and Decorations")]
     public bool isEditing = false;
@@ -1155,9 +1159,15 @@ PlayerTotalWalkSpeed = 1;
        
     }
 
+
+
     public void StopLoadWorldInventory()
     {
         StopCoroutine(OWC.OtherWorldInventory());
+    }
+    public void BackSingleItem(string category)
+    {
+        PartsController.HandleBackItem(category);
     }
 
     public string clickedInventoryItemID;
@@ -2440,8 +2450,18 @@ PlayerTotalWalkSpeed = 1;
         }
     }
 
+    public GameObject floatingTextPrefab;
+    public void ShowFloatingText(string text)
+    {
+        if (floatingTextPrefab != null && notifpPopUpParent != null)
+        {
+            GameObject floatingText = Instantiate(floatingTextPrefab, transform.position, Quaternion.identity, notifpPopUpParent);
+            NotifText floatingTextComponent = floatingText.GetComponent<NotifText>();
 
+            floatingTextComponent.SetText(text, Color.white);
 
+        }
+    }
     public void ShowPopUp(PartsCollect inventoryItem, bool cpuBuy)
     {
         GameObject newShopPopup = Instantiate(notifpopup, notifpPopUpParent); // Instantiate the popup as a child of the designated parent

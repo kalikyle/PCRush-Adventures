@@ -39,7 +39,7 @@ public class GameManager2 : MonoBehaviour
     public List<InventoryItem> itemsToTransfer = new List<InventoryItem>();
     public int tempindex;
 
-    public bool WiresSceneEnabled = false;
+    //public bool WiresSceneEnabled = false;
 
     public Dictionary<string, InventoryItem> UsedImagesNeeds = new Dictionary<string, InventoryItem>();
 
