@@ -233,7 +233,7 @@ public class ApplyThermalPaste : MonoBehaviour //, IPointerClickHandler
         float paintedPercentage = (float)paintedPixels / (maskTexture.width * maskTexture.height) * 100f;
 
        // Debug.Log("Percentage: " + paintedPercentage.ToString("F1") + "%");
-        paintedPercentageText.text = paintedPercentage.ToString("F2") + "%";
+        paintedPercentageText.text = paintedPercentage.ToString() + "%";
 
 
         //finish painting

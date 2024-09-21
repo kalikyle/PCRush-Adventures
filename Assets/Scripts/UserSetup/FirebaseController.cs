@@ -234,8 +234,8 @@ public class FirebaseController : MonoBehaviour
 
             // Firebase user has been created.
             FirebaseUser newUser = task.Result.User;
-            await Task.Delay(1000);
-            CreateUserDataCollection(user.UserId);
+            //await Task.Delay(1000);
+            await CreateUserDataCollection(user.UserId);
             GameManager.instance.UserID = user.UserId;
             //await Task.Delay(1000);
             //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
@@ -541,8 +541,8 @@ public class FirebaseController : MonoBehaviour
 
             // Automatically create a Firestore collection for the user
             Debug.Log("Anonymous sign-in successful! UID: " + user.UserId);
-            await Task.Delay(1000);
-            CreateUserDataCollection(user.UserId);
+            ///await Task.Delay(1200);
+            await CreateUserDataCollection(user.UserId);
             GameManager.instance.UserID = user.UserId;
             //await Task.Delay(1000);
             //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
@@ -561,7 +561,7 @@ public class FirebaseController : MonoBehaviour
         });
     }
 
-    void CreateUserDataCollection(string userId)
+    public Task CreateUserDataCollection(string userId)
     {
         // Reference to the user's collection
         CollectionReference userCollection = FirebaseFirestore.DefaultInstance.Collection("users");
@@ -608,7 +608,6 @@ public class FirebaseController : MonoBehaviour
                 if (task.IsCompleted)
                 {
                     //Debug.Log("User data collection created.");
-
                     UserSetup.instance.OpenCharEditor();
                 }
                 else if (task.IsFaulted)
@@ -616,6 +615,7 @@ public class FirebaseController : MonoBehaviour
                     Debug.LogError("Error creating user data collection: " + task.Exception);
                 }
             });
+        return Task.CompletedTask;
     }
 
     public void UnloadThisSceneForExist()
