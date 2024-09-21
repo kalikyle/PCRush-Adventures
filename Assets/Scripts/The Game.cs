@@ -364,6 +364,14 @@ public class TheGame : NetworkBehaviour
         
         MainCamera.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync("PCRush");
+        SceneManager.UnloadSceneAsync("CaseMiniGame");
+        SceneManager.UnloadSceneAsync("CPUFanMiniGame");
+        SceneManager.UnloadSceneAsync("CPUMiniGame");
+        SceneManager.UnloadSceneAsync("GPUMiniGame");
+        SceneManager.UnloadSceneAsync("MotherboardMiniGame");
+        SceneManager.UnloadSceneAsync("PSUMiniGame");
+        SceneManager.UnloadSceneAsync("RAMMiniGame");
+        SceneManager.UnloadSceneAsync("StorageMiniGame");
         resultPanel.SetActive(true);
         resultText.text = result;
         resultFeedback.text = resultfeed;

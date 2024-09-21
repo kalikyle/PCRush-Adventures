@@ -126,7 +126,7 @@ public class AchievementManager : MonoBehaviour
         DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(UserCollection).Document(UserID);
         CollectionReference unlockedAchievementsRef = docRef.Collection("UnlockedAchievements");
 
-        unlockedAchievementsRef.GetSnapshotAsync().ContinueWithOnMainThread(async task =>
+        unlockedAchievementsRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsCompleted)
             {

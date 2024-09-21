@@ -318,9 +318,10 @@ public class LeanTweenAnimate : MonoBehaviour
         LeanTween.moveLocal(showkills.gameObject, new Vector3(252.9f, -257f, 0f), .7f).setDelay(1f).setEase(LeanTweenType.easeInCubic);
 
     }
+    //OLD new Vector3(1.361929f, 1.361929f, 1.361929f)
     public void HomeWorldMinimapOpen()
     {
-        LeanTween.scale(MinimapHomeWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapHomeWorld.gameObject, new Vector3(1f, 1f, 1f), .2f).setEase(LeanTweenType.easeInCubic);
         GameManager.instance.MinimapOpened = true;
     }
     public void HomeWorldMinimapClose()
@@ -330,7 +331,7 @@ public class LeanTweenAnimate : MonoBehaviour
     }
     public void CPUMinimapOpen()
     {
-        LeanTween.scale(MinimapCPUWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapCPUWorld.gameObject, new Vector3(1f, 1f, 1f), .2f).setEase(LeanTweenType.easeInCubic);
         GameManager.instance.MinimapOpened = true;
     }
     public void CPUMinimapClose()
@@ -340,7 +341,7 @@ public class LeanTweenAnimate : MonoBehaviour
     }
     public void RAMMinimapOpen()
     {
-        LeanTween.scale(MinimapRAMWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapRAMWorld.gameObject, new Vector3(1f, 1f, 1f), .2f).setEase(LeanTweenType.easeInCubic);
         GameManager.instance.MinimapOpened = true;
     }
     public void RAMMinimapClose()
@@ -350,7 +351,7 @@ public class LeanTweenAnimate : MonoBehaviour
     }
     public void CPUFMinimapOpen()
     {
-        LeanTween.scale(MinimapCPUFWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapCPUFWorld.gameObject, new Vector3(1f, 1f, 1f), .2f).setEase(LeanTweenType.easeInCubic);
         GameManager.instance.MinimapOpened = true;
     }
     public void CPUFMinimapClose()
@@ -360,7 +361,7 @@ public class LeanTweenAnimate : MonoBehaviour
     }
     public void GPUMinimapOpen()
     {
-        LeanTween.scale(MinimapGPUWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapGPUWorld.gameObject, new Vector3(1f, 1f, 1f), .2f).setEase(LeanTweenType.easeInCubic);
         GameManager.instance.MinimapOpened = true;
     }
     public void GPUMinimapClose()
@@ -370,7 +371,7 @@ public class LeanTweenAnimate : MonoBehaviour
     }
     public void STORAGEMinimapOpen()
     {
-        LeanTween.scale(MinimapSTORAGEWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapSTORAGEWorld.gameObject, new Vector3(1f, 1f, 1f), .2f).setEase(LeanTweenType.easeInCubic);
         GameManager.instance.MinimapOpened = true;
     }
     public void STORAGEMinimapClose()
@@ -380,7 +381,7 @@ public class LeanTweenAnimate : MonoBehaviour
     }
     public void PSUMinimapOpen()
     {
-        LeanTween.scale(MinimapPSUWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapPSUWorld.gameObject, new Vector3(1f, 1f, 1f), .2f).setEase(LeanTweenType.easeInCubic);
         GameManager.instance.MinimapOpened = true;
     }
     public void PSUMinimapClose()
@@ -390,7 +391,7 @@ public class LeanTweenAnimate : MonoBehaviour
     }
     public void MBMinimapOpen()
     {
-        LeanTween.scale(MinimapMBWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapMBWorld.gameObject, new Vector3(1f, 1f, 1f), .2f).setEase(LeanTweenType.easeInCubic);
         GameManager.instance.MinimapOpened = true;
     }
     public void MBMinimapClose()
@@ -400,7 +401,7 @@ public class LeanTweenAnimate : MonoBehaviour
     }
     public void CASEMinimapOpen()
     {
-        LeanTween.scale(MinimapCASEWorld.gameObject, new Vector3(1.361929f, 1.361929f, 1.361929f), .2f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.scale(MinimapCASEWorld.gameObject, new Vector3(1f, 1f, 1f), .2f).setEase(LeanTweenType.easeInCubic);
         GameManager.instance.MinimapOpened = true;
     }
     public void CASEMinimapClose()
