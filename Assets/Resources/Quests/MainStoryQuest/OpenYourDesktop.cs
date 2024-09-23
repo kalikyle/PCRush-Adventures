@@ -32,17 +32,31 @@ public class OpenYourDesktop : QuestStep
     }
 
     // Update is called once per frame
+    bool dialogueOpened = false;
     void Update()
     {
-        if (GameManager.instance.OpenYourDesktopFinish == true && GameManager.instance.DesktopOpenedFinish == true)
+        if (GameManager.instance.OpenYourDesktopFinish == true && GameManager.instance.DesktopOpenedFinish == true && dialogueOpened == false)
         {
 
             //FinishQuestStep();
             //ChangeState("Finish", "Finish");
             StartCoroutine(HandleDialogueAndQuestCompletion());
+            dialogueOpened = true;
+        }
+
+
+        if(GameManager.instance.OpenYourDesktopFinish == true && GameManager.instance.DesktopOpenedFinish == true && GameManager.instance.OverallFinish == true)
+        {
+            FinishQuestStep();
+            ChangeState("Finish", "Finish");
 
             GameManager.instance.OpenYourDesktopFinish = false;
             GameManager.instance.DesktopOpenedFinish = false;
+            GameManager.instance.OverallFinish = false;
+
+
+            AchievementManager.instance.FinishStory = true;
+            AchievementManager.instance.CheckAchievements();
         }
     }
 
@@ -62,6 +76,7 @@ public class OpenYourDesktop : QuestStep
         //ChangeState("Finish", "Finish");
 
         // Cutscene Credits and Unlocked
+        GameManager.instance.CutScene11.SetActive(true);
 
     }
 

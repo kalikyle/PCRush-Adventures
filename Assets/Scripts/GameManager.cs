@@ -130,6 +130,8 @@ public class GameManager : MonoBehaviour
     public GameObject CutScene8;
     public GameObject CutScene9;
     public GameObject CutScene10;
+    public GameObject CutScene11;
+    public GameObject CutScene12;
     public GameObject SquareBars;
 
     //for UI
@@ -342,6 +344,7 @@ public class GameManager : MonoBehaviour
     public GameObject CpuTwirl;
     public GameObject ExitRoom;
     public GameObject TheLostAdventurer;
+    public GameObject HomeWorldFence;
 
     public bool CutScene2Open = false;
     public bool OnBuildingQuest = false;
@@ -381,6 +384,7 @@ public class GameManager : MonoBehaviour
     public bool DoneModifyCase = false;
     public bool OpenYourDesktopFinish = false;
     public bool DesktopOpenedFinish = false;
+    public bool OverallFinish = false;
 
     public Button BackButton;
     public Button OnDeskBackButton;
@@ -655,34 +659,34 @@ PlayerTotalWalkSpeed = 1;
 
    // private bool isFirstCheck = true;
 
-    public void checkMoney()
-    {
+    //public void checkMoney()
+    //{
 
-        //if (isFirstCheck)
-        //{
-        //    lastPlayerMoney = PlayerMoney; // Initialize lastPlayerMoney with the loaded PlayerMoney value
-        //    isFirstCheck = false; // Mark that the first check has passed
-        //    return;
-        //}
+    //    //if (isFirstCheck)
+    //    //{
+    //    //    lastPlayerMoney = PlayerMoney; // Initialize lastPlayerMoney with the loaded PlayerMoney value
+    //    //    isFirstCheck = false; // Mark that the first check has passed
+    //    //    return;
+    //    //}
 
-        //if (PlayerMoney > lastPlayerMoney)
-        //    {
+    //    //if (PlayerMoney > lastPlayerMoney)
+    //    //    {
 
-        //        // Calculate the difference (newly earned money)
-        //        int moneyEarned = PlayerMoney - lastPlayerMoney;
+    //    //        // Calculate the difference (newly earned money)
+    //    //        int moneyEarned = PlayerMoney - lastPlayerMoney;
 
-        //        // Add to the total money earned
-        //        PlayerTotalMoney += moneyEarned;
-        //        SaveCharInfo(UserID, PlayerName);
-        //        AchievementManager.instance.CheckAchievements();
-        //        AchievementManager.instance.DisplayAchievements();
-        //    }
+    //    //        // Add to the total money earned
+    //    //        PlayerTotalMoney += moneyEarned;
+    //    //        SaveCharInfo(UserID, PlayerName);
+    //    //        AchievementManager.instance.CheckAchievements();
+    //    //        AchievementManager.instance.DisplayAchievements();
+    //    //    }
 
-        //await Task.Delay(500);
-        //lastPlayerMoney = PlayerMoney;
-        AchievementManager.instance.CheckAchievements();
+    //    //await Task.Delay(500);
+    //    //lastPlayerMoney = PlayerMoney;
+    //    AchievementManager.instance.CheckAchievements();
 
-    }
+    //}
 
     public void UnequipEquipment()
     {
@@ -917,7 +921,7 @@ PlayerTotalWalkSpeed = 1;
 
             
             ThePlayerStats();
-            checkMoney();
+            //checkMoney();
 
 
         }
@@ -1926,7 +1930,7 @@ PlayerTotalWalkSpeed = 1;
             PartsToCollect.Remove(collectedObject);
 
             // Save updated PartsToCollect list to Firestore
-            await Task.Delay(5000);
+            await Task.Delay(2000);
             SaveGameObjectsToFirestore(PartsToCollect);
 
             // Optionally, destroy or deactivate the collected object
@@ -2466,7 +2470,7 @@ PlayerTotalWalkSpeed = 1;
     {
         GameObject newShopPopup = Instantiate(notifpopup, notifpPopUpParent); // Instantiate the popup as a child of the designated parent
 
-        LeanTween.moveLocal(newShopPopup, new Vector3(264.7f, 133.7f, 0f), 2f)
+        LeanTween.moveLocal(newShopPopup, new Vector3(260f, 96f, 0f), 2f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => HidePopUp(newShopPopup));
 
@@ -2475,7 +2479,7 @@ PlayerTotalWalkSpeed = 1;
 
     private void HidePopUp(GameObject shopPopup)
     {
-        LeanTween.moveLocal(shopPopup, new Vector3(508.4f, 133.7f, 0f), 1f)
+        LeanTween.moveLocal(shopPopup, new Vector3(491f, 96f, 0f), 1f)
             .setDelay(1f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => Destroy(shopPopup));
@@ -2540,7 +2544,7 @@ PlayerTotalWalkSpeed = 1;
     {
         GameObject newShopPopup = Instantiate(Equipnotifpopup, notifpPopUpParent); // Instantiate the popup as a child of the designated parent
 
-        LeanTween.moveLocal(newShopPopup, new Vector3(264.7f, 133.7f, 0f), 2f)
+        LeanTween.moveLocal(newShopPopup, new Vector3(260f, 96f, 0f), 2f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => HidePopUpEquipments(newShopPopup));
 
@@ -2549,7 +2553,7 @@ PlayerTotalWalkSpeed = 1;
 
     private void HidePopUpEquipments(GameObject shopPopup)
     {
-        LeanTween.moveLocal(shopPopup, new Vector3(508.4f, 133.7f, 0f), 1f)
+        LeanTween.moveLocal(shopPopup, new Vector3(491f, 96f, 0f), 1f)
             .setDelay(1f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => Destroy(shopPopup));
@@ -2598,7 +2602,7 @@ PlayerTotalWalkSpeed = 1;
     {
         GameObject newShopPopup = Instantiate(Itemsnotifpopup, notifpPopUpParent); // Instantiate the popup as a child of the designated parent
 
-        LeanTween.moveLocal(newShopPopup, new Vector3(264.7f, 133.7f, 0f), 2f)
+        LeanTween.moveLocal(newShopPopup, new Vector3(260f, 96f, 0f), 2f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => HidePopUpItems(newShopPopup));
 
@@ -2608,7 +2612,7 @@ PlayerTotalWalkSpeed = 1;
     {
         GameObject newShopPopup = Instantiate(Itemsnotifpopup, notifpPopUpParent); // Instantiate the popup as a child of the designated parent
 
-        LeanTween.moveLocal(newShopPopup, new Vector3(264.7f, 133.7f, 0f), 2f)
+        LeanTween.moveLocal(newShopPopup, new Vector3(260f, 96f, 0f), 2f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => HidePopUpItems(newShopPopup));
 
@@ -2617,7 +2621,7 @@ PlayerTotalWalkSpeed = 1;
 
     private void HidePopUpItems(GameObject shopPopup)
     {
-        LeanTween.moveLocal(shopPopup, new Vector3(508.4f, 133.7f, 0f), 1f)
+        LeanTween.moveLocal(shopPopup, new Vector3(491f, 96f, 0f), 1f)
             .setDelay(1f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => Destroy(shopPopup));

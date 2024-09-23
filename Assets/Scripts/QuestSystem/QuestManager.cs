@@ -440,6 +440,7 @@ public class QuestManager : MonoBehaviour
                 GameManager.instance.BuildingDesk.SetActive(true);
                 GameManager.instance.HouseDoor.SetActive(true);
                 GameManager.instance.packagescollected = 8;
+                GameManager.instance.HomeWorldFence.SetActive(false);
             }
 
             GameManager.instance.questEvents.QuestStateChange(quest);
@@ -466,8 +467,8 @@ public class QuestManager : MonoBehaviour
                 GameManager.instance.BuildingDesk.SetActive(true);
                 GameManager.instance.HouseDoor.SetActive(true);
                 GameManager.instance.packagescollected = 8;
-
                 GameManager.instance.QuestUI.gameObject.SetActive(false);
+                GameManager.instance.HomeWorldFence.SetActive(false);
             }
 
             GameManager.instance.questEvents.QuestStateChange(quest);

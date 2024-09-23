@@ -244,7 +244,7 @@ public class QuestLogUI : MonoBehaviour
                 // If the step index has changed, destroy the existing UI
                 if (currentQuestStepUI != null)
                 {
-                    LeanTween.moveLocal(currentQuestStepUI, new Vector3(-500f, 106f, 0f), 1f)
+                    LeanTween.moveLocal(currentQuestStepUI, new Vector3(-500f, 60f, 0f), 1f)
                     .setEase(LeanTweenType.easeOutExpo);
                     Destroy(currentQuestStepUI);
                     currentQuestStepUI = null;
@@ -253,7 +253,7 @@ public class QuestLogUI : MonoBehaviour
                 // Instantiate the UI prefab and update its content
                 currentQuestStepUI = Instantiate(questUIPopup, questUIParent);
 
-                LeanTween.moveLocal(currentQuestStepUI, new Vector3(-347f, 106f, 0f), 2f)
+                LeanTween.moveLocal(currentQuestStepUI, new Vector3(-350f, 60f, 0f), 2f)
                     .setEase(LeanTweenType.easeOutExpo);
 
                 UpdateQuestStepUIContent(quest);
