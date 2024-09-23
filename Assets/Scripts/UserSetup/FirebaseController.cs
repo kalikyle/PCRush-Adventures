@@ -235,13 +235,17 @@ public class FirebaseController : MonoBehaviour
             // Firebase user has been created.
             FirebaseUser newUser = task.Result.User;
             //await Task.Delay(1000);
-            await CreateUserDataCollection(user.UserId);
-            GameManager.instance.UserID = user.UserId;
-            //await Task.Delay(1000);
-            //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
-            await Task.Delay(1000);
-            await OpenNewGame();
-            isSigned = true;
+
+            if (task.IsCompleted)
+            {
+                await CreateUserDataCollection(user.UserId);
+                GameManager.instance.UserID = user.UserId;
+                //await Task.Delay(1000);
+                //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+                await Task.Delay(1000);
+                await OpenNewGame();
+                isSigned = true;
+            }
             //await Task.Delay(1000);
             ////UpdateUserProfile();
         });
@@ -538,21 +542,28 @@ public class FirebaseController : MonoBehaviour
             }
 
             FirebaseUser user = task.Result.User;
-
             // Automatically create a Firestore collection for the user
             Debug.Log("Anonymous sign-in successful! UID: " + user.UserId);
             ///await Task.Delay(1200);
-            await CreateUserDataCollection(user.UserId);
-            GameManager.instance.UserID = user.UserId;
-            //await Task.Delay(1000);
-            //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
-            await Task.Delay(1000);
-            QuestManager.Instance.ForNewUsers();
-            await Task.Delay(1000);
-            GameManager.instance.SaveSoldItems();  
-            await Task.Delay(1000);
-            GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
-            isSigned = true;
+            ///
+
+            if (task.IsCompleted)
+            {
+                await CreateUserDataCollection(user.UserId);
+                GameManager.instance.UserID = user.UserId;
+                //await Task.Delay(1000);
+                //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+                await Task.Delay(1000);
+                QuestManager.Instance.ForNewUsers();
+                await Task.Delay(1000);
+                GameManager.instance.SaveSoldItems();
+                await Task.Delay(1000);
+                GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
+                isSigned = true;
+
+            }
+
+           
             //await Task.Delay(1000);
             //GameManager.instance.PartsController.LoadPartsItems();
             //await Task.Delay(1000);

@@ -69,6 +69,14 @@ Or what we called The Processor #speaker: Ian #portrait: 2
 -> DONE
 
 === sixthDoneCPU ===
+Great! {player_Name} #speaker: Ian #portrait: 2
+Next thing is, we need to cool off the CPU to process the data smoothly #speaker: Ian #portrait: 2
+so we need to the CPU FAN to it #speaker: Ian #portrait: 2
+(Click the CPU FAN Button and Select the CPU FAN that you want) #speaker: PCRush #portrait: 5
+(Click the Use Button to Place the CPU FAN) #speaker: PCRush #portrait: 5
+-> DONE
+
+=== sixthDoneCPUFan ===
 Nicely Done! {player_Name} #speaker: Ian #portrait: 2
 Next we need to place the RAM to this beast #speaker: Ian #portrait: 2
 (Click the RAM Button and Select the RAM that you have) #speaker: PCRush #portrait: 5
@@ -76,15 +84,6 @@ Next we need to place the RAM to this beast #speaker: Ian #portrait: 2
 -> DONE
 
 === sixthDoneRAM ===
-Nicely done! {player_Name} #speaker: Ian #portrait: 2
-Next the is the Storage of your computer #speaker: Ian #portrait: 2
-it can be SSD or HDD but for now use the one that you have #speaker: Ian #portrait: 2
-(Click the Storage Button and Select the Storage that you want) #speaker: PCRush #portrait: 5
-(Click the Use Button to Place the Storage) #speaker: PCRush #portrait: 5
--> DONE
-
-
-=== sixthDoneCPUFan ===
 Excellent! {player_Name} #speaker: Ian #portrait: 2
 Next the Graphics Processing unit of your Computer or in short the GPU #speaker: Ian #portrait: 2
 (Click the GPU Button and Select the GPU that you want) #speaker: PCRush #portrait: 5
@@ -92,19 +91,19 @@ Next the Graphics Processing unit of your Computer or in short the GPU #speaker:
 -> DONE
 
 === sixthDoneGPU ===
+Nicely done! {player_Name} #speaker: Ian #portrait: 2
+Next the is the Storage of your computer #speaker: Ian #portrait: 2
+it can be SSD or HDD but for now use the one that you have #speaker: Ian #portrait: 2
+(Click the Storage Button and Select the Storage that you want) #speaker: PCRush #portrait: 5
+(Click the Use Button to Place the Storage) #speaker: PCRush #portrait: 5
+-> DONE
+
+=== sixthDoneStorage ===
 Great! and Lastly {player_Name} #speaker: Ian #portrait: 2
 the is the Power Supply Unit of your Computer or in short the PSU #speaker: Ian #portrait: 2
 to power up your Compter #speaker: Ian #portrait: 2
 (Click the PSU Button and Select the PSU that you want) #speaker: PCRush #portrait: 5
 (Click the Use Button to Place the PSU) #speaker: PCRush #portrait: 5
--> DONE
-
-=== sixthDoneStorage ===
-Great! {player_Name} #speaker: Ian #portrait: 2
-Next thing is, we need to cool off the CPU to process the data smoothly #speaker: Ian #portrait: 2
-so we need to the CPU FAN to it #speaker: Ian #portrait: 2
-(Click the CPU FAN Button and Select the CPU FAN that you want) #speaker: PCRush #portrait: 5
-(Click the Use Button to Place the CPU FAN) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDonePSU ===

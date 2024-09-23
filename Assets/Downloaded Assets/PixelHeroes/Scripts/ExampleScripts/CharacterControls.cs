@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Windows;
 using AnimationState = Assets.PixelHeroes.Scripts.CharacterScrips.AnimationState;
+using Input = UnityEngine.Input;
 
 namespace Assets.PixelHeroes.Scripts.ExampleScripts
 {
@@ -96,7 +97,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
                                    
                                         // Handle attack logic if cursor is over your panel
-                                        HandleAttack();
+                                    HandleAttack();
                                     
 
                                     //HandleAttack();
@@ -255,33 +256,72 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             _animator.SetBool("Walking", false);
             _animator.SetBool("Running", false);
         }
-
         private void HandleAttack()
         {
-            // Handle attack input
-            if (UnityEngine.Input.GetMouseButtonDown(0))
+            // Handle attack using mouse or touch
+            if (UnityEngine.Input.GetMouseButtonDown(0)) // Mouse click for PC
             {
-                
                 if (canAttack)
                 {
                     if (IsCursorOverGameObject("AttackArea"))
                     {
-                        SoundManager.instance.PlayAttackSound();
+                        TriggerAttack();
+                    }
+                }
+            }
 
-                        // Choose a random attack animation
-                        string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
-                        // Set the selected animation trigger
-                        _animator.SetTrigger(randomAttackAnimation);
-
-                        // Detect colliders for attack hit detection
-                        DetectColliders();
-                        currentMana = currentMana - 2f;
-                        // Reset the cooldown timer
-                        //attackCooldownTimer = 1.0f / AttackSpeed;
+            // Handle attack using touch (for mobile)
+            foreach (Touch touch in Input.touches)
+            {
+                if (touch.phase == TouchPhase.Began)
+                {
+                    if (canAttack && IsCursorOverGameObject("AttackArea"))
+                    {
+                        TriggerAttack();
                     }
                 }
             }
         }
+
+        private void TriggerAttack()
+        {
+            SoundManager.instance.PlayAttackSound();
+
+            // Choose a random attack animation
+            string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
+            // Set the selected animation trigger
+            _animator.SetTrigger(randomAttackAnimation);
+
+            // Detect colliders for attack hit detection
+            DetectColliders();
+            currentMana = currentMana - 2f;
+        }
+        //private void HandleAttack()
+        //{
+        //    // Handle attack input
+        //    if (UnityEngine.Input.GetMouseButtonDown(0))
+        //    {
+
+        //        if (canAttack)
+        //        {
+        //            if (IsCursorOverGameObject("AttackArea"))
+        //            {
+        //                SoundManager.instance.PlayAttackSound();
+
+        //                // Choose a random attack animation
+        //                string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
+        //                // Set the selected animation trigger
+        //                _animator.SetTrigger(randomAttackAnimation);
+
+        //                // Detect colliders for attack hit detection
+        //                DetectColliders();
+        //                currentMana = currentMana - 2f;
+        //                // Reset the cooldown timer
+        //                //attackCooldownTimer = 1.0f / AttackSpeed;
+        //            }
+        //        }
+        //    }
+        //}
         //public void HandleJoyStickMovement()
         //{
         //    if (movementJoystick.Direction.y != 0) {
@@ -384,6 +424,108 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
         //    }
         //}
+        //public void HandleMovement()
+        //{
+        //    // Check if movement is allowed
+        //    if (canMove)
+        //    {
+        //        Vector2 input = Vector2.zero;
+
+        //        // Check joystick input
+        //        if (movementJoystick.Direction != Vector2.zero)
+        //        {
+        //            input = movementJoystick.Direction;
+        //        }
+        //        else
+        //        {
+        //            // Check keyboard input
+        //            input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
+        //            input.y = UnityEngine.Input.GetAxisRaw("Vertical");
+        //        }
+
+        //        if (input != Vector2.zero)
+        //        {
+        //            if (!SoundManager.instance.walkingSoundSource.isPlaying)
+        //            {
+        //                SoundManager.instance.PlayWalkingSound();
+        //            }
+        //            // Normalize input
+        //            input.Normalize();
+
+        //            // Turn the character based on input direction
+        //            if (input.x < 0) // If moving left
+        //            {
+        //                Turn(-1); // Turn left (face left)
+        //            }
+        //            else if (input.x > 0) // If moving right
+        //            {
+        //                Turn(1); // Turn right (face right)
+        //            }
+
+        //            // Calculate velocity vector based on input and speed
+        //            Vector2 velocity = input * WalkSpeed;
+
+        //            // Apply velocity to Rigidbody2D
+        //            r2d.velocity = velocity;
+        //            Move(input);
+
+        //            // Set movement animations
+        //            _animator.SetBool("Idle", false);
+        //            _animator.SetBool("Walking", true);
+        //            _animator.SetBool("Running", false);
+        //        }
+        //        else
+        //        {
+        //            // Stop movement
+        //            r2d.velocity = Vector2.zero;
+
+        //            // Set idle animation
+        //            _animator.SetBool("Idle", true);
+        //            _animator.SetBool("Walking", false);
+        //            _animator.SetBool("Running", false);
+
+        //            // Stop walking sound if needed
+        //            if (SoundManager.instance.walkingSoundSource.isPlaying)
+        //            {
+        //                SoundManager.instance.soundEffectSource.Stop();
+        //            }
+        //        }
+
+        //        // Check if running
+        //        if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && input != Vector2.zero)
+        //        {
+
+        //            if (canRun == true)
+        //            {
+        //                // Set running animation
+
+        //                _animator.SetBool("Running", true);
+        //                _animator.SetBool("Walking", false);
+
+        //                // Calculate velocity vector based on input and running speed
+        //                Vector2 velocity = input * (WalkSpeed + runSpeed);
+        //                // Apply velocity to Rigidbody2D
+        //                r2d.velocity = velocity;
+
+        //                isRunning = true;
+        //                currentMana = currentMana - manaDecrementRate * Time.deltaTime;
+        //                runSoundTimer -= Time.deltaTime;
+        //                if (runSoundTimer <= 0f)
+        //                {
+        //                    SoundManager.instance.PlayRunSound(); // Play run sound
+        //                    runSoundTimer = runSoundInterval; // Reset timer
+        //                }
+        //            }
+
+        //        }
+        //        else
+        //        {
+
+        //            isRunning = false;
+        //        }
+        //    }
+        //}
+
         public void HandleMovement()
         {
             // Check if movement is allowed
@@ -391,16 +533,27 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             {
                 Vector2 input = Vector2.zero;
 
-                // Check joystick input
+                // Handle joystick input
                 if (movementJoystick.Direction != Vector2.zero)
                 {
                     input = movementJoystick.Direction;
                 }
                 else
                 {
-                    // Check keyboard input
+                    // Handle keyboard input (for PC)
                     input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
                     input.y = UnityEngine.Input.GetAxisRaw("Vertical");
+                }
+
+                // Handle touch input for movement (mobile)
+                foreach (Touch touch in Input.touches)
+                {
+                    if (touch.phase == TouchPhase.Moved)
+                    {
+                        // Use touch position to simulate joystick control
+                        input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
+                        input.y = UnityEngine.Input.GetAxisRaw("Vertical");
+                    }
                 }
 
                 if (input != Vector2.zero)
@@ -409,7 +562,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     {
                         SoundManager.instance.PlayWalkingSound();
                     }
-                    // Normalize input
+
+                    // Normalize input for smooth movement
                     input.Normalize();
 
                     // Turn the character based on input direction
@@ -451,14 +605,12 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     }
                 }
 
-                // Check if running
+                // Check if running (for keyboard, PC)
                 if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && input != Vector2.zero)
                 {
-
                     if (canRun == true)
                     {
                         // Set running animation
-
                         _animator.SetBool("Running", true);
                         _animator.SetBool("Walking", false);
 
@@ -476,15 +628,14 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                             runSoundTimer = runSoundInterval; // Reset timer
                         }
                     }
-
                 }
                 else
                 {
-
                     isRunning = false;
                 }
             }
         }
+
         bool IsCursorOverGameObject(string gameObjectName)
         {
             PointerEventData pointerEventData = new PointerEventData(EventSystem.current)

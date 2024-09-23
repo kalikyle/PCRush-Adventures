@@ -112,7 +112,7 @@ public class LeanTweenAnimate : MonoBehaviour
 
     public void OpenGameMenu()
     {
-        LeanTween.scale(GameMenu, new Vector3(0.7121839f, 0.7121839f, 0.7121839f), .2f).setEaseInOutSine();
+        LeanTween.scale(GameMenu, new Vector3(0.5f, 0.5f, 0.5f), .2f).setEaseInOutSine();
 
     }
     public void HideGameMenu()
@@ -122,7 +122,7 @@ public class LeanTweenAnimate : MonoBehaviour
     }
     public void OpenGameMap()
     {
-        LeanTween.scale(GameMap, new Vector3(1f, 1f, 1f), .2f).setEaseInOutSine();
+        LeanTween.scale(GameMap, new Vector3(0.8f, 0.8f, 0.8f), .2f).setEaseInOutSine();
         imageAnim.Func_PlayUIAnim();
 
     }

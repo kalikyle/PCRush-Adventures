@@ -20,6 +20,7 @@ public class AchievementManager : MonoBehaviour
 
     [Header("Achievements")]
     public bool BuildfirstPCs;
+    public bool FinishStory = false;
 
     public void Awake()
     {
@@ -75,6 +76,7 @@ public class AchievementManager : MonoBehaviour
             GameManager.instance.AddPlayerExp(achievement.ExpReward);
             GameManager.instance.PlayerMoney += achievement.MoneyReward;
             GameManager.instance.PlayerTotalMoney += achievement.MoneyReward;
+            AchievementManager.instance.CheckAchievements();
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
         }
     }
@@ -178,7 +180,7 @@ public class AchievementManager : MonoBehaviour
     {
         GameObject newShopPopup = Instantiate(achievepopup, GameManager.instance.notifpPopUpParent); // Instantiate the popup as a child of the designated parent
 
-        LeanTween.moveLocal(newShopPopup, new Vector3(0f, 137.7f, 0f), 2f)
+        LeanTween.moveLocal(newShopPopup, new Vector3(0f, 85f, 0f), 2f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => HidePopUpEquipments(newShopPopup));
 
@@ -187,7 +189,7 @@ public class AchievementManager : MonoBehaviour
 
     private void HidePopUpEquipments(GameObject shopPopup)
     {
-        LeanTween.moveLocal(shopPopup, new Vector3(0f, 292.7f, 0f), 1f)
+        LeanTween.moveLocal(shopPopup, new Vector3(0f, 250f, 0f), 1f)
             .setDelay(4f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => Destroy(shopPopup));
