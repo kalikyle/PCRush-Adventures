@@ -5,7 +5,7 @@ using UnityEngine;
 public class EndCredit : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject Mainmenu;
+    public GameObject Front;
     public GameObject creditScene;
     void Start()
     {
@@ -20,7 +20,7 @@ public class EndCredit : MonoBehaviour
 
     public void EndCredits()
     {
-        Mainmenu.SetActive(true);
+        Front.SetActive(true);
         creditScene.SetActive(false);
     }
 }

@@ -63,6 +63,7 @@ public class SettingsScript : MonoBehaviour
     }
     public void BacktoMainMenu()
     {
+        InternetChecker.Instance.StopCheck();
         GameManager.instance.scene.LoadScene();
     }
     // Update is called once per frame
