@@ -8,89 +8,93 @@ using UnityEngine.Networking;
 
 public class InternetChecker : MonoBehaviour
 {
-    public GameObject targetGameObject; // The GameObject to set active
-    private bool isCheckingConnection = false;
+    
+    public static InternetChecker Instance;
+    private bool isInternetAvailable;
+    private float checkInterval = 2f;  // How often to check internet
+    private float noInternetTimer = 10f;  // Time before going back to Main Menu if internet is not restored
+    public GameObject noInternetPopup;
+    private Coroutine checkInternetCoroutine;
     private void Start()
     {
-        isCheckingConnection = true;
+        //StartCoroutine(CheckInternetConnectionRoutine());
     }
 
-    [System.Obsolete]
-    private IEnumerator CheckInternetConnection()
+    public void Awake()
     {
-        // Check for internet connectivity using UnityWebRequest
-        using (UnityWebRequest www = UnityWebRequest.Get("https://www.google.com"))
+        if (Instance == null)
         {
-            yield return www.SendWebRequest();
 
-            if (www.isNetworkError || www.isHttpError)
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+        }
+        else
+        {
+            // If another instance already exists, destroy this one
+            Destroy(gameObject);
+        }
+    }
+
+    public void StartCheck()
+    {
+        if (checkInternetCoroutine == null) // Only start if not already running
+        {
+            checkInternetCoroutine = StartCoroutine(CheckInternetConnectionRoutine());
+        }
+    }
+
+    public void StopCheck()
+    {
+        if (checkInternetCoroutine != null)
+        {
+            StopCoroutine(checkInternetCoroutine);
+            checkInternetCoroutine = null;
+        }
+    }
+
+    public IEnumerator CheckInternetConnectionRoutine()
+    {
+        //Debug.Log("Started");
+        while (true)
+        {
+            isInternetAvailable = CheckInternetConnection();
+
+            if (!isInternetAvailable)
             {
-                Debug.Log("No internet connection.");
-                HandleConnectionLost();
+                // Show the no internet UI popup if internet is lost
+                noInternetPopup.SetActive(true);
+
             }
             else
             {
-                Debug.Log("Internet connection available.");
-                //HandleConnectionAvailable();
-            }
-        }
-    }
-
-    [System.Obsolete]
-    private void HandleConnectionLost()
-    {
-        Time.timeScale = 0f;
-        targetGameObject.SetActive(true);
-        Debug.Log("Internet connection lost. Pausing game.");
-
-        StartCoroutine(WaitForConnectionOrExit());
-    }
-
-    //private void HandleConnectionAvailable()
-    //{
-    //    Time.timeScale = 1f;
-    //    targetGameObject.SetActive(false);
-    //    Debug.Log("Internet connection available. Resuming game.");
-    //}
-
-    [System.Obsolete]
-    private IEnumerator WaitForConnectionOrExit()
-    {
-        float timer = 0f;
-
-        while (timer < 10f)
-        {
-            using (UnityWebRequest www = UnityWebRequest.Get("https://www.google.com"))
-            {
-                yield return www.SendWebRequest();
-
-                if (!(www.isNetworkError || www.isHttpError))
-                {
-                    Time.timeScale = 1f;
-                    targetGameObject.SetActive(false);
-                    Debug.Log("Internet connection restored. Resuming game.");
-                    yield break;
-                }
+                noInternetPopup.SetActive(false);
             }
 
-            timer += Time.unscaledDeltaTime;
-            yield return null;
+            yield return new WaitForSeconds(checkInterval);
         }
-
-        Debug.Log("Connection not restored. Exiting game.");
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
     }
 
-    [System.Obsolete]
-    private void Update()
+    public bool CheckInternetConnection()
     {
-        if (isCheckingConnection && Time.timeScale > 0)
+        var reachability = Application.internetReachability;
+        //Debug.Log("Internet Reachability: " + reachability);
+
+        if (reachability == NetworkReachability.NotReachable)
         {
-            StartCoroutine(CheckInternetConnection());
+            return false;
         }
+        return true;
     }
+
+    public bool TryStartGame()
+    {
+        if (!CheckInternetConnection())
+        {
+            return false; // Internet is not available, don't start the game
+        }
+        return true; // Internet is available, proceed to start the game
+    }
+
+
 }

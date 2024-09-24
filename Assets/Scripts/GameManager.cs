@@ -2802,8 +2802,21 @@ PlayerTotalWalkSpeed = 1;
     {
         scene.LoadScene();
     }
+    public void BacktoMainMenu()
+    {
+        InternetChecker.Instance.StopCheck();
+        scene.LoadScene();
+    }
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 
-  }
+}
 [System.Serializable]
 public class DecorationItemList
 {

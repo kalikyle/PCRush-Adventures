@@ -151,13 +151,17 @@ public class UserSetup : MonoBehaviour
         //SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
         if (FirebaseController.Instance.isSignIn)
         {
-            if (!FirebaseController.Instance.isSigned)
+            if (InternetChecker.Instance.TryStartGame() == true)
             {
-                FirebaseController.Instance.isSigned = true;
 
-                //SIGNED
-               // Debug.LogError("SCENE UNLOADEDSSSSS");
-                QuestManager.Instance.ForExistingUsers();
+                if (!FirebaseController.Instance.isSigned)
+                {
+                    FirebaseController.Instance.isSigned = true;
+
+                    //SIGNED
+                    // Debug.LogError("SCENE UNLOADEDSSSSS");
+                    InternetChecker.Instance.StartCheck();
+                    QuestManager.Instance.ForExistingUsers();
                     await Task.Delay(1500);
                     UnloadThisScene();
                     GameManager.instance.scene.manualLoading();
@@ -167,16 +171,21 @@ public class UserSetup : MonoBehaviour
                     GameManager.instance.PartsController.LoadPartsItems();
                     await Task.Delay(1000);
                     AchievementManager.instance.LoadAchievementsFromFirebase();
-                    
 
+
+                }
+                else
+                {
+                    //during signin main menu
+                    //Debug.LogError("SCENE UNLOADED");
+                    SceneManager.UnloadSceneAsync(1);
+                    GameManager.instance.scene.manualLoading();
+                    SoundManager.instance.backgroundMusicSource.Stop();
+                }
             }
             else
             {
-                //during signin main menu
-                //Debug.LogError("SCENE UNLOADED");
-                SceneManager.UnloadSceneAsync(1);
-                GameManager.instance.scene.manualLoading();
-                SoundManager.instance.backgroundMusicSource.Stop();
+                FirebaseController.Instance.showNotificationMessage("Error", "No Internet Connection, \n Please Check Your Internet Connection and Try Again");
             }
         }
         else

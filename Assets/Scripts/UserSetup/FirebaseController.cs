@@ -148,7 +148,7 @@ public class FirebaseController : MonoBehaviour
         forgetPasswordSubmit(forgetPassEmail.text);
     }
 
-    private void showNotificationMessage(string title, string message)
+    public void showNotificationMessage(string title, string message)
     {
         notif_Title_Text.text = "" + title;
         notif_Message_Text.text = "" + message;
@@ -174,7 +174,7 @@ public class FirebaseController : MonoBehaviour
         GameManager.instance.UserID = "";
         GameManager.instance.ResetPlayer();
         await Task.Delay(500);
-        OpenLoginPanel();
+        //OpenLoginPanel();
         showNotificationMessage("Goodbye", "Logging out...\nPlease Wait to while the Game is Restarting");
         //profileUserEmail_Text.text = "";
 
@@ -197,7 +197,7 @@ public class FirebaseController : MonoBehaviour
         GameManager.instance.UserID = "";
         GameManager.instance.ResetPlayer();
         await Task.Delay(500);
-        OpenLoginPanel();
+        //OpenLoginPanel();
         showNotificationMessage("Goodbye", "Logging Out and Exiting the Game");
         await Task.Delay(2000);
 #if UNITY_EDITOR
@@ -254,7 +254,7 @@ public class FirebaseController : MonoBehaviour
 
     public async Task OpenNewGame()
     {
-        
+        InternetChecker.Instance.StartCheck();
         QuestManager.Instance.ForNewUsers();
         await Task.Delay(1000);
         GameManager.instance.SaveSoldItems();
@@ -363,7 +363,7 @@ public class FirebaseController : MonoBehaviour
 
     public async Task OpenGame()
     {
-
+        InternetChecker.Instance.StartCheck();
         QuestManager.Instance.ForExistingUsers();
         await Task.Delay(1000);
         UnloadThisSceneForExist();
@@ -496,6 +496,10 @@ public class FirebaseController : MonoBehaviour
             case Firebase.Auth.AuthError.MissingEmail:
                 message = "Your Email Missing";
                 break;
+            case Firebase.Auth.AuthError.NetworkRequestFailed:
+                message = "No Internet Connection, \n Please Check Your Internet Connection and Try Again";
+                break;
+
             default:
                 message = "Invalid Error";
                 break;
@@ -537,8 +541,15 @@ public class FirebaseController : MonoBehaviour
         {
             if (task.IsCanceled || task.IsFaulted)
             {
-                Debug.LogError("Anonymous sign-in failed: " + task.Exception);
-                return;
+                foreach (Exception exception in task.Exception.Flatten().InnerExceptions)
+                {
+                    Firebase.FirebaseException firebaseEx = exception as Firebase.FirebaseException;
+                    if (firebaseEx != null)
+                    {
+                        var errorCode = (AuthError)firebaseEx.ErrorCode;
+                        showNotificationMessage("Error", GetErrorMessage(errorCode));
+                    }
+                }
             }
 
             FirebaseUser user = task.Result.User;
@@ -553,6 +564,7 @@ public class FirebaseController : MonoBehaviour
                 GameManager.instance.UserID = user.UserId;
                 //await Task.Delay(1000);
                 //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+                InternetChecker.Instance.StartCheck();
                 await Task.Delay(1000);
                 QuestManager.Instance.ForNewUsers();
                 await Task.Delay(1000);
@@ -699,7 +711,7 @@ public class FirebaseController : MonoBehaviour
             else
             {
                 Debug.Log("User does not exist. Signing out...");
-                OpenLoginPanel();
+                //OpenLoginPanel();
                 showNotificationMessage("Error", "Logged IN User doesn't Exist, Restarting...");
                 deleteLogin();
             }

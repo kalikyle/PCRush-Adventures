@@ -25,6 +25,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private bool isRunning;
         private float currentMana;
         public bool isDead = false;
+        public Button AttackBTN;
         //private float attackCooldownTimer = 0.0f;
         //private float AttackSpeed = 1.0f; // Set this to the desired attack speed
 
@@ -72,6 +73,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             
             StartCoroutine(ManaRegenCoroutine());
             StartCoroutine(HealthRegenCoroutine(health));
+            AttackBTN.onClick.AddListener(TriggerAttack);
             //StartCoroutine(ArmorRegenCoroutine(armor));
         }
         private void OnDestroy()
@@ -97,7 +99,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
 
                                    
                                         // Handle attack logic if cursor is over your panel
-                                    HandleAttack();
+                                    //HandleAttack();
                                     
 
                                     //HandleAttack();
@@ -258,43 +260,55 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         }
         private void HandleAttack()
         {
-            // Handle attack using mouse or touch
-            if (UnityEngine.Input.GetMouseButtonDown(0)) // Mouse click for PC
-            {
-                if (canAttack)
-                {
-                    if (IsCursorOverGameObject("AttackArea"))
-                    {
-                        TriggerAttack();
-                    }
-                }
-            }
 
-            // Handle attack using touch (for mobile)
-            foreach (Touch touch in Input.touches)
-            {
-                if (touch.phase == TouchPhase.Began)
-                {
-                    if (canAttack && IsCursorOverGameObject("AttackArea"))
-                    {
-                        TriggerAttack();
-                    }
-                }
-            }
+            //// Handle mouse input for attack (PC)
+            //if (UnityEngine.Input.GetMouseButtonDown(0))
+            //{
+            //    if (canAttack && IsCursorOverGameObject("AttackArea"))
+            //    {
+            //        TriggerAttack();
+            //    }
+            //}
+
+            //// Handle touch input for attack (mobile)
+            //foreach (Touch touch in Input.touches)
+            //{
+            //    // Check if the touch is not on the joystick area and is over the attack area
+            //    if (touch.phase == TouchPhase.Began && !IsTouchOverJoystick(touch))
+            //    {
+            //        if (canAttack && IsCursorOverGameObject("AttackArea"))
+            //        {
+            //            TriggerAttack();
+            //        }
+            //    }
+            //}
         }
+
+        //private bool IsTouchOverJoystick(Touch touch)
+        //{
+        //    // Check if the touch position is over the joystick's area
+        //    // You might use RectTransform to check the bounds of the joystick UI
+        //    return RectTransformUtility.RectangleContainsScreenPoint(
+        //        movementJoystick.GetComponent<RectTransform>(),
+        //        touch.position,
+        //        null
+        //    );
+        //}
 
         private void TriggerAttack()
         {
+            // Play attack sound
             SoundManager.instance.PlayAttackSound();
 
-            // Choose a random attack animation
+            // Trigger random attack animation
             string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
-            // Set the selected animation trigger
             _animator.SetTrigger(randomAttackAnimation);
 
             // Detect colliders for attack hit detection
             DetectColliders();
-            currentMana = currentMana - 2f;
+
+            // Decrease mana for attack
+            currentMana -= 2f;
         }
         //private void HandleAttack()
         //{
@@ -533,10 +547,10 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             {
                 Vector2 input = Vector2.zero;
 
-                // Handle joystick input
+                // Handle joystick input (mobile)
                 if (movementJoystick.Direction != Vector2.zero)
                 {
-                    input = movementJoystick.Direction;
+                    input = movementJoystick.Direction;  // Joystick input
                 }
                 else
                 {
@@ -545,19 +559,9 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     input.y = UnityEngine.Input.GetAxisRaw("Vertical");
                 }
 
-                // Handle touch input for movement (mobile)
-                foreach (Touch touch in Input.touches)
-                {
-                    if (touch.phase == TouchPhase.Moved)
-                    {
-                        // Use touch position to simulate joystick control
-                        input.x = UnityEngine.Input.GetAxisRaw("Horizontal");
-                        input.y = UnityEngine.Input.GetAxisRaw("Vertical");
-                    }
-                }
-
                 if (input != Vector2.zero)
                 {
+                    // Play walking sound if not already playing
                     if (!SoundManager.instance.walkingSoundSource.isPlaying)
                     {
                         SoundManager.instance.PlayWalkingSound();
@@ -567,20 +571,19 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     input.Normalize();
 
                     // Turn the character based on input direction
-                    if (input.x < 0) // If moving left
+                    if (input.x < 0) // Moving left
                     {
                         Turn(-1); // Turn left (face left)
                     }
-                    else if (input.x > 0) // If moving right
+                    else if (input.x > 0) // Moving right
                     {
                         Turn(1); // Turn right (face right)
                     }
 
-                    // Calculate velocity vector based on input and speed
+                    // Calculate and apply velocity based on input
                     Vector2 velocity = input * WalkSpeed;
-
-                    // Apply velocity to Rigidbody2D
                     r2d.velocity = velocity;
+
                     Move(input);
 
                     // Set movement animations
@@ -598,14 +601,14 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                     _animator.SetBool("Walking", false);
                     _animator.SetBool("Running", false);
 
-                    // Stop walking sound if needed
+                    // Stop walking sound
                     if (SoundManager.instance.walkingSoundSource.isPlaying)
                     {
                         SoundManager.instance.soundEffectSource.Stop();
                     }
                 }
 
-                // Check if running (for keyboard, PC)
+                // Running check (if LeftShift is pressed for PC, or joystick for mobile)
                 if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && input != Vector2.zero)
                 {
                     if (canRun == true)
@@ -614,17 +617,19 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                         _animator.SetBool("Running", true);
                         _animator.SetBool("Walking", false);
 
-                        // Calculate velocity vector based on input and running speed
+                        // Calculate running speed
                         Vector2 velocity = input * (WalkSpeed + runSpeed);
-                        // Apply velocity to Rigidbody2D
                         r2d.velocity = velocity;
 
+                        // Decrease mana when running
                         isRunning = true;
-                        currentMana = currentMana - manaDecrementRate * Time.deltaTime;
+                        currentMana -= manaDecrementRate * Time.deltaTime;
+
+                        // Play running sound with interval
                         runSoundTimer -= Time.deltaTime;
                         if (runSoundTimer <= 0f)
                         {
-                            SoundManager.instance.PlayRunSound(); // Play run sound
+                            SoundManager.instance.PlayRunSound();
                             runSoundTimer = runSoundInterval; // Reset timer
                         }
                     }
@@ -636,26 +641,26 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             }
         }
 
-        bool IsCursorOverGameObject(string gameObjectName)
-        {
-            PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
-            {
-                position = UnityEngine.Input.mousePosition
-            };
+        //bool IsCursorOverGameObject(string gameObjectName)
+        //{
+        //    PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+        //    {
+        //        position = UnityEngine.Input.mousePosition
+        //    };
 
-            List<RaycastResult> raycastResults = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerEventData, raycastResults);
+        //    List<RaycastResult> raycastResults = new List<RaycastResult>();
+        //    EventSystem.current.RaycastAll(pointerEventData, raycastResults);
 
-            foreach (RaycastResult result in raycastResults)
-            {
-                if (result.gameObject.name == gameObjectName)
-                {
-                    return true; // Cursor is over the GameObject or UI Panel
-                }
-            }
+        //    foreach (RaycastResult result in raycastResults)
+        //    {
+        //        if (result.gameObject.name == gameObjectName)
+        //        {
+        //            return true; // Cursor is over the GameObject or UI Panel
+        //        }
+        //    }
 
-            return false; // Cursor is not over the specific GameObject
-        }
+        //    return false; // Cursor is not over the specific GameObject
+        //}
 
         private float runSoundTimer = 0f; // Timer to space out running sounds
         public float runSoundInterval = 0.3f; // Interval between running sounds
