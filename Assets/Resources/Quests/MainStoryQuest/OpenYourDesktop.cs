@@ -53,7 +53,7 @@ public class OpenYourDesktop : QuestStep
             GameManager.instance.OpenYourDesktopFinish = false;
             GameManager.instance.DesktopOpenedFinish = false;
             GameManager.instance.OverallFinish = false;
-
+            GameManager.instance.HomeWorldFence.SetActive(false);  
 
             AchievementManager.instance.FinishStory = true;
             AchievementManager.instance.CheckAchievements();
