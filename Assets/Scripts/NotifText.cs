@@ -22,7 +22,7 @@ public class NotifText : MonoBehaviour
 
     private IEnumerator FloatUpAndFade()
     {
-        Vector3 startPosition = new Vector3 (450f, 30f, 0f);
+        Vector3 startPosition = new Vector3 (0f, -150f, 0f);
         Vector3 endPosition = startPosition + new Vector3(0, floatDistance, 0f);
 
         float elapsedTime = 0;
@@ -32,7 +32,7 @@ public class NotifText : MonoBehaviour
 
         while (elapsedTime < floatDuration)
         {
-            transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / floatDuration);
+            transform.localPosition = Vector3.Lerp(startPosition, endPosition, elapsedTime / floatDuration);
             textComponent.color = Color.Lerp(startColor, endColor, elapsedTime / floatDuration);
             elapsedTime += Time.deltaTime;
             yield return null;

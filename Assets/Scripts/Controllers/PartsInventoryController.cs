@@ -1719,12 +1719,12 @@ namespace PartsInventory
             }
             if (GameManager.instance.OnBuildingQuest == true)
             {
-                GameManager.instance.PerksButon.gameObject.SetActive(false);
+                //GameManager.instance.PerksButon.gameObject.SetActive(false);
                 GameManager.instance.CanCelButtonBuild.gameObject.SetActive(false);
             }
             else
             {
-                GameManager.instance.PerksButon.gameObject.SetActive(true);
+                //GameManager.instance.PerksButon.gameObject.SetActive(true);
                 GameManager.instance.CanCelButtonBuild.gameObject.SetActive(true);
             }
             //if ((PlayerPrefs.GetInt("TutorialDone") == 1))

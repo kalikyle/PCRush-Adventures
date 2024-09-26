@@ -388,7 +388,7 @@ public class GameManager : MonoBehaviour
 
     public Button BackButton;
     public Button OnDeskBackButton;
-    public Button PerksButon;
+    //public Button PerksButon;
     public Button CanCelButtonBuild;
     public Button CPUExchangeXButton;
     public Button CaseExchangeXButton;
