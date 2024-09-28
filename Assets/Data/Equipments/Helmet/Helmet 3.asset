@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594bc91721be15b458a7f337cdefe8fd, type: 3}
   m_Name: Helmet 3
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Helmet 3
+  <Name>k__BackingField: Emberclad Helm
   <SpriteIndex>k__BackingField: 2
-  <Price>k__BackingField: 800
+  <Price>k__BackingField: 4000
   <Health>k__BackingField: 35
   <HealthRegen>k__BackingField: 10

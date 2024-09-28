@@ -15,3 +15,12 @@ MonoBehaviour:
   Shield:
   - item: {fileID: 11400000, guid: 45076b91a3133954fa2812190a649a34, type: 2}
   - item: {fileID: 11400000, guid: 785e016e025604a4088116d195f72d3e, type: 2}
+  - item: {fileID: 11400000, guid: 5598545c21f6d8144b6c6564ded0c064, type: 2}
+  - item: {fileID: 11400000, guid: 0042d186821dc7c48a29f73115042050, type: 2}
+  - item: {fileID: 11400000, guid: 62b14919bf6c9ba40aaf00496dfd1c3c, type: 2}
+  - item: {fileID: 11400000, guid: b1a296e441c0a6b419f6967c3c04d686, type: 2}
+  - item: {fileID: 11400000, guid: e96129f6ce16b3d4fb593265e3b345cc, type: 2}
+  - item: {fileID: 11400000, guid: 6eed187deb5cb094ba19d0b32f01e859, type: 2}
+  - item: {fileID: 11400000, guid: e88f99a74e82b5b458389d3ae8954af9, type: 2}
+  - item: {fileID: 11400000, guid: 7b5cac1c67a68694596ed009031a4637, type: 2}
+  - item: {fileID: 11400000, guid: 755b53098d9b50344914ed1653e91a75, type: 2}

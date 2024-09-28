@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Sword
   <SpriteIndex>k__BackingField: 1
-  <Price>k__BackingField: 500
+  <Price>k__BackingField: 800
   <AttackDamage>k__BackingField: 30
-  <AttackSpeed>k__BackingField: 0

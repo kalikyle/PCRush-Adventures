@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelUpSystem : MonoBehaviour
 {
@@ -20,6 +22,22 @@ public class LevelUpSystem : MonoBehaviour
     public GameObject MBWorldButton;
     public GameObject CASEWorldCover;
     public GameObject CASEWorldButton;
+
+
+
+    public Sprite RamMap;
+    public Sprite CPUFMap;
+    public Sprite GPUMap;
+    public Sprite StorageMap;
+    public Sprite PSUMap;
+    public Sprite MBMap;
+    public Sprite CaseMap;
+
+
+
+    public TMP_Text LevelUpNumber;
+    public TMP_Text MapText;
+    public Image MapImage;
     
     public void LevelUp()
     {
@@ -36,12 +54,13 @@ public class LevelUpSystem : MonoBehaviour
                 GameManager.instance.PlayerEXP = 0;
                 
             }
-
+            
             GameManager.instance.PlayerLevel += 1;
             GameManager.instance.PlayerExpToLevelUp *= 2;
             AchievementManager.instance.CheckAchievements();
-
+            LevelUpNumber.text = GameManager.instance.PlayerLevel.ToString();
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            GameManager.instance.LTA.PlayLevelUp();
             
         }
     }
@@ -67,7 +86,9 @@ public class LevelUpSystem : MonoBehaviour
             RAMWorldButton.gameObject.SetActive(true);
             RAMcover = true;
 
-
+            MapImage.gameObject.SetActive(true);
+            MapImage.sprite = RamMap;
+            MapText.text = "You Unlock the RAM Region";
         }
 
         if(GameManager.instance.PlayerLevel >= 6 && CPUFcover == false)
@@ -75,6 +96,10 @@ public class LevelUpSystem : MonoBehaviour
            CPUFWorldCover.gameObject.SetActive(false);
            CPUFWorldButton.gameObject.SetActive(true);
            CPUFcover = true;
+
+            MapImage.gameObject.SetActive(true);
+            MapImage.sprite = CPUFMap;
+            MapText.text = "You Unlock the CPU Fan Region";
         }
 
         if (GameManager.instance.PlayerLevel >= 9 && GPUcover == false)
@@ -82,6 +107,10 @@ public class LevelUpSystem : MonoBehaviour
             GPUWorldCover.gameObject.SetActive(false);
             GPUWorldButton.gameObject.SetActive(true);
             GPUcover = true;
+
+            MapImage.gameObject.SetActive(true);
+            MapImage.sprite = GPUMap;
+            MapText.text = "You Unlock the GPU Region";
         }
 
         if (GameManager.instance.PlayerLevel >= 11 && STORAGEcover == false)
@@ -89,6 +118,10 @@ public class LevelUpSystem : MonoBehaviour
             StorageWorldCover.gameObject.SetActive(false);
             StorageWorldButton.gameObject.SetActive(true);
             STORAGEcover = true;
+
+            MapImage.gameObject.SetActive(true);
+            MapImage.sprite = StorageMap;
+            MapText.text = "You Unlock the Storage Region";
         }
 
         if (GameManager.instance.PlayerLevel >= 13 && PSUcover == false)
@@ -96,6 +129,10 @@ public class LevelUpSystem : MonoBehaviour
             PSUWorldCover.gameObject.SetActive(false);
             PSUWorldButton.gameObject.SetActive(true);
             PSUcover = true;
+
+            MapImage.gameObject.SetActive(true);
+            MapImage.sprite = PSUMap;
+            MapText.text = "You Unlock the PSU Region";
         }
 
         if (GameManager.instance.PlayerLevel >= 14 && MBcover == false)
@@ -103,6 +140,10 @@ public class LevelUpSystem : MonoBehaviour
             MBWorldCover.gameObject.SetActive(false);
             MBWorldButton.gameObject.SetActive(true);
             MBcover = true;
+
+            MapImage.gameObject.SetActive(true);
+            MapImage.sprite = MBMap;
+            MapText.text = "You Unlock the Motherboard Region";
         }
 
         if (GameManager.instance.PlayerLevel >= 15 && CASEcover == false)
@@ -110,6 +151,10 @@ public class LevelUpSystem : MonoBehaviour
             CASEWorldCover.gameObject.SetActive(false);
              CASEWorldButton.gameObject.SetActive(true);
             CASEcover = true;
+
+            MapImage.gameObject.SetActive(true);
+            MapImage.sprite = CaseMap;
+            MapText.text = "You Unlock the Case Region";
         }
 
     }

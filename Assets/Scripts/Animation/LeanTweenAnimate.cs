@@ -495,4 +495,57 @@ public class LeanTweenAnimate : MonoBehaviour
         LeanTween.rotateAround(casetwirl, Vector3.forward, -360, 5f).setLoopClamp();
     }
 
+
+    public GameObject LevelUpUI, LevelUpCircle, LevelText, LevelUpText, NiceBTN, YouUnlockPartsText, MapImage, MapText, KeepUpText;
+
+
+    public void PlayLevelUp()
+    {
+        // Reset the objects before starting the sequence
+        //ResetLevelUpAnimations();
+        LevelUpUI.SetActive(true);
+        // Spin the LevelUpCircle and set alpha to 1
+        LeanTween.rotateAround(LevelUpCircle, Vector3.forward, -360, 5f).setLoopClamp();
+        LeanTween.alpha(LevelUpCircle.GetComponent<RectTransform>(), 1f, 0.5f);
+
+        // Show LevelText with scale animation (scale from 0 to 1)
+        LeanTween.scale(LevelText, new Vector3(1.1f, 1.1f, 1.1f), 0.5f).setEase(LeanTweenType.easeOutElastic).setDelay(0.5f);
+
+        // Show LevelUpText with scale animation (elastic out)
+        LeanTween.scale(LevelUpText, new Vector3(1.1f, 1.1f, 1.1f), 0.7f).setEase(LeanTweenType.easeOutElastic).setDelay(1f);
+
+        // Show YouUnlockPartsText with scale animation
+        LeanTween.scale(YouUnlockPartsText, new Vector3(1.1f, 1.1f, 1.1f), 0.5f).setEase(LeanTweenType.easeOutCubic).setDelay(1.5f);
+
+        // Fade in MapImage and show MapText with scale animation
+        LeanTween.alpha(MapImage.GetComponent<RectTransform>(), 1f, 0.5f).setDelay(2f);
+        LeanTween.scale(MapText, new Vector3(0.5f, 0.5f, 0.5f), 0.5f).setEase(LeanTweenType.easeOutCubic).setDelay(2f);
+
+        // Show KeepUpText with scale animation
+        LeanTween.scale(KeepUpText, new Vector3(1.8f, 1.8f, 1.8f), 0.5f).setEase(LeanTweenType.easeOutCubic).setDelay(2.5f);
+
+        // Animate NiceBTN with elastic out
+        LeanTween.scale(NiceBTN, new Vector3(1f, 1f, 1f), 0.7f).setEase(LeanTweenType.easeOutElastic).setDelay(3f);
+    }
+
+    public void ResetLevelUpAnimations()
+    {
+        // Reset scales and alpha values
+        LeanTween.alpha(LevelUpCircle.GetComponent<RectTransform>(), 0f, 0.5f);
+        //LeanTween.cancel(LevelUpCircle);
+
+        LevelText.transform.localScale = Vector3.zero;
+        LevelUpText.transform.localScale = Vector3.zero;
+        YouUnlockPartsText.transform.localScale = Vector3.zero;
+        LeanTween.alpha(MapImage.GetComponent<RectTransform>(), 0f, 0.5f);
+        MapText.transform.localScale = Vector3.zero;
+        KeepUpText.transform.localScale = Vector3.zero;
+        NiceBTN.transform.localScale = Vector3.zero;
+
+
+        MapImage.SetActive(false);
+        LevelUpUI.SetActive(false);
+    }
+
+
 }

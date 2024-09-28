@@ -15,14 +15,20 @@ public class SoundManager : MonoBehaviour
     public AudioClip otherWorldBackground;
 
     // Sound Effects
-    [Header("Effects")]
+    [Header("UIEffects")]
     public AudioSource soundEffectSource;
-    public AudioClip RunSound;
     public AudioClip buttonSound;
-    public AudioClip attackSound;
     public AudioClip collectSound;
     public AudioClip InExploreButtonSound;
     public AudioClip Teleport;
+    public AudioClip BuynSell;
+    public AudioClip UseParts;
+    public AudioClip Done;
+
+    [Header("GameEffects")]
+    public AudioSource GameEffectSource;
+    public AudioClip RunSound;
+    public AudioClip attackSound;
 
     [Header("WalkingSound")]
     public AudioSource walkingSoundSource;
@@ -112,6 +118,20 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning("Sound effect clip is null.");
         }
     }
+    
+    public void GameSoundEffect(AudioClip sound)
+    {
+        if (sound != null)
+        {
+            GameEffectSource.clip = sound;
+            GameEffectSource.volume = effectsVolume;
+            GameEffectSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("Sound effect clip is null.");
+        }
+    }
 
     // Play a button click sound
     public void PlayButtonClick()
@@ -128,13 +148,13 @@ public class SoundManager : MonoBehaviour
     {
         if (RunSound != null)
         {
-            soundEffectSource.PlayOneShot(RunSound);
+            GameEffectSource.PlayOneShot(RunSound);
         }
     }
     // Play attack sound
     public void PlayAttackSound()
     {
-        PlaySoundEffect(attackSound);
+        GameSoundEffect(attackSound);
     }
     public void PlayTeleportSound()
     {
