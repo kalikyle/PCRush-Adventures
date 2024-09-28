@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb9b158bdf860348b5fbfc6f4c51230, type: 3}
   m_Name: Shield 2
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Shield 2
+  <Name>k__BackingField: Emberwall
   <SpriteIndex>k__BackingField: 1
-  <Price>k__BackingField: 600
-  <ManaRegen>k__BackingField: 3
-  <CriticalChance>k__BackingField: 0
+  <Price>k__BackingField: 3000
+  <ManaRegen>k__BackingField: 5
+  <CriticalChance>k__BackingField: 2

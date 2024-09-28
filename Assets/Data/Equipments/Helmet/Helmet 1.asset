@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594bc91721be15b458a7f337cdefe8fd, type: 3}
   m_Name: Helmet 1
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Helmet 1
+  <Name>k__BackingField: Spectral Visage
   <SpriteIndex>k__BackingField: 0
   <Price>k__BackingField: 400
   <Health>k__BackingField: 20

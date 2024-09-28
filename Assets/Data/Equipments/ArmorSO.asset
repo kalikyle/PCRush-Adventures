@@ -15,3 +15,12 @@ MonoBehaviour:
   Armor:
   - item: {fileID: 11400000, guid: c52f02a6fa498cb4496243b28ca9bf00, type: 2}
   - item: {fileID: 11400000, guid: 9828f4c352024644ca5a3ef423afa3e8, type: 2}
+  - item: {fileID: 11400000, guid: e72bf6e50aaed3449a5b012c76b42c14, type: 2}
+  - item: {fileID: 11400000, guid: 30d493b27e572c14b82183a99a5f7ee3, type: 2}
+  - item: {fileID: 11400000, guid: d140682cbee3388489f4f59b35c0d874, type: 2}
+  - item: {fileID: 11400000, guid: 59cdf641c86d2304397afa8fecd55e8d, type: 2}
+  - item: {fileID: 11400000, guid: b18a7e9db43ed0643aff12ec40a1e416, type: 2}
+  - item: {fileID: 11400000, guid: 203c703c212f8ff42b0cd0ce529f6200, type: 2}
+  - item: {fileID: 11400000, guid: 04a49b5c858fbe648b8c6c591a0d9be5, type: 2}
+  - item: {fileID: 11400000, guid: a8fa832a06ff4c24887f6f05fef674d8, type: 2}
+  - item: {fileID: 11400000, guid: 1172c871d070392488f535f471f54191, type: 2}

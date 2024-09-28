@@ -2,7 +2,7 @@
 
 // Dialogue Start
 Hi {player_Name}, Do you need to Fix Your Armor?... #speaker: ArmorFixer #portrait: 6
-I can do that for you?? #speaker: ArmorFixer #portrait: 6
+I can do that for you... #speaker: ArmorFixer #portrait: 6
 * [Yes] #speaker: {player_Name} #choice: fixarmor #portrait: 0
     -> DONE
 * No #speaker: {player_Name} #choice: nofixarmor #portrait: 0

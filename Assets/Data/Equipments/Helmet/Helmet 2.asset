@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594bc91721be15b458a7f337cdefe8fd, type: 3}
   m_Name: Helmet 2
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Helmet 2
+  <Name>k__BackingField: Skyshard Visor
   <SpriteIndex>k__BackingField: 1
-  <Price>k__BackingField: 500
+  <Price>k__BackingField: 2000
   <Health>k__BackingField: 30
   <HealthRegen>k__BackingField: 5
