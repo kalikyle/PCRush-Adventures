@@ -689,7 +689,7 @@ public class EquipmentsController : MonoBehaviour
                     // Check each perk property and accumulate non-zero values
                     if (item.item.ManaRegen != 0)
                     {
-                        perks += "Critical Hit +" + item.item.ManaRegen + "\n";
+                        perks += "Mana Regen +" + item.item.ManaRegen + "\n";
                     }
                     if (item.item.CriticalChance != 0)
                     {

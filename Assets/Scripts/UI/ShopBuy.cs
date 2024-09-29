@@ -432,11 +432,13 @@ public class ShopBuy : MonoBehaviour
             GameManager.instance.PlayerMoney -= shpItem.item.Price;
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
             GameManager.instance.ShowPopUpItems(shpItem);
+            SoundManager.instance.PlayBuyNSell();
         }
         else
         {
             //Debug.LogError("You dont have enough money");
             GameManager.instance.ShowFloatingText("You don't have enough coins");
+            SoundManager.instance.PlayNotEnough();
         }
     }
 
@@ -482,13 +484,14 @@ public class ShopBuy : MonoBehaviour
                     value = 1;
                     displayText.text = value.ToString();
                     UpdatePriceDisplay();
-
+                    SoundManager.instance.PlayBuyNSell();
 
                 }
                 else
                 {
                     //Debug.LogError("You dont have enough money");
                     GameManager.instance.ShowFloatingText("You don't have enough coins");
+                    SoundManager.instance.PlayNotEnough();
                 }
             }
 

@@ -218,6 +218,7 @@ public class PSUWorldExchangerBuy : MonoBehaviour
                 {
                     //Debug.LogError("You dont have enough of this Item!");
                     GameManager.instance.ShowFloatingText("You don't have enough Materials");
+                    SoundManager.instance.PlayNotEnough();
                 }
 
 

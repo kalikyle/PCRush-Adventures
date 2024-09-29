@@ -84,6 +84,7 @@ public class GoBackToLostAdventurer : QuestStep
         GameManager.instance.PlayerMoney += 100;
         GameManager.instance.PlayerTotalMoney += 100;
         AchievementManager.instance.CheckAchievements();
+        SoundManager.instance.PlayBuyNSell();
         GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
         GameManager.instance.OnQuest = false;
     }

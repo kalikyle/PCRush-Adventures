@@ -162,11 +162,13 @@ public class ArmorBuy : MonoBehaviour
                     GameManager.instance.ShowPopUpEquipments(inventoryItem);
                     GameManager.instance.PlayerMoney -= ArmorPrice;
                     GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                    SoundManager.instance.PlayBuyNSell();
                 }
                 else
                 {
                     //Debug.LogError("You dont have enough money");
                     GameManager.instance.ShowFloatingText("You don't have enough coins");
+                    SoundManager.instance.PlayNotEnough();
                 }
             }
 
