@@ -512,7 +512,7 @@ public class LeanTweenAnimate : MonoBehaviour
         LeanTween.scale(LevelText, new Vector3(1.1f, 1.1f, 1.1f), 0.5f).setEase(LeanTweenType.easeOutElastic).setDelay(0.5f);
 
         // Show LevelUpText with scale animation (elastic out)
-        LeanTween.scale(LevelUpText, new Vector3(1.1f, 1.1f, 1.1f), 0.7f).setEase(LeanTweenType.easeOutElastic).setDelay(1f);
+        LeanTween.scale(LevelUpText, new Vector3(1.4f, 1.4f, 1.1f), 0.7f).setEase(LeanTweenType.easeOutElastic).setDelay(1f);
 
         // Show YouUnlockPartsText with scale animation
         LeanTween.scale(YouUnlockPartsText, new Vector3(1.1f, 1.1f, 1.1f), 0.5f).setEase(LeanTweenType.easeOutCubic).setDelay(1.5f);

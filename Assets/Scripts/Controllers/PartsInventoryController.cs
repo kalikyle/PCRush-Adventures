@@ -1098,10 +1098,12 @@ namespace PartsInventory
                 BackYesButton.gameObject.SetActive(false);
                 BackNoButton.gameObject.SetActive(false);
                 DialogButton.gameObject.SetActive(true);
+                SoundManager.instance.PlayNotEnough();
             }
             else
             {
                 //useSound.Play();
+                SoundManager.instance.PlayUseParts();
                 MBImage.sprite = inventoryItem.item.ItemImage; // this is for the whole inventory
                 UseItems(inventoryItem, category);
                 inventoryData.RemoveItem(itemIndex, 1);
@@ -1266,10 +1268,12 @@ namespace PartsInventory
                     BackYesButton.gameObject.SetActive(false);
                     BackNoButton.gameObject.SetActive(false);
                     DialogButton.gameObject.SetActive(true);
+                    SoundManager.instance.PlayNotEnough();
                 }
                 else
                 {
-                   // useSound.Play();
+                    // useSound.Play();
+                    SoundManager.instance.PlayUseParts();
                     usedItems.Remove(inventoryItem);
                     UseItems(inventoryItem, category);
                     int index = inventoryData.inventoryItems.IndexOf(inventoryItem);

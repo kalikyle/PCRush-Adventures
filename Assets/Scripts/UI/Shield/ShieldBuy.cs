@@ -132,11 +132,14 @@ public class ShieldBuy : MonoBehaviour
 
                     GameManager.instance.PlayerMoney -= helmetPrice;
                     GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                    SoundManager.instance.PlayBuyNSell();
+
                 }
                 else
                 {
                     //Debug.LogError("You dont have enough money");
                     GameManager.instance.ShowFloatingText("You don't have enough coins");
+                    SoundManager.instance.PlayNotEnough();
                 }
 
 

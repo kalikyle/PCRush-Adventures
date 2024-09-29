@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip InExploreButtonSound;
     public AudioClip Teleport;
     public AudioClip BuynSell;
+    public AudioClip NotEnough;
     public AudioClip UseParts;
     public AudioClip Done;
 
@@ -159,6 +160,21 @@ public class SoundManager : MonoBehaviour
     public void PlayTeleportSound()
     {
         PlaySoundEffect(Teleport);
+    }
+    
+    public void PlayBuyNSell()
+    {
+        PlaySoundEffect(BuynSell);
+    } 
+    
+    public void PlayNotEnough()
+    {
+        PlaySoundEffect(NotEnough);
+    }
+    
+    public void PlayUseParts()
+    {
+        PlaySoundEffect(UseParts);
     }
     public void PlayCollectSound()
     {
