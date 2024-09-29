@@ -13,29 +13,5 @@ MonoBehaviour:
   m_Name: CPUExchanger
   m_EditorClassIdentifier: 
   Procies:
-  - item: {fileID: 11400000, guid: 656b51690367ae34da85b00922eb5427, type: 2}
-  - item: {fileID: 11400000, guid: 61a4282abc9f32b40a5a392ba2e09b15, type: 2}
-  - item: {fileID: 11400000, guid: e8bf4578159d4e242b42c2ce990488de, type: 2}
-  - item: {fileID: 11400000, guid: a1387118df12cf14da0ac713c644f101, type: 2}
-  - item: {fileID: 11400000, guid: 4754b36fc6166b94dbfb7ef535cd30fe, type: 2}
-  - item: {fileID: 11400000, guid: b12c8851c7ce20e458ec398d2436f810, type: 2}
-  - item: {fileID: 11400000, guid: e7af144cbedea254fa5b38f05629b0b2, type: 2}
   - item: {fileID: 11400000, guid: d11f1756ccdc0a547ab834594ad65a70, type: 2}
-  - item: {fileID: 11400000, guid: aabe9e298ca342748aa1040bd52af887, type: 2}
-  - item: {fileID: 11400000, guid: 75f85cf242c3ca040b2cce3100a2946c, type: 2}
-  - item: {fileID: 11400000, guid: ebf5780c06d4ebb468ea1bcc328b8de6, type: 2}
-  - item: {fileID: 11400000, guid: 573ca87bf69ea834298b6987f8a8ec2f, type: 2}
-  - item: {fileID: 11400000, guid: 83d994b646dd842408b3e4b26c7288b2, type: 2}
-  - item: {fileID: 11400000, guid: 1a0df921b88ca934f86f3a38f16803d2, type: 2}
-  - item: {fileID: 11400000, guid: d6e384588d983ae4b9028fe8c0c4e546, type: 2}
-  - item: {fileID: 11400000, guid: 9054bedc0ba37244aa6de41879782e97, type: 2}
-  - item: {fileID: 11400000, guid: 9ff500619d3ad7542b87f7badd84a494, type: 2}
-  - item: {fileID: 11400000, guid: d83808eb030418344b3432bd0b66581c, type: 2}
-  - item: {fileID: 11400000, guid: 90beaf1288866dd44ad6107a1d70bea3, type: 2}
-  - item: {fileID: 11400000, guid: 7fb676be4d640cd47bc661d6de81fdab, type: 2}
-  - item: {fileID: 11400000, guid: 52bc099655f69fc45aa65a5da1433453, type: 2}
-  - item: {fileID: 11400000, guid: b4d5868e3a717c248b90f212a9990f21, type: 2}
-  - item: {fileID: 11400000, guid: 6e555d865bee3c44287957fe12fe817b, type: 2}
-  - item: {fileID: 11400000, guid: 5e9650dfe0e53bd418b2cf12bcf765d4, type: 2}
-  - item: {fileID: 11400000, guid: 2883923dacf6cda4bb6b010f8c6eb801, type: 2}
   size: 3

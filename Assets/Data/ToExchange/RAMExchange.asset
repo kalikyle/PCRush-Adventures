@@ -13,32 +13,5 @@ MonoBehaviour:
   m_Name: RAMExchange
   m_EditorClassIdentifier: 
   rams:
-  - item: {fileID: 11400000, guid: 067b9032b707d524a880a4b10e1d8d56, type: 2}
-  - item: {fileID: 11400000, guid: c5fc830e85181d44c87395df59b5bf34, type: 2}
-  - item: {fileID: 11400000, guid: 089242c4cd42acd40affb2e4c030b589, type: 2}
   - item: {fileID: 11400000, guid: 67359f43b7f2f024989218aaf8748123, type: 2}
-  - item: {fileID: 11400000, guid: 9eb4535445e6a36418149a0dbc92f881, type: 2}
-  - item: {fileID: 11400000, guid: bb7ccdb3aa84cfe4bb71d7a957037814, type: 2}
-  - item: {fileID: 11400000, guid: 5e429c739460e6d47be1b5aefaa37103, type: 2}
-  - item: {fileID: 11400000, guid: 4efdb3e2e050bb049ae4667ff7c96832, type: 2}
-  - item: {fileID: 11400000, guid: a98c9fe84e8399f4cba76bc91ebda806, type: 2}
-  - item: {fileID: 11400000, guid: e8c1e501b27d2694bbd97859fc1f94b5, type: 2}
-  - item: {fileID: 11400000, guid: 4671b142e665f794fb94d5eedb23d02d, type: 2}
-  - item: {fileID: 11400000, guid: d59de70e07c38c44f8f140b463261708, type: 2}
-  - item: {fileID: 11400000, guid: a5d9ae447977e9b478a053548a6bd2fb, type: 2}
-  - item: {fileID: 11400000, guid: f62cb18f5ce8edb4a98455ab8a9c23ad, type: 2}
-  - item: {fileID: 11400000, guid: 3c29e655b49c58e46af9571317df4e2a, type: 2}
-  - item: {fileID: 11400000, guid: 3ab509592c5731c409706f5eb2b50f56, type: 2}
-  - item: {fileID: 11400000, guid: ca26f98fc47e6ea4aab829a8ae135d0c, type: 2}
-  - item: {fileID: 11400000, guid: 601308b6d72eeeb48aad3037fdb82326, type: 2}
-  - item: {fileID: 11400000, guid: d4e0ef6af465e204a8bb5d210420043b, type: 2}
-  - item: {fileID: 11400000, guid: 77728c703b6e99841a88baf90ed7b0d0, type: 2}
-  - item: {fileID: 11400000, guid: 8640261666b1b5546b8ce4cf03aa84af, type: 2}
-  - item: {fileID: 11400000, guid: 9c11467d03929fd448af5622fea98e88, type: 2}
-  - item: {fileID: 11400000, guid: fd48d5ec5c1248e4d82a3460681b2e6f, type: 2}
-  - item: {fileID: 11400000, guid: af6fd8b302e04d64fb7e32920086b788, type: 2}
-  - item: {fileID: 11400000, guid: dffa0b6a1d89b69449b7b6d4a7495ea6, type: 2}
-  - item: {fileID: 11400000, guid: 4d762d5140f7e6e4b9283c791826ec99, type: 2}
-  - item: {fileID: 11400000, guid: 92e1919aa7ba3724ab5b829d8fe6ddab, type: 2}
-  - item: {fileID: 11400000, guid: 2b1de4531e5fade4eb52b5d38285c2c8, type: 2}
   size: 3

@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfc8e12accbe9a4fae0a195f4be8bed, type: 3}
   m_Name: DecorSO
   m_EditorClassIdentifier: 
-  DecorationItems:
-  - quantity: 48
-    item: {fileID: 11400000, guid: b775e3d06b1d4114cb06bb6ae10f4611, type: 2}
+  DecorationItems: []
   <Size>k__BackingField: 100

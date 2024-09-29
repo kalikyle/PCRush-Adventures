@@ -13,32 +13,5 @@ MonoBehaviour:
   m_Name: GPUExchanger
   m_EditorClassIdentifier: 
   gpus:
-  - item: {fileID: 11400000, guid: 9710b8cec5240324bba88002b0871a7b, type: 2}
-  - item: {fileID: 11400000, guid: c6b22c25522cf464085a39a5b738fa17, type: 2}
-  - item: {fileID: 11400000, guid: cb6d24c0773b1ae439f4d3c5c9b8b16c, type: 2}
-  - item: {fileID: 11400000, guid: 5273c5caf25d49646b14c4e0bbbb483f, type: 2}
   - item: {fileID: 11400000, guid: 329578f3886bec0498f08f84141220c9, type: 2}
-  - item: {fileID: 11400000, guid: 2fa4a35d290290e48a12c469750a655d, type: 2}
-  - item: {fileID: 11400000, guid: f55672ae73ffe094b89bb47757ed9c67, type: 2}
-  - item: {fileID: 11400000, guid: c5d4ecc9304fd474ca0575fbc378adca, type: 2}
-  - item: {fileID: 11400000, guid: ed29f398eb2ab354d909df0c35b6ca63, type: 2}
-  - item: {fileID: 11400000, guid: bd78ce2bfc9037449a65035036c3399a, type: 2}
-  - item: {fileID: 11400000, guid: d91587e5b6bad1a4987f7ea638036167, type: 2}
-  - item: {fileID: 11400000, guid: c23f83adf8861eb4daab14070b5fcce6, type: 2}
-  - item: {fileID: 11400000, guid: 06c2de98abb3ee04b915a4be9e0151a3, type: 2}
-  - item: {fileID: 11400000, guid: bc72ec9e9cdd1504bb0393f1a7953621, type: 2}
-  - item: {fileID: 11400000, guid: 865376838c036ee478eb0318bc7a29d5, type: 2}
-  - item: {fileID: 11400000, guid: e82e099e7d4bc5a4a8fc290813fbda3a, type: 2}
-  - item: {fileID: 11400000, guid: cbfdad8cd8f2645448c2599bbea48958, type: 2}
-  - item: {fileID: 11400000, guid: a9a9aa83db525bd4fa2b1df178d08b86, type: 2}
-  - item: {fileID: 11400000, guid: 239c4251ca5ea3440843371b5935fa3b, type: 2}
-  - item: {fileID: 11400000, guid: 9d06f18af4d10b74aa3dbafc63bd127a, type: 2}
-  - item: {fileID: 11400000, guid: 320b302f796f6e640ab239fc24677131, type: 2}
-  - item: {fileID: 11400000, guid: b91259f57844797428626d6e0863aad4, type: 2}
-  - item: {fileID: 11400000, guid: 3396abaae908d1d44a4cc84c198b0224, type: 2}
-  - item: {fileID: 11400000, guid: 841897271d91ade41924c919748109cc, type: 2}
-  - item: {fileID: 11400000, guid: de717729f20bfbd478c5144414ccca31, type: 2}
-  - item: {fileID: 11400000, guid: 2b63e9d23ae4a5347b6701bc3bd4c114, type: 2}
-  - item: {fileID: 11400000, guid: d94721447f71c5a42ad77ef3e04aeea4, type: 2}
-  - item: {fileID: 11400000, guid: 17decfb0cd3fbf24b8bd56ea797ec0d1, type: 2}
   size: 3

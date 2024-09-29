@@ -1,3 +1,4 @@
+using PartsInventory.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace Inventory.Model {
             AddItem(item.item, item.quantity);
         }
 
-        public void AddItem(ItemSO item, int quantity)
+        public void AddItem(PartsSO item, int quantity)
         {
             if (item.IsStackable == false)
             {
@@ -57,7 +58,7 @@ namespace Inventory.Model {
         }
 
 
-        private int AddItemToFirstFreeSlot(ItemSO item, int quantity)
+        private int AddItemToFirstFreeSlot(PartsSO item, int quantity)
         {
             InventoryItem newItem = new InventoryItem
             {
@@ -79,7 +80,7 @@ namespace Inventory.Model {
 
         private bool IsInventoryFull() => inventoryItems.Where(item => item.isEmpty).Any() == false;
         
-        public int AddStackebleItem(ItemSO item, int quantity)
+        public int AddStackebleItem(PartsSO item, int quantity)
         {
             
             for (int i = 0; i < inventoryItems.Count; i++)
@@ -197,7 +198,7 @@ namespace Inventory.Model {
         public struct InventoryItem
         {
             public int quantity;
-            public ItemSO item;
+            public PartsSO item;
             public bool isEmpty => item == null;
 
             public InventoryItem ChangeQuantity(int newQuantity)

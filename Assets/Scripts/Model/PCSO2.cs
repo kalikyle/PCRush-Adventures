@@ -6,6 +6,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using UnityEngine;
+using PartsInventory.Model;
 [CreateAssetMenu]
 public class PCSO2 : ScriptableObject
 {
@@ -22,30 +23,30 @@ public class PCSO2 : ScriptableObject
     public double PCPrice { get; set; }
 
     [field: SerializeField]
-    public ItemSO Case { get; set; }
+    public PartsSO Case { get; set; }
 
     [field: SerializeField]
-    public ItemSO Motherboard { get; set; }
-
-
-    [field: SerializeField]
-    public ItemSO CPU { get; set; }
-
-    [field: SerializeField]
-    public ItemSO CPUFan { get; set; }
-
-    [field: SerializeField]
-    public ItemSO RAM { get; set; }
-
-    [field: SerializeField]
-    public ItemSO GPU { get; set; }
-
-    [field: SerializeField]
-    public ItemSO STORAGE { get; set; }
+    public PartsSO Motherboard { get; set; }
 
 
     [field: SerializeField]
-    public ItemSO PSU { get; set; }
+    public PartsSO CPU { get; set; }
+
+    [field: SerializeField]
+    public PartsSO CPUFan { get; set; }
+
+    [field: SerializeField]
+    public PartsSO RAM { get; set; }
+
+    [field: SerializeField]
+    public PartsSO GPU { get; set; }
+
+    [field: SerializeField]
+    public PartsSO STORAGE { get; set; }
+
+
+    [field: SerializeField]
+    public PartsSO PSU { get; set; }
 
     [field: SerializeField]
     public string TestStatus { get; set; }
@@ -148,13 +149,13 @@ public class PCSO2 : ScriptableObject
 //    public string PCName;
 //    public Sprite PCImage;
 //    public double PCPrice;
-//    public ItemSO Case;
-//    public ItemSO Motherboard;
-//    public ItemSO CPU;
-//    public ItemSO CPUFan;
-//    public ItemSO RAM;
-//    public ItemSO GPU;
-//    public ItemSO STORAGE;
-//    public ItemSO PSU;
+//    public PartsSO Case;
+//    public PartsSO Motherboard;
+//    public PartsSO CPU;
+//    public PartsSO CPUFan;
+//    public PartsSO RAM;
+//    public PartsSO GPU;
+//    public PartsSO STORAGE;
+//    public PartsSO PSU;
 //    // ... other properties ...
 //}

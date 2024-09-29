@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863c1f6cd20636842a26028d87ea2641, type: 3}
   m_Name: RAM 3
   m_EditorClassIdentifier: 
-  <Parts>k__BackingField: {fileID: 11400000, guid: e06c479c11a94e044982973c4148b0d8, type: 2}
+  <Parts>k__BackingField: {fileID: 11400000, guid: 72f01bb4bd6ce3346b9c9267c3e31777, type: 2}
   <MaterialsNeed>k__BackingField: {fileID: 3316352308487018853, guid: a4f3cb7053b40cb449ac6ea55dd4cddf, type: 3}
-  <MaterialsAmountNeed>k__BackingField: 80
-  <Level>k__BackingField: 2
+  <MaterialsAmountNeed>k__BackingField: 16
+  <Level>k__BackingField: 1
