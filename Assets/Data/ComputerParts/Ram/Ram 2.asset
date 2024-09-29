@@ -10,19 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
-  m_Name: Ram 2
+  m_Name: RAM 2
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
-  <Name>k__BackingField: Corsair 4GB RAM
+  <Name>k__BackingField: HyperByte 4GB
   <rarity>k__BackingField: Common
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 4dfd084813a75a34aa0dcbff6fdf6d25, type: 3}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 39d63b1cc32bf6646b5f4f71b08b07cc, type: 3}
   <Category>k__BackingField: RAM
-  <AttackDamage>k__BackingField: 20
-  <Health>k__BackingField: 10
-  <Mana>k__BackingField: 5
+  <Price>k__BackingField: 130
+  <AttackDamage>k__BackingField: 0
+  <Health>k__BackingField: 0
+  <Mana>k__BackingField: 0
   <HealthRegen>k__BackingField: 0
+  <ManaRegen>k__BackingField: 0
   <WalkSpeed>k__BackingField: 0
-  <Armor>k__BackingField: 0
-  <AttackSpeed>k__BackingField: 0
-  <CriticalHit>k__BackingField: 0
+  <Armor>k__BackingField: 15
+  <CriticalChance>k__BackingField: 0
+  <CaseStrength>k__BackingField: 0
+  <MotherboardStrength>k__BackingField: 0
+  <CPUSocket>k__BackingField: 
+  <RAMSlot>k__BackingField: 
+  <BaseSpeed>k__BackingField: 0
+  <CPUSupportedSocket>k__BackingField: 
+  <Memory>k__BackingField: 4
+  <RAMSupportedSlot>k__BackingField: DDR2
+  <CoolingPower>k__BackingField: 0
+  <ClockSpeed>k__BackingField: 0
+  <Storage>k__BackingField: 0
+  <WattagePower>k__BackingField: 0

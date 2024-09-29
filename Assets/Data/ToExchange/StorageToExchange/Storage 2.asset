@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b95b09d89eb2f940b2bb5d0dfdba3b6, type: 3}
   m_Name: Storage 2
   m_EditorClassIdentifier: 
-  <Parts>k__BackingField: {fileID: 11400000, guid: 0bbd6601d8921fa49a2796a9174a9df6, type: 2}
+  <Parts>k__BackingField: {fileID: 11400000, guid: 391f3c6fbdb3e914687ee849feb2ec5a, type: 2}
   <MaterialsNeed>k__BackingField: {fileID: 3316352308487018853, guid: 76bdd9d56d295814f91a0220b5a5562a, type: 3}
-  <MaterialsAmountNeed>k__BackingField: 20
+  <MaterialsAmountNeed>k__BackingField: 13
   <Level>k__BackingField: 1

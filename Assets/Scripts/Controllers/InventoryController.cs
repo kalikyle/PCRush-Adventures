@@ -13,6 +13,7 @@ using PC.Model;
 using PC.UI;
 using PC;
 using Orders.Model;
+using PartsInventory.Model;
 //using static UnityEditor.Progress;
 
 namespace Inventory
@@ -1074,7 +1075,7 @@ namespace Inventory
                 return;
 
             }
-            ItemSO item = inventoryItem.item;
+            PartsSO item = inventoryItem.item;
             inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name, Compat(inventoryItem), Speed(inventoryItem), item.Category);
         }
 
@@ -1183,7 +1184,7 @@ namespace Inventory
                 InventoryItem shopItem = InventoryfilteredItems[obj];
                 if (!shopItem.isEmpty)
                 {
-                    ItemSO item = shopItem.item;
+                    PartsSO item = shopItem.item;
                     inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, Compat(shopItem), Speed(shopItem), item.Category);//update description 
                 }
             }

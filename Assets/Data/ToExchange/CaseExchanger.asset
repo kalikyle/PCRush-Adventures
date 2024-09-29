@@ -13,28 +13,5 @@ MonoBehaviour:
   m_Name: CaseExchanger
   m_EditorClassIdentifier: 
   cases:
-  - item: {fileID: 11400000, guid: a6f7c10113bd21447b312b069b83c638, type: 2}
-  - item: {fileID: 11400000, guid: b1a986b4ce4b85e42969a3e51cd53796, type: 2}
-  - item: {fileID: 11400000, guid: 8fda7b9374f1d3c4aa7511efb879ac5c, type: 2}
-  - item: {fileID: 11400000, guid: 9bff8fdb24b8d2440ad6948e1f64359e, type: 2}
-  - item: {fileID: 11400000, guid: 443c19d95014e1a4299d07611649691e, type: 2}
   - item: {fileID: 11400000, guid: 37eef853aad447749a198274d0323b2d, type: 2}
-  - item: {fileID: 11400000, guid: 7a0b130c975f0be449b8c6e4b91aaed1, type: 2}
-  - item: {fileID: 11400000, guid: e77c91915b2bb8947b932d87e04c7c13, type: 2}
-  - item: {fileID: 11400000, guid: c226c683b8d397f43b8f50bca09d9410, type: 2}
-  - item: {fileID: 11400000, guid: dea11fc2811c38f4687e3636ef595538, type: 2}
-  - item: {fileID: 11400000, guid: b6a5e0722ec9a38488057387b054e3b3, type: 2}
-  - item: {fileID: 11400000, guid: a7ccd892e8268c244893d2b581a3e313, type: 2}
-  - item: {fileID: 11400000, guid: 3fc41021f55afec43b87f8ab88a037d8, type: 2}
-  - item: {fileID: 11400000, guid: adc44b35c264f3447ba4556c55276404, type: 2}
-  - item: {fileID: 11400000, guid: 272e7b20a5c40c5488ff698a9e851447, type: 2}
-  - item: {fileID: 11400000, guid: 4597c0e78ff29d04391541823e9777cf, type: 2}
-  - item: {fileID: 11400000, guid: 072acc0d6701d564ea407b4adbafd0fb, type: 2}
-  - item: {fileID: 11400000, guid: 02c777c4393adc14c9ddf6d70bec1f5c, type: 2}
-  - item: {fileID: 11400000, guid: 75939fcaf37a9284a8d82a6a7f432d15, type: 2}
-  - item: {fileID: 11400000, guid: 721c1bab9dbf7724d93002d0443733de, type: 2}
-  - item: {fileID: 11400000, guid: 6afe4daced2a9de48aeeb303ca68846f, type: 2}
-  - item: {fileID: 11400000, guid: cd937a07aa90a9647aa82a8446dfab8b, type: 2}
-  - item: {fileID: 11400000, guid: b1ed9ff42ef61284f905a407233f1352, type: 2}
-  - item: {fileID: 11400000, guid: 79e22155fce79df4883f0ff3c77e24e3, type: 2}
   size: 3

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbcddf6e61fb28141929fee95c574503, type: 3}
   m_Name: PSU 3
   m_EditorClassIdentifier: 
-  <Parts>k__BackingField: {fileID: 11400000, guid: 551fd973463e4884fbc1366c8ca17c6e, type: 2}
+  <Parts>k__BackingField: {fileID: 11400000, guid: 61da1fc1992e1f04980dc13427e7cbff, type: 2}
   <MaterialsNeed>k__BackingField: {fileID: 3316352308487018853, guid: e9d577f6d44074c42a16f1a8952c1bf8, type: 3}
-  <MaterialsAmountNeed>k__BackingField: 36
+  <MaterialsAmountNeed>k__BackingField: 15
   <Level>k__BackingField: 1

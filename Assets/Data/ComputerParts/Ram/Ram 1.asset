@@ -10,18 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
-  m_Name: Ram 1
+  m_Name: RAM 1
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
-  <Name>k__BackingField: 2GB DDR2
-  <rarity>k__BackingField: Common
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: b2a547702ccd1744c9ca45266bf8c03d, type: 3}
+  <Name>k__BackingField: CoreByte 2GB
+  <rarity>k__BackingField: 
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: a889918960c498f42b6fb9c926bff85b, type: 3}
   <Category>k__BackingField: RAM
-  <AttackDamage>k__BackingField: 5
-  <Health>k__BackingField: 20
+  <Price>k__BackingField: 100
+  <AttackDamage>k__BackingField: 0
+  <Health>k__BackingField: 0
   <Mana>k__BackingField: 0
   <HealthRegen>k__BackingField: 0
-  <ManaRegen>k__BackingField: 3
+  <ManaRegen>k__BackingField: 0
   <WalkSpeed>k__BackingField: 0
-  <Armor>k__BackingField: 0
+  <Armor>k__BackingField: 10
+  <CriticalChance>k__BackingField: 0
+  <CaseStrength>k__BackingField: 0
+  <MotherboardStrength>k__BackingField: 0
+  <CPUSocket>k__BackingField: 
+  <RAMSlot>k__BackingField: 
+  <BaseSpeed>k__BackingField: 0
+  <CPUSupportedSocket>k__BackingField: 
+  <Memory>k__BackingField: 2
+  <RAMSupportedSlot>k__BackingField: DDR2
+  <CoolingPower>k__BackingField: 0
+  <ClockSpeed>k__BackingField: 0
+  <Storage>k__BackingField: 0
+  <WattagePower>k__BackingField: 0

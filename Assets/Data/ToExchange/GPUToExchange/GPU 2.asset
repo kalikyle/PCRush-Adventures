@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8641b5e168b0e94699a0c7c1eedda85, type: 3}
   m_Name: GPU 2
   m_EditorClassIdentifier: 
-  <Parts>k__BackingField: {fileID: 11400000, guid: a2483b6c56a9daf4a8394180acd8fa9b, type: 2}
+  <Parts>k__BackingField: {fileID: 11400000, guid: 9191dd6be475e7046b13e9930b6d38d8, type: 2}
   <MaterialsNeed>k__BackingField: {fileID: 3316352308487018853, guid: 052b028aac859c545803fd649e2f1c99, type: 3}
-  <MaterialsAmountNeed>k__BackingField: 15
+  <MaterialsAmountNeed>k__BackingField: 13
   <Level>k__BackingField: 1

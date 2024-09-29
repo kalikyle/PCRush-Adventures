@@ -10,18 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
-  m_Name: STORAGE 2
+  m_Name: Storage 2
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
-  <Name>k__BackingField: 250gb hdd
+  <Name>k__BackingField: HyperDisk 120GB
   <rarity>k__BackingField: Common
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 5a87582c78dd5f34398508131c091da8, type: 3}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: d3331246bf88c0644841d42314eecff3, type: 3}
   <Category>k__BackingField: Storage
-  <AttackDamage>k__BackingField: 10
-  <Health>k__BackingField: 15
+  <Price>k__BackingField: 200
+  <AttackDamage>k__BackingField: 0
+  <Health>k__BackingField: 0
   <Mana>k__BackingField: 0
   <HealthRegen>k__BackingField: 0
-  <ManaRegen>k__BackingField: 0
+  <ManaRegen>k__BackingField: 8
   <WalkSpeed>k__BackingField: 0
   <Armor>k__BackingField: 0
+  <CriticalChance>k__BackingField: 0
+  <CaseStrength>k__BackingField: 0
+  <MotherboardStrength>k__BackingField: 0
+  <CPUSocket>k__BackingField: 
+  <RAMSlot>k__BackingField: 
+  <BaseSpeed>k__BackingField: 0
+  <CPUSupportedSocket>k__BackingField: 
+  <Memory>k__BackingField: 0
+  <RAMSupportedSlot>k__BackingField: 
+  <CoolingPower>k__BackingField: 0
+  <ClockSpeed>k__BackingField: 0
+  <Storage>k__BackingField: 120
+  <WattagePower>k__BackingField: 0

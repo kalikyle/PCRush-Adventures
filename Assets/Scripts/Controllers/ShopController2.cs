@@ -1,5 +1,6 @@
 using Inventory;
 using Inventory.Model;
+using PartsInventory.Model;
 using Shop.UI;
 using System;
 using System.Collections;
@@ -378,7 +379,7 @@ namespace Shop
                 return; 
             
             }
-            ItemSO item = shopItems.item;
+            PartsSO item = shopItems.item;
             shoP.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, Speed(shopItems), Compat(shopItems));
         }
 
@@ -390,7 +391,7 @@ namespace Shop
                 Inventory.Model.ShopItem2 shopItem = NumUpDown.filteredItems[obj];
                 if (!shopItem.isEmpty)
                 {
-                    ItemSO item = shopItem.item;
+                    PartsSO item = shopItem.item;
                     shoP.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, Speed(shopItem), Compat(shopItem));
                 }
             }

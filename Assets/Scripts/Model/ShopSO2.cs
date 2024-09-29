@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Shop.UI;
 using System.Linq;
+using PartsInventory.Model;
 
 namespace Inventory.Model
 {
@@ -45,7 +46,7 @@ namespace Inventory.Model
     public struct ShopItem2
     {
 
-        public ItemSO item;
+        public PartsSO item;
         public bool isEmpty => item == null;
 
         public static ShopItem2 GetEmptyItem() => new ShopItem2

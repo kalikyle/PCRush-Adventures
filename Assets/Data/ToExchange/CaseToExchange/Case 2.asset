@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b84a9097c248c34a9aaaaa6c47be342, type: 3}
   m_Name: Case 2
   m_EditorClassIdentifier: 
-  <Parts>k__BackingField: {fileID: 11400000, guid: fe4487bf08a0b1341819acfe13c70198, type: 2}
+  <Parts>k__BackingField: {fileID: 11400000, guid: b9d2776a085d23c49b342410f7ca7550, type: 2}
   <MaterialsNeed>k__BackingField: {fileID: 3316352308487018853, guid: ddcc9f3b8e8ae5d43983e8c44b0d5ceb, type: 3}
-  <MaterialsAmountNeed>k__BackingField: 30
+  <MaterialsAmountNeed>k__BackingField: 15
   <Level>k__BackingField: 1
