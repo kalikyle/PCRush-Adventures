@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
+  m_Name: CPU 7
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackableSize>k__BackingField: 99
+  <Name>k__BackingField: StealthCore i12
+  <rarity>k__BackingField: Common
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 47527e356efa528428332a847ec6719c, type: 3}
+  <Category>k__BackingField: CPU
+  <Price>k__BackingField: 230
+  <AttackDamage>k__BackingField: 0
+  <Health>k__BackingField: 16
+  <Mana>k__BackingField: 0
+  <HealthRegen>k__BackingField: 0
+  <ManaRegen>k__BackingField: 0
+  <WalkSpeed>k__BackingField: 0
+  <Armor>k__BackingField: 0
+  <CriticalChance>k__BackingField: 0
+  <CaseStrength>k__BackingField: 0
+  <MotherboardStrength>k__BackingField: 0
+  <CPUSocket>k__BackingField: 
+  <RAMSlot>k__BackingField: 
+  <BaseSpeed>k__BackingField: 1.3
+  <CPUSupportedSocket>k__BackingField: LGA 1150
+  <Memory>k__BackingField: 0
+  <RAMSupportedSlot>k__BackingField: 
+  <CoolingPower>k__BackingField: 0
+  <ClockSpeed>k__BackingField: 0
+  <Storage>k__BackingField: 0
+  <WattagePower>k__BackingField: 0

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956c3ce765f26884c868410eb957c62e, type: 3}
+  m_Name: Order 8
+  m_EditorClassIdentifier: 
+  <ClientImage>k__BackingField: {fileID: 21300000, guid: 8269123ae255a446089ea5dc197d4f0c, type: 3}
+  <ClientName>k__BackingField: Ma'am Oyao
+  <Description>k__BackingField: "I\u2019m an aspiring esports athlete determined
+    to build a competitive rig that gives me the edge in high-stakes matches, where
+    every millisecond counts."
+  <CaseStrength>k__BackingField: 0
+  <MotherboardStrength>k__BackingField: 10
+  <CPUBaseSpeed>k__BackingField: 1.5
+  <RAMMemory>k__BackingField: 4
+  <CPUFanCoolingPower>k__BackingField: 10
+  <GPUClockSpeed>k__BackingField: 1000
+  <Storage>k__BackingField: 250
+  <PSUWattagePower>k__BackingField: 0
+  <OrderPrice>k__BackingField: 15000
+  <TimeLimit>k__BackingField: 100
+  <EXP>k__BackingField: 550

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956c3ce765f26884c868410eb957c62e, type: 3}
+  m_Name: Order 1
+  m_EditorClassIdentifier: 
+  <ClientImage>k__BackingField: {fileID: 21300000, guid: 8bc8c544fb44e46ad868874e0bf9a20c, type: 3}
+  <ClientName>k__BackingField: Sir Mac
+  <Description>k__BackingField: As a dedicated streamer, I need a powerhouse rig
+    that handles intense multitasking while delivering breathtaking visuals for my
+    audience. Performance and style are my top priorities.
+  <CaseStrength>k__BackingField: 0
+  <MotherboardStrength>k__BackingField: 10
+  <CPUBaseSpeed>k__BackingField: 1.5
+  <RAMMemory>k__BackingField: 2
+  <CPUFanCoolingPower>k__BackingField: 0
+  <GPUClockSpeed>k__BackingField: 1000
+  <Storage>k__BackingField: 80
+  <PSUWattagePower>k__BackingField: 0
+  <OrderPrice>k__BackingField: 5000
+  <TimeLimit>k__BackingField: 100
+  <EXP>k__BackingField: 100
