@@ -358,20 +358,50 @@ public class TheGame : NetworkBehaviour
         winnerClientId.Value = clientId;
 
     }
-    public GameObject resText, resText2, ResPCImage, closebtn, rembtn, circling1, imagerem1, imagerem2; 
+    public GameObject resText, resText2, ResPCImage, closebtn, rembtn, circling1, imagerem1, imagerem2;
+
+    private void UnloadSceneIfLoaded(string sceneName)
+    {
+        // Loop through loaded scenes
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name == sceneName)
+            {
+                // If the scene is loaded, unload it
+                SceneManager.UnloadSceneAsync(sceneName);
+                return;  // Exit the method once the scene is found and unloaded
+            }
+        }
+    }
+
+
+
+
     void ShowResult(string result, string resultfeed)
     {
         
         MainCamera.gameObject.SetActive(true);
-        SceneManager.UnloadSceneAsync("PCRush");
-        SceneManager.UnloadSceneAsync("CaseMiniGame");
-        SceneManager.UnloadSceneAsync("CPUFanMiniGame");
-        SceneManager.UnloadSceneAsync("CPUMiniGame");
-        SceneManager.UnloadSceneAsync("GPUMiniGame");
-        SceneManager.UnloadSceneAsync("MotherboardMiniGame");
-        SceneManager.UnloadSceneAsync("PSUMiniGame");
-        SceneManager.UnloadSceneAsync("RAMMiniGame");
-        SceneManager.UnloadSceneAsync("StorageMiniGame");
+
+        UnloadSceneIfLoaded("PCRush");
+        UnloadSceneIfLoaded("CaseMiniGame");
+        UnloadSceneIfLoaded("CPUFanMiniGame");
+        UnloadSceneIfLoaded("CPUMiniGame");
+        UnloadSceneIfLoaded("GPUMiniGame");
+        UnloadSceneIfLoaded("MotherboardMiniGame");
+        UnloadSceneIfLoaded("PSUMiniGame");
+        UnloadSceneIfLoaded("RAMMiniGame");
+        UnloadSceneIfLoaded("StorageMiniGame");
+
+        //SceneManager.UnloadSceneAsync("PCRush");
+        //SceneManager.UnloadSceneAsync("CaseMiniGame");
+        //SceneManager.UnloadSceneAsync("CPUFanMiniGame");
+        //SceneManager.UnloadSceneAsync("CPUMiniGame");
+        //SceneManager.UnloadSceneAsync("GPUMiniGame");
+        //SceneManager.UnloadSceneAsync("MotherboardMiniGame");
+        //SceneManager.UnloadSceneAsync("PSUMiniGame");
+        //SceneManager.UnloadSceneAsync("RAMMiniGame");
+        //SceneManager.UnloadSceneAsync("StorageMiniGame");
         resultPanel.SetActive(true);
         resultText.text = result;
         resultFeedback.text = resultfeed;

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
-  m_Name: RAM 1
+  m_Name: Ram 1
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: CoreByte 2GB
-  <rarity>k__BackingField: 
+  <rarity>k__BackingField: Common
   <ItemImage>k__BackingField: {fileID: 21300000, guid: a889918960c498f42b6fb9c926bff85b, type: 3}
   <Category>k__BackingField: RAM
   <Price>k__BackingField: 100

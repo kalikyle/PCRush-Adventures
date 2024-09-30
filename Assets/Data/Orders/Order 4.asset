@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956c3ce765f26884c868410eb957c62e, type: 3}
+  m_Name: Order 4
+  m_EditorClassIdentifier: 
+  <ClientImage>k__BackingField: {fileID: 21300000, guid: 8269123ae255a446089ea5dc197d4f0c, type: 3}
+  <ClientName>k__BackingField: Sir Badua
+  <Description>k__BackingField: "My dream is to assemble a gaming rig that excels
+    in both performance and cooling, allowing for marathon sessions without overheating\u2014vital
+    for my endurance as a gamer."
+  <CaseStrength>k__BackingField: 0
+  <MotherboardStrength>k__BackingField: 12
+  <CPUBaseSpeed>k__BackingField: 1.3
+  <RAMMemory>k__BackingField: 4
+  <CPUFanCoolingPower>k__BackingField: 0
+  <GPUClockSpeed>k__BackingField: 0
+  <Storage>k__BackingField: 7
+  <PSUWattagePower>k__BackingField: 0
+  <OrderPrice>k__BackingField: 6000
+  <TimeLimit>k__BackingField: 100
+  <EXP>k__BackingField: 200

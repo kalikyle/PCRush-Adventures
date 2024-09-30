@@ -16,7 +16,7 @@ MonoBehaviour:
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: ThunderCore 120
   <rarity>k__BackingField: Common
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: dcced4caa32d1eb44813dde2a1bf4379, type: 3}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 7d1458b1cf03e784da18cc01f22f5db7, type: 3}
   <Category>k__BackingField: Motherboard
   <Price>k__BackingField: 220
   <AttackDamage>k__BackingField: 13
@@ -29,7 +29,7 @@ MonoBehaviour:
   <CriticalChance>k__BackingField: 0
   <CaseStrength>k__BackingField: 0
   <MotherboardStrength>k__BackingField: 10
-  <CPUSocket>k__BackingField: LGA 1150
+  <CPUSocket>k__BackingField: AM2
   <RAMSlot>k__BackingField: DDR2
   <BaseSpeed>k__BackingField: 0
   <CPUSupportedSocket>k__BackingField: 
