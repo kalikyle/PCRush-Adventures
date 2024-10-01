@@ -63,27 +63,74 @@ public class GameListener : MonoBehaviour
             Debug.Log($"Received message: {message}");
 
             // Parse the message and handle it on the main thread
+            //MainThreadDispatcher.Enqueue(() =>
+            //{
+            //    string[] parts = message.Split(':');
+            //    if (parts.Length == 2)
+            //    {
+            //        string type = parts[0];
+            //        string ipAddress = parts[1];
+
+            //        Debug.Log($"Type: {type}, IP: {ipAddress}");
+
+            //        if (type == "GAME")
+            //        {
+            //            AddGameButton(ipAddress);
+            //        }
+            //        else if (type == "CANCEL")
+            //        {
+            //            RemoveGameButton(ipAddress);
+            //        }
+            //    }
+            //});
+
             MainThreadDispatcher.Enqueue(() =>
             {
-                string[] parts = message.Split(':');
-                if (parts.Length == 2)
+                // Split by space first to get each key-value pair
+                string[] parts = message.Split(' ');
+
+                // Initialize variables to store values
+                string type = null;
+                string ipAddress = null;
+                string gameName = null;
+                string gameMode = null;
+
+                // Process each key-value pair
+                foreach (string part in parts)
                 {
-                    string type = parts[0];
-                    string ipAddress = parts[1];
-
-                    Debug.Log($"Type: {type}, IP: {ipAddress}");
-
-                    if (type == "GAME")
+                    string[] keyValue = part.Split(':');
+                    if (keyValue.Length == 2)
                     {
-                        AddGameButton(ipAddress);
-                    }
-                    else if (type == "CANCEL")
-                    {
-                        RemoveGameButton(ipAddress);
+                        switch (keyValue[0])
+                        {
+                            case "GAME":
+                                type = keyValue[0]; // Store "GAME"
+                                ipAddress = keyValue[1]; // Store the IP address
+                                break;
+                            case "GAMENAME":
+                                gameName = keyValue[1]; // Store the game name
+                                break;
+                            case "GAMEMODE":
+                                gameMode = keyValue[1]; // Store the game mode
+                                break;
+                        }
                     }
                 }
+
+                // Debug log to verify the parsed values
+                Debug.Log($"Type: {type}, IP: {ipAddress}, Game Name: {gameName}, Game Mode: {gameMode}");
+
+                // Handle the "GAME" type and add/remove game buttons accordingly
+                if (type == "GAME")
+                {
+                    AddGameButton(ipAddress, gameName, gameMode);
+                }
+                else if (type == "CANCEL")
+                {
+                    RemoveGameButton(ipAddress);
+                }
             });
-        }
+         }
         catch (Exception ex)
         {
             Debug.LogError($"Error in OnDataReceived: {ex.Message}");
@@ -95,7 +142,7 @@ public class GameListener : MonoBehaviour
 
     }
 
-    void AddGameButton(string ipAddress)
+    void AddGameButton(string ipAddress,string gamename, string gamemode)
     {
         GameObject buttonObject = Instantiate(buttonPrefab, buttonContainer);
         Button button = buttonObject.GetComponent<Button>();
@@ -108,7 +155,7 @@ public class GameListener : MonoBehaviour
            
             if (text.gameObject.name == "Name") 
             {
-
+                text.text = gamename;
             }
             else if (text.gameObject.name == "Ipaddress") 
             {
@@ -117,7 +164,7 @@ public class GameListener : MonoBehaviour
             else if (text.gameObject.name == "Mode")
             {
 
-
+                text.text = gamemode;
             }
 
             //button.GetComponentInChildren<TMP_Text>().text = ipAddress;
