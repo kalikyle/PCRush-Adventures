@@ -147,7 +147,7 @@ public class NewGameManager : MonoBehaviour
         lobbyCreateButton.interactable = false;
         lobbyJoinButton.interactable = false;
 
-        broadcaster.BroadcastGameCreation(hostIpAddress);
+        broadcaster.BroadcastGameCreation(hostIpAddress, gameName, gameMode);
 
         switch (gameModeDropdown.value)
         {
