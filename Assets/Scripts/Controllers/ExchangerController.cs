@@ -155,7 +155,7 @@ namespace Exchanger
         }
         void Start()
         {
-            currentlevel = GameManager.instance.PlayerLevel;
+           currentlevel = GameManager.instance.PlayerLevel;
            //initialize RefreshPrice
            CPUTextRefreshPrice.text = CPURefreshPrice.ToString();
            RAMTextRefreshPrice.text = RAMRefreshPrice.ToString();
@@ -361,7 +361,6 @@ namespace Exchanger
             int quantity = await GetMaterialQuantity("Silicon Wafer");
             GameManager.instance.CPUMaterialText.text = quantity.ToString();
             CPUsPage.ResetSelection();
-
         }
 
        

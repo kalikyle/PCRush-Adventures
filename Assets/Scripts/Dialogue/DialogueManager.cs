@@ -281,6 +281,10 @@ public class DialogueManager : MonoBehaviour
                     else if (tagValue.Equals("sellyes"))
                     {
                         GameManager.instance.PartsOpenSell();
+                    } 
+                    else if (tagValue.Equals("sellPCsyes"))
+                    {
+                        GameManager.instance.OpenBuyers();
                     }
 
                     break;

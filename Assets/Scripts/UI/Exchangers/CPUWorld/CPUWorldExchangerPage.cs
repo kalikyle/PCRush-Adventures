@@ -44,11 +44,9 @@ namespace Exchanger.UI.CPUWorld
                 uiItem.SetTemporaryIndex(i);
                 uiItem.OnItemClicked += HandleItemSelection;
                 
-                //uiItem.OnRightMouseBtnClick += HandleShowItemActions;
+              
 
             }
-
-            //StartCoroutine(SpawnMissions(inventorysize));
         }
 
         private IEnumerator SpawnMissions(int numberOfMissions)
@@ -61,7 +59,6 @@ namespace Exchanger.UI.CPUWorld
                 ListOfCPUItems.Add(uiItem);
                 uiItem.SetTemporaryIndex(i);
                 uiItem.OnItemClicked += HandleItemSelection;
-                //buyItem.OnItemClicked += HandleItemSelectionBuy;
                 yield return new WaitForSeconds(3f); // Wait for 5 seconds before spawning the next mission
             }
         }
@@ -84,21 +81,9 @@ namespace Exchanger.UI.CPUWorld
             {
                 return;
             }
-            //OnDescriptionRequested?.Invoke(index);
             DeselectAllItems();
             
         }
-
-        //private void HandleItemSelectionBuy(CPUWorldExchangerBuy item)
-        //{
-        //    int index = ListOfCPUItemsBuy.IndexOf(item);
-        //    if (index == -1)
-        //    {
-        //        return;
-        //    }
-            
-        //    ResetQuantity();
-        //}
 
         private void DeselectAllItems()
         {
@@ -118,21 +103,13 @@ namespace Exchanger.UI.CPUWorld
 
             }
         }
-        //private void ResetQuantity()
-        //{
-        //    foreach (CPUWorldExchangerBuy item in ListOfCPUItemsBuy)
-        //    {
-        //        item.ResetQuantity();
-        //    }
-        //}
 
         public void ResetSelection()
         {
-            //shopDesc.Hide();
-            //shopDesc.ResetDescription();
+           
             DeselectAllItems();
             ResetQuantity();
-            //ResetQuantity();
+           
         }
 
         public void UpdateData(int itemIndex, Sprite CPUImage, Sprite MaterialNeed, string CPUName, string rarity, int Material, string stats)
