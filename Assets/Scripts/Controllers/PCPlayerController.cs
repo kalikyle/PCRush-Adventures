@@ -2,6 +2,8 @@ using Exchanger.Model.CaseWorld;
 using Firebase.Firestore;
 using Inventory;
 using Inventory.Model;
+using Mono.Cecil.Cil;
+using Orders.Model;
 using PartsInventory;
 using PartsInventory.Model;
 using PC.Model;
@@ -58,7 +60,7 @@ namespace PC
         public UnityEngine.UI.Button InUseButton;
 
         [SerializeField]
-        public UnityEngine.UI.Button submitButton;
+        public UnityEngine.UI.Button sellButton;
 
         [SerializeField]
         public Canvas ShopScene;
@@ -937,6 +939,7 @@ namespace PC
             //    });
             UseButton.onClick.AddListener(() => UseComputer(PCIndexOutside));
             ModifyButton.onClick.AddListener(() => ModifyComputer(PCIndexOutside));
+            sellButton.onClick.AddListener(() => SellPC(PCIndexOutside));
 
 
 
@@ -1641,7 +1644,254 @@ namespace PC
             return perks;
         }
 
+        public void SellPC(int index)
+        {
+            Computer PCs = PCData.GetItemAt(index);
+            PCSO PCitem = PCs.PC;
+            string documentId = GameManager.instance.pcsoDocumentIds[index];
 
+
+            if(PCitem.inUse == true)
+            {
+                GameManager.instance.ShowFloatingText("You Can't Sell Used PC");
+                Debug.LogError("can't sell use pc");
+            }
+            else
+            {
+                // Get the current mission's requirements
+                Missions currentMission = GameManager.instance.Buyers.SelectedMission;
+                bool isMissionMet = true;
+                float deductionPercentage = 0.1f; // 10% deduction per mismatched part
+                float totalDeduction = 0;
+                float totalEXPDeduction = 0;
+
+                string comparisonText = "";
+
+                // Check the PC against the mission requirements
+                //if (PCitem.Case.CaseStrength < currentMission.orders.CaseStrength)
+                //{
+                //    isMissionMet = false;
+                //    totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                //    totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+                //}
+
+                //if (PCitem.Motherboard.MotherboardStrength < currentMission.orders.MotherboardStrength)
+                //{
+                //    isMissionMet = false;
+                //    totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                //    totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+                //}
+
+                //if (PCitem.CPU.BaseSpeed < currentMission.orders.CPUBaseSpeed)
+                //{
+                //    isMissionMet = false;
+                //    totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                //    totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+                //}
+
+                //if (PCitem.RAM.Memory < currentMission.orders.RAMMemory)
+                //{
+                //    isMissionMet = false;
+                //    totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                //    totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+                //}
+
+                //if (PCitem.CPUFan.CoolingPower < currentMission.orders.CPUFanCoolingPower)
+                //{
+                //    isMissionMet = false;
+                //    totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                //    totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+                //}
+
+                //if (PCitem.GPU.ClockSpeed < currentMission.orders.GPUClockSpeed)
+                //{
+                //    isMissionMet = false;
+                //    totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                //    totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+                //}
+
+                //if (PCitem.STORAGE.Storage < currentMission.orders.Storage)
+                //{
+                //    isMissionMet = false;
+                //    totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                //    totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+                //}
+
+                //if (PCitem.PSU.WattagePower < currentMission.orders.PSUWattagePower)
+                //{
+                //    isMissionMet = false;
+                //    totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                //    totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+                //}
+
+                if (currentMission.orders.CaseStrength > 0) // Only show if requirement > 0
+                {
+                    if (PCitem.Case.CaseStrength < currentMission.orders.CaseStrength)
+                    {
+                        isMissionMet = false;
+                        totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                        totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+
+                        // Append the comparison to the string with red color if not met
+                        comparisonText += $"<color=red>CaseStrength + {currentMission.orders.CaseStrength} >= PC CaseStrength {PCitem.Case.CaseStrength}</color>\n";
+                    }
+                    else
+                    {
+                        // Append the comparison with white color if met
+                        comparisonText += $"<color=white>CaseStrength + {currentMission.orders.CaseStrength} >= PC CaseStrength {PCitem.Case.CaseStrength}</color>\n";
+                    }
+                }
+
+                // Motherboard Strength comparison
+                if (currentMission.orders.MotherboardStrength > 0)
+                {
+                    if (PCitem.Motherboard.MotherboardStrength < currentMission.orders.MotherboardStrength)
+                    {
+                        isMissionMet = false;
+                        totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                        totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+
+                        comparisonText += $"<color=red>MotherboardStrength + {currentMission.orders.MotherboardStrength} >= PC MotherboardStrength {PCitem.Motherboard.MotherboardStrength}</color>\n";
+                    }
+                    else
+                    {
+                        comparisonText += $"<color=white>MotherboardStrength + {currentMission.orders.MotherboardStrength} >= PC MotherboardStrength {PCitem.Motherboard.MotherboardStrength}</color>\n";
+                    }
+                }
+
+                // Add similar logic for other components
+                if (currentMission.orders.CPUBaseSpeed > 0)
+                {
+                    if (PCitem.CPU.BaseSpeed < currentMission.orders.CPUBaseSpeed)
+                    {
+                        isMissionMet = false;
+                        totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                        totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+
+                        comparisonText += $"<color=red>CPU BaseSpeed + {currentMission.orders.CPUBaseSpeed} >= PC CPU BaseSpeed {PCitem.CPU.BaseSpeed}</color>\n";
+                    }
+                    else
+                    {
+                        comparisonText += $"<color=white>CPU BaseSpeed + {currentMission.orders.CPUBaseSpeed} >= PC CPU BaseSpeed {PCitem.CPU.BaseSpeed}</color>\n";
+                    }
+                }
+
+                if (currentMission.orders.RAMMemory > 0)
+                {
+                    if (PCitem.RAM.Memory < currentMission.orders.RAMMemory)
+                    {
+                        isMissionMet = false;
+                        totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                        totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+
+                        comparisonText += $"<color=red>RAM Memory + {currentMission.orders.RAMMemory} >= PC RAM Memory {PCitem.RAM.Memory}</color>\n";
+                    }
+                    else
+                    {
+                        comparisonText += $"<color=white>RAM Memory + {currentMission.orders.RAMMemory} >= PC RAM Memory {PCitem.RAM.Memory}</color>\n";
+                    }
+                }
+
+                if (currentMission.orders.CPUFanCoolingPower > 0)
+                {
+                    if (PCitem.CPUFan.CoolingPower < currentMission.orders.CPUFanCoolingPower)
+                    {
+                        isMissionMet = false;
+                        totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                        totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+
+                        comparisonText += $"<color=red>CPU Fan CoolingPower + {currentMission.orders.CPUFanCoolingPower} >= PC CPU Fan CoolingPower {PCitem.CPUFan.CoolingPower}</color>\n";
+                    }
+                    else
+                    {
+                        comparisonText += $"<color=white>CPU Fan CoolingPower + {currentMission.orders.CPUFanCoolingPower} >= PC CPU Fan CoolingPower {PCitem.CPUFan.CoolingPower}</color>\n";
+                    }
+                }
+
+                // GPU ClockSpeed comparison
+                if (currentMission.orders.GPUClockSpeed > 0)
+                {
+                    if (PCitem.GPU.ClockSpeed < currentMission.orders.GPUClockSpeed)
+                    {
+                        isMissionMet = false;
+                        totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                        totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+
+                        comparisonText += $"<color=red>GPU ClockSpeed + {currentMission.orders.GPUClockSpeed} >= PC GPU ClockSpeed {PCitem.GPU.ClockSpeed}</color>\n";
+                    }
+                    else
+                    {
+                        comparisonText += $"<color=white>GPU ClockSpeed + {currentMission.orders.GPUClockSpeed} >= PC GPU ClockSpeed {PCitem.GPU.ClockSpeed}</color>\n";
+                    }
+                }
+
+                // Storage comparison
+                if (currentMission.orders.Storage > 0)
+                {
+                    if (PCitem.STORAGE.Storage < currentMission.orders.Storage)
+                    {
+                        isMissionMet = false;
+                        totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                        totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+
+                        comparisonText += $"<color=red>Storage + {currentMission.orders.Storage} >= PC Storage {PCitem.STORAGE.Storage}</color>\n";
+                    }
+                    else
+                    {
+                        comparisonText += $"<color=white>Storage + {currentMission.orders.Storage} >= PC Storage {PCitem.STORAGE.Storage}</color>\n";
+                    }
+                }
+
+                // PSU WattagePower comparison
+                if (currentMission.orders.PSUWattagePower > 0)
+                {
+                    if (PCitem.PSU.WattagePower < currentMission.orders.PSUWattagePower)
+                    {
+                        isMissionMet = false;
+                        totalDeduction += deductionPercentage * currentMission.orders.OrderPrice;
+                        totalEXPDeduction += deductionPercentage * currentMission.orders.EXP;
+
+                        comparisonText += $"<color=red>PSU WattagePower + {currentMission.orders.PSUWattagePower} >= PC PSU WattagePower {PCitem.PSU.WattagePower}</color>\n";
+                    }
+                    else
+                    {
+                        comparisonText += $"<color=white>PSU WattagePower + {currentMission.orders.PSUWattagePower} >= PC PSU WattagePower {PCitem.PSU.WattagePower}</color>\n";
+                    }
+                }
+
+
+
+                // Calculate final price after deduction
+                float finalPrice = currentMission.orders.OrderPrice - totalDeduction;
+                float finalEXP = currentMission.orders.EXP - totalEXPDeduction;
+
+                if (isMissionMet)
+                {
+                    GameManager.instance.ShowFloatingText("All requirements met! Full price received.");
+                }
+                else
+                {
+                    GameManager.instance.ShowFloatingText($"Requirements not fully met. Deducted: ${totalDeduction}. Final Price: ${finalPrice}");
+                }
+
+
+                //congrats panel logic
+
+
+
+                // Update player's money
+                GameManager.instance.PlayerMoney += (int)finalPrice;
+                GameManager.instance.PlayerTotalMoney += (int)finalPrice;
+                GameManager.instance.AddPlayerExp((int)finalEXP);
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+
+                //delete pc
+                DeletePC(documentId);
+                LoadUpdatePCSOList();
+                GameManager.instance.Buyers.Xbutton();
+            }
+
+        }
 
         //public LeanTweenAnimate LTA;
         public Canvas MainMenu;

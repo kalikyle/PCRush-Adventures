@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievementName: Build Your First PC
   description: Player Build His Very First pc from the unknown packages
-  icon: {fileID: 21300000, guid: adad464433aaaf64a9ac91fb85e23a9b, type: 3}
+  icon: {fileID: 21300000, guid: 2360bda3f365f0642b75a0e74ea42b2b, type: 3}
   isUnlocked: 0
   ExpReward: 50
   MoneyReward: 0

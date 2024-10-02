@@ -31,7 +31,7 @@ public class ClientController : MonoBehaviour
     void Start()
     {
       
-        OrderData.ShuffleMissions();
+        //OrderData.ShuffleMissions();
      
     }
 

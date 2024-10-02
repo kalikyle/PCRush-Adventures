@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     public PlayerTeleport playerTeleport;
     public PCPlayerController PPC;
     public PartsInventoryController PIC;
+    public BuyersController Buyers;
     public bool HasOpened = false;
     public Dictionary<string, InventoryItem> UsedImagesNeeds = new Dictionary<string, InventoryItem>();
     [SerializeField]
@@ -604,7 +605,7 @@ PlayerTotalWalkSpeed = 1;
         }
 
         
-        PlayerTotalWalkSpeed = PlayerWalkSpeed + PlayerPCWalkSpeed * 0.1;
+        PlayerTotalWalkSpeed = PlayerWalkSpeed + (PlayerPCWalkSpeed * 0.01);
 
         if(EquipmentArmor != 0)
         {
@@ -785,6 +786,12 @@ PlayerTotalWalkSpeed = 1;
     public void OpenCaseWorldExhanger()
     {
         Exchanger.CasesOpenShop();
+    }
+
+    public void OpenBuyers()
+    {
+        PPC.LoadUpdatePCSOList();
+        Buyers.BuyersOpenShop();
     }
     public void PlayerDeskName()
     {
