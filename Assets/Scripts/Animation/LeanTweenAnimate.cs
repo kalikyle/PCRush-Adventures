@@ -547,5 +547,69 @@ public class LeanTweenAnimate : MonoBehaviour
         LevelUpUI.SetActive(false);
     }
 
+    public GameObject CongratsPanel, circling3, ComputerSoldText, Comparison, comparisonText, BuyerImage, PCImage, Feedback, Total, PCPanel, Reward, Buyer, ThanksBTN;
+
+    public void PlaySoldPCAnimation()
+    {
+
+        LeanTween.scale(CongratsPanel, new Vector3(1f, 1f, 1f), 0.5f).setEase(LeanTweenType.easeOutCubic);
+        // circling3 spins continuously
+        LeanTween.rotateAround(circling3, Vector3.forward, 360f, 5f).setLoopClamp();
+
+        // ComputerSoldText first scales to 2 in the middle, then moves to the top
+        LeanTween.scale(ComputerSoldText, new Vector3(1.5f, 1.5f, 1.5f), 1f).setEase(LeanTweenType.easeOutCubic).setOnComplete(() => {
+
+            LeanTween.scale(ComputerSoldText, new Vector3(1f, 1f, 1f), 0.5f).setEase(LeanTweenType.easeOutCubic);
+
+                // After ComputerSoldText moves to the top, Comparison fades in
+                LeanTween.alpha(Comparison.GetComponent<RectTransform>(), 1f, 0.5f).setDelay(0.2f);
+
+                // Then comparisonText scales in with an elastic effect
+                LeanTween.scale(comparisonText, Vector3.one, 0.7f).setEase(LeanTweenType.easeOutElastic).setDelay(0.7f);
+
+                // BuyerImage and PCImage fade in at the same time
+                LeanTween.alpha(BuyerImage.GetComponent<RectTransform>(), 1f, 0.5f).setDelay(1.2f);
+                LeanTween.alpha(PCImage.GetComponent<RectTransform>(), 1f, 0.5f).setDelay(1.2f);
+
+                // Feedback scales in
+                LeanTween.scale(Feedback, Vector3.one, 0.5f).setEase(LeanTweenType.easeOutCubic).setDelay(1.7f);
+
+                // Total scales in with an elastic effect
+                LeanTween.scale(Total, Vector3.one, 0.7f).setEase(LeanTweenType.easeOutElastic).setDelay(2.2f);
+
+                // PCPanel scales in with an elastic effect
+                LeanTween.scale(Buyer, new Vector3(0.8f, 0.8f, 0.8f), 0.7f).setEase(LeanTweenType.easeOutElastic).setDelay(2.7f);
+
+                // Reward scales in with an elastic effect
+                LeanTween.scale(Reward, new Vector3(0.8f, 0.8f, 0.8f), 0.7f).setEase(LeanTweenType.easeOutElastic).setDelay(3.2f);
+
+                // Buyer scales in with an elastic effect
+                LeanTween.scale(PCPanel, new Vector3(0.8f, 0.8f, 0.8f), 0.7f).setEase(LeanTweenType.easeOutElastic).setDelay(3.7f);
+
+                // ThanksBTN scales in last with an elastic effect
+                LeanTween.scale(ThanksBTN, Vector3.one, 0.7f).setEase(LeanTweenType.easeOutElastic).setDelay(4.2f);
+            });
+    }
+
+    public void ResetSoldPCAnimation()
+    {
+        // Reset all the game objects' scales to zero and alphas to 0
+        LeanTween.scale(CongratsPanel, new Vector3(0f, 0f, 0f), 0.5f).setEase(LeanTweenType.easeOutCubic);
+        ComputerSoldText.transform.localScale = Vector3.zero;
+        LeanTween.alpha(Comparison.GetComponent<RectTransform>(), 0f, 0.5f);
+        comparisonText.transform.localScale = Vector3.zero;
+        LeanTween.alpha(BuyerImage.GetComponent<RectTransform>(), 0f, 0.5f);
+        LeanTween.alpha(PCImage.GetComponent<RectTransform>(), 0f, 0.5f);
+        Feedback.transform.localScale = Vector3.zero;
+        Total.transform.localScale = Vector3.zero;
+        PCPanel.transform.localScale = Vector3.zero;
+        Reward.transform.localScale = Vector3.zero;
+        Buyer.transform.localScale = Vector3.zero;
+        ThanksBTN.transform.localScale = Vector3.zero;
+
+        // Optional: Reset ComputerSoldText position to its starting middle position (if necessary)
+        //ComputerSoldText.transform.localPosition = Vector3.zero;  // This assumes the middle is the origin (0,0,0)
+    }
+
 
 }

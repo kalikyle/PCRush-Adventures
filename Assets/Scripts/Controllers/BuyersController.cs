@@ -157,6 +157,11 @@ public class BuyersController : MonoBehaviour
         BuyerPage.Show();
         //CPUsPage.ResetSelection();
     }
+    public void BuyersHideShop()
+    {
+        BuyerPage.Hide();
+        //CPUsPage.ResetSelection();
+    }
 
     public int selectedMissionIndex = -1;
     public Missions SelectedMission;
