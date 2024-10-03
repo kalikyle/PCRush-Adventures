@@ -1865,20 +1865,6 @@ namespace PC
                 float finalPrice = currentMission.orders.OrderPrice - totalDeduction;
                 float finalEXP = currentMission.orders.EXP - totalEXPDeduction;
 
-                if (isMissionMet)
-                {
-                    GameManager.instance.ShowFloatingText("All requirements met! Full price received.");
-                }
-                else
-                {
-                    GameManager.instance.ShowFloatingText($"Requirements not fully met. Deducted: ${totalDeduction}. Final Price: ${finalPrice}");
-                }
-
-
-                //congrats panel logic
-
-
-
                 // Update player's money
                 GameManager.instance.PlayerMoney += (int)finalPrice;
                 GameManager.instance.PlayerTotalMoney += (int)finalPrice;
@@ -1889,9 +1875,42 @@ namespace PC
                 DeletePC(documentId);
                 LoadUpdatePCSOList();
                 GameManager.instance.Buyers.Xbutton();
+                GameManager.instance.Buyers.BuyersHideShop();
+
+
+                //congrats panel logic
+                ComparisonText.text = comparisonText;
+                if (isMissionMet)
+                {
+                    //GameManager.instance.ShowFloatingText("All requirements met! Full price received.");
+                    FeedbackText.text = "Congrats!, All requirements met! Full price received.";
+                    TotalText.text = "Money: " + currentMission.orders.OrderPrice + " EXP: " + currentMission.orders.EXP;
+                }
+                else
+                {
+                    //GameManager.instance.ShowFloatingText($"Requirements not fully met. Deducted: ${totalDeduction}. Final Price: ${finalPrice}");
+                    FeedbackText.text = "Some Requirements are not fully met";
+                    TotalText.text = "Money: " + currentMission.orders.OrderPrice + " - " + totalDeduction + " = " + finalPrice + " EXP: " + currentMission.orders.EXP + " - " + totalEXPDeduction + " = " + finalEXP;
+                }
+                BuyerName.text = currentMission.orders.ClientName;
+                CoinReward.text = finalPrice.ToString();
+                ExpReward.text = finalEXP.ToString();
+                SoldPCName.text = PCitem.PCName;
+                yourName.text = "by: " + GameManager.instance.PlayerName;
+
+                BuyerImage1.sprite = currentMission.orders.ClientImage;
+                BuyerImage2.sprite = currentMission.orders.ClientImage;
+                PCImage1.sprite = PCitem.PCImage;
+                PCImage2.sprite = PCitem.PCImage;
+
+                //animation
+                GameManager.instance.LTA.PlaySoldPCAnimation();
             }
 
         }
+
+        public TMP_Text ComparisonText, FeedbackText, TotalText, BuyerName, CoinReward, ExpReward, SoldPCName, yourName;
+        public Image BuyerImage1, BuyerImage2, PCImage1, PCImage2;
 
         //public LeanTweenAnimate LTA;
         public Canvas MainMenu;

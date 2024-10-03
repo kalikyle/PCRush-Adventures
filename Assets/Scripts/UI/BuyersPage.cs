@@ -80,4 +80,10 @@ public class BuyersPage : MonoBehaviour
         gameObject.SetActive(true);
 
     }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+
+    }
 }
