@@ -1660,6 +1660,7 @@ namespace PC
             {
                 // Get the current mission's requirements
                 Missions currentMission = GameManager.instance.Buyers.SelectedMission;
+                int currentMissionIndex = GameManager.instance.Buyers.selectedMissionIndex;
                 bool isMissionMet = true;
                 float deductionPercentage = 0.1f; // 10% deduction per mismatched part
                 float totalDeduction = 0;
@@ -1877,9 +1878,12 @@ namespace PC
                 GameManager.instance.Buyers.Xbutton();
                 GameManager.instance.Buyers.BuyersHideShop();
 
+                //replace Mission
+                GameManager.instance.Buyers.RespawnMission(currentMissionIndex, GameManager.instance.Buyers.MissionData.size);
 
-                //congrats panel logic
-                ComparisonText.text = comparisonText;
+
+               //congrats panel logic
+               ComparisonText.text = comparisonText;
                 if (isMissionMet)
                 {
                     //GameManager.instance.ShowFloatingText("All requirements met! Full price received.");

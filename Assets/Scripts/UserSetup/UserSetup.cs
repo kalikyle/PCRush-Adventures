@@ -41,6 +41,8 @@ public class UserSetup : MonoBehaviour
 
     public Button loginButton, createaccbtn, forgotbutton, signinbtn , guestbtn, closenotifbtn, forgotpassbtn, logoutButton;
 
+    public Slider BackGroundMainMenu;
+    public Slider EffectsMainMenu;
 
     private void Awake()
     {
@@ -121,7 +123,21 @@ public class UserSetup : MonoBehaviour
         //    PlayPanel.gameObject.SetActive(true);
         //    CharEditor.gameObject.SetActive(false);
         //}
+        BackGroundMainMenu.value = SoundManager.instance.backgroundVolume;
+        EffectsMainMenu.value = SoundManager.instance.effectsVolume;
+    }
 
+
+    public void MainMenuBackgroundVolume(float volume)
+    {
+        SoundManager.instance.SetBackgroundVolume(volume);
+        SoundManager.instance.BackGround.value = volume;
+    }
+
+    public void MainEffectsVolume(float volume)
+    {
+        SoundManager.instance.SetEffectsVolume(volume);
+        SoundManager.instance.Effects.value = volume;
     }
     public async void PlayClick()
     {

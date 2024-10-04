@@ -15,7 +15,7 @@ public class BuyersController : MonoBehaviour
     [SerializeField]
     private BuyersPage BuyerPage;
     [SerializeField]
-    private MissionConSO MissionData;
+    public MissionConSO MissionData;
     private Dictionary<int, float> remainingTimes = new Dictionary<int, float>();
     private Dictionary<int, bool> missionDisplayed = new Dictionary<int, bool>();
     private Queue<int> missionsToReplace = new Queue<int>();
@@ -200,9 +200,16 @@ public class BuyersController : MonoBehaviour
 
 
 
+    public void RespawnMission(int lastMissionIndex, int MissionToBeShowedIndex)
+    {
+        var lastMissionToMove = MissionData.GetItemAt(lastMissionIndex);
+        var MissionToBeShow = MissionData.GetItemAt(MissionToBeShowedIndex);
 
-
-
+        MissionData.missionOrders.Add(lastMissionToMove);
+        MissionData.ReplaceMission(lastMissionIndex, MissionToBeShow);
+        MissionData.RemoveMission(MissionToBeShowedIndex);
+        InitializeMissions();
+    }
 
 
 

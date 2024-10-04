@@ -1132,6 +1132,8 @@ namespace PartsInventory
                 {
                     usedItems.Add(inventoryItem);
                 }
+
+
                 OpenMiniGames(category, inventoryItem);
                 //if (category == "CPU")
                 //{
@@ -1302,6 +1304,10 @@ namespace PartsInventory
                     {
                         usedItems.Add(inventoryItem);
                     }
+
+
+                    
+
                     OpenMiniGames(category,inventoryItem);
                     //if (category == "CPU")
                     //{
@@ -1355,103 +1361,113 @@ namespace PartsInventory
 
             }
 
-
-            if (category == "Motherboard")
-            {
-                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
-               
-                SceneManager.LoadScene("MotherboardMiniGame", LoadSceneMode.Additive);
-                GameManager.instance.MainCamera.gameObject.SetActive(false);
-
-
-            }
-
-            if (category == "CPU")
-            {
-                //ApplyThermal.gameObject.SetActive(true);
-                //AT.SetCPUImage(inventoryItem.item.ItemImage);
-                // GameManager2.Instance.BuildScene.gameObject.SetActive(false);
-                
-                SceneManager.LoadScene("CPUMiniGame", LoadSceneMode.Additive);
-                GameManager.instance.MainCamera.gameObject.SetActive(false);
-
-
-            }
-
-            if (category == "RAM")
-            {
-                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
-               
-                SceneManager.LoadScene("RAMMiniGame", LoadSceneMode.Additive);
-                GameManager.instance.MainCamera.gameObject.SetActive(false);
-
-
-            }
-
-
-            if (category == "CPU Fan")
-            {
-                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
-               
-                SceneManager.LoadScene("CPUFanMiniGame", LoadSceneMode.Additive);
-                GameManager.instance.MainCamera.gameObject.SetActive(false);
-
-
-            }
-
-            if (category == "Video Card")
+            if (CaseImage.sprite != null)
             {
 
-                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
-               
-                SceneManager.LoadScene("GPUMiniGame", LoadSceneMode.Additive);
-                GameManager.instance.MainCamera.gameObject.SetActive(false);
-
-
-            }
-
-            if (category == "Storage")
-            {
-
-                //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
-               
-                SceneManager.LoadScene("StorageMiniGame", LoadSceneMode.Additive);
-                GameManager.instance.MainCamera.gameObject.SetActive(false);
-
-
-            }
-
-            if (category == "PSU")
-            {
-                if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
-                {
-                    DialogBox.gameObject.SetActive(true);
-                    DialogText.text = "Can't Use this " + category + " without the needed Parts";
-                    CanYesButton.gameObject.SetActive(false);
-                    CanNoButton.gameObject.SetActive(false);
-                    DisYesButton.gameObject.SetActive(false);
-                    DisNoButton.gameObject.SetActive(false);
-                    BackYesButton.gameObject.SetActive(false);
-                    BackNoButton.gameObject.SetActive(false);
-
-                    try
-                    {
-                        HandleBackItem(category);
-
-                    }
-                    catch (Exception) { }
-                }
-                else
+                if (category == "Motherboard")
                 {
                     //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
-                    
-                    SceneManager.LoadScene("PSUMiniGame", LoadSceneMode.Additive);
+
+                    SceneManager.LoadScene("MotherboardMiniGame", LoadSceneMode.Additive);
+                    GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+                }
+            }
+
+
+            if (CaseImage.sprite != null && MBImage.sprite != null)
+            {
+
+                if (category == "CPU")
+                {
+                    //ApplyThermal.gameObject.SetActive(true);
+                    //AT.SetCPUImage(inventoryItem.item.ItemImage);
+                    // GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+
+                    SceneManager.LoadScene("CPUMiniGame", LoadSceneMode.Additive);
+                    GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+                }
+
+               
+
+                if (category == "RAM")
+                {
+                    //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+
+                    SceneManager.LoadScene("RAMMiniGame", LoadSceneMode.Additive);
                     GameManager.instance.MainCamera.gameObject.SetActive(false);
 
 
                 }
 
 
+                if (category == "CPU Fan")
+                {
+                    //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+
+                    SceneManager.LoadScene("CPUFanMiniGame", LoadSceneMode.Additive);
+                    GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+                }
+
+                if (category == "Video Card")
+                {
+
+                    //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+
+                    SceneManager.LoadScene("GPUMiniGame", LoadSceneMode.Additive);
+                    GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+                }
+
+                if (category == "Storage")
+                {
+
+                    //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+
+                    SceneManager.LoadScene("StorageMiniGame", LoadSceneMode.Additive);
+                    GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+                }
+
+                if (category == "PSU")
+                {
+                    if (!(CaseImage.isActiveAndEnabled && MBImage.isActiveAndEnabled && CPUImage.isActiveAndEnabled && CPUFImage.isActiveAndEnabled && RAMImage.isActiveAndEnabled && GPUButton.isActiveAndEnabled && STRG1Image.isActiveAndEnabled))
+                    {
+                        DialogBox.gameObject.SetActive(true);
+                        DialogText.text = "Can't Use this " + category + " without the needed Parts";
+                        CanYesButton.gameObject.SetActive(false);
+                        CanNoButton.gameObject.SetActive(false);
+                        DisYesButton.gameObject.SetActive(false);
+                        DisNoButton.gameObject.SetActive(false);
+                        BackYesButton.gameObject.SetActive(false);
+                        BackNoButton.gameObject.SetActive(false);
+
+                        try
+                        {
+                            HandleBackItem(category);
+
+                        }
+                        catch (Exception) { }
+                    }
+                    else
+                    {
+                        //GameManager2.Instance.BuildScene.gameObject.SetActive(false);
+
+                        SceneManager.LoadScene("PSUMiniGame", LoadSceneMode.Additive);
+                        GameManager.instance.MainCamera.gameObject.SetActive(false);
+
+
+                    }
+
+
+                }
             }
         }
         public void UpdatePerksDictionary(InventoryItem item, bool add)
