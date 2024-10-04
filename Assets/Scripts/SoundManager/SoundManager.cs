@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
@@ -35,8 +36,12 @@ public class SoundManager : MonoBehaviour
     public AudioSource walkingSoundSource;
     public AudioClip walkingSound;
 
-    private float backgroundVolume = 1f;
-    private float effectsVolume = 1f;
+
+    public Slider BackGround;
+    public Slider Effects;
+
+    public float backgroundVolume;
+    public float effectsVolume;
 
     private void Awake()
     {
@@ -208,6 +213,7 @@ public class SoundManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("BackgroundVolume", backgroundVolume);
         PlayerPrefs.SetFloat("EffectsVolume", effectsVolume);
+       
         PlayerPrefs.Save();
     }
 
@@ -218,6 +224,8 @@ public class SoundManager : MonoBehaviour
 
         backgroundMusicSource.volume = backgroundVolume;
         soundEffectSource.volume = effectsVolume;
+        BackGround.value = backgroundVolume;
+        Effects.value = effectsVolume;
     }
 
 
@@ -266,5 +274,10 @@ public class SoundManager : MonoBehaviour
         }
 
         audioSource.volume = 1;
+    }
+
+    public void OnApplicationQuit()
+    {
+        SaveSoundSettings();
     }
 }

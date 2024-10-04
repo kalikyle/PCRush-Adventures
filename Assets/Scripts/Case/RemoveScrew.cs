@@ -1,10 +1,14 @@
+using Coffee.UIExtensions;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class RemoveScrew : MonoBehaviour
 {
     private float timeHolding = 2f; // Time needed to hold before removing
     [SerializeField] private Animator screwAnimator;  // Reference to the Animator component
+    [SerializeField] private GameObject removeScrewParticles;
+    public Transform Canvas;
 
     private bool isHolding = false;
     private float elapsedTime = 0f;
@@ -56,6 +60,8 @@ public class RemoveScrew : MonoBehaviour
             float animationLength = screwAnimator.GetCurrentAnimatorStateInfo(0).length;
             yield return new WaitForSeconds(animationLength);
 
+            PlayParticlesAtPosition(transform.position);
+
             // Notify the GameLogic before destroying the object
             CaseMiniGameManager2.instance.RemoveScrew();
             Destroy(gameObject);
@@ -66,5 +72,16 @@ public class RemoveScrew : MonoBehaviour
             screwAnimator.SetBool("IsPressed", false);
             // Optionally reset the elapsed time here if needed
         }
+    }
+
+    void PlayParticlesAtPosition(Vector3 position)
+    {
+        //ParticleSystem particles = Instantiate(removeScrewParticles, position, Quaternion.identity);
+        //Destroy(particles.gameObject, particles.main.duration + particles.main.startLifetime.constantMax);
+        var go = Instantiate(removeScrewParticles, position, Quaternion.identity, Canvas);
+        var uiParticle = go.GetComponent<UIParticle>();
+        uiParticle.scale = 100;
+
+
     }
 }

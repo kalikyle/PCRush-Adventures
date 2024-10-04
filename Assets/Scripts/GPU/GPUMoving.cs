@@ -15,7 +15,7 @@ public class GPUMoving : MonoBehaviour
     Vector3 originalPosition;
     bool isConnected = false;
 
-    public float snapDistance = 0.5f; // Distance threshold for snapping
+    public float snapDistance = 5f; // Distance threshold for snapping
 
     void Start()
     {
