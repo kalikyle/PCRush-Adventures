@@ -32,6 +32,8 @@ public class ComputerDescription : MonoBehaviour
 
     [SerializeField]
     private TMP_Text Perks;
+    [SerializeField]
+    private TMP_Text Status;
 
 
     [SerializeField]
@@ -146,6 +148,16 @@ public class ComputerDescription : MonoBehaviour
         this.GPURarity.text = PC.GPU.rarity;
         this.STRGRarity.text = PC.STORAGE.rarity;
         this.PSURarity.text = PC.PSU.rarity;
+
+
+        if(PC.inUse == true)
+        {
+            Status.text = "<color=green>Currently Use PC</color>";
+        }
+        else
+        {
+            Status.text = "<color=orange>Not Used</color>";
+        }
     }
 
     public void ShowParts(string Category, PCSO pc) 

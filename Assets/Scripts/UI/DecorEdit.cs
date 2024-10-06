@@ -11,7 +11,7 @@ using static Decoration.Model.DecorSO;
 
 //
 
-public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPointerEnterHandler , IPointerExitHandler
+public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
     public RectTransform rectTransform;
     public GameObject Border;
@@ -54,7 +54,34 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
     {
         return associatedItems;
     }
+    //public void Update()
+    //{
+    //    if (selectedDecor == null)
+    //    {
+    //        // If no decoration is selected, select this one when dragging starts
+    //        selectedDecor = this;
+    //        initialMousePosition = Input.mousePosition;
+    //        Vector3 decorationCenter = rectTransform.position;
+    //        initialOffset = decorationCenter - Camera.main.ScreenToWorldPoint(initialMousePosition);
+    //    }
 
+    //    if (selectedDecor == this)
+    //    {
+    //        Select();
+
+    //        // Get the current mouse position and convert it to world space
+    //        Vector3 mousePosition = Input.mousePosition;
+    //        Vector3 convertedMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+    //        convertedMousePosition.z = 0; // Keep the z position at 0 for 2D objects
+
+    //        // Calculate the target position based on the initial offset
+    //        Vector3 targetPosition = convertedMousePosition + initialOffset;
+
+    //        // Update the position of the decoration
+    //        rectTransform.position = targetPosition;
+
+    //    }
+    //}
     public void OnDrag(PointerEventData eventData)
     {
         if (selectedDecor == null)
@@ -63,8 +90,19 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
             selectedDecor = this;
             //Select();
             initialMousePosition = Input.mousePosition;
-            Vector3 decorationCenter = rectTransform.position;
-            initialOffset = decorationCenter - initialMousePosition;
+            
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            (RectTransform)rectTransform.parent, // Parent RectTransform
+            initialMousePosition,
+            eventData.pressEventCamera,          // The camera being used for the UI (usually the event camera)
+            out Vector2 localMousePosition
+        );
+
+            initialOffset = (Vector2)rectTransform.anchoredPosition - localMousePosition;
+
+
+            //initialOffset = decorationCenter - initialMousePosition;
+
         }
 
         if (selectedDecor == this)
@@ -72,14 +110,31 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
 
             Select();
             // Calculate the target position based on the initial offset
-            Vector3 targetPosition = Input.mousePosition;
+            //Vector3 targetPosition = Input.mousePosition;
 
             // Calculate the delta movement based on the difference between the current and previous mouse positions
-            Vector2 deltaMovement = (targetPosition - rectTransform.position) / Screen.dpi;
+            //Vector2 deltaMovement = (targetPosition - rectTransform.position) / Screen.dpi;
 
-            // Update the anchored position with the delta movement
-            rectTransform.anchoredPosition += deltaMovement;
+            //// Update the anchored position with the delta movement
+            //rectTransform.anchoredPosition += deltaMovement;
+
+
+            // Update the position based on the initial offset so the object follows the mouse correctly
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            (RectTransform)rectTransform.parent, // Parent RectTransform
+            Input.mousePosition,
+            eventData.pressEventCamera,          // The camera being used for the UI
+            out Vector2 localMousePosition
+        );
+
+            // Update the anchored position with the initial offset
+            rectTransform.anchoredPosition = localMousePosition + (Vector2)initialOffset;
+
+
         }
+
+
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -128,18 +183,6 @@ public class DecorEdit : MonoBehaviour, IPointerClickHandler, IDragHandler, IPoi
     //    }
     //}
 
-
-
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-       // Select();
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        //DeSelect();
-    }
 
     public void Select()
     {

@@ -17,6 +17,6 @@ MonoBehaviour:
   <MaxStackableSize>k__BackingField: 1
   <Name>k__BackingField: Samsang Monitor
   <ItemImage>k__BackingField: {fileID: 21300000, guid: f3f34e5acd979c6468ccb7f45d3b6192, type: 3}
-  <Price>k__BackingField: 2000
-  <Sold>k__BackingField: 0
-  <InUse>k__BackingField: 0
+  <Price>k__BackingField: 20000
+  <Sold>k__BackingField: 1
+  <InUse>k__BackingField: 1

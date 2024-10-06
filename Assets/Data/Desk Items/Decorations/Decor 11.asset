@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83b57c5ad15f492499e9ef25a356d927, type: 3}
-  m_Name: Background6
+  m_Name: Decor 11
   m_EditorClassIdentifier: 
-  <IsStackable>k__BackingField: 0
-  <Category>k__BackingField: Background
-  <MaxStackableSize>k__BackingField: 1
-  <Name>k__BackingField: Spot Background
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 58c6be72736eb384a99190864b0b1a45, type: 3}
-  <Price>k__BackingField: 500
+  <IsStackable>k__BackingField: 1
+  <Category>k__BackingField: Decorations
+  <MaxStackableSize>k__BackingField: 99
+  <Name>k__BackingField: PCRush Logo
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: fb8eb836397b9d24cab14f8e8bf6ba3b, type: 3}
+  <Price>k__BackingField: 100
   <Sold>k__BackingField: 0
   <InUse>k__BackingField: 0

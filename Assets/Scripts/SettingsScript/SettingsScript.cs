@@ -18,7 +18,19 @@ public class SettingsScript : MonoBehaviour
     [SerializeField]
     public UnityEngine.UI.Button YesButton;
 
-   
+    public Button Facebook;
+    public Button Youtube;
+    public Button Itch;
+
+    [SerializeField]
+    private string FacebookUrl = "";
+
+    [SerializeField]
+    private string YoutubeUrl = "";
+
+    [SerializeField]
+    private string ItchUrl = "";
+
 
 
 
@@ -28,8 +40,18 @@ public class SettingsScript : MonoBehaviour
     {
         YesButton.onClick.AddListener(Yes);
         NoButton.onClick.AddListener(No);
+
+        Facebook.onClick.AddListener(() => OpenBrowser(FacebookUrl));
+        Youtube.onClick.AddListener(() => OpenBrowser(YoutubeUrl));
+        Itch.onClick.AddListener(() => OpenBrowser(ItchUrl));
     }
-  
+
+    private void OpenBrowser(string URL)
+    {
+        // Open the URL
+        Application.OpenURL(URL);
+    }
+
     public void No()
     {
         DialogBox.gameObject.SetActive(false);

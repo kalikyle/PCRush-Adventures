@@ -233,6 +233,7 @@ public class QuestLogUI : MonoBehaviour
     //        }
     //    }
     //}
+
     private int lastQuestStepIndex = -1;
     private void UpdateQuestStepUI(Quest quest)
     {

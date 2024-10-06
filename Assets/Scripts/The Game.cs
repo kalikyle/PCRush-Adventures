@@ -316,14 +316,20 @@ public class TheGame : NetworkBehaviour
             Debug.LogError("Game has already ended.");
             return;
         }
-        // Check if the disconnected client is the local client
-        if (disconnectedClientId != NetworkManager.Singleton.LocalClientId)
-        {
-            Surrendering = true;
-            ShowResult("You Win", "Opponent Disconnected");
-            RematchBTN.gameObject.SetActive(false);
-            Debug.LogError("Host Disconnecteds");
-        }
+
+        //else
+        //{
+        //    // Check if the disconnected client is the local client
+        //    if (disconnectedClientId != NetworkManager.Singleton.LocalClientId)
+        //    {
+        //        Surrendering = true;
+        //        ShowResult("You Win", "Opponent Disconnected");
+        //        RematchBTN.gameObject.SetActive(false);
+        //        Debug.LogError("Host Disconnecteds");
+        //    }
+        //    return;
+        //}
+        
 
         // Local player has disconnected
         //if (NetworkManager.Singleton.IsServer)

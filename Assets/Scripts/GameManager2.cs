@@ -135,26 +135,26 @@ public class GameManager2 : MonoBehaviour
     }
 
 
-    public void ShowPopUp(InventoryItem inventoryItem, double total)
+    public void ShowPopUp(InventoryItem inventoryItem)
     {
         GameObject newShopPopup = Instantiate(shoppopupPrefab, shopPopUpParent); // Instantiate the popup as a child of the designated parent
 
-        LeanTween.move(newShopPopup, new Vector3(0f, -4f, 0f), 1f)
+        LeanTween.moveLocal(newShopPopup, new Vector3(0f, -143f, 0f), 1f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => HidePopUp(newShopPopup));
 
-        UpdateShopPopup(newShopPopup, inventoryItem, total);
+        UpdateShopPopup(newShopPopup, inventoryItem);
     }
 
     private void HidePopUp(GameObject shopPopup)
     {
-        LeanTween.move(shopPopup, new Vector3(0f, -8f, 0f), 1f)
+        LeanTween.moveLocal(shopPopup, new Vector3(0f, -283f, 0f), 1f)
             .setDelay(1f)
             .setEase(LeanTweenType.easeOutExpo)
             .setOnComplete(() => Destroy(shopPopup));
     }
 
-    private void UpdateShopPopup(GameObject shopPopup, InventoryItem inventoryItem, double total)
+    private void UpdateShopPopup(GameObject shopPopup, InventoryItem inventoryItem)
     {
         Image[] images = shopPopup.GetComponentsInChildren<Image>();
         TMP_Text[] texts = shopPopup.GetComponentsInChildren<TMP_Text>();
@@ -171,18 +171,9 @@ public class GameManager2 : MonoBehaviour
 
         foreach (var text in texts)
         {
-            // Check conditions or naming conventions to identify the text elements you need to update
-            if (text.gameObject.name == "Quantity") // Assuming the GameObject name is set in the editor
-            {
-                text.text = inventoryItem.quantity.ToString() + "X";
-            }
-            else if (text.gameObject.name == "ItemName") // Assuming the GameObject name is set in the editor
+            if (text.gameObject.name == "ItemName") // Assuming the GameObject name is set in the editor
             {
                 text.text = inventoryItem.item.Name;
-            }
-            else if (text.gameObject.name == "Price") // Assuming the GameObject name is set in the editor
-            {
-                text.text = "For $" + total.ToString();
             }
         }
     }

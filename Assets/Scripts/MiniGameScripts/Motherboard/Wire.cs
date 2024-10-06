@@ -19,13 +19,15 @@ public class Wire : MonoBehaviour
 
     void Start()
     {
+       
         originalPosition = transform.position;
+        UpdateLineRendererPositions();
         if (WireRenderer != null && firstSprite != null)
         {
             firstSprite.SetActive(true); // Ensure the initial sprite is active at the start
             WireRenderer.sprite = null; // Ensure the wire renderer is empty at the start
         }
-        UpdateLineRendererPositions();
+       
     }
 
     void Update()
@@ -60,13 +62,18 @@ public class Wire : MonoBehaviour
         UpdateLineRendererPositions();
     }
 
-    void UpdateLineRendererPositions()
+    public void UpdateLineRendererPositions()
     {
         if (Line != null)
         {
             Vector3 positionDifference = transform.position - Line.transform.position;
-            Line.SetPosition(0, positionDifference - new Vector3(.5f, 0, 0));
-            Line.SetPosition(1, positionDifference - new Vector3(.15f, 0, 0));
+
+            float objectWidth = transform.localScale.x; // Get the object's width assuming it is scaled uniformly.
+
+            Line.SetPosition(0, positionDifference + new Vector3(objectWidth / 2, 0, 0)); // Start at the right end
+            Line.SetPosition(1, positionDifference + new Vector3(objectWidth / 2 + 0.50f, 0, 0));
+            //Line.SetPosition(0, positionDifference - new Vector3(.5f, 0, 0));
+            //Line.SetPosition(1, positionDifference - new Vector3(.15f, 0, 0));
         }
     }
 
