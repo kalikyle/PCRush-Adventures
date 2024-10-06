@@ -17,7 +17,10 @@ public class UIPartsInventoryDesc : MonoBehaviour
     [SerializeField]
     private TMP_Text Rarity;
     [SerializeField]
-    private TMP_Text Perks;
+    private TMP_Text Perks; 
+        
+    [SerializeField]
+    private TMP_Text SellingPrice;//
 
         public void Awake()
     {
@@ -31,10 +34,12 @@ public class UIPartsInventoryDesc : MonoBehaviour
         Rarity.text = "";
         Category.text = "";
         Perks.text = "";
+        SellingPrice.text = "";
+
 
         }
 
-    public void SetDescription(Sprite sprite, string itemName,  string category, string rarity, string perks)
+    public void SetDescription(Sprite sprite, string itemName,  string category, string rarity, string perks, string Sellingprice)
     {
         itemImage.gameObject.SetActive(true);
         itemImage.sprite = sprite;
@@ -43,6 +48,7 @@ public class UIPartsInventoryDesc : MonoBehaviour
         Category.text = category;
         Rarity.text = rarity;
         Perks.text = perks;
+        SellingPrice.text = Sellingprice;
 
         }
     public void Show()

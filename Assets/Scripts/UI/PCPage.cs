@@ -131,6 +131,8 @@ namespace PC.UI
                 return;
             }
             OnDescriptionRequested?.Invoke(index);
+            
+
 
         }
         private void HandleRightClickAction(PCItem item)

@@ -61,10 +61,10 @@ namespace PartsInventory.UI
             }
         }*/
 
-        public void UpdateDescription(int itemIndex, Sprite itemImage, string name, string category, string rarity, string perks)
+        public void UpdateDescription(int itemIndex, Sprite itemImage, string name, string category, string rarity, string perks, string sellingprice)
         {
             itemDesc.Show();
-            itemDesc.SetDescription(itemImage, name, category, rarity, perks);
+            itemDesc.SetDescription(itemImage, name, category, rarity, perks, sellingprice);
             DeselectAllItems();
             ListofItems[itemIndex].select();
 
