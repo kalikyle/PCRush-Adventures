@@ -15,7 +15,7 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: NovaChip 99
-  <rarity>k__BackingField: 
+  <rarity>k__BackingField: Common
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 47f0535a693867e4ba3d4adc32937daf, type: 3}
   <Category>k__BackingField: CPU
   <Price>k__BackingField: 100

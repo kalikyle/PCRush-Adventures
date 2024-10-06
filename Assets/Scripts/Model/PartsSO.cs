@@ -20,7 +20,6 @@ namespace PartsInventory.Model
         public string Name { get; set; }
 
         [field: SerializeField]
-        //[field: TextArea]
         public string rarity { get; set; }
 
         [field: SerializeField]

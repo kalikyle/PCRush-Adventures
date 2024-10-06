@@ -19,6 +19,11 @@ public class LeaderboardManager : MonoBehaviour
 
     private List<GameObject> leaderboardEntryPool = new List<GameObject>();
 
+    public Button PlayerLevelBTN;
+    public Button PlayerEasyWinsBTN;
+    public Button PlayerNormalWinsBTN;
+    public Button PlayerHardWinsBTN;
+
     //async void Start()
     //{
     //    //db = FirebaseFirestore.DefaultInstance;
@@ -39,18 +44,58 @@ public class LeaderboardManager : MonoBehaviour
 
     private async void OnEnable()
     {
+        PlayerLevelBTN.onClick.AddListener(async () => await FilterLeaderboardAsync("playerLevel"));
+        PlayerEasyWinsBTN.onClick.AddListener(async () => await FilterLeaderboardAsync("playerEasyModeWin"));
+        PlayerNormalWinsBTN.onClick.AddListener(async() => await FilterLeaderboardAsync("playerNormalModeWin"));
+        PlayerHardWinsBTN.onClick.AddListener(async() => await FilterLeaderboardAsync("playerHardModeWin"));
+
         await LoadLeaderboard();
     }
-    async Task LoadLeaderboard()
+    async Task LoadLeaderboard(string filter = null)
     {
         // Clear previous leaderboard entries
         foreach (Transform child in leaderboardContent)
         {
             child.gameObject.SetActive(false);
         }
+        Query query;
 
-        Query userQuery = FirebaseFirestore.DefaultInstance.Collection("users").OrderByDescending("playerLevel").Limit(20);
-        QuerySnapshot querySnapshot = await userQuery.GetSnapshotAsync();
+        // Determine the query based on the filter
+        if (filter == "playerLevel")
+        {
+            query = FirebaseFirestore.DefaultInstance.Collection("users")
+                .OrderByDescending("playerLevel")
+                .Limit(20);
+        }
+        else if (filter == "playerEasyModeWin")
+        {
+            query = FirebaseFirestore.DefaultInstance.Collection("users")
+                .OrderByDescending("playerEasyModeWin")
+                .Limit(20);
+        }
+        else if (filter == "playerNormalModeWin")
+        {
+            query = FirebaseFirestore.DefaultInstance.Collection("users")
+                .OrderByDescending("playerNormalModeWin")
+                .Limit(20);
+        }
+        else if (filter == "playerHardModeWin")
+        {
+            query = FirebaseFirestore.DefaultInstance.Collection("users")
+                .OrderByDescending("playerHardModeWin")
+                .Limit(20);
+        }
+        else
+        {
+            query = FirebaseFirestore.DefaultInstance.Collection("users")
+                .OrderByDescending("playerLevel")
+                .Limit(20);
+        }
+
+        QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+
+        //Query userQuery = FirebaseFirestore.DefaultInstance.Collection("users").OrderByDescending("playerLevel").Limit(20);
+        //QuerySnapshot querySnapshot = await userQuery.GetSnapshotAsync();
 
         int rank = 1; // Initialize rank counter
 
@@ -137,5 +182,10 @@ public class LeaderboardManager : MonoBehaviour
 
     }
 
-    
+    private async Task FilterLeaderboardAsync(string filter)
+    {
+        await LoadLeaderboard(filter);
+    }
+
+
 }

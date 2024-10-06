@@ -15,7 +15,7 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: CorePlate V9
-  <rarity>k__BackingField: 
+  <rarity>k__BackingField: Common
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 8412013d032fa55488e31f62abad1310, type: 3}
   <Category>k__BackingField: Motherboard
   <Price>k__BackingField: 200

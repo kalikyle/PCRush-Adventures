@@ -15,7 +15,7 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: CoreVolt 250W
-  <rarity>k__BackingField: 
+  <rarity>k__BackingField: Common
   <ItemImage>k__BackingField: {fileID: 21300000, guid: d55f3c073ae734a4ab675b26958e5b72, type: 3}
   <Category>k__BackingField: PSU
   <Price>k__BackingField: 100

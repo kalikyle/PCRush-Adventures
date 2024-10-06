@@ -103,10 +103,13 @@ public class ArmorRefill : MonoBehaviour
         if (GameManager.instance.PlayerMoney >= cost)
         {
             RefillArmor(percentage);
+            
         }
         else
         {
-            Debug.Log("Not enough coins to refill armor.");
+            GameManager.instance.ShowFloatingText("Not enough coins to refill armor");
+            SoundManager.instance.PlayNotEnough();
+
         }
     }
 
@@ -151,6 +154,7 @@ public class ArmorRefill : MonoBehaviour
         // Implement your coin deduction logic here
         GameManager.instance.PlayerMoney -= (int)amount;
         GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+        SoundManager.instance.PlayBuyNSell();
     }
 
 

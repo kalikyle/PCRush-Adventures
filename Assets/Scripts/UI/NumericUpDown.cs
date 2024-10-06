@@ -305,9 +305,8 @@ public class NumericUpDown : MonoBehaviour
                 dataManager.AddItemToTransfer(inventoryItem);*/
              
                     GameManager2.Instance.AddItemToTransfer(inventoryItem);
-                   
                     //GameManager2.Instance.PopImage.gameObject.SetActive(true);
-                   // GameManager2.Instance.ShowPopUp(inventoryItem,total);
+                    GameManager2.Instance.ShowPopUp(inventoryItem);
                     buySound.Play();
                     //GameManager2.Instance.PopupItemImage.sprite = inventoryItem.item.ItemImage;
                     //GameManager2.Instance.Quantity.text = inventoryItem.quantity.ToString() + "X";

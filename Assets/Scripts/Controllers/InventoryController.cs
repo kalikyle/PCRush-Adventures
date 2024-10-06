@@ -1007,6 +1007,9 @@ namespace Inventory
                 case "Case":
                     CaseImage.gameObject.SetActive(true);
                     CaseImage.sprite = inventoryItem.item.ItemImage;
+
+                    CaseImage.GetComponent<MultiPartsInfo>().inventoryItem = inventoryItem;
+
                     MBButton.interactable = true;
                     CancelButton.interactable = true;
                     GameManager2.Instance.UsedImagesNeeds[category] = inventoryItem;
@@ -1014,6 +1017,9 @@ namespace Inventory
                 case "Motherboard":
                     MBImage.gameObject.SetActive(true);
                     MBImage.sprite = inventoryItem.item.ItemImage;
+
+                    MBImage.GetComponent<MultiPartsInfo>().inventoryItem = inventoryItem;
+
                     CPUButton.interactable = true;
                     CPUFButton.interactable = true;
                     RAMButton.interactable = true;
@@ -1024,6 +1030,9 @@ namespace Inventory
                 case "CPU":
                     CPUImage.gameObject.SetActive(true);
                     CPUImage.sprite = inventoryItem.item.ItemImage;
+
+                    CPUImage.GetComponent<MultiPartsInfo>().inventoryItem = inventoryItem;
+
                     GameManager2.Instance.UsedImagesNeeds[category] = inventoryItem;
                     //ApplyThermal.gameObject.SetActive(true);
                     //AT.SetCPUImage(inventoryItem.item.ItemImage);
@@ -1031,27 +1040,43 @@ namespace Inventory
                 case "CPU Fan":
                     CPUFImage.gameObject.SetActive(true);
                     CPUFImage.sprite = inventoryItem.item.ItemImage;
+
+                    CPUFImage.GetComponent<MultiPartsInfo>().inventoryItem = inventoryItem;
+
+
                     GameManager2.Instance.UsedImagesNeeds[category] = inventoryItem;
                     break;
                 case "RAM":
                     RAMImage.gameObject.SetActive(true);
                     RAMImage.sprite = inventoryItem.item.ItemImage;
+
+                    RAMImage.GetComponent<MultiPartsInfo>().inventoryItem = inventoryItem;
+
                     GameManager2.Instance.UsedImagesNeeds[category] = inventoryItem;
                     break;
                 case "Video Card":
                     GPUImage.gameObject.SetActive(true);
                     GPUImage.sprite = inventoryItem.item.ItemImage;
+
+                    GPUImage.GetComponent<MultiPartsInfo>().inventoryItem = inventoryItem;
+
                     GameManager2.Instance.UsedImagesNeeds[category] = inventoryItem;
                     break;
                 case "Storage":
                      STRG1Image.gameObject.SetActive(true);
                      STRG1Image.sprite = inventoryItem.item.ItemImage;
+
+                    STRG1Image.GetComponent<MultiPartsInfo>().inventoryItem = inventoryItem;
+
                     GameManager2.Instance.UsedImagesNeeds[category] = inventoryItem;
                     break;
                     
                 case "PSU":
                     PSUImage.gameObject.SetActive(true);
                     PSUImage.sprite = inventoryItem.item.ItemImage;
+
+                    PSUImage.GetComponent<MultiPartsInfo>().inventoryItem = inventoryItem;
+
                     GameManager2.Instance.UsedImagesNeeds[category] = inventoryItem;
                     break;
 

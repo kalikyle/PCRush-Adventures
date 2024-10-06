@@ -27,6 +27,7 @@ public class GameLogic : MonoBehaviour
             int randomIndex = Random.Range(0, wirePosition.Count);
             w.transform.position = wirePosition[randomIndex];
             wirePosition.RemoveAt(randomIndex);
+            w.UpdateLineRendererPositions();
         }
     }
 

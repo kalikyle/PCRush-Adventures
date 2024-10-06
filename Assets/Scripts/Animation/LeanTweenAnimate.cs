@@ -26,6 +26,7 @@ public class LeanTweenAnimate : MonoBehaviour
         psuTwirl();
         mbTwirl();
         caseTwirl();
+
     }
     public void RenamePanelOpen()
     {
@@ -610,6 +611,7 @@ public class LeanTweenAnimate : MonoBehaviour
         // Optional: Reset ComputerSoldText position to its starting middle position (if necessary)
         //ComputerSoldText.transform.localPosition = Vector3.zero;  // This assumes the middle is the origin (0,0,0)
     }
+
 
 
 }
