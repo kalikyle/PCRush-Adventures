@@ -23,7 +23,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using static Inventory.Model.PartsInventorySO;
 //using static UnityEditor.Progress;
 
@@ -120,49 +119,87 @@ namespace PC
         [SerializeField]
         private Image MonitorScreen;
 
-        [SerializeField]
-        private Image PCImage;
-        [SerializeField]
-        private TMP_Text PCName;
-        [SerializeField]
-        private TMP_Text PCPrice;
 
-        [SerializeField]
-        private TMP_Text CaseName;
-        [SerializeField]
-        private TMP_Text MBName;
-        [SerializeField]
-        private TMP_Text CPUName;
-        [SerializeField]
-        private TMP_Text CPUFName;
-        [SerializeField]
-        private TMP_Text RAMName;
-        [SerializeField]
-        private TMP_Text GPUName;
-        [SerializeField]
-        private TMP_Text STRGName;
-        [SerializeField]
-        private TMP_Text PSUName;
+        //for use pc desc
+        //[SerializeField]
+        //private Image PCImage;
+        //[SerializeField]
+        //private TMP_Text PCName;
+        //[SerializeField]
+        //private TMP_Text PCPrice;
 
-        [SerializeField]
-        private TMP_Text Perks;
+        //[SerializeField]
+        //private TMP_Text Perks;
 
-        [SerializeField]
-        private Image CaseImage;
-        [SerializeField]
-        private Image MBImage;
-        [SerializeField]
-        private Image CPUImage;
-        [SerializeField]
-        private Image CPUFImage;
-        [SerializeField]
-        private Image RAMImage;
-        [SerializeField]
-        private Image GPUImage;
-        [SerializeField]
-        private Image STRGImage;
-        [SerializeField]
-        private Image PSUImage;
+        public ComputerDescription PCDesccription;
+        private PCSO UsedPC;
+
+        //[SerializeField]
+        //private TMP_Text CaseName;
+        //[SerializeField]
+        //private TMP_Text MBName;
+        //[SerializeField]
+        //private TMP_Text CPUName;
+        //[SerializeField]
+        //private TMP_Text CPUFName;
+        //[SerializeField]
+        //private TMP_Text RAMName;
+        //[SerializeField]
+        //private TMP_Text GPUName;
+        //[SerializeField]
+        //private TMP_Text STRGName;
+        //[SerializeField]
+        //private TMP_Text PSUName;
+
+
+
+        //[SerializeField]
+        //private Image CaseImage;
+        //[SerializeField]
+        //private Image MBImage;
+        //[SerializeField]
+        //private Image CPUImage;
+        //[SerializeField]
+        //private Image CPUFImage;
+        //[SerializeField]
+        //private Image RAMImage;
+        //[SerializeField]
+        //private Image GPUImage;
+        //[SerializeField]
+        //private Image STRGImage;
+        //[SerializeField]
+        //private Image PSUImage;
+
+        //[SerializeField]
+        //private Button CaseInfoBTN;
+        //[SerializeField]
+        //private Button MBInfoBTN;
+        //[SerializeField]
+        //private Button CPUInfoBTN;
+        //[SerializeField]
+        //private Button CPUFInfoBTN;
+        //[SerializeField]
+        //private Button RAMInfoBTN;
+        //[SerializeField]
+        //private Button GPUInfoBTN;
+        //[SerializeField]
+        //private Button STRGInfoBTN;
+        //[SerializeField]
+        //private Button PSUInfoBTN;
+
+        //[SerializeField]
+        //private Image PartImage;
+
+        //[SerializeField]
+        //private TMP_Text PartsName;
+        //[SerializeField]
+        //private TMP_Text PartsCategory;
+        //[SerializeField]
+        //private TMP_Text PartsRarity; 
+        //[SerializeField]
+        //private TMP_Text PartsPerks;
+        //[SerializeField]
+        //private TMP_Text PartsPrice;
 
 
 
@@ -239,11 +276,11 @@ namespace PC
             PCMenu.Hide();
             StartCoroutine(DelayedComputerLoad());
 
-             GameObject image = GameObject.Find("PCItemImage");
-            if (image != null)
-            {
-                PCImage = image.GetComponent<Image>();
-            }
+            //GameObject image = GameObject.Find("PCItemImage");
+            //if (image != null)
+            //{
+            //    PCImage = image.GetComponent<Image>();
+            //}
         }
         IEnumerator DelayedComputerLoad()
         {
@@ -624,6 +661,21 @@ namespace PC
         //        }
         //    //}
         //}
+        public void OpenUsedPCDesc()
+        {
+            PCDesccription.ShowPCData(UsedPC, ItemPerks(UsedPC));
+            PCDesccription.OpenDesc();
+        }
+
+        public void JustUpdateClickedPC() {
+
+            Computer PCs = PCData.GetItemAt(PCIndexOutside);
+            PCSO pc = PCs.PC;
+
+            PCDesccription.ShowPCData(pc, ItemPerks(pc));
+            PCDesccription.OpenDesc();
+        }
+
         public void TurnOnFuntions()
         {
             PCeventTrigger1.enabled = false;
@@ -951,49 +1003,52 @@ namespace PC
         {
             
             theClickable.gameObject.SetActive(true);
-            PCImage.gameObject.SetActive(true);
-            PCImage.sprite = PCitem.Case.ItemImage;
-            PCName.text = PCitem.PCName;
-            Perks.text = ItemPerks(PCitem);
 
+            UsedPC = PCitem;
             GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.ManaRegen, PCitem.CriticalChance);
             GameManager.instance.StatsUsedPCPanel.SetActive(true);
             GameManager.instance.StatsPCImageUsed.sprite = PCitem.Case.ItemImage;
             GameManager.instance.StatsPCName.text = PCitem.PCName;
             
 
-            CaseName.text = PCitem.Case.Name;
-            MBName.text = PCitem.Motherboard.Name;
-            CPUName.text = PCitem.CPU.Name;
-            CPUFName.text = PCitem.CPUFan.Name;
-            RAMName.text = PCitem.RAM.Name;
-            GPUName.text = PCitem.GPU.Name;
-            STRGName.text = PCitem.STORAGE.Name;
-            PSUName.text = PCitem.PSU.Name;
+
+            //PCImage.gameObject.SetActive(true);
+            //PCImage.sprite = PCitem.Case.ItemImage;
+            //PCName.text = PCitem.PCName;
+            //Perks.text = ItemPerks(PCitem);
+
+            //CaseName.text = PCitem.Case.Name;
+            //MBName.text = PCitem.Motherboard.Name;
+            //CPUName.text = PCitem.CPU.Name;
+            //CPUFName.text = PCitem.CPUFan.Name;
+            //RAMName.text = PCitem.RAM.Name;
+            //GPUName.text = PCitem.GPU.Name;
+            //STRGName.text = PCitem.STORAGE.Name;
+            //PSUName.text = PCitem.PSU.Name;
 
 
-            CaseImage.sprite = PCitem.Case.ItemImage;
-           
-
-            MBImage.sprite = PCitem.Motherboard.ItemImage;
+            //CaseImage.sprite = PCitem.Case.ItemImage;
 
 
-            CPUImage.sprite = PCitem.CPU.ItemImage;
+            //MBImage.sprite = PCitem.Motherboard.ItemImage;
 
 
-            CPUFImage.sprite = PCitem.CPUFan.ItemImage;
+            //CPUImage.sprite = PCitem.CPU.ItemImage;
 
 
-            RAMImage.sprite = PCitem.RAM.ItemImage;
+            //CPUFImage.sprite = PCitem.CPUFan.ItemImage;
 
 
-            GPUImage.sprite = PCitem.GPU.ItemImage;
+            //RAMImage.sprite = PCitem.RAM.ItemImage;
 
 
-            STRGImage.sprite = PCitem.STORAGE.ItemImage;
+            //GPUImage.sprite = PCitem.GPU.ItemImage;
 
 
-            PSUImage.sprite = PCitem.PSU.ItemImage;
+            //STRGImage.sprite = PCitem.STORAGE.ItemImage;
+
+
+            //PSUImage.sprite = PCitem.PSU.ItemImage;
 
             PCImagePlaceholder.gameObject.SetActive(true);
             PCImagePlaceholder.sprite = PCitem.Case.ItemImage;
@@ -1018,53 +1073,53 @@ namespace PC
                 string documentId = GameManager.instance.pcsoDocumentIds[index];
 
                 theClickable.gameObject.SetActive(true);
-                PCImage.gameObject.SetActive(true);
-                PCImage.sprite = PCitem.Case.ItemImage;
-                PCName.text = PCitem.PCName;
-                Perks.text = ItemPerks(PCitem);
-
-               
+                UsedPC = PCitem;
                 GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.ManaRegen, PCitem.CriticalChance);
                 GameManager.instance.StatsUsedPCPanel.SetActive(true);
                 GameManager.instance.StatsPCImageUsed.sprite = PCitem.Case.ItemImage;
                 GameManager.instance.StatsPCName.text = PCitem.PCName;
-                
+               
                 //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
 
-                CaseName.text = PCitem.Case.Name;
-                MBName.text = PCitem.Motherboard.Name;
-                CPUName.text = PCitem.CPU.Name;
-                CPUFName.text = PCitem.CPUFan.Name;
-                RAMName.text = PCitem.RAM.Name;
-                GPUName.text = PCitem.GPU.Name;
-                STRGName.text = PCitem.STORAGE.Name;
-                PSUName.text = PCitem.PSU.Name;
 
-                //Status.text = PCitem.TestStatus;
+                //PCImage.gameObject.SetActive(true);
+                //PCImage.sprite = PCitem.Case.ItemImage;
+                //PCName.text = PCitem.PCName;
+                //Perks.text = ItemPerks(PCitem);
+                //CaseName.text = PCitem.Case.Name;
+                //MBName.text = PCitem.Motherboard.Name;
+                //CPUName.text = PCitem.CPU.Name;
+                //CPUFName.text = PCitem.CPUFan.Name;
+                //RAMName.text = PCitem.RAM.Name;
+                //GPUName.text = PCitem.GPU.Name;
+                //STRGName.text = PCitem.STORAGE.Name;
+                //PSUName.text = PCitem.PSU.Name;
 
-
-                CaseImage.sprite = PCitem.Case.ItemImage;
-
-
-                MBImage.sprite = PCitem.Motherboard.ItemImage;
-
-
-                CPUImage.sprite = PCitem.CPU.ItemImage;
+                ////Status.text = PCitem.TestStatus;
 
 
-                CPUFImage.sprite = PCitem.CPUFan.ItemImage;
+                //CaseImage.sprite = PCitem.Case.ItemImage;
 
 
-                RAMImage.sprite = PCitem.RAM.ItemImage;
+                //MBImage.sprite = PCitem.Motherboard.ItemImage;
 
 
-                GPUImage.sprite = PCitem.GPU.ItemImage;
+                //CPUImage.sprite = PCitem.CPU.ItemImage;
 
 
-                STRGImage.sprite = PCitem.STORAGE.ItemImage;
+                //CPUFImage.sprite = PCitem.CPUFan.ItemImage;
 
 
-                PSUImage.sprite = PCitem.PSU.ItemImage;
+                //RAMImage.sprite = PCitem.RAM.ItemImage;
+
+
+                //GPUImage.sprite = PCitem.GPU.ItemImage;
+
+
+                //STRGImage.sprite = PCitem.STORAGE.ItemImage;
+
+
+                //PSUImage.sprite = PCitem.PSU.ItemImage;
 
                 PCImagePlaceholder.gameObject.SetActive(true);
                 PCImagePlaceholder.sprite = PCitem.Case.ItemImage;

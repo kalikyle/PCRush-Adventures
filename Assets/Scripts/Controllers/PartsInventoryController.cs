@@ -1657,7 +1657,7 @@ namespace PartsInventory
             PartsSO item = inventoryItem.item;
             
 
-            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name, item.Category, item.rarity, ItemPerks(item));
+            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.Name, item.Category, item.rarity, ItemPerks(item), item.Price.ToString());
         }
 
         
@@ -1670,7 +1670,7 @@ namespace PartsInventory
                 if (!shopItem.isEmpty)
                 {
                     PartsSO item = shopItem.item;
-                    inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, item.rarity, ItemPerks(item));//update description
+                    inventoryUI.UpdateDescription(obj, item.ItemImage, item.Name, item.Category, item.rarity, ItemPerks(item), item.Price.ToString());//update description
                 }
             }
         }
