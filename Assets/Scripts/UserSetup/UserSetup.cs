@@ -44,10 +44,26 @@ public class UserSetup : MonoBehaviour
     public Slider BackGroundMainMenu;
     public Slider EffectsMainMenu;
 
+
+    public Button Facebook;
+    public Button Youtube;
+    public Button Itch;
+    public TMP_Text VersionText;
+
+    [SerializeField]
+    private string FacebookUrl = "";
+
+    [SerializeField]
+    private string YoutubeUrl = "";
+
+    [SerializeField]
+    private string ItchUrl = "";
+
     private void Awake()
     {
        
         instance = this;
+        VersionText.text = "Ver. " + Application.version;
     }
 
     void Start()
@@ -125,6 +141,16 @@ public class UserSetup : MonoBehaviour
         //}
         BackGroundMainMenu.value = SoundManager.instance.backgroundVolume;
         EffectsMainMenu.value = SoundManager.instance.effectsVolume;
+
+        Facebook.onClick.AddListener(() => OpenBrowser(FacebookUrl));
+        Youtube.onClick.AddListener(() => OpenBrowser(YoutubeUrl));
+        Itch.onClick.AddListener(() => OpenBrowser(ItchUrl));
+    }
+
+    private void OpenBrowser(string URL)
+    {
+        // Open the URL
+        Application.OpenURL(URL);
     }
 
 
