@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(CircleCollider2D))]
 public class QuestPoint : MonoBehaviour
 {
-    private bool playerIsNear = false;
+    //private bool playerIsNear = false;
 
 
     [Header("Quest")]
@@ -99,7 +99,7 @@ public class QuestPoint : MonoBehaviour
     {
         if (otherCollider.CompareTag("Player"))
         {
-            playerIsNear = true;
+            //playerIsNear = true;
         }
     }
 
@@ -107,7 +107,7 @@ public class QuestPoint : MonoBehaviour
     {
         if (otherCollider.CompareTag("Player"))
         {
-            playerIsNear = true;
+            //playerIsNear = true;
         }
     }
 
@@ -115,7 +115,7 @@ public class QuestPoint : MonoBehaviour
     {
         if (otherCollider.CompareTag("Player"))
         {
-            playerIsNear = false;
+            //playerIsNear = false;
         }
     }
 

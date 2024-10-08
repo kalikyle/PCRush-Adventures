@@ -239,6 +239,7 @@ public class ArmorBuy : MonoBehaviour
         inventoryItems.IsStackable = false;
         inventoryItems.MaxStackableSize = 1;
         inventoryItems.SpriteIndex = shpItem.item.SpriteIndex;
+        inventoryItems.Price = shpItem.item.Price;
         // if stackable
         //inventoryItems.IsStackable = true;
         //inventoryItems.MaxStackableSize = 99;

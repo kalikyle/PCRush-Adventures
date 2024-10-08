@@ -60,8 +60,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private string[] attackAnimations = { "Attack" };
         private bool isMoving = false;
         private bool isDead = false;
-        private bool isRecovering = false;
-        public float recoveryTime = 1f; // Time in seconds to recover from being hit
+        //private bool isRecovering = false;
+        //public float recoveryTime = 1f; // Time in seconds to recover from being hit
 
         public Slider healthSlider;
         public TMP_Text hitPoints;
@@ -354,42 +354,45 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 PlayerArmor armor = collider.GetComponent<PlayerArmor>();
                 Health health = collider.GetComponent<Health>();
 
-                if (armor != null && !armor.isEmpty)
-                {
-                    armor.GetHit(Attack, transform.gameObject);
-                    ShowFloatingText(Attack);
+               
 
-                    if (armor.currentArmor <= 0)
+                    if (armor != null && !armor.isEmpty)
                     {
-                        armor.isEmpty = true;
-                    }
+                        armor.GetHit(Attack, transform.gameObject);
+                        ShowFloatingText(Attack);
 
-                    if (gameObject.layer != collider.gameObject.layer)
-                    {
-                        collider.GetComponent<Animator>().SetBool("Hit", true);
-                        StartCoroutine(HitRecovery());
-                    }
-                }
-                else if (health != null)
-                {
-                    health.GetHit(Attack, transform.gameObject);
-                    ShowFloatingText(Attack);
+                        if (armor.currentArmor <= 0)
+                        {
+                            armor.isEmpty = true;
+                        }
 
-                    if (gameObject.layer != collider.gameObject.layer)
-                    {
-                        collider.GetComponent<Animator>().SetBool("Hit", true);
-                        StartCoroutine(HitRecovery());
+                        if (gameObject.layer != collider.gameObject.layer)
+                        {
+                            collider.GetComponent<Animator>().SetBool("Hit", true);
+                            //StartCoroutine(HitRecovery());
+                        }
                     }
-                }
+                    else if (health != null)
+                    {
+                        health.GetHit(Attack, transform.gameObject);
+                        ShowFloatingText(Attack);
+
+                        if (gameObject.layer != collider.gameObject.layer)
+                        {
+                            collider.GetComponent<Animator>().SetBool("Hit", true);
+                            //StartCoroutine(HitRecovery());
+                        }
+                    }
+                
             }
         }
 
-        private IEnumerator HitRecovery()
-        {
-            isRecovering = true;
-            yield return new WaitForSeconds(recoveryTime);
-            isRecovering = false;
-        }
+        //private IEnumerator HitRecovery()
+        //{
+        //    //isRecovering = true;
+        //    yield return new WaitForSeconds(recoveryTime);
+        //    //isRecovering = false;
+        //}
         private IEnumerator HandleDeath()
         {
 

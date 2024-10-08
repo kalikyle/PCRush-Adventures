@@ -20,7 +20,7 @@ MonoBehaviour:
   <Category>k__BackingField: CPU
   <Price>k__BackingField: 150
   <AttackDamage>k__BackingField: 0
-  <Health>k__BackingField: 10
+  <Health>k__BackingField: 12
   <Mana>k__BackingField: 0
   <HealthRegen>k__BackingField: 0
   <ManaRegen>k__BackingField: 0

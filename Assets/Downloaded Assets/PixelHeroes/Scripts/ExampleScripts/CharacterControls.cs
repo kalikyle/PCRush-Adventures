@@ -298,17 +298,20 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private void TriggerAttack()
         {
             // Play attack sound
-            SoundManager.instance.PlayAttackSound();
+            if (canAttack)
+            {
+                SoundManager.instance.PlayAttackSound();
 
-            // Trigger random attack animation
-            string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
-            _animator.SetTrigger(randomAttackAnimation);
+                // Trigger random attack animation
+                string randomAttackAnimation = attackAnimations[UnityEngine.Random.Range(0, attackAnimations.Length)];
+                _animator.SetTrigger(randomAttackAnimation);
 
-            // Detect colliders for attack hit detection
-            DetectColliders();
+                // Detect colliders for attack hit detection
+                DetectColliders();
 
-            // Decrease mana for attack
-            currentMana -= 2f;
+                // Decrease mana for attack
+                currentMana -= 2f;
+            }
         }
         //private void HandleAttack()
         //{

@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Inventory.Model.InventorySO;
 using static Inventory.Model.PartsInventorySO;
 using static OtherWorld.Model.OWInvSO;
 
@@ -560,6 +561,8 @@ namespace OtherWorld
             {
                 perks += "Critical Chance +" + item.CriticalChance + "\n";
             }
+
+            perks += "<color = yellow >Selling Price: " + item.Price / 2 + "</color>";
 
             return perks;
         }
@@ -1117,6 +1120,16 @@ namespace OtherWorld
 
         }
 
+        public void SellItem(OtherWorldItemSO Item)
+        {
+            int SellingPrice = Item.Price / 2;
+
+            GameManager.instance.PlayerMoney += SellingPrice;
+            GameManager.instance.PlayerTotalMoney += SellingPrice;
+            GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+            SoundManager.instance.PlayBuyNSell();
+        }
+
         public async void HandleFilteredDelete(int itemIndex)
         {
             if (tempToOriginalIndexMapping.TryGetValue(itemIndex, out int originalIndex))
@@ -1125,6 +1138,7 @@ namespace OtherWorld
                 OtherWorldItem inventoryItem = InventoryfilteredItems[originalIndex];
                 OtherWorldItemSO inventItem = inventoryItem.item;
                 string category = inventoryItem.item.Category;
+                SellItem(inventItem);
 
                 if (category == "Sword")
                 {
@@ -1164,10 +1178,13 @@ namespace OtherWorld
             OtherWorldItemSO inventItem = inventoryItem.item;
             string category = inventoryItem.item.Category;
 
+            SellItem(inventItem);
+
             if (category == "Sword")
             {
                 
                 await DeleteInventoryItem(GameManager.instance.clickedInventoryItemID, category);
+
             }
             else if (category == "Armor")
             {

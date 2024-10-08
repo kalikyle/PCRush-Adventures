@@ -31,6 +31,9 @@ namespace OtherWorld.Model
         [field: SerializeField]
         public bool inUse { get; set; }
 
+        [field: SerializeField]
+        public int Price { get; set; }
+
 
 
         //perks
