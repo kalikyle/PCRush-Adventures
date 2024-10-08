@@ -152,6 +152,7 @@ public class ArmorRefill : MonoBehaviour
     private void DeductCoins(double amount)
     {
         // Implement your coin deduction logic here
+        GameManager.instance.ShowFloatingText("Your armor has been Fixed");
         GameManager.instance.PlayerMoney -= (int)amount;
         GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
         SoundManager.instance.PlayBuyNSell();

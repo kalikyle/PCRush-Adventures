@@ -13,7 +13,7 @@ public class FightTheCaseHorde : QuestStep
 
 
     private GameObject targetGameObject;
-    private bool hasReachedTarget = false;
+    //private bool hasReachedTarget = false;
 
     void Start()
     {

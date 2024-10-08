@@ -840,8 +840,12 @@ namespace PartsInventory
                 InventoryItem inventoryItem = inventoryData.GetItemAt(tempIndex);
 
 
+                GameManager.instance.PlayerMoney += (int)inventoryItem.item.Price;
+                GameManager.instance.PlayerTotalMoney +=(int)inventoryItem.item.Price;
+                GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
+                SoundManager.instance.PlayBuyNSell();
 
-                if (inventoryItem.item != null)
+            if (inventoryItem.item != null)
                 {
                    
                 }
@@ -866,6 +870,8 @@ namespace PartsInventory
                     ToggleALLButton();// Remove the last item
                     
                 }
+
+
 
 
 

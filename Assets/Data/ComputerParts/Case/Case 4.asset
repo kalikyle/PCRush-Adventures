@@ -26,7 +26,7 @@ MonoBehaviour:
   <ManaRegen>k__BackingField: 0
   <WalkSpeed>k__BackingField: 0
   <Armor>k__BackingField: 0
-  <CriticalChance>k__BackingField: 5
+  <CriticalChance>k__BackingField: 9
   <CaseStrength>k__BackingField: 15
   <MotherboardStrength>k__BackingField: 0
   <CPUSocket>k__BackingField: 

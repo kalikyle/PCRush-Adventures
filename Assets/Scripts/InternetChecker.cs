@@ -12,7 +12,7 @@ public class InternetChecker : MonoBehaviour
     public static InternetChecker Instance;
     private bool isInternetAvailable;
     private float checkInterval = 2f;  // How often to check internet
-    private float noInternetTimer = 10f;  // Time before going back to Main Menu if internet is not restored
+    //private float noInternetTimer = 10f;  // Time before going back to Main Menu if internet is not restored
     public GameObject noInternetPopup;
     private Coroutine checkInternetCoroutine;
     private void Start()

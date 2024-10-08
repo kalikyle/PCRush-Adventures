@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip mainMenuBackground;
     public AudioClip homeWorldBackground;
     public AudioClip otherWorldBackground;
+    public AudioClip OnhordeBackground;
 
     // Sound Effects
     [Header("UIEffects")]
