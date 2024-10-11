@@ -21,8 +21,9 @@ public class GameListener : MonoBehaviour
 
     void Start()
     {
-        udpClient = new UdpClient(BroadcastPort);
-        StartListening();
+        //udpClient = new UdpClient(BroadcastPort);
+        //StartListening();
+        StartListen();
     }
 
     //private async void Update()
@@ -30,6 +31,12 @@ public class GameListener : MonoBehaviour
     //    await Task.Delay(1000);
     //    StartListening();
     //}
+
+    public void StartListen()
+    {
+        udpClient = new UdpClient(BroadcastPort);
+        StartListening();
+    }
 
     void StartListening()
     {
@@ -103,6 +110,10 @@ public class GameListener : MonoBehaviour
                     {
                         switch (keyValue[0])
                         {
+                            case "CANCEL":
+                                type = keyValue[0];
+                                ipAddress = keyValue[1];
+                                break;
                             case "GAME":
                                 type = keyValue[0]; // Store "GAME"
                                 ipAddress = keyValue[1]; // Store the IP address
@@ -172,6 +183,7 @@ public class GameListener : MonoBehaviour
         }
 
         button.onClick.AddListener(() => OnJoinButtonClick(ipAddress));
+        
     }
 
     void RemoveGameButton(string ipAddress)
