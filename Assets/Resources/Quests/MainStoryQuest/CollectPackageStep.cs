@@ -27,6 +27,7 @@ public class CollectPackageStep : QuestStep
         packageCollected();
 
         GameManager.instance.HasInitialize = true;
+        GameManager.instance.ControlAtStart.SetActive(true);
     }
     public void Update()
     {
@@ -50,7 +51,8 @@ public class CollectPackageStep : QuestStep
         if(packagecollected >= packagetobecollected)
         {
             FinishQuestStep();
-            
+            GameManager.instance.ControlAtStart.SetActive(false);
+
         }
         UpdateState();
         

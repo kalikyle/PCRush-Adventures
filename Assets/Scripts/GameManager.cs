@@ -337,6 +337,7 @@ public class GameManager : MonoBehaviour
     public bool OnQuest = false;
     public bool OpenBuild = false;
 
+    public GameObject ControlAtStart;
     public GameObject HouseDoor;
     public GameObject BuildingDesk;
     public GameObject PlayerDeskRoom;

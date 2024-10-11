@@ -240,6 +240,7 @@ public class UserSetup : MonoBehaviour
     public async void OnPlayLanClick()
     {
         SoundManager.instance.PlayButtonClick();
+        //if no user
         if (string.IsNullOrEmpty(GameManager.instance.UserID))
         {
             SceneManager.UnloadSceneAsync(1);
@@ -275,7 +276,7 @@ public class UserSetup : MonoBehaviour
             }
             else
             {
-                //during signin main menu
+                //during signedin main menu
                 UnloadThisScene();
                 GameManager.instance.PlayOnLanCanvas.SetActive(true);
                 //GameManager.instance.scene.manualLoading();
