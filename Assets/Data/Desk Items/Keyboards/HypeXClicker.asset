@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83b57c5ad15f492499e9ef25a356d927, type: 3}
-  m_Name: Artict Red
+  m_Name: HypeXClicker
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 0
   <Category>k__BackingField: Keyboard
   <MaxStackableSize>k__BackingField: 1
-  <Name>k__BackingField: Artic Red
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 58ca139a3a024f3489e26ccbf6f28ad4, type: 3}
-  <Price>k__BackingField: 3000
+  <Name>k__BackingField: HypeX Clicker
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: d74de56b425e9704cbb4198558fb18b4, type: 3}
+  <Price>k__BackingField: 4000
   <Sold>k__BackingField: 0
   <InUse>k__BackingField: 0
