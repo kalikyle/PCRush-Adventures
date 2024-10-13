@@ -562,7 +562,7 @@ namespace OtherWorld
                 perks += "Critical Chance +" + item.CriticalChance + "\n";
             }
 
-            perks += "<color = yellow >Selling Price: " + item.Price / 2 + "</color>";
+            perks += "<color=yellow>Selling Price: " + item.Price / 2 + "</color>";
 
             return perks;
         }

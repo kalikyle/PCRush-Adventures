@@ -55,55 +55,55 @@ Now I want you to put your <color=orange>Case</color>  in the Table First #speak
 
 === sixthDoneCase ===
 Nice! {player_Name} #speaker: Ian #portrait: 2
-Next is the Motherboard  #speaker: Ian #portrait: 2
-(Click the Motherboard Button and Select the Motherboard) #speaker: PCRush #portrait: 5
-(Click the Use Button to Place the Motherboar) #speaker: PCRush #portrait: 5
+Next is the <color=pink>Motherboard</color>  #speaker: Ian #portrait: 2
+(Click the <color=pink>Motherboard Button</color> and Select the Motherboard) #speaker: PCRush #portrait: 5
+(Click the <color=green>Use Button</color> to Place the Motherboar) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneMB ===
 Wow you're great! {player_Name} #speaker: Ian #portrait: 2
-Next we need to place the CPU  #speaker: Ian #portrait: 2
+Next we need to place the <color=yellow>CPU</color>  #speaker: Ian #portrait: 2
 Or what we called The Processor #speaker: Ian #portrait: 2
-(Click the CPU Button and Select the CPU) #speaker: PCRush #portrait: 5
-(Click the Use Button to Place the CPU) #speaker: PCRush #portrait: 5
+(Click the <color=yellow>CPU Button</color> and Select the CPU) #speaker: PCRush #portrait: 5
+(Click the <color=green>Use Button</color> to Place the CPU) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneCPU ===
 Great! {player_Name} #speaker: Ian #portrait: 2
 Next thing is, we need to cool off the CPU to process the data smoothly #speaker: Ian #portrait: 2
-so we need to the CPU FAN to it #speaker: Ian #portrait: 2
-(Click the CPU FAN Button and Select the CPU FAN that you want) #speaker: PCRush #portrait: 5
-(Click the Use Button to Place the CPU FAN) #speaker: PCRush #portrait: 5
+so we need to the <color=cyan>CPU FAN</color> to it #speaker: Ian #portrait: 2
+(Click the <color=cyan>CPU FAN Button</color> and Select the CPU FAN that you want) #speaker: PCRush #portrait: 5
+(Click the <color=green>Use Button</color> to Place the CPU FAN) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneCPUFan ===
 Nicely Done! {player_Name} #speaker: Ian #portrait: 2
-Next we need to place the RAM to this beast #speaker: Ian #portrait: 2
-(Click the RAM Button and Select the RAM that you have) #speaker: PCRush #portrait: 5
-(Click the Use Button to Place the RAM) #speaker: PCRush #portrait: 5
+Next we need to place the <color=lightblue>RAM</color> to this beast #speaker: Ian #portrait: 2
+(Click the <color=lightblue>RAM Button</color> and Select the RAM that you have) #speaker: PCRush #portrait: 5
+(Click the <color=green>Use Button</color> to Place the RAM) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneRAM ===
 Excellent! {player_Name} #speaker: Ian #portrait: 2
-Next the Graphics Processing unit of your Computer or in short the GPU #speaker: Ian #portrait: 2
-(Click the GPU Button and Select the GPU that you want) #speaker: PCRush #portrait: 5
-(Click the Use Button to Place the GPU) #speaker: PCRush #portrait: 5
+Next the Graphics Processing unit of your Computer or in short the <color=yellow>GPU</color> #speaker: Ian #portrait: 2
+(Click the <color=yellow>GPU Button</color> and Select the GPU that you want) #speaker: PCRush #portrait: 5
+(Click the <color=green>Use Button</color> to Place the GPU) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneGPU ===
 Nicely done! {player_Name} #speaker: Ian #portrait: 2
-Next the is the Storage of your computer #speaker: Ian #portrait: 2
+Next the is the <color=cyan>Storage</color> of your computer #speaker: Ian #portrait: 2
 it can be SSD or HDD but for now use the one that you have #speaker: Ian #portrait: 2
-(Click the Storage Button and Select the Storage that you want) #speaker: PCRush #portrait: 5
-(Click the Use Button to Place the Storage) #speaker: PCRush #portrait: 5
+(Click the <color=cyan>Storage Button</color> and Select the Storage that you want) #speaker: PCRush #portrait: 5
+(Click the <color=green>Use Button</color> to Place the Storage) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneStorage ===
 Great! and Lastly {player_Name} #speaker: Ian #portrait: 2
-the is the Power Supply Unit of your Computer or in short the PSU #speaker: Ian #portrait: 2
+the is the Power Supply Unit of your Computer or in short the <color=lightblue>PSU</color> #speaker: Ian #portrait: 2
 to power up your Compter #speaker: Ian #portrait: 2
-(Click the PSU Button and Select the PSU that you want) #speaker: PCRush #portrait: 5
-(Click the Use Button to Place the PSU) #speaker: PCRush #portrait: 5
+(Click the <color=lightblue>PSU Button</color> and Select the PSU that you want) #speaker: PCRush #portrait: 5
+(Click the <color=green>Use Button</color> to Place the PSU) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDonePSU ===
@@ -289,52 +289,52 @@ I should Find this Exchanger... #speaker: {player_Name} #portrait: 0
 -> DONE
 
 === Fourteen ===
-Hi, {player_Name}... #speaker: CPUExchanger #portrait: 4
+Hi, {player_Name}... #speaker: CPU Exchanger #portrait: 4
 How Do you Know my Name? #speaker: {player_Name} #portrait: 0
-that question is just like "why you are here?" #speaker: CPUExchanger #portrait: 4
-You know {player_Name}, our life have many different mysterious ways to achieve something #speaker: CPUExchanger #portrait: 4
-And this is the one of that ways for you to achieve that something #speaker: CPUExchanger #portrait: 4
+that question is just like "why you are here?" #speaker: CPU Exchanger #portrait: 4
+You know {player_Name}, our life have many different mysterious ways to achieve something #speaker: CPU Exchanger #portrait: 4
+And this is the one of that ways for you to achieve that something #speaker: CPU Exchanger #portrait: 4
 What you are talking about??? #speaker: {player_Name} #portrait: 0
-You are dreaming about a wonderful computer right? #speaker: CPUExchanger #portrait: 4
+You are dreaming about a wonderful computer right? #speaker: CPU Exchanger #portrait: 4
 Yes? I want a computer, because it can help me for my studies #speaker: {player_Name} #portrait: 0
-That's it #speaker: CPUExchanger #portrait: 4
+That's it #speaker: CPU Exchanger #portrait: 4
 what?? #speaker: {player_Name} #portrait: 0
-You are here because we, want you to achieve that #speaker: CPUExchanger #portrait: 4
-you see, this is a cpu world, cpu is the brain of the computer, without the cpu you can't run the computer #speaker: CPUExchanger #portrait: 4
+You are here because we, want you to achieve that #speaker: CPU Exchanger #portrait: 4
+you see, this is a cpu world, cpu is the brain of the computer, without the cpu you can't run the computer #speaker: CPU Exchanger #portrait: 4
 So you are the one who sent those parts in my house??? #speaker: {player_Name} #portrait: 0
-Yes, But I'm not the only one #speaker: CPUExchanger #portrait: 4
-Did you see the map of the game your in? #speaker: CPUExchanger #portrait: 4
-It have all the region for the needed parts of a computer #speaker: CPUExchanger #portrait: 4
-Those regions have the abundancy of the materials to make that computer part #speaker: CPUExchanger #portrait: 4
-For, example this region is CPU Region because we have plenty of silicons in here, #speaker: CPUExchanger #portrait: 4
-silicons are the main ingredient to create a CPU #speaker: CPUExchanger #portrait: 4
-But, theres another thing why we sent you here {player_Name} #speaker: CPUExchanger #portrait: 4
-back then, we don't sent people in here #speaker: CPUExchanger #portrait: 4
-The Exchangers of different regions only want to fullfill the dreams of all the people like you #speaker: CPUExchanger #portrait: 4
-we Just give them thier dream parts to make them happy and to help them achieve thier dreams #speaker: CPUExchanger #portrait: 4
-We just like Santa Claus, but in the world of Computer for the people who wish to have a computer #speaker: CPUExchanger #portrait: 4
-But Our region has been bothered by some bad creatures, or people, or a bunch of bad enemies, who only wants our materials #speaker: CPUExchanger #portrait: 4
-they steal the materials we used to create a computer part and those materials are vasnishing as they steal and steal it{player_Name} #speaker: CPUExchanger #portrait: 4
+Yes, But I'm not the only one #speaker: CPU Exchanger #portrait: 4
+Did you see the map of the game your in? #speaker: CPU Exchanger #portrait: 4
+It have all the region for the needed parts of a computer #speaker: CPU Exchanger #portrait: 4
+Those regions have the abundancy of the materials to make that computer part #speaker: CPU Exchanger #portrait: 4
+For, example this region is CPU Region because we have plenty of silicons in here, #speaker: CPU Exchanger #portrait: 4
+silicons are the main ingredient to create a CPU #speaker: CPU Exchanger #portrait: 4
+But, theres another thing why we sent you here {player_Name} #speaker: CPU Exchanger #portrait: 4
+back then, we don't sent people in here #speaker: CPU Exchanger #portrait: 4
+The Exchangers of different regions only want to fullfill the dreams of all the people like you #speaker: CPU Exchanger #portrait: 4
+we Just give them thier dream parts to make them happy and to help them achieve thier dreams #speaker: CPU Exchanger #portrait: 4
+We just like Santa Claus, but in the world of Computer for the people who wish to have a computer #speaker: CPU Exchanger #portrait: 4
+But Our region has been bothered by some bad creatures, or people, or a bunch of bad enemies, who only wants our materials #speaker: CPU Exchanger #portrait: 4
+they steal the materials we used to create a computer part and those materials are vasnishing as they steal and steal it{player_Name} #speaker: CPU Exchanger #portrait: 4
 ??? #speaker: {player_Name} #portrait: 0
-I want you to fight them {player_Name} #speaker: CPUExchanger #portrait: 4
+I want you to fight them {player_Name} #speaker: CPU Exchanger #portrait: 4
 What??? #speaker: {player_Name} #portrait: 0
 NO! I don't want and I can't, sorry #speaker: {player_Name} #portrait: 0
 I just want to go back home #speaker: {player_Name} #portrait: 0
-Ok... #speaker: CPUExchanger #portrait: 4
-What if, I told you, as you fight those bad creatures and got thier stole materials you can exchange it to me to have another computer part... #speaker: CPUExchanger #portrait: 4
-So you can upgrade your computer?? #speaker: CPUExchanger #portrait: 4
+Ok... #speaker: CPU Exchanger #portrait: 4
+What if, I told you, as you fight those bad creatures and got thier stole materials you can exchange it to me to have another computer part... #speaker: CPU Exchanger #portrait: 4
+So you can upgrade your computer?? #speaker: CPU Exchanger #portrait: 4
 Hmmm... #speaker: {player_Name} #portrait: 0
-Also, this is the only way to get you back home #speaker: CPUExchanger #portrait: 4
-Also, you will have the privilege to go back in here anytime you want so you can exchange materials for a part as you fight those bad creatures #speaker: CPUExchanger #portrait: 4
-Just help us to retain what was ours {player_Name} #speaker: CPUExchanger #portrait: 4
+Also, this is the only way to get you back home #speaker: CPU Exchanger #portrait: 4
+Also, you will have the privilege to go back in here anytime you want so you can exchange materials for a part as you fight those bad creatures #speaker: CPU Exchanger #portrait: 4
+Just help us to retain what was ours {player_Name} #speaker: CPU Exchanger #portrait: 4
 Ok, hayss, I will do it #speaker: {player_Name} #portrait: 0
 Where should I start? #speaker: {player_Name} #portrait: 0
-The bad creatures are spawning in the wide area of our village where the materials are abundant #speaker: CPUExchanger #portrait: 4
-Find that Area and kill those bad creatures #speaker: CPUExchanger #portrait: 4
-Go back to me if you have any materials #speaker: CPUExchanger #portrait: 4
-After that I will open the gate where you are being teleported and in there you can go back home...  #speaker: CPUExchanger #portrait: 4
-And the parts that you are exchanged will be delivered in to your home immediately as you exchange those to me #speaker: CPUExchanger #portrait: 4
-Now go, and find that Area and fight those bad creature whose stealing our natural resources #speaker: CPUExchanger #portrait: 4
+The bad creatures are spawning in the wide area of our village where the materials are abundant #speaker: CPU Exchanger #portrait: 4
+Find that Area and kill those bad creatures #speaker: CPU Exchanger #portrait: 4
+Go back to me if you have any materials #speaker: CPU Exchanger #portrait: 4
+After that I will open the gate where you are being teleported and in there you can go back home...  #speaker: CPU Exchanger #portrait: 4
+And the parts that you are exchanged will be delivered in to your home immediately as you exchange those to me #speaker: CPU Exchanger #portrait: 4
+Now go, and find that Area and fight those bad creature whose stealing our natural resources #speaker: CPU Exchanger #portrait: 4
 Ok, see you later...  #speaker: {player_Name} #portrait: 0
 If I survived... #speaker: {player_Name} #portrait: 0
 -> DONE
@@ -409,30 +409,30 @@ I should head back to the Exchanger now #speaker: {player_Name} #portrait: 0
 I'm back #speaker: {player_Name} #portrait: 0
 and I have the materials you want #speaker: {player_Name} #portrait: 0
 I also got thier money #speaker: {player_Name} #portrait: 0
-Thank you {player_Name}, you are the savior of our region #speaker: CPUExchanger #portrait: 4
-You can Exchange your materials for me, so you can upgrade your computer parts #speaker: CPUExchanger #portrait: 4
-also, I will unlock the teleporter so you can get back home #speaker: CPUExchanger #portrait: 4
-don't forget to go in here anytime you want #speaker: CPUExchanger #portrait: 4
-I also hope that you can do that also in other region to retain thier materials in exchange of a computer parts #speaker: CPUExchanger #portrait: 4
-Here are the materials I have, this will be renewed every 2 minutes #speaker: CPUExchanger #portrait: 4
-You can Freely choose... #speaker: CPUExchanger #portrait: 4 #choice: exchangeyes
+Thank you {player_Name}, you are the savior of our region #speaker: CPU Exchanger #portrait: 4
+You can Exchange your materials for me, so you can upgrade your computer parts #speaker: CPU Exchanger #portrait: 4
+also, I will unlock the teleporter so you can get back home #speaker: CPU Exchanger #portrait: 4
+don't forget to go in here anytime you want #speaker: CPU Exchanger #portrait: 4
+I also hope that you can do that also in other region to retain thier materials in exchange of a computer parts #speaker: CPU Exchanger #portrait: 4
+Here are the materials I have, this will be renewed every 2 minutes #speaker: CPU Exchanger #portrait: 4
+You can Freely choose... #speaker: CPU Exchanger #portrait: 4 #choice: exchangeyes
 -> DONE
 
 === Nineteen ===
-Thank you again {player_Name} #speaker: CPUExchanger #portrait: 4
-Your cpu will be delivered immediately into your home #speaker: CPUExchanger #portrait: 4
-Now come with me into to the spawn, I will get you home #speaker: CPUExchanger #portrait: 4
+Thank you again {player_Name} #speaker: CPU Exchanger #portrait: 4
+Your cpu will be delivered immediately into your home #speaker: CPU Exchanger #portrait: 4
+Now come with me into to the spawn, I will get you home #speaker: CPU Exchanger #portrait: 4
 #CutScene:CutScene 8 
 -> DONE
 
 === NineteenTwo ===
-Hey, I know you #speaker: CPUExchanger #portrait: 4
-Are you the lost Adventurer? #speaker: CPUExchanger #portrait: 4
+Hey, I know you #speaker: CPU Exchanger #portrait: 4
+Are you the lost Adventurer? #speaker: CPU Exchanger #portrait: 4
 Is that really your name?? #speaker: {player_Name} #portrait: 0
 Umm, yes, I am the lost adventurer #speaker: Lost Adventurer #portrait: 10
-I'm waiting for you to come to me, but you didn't come #speaker: CPUExchanger #portrait: 4
+I'm waiting for you to come to me, but you didn't come #speaker: CPU Exchanger #portrait: 4
 Umm, sorry #speaker: Lost Adventurer #portrait: 10
-Nevermind, I will get you two home #speaker: CPUExchanger #portrait: 4
+Nevermind, I will get you two home #speaker: CPU Exchanger #portrait: 4
 Thank you #speaker: Lost Adventurer #portrait: 10
 Yes, I'm really tired #speaker: {player_Name} #portrait: 0
 thank you again {player_Name} #speaker: Lost Adventurer #portrait: 10 
@@ -467,7 +467,7 @@ I got this... #speaker: {player_Name} #portrait: 0
 
 === TwentyThree ===
 I should place my computer here first #speaker: {player_Name} #portrait: 0
-Open the Hardwares by clicking the <color=blue>Hardwares button</color> #speaker: PCRush #portrait: 5
+Open the Hardwares by clicking the <color=lightblue>Hardwares button</color> #speaker: PCRush #portrait: 5
 -> DONE
 
 === TwentyFourDoneHardwares ===
@@ -497,20 +497,20 @@ I should meet again the cpu exchanger in the cpu region to get more info about t
 -> DONE
 
 === TwentySix ===
-You've back {player_Name} #speaker: CPUExchanger #portrait: 4
-Why? #speaker: CPUExchanger #portrait: 4
+You've back {player_Name} #speaker: CPU Exchanger #portrait: 4
+Why? #speaker: CPU Exchanger #portrait: 4
 I want to know more about the other regions #speaker: {player_Name} #portrait: 0
-ahh ok, to unlock those regions, you need to become stronger too #speaker: CPUExchanger #portrait: 4
-and as you fight the bad creatures and collect thier materials, you can also exchange that materials to the exchangers of the regions #speaker: CPUExchanger #portrait: 4
-and they will give you the computer part that you want #speaker: CPUExchanger #portrait: 4
+ahh ok, to unlock those regions, you need to become stronger too #speaker: CPU Exchanger #portrait: 4
+and as you fight the bad creatures and collect thier materials, you can also exchange that materials to the exchangers of the regions #speaker: CPU Exchanger #portrait: 4
+and they will give you the computer part that you want #speaker: CPU Exchanger #portrait: 4
 So, I need to become stronger and stronger to unlock those regions why?  #speaker: {player_Name} #portrait: 0
 I fought the bad creatures here but they are weak do I need to be stronger? #speaker: {player_Name} #portrait: 0
-Yes, as you progress on unlocking those regions enemies are getting stronger and faster too #speaker: CPUExchanger #portrait: 4
-the most stronger enemies are in the case region, they are elites and you need to fought them for us to fully functional again #speaker: CPUExchanger #portrait: 4
+Yes, as you progress on unlocking those regions enemies are getting stronger and faster too #speaker: CPU Exchanger #portrait: 4
+the most stronger enemies are in the case region, they are elites and you need to fought them for us to fully functional again #speaker: CPU Exchanger #portrait: 4
 Ok, I see #speaker: {player_Name} #portrait: 0
-You need to buy powerful swords, armor, shield and helmet specially the computer parts that we exchange for you #speaker: CPUExchanger #portrait: 4
-those computer parts are not just computer parts they make you also more stronger because of the perks it have #speaker: CPUExchanger #portrait: 4
-so, goodluck to you {player_Name} and don't hesitate to come with me if you want to exchange some materials for a cpu, sometimes I will have some legendary cpu at the table #speaker: CPUExchanger #portrait: 4
+You need to buy powerful swords, armor, shield and helmet specially the computer parts that we exchange for you #speaker: CPU Exchanger #portrait: 4
+those computer parts are not just computer parts they make you also more stronger because of the perks it have #speaker: CPU Exchanger #portrait: 4
+so, goodluck to you {player_Name} and don't hesitate to come with me if you want to exchange some materials for a cpu, sometimes I will have some legendary cpu at the table #speaker: CPU Exchanger #portrait: 4
 Ok, thanks exchanger #speaker: {player_Name} #portrait: 0
 -> DONE
 
