@@ -41,7 +41,7 @@ PlayerSettings:
     height: 1
   m_SplashScreenLogos:
   - logo: {fileID: 21300000, guid: fb8eb836397b9d24cab14f8e8bf6ba3b, type: 3}
-    duration: 2.8
+    duration: 3
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1920
@@ -159,7 +159,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.PCBuilders.PCRushAdventures
-    Standalone: com.PCBuilders.PCRush-Adventures
+    Standalone: com.PCRush.PCRush-Adventures
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -812,7 +812,9 @@ PlayerSettings:
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
-  il2cppCompilerConfiguration: {}
+    Standalone: 0
+  il2cppCompilerConfiguration:
+    Standalone: 1
   il2cppCodeGeneration: {}
   managedStrippingLevel:
     EmbeddedLinux: 1

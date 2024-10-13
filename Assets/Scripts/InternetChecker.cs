@@ -1,7 +1,9 @@
 using Firebase;
 using Firebase.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -17,6 +19,7 @@ public class InternetChecker : MonoBehaviour
     //private float noInternetTimer = 10f;  // Time before going back to Main Menu if internet is not restored
     public GameObject noInternetPopup;
     private Coroutine checkInternetCoroutine;
+    public string internetCheckUrl = "https://google.com"; // Google's public DNS server
     private void Start()
     {
         //StartCoroutine(CheckInternetConnectionRoutine());
@@ -89,51 +92,270 @@ public class InternetChecker : MonoBehaviour
     //    return true;
     //}
 
+    //public bool CheckInternetConnection()
+    //{
+    //    var reachability = Application.internetReachability;
+
+    //    // Check if there is no internet at all
+    //    if (reachability == NetworkReachability.NotReachable)
+    //    {
+    //        internetStatusText.text = "No Internet"; // Update UI text
+    //        internetStatusText.color = Color.red; // Set text color to red
+    //        //Debug.LogWarning("No Internet Connection");
+    //        return false; // Return false if no internet
+    //    }
+
+    //    // Start a ping to check connection quality
+    //    Ping ping = new Ping("8.8.8.8"); // Google's DNS server for testing
+    //    float startTime = Time.time;
+
+    //    // Wait for the ping to finish or time out
+    //    while (!ping.isDone)
+    //    {
+    //        if (Time.time - startTime > 1f) // Timeout after 1 second
+    //        {
+    //            //Debug.LogWarning("Ping timed out, weak internet connection");
+    //            internetStatusText.text = "1000ms"; // Timeout value shown as 1000ms
+    //            internetStatusText.color = Color.red; // Set text color to red
+    //            return true; // Return true for weak internet (still connected)
+    //        }
+    //    }
+
+    //    // If ping result is weak
+    //    if (ping.time >= 300) // Consider weak if ping time > 300ms
+    //    {
+    //        internetStatusText.text = ping.time + "ms"; // Display ping time in ms
+    //        internetStatusText.color = Color.red; // Set text color to red
+    //        //Debug.LogWarning("Weak internet connection, ping: " + ping.time + "ms");
+    //        return true; // Return true (still connected but weak)
+    //    }
+
+    //    // If internet connection is good
+    //    internetStatusText.text = ping.time + "ms"; // Display ping time in ms
+    //    internetStatusText.color = Color.green; // Set text color to green
+    //    //Debug.Log("Good internet connection, ping: " + ping.time + "ms");
+    //    return true; // Return true for good connection
+    //}
+
+    //    public bool CheckInternetConnection()
+    //    {
+    //#if !UNITY_WSA || UNITY_EDITOR
+
+    //        var reachability = Application.internetReachability;
+
+    //        if (reachability == NetworkReachability.NotReachable)
+    //        {
+    //            internetStatusText.text = "No Internet";
+    //            internetStatusText.color = Color.red;
+    //            return false;
+    //        }
+    //#else
+    //     var connectionProfile = Windows.Networking.Connectivity.NetworkInformation.GetInternetConnectionProfile();
+    //    if (connectionProfile == null)
+    //      return false;
+    //    return connectionProfile.GetNetworkConnectivityLevel() == Windows.Networking.Connectivity.NetworkConnectivityLevel.InternetAccess;
+
+    //#endif
+
+
+    //        // Start a coroutine to perform the ping operation asynchronously
+    //        StartCoroutine(CheckInternetConnectionAsync());
+    //        return true;
+    //    }
+
+    //private IEnumerator CheckInternetConnectionAsync()
+    //{
+    //    Ping ping = new Ping("8.8.8.8");
+    //    float startTime = Time.time;
+
+    //    while (!ping.isDone)
+    //    {
+    //        if (Time.time - startTime > 1f) // Timeout after 1 second
+    //        {
+    //            internetStatusText.text = "1000ms";
+    //            internetStatusText.color = Color.red;
+    //            SendMessage("UpdateInternetConnectionResult", false);
+    //            yield break; // Cancel the coroutine
+    //        }
+    //        yield return null; // Wait for the next frame
+    //    }
+
+    //    // Process the ping result
+    //    if (ping.time >= 300)
+    //    {
+    //        internetStatusText.text = ping.time + "ms";
+    //        internetStatusText.color = Color.red;
+
+    //        SendMessage("UpdateInternetConnectionResult", false);
+    //    }
+    //    else
+    //    {
+    //        internetStatusText.text = ping.time + "ms";
+    //        internetStatusText.color = Color.green;
+
+    //        SendMessage("UpdateInternetConnectionResult", true);
+    //    }
+    //}
+
+    //private void UpdateInternetConnectionResult(bool isConnected)
+    //{
+    //    // Update the result of CheckInternetConnection()
+    //    CheckInternetConnectionResult = isConnected;
+    //}
+
+
+
+    //private bool CheckInternetConnectionResult { get; set; }
+    ////Start a ping to check connection quality
+    //Ping ping = new Ping("8.8.8.8"); // Google's DNS server for testing
+    //float startTime = Time.time;
+
+    //// Wait for the ping to finish or time out
+    //while (!ping.isDone)
+    //{
+    //    if (Time.time - startTime > 1f) // Timeout after 1 second
+    //    {
+    //        //Debug.LogWarning("Ping timed out, weak internet connection");
+    //        internetStatusText.text = "1000ms"; // Timeout value shown as 1000ms
+    //        internetStatusText.color = Color.red; // Set text color to red
+    //        return true; // Return true for weak internet (still connected)
+    //    }
+    //}
+
+    //// If ping result is weak
+    //if (ping.time >= 300) // Consider weak if ping time > 300ms
+    //{
+    //    internetStatusText.text = ping.time + "ms"; // Display ping time in ms
+    //    internetStatusText.color = Color.red; // Set text color to red
+    //                                          //Debug.LogWarning("Weak internet connection, ping: " + ping.time + "ms");
+    //    return true; // Return true (still connected but weak)
+    //}
+
+    //// If internet connection is good
+    //internetStatusText.text = ping.time + "ms"; // Display ping time in ms
+    //internetStatusText.color = Color.green; // Set text color to green
     public bool CheckInternetConnection()
     {
-        var reachability = Application.internetReachability;
 
-        // Check if there is no internet at all
-        if (reachability == NetworkReachability.NotReachable)
-        {
-            internetStatusText.text = "No Internet"; // Update UI text
-            internetStatusText.color = Color.red; // Set text color to red
-            Debug.LogWarning("No Internet Connection");
-            return false; // Return false if no internet
-        }
+#if UNITY_ANDROID || UNITY_EDITOR
 
-        // Start a ping to check connection quality
-        Ping ping = new Ping("8.8.8.8"); // Google's DNS server for testing
-        float startTime = Time.time;
-
-        // Wait for the ping to finish or time out
-        while (!ping.isDone)
-        {
-            if (Time.time - startTime > 1f) // Timeout after 1 second
-            {
-                //Debug.LogWarning("Ping timed out, weak internet connection");
-                internetStatusText.text = "1000ms"; // Timeout value shown as 1000ms
-                internetStatusText.color = Color.red; // Set text color to red
-                return true; // Return true for weak internet (still connected)
-            }
-        }
-
-        // If ping result is weak
-        if (ping.time >= 300) // Consider weak if ping time > 300ms
-        {
-            internetStatusText.text = ping.time + "ms"; // Display ping time in ms
-            internetStatusText.color = Color.red; // Set text color to red
-            //Debug.LogWarning("Weak internet connection, ping: " + ping.time + "ms");
-            return true; // Return true (still connected but weak)
-        }
-
-        // If internet connection is good
-        internetStatusText.text = ping.time + "ms"; // Display ping time in ms
-        internetStatusText.color = Color.green; // Set text color to green
-        //Debug.Log("Good internet connection, ping: " + ping.time + "ms");
-        return true; // Return true for good connection
+      return CheckAndroidAndEditorConnection();
+#else
+   //put the internet connectivity here if its windows
+   return CheckWindowsInternetConnection();
+#endif
     }
 
+
+    private bool CheckAndroidAndEditorConnection()
+    {
+        //var reachability = Application.internetReachability;
+
+        //if (reachability == NetworkReachability.NotReachable)
+        //{
+        //    internetStatusText.text = "No Internet";
+        //    internetStatusText.color = Color.red;
+        //    return false;
+        //}
+
+        //internetStatusText.text = " ";                                
+        //return true; // Return true for good connection
+
+        var reachability = Application.internetReachability;
+        const string GOOGLE_DNS = "8.8.8.8";
+
+        if (reachability == NetworkReachability.NotReachable)
+        {
+            internetStatusText.text = "No Internet";
+            internetStatusText.color = Color.red;
+            return false;
+        }
+
+        try
+        {
+            using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
+            {
+                PingReply reply = ping.Send(GOOGLE_DNS);
+
+                if (reply.Status == IPStatus.Success)
+                {
+                    if (reply.RoundtripTime > 150)
+                    {
+                        internetStatusText.text = $"{reply.RoundtripTime}ms";
+                        internetStatusText.color = Color.red;
+                        return false;
+                    }
+                    else
+                    {
+                        internetStatusText.text = $"{reply.RoundtripTime}ms";
+                        internetStatusText.color = Color.green;
+                        return true;
+                    }
+                }
+                else
+                {
+                    internetStatusText.text = "No Internet";
+                    internetStatusText.color = Color.red;
+                    return false;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            //Debug.LogError("Error checking internet connection: " + e.Message);
+            internetStatusText.text = "No Internet";
+            internetStatusText.color = Color.red; // Indicate an error
+            return false; // Assume no internet on error
+        }
+    }
+
+    private bool CheckWindowsInternetConnection()
+    {
+        const string GOOGLE_DNS = "8.8.8.8"; // Google's DNS server
+
+        try
+        {
+            using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
+            {
+                PingReply reply = ping.Send(GOOGLE_DNS);
+
+                if (reply.Status == IPStatus.Success)
+                {
+                    string text = reply.RoundtripTime + "ms";
+                    Color color;
+
+                    if (reply.RoundtripTime > 200)
+                    {
+                        color = Color.red;
+                    }
+                    else if (reply.RoundtripTime > 100)
+                    {
+                        color = Color.yellow;
+                    }
+                    else
+                    {
+                        color = Color.green;
+                    }
+                    internetStatusText.text = text;
+                    internetStatusText.color = color;
+                    return true; // Internet is available
+                }
+                else
+                {
+                    internetStatusText.text = "No Internet";
+                    internetStatusText.color = Color.red;
+                    return false; // No internet
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error checking internet connection: " + e.Message);
+            internetStatusText.text = "No Internet";
+            internetStatusText.color = Color.red; // Indicate an error
+            return false; // Assume no internet on error
+        }
+    }
 
     public bool TryStartGame()
     {

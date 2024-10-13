@@ -1,8 +1,10 @@
 using Firebase.Auth;
 using Firebase.Extensions;
 using Firebase.Firestore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using TMPro;
@@ -69,14 +71,9 @@ public class UserSetup : MonoBehaviour
         
     }
 
-    public void Update()
-    {
-        InternetText = InternetChecker.Instance.internetStatusText;
-    }
-
     void Start()
     {
-        
+        StartCoroutine(CheckInternetConnection());
         SoundManager.instance.PlayMainMenuBackground();
         FirebaseController.Instance.MainPanel = MainPanel;
         FirebaseController.Instance.MainPanel = MainPanel;
@@ -154,6 +151,56 @@ public class UserSetup : MonoBehaviour
         Facebook.onClick.AddListener(() => OpenBrowser(FacebookUrl));
         Youtube.onClick.AddListener(() => OpenBrowser(YoutubeUrl));
         Itch.onClick.AddListener(() => OpenBrowser(ItchUrl));
+    }
+
+    IEnumerator CheckInternetConnection()
+    {
+        while (true)
+        {
+            internetcheck();
+            yield return new WaitForSeconds(1f); // Check every 1 second
+        }
+    }
+
+    public void internetcheck()
+    {
+        const string GOOGLE_DNS = "8.8.8.8";
+        try
+        {
+            using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
+            {
+                PingReply reply = ping.Send(GOOGLE_DNS);
+
+                if (reply.Status == IPStatus.Success)
+                {
+                    if (reply.RoundtripTime > 150)
+                    {
+                        InternetText.text = $"{reply.RoundtripTime}ms";
+                        InternetText.color = Color.red;
+                       
+                    }
+                    else
+                    {
+                        InternetText.text = $"{reply.RoundtripTime}ms";
+                        InternetText.color = Color.green;
+                       
+                    }
+                }
+                else
+                {
+                    InternetText.text = "No Internet";
+                    InternetText.color = Color.red;
+                    
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            //Debug.LogError("Error checking internet connection: " + e.Message);
+            InternetText.text = "No Internet";
+            InternetText.color = Color.red; // Indicate an error
+           
+        }
     }
 
     private void OpenBrowser(string URL)
