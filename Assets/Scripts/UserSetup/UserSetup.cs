@@ -50,6 +50,8 @@ public class UserSetup : MonoBehaviour
     public Button Itch;
     public TMP_Text VersionText;
 
+    public TMP_Text InternetText;
+
     [SerializeField]
     private string FacebookUrl = "";
 
@@ -64,10 +66,17 @@ public class UserSetup : MonoBehaviour
        
         instance = this;
         VersionText.text = "Ver. " + Application.version;
+        
+    }
+
+    public void Update()
+    {
+        InternetText = InternetChecker.Instance.internetStatusText;
     }
 
     void Start()
     {
+        
         SoundManager.instance.PlayMainMenuBackground();
         FirebaseController.Instance.MainPanel = MainPanel;
         FirebaseController.Instance.MainPanel = MainPanel;
@@ -213,6 +222,7 @@ public class UserSetup : MonoBehaviour
                     GameManager.instance.PartsController.LoadPartsItems();
                     await Task.Delay(1000);
                     AchievementManager.instance.LoadAchievementsFromFirebase();
+                   
 
 
                 }
