@@ -419,6 +419,29 @@ public class GameManager : MonoBehaviour
 
     public Dictionary<string, string> DefaultCharacter = new Dictionary<string, string>();
 
+
+    [Header("FOR ANDROID UI")]
+    public GameObject Joystick;
+    public GameObject Resolution;
+
+    public void CheckAndroid()
+    {
+
+#if UNITY_EDITOR // for editor
+
+        Joystick.SetActive(true);
+        Resolution.SetActive(true);
+
+#elif UNITY_ANDROID //for android
+
+        Joystick.SetActive(true);
+        Resolution.SetActive(false);
+#else // for windows
+        Joystick.SetActive(false);
+        Resolution.SetActive(true);
+#endif
+    }
+
     public void ResetPlayer()
     {
         UserID = string.Empty;
@@ -1827,7 +1850,7 @@ PlayerTotalWalkSpeed = 1;
     {
         //UserID = PlayerPrefs.GetString("UserID", "");
         //ClearPlayerPrefsIfUserIDNotFound(UserID);
-        
+        CheckAndroid();
         scene.LoadScene();
         //SceneManager.LoadScene(1, LoadSceneMode.Additive);
         EnableDefault();
