@@ -374,6 +374,7 @@ namespace PC
 
                     // Deserialize the PCSO data from the Firestore document
                     string pcsoJson = docSnapshot.GetValue<string>("PC");
+                    string itemImageBase64 = docSnapshot.GetValue<string>("ItemImage");
 
                     if (!string.IsNullOrEmpty(pcsoJson))
                     {
@@ -383,7 +384,18 @@ namespace PC
                         // Deserialize the JSON data into the PCSO object
                         JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
 
-                       
+                        byte[] imageData = Convert.FromBase64String(itemImageBase64);
+
+                        // Load the byte array into a Texture2D
+                        Texture2D texture = new Texture2D(1, 1);
+                        texture.LoadImage(imageData);
+
+                        // Create a new Sprite from the Texture2D
+                        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+                        // Assign the Sprite to the PCSO's Case.ItemImage
+                        loadedPCSO.PCImage = sprite;
+
                         //loadedPCSO.PCImage = loadedPCSO.Case.ItemImage;
                         // Add the loaded PCSO to the PCData.ComputerItems list
                         PCData.AddPCSOList(loadedPCSO);
@@ -430,14 +442,28 @@ namespace PC
 
                 // Deserialize the PCSO data from the Firestore document
                 string pcsoJson = docSnapshot.GetValue<string>("PC");
+                string itemImageBase64 = docSnapshot.GetValue<string>("ItemImage");
 
                 if (!string.IsNullOrEmpty(pcsoJson))
                 {
                     // Create a new PCSO instance
                     PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
 
+
                     // Deserialize the JSON data into the PCSO object
                     JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+                    byte[] imageData = Convert.FromBase64String(itemImageBase64);
+
+                    // Load the byte array into a Texture2D
+                    Texture2D texture = new Texture2D(1, 1);
+                    texture.LoadImage(imageData);
+
+                    // Create a new Sprite from the Texture2D
+                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+                    // Assign the Sprite to the PCSO's Case.ItemImage
+                    loadedPCSO.PCImage = sprite;
 
                     // Add the loaded PCSO to the PCData.ComputerItems list
                     PCData.AddPCSOList(loadedPCSO);
@@ -1006,51 +1032,11 @@ namespace PC
             UsedPC = PCitem;
             GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.ManaRegen, PCitem.CriticalChance);
             GameManager.instance.StatsUsedPCPanel.SetActive(true);
-            GameManager.instance.StatsPCImageUsed.sprite = PCitem.Case.ItemImage;
+            GameManager.instance.StatsPCImageUsed.sprite = PCitem.PCImage;
             GameManager.instance.StatsPCName.text = PCitem.PCName;
             
-
-
-            //PCImage.gameObject.SetActive(true);
-            //PCImage.sprite = PCitem.Case.ItemImage;
-            //PCName.text = PCitem.PCName;
-            //Perks.text = ItemPerks(PCitem);
-
-            //CaseName.text = PCitem.Case.Name;
-            //MBName.text = PCitem.Motherboard.Name;
-            //CPUName.text = PCitem.CPU.Name;
-            //CPUFName.text = PCitem.CPUFan.Name;
-            //RAMName.text = PCitem.RAM.Name;
-            //GPUName.text = PCitem.GPU.Name;
-            //STRGName.text = PCitem.STORAGE.Name;
-            //PSUName.text = PCitem.PSU.Name;
-
-
-            //CaseImage.sprite = PCitem.Case.ItemImage;
-
-
-            //MBImage.sprite = PCitem.Motherboard.ItemImage;
-
-
-            //CPUImage.sprite = PCitem.CPU.ItemImage;
-
-
-            //CPUFImage.sprite = PCitem.CPUFan.ItemImage;
-
-
-            //RAMImage.sprite = PCitem.RAM.ItemImage;
-
-
-            //GPUImage.sprite = PCitem.GPU.ItemImage;
-
-
-            //STRGImage.sprite = PCitem.STORAGE.ItemImage;
-
-
-            //PSUImage.sprite = PCitem.PSU.ItemImage;
-
             PCImagePlaceholder.gameObject.SetActive(true);
-            PCImagePlaceholder.sprite = PCitem.Case.ItemImage;
+            PCImagePlaceholder.sprite = PCitem.PCImage;
         }
 
         
@@ -1075,7 +1061,7 @@ namespace PC
                 UsedPC = PCitem;
                 GameManager.instance.GetPCStats(PCitem.AttackDamage, PCitem.Health, PCitem.Mana, PCitem.HealthRegen, PCitem.WalkSpeed, PCitem.Armor, PCitem.ManaRegen, PCitem.CriticalChance);
                 GameManager.instance.StatsUsedPCPanel.SetActive(true);
-                GameManager.instance.StatsPCImageUsed.sprite = PCitem.Case.ItemImage;
+                GameManager.instance.StatsPCImageUsed.sprite = PCitem.PCImage;
                 GameManager.instance.StatsPCName.text = PCitem.PCName;
                
                 //PCPrice.text = "$" + PCitem.PCPrice.ToString() + ".00";
@@ -1121,7 +1107,7 @@ namespace PC
                 //PSUImage.sprite = PCitem.PSU.ItemImage;
 
                 PCImagePlaceholder.gameObject.SetActive(true);
-                PCImagePlaceholder.sprite = PCitem.Case.ItemImage;
+                PCImagePlaceholder.sprite = PCitem.PCImage;
 
                 PCitem.inUse = true;
 
