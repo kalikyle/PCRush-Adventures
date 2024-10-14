@@ -141,22 +141,54 @@ public class ComputerDescription : MonoBehaviour
         this.STRGImage.sprite = PC.STORAGE.ItemImage;
         this.PSUImage.sprite = PC.PSU.ItemImage;
         this.CaseRarity.text = PC.Case.rarity;
+        this.CaseRarity.color = GetRarityColor(PC.Case.rarity);
+
         this.MBRarity.text = PC.Motherboard.rarity;
+        this.MBRarity.color = GetRarityColor(PC.Motherboard.rarity);
+
         this.CPURarity.text = PC.CPU.rarity;
+        this.CPURarity.color = GetRarityColor(PC.CPU.rarity);
+
         this.RAMRarity.text = PC.RAM.rarity;
+        this.RAMRarity.color = GetRarityColor(PC.RAM.rarity);
+
         this.CPUFRarity.text = PC.CPUFan.rarity;
+        this.CPUFRarity.color = GetRarityColor(PC.CPUFan.rarity);
+
         this.GPURarity.text = PC.GPU.rarity;
+        this.GPURarity.color = GetRarityColor(PC.GPU.rarity);
+
         this.STRGRarity.text = PC.STORAGE.rarity;
+        this.STRGRarity.color = GetRarityColor(PC.STORAGE.rarity);
+
         this.PSURarity.text = PC.PSU.rarity;
+        this.PSURarity.color = GetRarityColor(PC.PSU.rarity);
 
 
-        if(PC.inUse == true)
+        if (PC.inUse == true)
         {
             Status.text = "<color=green>Currently Use PC</color>";
         }
         else
         {
             Status.text = "<color=orange>Not Used</color>";
+        }
+    }
+
+    private Color GetRarityColor(string rarity)
+    {
+        switch (rarity.ToLower())
+        {
+            case "common":
+                return Color.green;
+            case "rare":
+                return Color.blue;
+            case "epic":
+                return new Color(1f, 0.5f, 0f); // orange color
+            case "legend":
+                return Color.red;
+            default:
+                return Color.white; // default color if rarity is unknown
         }
     }
 
@@ -170,6 +202,7 @@ public class ComputerDescription : MonoBehaviour
                 PartsName.text = pc.Case.Name;
                 PartsCategory.text = pc.Case.Category;
                 PartsRarity.text = pc.Case.rarity;
+                PartsRarity.color = GetRarityColor(pc.Case.rarity);
                 PartsPerks.text = "Critical Chance +" + pc.Case.CriticalChance.ToString();
                 PartsPrice.text = pc.Case.Price.ToString();
                 break;
@@ -179,6 +212,7 @@ public class ComputerDescription : MonoBehaviour
                 PartsName.text = pc.Motherboard.Name;
                 PartsCategory.text = pc.Motherboard.Category;
                 PartsRarity.text = pc.Motherboard.rarity;
+                PartsRarity.color = GetRarityColor(pc.Case.rarity);
                 PartsPerks.text = "Attack Damage +" + pc.Motherboard.AttackDamage.ToString();
                 PartsPrice.text = pc.Motherboard.Price.ToString();
                 break;
@@ -188,6 +222,7 @@ public class ComputerDescription : MonoBehaviour
                 PartsName.text = pc.CPU.Name;
                 PartsCategory.text = pc.CPU.Category;
                 PartsRarity.text = pc.CPU.rarity;
+                PartsRarity.color = GetRarityColor(pc.Case.rarity);
                 PartsPerks.text = "Health +" + pc.CPU.Health.ToString();
                 PartsPrice.text = pc.CPU.Price.ToString();
                 break;
@@ -197,6 +232,7 @@ public class ComputerDescription : MonoBehaviour
                 PartsName.text = pc.RAM.Name;
                 PartsCategory.text = pc.RAM.Category;
                 PartsRarity.text = pc.RAM.rarity;
+                PartsRarity.color = GetRarityColor(pc.Case.rarity);
                 PartsPerks.text = "Armor +" + pc.RAM.Armor.ToString();
                 PartsPrice.text = pc.RAM.Price.ToString();
                 break;
@@ -206,6 +242,7 @@ public class ComputerDescription : MonoBehaviour
                 PartsName.text = pc.CPUFan.Name;
                 PartsCategory.text = pc.CPUFan.Category;
                 PartsRarity.text = pc.CPUFan.rarity;
+                PartsRarity.color = GetRarityColor(pc.Case.rarity);
                 PartsPerks.text = "Health Regen +" + pc.CPUFan.HealthRegen.ToString();
                 PartsPrice.text = pc.CPUFan.Price.ToString();
                 break;
@@ -215,6 +252,7 @@ public class ComputerDescription : MonoBehaviour
                 PartsName.text = pc.GPU.Name;
                 PartsCategory.text = pc.GPU.Category;
                 PartsRarity.text = pc.GPU.rarity;
+                PartsRarity.color = GetRarityColor(pc.Case.rarity);
                 PartsPerks.text = "Mana +" + pc.GPU.Mana.ToString();
                 PartsPrice.text = pc.GPU.Price.ToString();
                 break;
@@ -224,6 +262,7 @@ public class ComputerDescription : MonoBehaviour
                 PartsName.text = pc.STORAGE.Name;
                 PartsCategory.text = pc.STORAGE.Category;
                 PartsRarity.text = pc.STORAGE.rarity;
+                PartsRarity.color = GetRarityColor(pc.Case.rarity);
                 PartsPerks.text = "Mana Regen +" + pc.STORAGE.ManaRegen.ToString();
                 PartsPrice.text = pc.STORAGE.Price.ToString();
                 break;
@@ -233,6 +272,7 @@ public class ComputerDescription : MonoBehaviour
                 PartsName.text = pc.PSU.Name;
                 PartsCategory.text = pc.PSU.Category;
                 PartsRarity.text = pc.PSU.rarity;
+                PartsRarity.color = GetRarityColor(pc.Case.rarity);
                 PartsPerks.text = "Walk Speed +" + pc.PSU.WalkSpeed.ToString();
                 PartsPrice.text = pc.PSU.Price.ToString();
                 break;

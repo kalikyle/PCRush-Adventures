@@ -79,7 +79,24 @@ public class CPUFExchangerItem : MonoBehaviour, IPointerEnterHandler
         Rarity.text = rarity;
 
 
-
+        switch (rarity.ToLower())
+        {
+            case "common":
+                Rarity.color = Color.green;
+                break;
+            case "rare":
+                Rarity.color = Color.blue;
+                break;
+            case "epic":
+                Rarity.color = new Color(1f, 0.5f, 0f); // orange color
+                break;
+            case "legend":
+                Rarity.color = Color.red;
+                break;
+            default:
+                Rarity.color = Color.white; // default color if rarity is unknown
+                break;
+        }
     }
     public void select()
     {

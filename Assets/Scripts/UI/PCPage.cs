@@ -33,15 +33,15 @@ namespace PC.UI
         //public Sprite PCimage, pcase, pmb, pcpu, pcpuf, pram, pgpu, pstrg, ppsu;
         //public string pcname, pcprice, casen, mbn, cpun, cpufn, ramn, gpun, strgn, psun;
         public event Action<int> OnDescriptionRequested, OnItemActionRequested;
-        public void UpdateDescription(int index,Sprite pcsprite, Sprite casesprite, Sprite mbsprite, Sprite cpusprite, Sprite cpufsprite, Sprite ramsprite, Sprite gpusprite, Sprite strgsprite, Sprite psusprite,
-        string PCname, string Casename, string mbname, string cpuname, string cpufname, string ramname, string gpuname, string strgname, string psuname, bool InUse, string perks)
+        public void UpdateDescription(int index, Sprite pcsprite, Sprite casesprite, Sprite mbsprite, Sprite cpusprite, Sprite cpufsprite, Sprite ramsprite, Sprite gpusprite, Sprite strgsprite, Sprite psusprite,
+string PCname, string Casename, string mbname, string cpuname, string cpufname, string ramname, string gpuname, string strgname, string psuname, bool InUse, string perks,
+string CaseRarityText, string MBRarityText, string CPURarityText, string CPUFRarityText, string RAMRarityText, string GPURarityText, string STRGRarityText, string PSURarityText)
         {
-
-            PCDescription.SetDescription(pcsprite, casesprite,mbsprite,  cpusprite, cpufsprite, ramsprite,  gpusprite, strgsprite, psusprite,
-            PCname,  Casename, mbname,  cpuname,  cpufname,  ramname,  gpuname, strgname, psuname, InUse, perks);
+            PCDescription.SetDescription(pcsprite, casesprite, mbsprite, cpusprite, cpufsprite, ramsprite, gpusprite, strgsprite, psusprite,
+            PCname, Casename, mbname, cpuname, cpufname, ramname, gpuname, strgname, psuname, InUse, perks,
+            CaseRarityText, MBRarityText, CPURarityText, CPUFRarityText, RAMRarityText, GPURarityText, STRGRarityText, PSURarityText);
             DeselectAllItems();
             ListOfPCs[index].Select();
-
         }
 
         public void Start()

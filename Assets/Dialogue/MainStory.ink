@@ -55,8 +55,8 @@ Now I want you to put your <color=orange>Case</color>  in the Table First #speak
 
 === sixthDoneCase ===
 Nice! {player_Name} #speaker: Ian #portrait: 2
-Next is the <color=pink>Motherboard</color>  #speaker: Ian #portrait: 2
-(Click the <color=pink>Motherboard Button</color> and Select the Motherboard) #speaker: PCRush #portrait: 5
+Next is the <color=magenta>Motherboard</color>  #speaker: Ian #portrait: 2
+(Click the <color=magenta>Motherboard Button</color> and Select the Motherboard) #speaker: PCRush #portrait: 5
 (Click the <color=green>Use Button</color> to Place the Motherboar) #speaker: PCRush #portrait: 5
 -> DONE
 
@@ -71,8 +71,8 @@ Or what we called The Processor #speaker: Ian #portrait: 2
 === sixthDoneCPU ===
 Great! {player_Name} #speaker: Ian #portrait: 2
 Next thing is, we need to cool off the CPU to process the data smoothly #speaker: Ian #portrait: 2
-so we need to the <color=cyan>CPU FAN</color> to it #speaker: Ian #portrait: 2
-(Click the <color=cyan>CPU FAN Button</color> and Select the CPU FAN that you want) #speaker: PCRush #portrait: 5
+so we need to the <color=aqua>CPU FAN</color> to it #speaker: Ian #portrait: 2
+(Click the <color=aqua>CPU FAN Button</color> and Select the CPU FAN that you want) #speaker: PCRush #portrait: 5
 (Click the <color=green>Use Button</color> to Place the CPU FAN) #speaker: PCRush #portrait: 5
 -> DONE
 
@@ -92,9 +92,9 @@ Next the Graphics Processing unit of your Computer or in short the <color=yellow
 
 === sixthDoneGPU ===
 Nicely done! {player_Name} #speaker: Ian #portrait: 2
-Next the is the <color=cyan>Storage</color> of your computer #speaker: Ian #portrait: 2
+Next the is the <color=aqua>Storage</color> of your computer #speaker: Ian #portrait: 2
 it can be SSD or HDD but for now use the one that you have #speaker: Ian #portrait: 2
-(Click the <color=cyan>Storage Button</color> and Select the Storage that you want) #speaker: PCRush #portrait: 5
+(Click the <color=aqua>Storage Button</color> and Select the Storage that you want) #speaker: PCRush #portrait: 5
 (Click the <color=green>Use Button</color> to Place the Storage) #speaker: PCRush #portrait: 5
 -> DONE
 
@@ -108,12 +108,12 @@ to power up your Compter #speaker: Ian #portrait: 2
 
 === sixthDonePSU ===
 Excellent! {player_Name} now install the Operating System of your Computer #speaker: Ian #portrait: 2
-(Click the Done Button to Turn On and install the OS, and then click the Install Button and wait for it) #speaker: PCRush #portrait: 5
+(Click the <color=lightblue>Done Button</color> to Turn On and install the OS, and then click the Install Button and wait for it) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneClick ===
 Wow! {player_Name}, Now your PC Boots Up we just need to install the OS #speaker: Ian #portrait: 2
-(Click the Install Button to install the OS and wait for it) #speaker: PCRush #portrait: 5
+(Click the <color=aqua>Install Button</color> to install the OS and wait for it) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneInstall ===
@@ -126,7 +126,7 @@ Wow, Your PC is ready to go do you have any other desk or room to place your set
 Yes I have an storage room but now is empty, its just the desk in there, #speaker: {player_Name} #portrait: 0
 it is a perfect place to setup this PC #speaker: {player_Name} #portrait: 0
 Ok, Lets go back to your room #speaker: Ian #portrait: 2
-(Click the Back Button) #speaker: PCRush #portrait: 5
+(Click the <color=red>Back Button</color>) #speaker: PCRush #portrait: 5
 -> DONE
 
 === Seventh ===
