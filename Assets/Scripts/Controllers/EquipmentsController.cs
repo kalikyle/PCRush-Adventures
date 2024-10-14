@@ -195,12 +195,12 @@ public class EquipmentsController : MonoBehaviour
 
     private void ShowItemsByIndexRange(int from, int to)
     {
-
+        //Debug.LogError(from + " " + to);
         swordsPage.ResetSelection();
         swordsPage.SwordBuy.filteredItems.Clear();
         SwordtempToOriginalIndexMapping.Clear();
         swordsPage.ClearItems(); // Clear the existing items in the UI
-        
+        //Debug.LogError(swordsData.Sword.Count);
         // Validate the range
         if (from < 0 || to >= swordsData.Sword.Count || from > to)
         {
@@ -215,21 +215,23 @@ public class EquipmentsController : MonoBehaviour
         for (int i = from; i <= to; i++)
         {
             var item = swordsData.Sword[i];
+            //Debug.LogError($"Item {i}: {item.item.Name}, isEmpty: {item.isEmpty}, SpriteIndex: {item.item.SpriteIndex}");
+
 
             if (!item.isEmpty)
             {
                 // Add items to the filtered list and store the mapping
                 swordsPage.SwordBuy.filteredItems.Add(item); // Then add to filteredItems
-
+               
                 SwordtempToOriginalIndexMapping[tempIndex] = originalIndex;
 
                 var spriteArray = GameManager.instance.SpriteCollections.Layers;
 
                 int spriteIndex = item.item.SpriteIndex;
+                //Debug.LogError($"SpriteIndex: {spriteIndex}, spriteArray[8].Textures.Count: {spriteArray[8].Textures.Count}");
 
-
-                if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-                {
+                //if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+               // {
 
 
 
@@ -251,10 +253,15 @@ public class EquipmentsController : MonoBehaviour
                     swordsPage.AddShopItem(sprite,item.item.Name, item.item.Price.ToString(), perks);
                     originalIndex++;
                     tempIndex++;
-                }
+                //}
+                //else
+                //{
+                //    Debug.LogError("Sprite index out of range!");
+                //}
 
-               
+
             }
+            
         }
     }
 
@@ -328,8 +335,7 @@ public class EquipmentsController : MonoBehaviour
                 int spriteIndex = item.item.SpriteIndex;
 
 
-                if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-                {
+                
 
                     Texture2D texture = spriteArray[3].Textures[spriteIndex];
                     Texture2D text2 = spriteArray[3].GetIcon(texture);
@@ -352,7 +358,7 @@ public class EquipmentsController : MonoBehaviour
                     armorsPage.AddShopItem(sprite, item.item.Name, item.item.Price.ToString(), perks);
                     originalIndex++;
                     tempIndex++;
-                }
+                
 
 
             }
@@ -509,8 +515,7 @@ public class EquipmentsController : MonoBehaviour
                 int spriteIndex = item.item.SpriteIndex;
 
 
-                if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-                {
+                
 
                     Texture2D texture = spriteArray[7].Textures[spriteIndex];
                     Texture2D text2 = spriteArray[7].GetIcon(texture);
@@ -533,7 +538,7 @@ public class EquipmentsController : MonoBehaviour
                     helmetPage.AddShopItem(sprite, item.item.Name, item.item.Price.ToString(), perks);
                     originalIndex++;
                     tempIndex++;
-                }
+                
 
 
             }
@@ -648,7 +653,7 @@ public class EquipmentsController : MonoBehaviour
         shieldPage.ShieldBuy.filteredItems.Clear();
         ShieldtempToOriginalIndexMapping.Clear();
         shieldPage.ClearItems(); // Clear the existing items in the UI
-
+        
         // Validate the range
         if (from < 0 || to >= shieldData.Shield.Count || from > to)
         {
@@ -676,8 +681,7 @@ public class EquipmentsController : MonoBehaviour
                 int spriteIndex = item.item.SpriteIndex;
 
 
-                if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-                {
+               
 
                     Texture2D texture = spriteArray[1].Textures[spriteIndex];
                     Texture2D text2 = spriteArray[1].GetIcon(texture);
@@ -700,7 +704,7 @@ public class EquipmentsController : MonoBehaviour
                     shieldPage.AddShopItem(sprite, item.item.Name, item.item.Price.ToString(), perks);
                     originalIndex++;
                     tempIndex++;
-                }
+                
 
 
             }

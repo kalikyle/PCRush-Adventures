@@ -55,8 +55,8 @@ Now I want you to put your <color=orange>Case</color>  in the Table First #speak
 
 === sixthDoneCase ===
 Nice! {player_Name} #speaker: Ian #portrait: 2
-Next is the <color=magenta>Motherboard</color>  #speaker: Ian #portrait: 2
-(Click the <color=magenta>Motherboard Button</color> and Select the Motherboard) #speaker: PCRush #portrait: 5
+Next is the <color=green>Motherboard</color>  #speaker: Ian #portrait: 2
+(Click the <color=green>Motherboard Button</color> and Select the Motherboard) #speaker: PCRush #portrait: 5
 (Click the <color=green>Use Button</color> to Place the Motherboar) #speaker: PCRush #portrait: 5
 -> DONE
 
@@ -71,8 +71,8 @@ Or what we called The Processor #speaker: Ian #portrait: 2
 === sixthDoneCPU ===
 Great! {player_Name} #speaker: Ian #portrait: 2
 Next thing is, we need to cool off the CPU to process the data smoothly #speaker: Ian #portrait: 2
-so we need to the <color=aqua>CPU FAN</color> to it #speaker: Ian #portrait: 2
-(Click the <color=aqua>CPU FAN Button</color> and Select the CPU FAN that you want) #speaker: PCRush #portrait: 5
+so we need to the <color=green>CPU FAN</color> to it #speaker: Ian #portrait: 2
+(Click the <color=green>CPU FAN Button</color> and Select the CPU FAN that you want) #speaker: PCRush #portrait: 5
 (Click the <color=green>Use Button</color> to Place the CPU FAN) #speaker: PCRush #portrait: 5
 -> DONE
 
@@ -92,9 +92,9 @@ Next the Graphics Processing unit of your Computer or in short the <color=yellow
 
 === sixthDoneGPU ===
 Nicely done! {player_Name} #speaker: Ian #portrait: 2
-Next the is the <color=aqua>Storage</color> of your computer #speaker: Ian #portrait: 2
+Next the is the <color=green>Storage</color> of your computer #speaker: Ian #portrait: 2
 it can be SSD or HDD but for now use the one that you have #speaker: Ian #portrait: 2
-(Click the <color=aqua>Storage Button</color> and Select the Storage that you want) #speaker: PCRush #portrait: 5
+(Click the <color=green>Storage Button</color> and Select the Storage that you want) #speaker: PCRush #portrait: 5
 (Click the <color=green>Use Button</color> to Place the Storage) #speaker: PCRush #portrait: 5
 -> DONE
 

@@ -1204,12 +1204,23 @@ PlayerTotalWalkSpeed = 1;
     {
         PartsController.HandleBackItem(category);
     }
+    public byte[] GetItemImageAsByteArray(Sprite sprite)
+    {
+        if (sprite == null) return null;
+
+        // Create a new texture and set its pixels
+        Texture2D texture = sprite.texture;
+        byte[] imageData = texture.EncodeToPNG(); // Converts to PNG format
+        return imageData;
+    }
 
     public string clickedInventoryItemID;
     public async Task SavePCSO(PCSO pcso)
     {
         // Convert the PCSO object to JSON
         string pcsoJson = JsonUtility.ToJson(pcso);
+
+        byte[] imageData = GetItemImageAsByteArray(pcso.PCImage);
 
         // Get a reference to the Firestore document where you want to store the PCSO data
         DocumentReference docRef = FirebaseFirestore.DefaultInstance
@@ -1219,7 +1230,17 @@ PlayerTotalWalkSpeed = 1;
             .Document();
 
         // Set the data in the Firestore document using the generated document ID
-        await docRef.SetAsync(new Dictionary<string, object> { { "PC", pcsoJson } });
+        //await docRef.SetAsync(new Dictionary<string, object> { { "PC", pcsoJson } });
+        var dataToSave = new Dictionary<string, object>
+        {
+        { "PC", pcsoJson }
+        };
+
+        if (imageData != null)
+        {
+            dataToSave.Add("ItemImage", Convert.ToBase64String(imageData)); // Store as Base64 string
+        }
+        await docRef.SetAsync(dataToSave);
 
         pcsoDocumentIds.Insert(0, docRef.Id);
 
