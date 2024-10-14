@@ -71,7 +71,7 @@ public class ImageSpriteAnimation : MonoBehaviour
             {
 
                 Func_StopUIAnim();
-
+                GameManager.instance.OnDeskBackButton.interactable = true;
             }
         }
 
@@ -82,7 +82,7 @@ public class ImageSpriteAnimation : MonoBehaviour
     public void TurnOn() {
         TurnOnPC = true;
 
-        
+        GameManager.instance.OnDeskBackButton.interactable = false;
 
         Func_PlayUIAnim();
 
@@ -98,6 +98,7 @@ public class ImageSpriteAnimation : MonoBehaviour
         PCC.CloseDesktop();
         TurnOnPC = false;
         Func_PlayUIAnim();
+
         
     }
 

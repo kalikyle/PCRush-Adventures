@@ -1644,16 +1644,13 @@ namespace PC
         private void HandleDescriptionRequest(int PCindex)
         {
             Computer PCs = PCData.GetItemAt(PCindex);
-            if(PCs.isEmpty) { return; }
+            if (PCs.isEmpty) { return; }
             PCSO PCitems = PCs.PC;
 
-
             PCpage.UpdateDescription(PCindex, PCitems.Case.ItemImage, PCitems.Case.ItemImage, PCitems.Motherboard.ItemImage, PCitems.CPU.ItemImage, PCitems.CPUFan.ItemImage, PCitems.RAM.ItemImage, PCitems.GPU.ItemImage, PCitems.STORAGE.ItemImage, PCitems.PSU.ItemImage,
-            PCitems.PCName, PCitems.Case.Name, PCitems.Motherboard.Name, PCitems.CPU.Name, PCitems.CPUFan.Name, PCitems.RAM.Name, PCitems.GPU.Name, PCitems.STORAGE.Name, PCitems.PSU.Name, PCitems.inUse, ItemPerks(PCitems));
+            PCitems.PCName, PCitems.Case.Name, PCitems.Motherboard.Name, PCitems.CPU.Name, PCitems.CPUFan.Name, PCitems.RAM.Name, PCitems.GPU.Name, PCitems.STORAGE.Name, PCitems.PSU.Name, PCitems.inUse, ItemPerks(PCitems),
+            PCitems.Case.rarity, PCitems.Motherboard.rarity, PCitems.CPU.rarity, PCitems.CPUFan.rarity, PCitems.RAM.rarity, PCitems.GPU.rarity, PCitems.STORAGE.rarity, PCitems.PSU.rarity);
             PCIndexOutside = PCindex;
-
-
-
         }
 
 
