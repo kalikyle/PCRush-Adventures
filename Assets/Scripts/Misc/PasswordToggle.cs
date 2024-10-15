@@ -10,7 +10,7 @@ public class PasswordToggle : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public TMP_InputField passwordInputField; // Assign your Input Field in the Inspector
     public Button toggleButton; // Assign your Button in the Inspector
 
-    private bool isPasswordVisible = false;
+    //private bool isPasswordVisible = false;
     void Start()
     {
         // Add a listener to the EventTrigger component of the Button
@@ -29,21 +29,21 @@ public class PasswordToggle : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void TogglePasswordVisibility()
     {
-        isPasswordVisible = true;
+        //isPasswordVisible = true;
         passwordInputField.contentType = TMP_InputField.ContentType.Standard; // Show password
         passwordInputField.ForceLabelUpdate();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isPasswordVisible = true;
+        //isPasswordVisible = true;
         passwordInputField.contentType = TMP_InputField.ContentType.Standard; // Show password
         passwordInputField.ForceLabelUpdate();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isPasswordVisible = false;
+        //isPasswordVisible = false;
         passwordInputField.contentType = TMP_InputField.ContentType.Password; // Hide password
         passwordInputField.ForceLabelUpdate();
     }

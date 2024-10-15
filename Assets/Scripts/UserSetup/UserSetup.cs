@@ -194,7 +194,7 @@ public class UserSetup : MonoBehaviour
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //Debug.LogError("Error checking internet connection: " + e.Message);
             InternetText.text = "No Internet";
