@@ -57,6 +57,11 @@ public class LevelUpSystem : MonoBehaviour
             
             GameManager.instance.PlayerLevel += 1;
             GameManager.instance.PlayerExpToLevelUp *= 2;
+
+            GameManager.instance.PlayerHealth += 100;
+            GameManager.instance.PlayerMana += 100;
+            GameManager.instance.PlayerArmor += 50;
+
             AchievementManager.instance.CheckAchievements();
             LevelUpNumber.text = GameManager.instance.PlayerLevel.ToString();
             GameManager.instance.SaveCharInfo(GameManager.instance.UserID, GameManager.instance.PlayerName);
