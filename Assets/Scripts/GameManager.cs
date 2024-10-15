@@ -965,6 +965,7 @@ PlayerTotalWalkSpeed = 1;
     public void OnApplicationQuit()
     {
         SaveCharInfo(UserID, PlayerName);
+        InGamePanel.SetActive(false);   
     }
 
     public void GetPCStats(double AttackDamage, double Health, double Mana, double HealthRegen, double WalkSpeed, double Armor, double ManaRegen, double CriticalChance)

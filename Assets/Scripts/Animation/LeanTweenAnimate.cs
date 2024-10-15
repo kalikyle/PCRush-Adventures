@@ -497,7 +497,7 @@ public class LeanTweenAnimate : MonoBehaviour
     }
 
 
-    public GameObject LevelUpUI, LevelUpCircle, LevelText, LevelUpText, NiceBTN, YouUnlockPartsText, MapImage, MapText, KeepUpText;
+    public GameObject LevelUpUI, LevelUpCircle, LevelText, LevelUpText, NiceBTN, YouUnlockPartsText, MapImage, MapText, KeepUpText,addedstats;
 
 
     public void PlayLevelUp()
@@ -517,6 +517,7 @@ public class LeanTweenAnimate : MonoBehaviour
 
         // Show YouUnlockPartsText with scale animation
         LeanTween.scale(YouUnlockPartsText, new Vector3(1.1f, 1.1f, 1.1f), 0.5f).setEase(LeanTweenType.easeOutCubic).setDelay(1.5f);
+        LeanTween.scale(addedstats, new Vector3(1.1f, 1.1f, 1.1f), 0.5f).setEase(LeanTweenType.easeOutCubic).setDelay(1.5f);
 
         // Fade in MapImage and show MapText with scale animation
         LeanTween.alpha(MapImage.GetComponent<RectTransform>(), 1f, 0.5f).setDelay(2f);
@@ -538,6 +539,7 @@ public class LeanTweenAnimate : MonoBehaviour
         LevelText.transform.localScale = Vector3.zero;
         LevelUpText.transform.localScale = Vector3.zero;
         YouUnlockPartsText.transform.localScale = Vector3.zero;
+        addedstats.transform.localScale = Vector3.zero;
         LeanTween.alpha(MapImage.GetComponent<RectTransform>(), 0f, 0.5f);
         MapText.transform.localScale = Vector3.zero;
         KeepUpText.transform.localScale = Vector3.zero;

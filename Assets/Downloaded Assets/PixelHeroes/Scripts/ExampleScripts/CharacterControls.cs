@@ -753,17 +753,14 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 armor.currentArmor = armor.maxArmor; // Restore armor
             }
 
-          
-            //_animator.SetBool("Running", false);
-           
+
+            await Task.Delay(1000);
+            // Reset animator parameters
             _animator.SetBool("Dead", false);
-
-
-            await Task.Delay(2000);
-            //Reset animator parameters
-           
-            _animator.SetBool("Idle", true);
+            _animator.SetBool("Idle", true); // Ensure Idle is set
             isDeadAnimate = false;
+
+            
             //_animator.SetTrigger("Jab");
         }
 

@@ -300,7 +300,7 @@ public class InternetChecker : MonoBehaviour
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //Debug.LogError("Error checking internet connection: " + e.Message);
             internetStatusText.text = "No Internet";
@@ -348,9 +348,9 @@ public class InternetChecker : MonoBehaviour
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Debug.LogError("Error checking internet connection: " + e.Message);
+            //Debug.LogError("Error checking internet connection: " + e.Message);
             internetStatusText.text = "No Internet";
             internetStatusText.color = Color.red; // Indicate an error
             return false; // Assume no internet on error
