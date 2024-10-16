@@ -161,6 +161,7 @@ public class HorderManager : MonoBehaviour
 
     private void StartHorde(HordeConfig config)
     {
+        GameManager.instance.ShowFloatingText("<color=yellow>ELIMINATE THE ENEMIES AND COLLECT MATERIALS</color>");
         currentHordeConfig = config;
         config.countdownTime = 120f; // Reset the countdown time to 2 minutes
         isTimerRunning = true; // Start the timer
