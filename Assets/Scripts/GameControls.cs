@@ -6,15 +6,16 @@ using UnityEngine.SceneManagement;
 public class GameControls : MonoBehaviour
 {
 
-    public SettingsScript Settings;
+    public GameObject Settings;
     // Update is called once per frame
     void Update()
     {
+        bool isMySceneActive = IsSceneActive(1);
+        Debug.LogError(isMySceneActive);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            bool isMySceneActive = IsSceneActive("PCRush CharacterEditor");
-
-            if (!isMySceneActive) {
+            
+            if (isMySceneActive == false) {
 
                 OpenSettings();
             }
@@ -25,7 +26,7 @@ public class GameControls : MonoBehaviour
 
     public void OpenSettings()
     {
-        if (Settings.isActiveAndEnabled == false)
+        if (Settings.activeSelf == false)
         {
             Settings.gameObject.SetActive(true);
         }
@@ -37,12 +38,24 @@ public class GameControls : MonoBehaviour
         }
     }
 
-    public bool IsSceneActive(string sceneName)
+    public bool IsSceneActive(int sceneIndex)
     {
-        // Get the currently active scene
-        Scene activeScene = SceneManager.GetActiveScene();
+        // Check if the scene at the provided index is active
+        if (SceneManager.GetSceneByBuildIndex(sceneIndex).IsValid())
+        {
+            // Get the name of the scene
+            string sceneName = SceneManager.GetSceneByBuildIndex(sceneIndex).name;
 
-        // Check if the active scene's name matches the provided scene name
-        return activeScene.name == sceneName;
+            // Print the scene name to the debug console
+            Debug.LogError("Active scene: " + sceneName);
+
+            // Return true if the scene is active
+            return true;
+        }
+        else
+        {
+            // Return false if the scene is not active
+            return false;
+        }
     }
 }

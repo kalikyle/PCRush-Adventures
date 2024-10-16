@@ -102,7 +102,7 @@ public class DialogueManager : MonoBehaviour
         
         
 
-        if (Input.GetKeyDown(KeyCode.F)){
+        if (Input.GetKeyDown(KeyCode.Space)){
             ContinueStory();
         }
        
