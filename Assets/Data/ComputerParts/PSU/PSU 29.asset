@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: PSU 29
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: fc05b961-9f17-40a1-bff9-aa5975eede8b
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: ShieldWatt 1100W

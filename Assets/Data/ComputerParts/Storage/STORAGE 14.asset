@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: STORAGE 14
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 17900566-eb69-4b02-803b-0e7194f3a2ef
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: RazorDrive 600GB

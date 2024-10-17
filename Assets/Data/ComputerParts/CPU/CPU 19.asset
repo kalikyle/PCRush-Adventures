@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: CPU 19
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: c56a3a2e-928f-4c9f-be4a-449c9fba247c
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: BioChip R9

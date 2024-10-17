@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: STORAGE 9
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: c04d4c32-8e3c-4689-bbfc-a482011a9d6a
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: IceFlash 126GB

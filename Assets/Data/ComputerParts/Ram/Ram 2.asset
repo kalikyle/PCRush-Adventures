@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Ram 2
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: f2443f31-59d5-45cc-9a7c-87d0f44e06fe
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: HyperByte 2GB

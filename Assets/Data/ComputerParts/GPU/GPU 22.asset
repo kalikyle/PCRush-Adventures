@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: GPU 22
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: e02c89a0-9beb-4a68-a847-2a4fba5ca9cc
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: TerraGraph GTX 3500

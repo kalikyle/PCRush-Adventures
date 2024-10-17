@@ -72,3 +72,9 @@ TagManager:
   - name: Player
     uniqueID: 2227080029
     locked: 0
+  - name: CharEditor
+    uniqueID: 905369695
+    locked: 0
+  - name: Dialogue
+    uniqueID: 2160293881
+    locked: 0

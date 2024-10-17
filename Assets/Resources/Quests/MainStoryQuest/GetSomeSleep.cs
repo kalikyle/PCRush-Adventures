@@ -68,6 +68,7 @@ public class GetSomeSleep : QuestStep
 
             GameManager.instance.OnSleepQuest = false;
             GameManager.instance.OnSleepFinish = false;
+            GameManager.instance.OnDeskBackButton.interactable = true;
         }
     }
 

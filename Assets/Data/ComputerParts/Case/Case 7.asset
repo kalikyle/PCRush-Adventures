@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Case 7
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: b754692e-9b61-434f-b88b-eab5a5f3167c
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: ElectroVault 7

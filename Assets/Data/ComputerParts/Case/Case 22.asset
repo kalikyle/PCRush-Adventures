@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Case 22
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 18ada4ce-c70b-4118-ae07-6b64c113883f
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: Fortress V2 Max

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Ram 21
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: d98bfdf3-1553-4966-8c9a-1d1177f7accd
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: FrostStick 32GB

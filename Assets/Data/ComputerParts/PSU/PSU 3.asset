@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: PSU 3
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: acd9c2ca-42ce-4b34-886b-2b0a5e7b3f0f
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: FusionWatt 250W

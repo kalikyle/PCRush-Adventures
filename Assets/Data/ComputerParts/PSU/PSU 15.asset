@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: PSU 15
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: e7e684a5-192a-4a1c-bdff-d8cd716e7e76
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: HyperVolt 650W

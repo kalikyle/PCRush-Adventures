@@ -6,6 +6,7 @@ using Firebase;
 using Firebase.Auth;
 using Firebase.Extensions;
 using Firebase.Firestore;
+using Inventory.Model;
 using OtherWorld;
 using OtherWorld.Model;
 using PartsInventory;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     public string UserCollection = "users";
     public static GameManager instance;
     public CharacterBuilder charBuilder;
+    public ShopSO2 inventdata2;
     public SpriteCollection SpriteCollections;
     public ShopController SC;
     public DecorController DC;
@@ -1234,7 +1236,32 @@ PlayerTotalWalkSpeed = 1;
         //await docRef.SetAsync(new Dictionary<string, object> { { "PC", pcsoJson } });
         var dataToSave = new Dictionary<string, object>
         {
-        { "PC", pcsoJson }
+        //{ "PC", pcsoJson }
+        { "PCName", pcso.PCName },
+        { "Case", ConvertPartToDictionary(pcso.Case) },
+        { "Motherboard", ConvertPartToDictionary(pcso.Motherboard) },
+        { "CPU", ConvertPartToDictionary(pcso.CPU) },
+        { "GPU", ConvertPartToDictionary(pcso.GPU) },
+        { "RAM", ConvertPartToDictionary(pcso.RAM) },
+        { "STORAGE", ConvertPartToDictionary(pcso.STORAGE) },
+        { "PSU", ConvertPartToDictionary(pcso.PSU) },
+        { "CPUFan", ConvertPartToDictionary(pcso.CPUFan) }, // CPU Fan if present
+        { "PCImage", pcso.PCImage != null ? Convert.ToBase64String(GetItemImageAsByteArray(pcso.PCImage)) : null }, // Save image as Base64
+
+        // Perks
+        { "AttackDamage", pcso.AttackDamage },
+        { "Health", pcso.Health },
+        { "Mana", pcso.Mana },
+        { "HealthRegen", pcso.HealthRegen },
+        { "ManaRegen", pcso.ManaRegen },
+        { "WalkSpeed", pcso.WalkSpeed },
+        { "Armor", pcso.Armor },
+        { "CriticalChance", pcso.CriticalChance },
+
+        // Other fields if necessary
+        { "InUse", pcso.inUse }
+
+
         };
 
         if (imageData != null)
@@ -1245,6 +1272,72 @@ PlayerTotalWalkSpeed = 1;
 
         pcsoDocumentIds.Insert(0, docRef.Id);
 
+    }
+    public Dictionary<string, object> ConvertPartToDictionary(PartsSO part)
+    {
+        if (part == null) return null;
+
+        return new Dictionary<string, object>
+    {
+         { "UniqueID", part.UniqueID },
+        { "IsStackable", part.IsStackable },
+        { "MaxStackableSize", part.MaxStackableSize },
+        { "Name", part.Name },
+        { "Rarity", part.rarity },
+        { "Category", part.Category },
+        { "Price", part.Price },
+        
+        // Perks
+        { "AttackDamage", part.AttackDamage },
+        { "Health", part.Health },
+        { "Mana", part.Mana },
+        { "HealthRegen", part.HealthRegen },
+        { "ManaRegen", part.ManaRegen },
+        { "WalkSpeed", part.WalkSpeed },
+        { "Armor", part.Armor },
+        { "CriticalChance", part.CriticalChance },
+        
+        // Stats
+        { "CaseStrength", part.CaseStrength },
+
+        // Motherboard
+        { "MotherboardStrength", part.MotherboardStrength },
+        { "CPUSocket", part.CPUSocket },
+        { "RAMSlot", part.RAMSlot },
+
+        // CPU
+        { "BaseSpeed", part.BaseSpeed },
+        { "CPUSupportedSocket", part.CPUSupportedSocket },
+
+        // RAM
+        { "Memory", part.Memory },
+        { "RAMSupportedSlot", part.RAMSupportedSlot },
+
+        // CPU Fan
+        { "CoolingPower", part.CoolingPower },
+
+        // GPU
+        { "ClockSpeed", part.ClockSpeed },
+
+        // Storage
+        { "Storage", part.Storage },
+
+        // PSU
+        { "WattagePower", part.WattagePower }
+    };
+    }
+    public PartsSO FindPartByUniqueID(string uniqueID)
+    {
+        // Assuming you have a collection or list of all parts, such as allParts in the GameManager
+        foreach (var part in inventdata2.ShopItem2s)
+        {
+            if (part.item.UniqueID == uniqueID)
+            {
+                return part.item;
+            }
+        }
+        Debug.LogWarning($"Part with UniqueID: {uniqueID} not found.");
+        return null;
     }
 
     //public async Task SaveOWItemss(OtherWorldItemSO invItem, int quantity) // previous versions of save ow Items
@@ -1322,10 +1415,10 @@ PlayerTotalWalkSpeed = 1;
 
     //            await docSnapshot.Reference.UpdateAsync(new Dictionary<string, object> { { "Quantity", newQuantity } });
 
-               
+
 
     //        }
-            
+
     //    }
 
     //    if(itemExists == false) 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: STORAGE 5
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 9e877e0f-af2d-4a8b-b263-5dbf084c3f7e
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: FusionFlash S500GB

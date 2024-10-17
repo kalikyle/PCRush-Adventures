@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Case 2
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 801da11a-7b4f-4447-92ac-4436ab72d267
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: Redish Case

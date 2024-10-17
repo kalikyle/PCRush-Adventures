@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Ram 16
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: ec91fef0-b22d-49ac-aa92-4a563185f001
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: AeroStick 16GB

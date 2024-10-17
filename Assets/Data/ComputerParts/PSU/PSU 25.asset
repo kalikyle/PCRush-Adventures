@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: PSU 25
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: cf77e421-ead7-496d-a01d-3fd447a9e36e
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: KrakenWatt 750W

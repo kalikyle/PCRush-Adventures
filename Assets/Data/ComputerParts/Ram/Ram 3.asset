@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Ram 3
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 486ded71-2a15-4402-b583-b65b46ef6ee9
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: PowerStick 2GB

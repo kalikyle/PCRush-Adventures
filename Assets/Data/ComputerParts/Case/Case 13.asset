@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Case 13
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 20277942-8946-489d-adea-9f7b8ac5a242
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: NovaShell 750

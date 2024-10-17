@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: CPU Fan 4
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 7ee2ef43-7470-41e8-9287-106f06a5ec77
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: FrostMaster Z100

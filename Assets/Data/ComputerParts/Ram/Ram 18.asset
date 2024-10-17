@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Ram 18
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 7e779964-47e6-466c-b32d-4f5146cc20b2
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: NitroByte 16GB

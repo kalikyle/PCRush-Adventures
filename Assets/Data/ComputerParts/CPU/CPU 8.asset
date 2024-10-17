@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: CPU 8
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 44836add-312c-4538-b8b4-71f517c96880
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: TitanChip G5

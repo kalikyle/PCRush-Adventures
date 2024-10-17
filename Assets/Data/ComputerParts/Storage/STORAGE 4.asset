@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: STORAGE 4
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: a9b09a5e-6773-4ae2-83db-3bd5d33dcd30
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: Pulse Disk Z500GB
