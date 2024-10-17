@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: PSU 1
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: c8a054ea-216d-4f49-b684-93f5c2e2db13
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: CoreVolt 250W

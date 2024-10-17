@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: STORAGE 19
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: f4cfab71-78b9-47e8-ab64-de96db3f900c
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: TitanDrive 2TB

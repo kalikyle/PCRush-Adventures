@@ -13,7 +13,7 @@ public class unloadscene : MonoBehaviour
     public UserSetup userSetup;
     void Start()
     {
-        GameManager.instance.StartQuest();
+        //GameManager.instance.StartQuest();
         SceneManager.UnloadSceneAsync(1);
         GameManager.instance.LoadCharacter();
         GameManager.instance.SaveCharInfo(GameManager.instance.UserID, charedit.playerName.text);

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: GPU 1
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 0e34df93-a01e-4acf-a9d4-244478a4e630
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: NovaCard 550XT

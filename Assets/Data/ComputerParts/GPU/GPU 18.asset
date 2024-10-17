@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: GPU 18
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 35a6e7e8-a5b8-477c-a9f2-2a8e50ee06ae
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: PhantomVision 8XT

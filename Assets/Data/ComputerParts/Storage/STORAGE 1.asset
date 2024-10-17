@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: STORAGE 1
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: b8604d95-9287-44f6-aa1a-04b7dc839f85
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: HyperDisk 80GB

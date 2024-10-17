@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Case 8
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: a638c963-1bee-4d74-b68f-e81ee7445109
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: Megahull Systems 300

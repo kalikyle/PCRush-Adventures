@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: PSU 22
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: d0060e8e-1039-4390-b2cf-8ffd9bee7899
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: BlackVolt 750W

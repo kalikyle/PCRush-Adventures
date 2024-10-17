@@ -9,6 +9,9 @@ namespace PartsInventory.Model
     public class PartsSO : ScriptableObject
     {
         [field: SerializeField]
+        public string UniqueID { get; private set; }
+
+        [field: SerializeField]
         public bool IsStackable { get; set; }
 
         public int ID => GetInstanceID();
@@ -106,6 +109,13 @@ namespace PartsInventory.Model
 
 
 
-
+        private void OnValidate()
+        {
+            if (string.IsNullOrEmpty(UniqueID))
+            {
+                UniqueID = Guid.NewGuid().ToString();
+                UnityEditor.EditorUtility.SetDirty(this);
+            }
+        }
     }
 }

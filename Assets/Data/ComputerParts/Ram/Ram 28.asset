@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Ram 28
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 3eb41ed8-95b9-48ec-87c7-12e3c6c32b83
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: PyroRam 64GB

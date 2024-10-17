@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: GPU 25
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 2d423fdc-910e-4d1e-9f3b-538d108fab07
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: Xintel TitanVibe 8800X

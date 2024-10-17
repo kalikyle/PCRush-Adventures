@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: CPU 9
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 2f08fb4a-3f7e-441d-801c-2148395bf8a3
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: OmniCore 5000

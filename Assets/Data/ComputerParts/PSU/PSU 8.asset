@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: PSU 8
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 4dccb8ab-2061-4ddd-a0c1-26f6a535e754
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: StormWatt 250W

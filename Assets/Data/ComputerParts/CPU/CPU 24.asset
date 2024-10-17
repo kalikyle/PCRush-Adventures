@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: CPU 24
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 44f0ea1d-5cce-41e5-859e-ce8f52df9c02
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: CoreMax 777

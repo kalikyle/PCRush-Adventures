@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: GPU 20
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 5298aa3b-1df9-434d-8199-88dbdeecf742
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: StealthGraph 2060G

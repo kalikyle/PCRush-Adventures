@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Case 10
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 84602daa-78d6-4d09-969d-90db7e971b4d
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: BlastX Armor 9 Pro

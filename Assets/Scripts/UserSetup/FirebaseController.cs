@@ -260,6 +260,7 @@ public class FirebaseController : MonoBehaviour
         GameManager.instance.SaveSoldItems();
         await Task.Delay(1000);
         GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
+        AtNewUser();
         //await Task.Delay(1000);
         //GameManager.instance.PartsController.LoadPartsItems();
         //await Task.Delay(1000);
@@ -572,6 +573,7 @@ public class FirebaseController : MonoBehaviour
                 await Task.Delay(1000);
                 GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
                 isSigned = true;
+                AtNewUser();
 
             }
 
@@ -639,6 +641,16 @@ public class FirebaseController : MonoBehaviour
                 }
             });
         return Task.CompletedTask;
+    }
+
+    public async void AtNewUser()
+    {
+        GameManager.instance.charBuilder.SaveChanges();
+        GameManager.instance.SaveCharInfo(GameManager.instance.UserID, "Player1");
+        GameManager.instance.LoadCharacter();
+        GameManager.instance.charBuilder.CombineHeadAndHairSprites();
+        await Task.Delay(500);
+        GameManager.instance.StartQuest();
     }
 
     public void UnloadThisSceneForExist()

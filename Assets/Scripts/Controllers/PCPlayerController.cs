@@ -2,6 +2,7 @@ using Exchanger.Model.CaseWorld;
 using Firebase.Firestore;
 using Inventory;
 using Inventory.Model;
+using Mono.Cecil.Cil;
 using Orders.Model;
 using PartsInventory;
 using PartsInventory.Model;
@@ -373,16 +374,92 @@ namespace PC
                     GameManager.instance.pcsoDocumentIds.Add(documentId);
 
                     // Deserialize the PCSO data from the Firestore document
-                    string pcsoJson = docSnapshot.GetValue<string>("PC");
+                    string PCName = docSnapshot.GetValue<string>("PCName");
+                    int Armor = docSnapshot.GetValue<int>("Armor");
+                    int AttackDamage = docSnapshot.GetValue<int>("AttackDamage");
+                    int Health = docSnapshot.GetValue<int>("Health");
+                    int HealthRegen = docSnapshot.GetValue<int>("HealthRegen");
+                    int Mana = docSnapshot.GetValue<int>("Mana");
+                    int ManaRegen = docSnapshot.GetValue<int>("ManaRegen");
+                    int WalkSpeed = docSnapshot.GetValue<int>("WalkSpeed");
+                    int CriticalChance = docSnapshot.GetValue<int>("CriticalChance");
+                    bool InUse = docSnapshot.GetValue<bool>("InUse");
                     string itemImageBase64 = docSnapshot.GetValue<string>("ItemImage");
 
-                    if (!string.IsNullOrEmpty(pcsoJson))
-                    {
+                    //if (!string.IsNullOrEmpty(pcsoJson))
+                    //{
                         // Create a new PCSO instance
                         PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
-                        
-                        // Deserialize the JSON data into the PCSO object
-                        JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+                    // Deserialize the JSON data into the PCSO object
+                    //JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+                            loadedPCSO.PCName = PCName;
+                            loadedPCSO.Armor = Armor;
+                            loadedPCSO.AttackDamage = AttackDamage;
+                            loadedPCSO.Health = Health;
+                            loadedPCSO.HealthRegen = HealthRegen;
+                            loadedPCSO.Mana = Mana;
+                            loadedPCSO.ManaRegen = ManaRegen;
+                            loadedPCSO.WalkSpeed = WalkSpeed;
+                            loadedPCSO.CriticalChance = CriticalChance;
+                            loadedPCSO.inUse = InUse;
+
+                        // Find and assign parts by their UniqueID
+                        if (docSnapshot.ContainsField("Case"))
+                        {
+                            var caseData = docSnapshot.GetValue<Dictionary<string, object>>("Case");
+                            string caseUniqueID = caseData["UniqueID"].ToString();
+                            loadedPCSO.Case = GameManager.instance.FindPartByUniqueID(caseUniqueID);
+                        }
+
+                        if (docSnapshot.ContainsField("Motherboard"))
+                        {
+                            var motherboardData = docSnapshot.GetValue<Dictionary<string, object>>("Motherboard");
+                            string motherboardUniqueID = motherboardData["UniqueID"].ToString();
+                            loadedPCSO.Motherboard = GameManager.instance.FindPartByUniqueID(motherboardUniqueID);
+                        }
+
+                        if (docSnapshot.ContainsField("CPU"))
+                        {
+                            var cpuData = docSnapshot.GetValue<Dictionary<string, object>>("CPU");
+                            string cpuUniqueID = cpuData["UniqueID"].ToString();
+                            loadedPCSO.CPU = GameManager.instance.FindPartByUniqueID(cpuUniqueID);
+                        }
+
+                        if (docSnapshot.ContainsField("CPUFan"))
+                        {
+                            var cpuFanData = docSnapshot.GetValue<Dictionary<string, object>>("CPUFan");
+                            string cpuFanUniqueID = cpuFanData["UniqueID"].ToString();
+                            loadedPCSO.CPUFan = GameManager.instance.FindPartByUniqueID(cpuFanUniqueID);
+                        }
+
+                        if (docSnapshot.ContainsField("RAM"))
+                        {
+                            var ramData = docSnapshot.GetValue<Dictionary<string, object>>("RAM");
+                            string ramUniqueID = ramData["UniqueID"].ToString();
+                            loadedPCSO.RAM = GameManager.instance.FindPartByUniqueID(ramUniqueID);
+                        }
+
+                        if (docSnapshot.ContainsField("GPU"))
+                        {
+                            var gpuData = docSnapshot.GetValue<Dictionary<string, object>>("GPU");
+                            string gpuUniqueID = gpuData["UniqueID"].ToString();
+                            loadedPCSO.GPU = GameManager.instance.FindPartByUniqueID(gpuUniqueID);
+                        }
+
+                        if (docSnapshot.ContainsField("STORAGE"))
+                        {
+                            var storageData = docSnapshot.GetValue<Dictionary<string, object>>("STORAGE");
+                            string storageUniqueID = storageData["UniqueID"].ToString();
+                            loadedPCSO.STORAGE = GameManager.instance.FindPartByUniqueID(storageUniqueID);
+                        }
+
+                        if (docSnapshot.ContainsField("PSU"))
+                        {
+                            var psuData = docSnapshot.GetValue<Dictionary<string, object>>("PSU");
+                            string psuUniqueID = psuData["UniqueID"].ToString();
+                            loadedPCSO.PSU = GameManager.instance.FindPartByUniqueID(psuUniqueID);
+                        }
 
                         byte[] imageData = Convert.FromBase64String(itemImageBase64);
 
@@ -395,7 +472,7 @@ namespace PC
 
                         // Assign the Sprite to the PCSO's Case.ItemImage
                         loadedPCSO.PCImage = sprite;
-
+                        
                         //loadedPCSO.PCImage = loadedPCSO.Case.ItemImage;
                         // Add the loaded PCSO to the PCData.ComputerItems list
                         PCData.AddPCSOList(loadedPCSO);
@@ -408,7 +485,7 @@ namespace PC
                             GameManager.instance.pcsothatinUse = documentId;
                         }
                         // Optionally perform any other actions with the loaded PCSO
-                    }
+                    //}
                 }
 
                 // Log a message indicating the successful loading of PCSO items
@@ -439,48 +516,145 @@ namespace PC
 
                 string documentId = docSnapshot.Id;
                 GameManager.instance.pcsoDocumentIds.Add(documentId);
-
-                // Deserialize the PCSO data from the Firestore document
-                string pcsoJson = docSnapshot.GetValue<string>("PC");
+                string PCName = docSnapshot.GetValue<string>("PCName");
+                int Armor = docSnapshot.GetValue<int>("Armor");
+                int AttackDamage = docSnapshot.GetValue<int>("AttackDamage");
+                int Health = docSnapshot.GetValue<int>("Health");
+                int HealthRegen = docSnapshot.GetValue<int>("HealthRegen");
+                int Mana = docSnapshot.GetValue<int>("Mana");
+                int ManaRegen = docSnapshot.GetValue<int>("ManaRegen");
+                int WalkSpeed = docSnapshot.GetValue<int>("WalkSpeed");
+                int CriticalChance = docSnapshot.GetValue<int>("CriticalChance");
+                bool InUse = docSnapshot.GetValue<bool>("InUse");
                 string itemImageBase64 = docSnapshot.GetValue<string>("ItemImage");
 
-                if (!string.IsNullOrEmpty(pcsoJson))
+                //if (!string.IsNullOrEmpty(pcsoJson))
+                //{
+                // Create a new PCSO instance
+                PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
+
+                // Deserialize the JSON data into the PCSO object
+                //JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+                loadedPCSO.PCName = PCName;
+                loadedPCSO.Armor = Armor;
+                loadedPCSO.AttackDamage = AttackDamage;
+                loadedPCSO.Health = Health;
+                loadedPCSO.HealthRegen = HealthRegen;
+                loadedPCSO.Mana = Mana;
+                loadedPCSO.ManaRegen = ManaRegen;
+                loadedPCSO.WalkSpeed = WalkSpeed;
+                loadedPCSO.CriticalChance = CriticalChance;
+                loadedPCSO.inUse = InUse;
+
+                // Find and assign parts by their UniqueID
+                if (docSnapshot.ContainsField("Case"))
                 {
-                    // Create a new PCSO instance
-                    PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
-
-
-                    // Deserialize the JSON data into the PCSO object
-                    JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
-
-                    byte[] imageData = Convert.FromBase64String(itemImageBase64);
-
-                    // Load the byte array into a Texture2D
-                    Texture2D texture = new Texture2D(1, 1);
-                    texture.LoadImage(imageData);
-
-                    // Create a new Sprite from the Texture2D
-                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-
-                    // Assign the Sprite to the PCSO's Case.ItemImage
-                    loadedPCSO.PCImage = sprite;
-
-                    // Add the loaded PCSO to the PCData.ComputerItems list
-                    PCData.AddPCSOList(loadedPCSO);
-                    PCpage.AddAnotherPC();
-
-                    OnInventOpen();
-
-
-                    if (loadedPCSO.inUse == true)
-                    {
-                        UseloadComputer(loadedPCSO);
-                        GameManager.instance.pcsothatinUse = documentId;
-                        
-                    }
-                    // Optionally perform any other actions with the loaded PCSO
+                    var caseData = docSnapshot.GetValue<Dictionary<string, object>>("Case");
+                    string caseUniqueID = caseData["UniqueID"].ToString();
+                    loadedPCSO.Case = GameManager.instance.FindPartByUniqueID(caseUniqueID);
                 }
-            }
+
+                if (docSnapshot.ContainsField("Motherboard"))
+                {
+                    var motherboardData = docSnapshot.GetValue<Dictionary<string, object>>("Motherboard");
+                    string motherboardUniqueID = motherboardData["UniqueID"].ToString();
+                    loadedPCSO.Motherboard = GameManager.instance.FindPartByUniqueID(motherboardUniqueID);
+                }
+
+                if (docSnapshot.ContainsField("CPU"))
+                {
+                    var cpuData = docSnapshot.GetValue<Dictionary<string, object>>("CPU");
+                    string cpuUniqueID = cpuData["UniqueID"].ToString();
+                    loadedPCSO.CPU = GameManager.instance.FindPartByUniqueID(cpuUniqueID);
+                }
+
+                if (docSnapshot.ContainsField("CPUFan"))
+                {
+                    var cpuFanData = docSnapshot.GetValue<Dictionary<string, object>>("CPUFan");
+                    string cpuFanUniqueID = cpuFanData["UniqueID"].ToString();
+                    loadedPCSO.CPUFan = GameManager.instance.FindPartByUniqueID(cpuFanUniqueID);
+                }
+
+                if (docSnapshot.ContainsField("RAM"))
+                {
+                    var ramData = docSnapshot.GetValue<Dictionary<string, object>>("RAM");
+                    string ramUniqueID = ramData["UniqueID"].ToString();
+                    loadedPCSO.RAM = GameManager.instance.FindPartByUniqueID(ramUniqueID);
+                }
+
+                if (docSnapshot.ContainsField("GPU"))
+                {
+                    var gpuData = docSnapshot.GetValue<Dictionary<string, object>>("GPU");
+                    string gpuUniqueID = gpuData["UniqueID"].ToString();
+                    loadedPCSO.GPU = GameManager.instance.FindPartByUniqueID(gpuUniqueID);
+                }
+
+                if (docSnapshot.ContainsField("STORAGE"))
+                {
+                    var storageData = docSnapshot.GetValue<Dictionary<string, object>>("STORAGE");
+                    string storageUniqueID = storageData["UniqueID"].ToString();
+                    loadedPCSO.STORAGE = GameManager.instance.FindPartByUniqueID(storageUniqueID);
+                }
+
+                if (docSnapshot.ContainsField("PSU"))
+                {
+                    var psuData = docSnapshot.GetValue<Dictionary<string, object>>("PSU");
+                    string psuUniqueID = psuData["UniqueID"].ToString();
+                    loadedPCSO.PSU = GameManager.instance.FindPartByUniqueID(psuUniqueID);
+                }
+
+                byte[] imageData = Convert.FromBase64String(itemImageBase64);
+
+                // Load the byte array into a Texture2D
+                Texture2D texture = new Texture2D(1, 1);
+                texture.LoadImage(imageData);
+
+                // Create a new Sprite from the Texture2D
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+                // Assign the Sprite to the PCSO's Case.ItemImage
+                loadedPCSO.PCImage = sprite;
+                // Deserialize the PCSO data from the Firestore document
+                //string pcsoJson = docSnapshot.GetValue<string>("PC");
+                //string itemImageBase64 = docSnapshot.GetValue<string>("ItemImage");
+
+                //if (!string.IsNullOrEmpty(pcsoJson))
+                //{
+                //    // Create a new PCSO instance
+                //    PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
+
+
+                //    // Deserialize the JSON data into the PCSO object
+                //    JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+                //    byte[] imageData = Convert.FromBase64String(itemImageBase64);
+
+                //    // Load the byte array into a Texture2D
+                //    Texture2D texture = new Texture2D(1, 1);
+                //    texture.LoadImage(imageData);
+
+                //    // Create a new Sprite from the Texture2D
+                //    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+                //    // Assign the Sprite to the PCSO's Case.ItemImage
+                //    loadedPCSO.PCImage = sprite;
+
+                //    // Add the loaded PCSO to the PCData.ComputerItems list
+                PCData.AddPCSOList(loadedPCSO);
+                PCpage.AddAnotherPC();
+
+                OnInventOpen();
+
+
+                if (loadedPCSO.inUse == true)
+                {
+                    UseloadComputer(loadedPCSO);
+                    GameManager.instance.pcsothatinUse = documentId;
+
+                }
+                // Optionally perform any other actions with the loaded PCSO
+            
+        }
 
             // Log a message indicating the successful loading of PCSO items
             Debug.Log("PCSO items loaded from Firestore.");
@@ -1149,7 +1323,7 @@ namespace PC
             try
             {
                 // Convert the updated PCSO object to JSON
-                string updatedPCSOJson = JsonUtility.ToJson(updatedPCSO);
+                //string updatedPCSOJson = JsonUtility.ToJson(updatedPCSO);
                 //pcsothatinUse = documentId;
 
                 if (!string.IsNullOrEmpty(GameManager.instance.pcsothatinUse) && GameManager.instance.pcsothatinUse != documentId)
@@ -1157,6 +1331,29 @@ namespace PC
                     // Update the PCSO that was previously in use to set inUse = false
                     await UpdatePCSOInUseStatus(GameManager.instance.pcsothatinUse, false);
                 }
+                // Prepare a dictionary to store the updated PCSO data
+                Dictionary<string, object> updateData = new Dictionary<string, object>
+        {
+            { "PCName", updatedPCSO.PCName },
+            { "Armor", updatedPCSO.Armor },
+            { "AttackDamage", updatedPCSO.AttackDamage },
+            { "Health", updatedPCSO.Health },
+            { "HealthRegen", updatedPCSO.HealthRegen },
+            { "Mana", updatedPCSO.Mana },
+            { "ManaRegen", updatedPCSO.ManaRegen },
+            { "WalkSpeed", updatedPCSO.WalkSpeed },
+            { "CriticalChance", updatedPCSO.CriticalChance },
+            { "InUse", updatedPCSO.inUse },
+            { "ItemImage", Convert.ToBase64String(updatedPCSO.PCImage.texture.EncodeToPNG()) },  // Convert image to base64
+            { "Case", GameManager.instance.ConvertPartToDictionary(updatedPCSO.Case) },
+            { "Motherboard", GameManager.instance.ConvertPartToDictionary(updatedPCSO.Motherboard) },
+            { "CPU", GameManager.instance.ConvertPartToDictionary(updatedPCSO.CPU) },
+            { "CPUFan", GameManager.instance.ConvertPartToDictionary(updatedPCSO.CPUFan) },
+            { "RAM", GameManager.instance.ConvertPartToDictionary(updatedPCSO.RAM) },
+            { "GPU", GameManager.instance.ConvertPartToDictionary(updatedPCSO.GPU) },
+            { "STORAGE", GameManager.instance.ConvertPartToDictionary(updatedPCSO.STORAGE) },
+            { "PSU", GameManager.instance.ConvertPartToDictionary(updatedPCSO.PSU) },
+        };
 
 
                 // Get a reference to the Firestore document to be updated
@@ -1166,11 +1363,11 @@ namespace PC
                     .Collection("ComputersCollection")
                     .Document(documentId);
 
-                // Create a dictionary to store the updated PCSO data
-                Dictionary<string, object> updateData = new Dictionary<string, object>
-        {
-            { "PC", updatedPCSOJson }
-        };
+        //        // Create a dictionary to store the updated PCSO data
+        //        Dictionary<string, object> updateData = new Dictionary<string, object>
+        //{
+        //    { "PC", updatedPCSOJson }
+        //};
 
                 // Update the Firestore document with the new data
                 await docRef.UpdateAsync(updateData);
@@ -1182,6 +1379,71 @@ namespace PC
                 Debug.LogError("Error updating PCSO document: " + ex.Message);
             }
         }
+
+        //private async Task UpdatePCSOInUseStatus(string pcsothatinUse, bool inUseStatus)
+        //{
+        //    try
+        //    {
+        //        // Get a reference to the Firestore document to be updated
+        //        DocumentReference docRef = FirebaseFirestore.DefaultInstance
+        //            .Collection(GameManager.instance.UserCollection)
+        //            .Document(GameManager.instance.UserID)
+        //            .Collection("ComputersCollection")
+        //            .Document(pcsothatinUse);
+
+        //        // Fetch the document snapshot
+        //        DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+        //        // Check if the document exists
+        //        if (snapshot.Exists)
+        //        {
+        //            // Deserialize the PCSO data from the Firestore document
+        //            string pcsoJson = snapshot.GetValue<string>("PC");
+
+        //            if (!string.IsNullOrEmpty(pcsoJson))
+        //            {
+        //                // Deserialize the JSON data into a PCSO object
+        //                //PCSO loadedPCSO = JsonUtility.FromJson<PCSO>(pcsoJson);
+
+        //                PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
+
+        //                // Deserialize the JSON data into the PCSO object
+        //                JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
+
+        //                // Update the inUse status
+        //                loadedPCSO.inUse = inUseStatus;
+
+        //                // Convert the updated PCSO object back to JSON
+        //                string updatedPCSOJson = JsonUtility.ToJson(loadedPCSO);
+
+        //                // Create a dictionary to update the inUse status
+        //                Dictionary<string, object> updateData = new Dictionary<string, object>
+        //        {
+        //            { "PC", updatedPCSOJson }
+        //        };
+
+        //                // Update the Firestore document with the new inUse status
+        //                await docRef.UpdateAsync(updateData);
+
+        //                Debug.Log("PCSO inUse status updated successfully.");
+
+
+        //            }
+        //            else
+        //            {
+        //                Debug.LogWarning("PCSO JSON data is empty or invalid.");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            Debug.LogWarning("PCSO document does not exist.");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.LogError("Error updating PCSO inUse status: " + ex.Message);
+        //    }
+        //}
 
         private async Task UpdatePCSOInUseStatus(string pcsothatinUse, bool inUseStatus)
         {
@@ -1200,42 +1462,16 @@ namespace PC
                 // Check if the document exists
                 if (snapshot.Exists)
                 {
-                    // Deserialize the PCSO data from the Firestore document
-                    string pcsoJson = snapshot.GetValue<string>("PC");
+                    // Instead of deserializing the entire object, update the inUse status directly
+                    Dictionary<string, object> updateData = new Dictionary<string, object>
+            {
+                { "InUse", inUseStatus }
+            };
 
-                    if (!string.IsNullOrEmpty(pcsoJson))
-                    {
-                        // Deserialize the JSON data into a PCSO object
-                        //PCSO loadedPCSO = JsonUtility.FromJson<PCSO>(pcsoJson);
+                    // Update the Firestore document with the new inUse status
+                    await docRef.UpdateAsync(updateData);
 
-                        PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
-
-                        // Deserialize the JSON data into the PCSO object
-                        JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
-
-                        // Update the inUse status
-                        loadedPCSO.inUse = inUseStatus;
-
-                        // Convert the updated PCSO object back to JSON
-                        string updatedPCSOJson = JsonUtility.ToJson(loadedPCSO);
-
-                        // Create a dictionary to update the inUse status
-                        Dictionary<string, object> updateData = new Dictionary<string, object>
-                {
-                    { "PC", updatedPCSOJson }
-                };
-
-                        // Update the Firestore document with the new inUse status
-                        await docRef.UpdateAsync(updateData);
-
-                        Debug.Log("PCSO inUse status updated successfully.");
-
-                        
-                    }
-                    else
-                    {
-                        Debug.LogWarning("PCSO JSON data is empty or invalid.");
-                    }
+                    Debug.Log("PCSO inUse status updated successfully.");
                 }
                 else
                 {
@@ -1250,10 +1486,39 @@ namespace PC
 
 
 
-        public async Task ModifyPCSOs(string pcsothatisModified, PCSO pc)
+
+        public async Task ModifyPCSOs(string pcsothatisModified, PCSO updatedPCSO)
         {
             try
             {
+                // Convert the updated PCSO object to JSON
+                //string updatedPCSOJson = JsonUtility.ToJson(pc);
+                //pcsothatinUse = documentId;
+                // Prepare a dictionary to store the updated PCSO data
+                Dictionary<string, object> updateData = new Dictionary<string, object>
+        {
+            { "PCName", updatedPCSO.PCName },
+            { "Armor", updatedPCSO.Armor },
+            { "AttackDamage", updatedPCSO.AttackDamage },
+            { "Health", updatedPCSO.Health },
+            { "HealthRegen", updatedPCSO.HealthRegen },
+            { "Mana", updatedPCSO.Mana },
+            { "ManaRegen", updatedPCSO.ManaRegen },
+            { "WalkSpeed", updatedPCSO.WalkSpeed },
+            { "CriticalChance", updatedPCSO.CriticalChance },
+            //{ "InUse", updatedPCSO.inUse },
+            { "ItemImage", Convert.ToBase64String(updatedPCSO.PCImage.texture.EncodeToPNG()) },  // Convert image to base64
+            { "Case", GameManager.instance.ConvertPartToDictionary(updatedPCSO.Case) },
+            { "Motherboard", GameManager.instance.ConvertPartToDictionary(updatedPCSO.Motherboard) },
+            { "CPU", GameManager.instance.ConvertPartToDictionary(updatedPCSO.CPU) },
+            { "CPUFan", GameManager.instance.ConvertPartToDictionary(updatedPCSO.CPUFan) },
+            { "RAM", GameManager.instance.ConvertPartToDictionary(updatedPCSO.RAM) },
+            { "GPU", GameManager.instance.ConvertPartToDictionary(updatedPCSO.GPU) },
+            { "STORAGE", GameManager.instance.ConvertPartToDictionary(updatedPCSO.STORAGE) },
+            { "PSU", GameManager.instance.ConvertPartToDictionary(updatedPCSO.PSU) },
+        };
+
+
                 // Get a reference to the Firestore document to be updated
                 DocumentReference docRef = FirebaseFirestore.DefaultInstance
                     .Collection(GameManager.instance.UserCollection)
@@ -1261,70 +1526,27 @@ namespace PC
                     .Collection("ComputersCollection")
                     .Document(pcsothatisModified);
 
-                // Fetch the document snapshot
-                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+                //        // Create a dictionary to store the updated PCSO data
+                //        Dictionary<string, object> updateData = new Dictionary<string, object>
+                //{
+                //    { "PC", updatedPCSOJson }
+                //};
 
-                // Check if the document exists
-                if (snapshot.Exists)
+                if(updatedPCSO.inUse == true)
                 {
-                    // Deserialize the PCSO data from the Firestore document
-                    string pcsoJson = snapshot.GetValue<string>("PC");
-
-                    if (!string.IsNullOrEmpty(pcsoJson))
-                    {
-                        // Deserialize the JSON data into a PCSO object
-                        //PCSO loadedPCSO = JsonUtility.FromJson<PCSO>(pcsoJson);
-
-                        PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
-
-                        // Deserialize the JSON data into the PCSO object
-                        JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
-
-                        if (loadedPCSO.inUse == true)
-                        {
-                            loadedPCSO = pc;
-                            loadedPCSO.inUse = true;
-                            UseloadComputer(loadedPCSO);
-                            GameManager.instance.pcsothatinUse = pcsothatisModified;
-
-                        }
-                        else
-                        {
-                            // Update the inUse status
-                            loadedPCSO = pc;
-                        }
-
-                      
-
-                        // Convert the updated PCSO object back to JSON
-                        string updatedPCSOJson = JsonUtility.ToJson(loadedPCSO);
-
-                        // Create a dictionary to update the inUse status
-                        Dictionary<string, object> updateData = new Dictionary<string, object>
-                {
-                    { "PC", updatedPCSOJson }
-                };
-
-                        // Update the Firestore document with the new inUse status
-                        await docRef.UpdateAsync(updateData);
-
-                        Debug.Log("PCSO inUse status updated successfully.");
-
-
-                    }
-                    else
-                    {
-                        Debug.LogWarning("PCSO JSON data is empty or invalid.");
-                    }
+                    UseloadComputer(updatedPCSO);
+                    updatedPCSO.inUse = true;
+                    GameManager.instance.pcsothatinUse = pcsothatisModified;
                 }
-                else
-                {
-                    Debug.LogWarning("PCSO document does not exist.");
-                }
+
+
+                // Update the Firestore document with the new data
+                await docRef.UpdateAsync(updateData);
+                Debug.Log("PCSO document updated successfully.");
             }
             catch (Exception ex)
             {
-                Debug.LogError("Error updating PCSO inUse status: " + ex.Message);
+                Debug.LogError("Error updating PCSO document: " + ex.Message);
             }
         }
 
@@ -1333,6 +1555,16 @@ namespace PC
         {
             try
             {
+                
+                //pcsothatinUse = documentId;
+                // Prepare a dictionary to store the updated PCSO data
+                Dictionary<string, object> updateData = new Dictionary<string, object>
+        {
+              { "PCName", name },
+            
+        };
+
+
                 // Get a reference to the Firestore document to be updated
                 DocumentReference docRef = FirebaseFirestore.DefaultInstance
                     .Collection(GameManager.instance.UserCollection)
@@ -1340,54 +1572,15 @@ namespace PC
                     .Collection("ComputersCollection")
                     .Document(pcsothatisModified);
 
-                // Fetch the document snapshot
-                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+                //        // Create a dictionary to store the updated PCSO data
+                //        Dictionary<string, object> updateData = new Dictionary<string, object>
+                //{
+                //    { "PC", updatedPCSOJson }
+                //};
 
-                // Check if the document exists
-                if (snapshot.Exists)
-                {
-                    // Deserialize the PCSO data from the Firestore document
-                    string pcsoJson = snapshot.GetValue<string>("PC");
-
-                    if (!string.IsNullOrEmpty(pcsoJson))
-                    {
-                        // Deserialize the JSON data into a PCSO object
-                        //PCSO loadedPCSO = JsonUtility.FromJson<PCSO>(pcsoJson);
-
-                        PCSO loadedPCSO = ScriptableObject.CreateInstance<PCSO>();
-
-                        // Deserialize the JSON data into the PCSO object
-                        JsonUtility.FromJsonOverwrite(pcsoJson, loadedPCSO);
-
-                          
-                           loadedPCSO.name = name;
-                           loadedPCSO.PCName = name;
-
-                        // Convert the updated PCSO object back to JSON
-                        string updatedPCSOJson = JsonUtility.ToJson(loadedPCSO);
-
-                        // Create a dictionary to update the inUse status
-                        Dictionary<string, object> updateData = new Dictionary<string, object>
-                {
-                    { "PC", updatedPCSOJson }
-                };
-
-                        // Update the Firestore document with the new inUse status
-                        await docRef.UpdateAsync(updateData);
-
-                        Debug.Log("PCSO inUse status updated successfully.");
-
-
-                    }
-                    else
-                    {
-                        Debug.LogWarning("PCSO JSON data is empty or invalid.");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("PCSO document does not exist.");
-                }
+                // Update the Firestore document with the new data
+                await docRef.UpdateAsync(updateData);
+                Debug.Log("PCSO document updated successfully.");
             }
             catch (Exception ex)
             {

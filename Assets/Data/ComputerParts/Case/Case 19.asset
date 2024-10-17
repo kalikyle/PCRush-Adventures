@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Case 19
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: fa683468-0069-46c9-9586-08e78be9e056
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: AeroBox G300

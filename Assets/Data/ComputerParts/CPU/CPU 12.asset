@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: CPU 12
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: f7b3e234-e666-43e6-9903-fa0baf8d4d86
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: CoreBlaze X800

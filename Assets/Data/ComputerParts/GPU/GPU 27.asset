@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: GPU 27
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 56c0d370-c45a-4a01-806b-7db4a3ff1d33
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: IceVision 4500X

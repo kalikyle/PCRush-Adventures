@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: STORAGE 27
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 56640280-2c26-4053-b302-a558e0ef0c0d
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: InfernoDisk 2TB

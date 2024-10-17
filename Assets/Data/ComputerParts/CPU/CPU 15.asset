@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: CPU 15
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: fda863e2-fb11-40fd-a921-b0e5d554128a
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: VaporCore 3200X

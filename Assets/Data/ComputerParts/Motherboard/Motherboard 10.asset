@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: Motherboard 10
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: ea72efcd-1ab8-42d5-abf2-e208a0b34985
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: CyberMesh R12

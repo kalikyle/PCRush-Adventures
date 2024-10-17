@@ -11,7 +11,7 @@ public class GameControls : MonoBehaviour
     void Update()
     {
         bool isMySceneActive = IsSceneActive(1);
-        Debug.LogError(isMySceneActive);
+        //Debug.LogError(isMySceneActive);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             
@@ -47,7 +47,7 @@ public class GameControls : MonoBehaviour
             string sceneName = SceneManager.GetSceneByBuildIndex(sceneIndex).name;
 
             // Print the scene name to the debug console
-            Debug.LogError("Active scene: " + sceneName);
+            //Debug.LogError("Active scene: " + sceneName);
 
             // Return true if the scene is active
             return true;

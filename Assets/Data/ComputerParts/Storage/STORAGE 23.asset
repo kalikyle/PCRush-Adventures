@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: STORAGE 23
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: cbf30633-545d-45a2-903d-a13306977872
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: KrakenDrive 750GB

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea3626e889ac9468dbca24267b49f0, type: 3}
   m_Name: CPU 2
   m_EditorClassIdentifier: 
+  <UniqueID>k__BackingField: 1aec919c-8984-4c1c-b868-054d37a1168d
   <IsStackable>k__BackingField: 1
   <MaxStackableSize>k__BackingField: 99
   <Name>k__BackingField: 'VulcanCore '

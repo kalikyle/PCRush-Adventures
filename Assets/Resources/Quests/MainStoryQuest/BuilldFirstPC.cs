@@ -44,25 +44,30 @@ public class BuilldFirstPC : QuestStep
 
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("sixth");
+
+        GameManager.instance.BackButton.onClick.AddListener(OnClickBackButton);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.OnBuildingQuest == true && GameManager.instance.DoneRename == true)
-        {
-            GameManager.instance.BackButton.onClick.AddListener(OnClickBackButton);
-        }
+        
+          
+        
     }
     public void OnClickBackButton()
     {
+        if (GameManager.instance.OnBuildingQuest == true && GameManager.instance.DoneRename == true)
+        {
         FinishQuestStep();
         ChangeState("Finish", "Finish");
+
         GameManager.instance.OnBuildingQuest = false;
         GameManager.instance.DoneRename = false;
 
         AchievementManager.instance.BuildfirstPCs = true;
         AchievementManager.instance.CheckAchievements();
+        }
     }
     protected override void SetQuestStepState(string state)
     {
