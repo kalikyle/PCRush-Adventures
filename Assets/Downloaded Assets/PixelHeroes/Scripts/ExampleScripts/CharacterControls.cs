@@ -26,6 +26,8 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private float currentMana;
         public bool isDead = false;
         public Button AttackBTN;
+        public Toggle runToggle;
+        public bool isRunButtonClicked = false;
         //private float attackCooldownTimer = 0.0f;
         //private float AttackSpeed = 1.0f; // Set this to the desired attack speed
 
@@ -48,6 +50,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private bool canAttack = true;
         private bool canMove = true;
         private bool canRun = true;
+
         //private bool moving = false;
 
         private string[] attackAnimations = { "Slash", "Attack", "Jab"};
@@ -74,6 +77,9 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             StartCoroutine(ManaRegenCoroutine());
             StartCoroutine(HealthRegenCoroutine(health));
             AttackBTN.onClick.AddListener(TriggerAttack);
+            runToggle.onValueChanged.AddListener(OnRunToggleValueChanged);
+
+
             //StartCoroutine(ArmorRegenCoroutine(armor));
         }
         private void OnDestroy()
@@ -124,6 +130,14 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
             else
             {
                 StopMovement();
+            }
+
+
+            if(GameManager.instance.OnHorde == true)
+            {
+                if (Input.GetMouseButtonDown(0)){
+                    TriggerAttack();
+                }
             }
 
             HandlePlayerHealth();
@@ -612,7 +626,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 }
 
                 // Running check (if LeftShift is pressed for PC, or joystick for mobile)
-                if (UnityEngine.Input.GetKey(KeyCode.LeftShift) && input != Vector2.zero)
+                if ((UnityEngine.Input.GetKey(KeyCode.LeftShift) || isRunButtonClicked) && input != Vector2.zero)
                 {
                     if (canRun == true)
                     {
@@ -643,6 +657,20 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
                 }
             }
         }
+
+        private void OnRunToggleValueChanged(bool value)
+        {
+            isRunButtonClicked = value;
+        }
+        //public void OnRunBTNClick()
+        //{
+        //    isRunButtonClicked = true;
+        //}
+
+        //public void OnRunBTNRelease()
+        //{
+        //    isRunButtonClicked = false;
+        //}
 
         //bool IsCursorOverGameObject(string gameObjectName)
         //{
