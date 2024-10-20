@@ -26,6 +26,7 @@ public class HorderManager : MonoBehaviour
     public GameObject BottomPanelUI;
     public GameObject ButtonsPanelUI;
     public GameObject AttackPanelUI;
+    public GameObject AttackForWindows;
     public TMP_Text timerText;
     public TMP_Text CoinsCollected;
     public TMP_Text MaterialsCollected;
@@ -162,6 +163,7 @@ public class HorderManager : MonoBehaviour
     private void StartHorde(HordeConfig config)
     {
         GameManager.instance.ShowFloatingText("<color=yellow>ELIMINATE THE ENEMIES AND COLLECT MATERIALS</color>");
+        GameManager.instance.OnHorde = true;
         currentHordeConfig = config;
         config.countdownTime = 120f; // Reset the countdown time to 2 minutes
         isTimerRunning = true; // Start the timer
@@ -172,7 +174,25 @@ public class HorderManager : MonoBehaviour
         }
         OnHordeUI.SetActive(true);
         ExploreUI.SetActive(true);
-        AttackPanelUI.SetActive(true);
+
+
+#if UNITY_EDITOR // for editor
+
+        AttackPanelUI.SetActive(true);//for mobile
+        AttackForWindows.SetActive(true);
+
+#elif UNITY_ANDROID //for android
+
+        AttackPanelUI.SetActive(true);//for mobile
+        AttackForWindows.SetActive(false);
+
+#else // for windows
+        AttackPanelUI.SetActive(false);//for mobile
+        AttackForWindows.SetActive(true);
+#endif
+
+
+
         //QuestUI.SetActive(false);
         TopPanelUI.SetActive(false);
         BottomPanelUI.SetActive(false);
@@ -188,6 +208,7 @@ public class HorderManager : MonoBehaviour
 
     private async void StopHorde(HordeConfig config)
     {
+        GameManager.instance.OnHorde = false;
         if (config == null) return; // Avoid null reference errors
 
         if (worldCanvases.TryGetValue(config.HordeName, out var canvas))
@@ -197,6 +218,7 @@ public class HorderManager : MonoBehaviour
         OnHordeUI.SetActive(false);
         ExploreUI.SetActive(true);
         AttackPanelUI.SetActive(false);
+        AttackForWindows.SetActive(false);
         //QuestUI.SetActive(true);
         TopPanelUI.SetActive(true);
         BottomPanelUI.SetActive(true);
@@ -228,6 +250,7 @@ public class HorderManager : MonoBehaviour
 
     private async void EndHorde(HordeConfig config)
     {
+        GameManager.instance.OnHorde = false;
         if (worldCanvases.TryGetValue(config.HordeName, out var canvas))
         {
             canvas.gameObject.SetActive(true);
@@ -235,6 +258,7 @@ public class HorderManager : MonoBehaviour
         OnHordeUI.SetActive(false);
         ExploreUI.SetActive(true);
         AttackPanelUI.SetActive(false);
+        AttackForWindows.SetActive(false);
         //QuestUI.SetActive(true);
         TopPanelUI.SetActive(true);
         BottomPanelUI.SetActive(true);

@@ -15,7 +15,7 @@ public class PlayerTeleport : MonoBehaviour
         public GameObject GameMap;
 
         public GameObject InvBTN;
-    public GameObject TimeText;
+    //public GameObject TimeText;
         public GameObject EquippedStats;
 
     public GameObject PlayerDesk;
@@ -109,7 +109,7 @@ public class PlayerTeleport : MonoBehaviour
        
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
-        TimeText.gameObject.SetActive(false);
+        //TimeText.gameObject.SetActive(false);
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
 
@@ -153,7 +153,7 @@ public class PlayerTeleport : MonoBehaviour
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
-        TimeText.gameObject.SetActive(false);
+        //TimeText.gameObject.SetActive(false);
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
@@ -186,7 +186,7 @@ public class PlayerTeleport : MonoBehaviour
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
-        TimeText.gameObject.SetActive(false);
+        //TimeText.gameObject.SetActive(false);
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
 
@@ -222,7 +222,7 @@ public class PlayerTeleport : MonoBehaviour
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
-        TimeText.gameObject.SetActive(false);
+        //TimeText.gameObject.SetActive(false);
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
@@ -255,7 +255,7 @@ public class PlayerTeleport : MonoBehaviour
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
-        TimeText.gameObject.SetActive(false);
+        //TimeText.gameObject.SetActive(false);
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
@@ -288,7 +288,7 @@ public class PlayerTeleport : MonoBehaviour
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
-        TimeText.gameObject.SetActive(false);
+        //TimeText.gameObject.SetActive(false);
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
@@ -322,7 +322,7 @@ public class PlayerTeleport : MonoBehaviour
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
-        TimeText.gameObject.SetActive(false);
+        //TimeText.gameObject.SetActive(false);
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
@@ -355,7 +355,7 @@ public class PlayerTeleport : MonoBehaviour
         LTA.OpenTeleAnim();
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
-        TimeText.gameObject.SetActive(false);
+        //TimeText.gameObject.SetActive(false);
         EquippedStats.gameObject.SetActive(true);
         GameManager.instance.MiniMapButton.gameObject.SetActive(true);
     }
@@ -397,7 +397,7 @@ public class PlayerTeleport : MonoBehaviour
             WorldName.text = "Home World";
             BackToHomeWorld = false;
             InvBTN.gameObject.SetActive(false);
-            TimeText.gameObject.SetActive(true);
+            //TimeText.gameObject.SetActive(true);
             EquippedStats.gameObject.SetActive(false);
             GameManager.instance.LTA.HideGameMenu();
             GameManager.instance.LTA.HideGameMap();
@@ -416,7 +416,7 @@ public class PlayerTeleport : MonoBehaviour
         WorldName.text = "Home World";
         BackToHomeWorld = false;
         InvBTN.gameObject.SetActive(false);
-            TimeText.gameObject.SetActive(true);
+            //TimeText.gameObject.SetActive(true);
             EquippedStats.gameObject.SetActive(false);
 
         GameManager.instance.InHomeWorld = true;

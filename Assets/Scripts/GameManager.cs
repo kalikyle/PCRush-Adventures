@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
     public bool MBWorld = false;
     public bool CaseWorld = false;
     public bool MinimapOpened = false;
+    public bool OnHorde = false;
 
     //for CutScenes
     [Header("CUT SCENES")]
@@ -425,6 +426,10 @@ public class GameManager : MonoBehaviour
     [Header("FOR ANDROID UI")]
     public GameObject Joystick;
     public GameObject Resolution;
+    public GameObject Run;
+
+    public GameObject controlsWindows;
+    public GameObject contorlsAndroid;
 
     public void CheckAndroid()
     {
@@ -433,14 +438,21 @@ public class GameManager : MonoBehaviour
 
         Joystick.SetActive(true);
         Resolution.SetActive(true);
+        controlsWindows.SetActive(true);
+        contorlsAndroid.SetActive(false);
+
 
 #elif UNITY_ANDROID //for android
 
         Joystick.SetActive(true);
         Resolution.SetActive(false);
+        controlsWindows.SetActive(false);
+        contorlsAndroid.SetActive(true);
 #else // for windows
         Joystick.SetActive(false);
         Resolution.SetActive(true);
+        controlsWindows.SetActive(true);
+        contorlsAndroid.SetActive(false);
 #endif
     }
 
