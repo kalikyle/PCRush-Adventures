@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LeanTweenAnimate : MonoBehaviour
 {
-    public GameObject RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle, Install, Installing, chck1, chck2, chck3, chck4, chck5, rename, teleanim, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl, coinscollectedtxt, materialscollecttxt, expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap, Diedpanel, youdiedText, diedtextsub, skull
+    public GameObject RenamePanel, CLI1, CLI2, CLI3, BIOS, LOADING, loadingcircle, Install, Installing, chck1, chck2, chck3, chck4, chck5, rename, teleanim, teleanim2, circling, successpanel, PCimage, PCname, successlbl, btnclose, circling2, hordefinishpanl, coinscollectedtxt, materialscollecttxt, expcollectedtxt, hordeImage, horderfinish, btnnice, GameMenu, GameMap, Diedpanel, youdiedText, diedtextsub, skull
         , MinimapHomeWorld, MinimapCPUWorld, MinimapRAMWorld, MinimapCPUFWorld, MinimapGPUWorld, MinimapSTORAGEWorld, MinimapPSUWorld, MinimapMBWorld, MinimapCASEWorld, TalkBTN, blackBack, Twirl, characterImage, cputwirl, ramtwirl, cpufantwirl, gputwirl, storagetwirl, psutwirl, mbtwirl, casetwirl;
     public TMP_Text Plusexp, hordeworld, hordenum, coinscollected, materialscollect , expcollected, showkills;
     bool open = true;
@@ -103,12 +103,75 @@ public class LeanTweenAnimate : MonoBehaviour
         teleanim.SetActive(false);
     }
 
+    //public void OpenTeleAnim()
+    //{
+    //    //teleanim.SetActive(open);
+    //    //LeanTween.scale(teleanim, new Vector3(41f, 41f, 41f), .5f);
+    //   // LeanTween.scale(teleanim, new Vector3(1f, 1f, 1f), .08f).setEaseInOutSine().setOnComplete(CloseTeleAnim);
+    //    LeanTween.alpha(teleanim.GetComponent<RectTransform>(), 1f, .08f).setEaseInOutSine().setOnComplete(CloseTeleAnim);
+
+    //}
+    //public void CloseTeleAnim()
+    //{
+    //    //LeanTween.scale(teleanim, new Vector3(150f, 150f, 150f), .08f).setDelay(1f).setEaseInOutSine();
+    //    LeanTween.alpha(teleanim.GetComponent<RectTransform>(), 0f, .08f).setDelay(1f).setEaseInOutSine();
+
+    //    //TeleClose();
+    //}
+
     public void OpenTeleAnim()
     {
-        //teleanim.SetActive(open);
-        //LeanTween.scale(teleanim, new Vector3(41f, 41f, 41f), .5f);
-        LeanTween.scale(teleanim, new Vector3(1f, 1f, 1f), .08f).setEaseInOutSine().setOnComplete(CloseTeleAnim);
-        
+        teleanim.SetActive(true);
+        teleanim2.SetActive(true);
+
+        // Set initial positions (off-screen)
+        teleanim.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, Screen.height / 2);  // Start above the screen
+        teleanim2.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -Screen.height / 2); // Start below the screen
+
+        // Fade in the top object and move down
+        LeanTween.alpha(teleanim.GetComponent<RectTransform>(), 1f, 0.08f)
+            .setEaseInOutSine()
+            .setOnStart(() =>
+            {
+                LeanTween.moveY(teleanim.GetComponent<RectTransform>(), 222f, 0.08f).setEaseInOutSine(); // Move to the center
+            });
+
+        // Fade in the bottom object and move up
+        LeanTween.alpha(teleanim2.GetComponent<RectTransform>(), 1f, 0.08f)
+            .setEaseInOutSine()
+            .setOnStart(() =>
+            {
+                LeanTween.moveY(teleanim2.GetComponent<RectTransform>(), -229.5f, 0.08f).setEaseInOutSine(); // Move to the center
+            })
+            .setOnComplete(CloseTeleAnim); // Call CloseTeleAnim when both are fully visible
+    }
+
+    public void CloseTeleAnim()
+    {
+        // Fade out and move up the bottom object
+        LeanTween.alpha(teleanim2.GetComponent<RectTransform>(), 0f, 0.08f)
+            .setDelay(1f)
+            .setEaseInOutSine()
+            .setOnStart(() =>
+            {
+                LeanTween.moveY(teleanim2.GetComponent<RectTransform>(), -Screen.height / 2, 0.08f).setEaseInOutSine(); // Move down
+            })
+            .setOnComplete(() =>
+            {
+                // After the bottom object is fully invisible, start the top object's animation
+                LeanTween.alpha(teleanim.GetComponent<RectTransform>(), 0f, 0.08f)
+                    .setEaseInOutSine()
+                    .setOnStart(() =>
+                    {
+                        LeanTween.moveY(teleanim.GetComponent<RectTransform>(), Screen.height / 2, 0.08f).setEaseInOutSine(); // Move up
+                    })
+                    .setOnComplete(() =>
+                    {
+                        // Optionally deactivate the GameObjects after closing
+                        teleanim.SetActive(false);
+                        teleanim2.SetActive(false);
+                    });
+            });
     }
 
     public void OpenGameMenu()
@@ -133,11 +196,7 @@ public class LeanTweenAnimate : MonoBehaviour
         imageAnim.Func_StopUIAnim();
 
     }
-    public void CloseTeleAnim()
-    {
-        LeanTween.scale(teleanim, new Vector3(150f, 150f, 150f), .08f).setDelay(1f).setEaseInOutSine();
-        //TeleClose();
-    }
+    
     public void InstallOS()
     {
         RenamePanelOpen();
