@@ -50,6 +50,7 @@ public class UserSetup : MonoBehaviour
     public Button Facebook;
     public Button Youtube;
     public Button Itch;
+    public Button Survey;
     public TMP_Text VersionText;
 
     public TMP_Text InternetText;
@@ -62,6 +63,9 @@ public class UserSetup : MonoBehaviour
 
     [SerializeField]
     private string ItchUrl = "";
+    
+    [SerializeField]
+    private string SurveyUrl = "";
 
     private void Awake()
     {
@@ -151,6 +155,7 @@ public class UserSetup : MonoBehaviour
         Facebook.onClick.AddListener(() => OpenBrowser(FacebookUrl));
         Youtube.onClick.AddListener(() => OpenBrowser(YoutubeUrl));
         Itch.onClick.AddListener(() => OpenBrowser(ItchUrl));
+        Survey.onClick.AddListener(() => OpenBrowser(SurveyUrl));
     }
 
     IEnumerator CheckInternetConnection()

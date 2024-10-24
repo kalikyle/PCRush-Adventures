@@ -21,6 +21,7 @@ public class SettingsScript : MonoBehaviour
     public Button Facebook;
     public Button Youtube;
     public Button Itch;
+    public Button Survey;
 
     [SerializeField]
     private string FacebookUrl = "";
@@ -29,7 +30,10 @@ public class SettingsScript : MonoBehaviour
     private string YoutubeUrl = "";
 
     [SerializeField]
-    private string ItchUrl = "";
+    private string ItchUrl = ""; 
+    
+    [SerializeField]
+    private string SurveyUrl = "";
 
 
 
@@ -44,6 +48,7 @@ public class SettingsScript : MonoBehaviour
         Facebook.onClick.AddListener(() => OpenBrowser(FacebookUrl));
         Youtube.onClick.AddListener(() => OpenBrowser(YoutubeUrl));
         Itch.onClick.AddListener(() => OpenBrowser(ItchUrl));
+        Survey.onClick.AddListener(() => OpenBrowser(SurveyUrl));
     }
 
     private void OpenBrowser(string URL)
