@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace PartsInventory.Model
@@ -114,7 +115,10 @@ namespace PartsInventory.Model
             if (string.IsNullOrEmpty(UniqueID))
             {
                 UniqueID = Guid.NewGuid().ToString();
+
+                #if UNITY_EDITOR
                 UnityEditor.EditorUtility.SetDirty(this);
+                #endif
             }
         }
     }
