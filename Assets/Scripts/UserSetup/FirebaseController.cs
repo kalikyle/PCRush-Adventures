@@ -261,6 +261,7 @@ public class FirebaseController : MonoBehaviour
         await Task.Delay(1000);
         GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
         AtNewUser();
+        SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
         //await Task.Delay(1000);
         //GameManager.instance.PartsController.LoadPartsItems();
         //await Task.Delay(1000);
@@ -375,6 +376,7 @@ public class FirebaseController : MonoBehaviour
         GameManager.instance.PartsController.LoadPartsItems();
         await Task.Delay(1000);
         AchievementManager.instance.LoadAchievementsFromFirebase();
+        SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
 
     }
 
@@ -574,6 +576,7 @@ public class FirebaseController : MonoBehaviour
                 GameManager.instance.SaveGameObjectsToFirestore(GameManager.instance.PartsToCollect);
                 isSigned = true;
                 AtNewUser();
+                SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
 
             }
 

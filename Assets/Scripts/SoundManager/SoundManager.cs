@@ -13,8 +13,17 @@ public class SoundManager : MonoBehaviour
     public AudioSource backgroundMusicSource;
     public AudioClip mainMenuBackground;
     public AudioClip homeWorldBackground;
-    public AudioClip otherWorldBackground;
+    public AudioClip CPUWorldBackground;
+    public AudioClip RAMWorldBackground;
+    public AudioClip CPUFANWorldBackground;
+    public AudioClip GPUWorldBackground;
+    public AudioClip STORAGEWorldBackground;
+    public AudioClip PSUWorldBackground;
+    public AudioClip MBWorldBackground;
+    public AudioClip CASEWorldBackground;
     public AudioClip OnhordeBackground;
+
+    public AudioClip CurrentBackground;
 
     // Sound Effects
     [Header("UIEffects")]
@@ -27,6 +36,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip NotEnough;
     public AudioClip UseParts;
     public AudioClip Done;
+    public AudioClip Count;
 
     [Header("GameEffects")]
     public AudioSource GameEffectSource;
@@ -187,6 +197,16 @@ public class SoundManager : MonoBehaviour
         PlaySoundEffect(collectSound);
     }
 
+    public void PlayDoneSound()
+    {
+        PlaySoundEffect(Done);
+    }
+    
+    public void PlayCountSound()
+    {
+        PlaySoundEffect(Count);
+    }
+
     public void InExploreSound()
     {
         soundEffectSource.Play();
@@ -202,12 +222,56 @@ public class SoundManager : MonoBehaviour
     public void PlayHomeWorldBackground()
     {
         PlayBackgroundMusic(homeWorldBackground);
+    } 
+    
+    public void PlayCPUWorldBackground()
+    {
+        PlayBackgroundMusic(CPUWorldBackground);
+    } 
+    
+    public void PlaYRAMWorldBackground()
+    {
+        PlayBackgroundMusic(RAMWorldBackground);
+    } 
+    
+    public void PlaYCPUFANWorldBackground()
+    {
+        PlayBackgroundMusic(CPUFANWorldBackground);
+    }
+    public void PlaYGPUWorldBackground()
+    {
+        PlayBackgroundMusic(GPUWorldBackground);
     }
 
-    public void PlayOtherWorldBackground()
+    public void PlaYSTORAGEWorldBackground()
     {
-        PlayBackgroundMusic(otherWorldBackground);
+        PlayBackgroundMusic(STORAGEWorldBackground);
     }
+
+    public void PlaYPSUWorldBackground()
+    {
+        PlayBackgroundMusic(PSUWorldBackground);
+    }
+
+    public void PlaYMBWorldBackground()
+    {
+        PlayBackgroundMusic(MBWorldBackground);
+    }
+
+    public void PlaYCASEWorldBackground()
+    {
+        PlayBackgroundMusic(CASEWorldBackground);
+    }
+
+    public void PlaYOnHordeBackground()
+    {
+        PlayBackgroundMusic(OnhordeBackground);
+    }
+
+    //public void PlayOtherWorldBackground()
+    //{
+    //    PlayBackgroundMusic(otherWorldBackground);
+    //}
 
     // Optionally save and load sound settings
     public void SaveSoundSettings()
@@ -233,6 +297,7 @@ public class SoundManager : MonoBehaviour
     public void ChangeMusic(AudioClip newClip)
     {
         StartCoroutine(FadeToNewMusic(newClip));
+        CurrentBackground = newClip;
     }
 
     private IEnumerator FadeToNewMusic(AudioClip newClip)

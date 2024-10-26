@@ -106,7 +106,8 @@ public class PlayerTeleport : MonoBehaviour
         Vector3 destination = new Vector3(216.45f, -46.33f, 0);
         transform.position = destination;
         WorldName.text = "CPU Region";
-       
+
+        SoundManager.instance.ChangeMusic(SoundManager.instance.CPUWorldBackground);
         GameManager.instance.LoadOtherWorldInventory();
         InvBTN.gameObject.SetActive(true);
         //TimeText.gameObject.SetActive(false);
@@ -135,6 +136,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.MBWorld = false;
         GameManager.instance.CaseWorld = false;
 
+
         GameManager.instance.HomeWorldMap.SetActive(false);
         GameManager.instance.CPUWorldMap.SetActive(false);
         GameManager.instance.RAMWorldMap.SetActive(true);
@@ -147,6 +149,7 @@ public class PlayerTeleport : MonoBehaviour
 
 
         GameManager.instance.InHomeWorld = false;
+        SoundManager.instance.ChangeMusic(SoundManager.instance.RAMWorldBackground);
         Vector3 destination = new Vector3(391.47f, -53.27f, 0);
         transform.position = destination;
         WorldName.text = "RAM Region";
@@ -180,6 +183,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.CASEWorldMap.SetActive(false);
 
         GameManager.instance.InHomeWorld = false;
+        SoundManager.instance.ChangeMusic(SoundManager.instance.CPUFANWorldBackground);
         Vector3 destination = new Vector3(607.93f, -53.63f, 0);
         transform.position = destination;
         WorldName.text = "CPU Fan Region";
@@ -216,6 +220,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.CASEWorldMap.SetActive(false);
 
         GameManager.instance.InHomeWorld = false;
+        SoundManager.instance.ChangeMusic(SoundManager.instance.GPUWorldBackground);
         Vector3 destination = new Vector3(818.99f, 7.89f, 0);
         transform.position = destination;
         WorldName.text = "GPU Region";
@@ -249,6 +254,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.CASEWorldMap.SetActive(false);
 
         GameManager.instance.InHomeWorld = false;
+        SoundManager.instance.ChangeMusic(SoundManager.instance.STORAGEWorldBackground);
         Vector3 destination = new Vector3(-4.47f, -171.63f, 0);
         transform.position = destination;
         WorldName.text = "Storage Region";
@@ -282,6 +288,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.CASEWorldMap.SetActive(false);
 
         GameManager.instance.InHomeWorld = false;
+        SoundManager.instance.ChangeMusic(SoundManager.instance.PSUWorldBackground);
         Vector3 destination = new Vector3(222.51f, -249.61f, 0);
         transform.position = destination;
         WorldName.text = "PSU Region";
@@ -316,6 +323,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.CASEWorldMap.SetActive(false);
 
         GameManager.instance.InHomeWorld = false;
+        SoundManager.instance.ChangeMusic(SoundManager.instance.MBWorldBackground);
         Vector3 destination = new Vector3(591.51f, -214.54f, 0);
         transform.position = destination;
         WorldName.text = "Motherboard Region";
@@ -349,6 +357,7 @@ public class PlayerTeleport : MonoBehaviour
         GameManager.instance.CASEWorldMap.SetActive(true);
 
         GameManager.instance.InHomeWorld = false;
+        SoundManager.instance.ChangeMusic(SoundManager.instance.CASEWorldBackground);
         Vector3 destination = new Vector3(901.29f, -241.55f, 0);
         transform.position = destination;
         WorldName.text = "Case Region";
@@ -386,6 +395,7 @@ public class PlayerTeleport : MonoBehaviour
 
 
         GameManager.instance.StopLoadWorldInventory();
+        SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
 
 
         if (GameManager.instance.GoBackHomeQuest == true)
@@ -532,7 +542,7 @@ public class PlayerTeleport : MonoBehaviour
             if (collision.CompareTag("Room"))
             {
             GameManager.instance.Enter.gameObject.SetActive(true);
-                    homeTeleport = collision.gameObject;
+                   homeTeleport = collision.gameObject;
                 
 
                    if(collision.gameObject.name == "RoomDoorEnter")

@@ -274,7 +274,7 @@ public class UserSetup : MonoBehaviour
                     GameManager.instance.PartsController.LoadPartsItems();
                     await Task.Delay(1000);
                     AchievementManager.instance.LoadAchievementsFromFirebase();
-                   
+                    SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
 
 
                 }

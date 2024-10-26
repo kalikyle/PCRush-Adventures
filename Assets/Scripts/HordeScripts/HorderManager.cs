@@ -163,6 +163,7 @@ public class HorderManager : MonoBehaviour
     private void StartHorde(HordeConfig config)
     {
         GameManager.instance.ShowFloatingText("<color=yellow>ELIMINATE THE ENEMIES AND COLLECT MATERIALS</color>");
+        SoundManager.instance.PlaYOnHordeBackground();
         GameManager.instance.OnHorde = true;
         currentHordeConfig = config;
         config.countdownTime = 120f; // Reset the countdown time to 2 minutes
@@ -208,6 +209,7 @@ public class HorderManager : MonoBehaviour
 
     private async void StopHorde(HordeConfig config)
     {
+        SoundManager.instance.ChangeMusic(SoundManager.instance.CurrentBackground);
         GameManager.instance.OnHorde = false;
         if (config == null) return; // Avoid null reference errors
 
@@ -250,6 +252,7 @@ public class HorderManager : MonoBehaviour
 
     private async void EndHorde(HordeConfig config)
     {
+        SoundManager.instance.ChangeMusic(SoundManager.instance.CurrentBackground);
         GameManager.instance.OnHorde = false;
         if (worldCanvases.TryGetValue(config.HordeName, out var canvas))
         {
@@ -270,6 +273,7 @@ public class HorderManager : MonoBehaviour
         }
 
         LTA.HordeFinish();
+        SoundManager.instance.PlayDoneSound();
 
         getMaterials();
         GetMoney();

@@ -221,8 +221,8 @@ public class SwordBuy : MonoBehaviour
         inventoryItems.AttackDamage = shpItem.item.AttackDamage;
         spriteIndex = shpItem.item.SpriteIndex;
 
-        if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-        {
+        //if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+        //{
 
             Texture2D texture = spriteArray[8].Textures[spriteIndex];
             Texture2D text2 = spriteArray[8].GetIcon(texture);
@@ -230,7 +230,7 @@ public class SwordBuy : MonoBehaviour
             Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
 
             inventoryItems.ItemImage = sprite;
-        }
+        //}
 
         inventoryItems.Category = "Sword";
 

@@ -185,8 +185,8 @@ public class HelmetBuy : MonoBehaviour
         inventoryItems.HealthRegen = shpItem.item.HealthRegen;
         spriteIndex = shpItem.item.SpriteIndex;
 
-        if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-        {
+        //if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+        //{
 
             Texture2D texture = spriteArray[7].Textures[spriteIndex];
             Texture2D text2 = spriteArray[7].GetIcon(texture);
@@ -194,7 +194,7 @@ public class HelmetBuy : MonoBehaviour
             Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
 
             inventoryItems.ItemImage = sprite;
-        }
+        //}
 
         inventoryItems.Category = "Helmet";
 
