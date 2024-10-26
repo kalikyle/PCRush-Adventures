@@ -676,7 +676,6 @@ namespace PartsInventory
                 GameManager.instance.BuildingRoom.SetActive(false);
                 GameManager.instance.ComputerInv.SetActive(false);
                 GameManager.instance.ModifyBTN.SetActive(false);
-                
             }
             
         }
@@ -2230,7 +2229,7 @@ namespace PartsInventory
 
 
                 LTA.ShowSuccessPC();
-
+                SoundManager.instance.PlayDoneSound();
 
                 CancelButton.interactable = false;
                 GameManager.instance.BeenModified = false;

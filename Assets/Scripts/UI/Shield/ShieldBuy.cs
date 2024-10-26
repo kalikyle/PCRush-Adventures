@@ -196,8 +196,8 @@ public class ShieldBuy : MonoBehaviour
         inventoryItems.CriticalChance = shpItem.item.CriticalChance;
         spriteIndex = shpItem.item.SpriteIndex;
 
-        if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-        {
+        //if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+        //{
 
             Texture2D texture = spriteArray[1].Textures[spriteIndex];
             Texture2D text2 = spriteArray[1].GetIcon(texture);
@@ -205,7 +205,7 @@ public class ShieldBuy : MonoBehaviour
             Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
 
             inventoryItems.ItemImage = sprite;
-        }
+        //}
 
         inventoryItems.Category = "Shield";
 

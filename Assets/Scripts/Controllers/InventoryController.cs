@@ -1575,10 +1575,11 @@ namespace Inventory
 
         public void DonePC(PCSO2 PC)
         {
-            
+
             //PCData.AddPCSO2List(PC);
             //_2exp.gameObject.SetActive(true);
             //Success.Play();
+            SoundManager.instance.PlayDoneSound();
             SuccesfullyCreated.gameObject.SetActive(true);
             SuccesfullPCName.text = PC.PCName;
             SuccesfullPCImage.sprite = PC.PCImage;

@@ -222,8 +222,8 @@ public class ArmorBuy : MonoBehaviour
         inventoryItems.Mana = shpItem.item.Mana;
         spriteIndex = shpItem.item.SpriteIndex;
 
-        if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-        {
+        //if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+        //{
 
             Texture2D texture = spriteArray[3].Textures[spriteIndex];
             Texture2D text2 = spriteArray[3].GetIcon(texture);
@@ -231,7 +231,7 @@ public class ArmorBuy : MonoBehaviour
             Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
 
             inventoryItems.ItemImage = sprite;
-        }
+       // }
 
         inventoryItems.Category = "Armor";
 
