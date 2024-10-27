@@ -3,6 +3,7 @@ using Firebase.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.NetworkInformation;
 using TMPro;
 using UnityEditor;
@@ -249,20 +250,7 @@ public class InternetChecker : MonoBehaviour
 
     private bool CheckAndroidAndEditorConnection()
     {
-        //var reachability = Application.internetReachability;
-
-        //if (reachability == NetworkReachability.NotReachable)
-        //{
-        //    internetStatusText.text = "No Internet";
-        //    internetStatusText.color = Color.red;
-        //    return false;
-        //}
-
-        //internetStatusText.text = " ";                                
-        //return true; // Return true for good connection
-
         var reachability = Application.internetReachability;
-        const string GOOGLE_DNS = "8.8.8.8";
 
         if (reachability == NetworkReachability.NotReachable)
         {
@@ -270,47 +258,17 @@ public class InternetChecker : MonoBehaviour
             internetStatusText.color = Color.red;
             return false;
         }
-
-        try
+        else
         {
-            using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
-            {
-                PingReply reply = ping.Send(GOOGLE_DNS);
+            internetStatusText.text = "";
+        }
 
-                if (reply.Status == IPStatus.Success)
-                {
-                    if (reply.RoundtripTime > 150)
-                    {
-                        internetStatusText.text = $"{reply.RoundtripTime}ms";
-                        internetStatusText.color = Color.red;
-                        return false;
-                    }
-                    else
-                    {
-                        internetStatusText.text = $"{reply.RoundtripTime}ms";
-                        internetStatusText.color = Color.green;
-                        return true;
-                    }
-                }
-                else
-                {
-                    internetStatusText.text = "No Internet";
-                    internetStatusText.color = Color.red;
-                    return false;
-                }
-            }
-        }
-        catch (Exception)
-        {
-            //Debug.LogError("Error checking internet connection: " + e.Message);
-            internetStatusText.text = "No Internet";
-            internetStatusText.color = Color.red; // Indicate an error
-            return false; // Assume no internet on error
-        }
+     return true;
     }
 
     private bool CheckWindowsInternetConnection()
     {
+        UnityEngine.Debug.LogError("kantits");
         const string GOOGLE_DNS = "8.8.8.8"; // Google's DNS server
 
         try

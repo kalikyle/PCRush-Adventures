@@ -20,7 +20,7 @@ public class unloadscene : MonoBehaviour
         GameManager.instance.UIExplore.SetActive(true);
         character.CombineHeadAndHairSprites();
         userSetup.IntroCanvas.SetActive(false);
-        SoundManager.instance.backgroundMusicSource.Stop();
+        //SoundManager.instance.backgroundMusicSource.Stop();
         GameManager.instance.scene.manualLoading();
        
         //await Task.Delay(1000);
