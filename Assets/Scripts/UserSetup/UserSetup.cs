@@ -4,6 +4,7 @@ using Firebase.Firestore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -166,10 +168,27 @@ public class UserSetup : MonoBehaviour
             yield return new WaitForSeconds(1f); // Check every 1 second
         }
     }
-
+    
     public void internetcheck()
     {
-        const string GOOGLE_DNS = "8.8.8.8";
+
+#if UNITY_ANDROID || UNITY_EDITOR
+        var reachability = Application.internetReachability;
+
+        if (reachability == NetworkReachability.NotReachable)
+        {
+            InternetText.text = "No Internet";
+            InternetText.color = Color.red;
+
+        }
+        else
+        {
+            InternetText.text = "";
+        }
+
+
+#else
+   const string GOOGLE_DNS = "8.8.8.8";
         try
         {
             using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
@@ -206,6 +225,8 @@ public class UserSetup : MonoBehaviour
             InternetText.color = Color.red; // Indicate an error
            
         }
+#endif
+
     }
 
     private void OpenBrowser(string URL)
