@@ -514,10 +514,13 @@ public class TheGame : NetworkBehaviour
         // Start the countdown sequence
         ReadyUI.SetActive(false);
         CountdownUI.SetActive(true);
+        SoundManager.instance.PlayCountSound();
         ScaleDown(three, () =>
         {
+            SoundManager.instance.PlayCountSound();
             ScaleDown(two, () =>
             {
+                SoundManager.instance.PlayCountSound();
                 ScaleDown(one, showBuild);
             });
         });
@@ -547,8 +550,10 @@ public class TheGame : NetworkBehaviour
 
     public void showBuild()
     {
+        SoundManager.instance.PlayCountSound();
         LeanTween.scale(Build, Vector3.one, 0.5f).setEase(LeanTweenType.easeInCubic).setOnComplete(CloseReadyPanel);
-        
+        SoundManager.instance.PlayBackgroundMusic(SoundManager.instance.mainMenuBackground);
+
     }
     public async void CloseReadyPanel()
     {

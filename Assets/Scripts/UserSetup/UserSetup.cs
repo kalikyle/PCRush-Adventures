@@ -171,8 +171,50 @@ public class UserSetup : MonoBehaviour
     
     public void internetcheck()
     {
+#if UNITY_EDITOR
 
-#if UNITY_ANDROID || UNITY_EDITOR
+        const string GOOGLE_DNS = "8.8.8.8";
+        try
+        {
+            using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
+            {
+                PingReply reply = ping.Send(GOOGLE_DNS);
+
+                if (reply.Status == IPStatus.Success)
+                {
+                    if (reply.RoundtripTime > 200)
+                    {
+                        InternetText.text = "slow internet";
+                        InternetText.color = Color.red;
+
+                    }else if(reply.RoundtripTime > 100)
+                    {
+                        InternetText.text = $"{reply.RoundtripTime}ms";
+                        InternetText.color = Color.yellow;
+                    }
+                    else
+                    {
+                        InternetText.text = $"{reply.RoundtripTime}ms";
+                        InternetText.color = Color.green;
+
+                    }
+                }
+                else
+                {
+                    InternetText.text = "No Internet";
+                    InternetText.color = Color.red;
+
+                }
+            }
+        }
+        catch (Exception)
+        {
+            //Debug.LogError("Error checking internet connection: " + e.Message);
+            InternetText.text = "No Internet";
+            InternetText.color = Color.red; // Indicate an error
+
+        }
+#elif UNITY_ANDROID
         var reachability = Application.internetReachability;
 
         if (reachability == NetworkReachability.NotReachable)
@@ -187,7 +229,7 @@ public class UserSetup : MonoBehaviour
         }
 
 
-#else
+#else 
    const string GOOGLE_DNS = "8.8.8.8";
         try
         {
@@ -301,6 +343,7 @@ public class UserSetup : MonoBehaviour
                 }
                 else
                 {
+
                     //during signin main menu
                     //Debug.LogError("SCENE UNLOADED");
                     SceneManager.UnloadSceneAsync(1);
@@ -310,12 +353,19 @@ public class UserSetup : MonoBehaviour
             }
             else
             {
-                FirebaseController.Instance.showNotificationMessage("Error", "No Internet Connection, \n Please Check Your Internet Connection and Try Again");
+                FirebaseController.Instance.showNotificationMessage("Error", "No/Slow Internet Connection, \n Please Check Your Internet Connection and Try Again");
             }
         }
         else
         {
-            FirebaseController.Instance.OpenLoginPanel();
+            if (InternetChecker.Instance.TryStartGame() == true)
+            {
+                FirebaseController.Instance.OpenLoginPanel();
+            }
+            else
+            {
+                FirebaseController.Instance.showNotificationMessage("Error", "No/Slow Internet Connection, \n Please Check Your Internet Connection and Try Again");
+            }
         }
         
 

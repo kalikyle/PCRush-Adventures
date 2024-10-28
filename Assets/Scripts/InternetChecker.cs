@@ -238,12 +238,13 @@ public class InternetChecker : MonoBehaviour
     public bool CheckInternetConnection()
     {
 
-#if UNITY_ANDROID || UNITY_EDITOR
-
-      return CheckAndroidAndEditorConnection();
+#if UNITY_EDITOR
+        return CheckWindowsInternetConnection();
+#elif UNITY_ANDROID                    
+        return CheckAndroidAndEditorConnection();
 #else
-   //put the internet connectivity here if its windows
-   return CheckWindowsInternetConnection();
+        //put the internet connectivity here if its windows
+        return CheckWindowsInternetConnection();
 #endif
     }
 
@@ -268,7 +269,7 @@ public class InternetChecker : MonoBehaviour
 
     private bool CheckWindowsInternetConnection()
     {
-        UnityEngine.Debug.LogError("kantits");
+        //UnityEngine.Debug.LogError("kantits");
         const string GOOGLE_DNS = "8.8.8.8"; // Google's DNS server
 
         try
@@ -284,7 +285,9 @@ public class InternetChecker : MonoBehaviour
 
                     if (reply.RoundtripTime > 200)
                     {
-                        color = Color.red;
+                        internetStatusText.text = "Slow Internet";
+                        internetStatusText.color = Color.red;
+                        return false; // No internet
                     }
                     else if (reply.RoundtripTime > 100)
                     {

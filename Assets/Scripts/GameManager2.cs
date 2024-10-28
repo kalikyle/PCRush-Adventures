@@ -181,7 +181,7 @@ public class GameManager2 : MonoBehaviour
     {
         TheGame.instance.image1Ready = image1Ready;
         TheGame.instance.image2Ready = image2Ready;
-
+        
        
 
     CheckMission();
@@ -231,6 +231,7 @@ public class GameManager2 : MonoBehaviour
         {
             // Destroy the GameManager2 instance when PCRush scene is unloaded
             Destroy(gameObject);
+            SoundManager.instance.ChangeMusic(SoundManager.instance.mainMenuBackground);
         }
     }
 
