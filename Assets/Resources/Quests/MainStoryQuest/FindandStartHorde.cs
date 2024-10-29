@@ -6,8 +6,10 @@ public class FindandStartHorde : QuestStep
 {
     // Start is called before the first frame update
     private GameObject CPUExchanger;
+    public string StepInfo = "Explore The Region again and find the area where you can fight the horde";
     void Start()
     {
+        
         GameManager.instance.OnStartFightQuest = true;
 
         if (CPUExchanger == null)
@@ -57,6 +59,7 @@ public class FindandStartHorde : QuestStep
     // Update is called once per frame
     void Update()
     {
+        
         if (GameManager.instance.OnStartFightQuest == true && GameManager.instance.OnTheArea == true && GameManager.instance.HordeFinished == true) { 
         
         

@@ -7,13 +7,14 @@ public class HeadBackToExchanger : QuestStep
     [Header("Target GameObject Name")]
     [SerializeField] private string targetGameObjectName;
 
-    //public string StepInfo = "Go Outside your house, and find your friend Ian. His house have Orange roof located at the southeast of the Map";
+    public string StepInfo = "Go back to Exchanger again and Talk to him";
 
 
     private GameObject targetGameObject;
     private bool hasReachedTarget = false;
     void Start()
     {
+        
         GameManager.instance.OnHeadBackQuest = true;
         if (GameManager.instance.HasInitialize == false)
         {
@@ -82,6 +83,7 @@ public class HeadBackToExchanger : QuestStep
     // Update is called once per frame
     void Update()
     {
+        
         if (!hasReachedTarget && IsPlayerNearTarget())
         {
             hasReachedTarget = true;

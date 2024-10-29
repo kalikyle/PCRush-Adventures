@@ -13,13 +13,14 @@ public class BuyASword : QuestStep
     [Header("Target GameObject Name")]
     [SerializeField] private string targetGameObjectName;
 
-    //public string StepInfo = "Go Outside your house, and find your friend Ian. His house have Orange roof located at the southeast of the Map";
+    public string StepInfo = "Find The Sword Dealer in the region and Buy A Sword";
 
 
     private GameObject targetGameObject;
     private bool hasReachedTarget = false;
     void Start()
     {
+       
         ///////////////////////////////////////////
         if (CPUExchanger == null)
         {
@@ -152,6 +153,7 @@ public class BuyASword : QuestStep
     public bool hasclose = false;
     void Update()
     {
+       
         if (!hasReachedTarget && IsPlayerNearTarget())
         {
             hasReachedTarget = true;

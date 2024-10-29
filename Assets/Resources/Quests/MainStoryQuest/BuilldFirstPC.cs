@@ -7,9 +7,11 @@ public class BuilldFirstPC : QuestStep
 {
     private GameObject Ian;
     public Vector3 targetPosition;
+    public string StepInfo = "Just follow what says";
     // Start is called before the first frame update
     void Start()
     {
+        
         if (Ian == null)
         {
             // Try to find the GameObject by name if it's not assigned in the inspector
@@ -51,9 +53,9 @@ public class BuilldFirstPC : QuestStep
     // Update is called once per frame
     void Update()
     {
-        
-          
-        
+        //GameManager.instance.CurrentQuestInfo = StepInfo;
+
+
     }
     public void OnClickBackButton()
     {

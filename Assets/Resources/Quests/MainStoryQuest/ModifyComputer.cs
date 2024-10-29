@@ -5,8 +5,10 @@ using UnityEngine;
 public class ModifyComputer : QuestStep
 {
     // Start is called before the first frame update
+    public string StepInfo = "Modify Your computer, just follow the instructions";
     void Start()
     {
+       
         GameManager.instance.OnModifyQuest = true;
 
 
@@ -25,7 +27,8 @@ public class ModifyComputer : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.OnModifyQuest == true && GameManager.instance.DoneModify == true)
+        
+        if (GameManager.instance.OnModifyQuest == true && GameManager.instance.DoneModify == true)
         {
             FinishQuestStep();
             ChangeState("Finish", "Finish");

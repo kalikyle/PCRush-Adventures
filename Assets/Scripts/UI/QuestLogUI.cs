@@ -289,9 +289,14 @@ public class QuestLogUI : MonoBehaviour
         // Update the text fields in the UI prefab
         TMP_Text objectiveText = currentQuestStepUI.transform.Find("Name").GetComponent<TMP_Text>();
         TMP_Text progressText = currentQuestStepUI.transform.Find("status").GetComponent<TMP_Text>();
+        TMP_Text QuestInfoText = currentQuestStepUI.transform.Find("Panel/QuestInfo").GetComponent<TMP_Text>();
 
         objectiveText.text = quest.currentQuestStep(); // Update the quest step name
         progressText.text = quest.currentStatus();     // Update the progress (e.g., 8/8)
+        QuestInfoText.text = quest.currentQuestStepInfo();
+
+
+
     }
 
 

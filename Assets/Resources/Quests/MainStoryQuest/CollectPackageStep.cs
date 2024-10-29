@@ -16,7 +16,7 @@ public class CollectPackageStep : QuestStep
 
     public async void Start()
     {
-       
+        //GameManager.instance.CurrentQuestInfo = StepInfo;
         if (packagecollected == 0)
         {
             await Task.Delay(1500);

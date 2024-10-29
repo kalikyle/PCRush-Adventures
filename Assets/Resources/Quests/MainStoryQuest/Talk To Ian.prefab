@@ -45,5 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPosition: {x: 18.3, y: -6.81, z: 0}
-  StepInfo: Talk To Ian
-  inkJSON: {fileID: 4900000, guid: b2fe0c312402b14498650eb85cfbad58, type: 3}
+  StepInfo: Click The Talk Button

@@ -45,4 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetGameObjectName: Ian
-  inkJSON: {fileID: 4900000, guid: b2fe0c312402b14498650eb85cfbad58, type: 3}
+  StepInfo: Go Outside your house, and find your friend Ian. His house have Orange
+    roof located at the southeast of the Map

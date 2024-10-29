@@ -8,7 +8,7 @@ public class GoToIan : QuestStep
     [Header("Target GameObject Name")]
     [SerializeField] private string targetGameObjectName;
 
-    public string StepInfo = "Go Outside your house, and find your friend Ian. His house have Orange roof located at the southeast of the Map";
+    public string StepInfo = "Go Outside your house, and find your friend Ian. His house have Orange roof located at the southeast of the Home World";
 
 
     private GameObject targetGameObject;
@@ -16,6 +16,7 @@ public class GoToIan : QuestStep
 
     public void Start()
     {
+        
         GameManager.instance.HasInitialize = true;
         GameManager.instance.packagescollected = 8;// need to have this in the rest of the quest step
         GameManager.instance.HouseDoor.SetActive(true);
@@ -44,6 +45,7 @@ public class GoToIan : QuestStep
 
     public void Update()
     {
+        //GameManager.instance.CurrentQuestInfo = StepInfo;
         // Check if the player has reached the target GameObject
         if (!hasReachedTarget && IsPlayerNearTarget())
         {
@@ -69,6 +71,7 @@ public class GoToIan : QuestStep
 
     protected override void SetQuestStepState(string state)
     {
+
         // You can implement this if you need to load or set state for this step
     }
 }

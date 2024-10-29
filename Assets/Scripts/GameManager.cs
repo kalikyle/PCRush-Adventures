@@ -399,7 +399,6 @@ public class GameManager : MonoBehaviour
     public Button CaseExchangeXButton;
 
 
-
     public GameObject CPUSpawn;
 
     

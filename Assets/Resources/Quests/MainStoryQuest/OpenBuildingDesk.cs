@@ -7,10 +7,11 @@ public class OpenBuildingDesk : QuestStep
 {
     private GameObject Ian;
     public Vector3 targetPosition;
-    public string StepInfo = "Go to the Desk and Click the Build Button";
+    public string StepInfo = "Go to your Room,Go to your Building Desk and Click the Build Button";
     // Start is called before the first frame update
     void Start()
     {
+       
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("fifth");
 
@@ -61,7 +62,8 @@ public class OpenBuildingDesk : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.OpenBuild == true)
+        //GameManager.instance.CurrentQuestInfo = StepInfo;
+        if (GameManager.instance.OpenBuild == true)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
