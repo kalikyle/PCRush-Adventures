@@ -8,8 +8,10 @@ public class GoToMom : QuestStep
     // Start is called before the first frame update
     private GameObject Ian;
     public Vector3 targetPosition;
+    public string StepInfo = "Your Mom called you and Ian, exit your room and just go downstairs";
     void Start()
     {
+       
         GameManager.instance.GoDownStairsQuest = true;
         if (Ian == null)
         {
@@ -55,7 +57,8 @@ public class GoToMom : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.GoDownStairsQuest == true && GameManager.instance.DoneDownStairsQuets == true)
+     
+        if (GameManager.instance.GoDownStairsQuest == true && GameManager.instance.DoneDownStairsQuets == true)
         {
             FinishQuestStep();
             ChangeState("Finish", "Finish");

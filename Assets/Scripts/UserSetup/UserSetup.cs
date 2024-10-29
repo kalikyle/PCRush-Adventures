@@ -39,7 +39,7 @@ public class UserSetup : MonoBehaviour
 
     public TMP_InputField loginEmail, loginPassword, signupEmail, signupPassword, signupCPassword, forgetPassEmail;
 
-    public TMP_Text notif_Title_Text, notif_Message_Text;
+    public TMP_Text notif_Title_Text, notif_Message_Text, strengthText;
 
     public Toggle rememberMe;
 
@@ -97,6 +97,7 @@ public class UserSetup : MonoBehaviour
 
         FirebaseController.Instance.notif_Title_Text = notif_Title_Text;
         FirebaseController.Instance.notif_Message_Text = notif_Message_Text;
+        FirebaseController.Instance.strengthText = strengthText;
 
 
         FirebaseController.Instance.rememberMe = rememberMe;
@@ -158,6 +159,7 @@ public class UserSetup : MonoBehaviour
         Youtube.onClick.AddListener(() => OpenBrowser(YoutubeUrl));
         Itch.onClick.AddListener(() => OpenBrowser(ItchUrl));
         Survey.onClick.AddListener(() => OpenBrowser(SurveyUrl));
+        signupPassword.onValueChanged.AddListener(delegate { FirebaseController.Instance.CheckPasswordStrength(); });
     }
 
     IEnumerator CheckInternetConnection()
@@ -517,4 +519,10 @@ public class UserSetup : MonoBehaviour
         LogInCanvas.gameObject.SetActive(false);
         CharEditor.gameObject.SetActive(true);
     }
+
+
+  
+
+
+    
 }

@@ -12,8 +12,11 @@ public class ExchangeToCase : QuestStep
     private GameObject targetGameObject;
     private bool hasReachedTarget = false;
 
+    public string StepInfo = "Go back to Case Exchanger to Exchange the Collected Materials";
+
     void Start()
     {
+        
         GameManager.instance.ExchangeToCaseQuest = true;
         if (GameManager.instance.HasInitialize == false)
         {
@@ -122,6 +125,7 @@ public class ExchangeToCase : QuestStep
     // Update is called once per frame
     void Update()
     {
+        
         if (!hasReachedTarget && IsPlayerNearTarget())
         {
             hasReachedTarget = true;

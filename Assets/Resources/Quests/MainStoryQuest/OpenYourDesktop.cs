@@ -5,8 +5,10 @@ using UnityEngine;
 public class OpenYourDesktop : QuestStep
 {
     // Start is called before the first frame update
+    public string StepInfo = "Go to your Desktop to see your Hardwork";
     void Start()
     {
+        
         GameManager.instance.OpenYourDesktopFinish = true;
 
         if (GameManager.instance.HasInitialize == false)
@@ -35,6 +37,7 @@ public class OpenYourDesktop : QuestStep
     bool dialogueOpened = false;
     void Update()
     {
+       
         if (GameManager.instance.OpenYourDesktopFinish == true && GameManager.instance.DesktopOpenedFinish == true && dialogueOpened == false)
         {
 
@@ -49,7 +52,7 @@ public class OpenYourDesktop : QuestStep
         {
             FinishQuestStep();
             ChangeState("Finish", "Finish");
-
+            //GameManager.instance.CurrentQuestInfo = "";
             GameManager.instance.OpenYourDesktopFinish = false;
             GameManager.instance.DesktopOpenedFinish = false;
             GameManager.instance.OverallFinish = false;

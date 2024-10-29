@@ -9,8 +9,10 @@ public class GoToDeskAgain : QuestStep
     public Vector3 targetPosition;
     private GameObject Ian;
     public Vector3 targetPositionIan;
+    public string StepInfo = "Go Back to Your Room and Open your Desktop";
     void Start()
     {
+        
         GameManager.instance.OnGoToDeskQuestAgain = true;
         if (GameManager.instance.HasInitialize == false)
         {
@@ -70,6 +72,7 @@ public class GoToDeskAgain : QuestStep
     // Update is called once per frame
     void Update()
     {
+      
         if (GameManager.instance.OnGoToDeskQuestAgain == true && GameManager.instance.OntheDesk == true) {
 
             FinishQuestStep();

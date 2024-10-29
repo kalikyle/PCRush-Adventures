@@ -9,13 +9,13 @@ public class GetSomeSleep : QuestStep
     [Header("Target GameObject Name")]
     [SerializeField] private string targetGameObjectName;
 
-    //public string StepInfo = "Go Outside your house, and find your friend Ian. His house have Orange roof located at the southeast of the Map";
+    public string StepInfo = "Just go to your bed";
 
 
     private GameObject targetGameObject;
     void Start()
     {
-
+       
         if (!string.IsNullOrEmpty(targetGameObjectName))
         {
             targetGameObject = GameObject.Find(targetGameObjectName);
@@ -61,7 +61,8 @@ public class GetSomeSleep : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.OnSleepQuest == true && GameManager.instance.OnSleepFinish == true)
+       
+        if (GameManager.instance.OnSleepQuest == true && GameManager.instance.OnSleepFinish == true)
         {
             FinishQuestStep();
             ChangeState("Finish", "Finish");

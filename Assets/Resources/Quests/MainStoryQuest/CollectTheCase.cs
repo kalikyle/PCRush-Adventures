@@ -5,9 +5,10 @@ using UnityEngine;
 public class CollectTheCase : QuestStep
 {
     // Start is called before the first frame update
-
+    public string StepInfo = "Now Go back to your home and pick up the case you exchanged";
     void Start()
     {
+        
         GameManager.instance.OnCollectCaseQuest = true;
 
         if (GameManager.instance.HasInitialize == false)
@@ -35,6 +36,7 @@ public class CollectTheCase : QuestStep
     // Update is called once per frame
     void Update()
     {
+        
         if (GameManager.instance.OnCollectCaseQuest == true && GameManager.instance.CaseCollected == true)
         {
             FinishQuestStep();

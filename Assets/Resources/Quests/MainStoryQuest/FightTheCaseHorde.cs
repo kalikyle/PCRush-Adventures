@@ -9,7 +9,7 @@ public class FightTheCaseHorde : QuestStep
     [Header("Target GameObject Name")]
     [SerializeField] private string targetGameObjectName;
 
-    //public string StepInfo = "Go Outside your house, and find your friend Ian. His house have Orange roof located at the southeast of the Map";
+    public string StepInfo = "Explore the Region and Find The are to fight the final Horde";
 
 
     private GameObject targetGameObject;
@@ -17,6 +17,7 @@ public class FightTheCaseHorde : QuestStep
 
     void Start()
     {
+        
         GameManager.instance.OnStartCaseFightQuest = true;
 
         if (GameManager.instance.HasInitialize == false)
@@ -66,6 +67,7 @@ public class FightTheCaseHorde : QuestStep
     // Update is called once per frame
     void Update()
     {
+        
         if (GameManager.instance.OnStartCaseFightQuest == true  && GameManager.instance.CaseHordeFinished == true)
         {
 

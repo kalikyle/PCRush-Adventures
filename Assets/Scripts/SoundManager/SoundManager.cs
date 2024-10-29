@@ -37,6 +37,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip UseParts;
     public AudioClip Done;
     public AudioClip Count;
+    public AudioClip Dialogue;
 
     [Header("GameEffects")]
     public AudioSource GameEffectSource;
@@ -206,6 +207,10 @@ public class SoundManager : MonoBehaviour
     {
         PlaySoundEffect(Count);
     }
+    public void PlayDialogueSound()
+    {
+        PlaySoundEffect(Dialogue);
+    }
 
     public void InExploreSound()
     {
@@ -335,11 +340,11 @@ public class SoundManager : MonoBehaviour
 
         for (float t = 0; t < fadeDuration; t += Time.deltaTime)
         {
-            audioSource.volume = Mathf.Lerp(startVolume, 1, t / fadeDuration);
+            audioSource.volume = Mathf.Lerp(startVolume, backgroundVolume, t / fadeDuration);
             yield return null;
         }
 
-        audioSource.volume = 1;
+        audioSource.volume = backgroundVolume;
     }
 
     public void OnApplicationQuit()

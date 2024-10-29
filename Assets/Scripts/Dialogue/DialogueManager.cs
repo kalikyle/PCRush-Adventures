@@ -9,6 +9,8 @@ using System;
 using Shop.UI;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
+using UnityEditor.Rendering;
 
 
 public class DialogueManager : MonoBehaviour
@@ -87,9 +89,9 @@ public class DialogueManager : MonoBehaviour
         }
 
         //talktoBTN.gameObject.SetActive(false);
-    
 
-}
+       
+    }
     
     private void Update()
     {
@@ -102,7 +104,7 @@ public class DialogueManager : MonoBehaviour
         
         
 
-        if (Input.GetKeyDown(KeyCode.Space)){
+        if (canContinuetoNextLine && Input.GetKeyDown(KeyCode.Space)){
             ContinueStory();
         }
        
@@ -110,7 +112,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
-        
+       
             currentStory = new Story(inkJSON.text);
             dialogueIsPlaying = true;
             dialoguePanel.SetActive(true);
@@ -118,10 +120,9 @@ public class DialogueManager : MonoBehaviour
             dialogueVariables.StartListening(currentStory);
             SetPlayerNameVariable(GameManager.instance.PlayerName);
 
-            // Handle external function calls from the Ink script
-            //currentStory.BindExternalFunction("open_shop_panel", () => OpenShopPanel());
-
-            ContinueStory();
+        // Handle external function calls from the Ink script
+        //currentStory.BindExternalFunction("open_shop_panel", () => OpenShopPanel());
+        ContinueStory();
         
 
     }
@@ -130,20 +131,82 @@ public class DialogueManager : MonoBehaviour
         // Set the Ink variable "player_Name" to the playerName
         currentStory.variablesState["player_Name"] = playerName;
     }
+    private bool canContinuetoNextLine = false;
+    private Coroutine displayLineCoRoutine;
+    private bool typing;
+    //private string currentText; // Store current text being typed
     public void ContinueStory()
     {
+        
         if (currentStory.canContinue)
         {
-            dialogueText.text = currentStory.Continue();
+
+            if (displayLineCoRoutine != null) {
+                StopCoroutine(displayLineCoRoutine);
+            
+            }
+            displayLineCoRoutine = StartCoroutine(TypeText(currentStory.Continue())); //dialogueText.text = currentStory.Continue();
 
             DisplayChoices();
-
             HandleTags(currentStory.currentTags);
         }
         else
         {
             ExitDialogueMode();
         }
+
+
+      
+
+    }
+
+    private IEnumerator TypeText(string text)
+    {
+        //SoundManager.instance.PlayDialogueSound();
+        canContinuetoNextLine = false;
+
+        string plainText = Regex.Replace(text, "<.*?>", "");
+        dialogueText.text = "";
+
+        int visibleCount = 0;
+        while (visibleCount <= plainText.Length)
+        {
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                // Show the full text immediately and end typing
+                dialogueText.text = text;
+                canContinuetoNextLine = true; // Allow continuation
+                yield break; // Exit the coroutine
+            }
+            // Use the plain text count to reveal characters in the rich-text version
+            dialogueText.text = text.Substring(0, FindRichTextEndIndex(text, visibleCount));
+            visibleCount++;
+
+
+            yield return new WaitForSeconds(0.05f); // Adjust typing speed here
+        }
+
+        canContinuetoNextLine = true;
+        
+    }
+
+    private int FindRichTextEndIndex(string richText, int plainTextLength)
+    {
+        int count = 0;
+        int index = 0;
+        bool insideTag = false;
+
+        while (index < richText.Length && count < plainTextLength)
+        {
+            if (richText[index] == '<') insideTag = true;
+            if (!insideTag) count++; // Only count visible characters
+            if (richText[index] == '>') insideTag = false;
+
+            index++;
+        }
+
+        return index;
     }
 
     int from = 0;
@@ -392,8 +455,11 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceindex)
     {
-        currentStory.ChooseChoiceIndex(choiceindex);
-        ContinueStory();
+        if (canContinuetoNextLine)
+        {
+            currentStory.ChooseChoiceIndex(choiceindex);
+            ContinueStory();
+        }
     }
 
     public Ink.Runtime.Object GetVariableState(string variableName)

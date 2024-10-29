@@ -5,8 +5,10 @@ using UnityEngine;
 public class TurnOnComputer : QuestStep
 {
     // Start is called before the first frame update
+    public string StepInfo = "Click The Computer and Click the Turn On Button";
     void Start()
     {
+        
         GameManager.instance.OnTurnOnQuest = true;
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("Eleven");
@@ -21,7 +23,8 @@ public class TurnOnComputer : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.OnTurnOnQuest == true && GameManager.instance.PCTurnOn == true)
+        
+        if (GameManager.instance.OnTurnOnQuest == true && GameManager.instance.PCTurnOn == true)
         {
             FinishQuestStep();
             ChangeState("Finish", "Finish");

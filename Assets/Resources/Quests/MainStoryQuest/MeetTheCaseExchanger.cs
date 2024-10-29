@@ -9,7 +9,7 @@ public class MeetTheCaseExchanger : QuestStep
     [Header("Target GameObject Name")]
     [SerializeField] private string targetGameObjectName;
 
-    //public string StepInfo = "Go Outside your house, and find your friend Ian. His house have Orange roof located at the southeast of the Map";
+    public string StepInfo = "Find The Case Exchanger House and talk to him";
 
 
     private GameObject targetGameObject;
@@ -17,7 +17,7 @@ public class MeetTheCaseExchanger : QuestStep
 
     void Start()
     {
-
+        
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("TwentyEight");
 
@@ -76,6 +76,7 @@ public class MeetTheCaseExchanger : QuestStep
     // Update is called once per frame
     void Update()
     {
+        
         if (!hasReachedTarget && IsPlayerNearTarget())
         {
             hasReachedTarget = true;

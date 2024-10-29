@@ -19,5 +19,6 @@ public class QuestStepState
 
         this.state = "";
         this.status = "";
+        
     }
 }

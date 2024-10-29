@@ -14,9 +14,10 @@ public class UnlockTheRegions : QuestStep
     [Header("Target GameObject Name")]
     [SerializeField] private string targetGameObjectName;
     private GameObject targetGameObject;
-
+    public string StepInfo = "Now all you have to do is to level up and unlock all the regions";
     void Start()
     {
+        
         GameManager.instance.OnRegionQuest = true;
 
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
@@ -128,6 +129,7 @@ public class UnlockTheRegions : QuestStep
     // Update is called once per frame
     void Update()
     {
+        
         RegionsUnlocked = GameManager.instance.regionsunlocked;
 
         if (RegionsUnlocked != previousRegionsToBeUnlocked)

@@ -186,38 +186,155 @@ public class Quest
             GameObject questStepPrefab = info.questStepsPrefab[currentQuestStepIndex];
             CollectPackageStep collectPackageStep = questStepPrefab.GetComponent<CollectPackageStep>();
             GoToIan goToIan = questStepPrefab.GetComponent<GoToIan>();
-            TalkToIan TalkToIan = questStepPrefab.GetComponent<TalkToIan>();
-
+            TalkToIan talkToIan = questStepPrefab.GetComponent<TalkToIan>();
+            OpenBuildingDesk openBuildingDesk = questStepPrefab.GetComponent<OpenBuildingDesk>();
+            BuilldFirstPC buildFirstPC = questStepPrefab.GetComponent<BuilldFirstPC>();
+            GoToYouDesk goToYouDesk = questStepPrefab.GetComponent<GoToYouDesk>();
+            GoToMom goToMom = questStepPrefab.GetComponent<GoToMom>();
+            GoToDeskAgain goToDeskAgain = questStepPrefab.GetComponent<GoToDeskAgain>();
+            TurnOnComputer turnOnComputer = questStepPrefab.GetComponent<TurnOnComputer>();
+            ExploreDesktop exploreDesktop = questStepPrefab.GetComponent<ExploreDesktop>();
+            TalkToStranger talkToStranger = questStepPrefab.GetComponent<TalkToStranger>();
+            FindandMeetExchanger findandMeetExchanger = questStepPrefab.GetComponent<FindandMeetExchanger>();
+            GoBackToLostAdventurer goBackToLostAdventurer = questStepPrefab.GetComponent<GoBackToLostAdventurer>();
+            BuyASword buyASword = questStepPrefab.GetComponent<BuyASword>();
+            FindandStartHorde findandStartHorde = questStepPrefab.GetComponent<FindandStartHorde>();
+            HeadBackToExchanger headBackToExchanger = questStepPrefab.GetComponent<HeadBackToExchanger>();
+            GoBackHome goBackHome = questStepPrefab.GetComponent<GoBackHome>();
+            GetSomeSleep getSomeSleep = questStepPrefab.GetComponent<GetSomeSleep>();
+            CollectTheCPU collectTheCPU = questStepPrefab.GetComponent<CollectTheCPU>();
+            ModifyComputer modifyComputer = questStepPrefab.GetComponent<ModifyComputer>();
+            MeetExchangerAgain meetExchangerAgain = questStepPrefab.GetComponent<MeetExchangerAgain>();
+            UnlockTheRegions unlockTheRegions = questStepPrefab.GetComponent<UnlockTheRegions>();
+            MeetTheCaseExchanger meetTheCaseExchanger = questStepPrefab.GetComponent<MeetTheCaseExchanger>();
+            FightTheCaseHorde fightTheCaseHorde = questStepPrefab.GetComponent<FightTheCaseHorde>();
+            CollectTheCase collectTheCase = questStepPrefab.GetComponent<CollectTheCase>();
+            ExchangeToCase exchangeToCase = questStepPrefab.GetComponent<ExchangeToCase>();
+            ModifyYourPC modifyYourPC = questStepPrefab.GetComponent<ModifyYourPC>();
+            OpenYourDesktop openYourDesktop = questStepPrefab.GetComponent<OpenYourDesktop>();
 
             if (collectPackageStep != null)
             {
                 cstatus = collectPackageStep.StepInfo;
             }
-
-            if(goToIan != null)
+            if (goToIan != null)
             {
                 cstatus = goToIan.StepInfo;
             }
-
-            if (TalkToIan != null)
+            if (talkToIan != null)
             {
-                cstatus = TalkToIan.StepInfo;
+                cstatus = talkToIan.StepInfo;
+            }
+            if (openBuildingDesk != null)
+            {
+                cstatus = openBuildingDesk.StepInfo;
+            }
+            if (buildFirstPC != null)
+            {
+                cstatus = buildFirstPC.StepInfo;
+            }
+            if (goToYouDesk != null)
+            {
+                cstatus = goToYouDesk.StepInfo;
+            }
+            if (goToMom != null)
+            {
+                cstatus = goToMom.StepInfo;
+            }
+            if (goToDeskAgain != null)
+            {
+                cstatus = goToDeskAgain.StepInfo;
+            }
+            if (turnOnComputer != null)
+            {
+                cstatus = turnOnComputer.StepInfo;
+            }
+            if (exploreDesktop != null)
+            {
+                cstatus = exploreDesktop.StepInfo;
+            }
+            if (talkToStranger != null)
+            {
+                cstatus = talkToStranger.StepInfo;
+            }
+            if (findandMeetExchanger != null)
+            {
+                cstatus = findandMeetExchanger.StepInfo;
+            }
+            if (goBackToLostAdventurer != null)
+            {
+                cstatus = goBackToLostAdventurer.StepInfo;
+            }
+            if (buyASword != null)
+            {
+                cstatus = buyASword.StepInfo;
+            }
+            if (findandStartHorde != null)
+            {
+                cstatus = findandStartHorde.StepInfo;
+            }
+            if (headBackToExchanger != null)
+            {
+                cstatus = headBackToExchanger.StepInfo;
+            }
+            if (goBackHome != null)
+            {
+                cstatus = goBackHome.StepInfo;
+            }
+            if (getSomeSleep != null)
+            {
+                cstatus = getSomeSleep.StepInfo;
+            }
+            if (collectTheCPU != null)
+            {
+                cstatus = collectTheCPU.StepInfo;
+            }
+            if (modifyComputer != null)
+            {
+                cstatus = modifyComputer.StepInfo;
+            }
+            if (meetExchangerAgain != null)
+            {
+                cstatus = meetExchangerAgain.StepInfo;
+            }
+            if (unlockTheRegions != null)
+            {
+                cstatus = unlockTheRegions.StepInfo;
+            }
+            if (meetTheCaseExchanger != null)
+            {
+                cstatus = meetTheCaseExchanger.StepInfo;
+            }
+            if (fightTheCaseHorde != null)
+            {
+                cstatus = fightTheCaseHorde.StepInfo;
+            }
+            if (collectTheCase != null)
+            {
+                cstatus = collectTheCase.StepInfo;
+            }
+            if (exchangeToCase != null)
+            {
+                cstatus = exchangeToCase.StepInfo;
+            }
+            if (modifyYourPC != null)
+            {
+                cstatus = modifyYourPC.StepInfo;
+            }
+            if (openYourDesktop != null)
+            {
+                cstatus = openYourDesktop.StepInfo;
             }
 
-            if(cstatus == "")
+            if (cstatus == "")
             {
                 cstatus = "No Info on this Objective";
             }
-
         }
 
         return cstatus;
     }
-
-    
-
-
-    }
+}
 
 
   

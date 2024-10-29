@@ -5,8 +5,10 @@ using UnityEngine;
 public class ExploreDesktop : QuestStep
 {
     // Start is called before the first frame update
+    public string StepInfo = "Just Click The Desktop Icons";
     void Start()
     {
+        
         GameManager.instance.OnExploreDesktopQuest = true;
         
         if (GameManager.instance.HasInitialize == false){
@@ -26,7 +28,8 @@ public class ExploreDesktop : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.OnExploreDesktopQuest == true && GameManager.instance.OnExploreDeskDone == true && GameManager.instance.OnCutScene7Open == true)
+        
+        if (GameManager.instance.OnExploreDesktopQuest == true && GameManager.instance.OnExploreDeskDone == true && GameManager.instance.OnCutScene7Open == true)
         {
             FinishQuestStep();
             ChangeState("Finish", "Finish");

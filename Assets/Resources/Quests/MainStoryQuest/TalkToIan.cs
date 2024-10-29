@@ -20,6 +20,7 @@ public class TalkToIan : QuestStep
     // Reference to the "Talk" button
     void Start()
     {
+       
         if (Ian == null)
         {
             // Try to find the GameObject by name if it's not assigned in the inspector
@@ -86,6 +87,7 @@ public class TalkToIan : QuestStep
 
     public void Update()
     {
+        //GameManager.instance.CurrentQuestInfo = StepInfo;
         if (GameManager.instance.CurrentNPC == "Ian")
         {
             GameManager.instance.OnQuest = true;

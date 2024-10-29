@@ -7,9 +7,11 @@ public class GoBackHome : QuestStep
     // Start is called before the first frame update
     private GameObject Player;
     public Vector3 targetPosition;
+    public string StepInfo = "";
     void Start()
         
     {
+        
         GameManager.instance.GoBackHomeQuest = true;
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("Nineteen");
@@ -46,7 +48,8 @@ public class GoBackHome : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.GoBackHomeQuest == true && GameManager.instance.OnCutScene9Finish == true)
+      
+        if (GameManager.instance.GoBackHomeQuest == true && GameManager.instance.OnCutScene9Finish == true)
         {
             FinishQuestStep();
             ChangeState("Finish", "Finish");

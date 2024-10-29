@@ -5,8 +5,10 @@ using UnityEngine;
 public class ModifyYourPC : QuestStep
 {
     // Start is called before the first frame update
+    public string StepInfo = "Just Modify Your PC";
     void Start()
     {
+       
         GameManager.instance.OnModifyCaseQuest = true;
 
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
@@ -24,6 +26,7 @@ public class ModifyYourPC : QuestStep
     // Update is called once per frame
     void Update()
     {
+        
         if (GameManager.instance.OnModifyCaseQuest == true && GameManager.instance.DoneModifyCase == true)
         {
             FinishQuestStep();

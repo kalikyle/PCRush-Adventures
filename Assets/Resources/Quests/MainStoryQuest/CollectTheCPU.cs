@@ -5,9 +5,10 @@ using UnityEngine;
 public class CollectTheCPU : QuestStep
 {
     // Start is called before the first frame update
+    public string StepInfo = "Go Downstairs and Collect the CPU you exchanged";
     void Start()
     {
-
+        
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("TwentyOne");
 
@@ -25,7 +26,8 @@ public class CollectTheCPU : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.OnCollectCPUQuest == true && GameManager.instance.CPUCollected == true)
+        
+        if (GameManager.instance.OnCollectCPUQuest == true && GameManager.instance.CPUCollected == true)
         {
             FinishQuestStep();
             ChangeState("Finish", "Finish");

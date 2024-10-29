@@ -22,7 +22,7 @@ public class FirebaseController : MonoBehaviour
 
     public TMP_InputField loginEmail, loginPassword, signupEmail, signupPassword, signupCPassword, forgetPassEmail;
 
-    public TMP_Text notif_Title_Text, notif_Message_Text;
+    public TMP_Text notif_Title_Text, notif_Message_Text, strengthText;
 
     public Toggle rememberMe;
 
@@ -73,6 +73,8 @@ public class FirebaseController : MonoBehaviour
             }
         });
 
+        
+        
     }
 
     public void OpenLoginPanel()
@@ -210,6 +212,16 @@ public class FirebaseController : MonoBehaviour
 
     void CreateUser(string email, string password)
     {
+        // First, check the password strength
+        EvaluatePasswordStrength(password);
+
+        // If the password is weak, do not proceed
+        if (strengthText.text == "Weak Password" || strengthText.text == "Password cannot be empty.")
+        {
+            showNotificationMessage("Error", "Please enter a stronger password.");
+            return;
+        }
+
         auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(async task =>
         {
             if (task.IsCanceled)
@@ -731,5 +743,74 @@ public class FirebaseController : MonoBehaviour
                 deleteLogin();
             }
         });
+    }
+
+    public void CheckPasswordStrength()
+    {
+        string password = signupPassword.text;
+        EvaluatePasswordStrength(password);
+    }
+
+    private void EvaluatePasswordStrength(string password)
+    {
+        if (string.IsNullOrEmpty(password))
+        {
+            strengthText.text = "Password cannot be empty.";
+            strengthText.color = Color.white; // Default color for empty message
+            return;
+        }
+
+        int score = 0;
+
+        // Check password length
+        if (password.Length >= 8)
+        {
+            score++;
+        }
+        if (password.Length >= 12)
+        {
+            score++;
+        }
+
+        // Check for digits
+        if (System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
+        {
+            score++;
+        }
+
+        // Check for uppercase letters
+        if (System.Text.RegularExpressions.Regex.IsMatch(password, @"[A-Z]"))
+        {
+            score++;
+        }
+
+        // Check for special characters
+        if (System.Text.RegularExpressions.Regex.IsMatch(password, @"[\W_]"))
+        {
+            score++;
+        }
+
+        // Determine strength based on score
+        switch (score)
+        {
+            case 0:
+            case 1:
+                strengthText.text = "Weak Password";
+                strengthText.color = Color.red; // Weak = Red
+                break;
+            case 2:
+                strengthText.text = "Good Password";
+                strengthText.color = Color.green; // Good = Yellow
+                break;
+            case 3:
+            case 4:
+                strengthText.text = "Very Good Password";
+                strengthText.color = Color.cyan; // Very Good = Green
+                break;
+            default:
+                strengthText.text = "Very Good Password";
+                strengthText.color = Color.cyan; // Very Good = Green
+                break;
+        }
     }
 }

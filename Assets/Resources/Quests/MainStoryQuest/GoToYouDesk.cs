@@ -8,8 +8,10 @@ public class GoToYouDesk : QuestStep
     // Start is called before the first frame update
     private GameObject Ian;
     public Vector3 targetPosition;
+    public string StepInfo = "Go to your Desktop and Place your Computer";
     void Start()
     {
+       
         GameManager.instance.OnGoToDeskQuest = true;
         GameManager.instance.OnDeskBackButton.gameObject.SetActive(false);
         if (Ian == null)
@@ -51,7 +53,8 @@ public class GoToYouDesk : QuestStep
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.OnGoToDeskQuest == true && GameManager.instance.ComputerPlaced == true)
+        
+        if (GameManager.instance.OnGoToDeskQuest == true && GameManager.instance.ComputerPlaced == true)
         {
             DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
             DialogueManager.GetInstance().TriggerSection("EightSecond");

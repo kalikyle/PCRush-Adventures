@@ -5,9 +5,10 @@ using UnityEngine;
 public class TalkToStranger : QuestStep
 {
     // Start is called before the first frame update
+    public string StepInfo = "Go to the Stranger and Talk to him";
     void Start()
     {
-        
+       
         if (GameManager.instance.HasInitialize == false)
         {
             GameManager.instance.playerTeleport.ToCPUWorld();
@@ -61,6 +62,7 @@ public class TalkToStranger : QuestStep
     // Update is called once per frame
     public void Update()
     {
+       
         if (GameManager.instance.CurrentNPC == "Lost Adventurer")
         {
             GameManager.instance.OnQuest = true;

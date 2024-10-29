@@ -7,8 +7,10 @@ public class GoBackToLostAdventurer : QuestStep
 {
     // Start is called before the first frame update
     private GameObject CPUExchanger;
+    public string StepInfo = "Talk again to the Lost Adventurer";
     void Start()
     {
+        
         DialogueManager.GetInstance().EnterDialogueMode(GameManager.instance.MainStory);
         DialogueManager.GetInstance().TriggerSection("Fifteen");
 
@@ -92,6 +94,7 @@ public class GoBackToLostAdventurer : QuestStep
     // Update is called once per frame
     void Update()
     {
+       
         if (GameManager.instance.CurrentNPC == "Lost Adventurer")
         {
             GameManager.instance.OnQuest = true;

@@ -9,7 +9,7 @@ public class FindandMeetExchanger : QuestStep
     [Header("Target GameObject Name")]
     [SerializeField] private string targetGameObjectName;
 
-    //public string StepInfo = "Go Outside your house, and find your friend Ian. His house have Orange roof located at the southeast of the Map";
+    public string StepInfo = "Explore the Region and Find the exchanger, Usually they have a sign beside their house";
 
 
     private GameObject targetGameObject;
@@ -17,6 +17,7 @@ public class FindandMeetExchanger : QuestStep
 
     void Start()
     {
+        
         if (GameManager.instance.HasInitialize == false)
         {
             GameManager.instance.playerTeleport.ToCPUWorld();
@@ -82,7 +83,7 @@ public class FindandMeetExchanger : QuestStep
     // Update is called once per frame
     void Update()
     {
-
+    
         if (!hasReachedTarget && IsPlayerNearTarget())
         {
             hasReachedTarget = true;
