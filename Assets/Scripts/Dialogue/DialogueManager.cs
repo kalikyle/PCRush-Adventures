@@ -192,7 +192,7 @@ public class DialogueManager : MonoBehaviour
             visibleCount++;
 
 
-            yield return new WaitForSeconds(0.05f); // Adjust typing speed here
+            yield return new WaitForSeconds(0.02f); // Adjust typing speed here
         }
 
         canContinuetoNextLine = true;

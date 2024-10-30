@@ -149,21 +149,21 @@ public class LeanTweenAnimate : MonoBehaviour
     public void CloseTeleAnim()
     {
         // Fade out and move up the bottom object
-        LeanTween.alpha(teleanim2.GetComponent<RectTransform>(), 0f, 0.08f)
+        LeanTween.alpha(teleanim2.GetComponent<RectTransform>(), 0f, 0.2f)
             .setDelay(1f)
             .setEaseInOutSine()
             .setOnStart(() =>
             {
-                LeanTween.moveY(teleanim2.GetComponent<RectTransform>(), -Screen.height / 2, 0.08f).setEaseInOutSine(); // Move down
+                LeanTween.moveY(teleanim2.GetComponent<RectTransform>(), -Screen.height / 2, 0.2f).setEaseInOutSine(); // Move down
             })
             .setOnComplete(() =>
             {
                 // After the bottom object is fully invisible, start the top object's animation
-                LeanTween.alpha(teleanim.GetComponent<RectTransform>(), 0f, 0.08f)
+                LeanTween.alpha(teleanim.GetComponent<RectTransform>(), 0f, 0.2f)
                     .setEaseInOutSine()
                     .setOnStart(() =>
                     {
-                        LeanTween.moveY(teleanim.GetComponent<RectTransform>(), Screen.height / 2, 0.08f).setEaseInOutSine(); // Move up
+                        LeanTween.moveY(teleanim.GetComponent<RectTransform>(), Screen.height / 2, 0.2f).setEaseInOutSine(); // Move up
                     })
                     .setOnComplete(() =>
                     {

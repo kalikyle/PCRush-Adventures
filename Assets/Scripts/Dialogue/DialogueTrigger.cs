@@ -44,7 +44,7 @@ public class DialogueTrigger : MonoBehaviour
             DialogueManager.GetInstance().NPCName.text = transform.parent.parent.name;
             
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 EnterDialogue();
             }

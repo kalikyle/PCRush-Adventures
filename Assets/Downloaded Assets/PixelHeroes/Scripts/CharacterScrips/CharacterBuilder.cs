@@ -16,8 +16,8 @@ namespace Assets.PixelHeroes.Scripts.CharacterScrips
         public SpriteCollection SpriteCollection;
         public string Head = "Human";
         public string Body = "Human";
-        public string Hair;
-        public string Armor;
+        public string Hair = "Hair2";
+        public string Armor = "FarmerClothes";
         public string Helmet;
         public string Weapon;
         public string Shield;
