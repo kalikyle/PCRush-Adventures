@@ -346,7 +346,7 @@ namespace Assets.PixelHeroes.Scripts.EditorScripts
                 GameManager.instance.SaveCharInfo(GameManager.instance.UserID, playerName.text);
                 GameManager.instance.UIExplore.SetActive(true);
                 CharacterBuilder.CombineHeadAndHairSprites();
-
+                SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
             }
             else
             {

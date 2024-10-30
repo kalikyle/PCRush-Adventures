@@ -291,133 +291,152 @@ public class UserSetup : MonoBehaviour
         SoundManager.instance.SetEffectsVolume(volume);
         SoundManager.instance.Effects.value = volume;
     }
+
+
+    public float PlaycooldownTime = 1.5f; // Time in seconds to disable the button after a click
+
+    private bool PlayisCooldown = false; 
+
+    private IEnumerator PlayButtonCooldown()
+    {
+        PlayisCooldown = true; // Set the cooldown flag
+        PlayButton.interactable = false; // Disable the button
+        PlayOnLan.interactable = false ;
+        yield return new WaitForSeconds(PlaycooldownTime); // Wait for the cooldown period
+
+        PlayOnLan.interactable = true;
+        PlayButton.interactable = true; // Re-enable the button
+        PlayisCooldown = false; // Reset the cooldown flag
+    }
+
+
+
     public async void PlayClick()
     {
 
-        //if (string.IsNullOrEmpty(GameManager.instance.UserID))
-        //{
-        //    //NOT SIGNED
-        //    //CharEditor.gameObject.SetActive(true);
-
-        //    //Login.gameObject.SetActive(true);
-        //    //SignInAnonymously();
-        //}
-        //else
-        //{
-        //    //SIGNED
-        //    CharEditor.gameObject.SetActive(false);
-
-        //    UnloadThisScene();
-
-        //    GameManager.instance.AtTheStart();
-        //    GameManager.instance.scene.manualLoading();
-
-
-        //}
-        SoundManager.instance.PlayButtonClick();
-        
-        //SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
-        if (FirebaseController.Instance.isSignIn)
+        if (!PlayisCooldown)
         {
-            if (InternetChecker.Instance.TryStartGame() == true)
-            {
+            StartCoroutine(PlayButtonCooldown());
+            SoundManager.instance.PlayButtonClick();
 
+            //SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
+            if (FirebaseController.Instance.isSignIn)
+            {
+                if (InternetChecker.Instance.TryStartGame() == true)
+                {
+
+                    if (!FirebaseController.Instance.isSigned)
+                    {
+                        FirebaseController.Instance.isSigned = true;
+
+                        //SIGNED
+                        // Debug.LogError("SCENE UNLOADEDSSSSS");
+                        InternetChecker.Instance.StartCheck();
+                        QuestManager.Instance.ForExistingUsers();
+                        await Task.Delay(1500);
+                        UnloadThisScene();
+                        GameManager.instance.scene.manualLoading();
+                        await Task.Delay(1500);
+                        GameManager.instance.AtTheStart();
+                        await Task.Delay(1500);
+                        GameManager.instance.PartsController.LoadPartsItems();
+                        await Task.Delay(1000);
+                        AchievementManager.instance.LoadAchievementsFromFirebase();
+                        SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
+
+
+                    }
+                    else
+                    {
+
+                        //during signin main menu
+                        //Debug.LogError("SCENE UNLOADED");
+                        SceneManager.UnloadSceneAsync(1);
+                        GameManager.instance.scene.manualLoading();
+                        SoundManager.instance.backgroundMusicSource.Stop();
+                    }
+                }
+                else
+                {
+                    FirebaseController.Instance.showNotificationMessage("Error", "No/Slow Internet Connection, \n Please Check Your Internet Connection and Try Again");
+                }
+            }
+            else
+            {
+                if (InternetChecker.Instance.TryStartGame() == true)
+                {
+                    FirebaseController.Instance.OpenLoginPanel();
+                }
+                else
+                {
+                    FirebaseController.Instance.showNotificationMessage("Error", "No/Slow Internet Connection, \n Please Check Your Internet Connection and Try Again");
+                }
+            }
+
+            
+        }
+        else
+        {
+            UnityEngine.Debug.Log("Button is on cooldown!");
+        }
+
+
+    }
+    public async void OnPlayLanClick()
+    {
+        if (!PlayisCooldown)
+        {
+            StartCoroutine(PlayButtonCooldown());
+            SoundManager.instance.PlayButtonClick();
+            //if no user
+            if (string.IsNullOrEmpty(GameManager.instance.UserID))
+            {
+                SceneManager.UnloadSceneAsync(1);
+                GameManager.instance.scene.manualLoading();
+                GameManager.instance.PlayOnLanCanvas.SetActive(true);
+            }
+            else
+            {
+                //QuestManager.Instance.ForExistingUsers();
+                //await Task.Delay(1500);
+                //UnloadThisScene();
+                //await Task.Delay(1500);
+                //GameManager.instance.AtTheStart();
+                //await Task.Delay(1500);
+                //GameManager.instance.PartsController.LoadPartsItems();
+                //GameManager.instance.PlayOnLanCanvas.SetActive(true);
                 if (!FirebaseController.Instance.isSigned)
                 {
                     FirebaseController.Instance.isSigned = true;
 
                     //SIGNED
-                    // Debug.LogError("SCENE UNLOADEDSSSSS");
-                    InternetChecker.Instance.StartCheck();
+
                     QuestManager.Instance.ForExistingUsers();
-                    await Task.Delay(1500);
+                    await Task.Delay(1000);
                     UnloadThisScene();
                     GameManager.instance.scene.manualLoading();
-                    await Task.Delay(1500);
-                    GameManager.instance.AtTheStart();
-                    await Task.Delay(1500);
-                    GameManager.instance.PartsController.LoadPartsItems();
+                    GameManager.instance.PlayOnLanCanvas.SetActive(true);
                     await Task.Delay(1000);
-                    AchievementManager.instance.LoadAchievementsFromFirebase();
-                    SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
-
+                    GameManager.instance.AtTheStart();
+                    await Task.Delay(1000);
+                    GameManager.instance.PartsController.LoadPartsItems();
 
                 }
                 else
                 {
-
-                    //during signin main menu
-                    //Debug.LogError("SCENE UNLOADED");
-                    SceneManager.UnloadSceneAsync(1);
-                    GameManager.instance.scene.manualLoading();
-                    SoundManager.instance.backgroundMusicSource.Stop();
+                    //during signedin main menu
+                    UnloadThisScene();
+                    GameManager.instance.PlayOnLanCanvas.SetActive(true);
+                    //GameManager.instance.scene.manualLoading();
                 }
+
+
             }
-            else
-            {
-                FirebaseController.Instance.showNotificationMessage("Error", "No/Slow Internet Connection, \n Please Check Your Internet Connection and Try Again");
-            }
+            
         }
         else
         {
-            if (InternetChecker.Instance.TryStartGame() == true)
-            {
-                FirebaseController.Instance.OpenLoginPanel();
-            }
-            else
-            {
-                FirebaseController.Instance.showNotificationMessage("Error", "No/Slow Internet Connection, \n Please Check Your Internet Connection and Try Again");
-            }
-        }
-        
-
-    }
-    public async void OnPlayLanClick()
-    {
-        SoundManager.instance.PlayButtonClick();
-        //if no user
-        if (string.IsNullOrEmpty(GameManager.instance.UserID))
-        {
-            SceneManager.UnloadSceneAsync(1);
-            GameManager.instance.scene.manualLoading();
-            GameManager.instance.PlayOnLanCanvas.SetActive(true);
-        }
-        else
-        {
-            //QuestManager.Instance.ForExistingUsers();
-            //await Task.Delay(1500);
-            //UnloadThisScene();
-            //await Task.Delay(1500);
-            //GameManager.instance.AtTheStart();
-            //await Task.Delay(1500);
-            //GameManager.instance.PartsController.LoadPartsItems();
-            //GameManager.instance.PlayOnLanCanvas.SetActive(true);
-            if (!FirebaseController.Instance.isSigned)
-            {
-                FirebaseController.Instance.isSigned = true;
-
-                //SIGNED
-                
-                QuestManager.Instance.ForExistingUsers();
-                await Task.Delay(1000);
-                UnloadThisScene();
-                GameManager.instance.scene.manualLoading();
-                GameManager.instance.PlayOnLanCanvas.SetActive(true);
-                await Task.Delay(1000);
-                GameManager.instance.AtTheStart();
-                await Task.Delay(1000);
-                GameManager.instance.PartsController.LoadPartsItems();
-                
-            }
-            else
-            {
-                //during signedin main menu
-                UnloadThisScene();
-                GameManager.instance.PlayOnLanCanvas.SetActive(true);
-                //GameManager.instance.scene.manualLoading();
-            }
-
-
+            UnityEngine.Debug.Log("Button is on cooldown!");
         }
 
     }
