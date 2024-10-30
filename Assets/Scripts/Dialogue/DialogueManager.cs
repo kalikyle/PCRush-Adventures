@@ -160,6 +160,14 @@ public class DialogueManager : MonoBehaviour
 
     }
 
+    public void ContinueInButton()
+    {
+        if (canContinuetoNextLine)
+        {
+            ContinueStory();
+        }
+    }
+
     private IEnumerator TypeText(string text)
     {
         //SoundManager.instance.PlayDialogueSound();
