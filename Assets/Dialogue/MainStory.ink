@@ -107,12 +107,12 @@ This is the Power Supply Unit of your computer, or in short, the <color=lightblu
 
 === sixthDonePSU ===
 Excellent! {player_Name}, now install the Operating System on your computer. #speaker: Ian #portrait: 2
-(Click the <color=lightblue>Done Button</color> to turn on and install the OS, then click the Install Button and wait for it.) #speaker: PCRush #portrait: 5
+(Click the <color=green>Done Button</color> to turn on and install the OS, then click the Install Button and wait for it.) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneClick ===
 Wow! {player_Name}, now your PC boots up. We just need to install the OS. #speaker: Ian #portrait: 2
-(Click the <color=aqua>Install Button</color> to install the OS and wait for it.) #speaker: PCRush #portrait: 5
+(Click the <color=blue>Install Button</color> to install the OS and wait for it.) #speaker: PCRush #portrait: 5
 -> DONE
 
 === sixthDoneInstall ===
