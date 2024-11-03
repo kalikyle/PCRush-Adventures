@@ -11,6 +11,11 @@ namespace Shop.UI
 {
     public class ShopItem2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     {
+
+        [SerializeField]
+        private Image ImageBackground;
+
+
         [SerializeField]
         private Image itemImage;
         [SerializeField]
@@ -57,10 +62,11 @@ namespace Shop.UI
             itemImage.gameObject.SetActive(false);
             //empty = true;
         }
-        public void SetData(Sprite sprite, string name, string Price, string category, string speed, string compatibility)//quantity has been removed
+        public void SetData(Sprite sprite, Sprite imageBackground, string name, string Price, string category, string speed, string compatibility)//quantity has been removed
         {
             itemImage.gameObject.SetActive(true);
             itemImage.sprite = sprite;
+            ImageBackground.sprite = imageBackground;
             itemName.text = name;
             itemPrice.text = Price;
             itemCategory.text = category;

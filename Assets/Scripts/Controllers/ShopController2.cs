@@ -10,6 +10,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static Inventory.Model.InventorySO;
 
 namespace Shop
@@ -28,13 +29,19 @@ namespace Shop
         private Canvas ShopScene;
 
         [SerializeField]
-        private Canvas TopUI;
-
-        [SerializeField]
         private TMP_Dropdown CategoryDropdown;
 
+        public Sprite CPUBackground;
+        public Sprite RAMBackground;
+        public Sprite CPUFanBackground;
+        public Sprite GPUBackground;
+        public Sprite StorageBackground;
+        public Sprite PSUBackground;
+        public Sprite MBBackground;
+        public Sprite CaseBackground;
 
-
+        [SerializeField]
+        private Sprite ImageBackgroundCategory;
 
         /* [SerializeField]
          private Button cpuButton;
@@ -82,7 +89,7 @@ namespace Shop
         {
             NumUpDown.ToggleTF = false;
             itemsShownInAllCategory.Clear();
-
+            
             var nonEmptyItems = shopData.GetCurrentInventoryState().Where(item => !item.Value.isEmpty);
 
             int displayedItemsCount = 0;
@@ -91,7 +98,7 @@ namespace Shop
                 if (displayedItemsCount >= GetUsedSlotsCount())
                     break;
 
-                shoP.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.Category, Speed(item.Value), Compat(item.Value));
+                shoP.UpdateData(item.Key, item.Value.item.ItemImage, ChangeShopBackground(item.Value.item.Category),  item.Value.item.Name, item.Value.item.Price.ToString(), item.Value.item.Category, Speed(item.Value), Compat(item.Value));
                 itemsShownInAllCategory.Add(item.Value); // Add to items shown in "All" category
                 displayedItemsCount++;
             }
@@ -190,7 +197,45 @@ namespace Shop
             }
         }
 
-      
+        public Sprite ChangeShopBackground(string Category)
+        {
+            if (Category == "Case")
+            {
+                ImageBackgroundCategory = CaseBackground;
+            }
+            else if (Category == "Motherboard")
+            {
+                ImageBackgroundCategory = MBBackground;
+            }
+            else if (Category == "CPU")
+            {
+                ImageBackgroundCategory = CPUBackground;
+            }
+            else if (Category == "CPU Fan")
+            {
+                ImageBackgroundCategory = CPUFanBackground;
+            }
+            else if (Category == "RAM")
+            {
+                ImageBackgroundCategory = RAMBackground;
+            }
+            else if (Category == "Video Card")
+            {
+                ImageBackgroundCategory = GPUBackground;
+            }
+            else if (Category == "Storage")
+            {
+                ImageBackgroundCategory = StorageBackground;
+            }
+            else if (Category == "PSU")
+            {
+                ImageBackgroundCategory = PSUBackground;
+            }
+
+            return ImageBackgroundCategory;
+        }
+
+
 
         public void ToggleALLButton()
         {
@@ -265,7 +310,7 @@ namespace Shop
 
 
 
-                    shoP.AddShopItem2(item.item.ItemImage, item.item.Name, item.item.Price.ToString(), item.item.Category, Speed(item), Compat(item));
+                    shoP.AddShopItem2(item.item.ItemImage, ChangeShopBackground(item.item.Category), item.item.Name, item.item.Price.ToString(), item.item.Category, Speed(item), Compat(item));
                     displayedItemsCount++;
                 }
             }
