@@ -37,6 +37,7 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         private Vector2 _input;
 
         public Canvas NoInternet;
+        public Canvas OnLanPlayCanvas;
 
         public Rigidbody2D r2d;
 
@@ -91,33 +92,37 @@ namespace Assets.PixelHeroes.Scripts.ExampleScripts
         {
             if (GameManager.instance.MinimapOpened == false)
             {
-                if(GameManager.instance.LTA.HordeDone == false) { 
+                if(GameManager.instance.LTA.HordeDone == false) {
 
                     if (isDead == false)
                     {
-                        if (!NoInternet.isActiveAndEnabled)
+                        if (!OnLanPlayCanvas.isActiveAndEnabled)
                         {
-                            if (!DialogueManager.GetInstance().dialogueIsPlaying)
+
+                            if (!NoInternet.isActiveAndEnabled)
                             {
-                                if (!GameManager.instance.PlayerDeskUI.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
+                                if (!DialogueManager.GetInstance().dialogueIsPlaying)
                                 {
-                                    HandleMovement();
+                                    if (!GameManager.instance.PlayerDeskUI.activeSelf && !playerTeleport.BuildRoom.activeSelf && !IsSceneLoaded("PCRush CharacterEditor"))
+                                    {
+                                        HandleMovement();
 
-                                   
+
                                         // Handle attack logic if cursor is over your panel
-                                    //HandleAttack();
-                                    
+                                        //HandleAttack();
 
-                                    //HandleAttack();
+
+                                        //HandleAttack();
+                                    }
+                                    else
+                                    {
+                                        StopMovement();
+                                    }
                                 }
                                 else
                                 {
-                                    StopMovement();
+                                    ResetMovement();
                                 }
-                            }
-                            else
-                            {
-                                ResetMovement();
                             }
                         }
                     }
