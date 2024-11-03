@@ -175,6 +175,22 @@ public class UserSetup : MonoBehaviour
     {
 #if UNITY_EDITOR
 
+        PingForWindows();
+
+#elif UNITY_ANDROID
+
+        PingForAndroid();
+
+#else 
+
+        PingForWindows();
+
+#endif
+
+    }
+
+    public void PingForWindows()
+    {
         const string GOOGLE_DNS = "8.8.8.8";
         try
         {
@@ -189,7 +205,8 @@ public class UserSetup : MonoBehaviour
                         InternetText.text = "slow internet";
                         InternetText.color = Color.red;
 
-                    }else if(reply.RoundtripTime > 100)
+                    }
+                    else if (reply.RoundtripTime > 100)
                     {
                         InternetText.text = $"{reply.RoundtripTime}ms";
                         InternetText.color = Color.yellow;
@@ -216,7 +233,11 @@ public class UserSetup : MonoBehaviour
             InternetText.color = Color.red; // Indicate an error
 
         }
-#elif UNITY_ANDROID
+    }
+
+    public void PingForAndroid()
+    {
+       
         var reachability = Application.internetReachability;
 
         if (reachability == NetworkReachability.NotReachable)
@@ -229,48 +250,7 @@ public class UserSetup : MonoBehaviour
         {
             InternetText.text = "";
         }
-
-
-#else 
-   const string GOOGLE_DNS = "8.8.8.8";
-        try
-        {
-            using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
-            {
-                PingReply reply = ping.Send(GOOGLE_DNS);
-
-                if (reply.Status == IPStatus.Success)
-                {
-                    if (reply.RoundtripTime > 150)
-                    {
-                        InternetText.text = $"{reply.RoundtripTime}ms";
-                        InternetText.color = Color.red;
-                       
-                    }
-                    else
-                    {
-                        InternetText.text = $"{reply.RoundtripTime}ms";
-                        InternetText.color = Color.green;
-                       
-                    }
-                }
-                else
-                {
-                    InternetText.text = "No Internet";
-                    InternetText.color = Color.red;
-                    
-                }
-            }
-        }
-        catch (Exception)
-        {
-            //Debug.LogError("Error checking internet connection: " + e.Message);
-            InternetText.text = "No Internet";
-            InternetText.color = Color.red; // Indicate an error
-           
-        }
-#endif
-
+        
     }
 
     private void OpenBrowser(string URL)

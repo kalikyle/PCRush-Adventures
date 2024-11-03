@@ -78,11 +78,11 @@ namespace Shop.UI
 
         }
 
-        public void UpdateData(int itemIndex, Sprite ItemImage, string Itemtitle, string Itemprice, string Itemcategory, string speed, string compat)
+        public void UpdateData(int itemIndex, Sprite ItemImage, Sprite ImageBackground, string Itemtitle, string Itemprice, string Itemcategory, string speed, string compat)
         {
             if (ListOfShopItem2s.Count > itemIndex)
             {
-                ListOfShopItem2s[itemIndex].SetData(ItemImage, Itemtitle, "$" + Itemprice, Itemcategory, speed, compat);//this will add to the shop
+                ListOfShopItem2s[itemIndex].SetData(ItemImage, ImageBackground, Itemtitle, "$" + Itemprice, Itemcategory, speed, compat);//this will add to the shop
                
             }
         }
@@ -126,14 +126,14 @@ namespace Shop.UI
 
 
        //then this for adding a new filtered items
-        public void AddShopItem2(Sprite itemImage, string itemName, string price, string category, string speed, string compat)
+        public void AddShopItem2(Sprite itemImage, Sprite ImageBackground, string itemName, string price, string category, string speed, string compat)
         {
            
             ShopItem2 uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
             uiItem.transform.SetParent(contentPanel);
             uiItem.transform.localScale = new Vector2(85, 90);
             ListOfShopItem2s.Add(uiItem);//add shop items in the list
-            uiItem.SetData(itemImage, itemName, "$" + price, category, speed, compat);
+            uiItem.SetData(itemImage, ImageBackground, itemName, "$" + price, category, speed, compat);
             int itemIndex = NumericUpDown.filteredItems.Count - 1;//this is for the filtered items
             Debug.Log(NumericUpDown.filteredItems.Count);
             uiItem.SetTemporaryIndex(itemIndex);
