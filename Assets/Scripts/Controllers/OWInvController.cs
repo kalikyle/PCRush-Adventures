@@ -42,6 +42,15 @@ namespace OtherWorld
         public Image HelmetImage;
         public Image ShieldImage;
 
+        public Sprite SiliconWaferImage;
+        public Sprite MemoryChipImage;
+        public Sprite HeatSinkImage;
+        public Sprite VideoMemoryImage;
+        public Sprite DiskPlatterImage;
+        public Sprite PSUTransImage;
+        public Sprite CircuitBoardImage;
+        public Sprite SteepPaneImage;
+
         public Button EquipBTN;
         public Button SellBTN;
         public TMP_Dropdown DropDcategory;
@@ -351,7 +360,7 @@ namespace OtherWorld
 
                         if (inventoryItem.item.Category == "Materials")
                         {
-                            inventoryItem.item.ItemImage = loadedItem.ItemImage;
+                            inventoryItem.item.ItemImage = MaterialsImage(loadedItem);
                             inventoryData.AddItem(inventoryItem);
                             GameManager.instance.MaterialsDocumentIds.Add(documentId);
                         }
@@ -362,6 +371,51 @@ namespace OtherWorld
 
                 // Log a message indicating the successful loading of PCSO items
                 Debug.Log("Items items loaded from Firestore.");
+            }
+        }
+
+        public Sprite MaterialsImage(OtherWorldItemSO loadedItem)
+        {
+            
+            if (loadedItem.Name == "Silicon Wafer")
+            {
+                return SiliconWaferImage;
+
+            }
+            else if (loadedItem.Name == "Memory Chip")
+            {
+                return MemoryChipImage;
+            }
+            else if (loadedItem.Name == "Heat Sink")
+            {
+                return HeatSinkImage;
+            }
+
+            else if (loadedItem.Name == "Video Memory")
+            {
+                return VideoMemoryImage;
+            }
+
+            else if (loadedItem.Name == "Disk Platter")
+            {
+                return DiskPlatterImage;
+            }
+
+            else if (loadedItem.Name == "PSU Transformer")
+            {
+                return PSUTransImage;
+            }
+            else if (loadedItem.Name == "Circuit Board")
+            {
+                return CircuitBoardImage;
+            }
+            else if (loadedItem.Name == "Steel Pane")
+            {
+                return SteepPaneImage;
+            }
+            else
+            {
+                return SiliconWaferImage;
             }
         }
 

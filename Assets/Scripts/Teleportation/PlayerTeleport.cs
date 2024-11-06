@@ -515,9 +515,10 @@ public class PlayerTeleport : MonoBehaviour
         //IMPORTANT: for other teleports, you just need to place game objects, create another tag and then just copy the code here
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            
+        try
+        {
             //for home
-            
+
             if (collision.CompareTag("Home"))
             {
             GameManager.instance.Enter.gameObject.SetActive(true);
@@ -752,18 +753,22 @@ public class PlayerTeleport : MonoBehaviour
             }
         }
 
+        }
+        catch { }
+
     }
         private void OnTriggerExit2D(Collider2D collision)
         {
-
-        //playerMinimapHomeworld.SetActive(true);
-        if (GameManager.instance.Enter != null)
+        try
         {
-            GameManager.instance.Enter.gameObject.SetActive(false);
-        }
-        
-        //for home
-        if (collision.CompareTag("Home"))
+            //playerMinimapHomeworld.SetActive(true);
+            if (GameManager.instance.Enter != null)
+            {
+                GameManager.instance.Enter.gameObject.SetActive(false);
+            }
+
+            //for home
+            if (collision.CompareTag("Home"))
             {
                 if (collision.gameObject == homeTeleport)
                 {
@@ -781,115 +786,116 @@ public class PlayerTeleport : MonoBehaviour
                 }
             }
 
-        //otherworlds
-        if (collision.CompareTag("Worlds"))
-        {
-            if (collision.gameObject == homeTeleport)
+            //otherworlds
+            if (collision.CompareTag("Worlds"))
             {
+                if (collision.gameObject == homeTeleport)
+                {
 
-                homeTeleport = null;
-            }
-            BackToHomeWorld = false;
-        }
-
-        //otherworlds houses
-        if (collision.CompareTag("CPUExchanger"))
-        {
-            if (collision.gameObject == homeTeleport)
-            {
-
-                homeTeleport = null;
-            }
-            
-        }
-        if (collision.CompareTag("RAMExchanger"))
-        {
-            if (collision.gameObject == homeTeleport)
-            {
-
-                homeTeleport = null;
+                    homeTeleport = null;
+                }
+                BackToHomeWorld = false;
             }
 
-        }
-        if (collision.CompareTag("CPUFExchanger"))
-        {
-            if (collision.gameObject == homeTeleport)
+            //otherworlds houses
+            if (collision.CompareTag("CPUExchanger"))
             {
+                if (collision.gameObject == homeTeleport)
+                {
 
-                homeTeleport = null;
+                    homeTeleport = null;
+                }
+
+            }
+            if (collision.CompareTag("RAMExchanger"))
+            {
+                if (collision.gameObject == homeTeleport)
+                {
+
+                    homeTeleport = null;
+                }
+
+            }
+            if (collision.CompareTag("CPUFExchanger"))
+            {
+                if (collision.gameObject == homeTeleport)
+                {
+
+                    homeTeleport = null;
+                }
+
+            }
+            if (collision.CompareTag("GPUExchanger"))
+            {
+                if (collision.gameObject == homeTeleport)
+                {
+
+                    homeTeleport = null;
+                }
+
+            }
+            if (collision.CompareTag("StorageExchanger"))
+            {
+                if (collision.gameObject == homeTeleport)
+                {
+
+                    homeTeleport = null;
+                }
+
+            }
+            if (collision.CompareTag("PSUExchanger"))
+            {
+                if (collision.gameObject == homeTeleport)
+                {
+
+                    homeTeleport = null;
+                }
+
+            }
+            if (collision.CompareTag("MBExchanger"))
+            {
+                if (collision.gameObject == homeTeleport)
+                {
+
+                    homeTeleport = null;
+                }
+
+            }
+            if (collision.CompareTag("CaseExchanger"))
+            {
+                if (collision.gameObject == homeTeleport)
+                {
+
+                    homeTeleport = null;
+                }
+
             }
 
-        }
-        if (collision.CompareTag("GPUExchanger"))
-        {
-            if (collision.gameObject == homeTeleport)
+            ///////////////////////////////////
+            if (collision.CompareTag("Desk"))
             {
+                PlayerDesk.SetActive(false);
+                OpenDesk = false;
 
-                homeTeleport = null;
             }
-
-        }
-        if (collision.CompareTag("StorageExchanger"))
-        {
-            if (collision.gameObject == homeTeleport)
-            {
-
-                homeTeleport = null;
-            }
-
-        }
-        if (collision.CompareTag("PSUExchanger"))
-        {
-            if (collision.gameObject == homeTeleport)
-            {
-
-                homeTeleport = null;
-            }
-
-        }
-        if (collision.CompareTag("MBExchanger"))
-        {
-            if (collision.gameObject == homeTeleport)
-            {
-
-                homeTeleport = null;
-            }
-
-        }
-        if (collision.CompareTag("CaseExchanger"))
-        {
-            if (collision.gameObject == homeTeleport)
-            {
-
-                homeTeleport = null;
-            }
-
-        }
-
-        ///////////////////////////////////
-        if (collision.CompareTag("Desk"))
-            {
-            PlayerDesk.SetActive(false);
-            OpenDesk = false;
-
-        }
             if (collision.CompareTag("Editor"))
             {
-            Customize.SetActive(false);
-            GameManager.instance.OpenEditor = false;
-               EditorOpen = false;
-        }
-        if (collision.CompareTag("Build"))
-        {
-            GameManager.instance.OpenBuild = false;
-            BuildingDesk.SetActive(false);
-            OpenBuild = false;
+                Customize.SetActive(false);
+                GameManager.instance.OpenEditor = false;
+                EditorOpen = false;
+            }
+            if (collision.CompareTag("Build"))
+            {
+                GameManager.instance.OpenBuild = false;
+                BuildingDesk.SetActive(false);
+                OpenBuild = false;
+
+            }
+
+            //////
 
         }
-
-        //////
-        
-
+        catch { }
     }
     }
 
