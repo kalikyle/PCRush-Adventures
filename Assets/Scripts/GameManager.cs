@@ -1111,28 +1111,61 @@ PlayerTotalWalkSpeed = 1;
         Debug.Log("decoration items saved to Firestore.");
     }
 
+    //public async void SaveComputerParts(List<InventoryItem> items)
+    //{
+    //    // Convert the list of items to JSON
+    //    string jsonData = JsonUtility.ToJson(new PartsItemList { Items = items });
+
+    //    DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+
+    //    CollectionReference SubDocRef = docRef.Collection("PartsInventory");
+
+    //    DocumentReference DecordocRef = SubDocRef.Document("PartsInvent");
+    //    // Create a dictionary to store the data
+    //    Dictionary<string, object> dataDict = new Dictionary<string, object>
+    //{
+    //    { "Parts", jsonData }
+    //};
+
+    //    // Set the data of the document
+    //    await DecordocRef.SetAsync(dataDict);
+
+    //    Debug.Log("Parts items saved to Firestore.");
+    //}
     public async void SaveComputerParts(List<InventoryItem> items)
     {
-        // Convert the list of items to JSON
-        string jsonData = JsonUtility.ToJson(new PartsItemList { Items = items });
+        // Convert InventoryItem to a serializable format that includes the UniqueID
+        List<SerializedInventoryItem> serializedItems = new List<SerializedInventoryItem>();
+        foreach (var item in items)
+        {
+            if (item.item != null) // Check if item.item is not null
+            {
+                serializedItems.Add(new SerializedInventoryItem
+                {
+                    quantity = item.quantity,
+                    uniqueID = item.item.UniqueID
+                });
+            }
+            
+        }
 
-        DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+        // Convert the serialized list to JSON using SerializedPartsItemList
+        string jsonData = JsonUtility.ToJson(new PartsItemList { Items = serializedItems });
 
-        CollectionReference SubDocRef = docRef.Collection("PartsInventory");
+        DocumentReference docRef = FirebaseFirestore.DefaultInstance
+            .Collection(GameManager.instance.UserCollection)
+            .Document(GameManager.instance.UserID)
+            .Collection("PartsInventory")
+            .Document("PartsInvent");
 
-        DocumentReference DecordocRef = SubDocRef.Document("PartsInvent");
-        // Create a dictionary to store the data
         Dictionary<string, object> dataDict = new Dictionary<string, object>
     {
         { "Parts", jsonData }
     };
 
-        // Set the data of the document
-        await DecordocRef.SetAsync(dataDict);
-
-        Debug.Log("Parts items saved to Firestore.");
+        await docRef.SetAsync(dataDict);
+        Debug.Log("Parts items saved to Firestore with UniqueIDs.");
     }
-
 
     //public async void SaveComputer(List<Computer> items)
     //{
@@ -2983,7 +3016,14 @@ public class DecorationItemList
 [System.Serializable]
 public class PartsItemList
 {
-    public List<InventoryItem> Items;
+    public List<SerializedInventoryItem> Items;
+}
+
+[System.Serializable]
+public class SerializedInventoryItem
+{
+    public int quantity;
+    public string uniqueID;
 }
 
 [System.Serializable]
