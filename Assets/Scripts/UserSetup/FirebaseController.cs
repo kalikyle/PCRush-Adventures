@@ -138,6 +138,12 @@ public class FirebaseController : MonoBehaviour
             return;
         }
 
+        if (signupPassword.text != signupCPassword.text)
+        {
+            showNotificationMessage("Error", "Passwords do not match! Please make sure both password fields are identical.");
+            return;
+        }
+
         CreateUser(signupEmail.text, signupPassword.text);
     }
     public void forgetPass()
@@ -254,6 +260,7 @@ public class FirebaseController : MonoBehaviour
                 GameManager.instance.UserID = user.UserId;
                 //await Task.Delay(1000);
                 //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+                GameManager.instance.ShowFloatingText("<color=green>User Successfully Created</color>");
                 await Task.Delay(1000);
                 await OpenNewGame();
                 isSigned = true;
@@ -377,6 +384,7 @@ public class FirebaseController : MonoBehaviour
 
     public async Task OpenGame()
     {
+       
         InternetChecker.Instance.StartCheck();
         QuestManager.Instance.ForExistingUsers();
         await Task.Delay(1000);
@@ -389,7 +397,7 @@ public class FirebaseController : MonoBehaviour
         await Task.Delay(1000);
         AchievementManager.instance.LoadAchievementsFromFirebase();
         SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
-
+        GameManager.instance.ShowFloatingText("<color=green>Successful User Login</color>");
     }
 
 
@@ -579,6 +587,7 @@ public class FirebaseController : MonoBehaviour
                 GameManager.instance.UserID = user.UserId;
                 //await Task.Delay(1000);
                 //GameManager.instance.SaveCharInfo(user.UserId, "Player1");
+                GameManager.instance.ShowFloatingText("<color=green>User Successfully Created</color>");
                 InternetChecker.Instance.StartCheck();
                 await Task.Delay(1000);
                 QuestManager.Instance.ForNewUsers();
@@ -666,6 +675,7 @@ public class FirebaseController : MonoBehaviour
         GameManager.instance.charBuilder.CombineHeadAndHairSprites();
         await Task.Delay(500);
         GameManager.instance.StartQuest();
+        
     }
 
     public void UnloadThisSceneForExist()
