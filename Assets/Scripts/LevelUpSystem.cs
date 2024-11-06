@@ -85,7 +85,7 @@ public class LevelUpSystem : MonoBehaviour
     bool CASEcover = false;
     public void CheckLevel()
     {
-        if(GameManager.instance.PlayerLevel == 3 && RAMcover == false)
+        if(GameManager.instance.PlayerLevel >= 3 && RAMcover == false)
         {
             RAMWorldCover.gameObject.SetActive(false);
             RAMWorldButton.gameObject.SetActive(true);
@@ -96,7 +96,7 @@ public class LevelUpSystem : MonoBehaviour
             MapText.text = "You Unlock the RAM Region";
         }
 
-        else if(GameManager.instance.PlayerLevel == 6 && CPUFcover == false)
+        else if(GameManager.instance.PlayerLevel >= 6 && CPUFcover == false)
         {
            CPUFWorldCover.gameObject.SetActive(false);
            CPUFWorldButton.gameObject.SetActive(true);
@@ -107,7 +107,7 @@ public class LevelUpSystem : MonoBehaviour
             MapText.text = "You Unlock the CPU Fan Region";
         }
 
-        else if (GameManager.instance.PlayerLevel == 9 && GPUcover == false)
+        else if (GameManager.instance.PlayerLevel >= 9 && GPUcover == false)
         {
             GPUWorldCover.gameObject.SetActive(false);
             GPUWorldButton.gameObject.SetActive(true);
@@ -118,7 +118,7 @@ public class LevelUpSystem : MonoBehaviour
             MapText.text = "You Unlock the GPU Region";
         }
 
-        else if (GameManager.instance.PlayerLevel == 11 && STORAGEcover == false)
+        else if (GameManager.instance.PlayerLevel >= 11 && STORAGEcover == false)
         {
             StorageWorldCover.gameObject.SetActive(false);
             StorageWorldButton.gameObject.SetActive(true);
@@ -129,7 +129,7 @@ public class LevelUpSystem : MonoBehaviour
             MapText.text = "You Unlock the Storage Region";
         }
 
-        else if (GameManager.instance.PlayerLevel == 13 && PSUcover == false)
+        else if (GameManager.instance.PlayerLevel >= 13 && PSUcover == false)
         {
             PSUWorldCover.gameObject.SetActive(false);
             PSUWorldButton.gameObject.SetActive(true);
@@ -140,7 +140,7 @@ public class LevelUpSystem : MonoBehaviour
             MapText.text = "You Unlock the PSU Region";
         }
 
-        else if (GameManager.instance.PlayerLevel == 14 && MBcover == false)
+        else if (GameManager.instance.PlayerLevel >= 14 && MBcover == false)
         {
             MBWorldCover.gameObject.SetActive(false);
             MBWorldButton.gameObject.SetActive(true);
@@ -151,7 +151,7 @@ public class LevelUpSystem : MonoBehaviour
             MapText.text = "You Unlock the Motherboard Region";
         }
 
-        else if (GameManager.instance.PlayerLevel == 15 && CASEcover == false)
+        else if (GameManager.instance.PlayerLevel >= 15 && CASEcover == false)
         {
             CASEWorldCover.gameObject.SetActive(false);
              CASEWorldButton.gameObject.SetActive(true);

@@ -167,7 +167,9 @@ public class QuestManager : MonoBehaviour
 
         //ClaimRewards();
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
-       
+
+        SaveQuests();
+
     }
 
     private async Task<Dictionary<string, Quest>> CreateQuestMap()

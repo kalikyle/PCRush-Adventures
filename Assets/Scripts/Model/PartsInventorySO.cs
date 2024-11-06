@@ -36,6 +36,9 @@ namespace Inventory.Model
 
         public void PartsSaveItems()
         {
+          
+
+
             GameManager.instance.SaveComputerParts(inventoryItems);
             //SaveInitialItems(DecorationItems);
         }

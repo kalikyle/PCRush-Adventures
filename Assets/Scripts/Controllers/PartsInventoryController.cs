@@ -273,17 +273,73 @@ namespace PartsInventory
             // Call this method to check and update the Done button
             CheckAndUpdateDoneButton();
         }
+        //public async void LoadPartsItems()
+        //{
+        //    if (GameManager.instance.UserID != "")
+        //    {
+        //        try
+        //        {
+        //            DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
+        //            CollectionReference subDocRef = docRef.Collection("PartsInventory");
+        //            DocumentReference decorDocRef = subDocRef.Document("PartsInvent");
+
+        //            DocumentSnapshot snapshot = await decorDocRef.GetSnapshotAsync();
+
+        //            if (snapshot.Exists)
+        //            {
+        //                string jsonData = snapshot.GetValue<string>("Parts");
+        //                PartsItemList loadedData = JsonUtility.FromJson<PartsItemList>(jsonData);
+
+        //                if (loadedData != null)
+        //                {
+        //                    initialItems.Clear();
+        //                    GameManager.instance.itemsToTransfer.Clear();
+
+        //                    inventoryData.Initialize();
+        //                    inventoryData.OnInventoryUpdated += UpdateInventoryUI;
+
+        //                    foreach (var item in loadedData.Items)
+        //                    {
+        //                        GameManager.instance.itemsToTransfer.Add(item);
+        //                        if (!item.isEmpty)
+        //                        {
+        //                            inventoryData.AddItem(item);
+        //                        }
+        //                    }
+
+        //                    Debug.Log("Parts items loaded from Firestore.");
+        //                }
+        //            }
+        //            else
+        //            {
+        //                Debug.Log("No initial parts items found in Firestore for player.");
+        //                initialItems.Clear();
+        //                GameManager.instance.itemsToTransfer.Clear();
+
+        //                inventoryData.Initialize();
+        //                inventoryData.OnInventoryUpdated += UpdateInventoryUI;
+
+        //            }
+        //        }
+        //        catch (System.Exception ex)
+        //        {
+        //            Debug.LogError("Failed to load initial parts items from Firestore: " + ex.Message);
+        //        }
+        //    }
+        //}
         public async void LoadPartsItems()
         {
             if (GameManager.instance.UserID != "")
             {
                 try
                 {
-                    DocumentReference docRef = FirebaseFirestore.DefaultInstance.Collection(GameManager.instance.UserCollection).Document(GameManager.instance.UserID);
-                    CollectionReference subDocRef = docRef.Collection("PartsInventory");
-                    DocumentReference decorDocRef = subDocRef.Document("PartsInvent");
+                    DocumentReference docRef = FirebaseFirestore.DefaultInstance
+                        .Collection(GameManager.instance.UserCollection)
+                        .Document(GameManager.instance.UserID)
+                        .Collection("PartsInventory")
+                        .Document("PartsInvent");
 
-                    DocumentSnapshot snapshot = await decorDocRef.GetSnapshotAsync();
+                    DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
 
                     if (snapshot.Exists)
                     {
@@ -294,16 +350,30 @@ namespace PartsInventory
                         {
                             initialItems.Clear();
                             GameManager.instance.itemsToTransfer.Clear();
-                            
                             inventoryData.Initialize();
                             inventoryData.OnInventoryUpdated += UpdateInventoryUI;
 
-                            foreach (var item in loadedData.Items)
+                            foreach (var serializedItem in loadedData.Items)
                             {
-                                GameManager.instance.itemsToTransfer.Add(item);
-                                if (!item.isEmpty)
+                                // Find the PartsSO by UniqueID
+                                PartsSO part = GameManager.instance.FindPartByUniqueID(serializedItem.uniqueID);
+                                if (part != null)
                                 {
-                                    inventoryData.AddItem(item);
+                                    // Create an InventoryItem and add it to the inventory
+                                    InventoryItem item = new InventoryItem
+                                    {
+                                        quantity = serializedItem.quantity,
+                                        item = part
+                                    };
+                                    GameManager.instance.itemsToTransfer.Add(item);
+                                    if (!item.isEmpty)
+                                    {
+                                        inventoryData.AddItem(item);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogWarning($"Part with UniqueID {serializedItem.uniqueID} not found.");
                                 }
                             }
 
@@ -315,18 +385,18 @@ namespace PartsInventory
                         Debug.Log("No initial parts items found in Firestore for player.");
                         initialItems.Clear();
                         GameManager.instance.itemsToTransfer.Clear();
-
                         inventoryData.Initialize();
                         inventoryData.OnInventoryUpdated += UpdateInventoryUI;
-                        
                     }
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     Debug.LogError("Failed to load initial parts items from Firestore: " + ex.Message);
                 }
             }
         }
+
+
 
         IEnumerator DelayedPartsLoad()
         {
