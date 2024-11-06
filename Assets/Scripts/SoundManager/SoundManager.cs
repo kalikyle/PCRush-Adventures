@@ -166,6 +166,7 @@ public class SoundManager : MonoBehaviour
     {
         if (RunSound != null)
         {
+            GameEffectSource.volume = effectsVolume; 
             GameEffectSource.PlayOneShot(RunSound);
         }
     }
