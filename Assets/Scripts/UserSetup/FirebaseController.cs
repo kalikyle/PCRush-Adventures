@@ -395,16 +395,17 @@ public class FirebaseController : MonoBehaviour
         GameManager.instance.scene.manualLoading();
         await Task.Delay(1000);
         GameManager.instance.AtTheStart();
-        playerHealth.currentHealth = (int)GameManager.instance.PlayerTotalHealth;
-        playerArmor.currentArmor = (int)GameManager.instance.PlayerTotalArmor;
         await Task.Delay(1000);
         GameManager.instance.PartsController.LoadPartsItems();
         await Task.Delay(1000);
         AchievementManager.instance.LoadAchievementsFromFirebase();
-        SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
-        GameManager.instance.ShowFloatingText("<color=green>Successful User Login</color>");
         await Task.Delay(1000);
         GameManager.instance.PPC.LoadPCSOList();
+        playerHealth.currentHealth = (int)GameManager.instance.PlayerTotalHealth;
+        playerArmor.currentArmor = (int)GameManager.instance.PlayerTotalArmor;
+        SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
+        GameManager.instance.ShowFloatingText("<color=green>Successful User Login</color>");
+        
     }
 
 

@@ -481,7 +481,7 @@ public class PlayerTeleport : MonoBehaviour
             {
                 GameManager.instance.DesktopOpenedFinish = true;
             }
-            
+            GameManager.instance.PPC.LoadPCSOList();
             GameManager.instance.PlayerDeskUI.gameObject.SetActive(true);
             GameManager.instance.PlayerDeskName();
             GameManager.instance.UIPanel.SetActive(true);
@@ -705,6 +705,7 @@ public class PlayerTeleport : MonoBehaviour
         ///////////////////////////////////
         if (collision.CompareTag("Desk"))
             {
+           
             GameManager.instance.Enter.gameObject.SetActive(true);
             PlayerDesk.SetActive(true);
             OpenDesk = true;
