@@ -313,21 +313,23 @@ public class UserSetup : MonoBehaviour
                         // Debug.LogError("SCENE UNLOADEDSSSSS");
                         InternetChecker.Instance.StartCheck();
                         QuestManager.Instance.ForExistingUsers();
-                        await Task.Delay(1500);
+                        await Task.Delay(1000);
                         UnloadThisScene();
                         GameManager.instance.scene.manualLoading();
-                        await Task.Delay(1500);
+                        await Task.Delay(1000);
                         GameManager.instance.AtTheStart();
-                        FirebaseController.Instance.playerHealth.currentHealth = (int)GameManager.instance.PlayerTotalHealth;
-                        FirebaseController.Instance.playerArmor.currentArmor = (int)GameManager.instance.PlayerTotalArmor;
-                        await Task.Delay(1500);
+                        await Task.Delay(1000);
                         GameManager.instance.PartsController.LoadPartsItems();
                         await Task.Delay(1000);
                         AchievementManager.instance.LoadAchievementsFromFirebase();
-                        SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
                         await Task.Delay(1000);
                         GameManager.instance.PPC.LoadPCSOList();
-                        
+                        FirebaseController.Instance.playerHealth.currentHealth = (int)GameManager.instance.PlayerTotalHealth;
+                        FirebaseController.Instance.playerArmor.currentArmor = (int)GameManager.instance.PlayerTotalArmor;
+                        SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
+                        GameManager.instance.ShowFloatingText("<color=yellow>Welcome Back "+ GameManager.instance.PlayerName +"!</color>");
+
+
                     }
                     else
                     {
