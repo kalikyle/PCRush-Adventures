@@ -29,6 +29,9 @@ public class FirebaseController : MonoBehaviour
     public Firebase.Auth.FirebaseAuth auth;
     Firebase.Auth.FirebaseUser user;
 
+    public Health playerHealth;
+    public PlayerArmor playerArmor;
+
    public bool isSignIn = false;
  
     private void Awake()
@@ -392,12 +395,16 @@ public class FirebaseController : MonoBehaviour
         GameManager.instance.scene.manualLoading();
         await Task.Delay(1000);
         GameManager.instance.AtTheStart();
+        playerHealth.currentHealth = (int)GameManager.instance.PlayerTotalHealth;
+        playerArmor.currentArmor = (int)GameManager.instance.PlayerTotalArmor;
         await Task.Delay(1000);
         GameManager.instance.PartsController.LoadPartsItems();
         await Task.Delay(1000);
         AchievementManager.instance.LoadAchievementsFromFirebase();
         SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
         GameManager.instance.ShowFloatingText("<color=green>Successful User Login</color>");
+        await Task.Delay(1000);
+        GameManager.instance.PPC.LoadPCSOList();
     }
 
 

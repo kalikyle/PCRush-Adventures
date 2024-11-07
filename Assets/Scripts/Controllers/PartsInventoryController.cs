@@ -637,7 +637,7 @@ namespace PartsInventory
             lastUsedItems.Clear();
             usedItems.Clear();
             CancelButton.interactable = false;
-            Debug.LogError("Triggered");
+            Debug.Log("Triggered");
         }
 
         private void PrepareInventoryData()
@@ -2204,7 +2204,7 @@ namespace PartsInventory
             {
 
 
-                Debug.LogError("New Computer");
+                Debug.Log("New Computer");
                 PCData.AddPCSOList(PC);
                 PCData.ComputerSave(PC);
 
@@ -2261,7 +2261,7 @@ namespace PartsInventory
             }
             else // modified pc 
             {
-                Debug.LogError("Modified");
+                Debug.Log("Modified");
                 await PCC.ModifyPCSOs(GameManager.instance.pcsothatisModified,PC);
 
                 OnSuccessPCname.text = pcname;

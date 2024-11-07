@@ -282,7 +282,7 @@ namespace PC
             //    PCImage = image.GetComponent<Image>();
             //}
         }
-        IEnumerator DelayedComputerLoad()
+        public IEnumerator DelayedComputerLoad()
         {
             // Wait for 1 second
             yield return new WaitForSeconds(1f);

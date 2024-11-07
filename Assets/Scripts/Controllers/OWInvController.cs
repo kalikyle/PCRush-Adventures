@@ -270,8 +270,8 @@ namespace OtherWorld
                         if (inventoryItem.item.Category == "Sword")
                         {
                             spriteIndex = loadedItem.SpriteIndex;
-                            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-                            {
+                            //if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+                            //{
 
                                 Texture2D texture = spriteArray[8].Textures[spriteIndex];
                                 Texture2D text2 = spriteArray[8].GetIcon(texture);
@@ -279,7 +279,7 @@ namespace OtherWorld
                                 Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
                                 inventoryItem.item.ItemImage = sprite;
 
-                            }
+                            //}
                                 inventoryData.AddItem(inventoryItem);
                                 GameManager.instance.SwordDocumentIds.Add(documentId);
                                 if (inventoryItem.item.inUse)
@@ -294,8 +294,8 @@ namespace OtherWorld
                         if (inventoryItem.item.Category == "Armor")
                         {
                             spriteIndex = loadedItem.SpriteIndex;
-                            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-                            {
+                            //if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+                            //{
 
                                 Texture2D texture = spriteArray[3].Textures[spriteIndex];
                                 Texture2D text2 = spriteArray[3].GetIcon(texture);
@@ -303,7 +303,7 @@ namespace OtherWorld
                                 Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
                                 inventoryItem.item.ItemImage = sprite;
 
-                            }
+                            //}
                             inventoryData.AddItem(inventoryItem);
                             GameManager.instance.ArmorDocumentIds.Add(documentId);
                             if (inventoryItem.item.inUse)
@@ -316,8 +316,8 @@ namespace OtherWorld
                         if (inventoryItem.item.Category == "Helmet")
                         {
                             spriteIndex = loadedItem.SpriteIndex;
-                            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-                            {
+                            //if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+                            //{
 
                                 Texture2D texture = spriteArray[7].Textures[spriteIndex];
                                 Texture2D text2 = spriteArray[7].GetIcon(texture);
@@ -325,7 +325,7 @@ namespace OtherWorld
                                 Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
                                 inventoryItem.item.ItemImage = sprite;
 
-                            }
+                            //}
                             inventoryData.AddItem(inventoryItem);
                             GameManager.instance.HelmetDocumentIds.Add(documentId);
                             if (inventoryItem.item.inUse)
@@ -338,8 +338,8 @@ namespace OtherWorld
                         if (inventoryItem.item.Category == "Shield")
                         {
                             spriteIndex = loadedItem.SpriteIndex;
-                            if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
-                            {
+                            //if (spriteIndex >= 0 && spriteIndex < spriteArray.Count)
+                            //{
 
                                 Texture2D texture = spriteArray[1].Textures[spriteIndex];
                                 Texture2D text2 = spriteArray[1].GetIcon(texture);
@@ -347,7 +347,7 @@ namespace OtherWorld
                                 Sprite sprite = Sprite.Create(text2, new Rect(0, 0, text2.width, text2.height), Vector2.one * 0.5f);
                                 inventoryItem.item.ItemImage = sprite;
 
-                            }
+                            //}
                             inventoryData.AddItem(inventoryItem);
                             GameManager.instance.ShieldDocumentIds.Add(documentId);
                             if (inventoryItem.item.inUse)

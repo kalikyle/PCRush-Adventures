@@ -318,13 +318,16 @@ public class UserSetup : MonoBehaviour
                         GameManager.instance.scene.manualLoading();
                         await Task.Delay(1500);
                         GameManager.instance.AtTheStart();
+                        FirebaseController.Instance.playerHealth.currentHealth = (int)GameManager.instance.PlayerTotalHealth;
+                        FirebaseController.Instance.playerArmor.currentArmor = (int)GameManager.instance.PlayerTotalArmor;
                         await Task.Delay(1500);
                         GameManager.instance.PartsController.LoadPartsItems();
                         await Task.Delay(1000);
                         AchievementManager.instance.LoadAchievementsFromFirebase();
                         SoundManager.instance.ChangeMusic(SoundManager.instance.homeWorldBackground);
-
-
+                        await Task.Delay(1000);
+                        GameManager.instance.PPC.LoadPCSOList();
+                        
                     }
                     else
                     {
