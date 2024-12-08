@@ -6122,7 +6122,7 @@ MonoBehaviour:
   incrementButton: {fileID: 4224112190168093530}
   decrementButton: {fileID: 6604950702800758890}
   ItemPrice: 0
-  Parts: {fileID: 0}
+  Parts: {fileID: 1266663629434456192, guid: 6cd143459416c7f49a4d83562d50a7ea, type: 3}
 --- !u!1 &5952174884417585713
 GameObject:
   m_ObjectHideFlags: 0

@@ -1997,37 +1997,37 @@ namespace PartsInventory
         //    LTA.hideBuild();
         //    LTA.HideSuccess();
         //}
-        public PCSO ConvertLastUsedItemsToPCSOList()
-        {
+            public PCSO ConvertLastUsedItemsToPCSOList()
+            {
 
-            PCSO pcso = ScriptableObject.CreateInstance<PCSO>();
+                PCSO pcso = ScriptableObject.CreateInstance<PCSO>();
 
-            pcso.name = pcname;//PCNameTxt.text;
-            pcso.PCName = pcname;//PCNameTxt.text;
-            pcso.PCImage = lastUsedItems.ContainsKey("Case") ? lastUsedItems["Case"].item.ItemImage : null;
-            //pcso.PCPrice = totalUsedItemsPrice;
-            pcso.Case = lastUsedItems.ContainsKey("Case") ? lastUsedItems["Case"].item : null;
-            pcso.Motherboard = lastUsedItems.ContainsKey("Motherboard") ? lastUsedItems["Motherboard"].item : null;
-            pcso.CPU = lastUsedItems.ContainsKey("CPU") ? lastUsedItems["CPU"].item : null;
-            pcso.CPUFan = lastUsedItems.ContainsKey("CPU Fan") ? lastUsedItems["CPU Fan"].item : null;
-            pcso.RAM = lastUsedItems.ContainsKey("RAM") ? lastUsedItems["RAM"].item : null;
-            pcso.GPU = lastUsedItems.ContainsKey("Video Card") ? lastUsedItems["Video Card"].item : null;
-            pcso.STORAGE = lastUsedItems.ContainsKey("Storage") ? lastUsedItems["Storage"].item : null;
-            pcso.PSU = lastUsedItems.ContainsKey("PSU") ? lastUsedItems["PSU"].item : null;
-            pcso.inUse = false;
+                pcso.name = pcname;//PCNameTxt.text;
+                pcso.PCName = pcname;//PCNameTxt.text;
+                pcso.PCImage = lastUsedItems.ContainsKey("Case") ? lastUsedItems["Case"].item.ItemImage : null;
+                //pcso.PCPrice = totalUsedItemsPrice;
+                pcso.Case = lastUsedItems.ContainsKey("Case") ? lastUsedItems["Case"].item : null;
+                pcso.Motherboard = lastUsedItems.ContainsKey("Motherboard") ? lastUsedItems["Motherboard"].item : null;
+                pcso.CPU = lastUsedItems.ContainsKey("CPU") ? lastUsedItems["CPU"].item : null;
+                pcso.CPUFan = lastUsedItems.ContainsKey("CPU Fan") ? lastUsedItems["CPU Fan"].item : null;
+                pcso.RAM = lastUsedItems.ContainsKey("RAM") ? lastUsedItems["RAM"].item : null;
+                pcso.GPU = lastUsedItems.ContainsKey("Video Card") ? lastUsedItems["Video Card"].item : null;
+                pcso.STORAGE = lastUsedItems.ContainsKey("Storage") ? lastUsedItems["Storage"].item : null;
+                pcso.PSU = lastUsedItems.ContainsKey("PSU") ? lastUsedItems["PSU"].item : null;
+                pcso.inUse = false;
 
 
-            pcso.AttackDamage = PerksDictionary.ContainsKey("Attack Damage") ? PerksDictionary["Attack Damage"] : 0;
-            pcso.Health = PerksDictionary.ContainsKey("Health") ? PerksDictionary["Health"] : 0;
-            pcso.Mana = PerksDictionary.ContainsKey("Mana") ? PerksDictionary["Mana"] : 0;
-            pcso.HealthRegen = PerksDictionary.ContainsKey("Health Regen") ? PerksDictionary["Health Regen"] : 0;
-            pcso.WalkSpeed = PerksDictionary.ContainsKey("Walk Speed") ? PerksDictionary["Walk Speed"] : 0;
-            pcso.Armor = PerksDictionary.ContainsKey("Armor") ? PerksDictionary["Armor"] : 0;
-            pcso.ManaRegen = PerksDictionary.ContainsKey("Mana Regen") ? PerksDictionary["Mana Regen"] : 0;
-            pcso.CriticalChance = PerksDictionary.ContainsKey("Critical Chance") ? PerksDictionary["Critical Chance"] : 0;
+                pcso.AttackDamage = PerksDictionary.ContainsKey("Attack Damage") ? PerksDictionary["Attack Damage"] : 0;
+                pcso.Health = PerksDictionary.ContainsKey("Health") ? PerksDictionary["Health"] : 0;
+                pcso.Mana = PerksDictionary.ContainsKey("Mana") ? PerksDictionary["Mana"] : 0;
+                pcso.HealthRegen = PerksDictionary.ContainsKey("Health Regen") ? PerksDictionary["Health Regen"] : 0;
+                pcso.WalkSpeed = PerksDictionary.ContainsKey("Walk Speed") ? PerksDictionary["Walk Speed"] : 0;
+                pcso.Armor = PerksDictionary.ContainsKey("Armor") ? PerksDictionary["Armor"] : 0;
+                pcso.ManaRegen = PerksDictionary.ContainsKey("Mana Regen") ? PerksDictionary["Mana Regen"] : 0;
+                pcso.CriticalChance = PerksDictionary.ContainsKey("Critical Chance") ? PerksDictionary["Critical Chance"] : 0;
 
-            return pcso;
-        }
+                return pcso;
+            }
         //public void SavePCSOData(PCSO pcso)
         //{
         //    // Convert PCSO data to JSON (you can use other serialization methods)
